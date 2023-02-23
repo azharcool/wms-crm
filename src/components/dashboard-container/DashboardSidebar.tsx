@@ -2,6 +2,7 @@ import EventNoteIcon from "@mui/icons-material/EventNote";
 import ForumIcon from "@mui/icons-material/Forum";
 import GroupIcon from "@mui/icons-material/Group";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
+import WarehouseIcon from '@mui/icons-material/Warehouse';
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
@@ -21,11 +22,18 @@ const items = [
     screenCode: SCREEN_CODES.COMMON,
   },
   {
+    href: AppRoutes.WAREHOUSE,
+    icon: <WarehouseIcon fontSize="small" />,
+    title: "Warehouses",
+    screenCode: SCREEN_CODES.WAREHOUSE,
+  },
+  {
     href: AppRoutes.SETTINGS,
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
   },
+  
 
 ];
 
@@ -102,6 +110,7 @@ export function DashboardSidebar(props: any) {
         PaperProps={{
           sx: {
             width: 200,
+            borderRightColor:palette.info.dark
           },
         }}
         variant="permanent"

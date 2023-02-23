@@ -37,3 +37,63 @@ export const TWITTER_URL_REGEX =
   /(https:\/\/twitter.com\/(?![a-zA-Z0-9_]+\/)([a-zA-Z0-9_]+))/;
 
 export const ADMIN_ROLE = "Admin";
+// Warehouse Form
+export const formStatus=[
+  {
+    id:1,
+    value:"Active"
+  },
+  {
+    id:2,
+    value:"Inactive"
+  },
+]
+
+export const pickingStrategy=[
+  {
+    id:1,
+    value:"Create one picklist per order"
+  },
+  {
+    id:2,
+    value:"Create picklist by closest location(required)"
+  },
+  {
+    id:3,
+    value:"Merge multiple orders to create one picklist"
+  },
+]
+
+export const receivingStrategy=[
+  {
+    id:1,
+    value:"Receive to temp location(receiving)"
+  },
+  {
+    id:2,
+    value:"Receive to permanent(picking)"
+  }
+]
+
+export const receivingType=[
+  {
+    id:1,
+    value:"Over receive"
+  },
+  {
+    id:2,
+    value:"Under receive"
+  },
+  {
+    id:3,
+    value:"Over and under receive"
+  },
+  {
+    id:4,
+    value:"Invoice receive"
+  },
+  {
+    id:5,
+    value:"Blind receive"
+  }
+]

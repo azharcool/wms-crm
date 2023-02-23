@@ -59,7 +59,7 @@ function TableToolbar(props: ITableToolbar) {
           </Box>
         </Box>
         <Divider />
-        <Box sx={{ maxWidth: 500, mt: 3, width: "100%", marginLeft: "auto" }}>
+        {/* <Box sx={{ maxWidth: 500, mt: 3, width: "100%", marginLeft: "auto" }}>
           <TextField
             fullWidth
             InputProps={{
@@ -74,7 +74,7 @@ function TableToolbar(props: ITableToolbar) {
             placeholder="Search Users..."
             variant="outlined"
           />
-        </Box>
+        </Box> */}
       </Box>
     </Box>
   );

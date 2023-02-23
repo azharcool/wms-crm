@@ -4,6 +4,7 @@ const AppRoutes = {
   // CONTACTS: "/contacts",
   CONTACTS_DETAILS: "/contacts",
   SETTINGS: "/settings",
+  WAREHOUSE: "/warehouse",
   // CALENDAR: "/calendar",
   // INBOX: "/inbox",
   // DEALS: "/deals",

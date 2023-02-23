@@ -4,6 +4,7 @@ import * as AdminLoadable from "./loadRoutes/admin.load";
 import * as AuthLoadable from "./loadRoutes/auth.load";
 import * as ContactLoadable from "./loadRoutes/contact.load";
 import * as SettingsLoadable from "./loadRoutes/settings.load";
+import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
@@ -17,6 +18,10 @@ function Application() {
             element={<AdminLoadable.Dashboard />}
             path={AppRoutes.DASHBOARD}
           />
+          <Route
+              element={<UserLoadable.Warehouse />}
+              path={AppRoutes.WAREHOUSE}
+            />
           <Route
             element={<SettingPermissionsLayout />}
             path={AppRoutes.SETTINGS}
@@ -43,6 +48,7 @@ function Application() {
               path={AppRoutes.SCREENS}
             />
           </Route>
+
         </Route>
       </Route>
       <Route element={<AuthLoadable.Login />} path={AppRoutes.LOGIN} />

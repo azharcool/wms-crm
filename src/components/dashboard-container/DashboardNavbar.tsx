@@ -28,7 +28,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
   return {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[3],
-    borderTopLeftRadius:40,
+    borderTopLeftRadius:55,
   };
 });
 

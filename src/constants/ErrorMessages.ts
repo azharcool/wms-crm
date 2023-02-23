@@ -49,6 +49,26 @@ const ErrorMessages = {
     screenUrl: "Please enter screen url",
     screenCode: "Please enter screen code",
   },
+  warehouse: {
+    warehouseName: "Please enter warehouse name",
+    label: "Please enter label",
+    email: "Please enter email",
+    phoneNumber: "Please enter phone number",
+    address: "Please enter address",
+    country: "Please Select country",
+    city: "Please enter city",
+    zipCode: "Please enter zipcode",
+    longitude: "Please enter longitude",
+    latitude: "Please enter latitude",
+    status: "Please Select status",
+    pickingStrategy: "Please Select picking strategy",
+    receivingStrategy: "Please Select receiving strategy",
+    receivingType: "Please Select receiving type",
+    defaultWarehouse: "Please Select default warehouse",
+    allowPartialPicking: "Please Select Partial Picking",
+
+
+  },
   forgotPassword: {
     resetLink: "We have e-mailed Your password reset link!",
     password_Change: "Password changed successfully",
