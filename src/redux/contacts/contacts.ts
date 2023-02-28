@@ -3,10 +3,10 @@
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IColumn } from "pages/user/contacts/components/ContactTable";
-import { INotesForm } from "pages/user/contacts/details/component/notes/useNotesForm";
-import { IContacts } from "pages/user/contacts/details/query/useFetchContactById";
-import { IAllCount } from "pages/user/contacts/details/query/useFetchTotalCounts";
+// import { IColumn } from "pages/user/contacts/components/ContactTable";
+// import { INotesForm } from "pages/user/contacts/details/component/notes/useNotesForm";
+// import { IContacts } from "pages/user/contacts/details/query/useFetchContactById";
+// import { IAllCount } from "pages/user/contacts/details/query/useFetchTotalCounts";
 import { useAppDispatch } from "redux/store";
 
 type IContactIds = number[];
@@ -18,36 +18,36 @@ interface IPaginationList {
   index: number;
 }
 export interface IContactsReducer {
-  columnIds?: IColumn[];
-  contact?: IContacts;
+  // columnIds?: IColumn[];
+  // contact?: IContacts;
   contactIds?: IContactIds;
-  activity?: INotesForm | null;
+  // activity?: INotesForm | null;
   myListIds: IContactIds;
   deleteIds?: IContactDeleteIds[];
   paginationList?: IPaginationList[];
   selectedContact?: IPaginationList;
-  allCounts?: IAllCount;
+  // allCounts?: IAllCount;
 }
 
 const initialState: IContactsReducer = {
-  columnIds: [],
-  contact: {} as IContacts,
+  // columnIds: [],
+  // contact: {} as IContacts,
   contactIds: [],
   myListIds: [],
   deleteIds: [],
   paginationList: [],
   selectedContact: {} as IPaginationList,
-  allCounts: {} as IAllCount,
+  // allCounts: {} as IAllCount,
 };
 
 interface IPayload {
-  columnIds?: IColumn[];
-  contact?: IContacts;
-  activity?: INotesForm;
-  deleteIds?: IContactDeleteIds[];
-  paginationList?: IPaginationList[];
-  selectedContact?: IPaginationList;
-  allCounts?: IAllCount;
+  columnIds?: [];
+  // contact?: IContacts;
+  // activity?: INotesForm;
+  // deleteIds?: IContactDeleteIds[];
+  // paginationList?: IPaginationList[];
+  // selectedContact?: IPaginationList;
+  // allCounts?: IAllCount;
 }
 
 interface IAction {
@@ -60,10 +60,10 @@ const contactSlice = createSlice({
   initialState,
   reducers: {
     setColumnIds: (state, action: IAction) => {
-      state.columnIds = action.payload.columnIds;
+      // state.columnIds = action.payload.columnIds;
     },
     setContact: (state, action: IAction) => {
-      state.contact = action.payload.contact;
+      // state.contact = action.payload.contact;
     },
     setContactIds: (state, action: PayloadAction<{ contactId: number }>) => {
       const { contactId } = action.payload;
@@ -96,30 +96,30 @@ const contactSlice = createSlice({
       }
     },
     setActivity: (state, action: IAction) => {
-      state.activity = action.payload.activity;
+      // state.activity = action.payload.activity;
     },
     removeActivity: (state) => {
-      state.activity = null;
+      // state.activity = null;
     },
     removeContactMyListsIds: (state, action: PayloadAction<{ id: number }>) => {
       const { id } = action.payload;
       state.myListIds = state.myListIds.filter((i) => i !== id);
     },
     setDeleteIds: (state, action: IAction) => {
-      const { deleteIds } = action.payload;
-      state.deleteIds = deleteIds;
+      // const { deleteIds } = action.payload;
+      // state.deleteIds = deleteIds;
     },
     setPaginationList: (state, action: IAction) => {
-      const { paginationList } = action.payload;
-      state.paginationList = paginationList;
+      // const { paginationList } = action.payload;
+      // state.paginationList = paginationList;
     },
     setSelectedContact: (state, action: IAction) => {
-      const { selectedContact } = action.payload;
-      state.selectedContact = selectedContact;
+      // const { selectedContact } = action.payload;
+      // state.selectedContact = selectedContact;
     },
     setAllCounts: (state, action: IAction) => {
-      const { allCounts } = action.payload;
-      state.allCounts = allCounts;
+      // const { allCounts } = action.payload;
+      // state.allCounts = allCounts;
     },
   },
 });

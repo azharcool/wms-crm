@@ -53,9 +53,10 @@ function DashboardLayout(props: any) {
             display: "flex",
             flex: "1 1 auto",
             maxWidth: "100%",
-            height: "100vh",
-            borderBottomLeftRadius: 60,
-            borderTopLeftRadius: 60,
+            height: "auto",
+            minHeight:"100vh",
+             borderBottomLeftRadius: 60,
+             borderTopLeftRadius: 70,
           }}
         >
           {isLoading ? (
@@ -65,7 +66,7 @@ function DashboardLayout(props: any) {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  height: "100vh",
+                  height: "100%",
                 }}
               >
                 <CircularProgress color="info" size={20} />

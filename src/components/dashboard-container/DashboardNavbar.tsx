@@ -28,7 +28,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
   return {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[3],
-    borderTopLeftRadius:55,
+    borderTopLeftRadius:60,
   };
 });
 
@@ -77,7 +77,7 @@ export function DashboardNavbar(props: any) {
               <SearchIcon fontSize="small" />
             </IconButton> */}
             <Box>
-              <Box sx={{ maxWidth: 300 }}>
+              <Box sx={{ maxWidth: 300, marginLeft:'1.5rem' }}>
                 <TextField
                   fullWidth
                   InputProps={{

@@ -27,9 +27,10 @@ import useForm from "../hooks/useForm";
 // import useForm from "../hooks/useForm";
 // import { IPermissionRequest, useApiActions } from "../query/useApiAction";
 
-interface IAddScreen {
+interface IAddWarehouse {
   open: boolean;
   handleClose: () => void;
+  isEdit?:boolean
 }
 
 const initialValues: any = {
@@ -111,8 +112,8 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function WarehouseForm(props: IAddScreen) {
-  const { open, handleClose } = props;
+function WarehouseForm(props: IAddWarehouse) {
+  const { open, handleClose, isEdit } = props;
 
   const screenStorage = useSelector((state: any) => state.permissions);
   const { permission } = screenStorage;
@@ -163,7 +164,7 @@ function WarehouseForm(props: IAddScreen) {
   return (
     <Slider open={open}>
       <DialogTitle>
-        New warehouse
+        Warehouses
         <IconButton
           aria-label="close"
           sx={{
@@ -177,7 +178,31 @@ function WarehouseForm(props: IAddScreen) {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
+      <DialogActions style={{ justifyContent: "space-between" }}>
+      <DialogTitle>
+      {isEdit ? "Edit Warehouse" :"New Warehouses"}
+       </DialogTitle>
+      <Box>
+        <Button
+          disabled={!(isValid && dirty)}
+          sx={{ width: "inherit", backgroundColor: palette.info.main, marginRight:"1rem"}}
+          variant="contained"
+          onClick={() => handleSubmit()}
+        >
+          {isSubmitting ? (
+            <CircularProgress color="warning" size={12} />
+          ) : (
+            "Save"
+          )}
+        </Button>
+
+        <Button autoFocus variant="contained" onClick={onClose}>
+          Discard
+        </Button>
+        </Box>
+      </DialogActions>
       <PerfectScrollbar>
+        <Box sx={{display:'flex', flexDirection:'column'}}>
         <Box sx={{display:'flex', flex:4, gap:2}}>
         <DialogContent sx={{background:'#fff', flex:3}}  dividers>
         <DialogTitle>
@@ -597,25 +622,92 @@ function WarehouseForm(props: IAddScreen) {
           </Box>       
         </DialogContent>
         </Box>
-      </PerfectScrollbar>
-      <DialogActions style={{ justifyContent: "center" }}>
-        <Button
-          disabled={!(isValid && dirty)}
-          sx={{ width: "inherit", backgroundColor: palette.info.main }}
-          variant="contained"
-          onClick={() => handleSubmit()}
-        >
-          {isSubmitting ? (
-            <CircularProgress color="warning" size={12} />
-          ) : (
-            "Save"
-          )}
-        </Button>
+        <DialogContent sx={{background:'#fff'}} dividers>
+        <DialogTitle>
+          Primary Contact
+        </DialogTitle>
+        <Divider sx={{my:1}}/>
 
-        <Button autoFocus variant="contained" onClick={onClose}>
-          Discard
-        </Button>
-      </DialogActions>
+        <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              alignItems: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            <TextField
+              error={!!touched.warehouseName && !!errors.warehouseName}
+              helperText={(touched.warehouseName && errors && errors.warehouseName) || ""}
+              label="First name"
+              name="firstname"
+              placeholder="First Name"
+              style={{ width: "550px" }}
+              value={values.warehouseName}
+              onBlur={handleBlur("warehouseName")}
+              onChange={handleChange("warehouseName")}
+            />
+            <TextField
+              error={!!touched.label && !!errors.label}
+              helperText={
+                (touched.label && errors && errors.label) || ""
+              }
+              label="Last Name"
+              name="lastname"
+              placeholder="Last Name"
+              style={{ width: "550px" }}
+              value={values.label}
+              onBlur={handleBlur("label")}
+              onChange={handleChange("label")}
+            />
+          </Box>
+       
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              alignItems: "center",
+              marginBottom: "1rem",
+            }}
+          >
+            <TextField
+              error={
+                !!touched.email &&
+                !!errors.email
+              }
+              helperText={
+                (touched.email &&
+                  errors &&
+                  errors.email) ||
+                ""
+              }
+              label="Email"
+              name="email"
+              placeholder="Email"
+              style={{ width: "550px" }}
+              type="email"
+              value={values.email}
+              onBlur={handleBlur("email")}
+              onChange={handleChange("email")}
+            />
+            <TextField
+              error={!!touched.phoneNumber && !!errors.phoneNumber}
+              helperText={
+                (touched.phoneNumber && errors && errors.phoneNumber) ||
+                ""
+              }
+              label="Phone Number"
+              name="phoneNumber"
+              placeholder="Phone Number"
+              style={{ width: "550px" }}
+              value={values.phoneNumber}
+              onBlur={handleBlur("phoneNumber")}
+              onChange={handleChange("phoneNumber")}
+            />
+          </Box>      
+        </DialogContent>
+        </Box>
+      </PerfectScrollbar>
     </Slider>
   );
 }

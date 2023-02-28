@@ -1,6 +1,7 @@
-import { Card, CardContent } from "@mui/material";
+import { Card, CardActionArea, CardContent, CardMedia } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import DashboardLayout from "components/dashboard-container";
+import dashboardImg from "assets/images/dashboard.png"
 
 function Dashboard() {
   return (
@@ -11,13 +12,10 @@ function Dashboard() {
           flexGrow: 1,
           py: 8,
         }}
-        
       >
         <Container maxWidth={false}>
           <Card>
-            <CardContent sx={{ padding: "6px", width: "100%" }}>
-              <h1>Dashboard</h1>
-            </CardContent>
+              <img src={dashboardImg} height="100%"  width="100%" alt="dashboardImg"  />
           </Card>
         </Container>
       </Box>

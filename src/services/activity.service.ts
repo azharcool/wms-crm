@@ -1,6 +1,6 @@
 import { PER_PAGE } from "constants/constants";
 import { IResponse } from "constants/interfaces";
-import { IActivitiesResponse } from "pages/user/contacts/details/query/useFetchActivities";
+// import { IActivitiesResponse } from "pages/user/contacts/details/query/useFetchActivities";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -31,25 +31,25 @@ async function saveActivity(values: any): Promise<IResponse> {
     : client.post(`${API_URLS.ADD_ACTIVITY}`, values);
 }
 
-async function fetchActivities(
-  pageNo: number,
-  pageLimit: number,
-  contactId: number,
-  restUrl?: string,
-): Promise<IActivitiesResponse> {
-  let url = `${API_URLS.FETCH_ACTIVITIES_PAGINATION}?page=${
-    pageNo + 1
-  }&pageSize=${pageLimit || PER_PAGE}&contactId=${contactId}`;
-  if (restUrl) {
-    url = `${url}${restUrl}`;
-  }
-  return client.get(url);
-}
+// async function fetchActivities(
+//   pageNo: number,
+//   pageLimit: number,
+//   contactId: number,
+//   restUrl?: string,
+// ): Promise<IActivitiesResponse> {
+//   let url = `${API_URLS.FETCH_ACTIVITIES_PAGINATION}?page=${
+//     pageNo + 1
+//   }&pageSize=${pageLimit || PER_PAGE}&contactId=${contactId}`;
+//   if (restUrl) {
+//     url = `${url}${restUrl}`;
+//   }
+//   return client.get(url);
+// }
 
 export {
   completeActivity,
   deleteActivity,
-  fetchActivities,
+  // fetchActivities,
   fetchActivitiesTypes,
   getAllActivitiesByContactId,
   saveActivity,

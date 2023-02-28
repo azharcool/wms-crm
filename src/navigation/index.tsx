@@ -22,6 +22,18 @@ function Application() {
               element={<UserLoadable.Warehouse />}
               path={AppRoutes.WAREHOUSE}
             />
+             <Route
+              element={<UserLoadable.WarehouseDetails />}
+              path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
+              />
+                <Route
+              element={<UserLoadable.AreaDetails />}
+              path={`${AppRoutes.AREA_DETAILS}/:areaId`}
+              />
+              <Route
+              element={<UserLoadable.ZoneDetails />}
+              path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
+              />
           <Route
             element={<SettingPermissionsLayout />}
             path={AppRoutes.SETTINGS}
@@ -47,6 +59,7 @@ function Application() {
               element={<SettingsLoadable.Screens />}
               path={AppRoutes.SCREENS}
             />
+            <Route element={<SettingsLoadable.Team />} path={AppRoutes.TEAM} />
           </Route>
 
         </Route>

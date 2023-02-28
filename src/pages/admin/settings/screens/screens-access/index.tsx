@@ -249,8 +249,10 @@ function ScreenAccess() {
             </Stack>
             <Box sx={{ mt: 2 }}>
               {screens?.map((screen: IScreen) => {
+                console.log("screen", screen)
                 return (
                   <Box sx={{ mt: 1 }}>
+                    {screen.screenName ==="Settings" && 
                     <AccessAccordion
                       handleSelectControl={handleSelectControl}
                       handleSelectScreen={handleSelectScreen}
@@ -260,6 +262,7 @@ function ScreenAccess() {
                       selectedScreenIds={selectedScreenIds}
                       title={screen?.screenName}
                     />
+                }
                   </Box>
                 );
               })}

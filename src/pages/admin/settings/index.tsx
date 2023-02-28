@@ -48,9 +48,9 @@ function Settings() {
   //   navigate(AppRoutes.PIPELINES);
   // };
 
-  // const gotoMyTeam = () => {
-  //   navigate(AppRoutes.TEAM);
-  // };
+  const gotoMyTeam = () => {
+    navigate(AppRoutes.TEAM);
+  };
 
   return (
     <DashboardLayout>
@@ -208,7 +208,7 @@ function Settings() {
                     SCREEN_CODES.SETTINGS,
                   )}
                   color={palette.success.main}
-                  // handleClick={gotoMyTeam}
+                  handleClick={gotoMyTeam}
                   icon={<GroupsIcon fontSize="medium" sx={{ color: "#fff" }} />}
                   title="My Team"
                 />

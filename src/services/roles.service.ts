@@ -2,7 +2,6 @@ import { PER_PAGE } from "constants/constants";
 import { IResponse } from "constants/interfaces";
 import { IRoleRequest } from "pages/admin/settings/screens/roles/query/useApiAction";
 import { IResponseRole } from "pages/admin/settings/screens/roles/query/useFetchRoles";
-import { IUserRoleByRoleIdRoot } from "pages/user/contacts/query/useFetchUserRoleByRoleName";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -31,12 +30,6 @@ async function fetchRoles(
   return client.get(url);
 }
 
-async function getUserByUserRoleName(
-  name: string,
-): Promise<IUserRoleByRoleIdRoot> {
-  return name === "all"
-    ? client.get(`${API_URLS.GET_ALL_USERS}`)
-    : client.get(`${API_URLS.GET_USERS_BY_ROLE_NAME}?roleName=${name}`);
-}
 
-export { fetchRoles, getRoles, getUserByUserRoleName, removeRole, saveRole };
+
+export { fetchRoles, getRoles, removeRole, saveRole };

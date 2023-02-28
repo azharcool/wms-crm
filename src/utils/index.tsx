@@ -25,7 +25,7 @@ export const isScreenAccessible = (screenCode: string) => {
   if (!user.token) return false;
   const decodedToken: any = jwtDecode(user.token);
   const { permissions } = common;
-
+  console.log("permission", JSON.stringify(permissions,null,2))
   if (decodedToken.RoleName === ADMIN_ROLE || screenCode === "common") {
     return true;
   }

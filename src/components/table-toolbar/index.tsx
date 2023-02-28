@@ -32,7 +32,7 @@ function TableToolbar(props: ITableToolbar) {
             p: 1,
           }}
         >
-          <Typography sx={{ m: 1, color: palette.text.secondary }} variant="h4">
+          <Typography sx={{ m: 1, color: palette.text.secondary, fontSize:20 }} variant="h4">
             {title}
           </Typography>
           <Box sx={{ m: 1 }}>

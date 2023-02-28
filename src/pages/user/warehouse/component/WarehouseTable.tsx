@@ -25,6 +25,9 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
+import AppRoutes from "navigation/appRoutes";
+import { useNavigate } from "react-router-dom";
+import WarehouseForm from "./WarehouseForm";
 // import { IPermission } from "../query/useFetchPermissions";
 
 interface IProps {
@@ -33,7 +36,7 @@ interface IProps {
   setCurrentPage?: (page: number) => void;
   setPageLimit?: (limit: number) => void;
   openModal?: (data: any) => void;
-  handleDeletePermission: (id: number) => void;
+  handleDeleteWarehouse: (id: string) => void;
 }
 
 interface IWarehouse{
@@ -54,18 +57,18 @@ function WarehouseTable(props: IProps) {
     setCurrentPage,
     setPageLimit,
     openModal,
-    handleDeletePermission,
+    handleDeleteWarehouse,
   } = props;
 
   const { setPermission } = usePermissionActions();
   const alert = useAlert();
-
+  const navigate = useNavigate();
   const [selectedPermissionIds, setSelectedPermissionIds] = useState<string[]>(
     [],
   );
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-
+  const [open, setOpen]= useState(false);
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds: string[] = [];
 
@@ -128,10 +131,18 @@ function WarehouseTable(props: IProps) {
       message: "Do you really want to delete",
       cancelText: "No",
       confirmText: "Yes",
-      // onConfirm: () => handleDeletePermission?.(id),
+      onConfirm: () => handleDeleteWarehouse?.(id),
     });
   };
-
+  const gotoDetails = (id: string) => {
+    navigate(`${AppRoutes.WAREHOUSE_DETAILS}/${id}`);
+  };
+  const handleEdit=(item:IWarehouse)=>{
+   setOpen(true)
+  }
+  const handleClose =()=>{
+    setOpen(false)
+  }
   return (
     <Card>
       <PerfectScrollbar>
@@ -142,7 +153,8 @@ function WarehouseTable(props: IProps) {
               <TableRow>
                 <TableCell padding="checkbox">
                   <Checkbox
-                    checked={selectedPermissionIds.length === total}
+                    // checked={selectedPermissionIds.length === total}
+                    checked={false}
                     color="primary"
                     indeterminate={
                       selectedPermissionIds.length > 0 &&
@@ -158,8 +170,6 @@ function WarehouseTable(props: IProps) {
                 <TableCell>Phone</TableCell>
                 <TableCell>Primary Contact</TableCell>
                 <TableCell>Action</TableCell>
-                <TableCell/>
-
               </TableRow>
             </TableHead>
             <TableBody>
@@ -188,7 +198,7 @@ function WarehouseTable(props: IProps) {
                         }}
                       />
                     </TableCell>
-                    <TableCell> {name}</TableCell>
+                    <TableCell sx={{ cursor: "pointer" }} onClick={() => gotoDetails(id)}> {name}</TableCell>
                     <TableCell>{label}</TableCell>
                     <TableCell>{city}</TableCell>
                     <TableCell>{email}</TableCell>
@@ -204,6 +214,21 @@ function WarehouseTable(props: IProps) {
                           },
                         }}
                       >
+                         <Box>
+                          <IconButton
+                            onClick={() => handleEdit(warehouse)}
+                          >
+                            <CreateIcon
+                              sx={{
+                                fontSize: "1.2rem",
+                                color: palette.secondary.lightGray,
+                                "&:hover": {
+                                  color: palette.info.main,
+                                },
+                              }}
+                            />
+                          </IconButton>
+                        </Box>
                         <Box>
                           <IconButton>
                             <DeleteIcon
@@ -218,24 +243,8 @@ function WarehouseTable(props: IProps) {
                             />
                           </IconButton>
                         </Box>
-                        <Box>
-                          <IconButton
-                            // onClick={() => handleModalOpen(permission)}
-                          >
-                            <CreateIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.main,
-                                },
-                              }}
-                            />
-                          </IconButton>
-                        </Box>
                       </Box>
                     </TableCell>
-                    <TableCell><MoreVertIcon/></TableCell>
                   </TableRow>
                 );
               })}
@@ -252,6 +261,7 @@ function WarehouseTable(props: IProps) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
       />
+      <WarehouseForm open={open} handleClose={handleClose} isEdit={false} />
     </Card>
   );
 }
@@ -287,7 +297,7 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
             <SearchIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Filter list">
+        <Tooltip title="Ordering">
           <IconButton>
             <FormatAlignCenterIcon />
           </IconButton>

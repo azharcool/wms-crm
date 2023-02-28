@@ -13,25 +13,6 @@ function Warehouse() {
   const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
-  // const { deletePermission } = useApiActions();
-  // const {
-  //   data: permissions,
-  //   refetch,
-  //   isLoading,
-  // } = useFetchPermissions(currentPage, pageLimit);
-
-  // const handlePageChange = (pageNo: number) => {
-  //   setCurrentPage(pageNo);
-  //   setTimeout(() => {
-  //     refetch();
-  //   }, 500);
-  // };
-  // const handlePageLimitChange = (limit: number) => {
-  //   setPageLimit(limit);
-  //   setTimeout(() => {
-  //     refetch();
-  //   }, 500);
-  // };
 
   const handleOpen = () => {
     setOpen(true);
@@ -41,8 +22,9 @@ function Warehouse() {
     setOpen(false);
   };
 
-  const handleDeleteWarehouse= async (id: number) => {
+  const handleDeleteWarehouse= async (id: string) => {
     // await deletePermission(id);
+
   };
 
   return (
@@ -54,7 +36,7 @@ function Warehouse() {
           py: 8,
         }}
       >
-        <Container maxWidth={false}>
+        
           <Card>
             <CardContent sx={{ paddingTop: 0 }}>
               <TableToolbar
@@ -64,7 +46,7 @@ function Warehouse() {
               />
               <Box sx={{ mt: 3 }}>
                 <WarehouseTable
-                  handleDeletePermission={handleDeleteWarehouse}
+                  handleDeleteWarehouse={handleDeleteWarehouse}
                   openModal={handleOpen} 
                   warehouses={Warehouses} 
                   total={0}  
@@ -76,7 +58,7 @@ function Warehouse() {
               </Box>
             </CardContent>
           </Card>
-        </Container>
+    
       </Box>
       <WarehouseForm handleClose={handleClose} open={open} />
     </DashboardLayout>

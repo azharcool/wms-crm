@@ -3,11 +3,11 @@ import DateRangePickerFull from "components/date-range-picker-full";
 import moment from "moment";
 import { useFetchLeadSources } from "pages/admin/settings/screens/lead-source/query/useFetchLeadSources";
 import { useFetchLeadStatuses } from "pages/admin/settings/screens/lead-status/query/useFetchLeadStatuses";
-import {
-  IFilterType,
-  IHandleFilterUrl,
-} from "pages/user/contacts/components/TableToolBar";
-import { IMenuItem } from "pages/user/contacts/components/contact-form/optionData";
+// import {
+//   IFilterType,
+//   IHandleFilterUrl,
+// } from "pages/user/contacts/components/TableToolBar";
+// import { IMenuItem } from "pages/user/contacts/components/contact-form/optionData";
 import { useEffect, useState } from "react";
 import { dateFormatter } from "utils";
 import Select from "./Select";
@@ -27,21 +27,21 @@ interface IFilterState {
   files: string;
 }
 
-interface IFilter {
-  handlefilterUrl?: IHandleFilterUrl;
-}
+// interface IFilter {
+//   handlefilterUrl?: IHandleFilterUrl;
+// }
 
-function Filter(props: IFilter) {
+function Filter(props: any) {
   const { handlefilterUrl } = props;
-  const [filter, setFilter] = useState<IFilterState>({
+  const [filter, setFilter] = useState({
     campaign: "",
     stage: "",
     source: "",
     tag: "",
     files: "",
   });
-  const [leadStatus, setLeadStatus] = useState<IMenuItem[]>([]);
-  const [leadSource, setLeadSource] = useState<IMenuItem[]>([]);
+  const [leadStatus, setLeadStatus] = useState<[]>([]);
+  const [leadSource, setLeadSource] = useState<[]>([]);
   const [dateRange, setDateRange] = useState<DateRange>();
   const [isVisible, setIsVisible] = useState(false);
   const { data: leadStatuses } = useFetchLeadStatuses(0, 0, false);
@@ -59,7 +59,7 @@ function Filter(props: IFilter) {
     }
   };
 
-  const handleClear = (name: keyof IFilterState, type?: IFilterType) => {
+  const handleClear = (name: keyof IFilterState, type?: any) => {
     setFilter({ ...filter, [name]: "" });
     if (handlefilterUrl && type) {
       handlefilterUrl("", type);

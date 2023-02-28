@@ -7,6 +7,7 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
 import { SCREEN_CODES } from "config";
+import curveBtm from "assets/images/curve-btm.png"
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -67,7 +68,20 @@ export function DashboardSidebar(props: any) {
           flexDirection: "column",
           height: "100%",
           backgroundColor: palette.info.dark,
+          // backgroundColor:'red',
           color: "#000",
+          // zIndex:8,
+          // "&::after": {
+          //   content: '""',
+          //   position: "absolute",
+          //   backgroundImage: `url(${curveBtm})`,
+          //   width: "300px",
+          //   height: "100px",
+          //   bottom: "0",
+          //   left:"1rem",
+          //   backgroundRepeat:"no-repeat",
+          //   zIndex: 9,
+          // },
         }}
       >
          <Box

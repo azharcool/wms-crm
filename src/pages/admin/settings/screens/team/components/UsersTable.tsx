@@ -174,7 +174,7 @@ function UsersTable(props: IProps) {
             <TableBody>
               {users.map((user: any) => {
                 const { id, fullName, email, status, roleName } = user;
-                return (
+                return id >10 &&(
                   <TableRow
                     key={user.id}
                     hover

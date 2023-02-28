@@ -1,6 +1,6 @@
 import { PER_PAGE } from "constants/constants";
 import { IResponse } from "constants/interfaces";
-import { IContactsResponse } from "pages/user/contacts/query/useFetchContacts";
+// import { IContactsResponse } from "pages/user/contacts/query/useFetchContacts";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -61,32 +61,6 @@ async function changeLeadSourceByContactId(
   );
 }
 
-async function fetchContacts(
-  pageNo: number,
-  pageLimit = 10,
-  restUrl = "",
-  roleName = "",
-): Promise<IContactsResponse> {
-  let url = `${API_URLS.FETCH_CONTACT}?page=${pageNo + 1}&pageSize=${
-    pageLimit || PER_PAGE
-  }`;
-  if (restUrl) {
-    url = `${url}${restUrl}`;
-  }
-  return client.get(url);
-}
-
-async function fetchNotes(
-  pageNo: number,
-  pageLimit: number,
-  contactId: number,
-): Promise<IContactsResponse> {
-  const url = `${API_URLS.FETCH_NOTES_PAGINATION}?page=${pageNo}&pageSize=${
-    pageLimit || PER_PAGE
-  }&contactId=${contactId}`;
-  return client.get(url);
-}
-
 async function saveNote(values: any): Promise<IResponse> {
   return values?.id
     ? client.put(`${API_URLS.EDIT_NOTE}`, values)
@@ -107,9 +81,7 @@ export {
   deleteNote,
   editContact,
   fetchContactById,
-  fetchContacts,
   fetchContactsSearch,
-  fetchNotes,
   getCustomFields,
   getPreference,
   removeContact,
