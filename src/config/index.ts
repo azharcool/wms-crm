@@ -1,5 +1,6 @@
 // const { BASE_URL } = process.env;
-const BASE_URL = "https://localuser02-001-site1.etempurl.com/api"; // "http://ecallcrm-001-site1.atempurl.com/api";
+const BASE_URL = "http://wmsmanagement-001-site1.dtempurl.com/api"; // "http://ecallcrm-001-site1.atempurl.com/api";
+// http://wmsmanagement-001-site1.dtempurl.com/swagger/index.html
 const config = {
   IMAGE_BASE_URL: BASE_URL,
   BASE_URL,

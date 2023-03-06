@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import AppRoutes from "./appRoutes";
 import * as AdminLoadable from "./loadRoutes/admin.load";
 import * as AuthLoadable from "./loadRoutes/auth.load";
-import * as ContactLoadable from "./loadRoutes/contact.load";
+// import * as ContactLoadable from "./loadRoutes/contact.load";
 import * as SettingsLoadable from "./loadRoutes/settings.load";
 import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
@@ -39,7 +39,7 @@ function Application() {
             path={AppRoutes.SETTINGS}
           >
             <Route
-              index
+            index
               element={<SettingsLoadable.Settings />}
               path={AppRoutes.SETTINGS}
             />

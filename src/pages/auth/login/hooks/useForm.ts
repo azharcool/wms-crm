@@ -8,7 +8,7 @@ import { ILoginRequest } from "../query/useLogin";
 
 const defaultValues: ILoginRequest = {
   email: "",
-  password: "",
+  password: ""
 };
 
 const schema = Yup.object().shape({
