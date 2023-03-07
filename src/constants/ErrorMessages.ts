@@ -1,4 +1,5 @@
 const ErrorMessages = {
+
   login: {
     email: "Please enter your email",
     password: "Please enter your password",
@@ -94,6 +95,14 @@ const ErrorMessages = {
     success: "Address added successfully!!",
     updated: "Address updated successfully!!",
     deleted: "Address deleted successfully!!",
+  },
+
+  add_location: {
+    Warehouse: "Please select warehouse",
+    area: "Please select area",
+    zone : "Please select zone",
+
+
   },
   add_contact: {
     // Contact Info

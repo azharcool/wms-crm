@@ -8,23 +8,25 @@ import { IPermissionRequest, IWarehouses } from "../query/useApiAction";
 
 const defaultValues: IWarehouses = {
   id: 0,
-  warehouseName:"",
-  label:"",
-  email:"",
-  phoneNumber:0,
-  address:"",
-  country:"",
-  city:"",
-  zipcode:0,
-  longitude:0,
-  latitude:0,
-  status:"",
-  pickingStrategy:"",
-  receivingStrategy:"",
-  timezone:"",
-  receivingType:"",
-  defaultWarehouse:false,
-  allowPartialPicking:false
+  warehouseName: "",
+  area: "",
+  warehouse: undefined,
+  label: "",
+  email: "",
+  phoneNumber: 0,
+  address: "",
+  country: "",
+  city: "",
+  zipcode: 0,
+  longitude: 0,
+  latitude: 0,
+  status: "",
+  pickingStrategy: "",
+  receivingStrategy: "",
+  timezone: "",
+  receivingType: "",
+  defaultWarehouse: false,
+  allowPartialPicking: false
 };
 
 const useWarehouseForm = (

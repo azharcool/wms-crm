@@ -16,8 +16,11 @@ export interface IPermissionRequest {
 }
 
 export interface IWarehouses{
+  warehouse: unknown;
+
   id: number,
   warehouseName:string,
+  area:string;
   label:string,
   email:string,
   phoneNumber:number,
