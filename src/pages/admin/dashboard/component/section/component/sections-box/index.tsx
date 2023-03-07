@@ -4,13 +4,35 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-  Typography,
-  Tooltip
+  Typography
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import TextField from "components/textfield";
 import palette from "theme/palette";
+import {
+  createMuiTheme,
+  MuiThemeProvider,
+  withStyles
+} from "@material-ui/core/styles";
+import Tooltip from "@material-ui/core/Tooltip";
 import sections from "../../__mock__/sections.json";
+
+const defaultTheme = createMuiTheme();
+const theme = createMuiTheme({
+  overrides: {
+    MuiTooltip: {
+      tooltip: {
+        fontSize: "1em",
+        color: "white",
+        backgroundColor: "green",
+        borderRadius:10, 
+        width:140,
+        height:80
+      }
+    }
+  }
+});
+
 
 function SectionBox() {
   return (
@@ -31,8 +53,7 @@ function SectionBox() {
           Section 005
         </Typography>
         <Box sx={{ display: "flex" }}>
-          <Typography>DatePicker</Typography>
-          <Typography>Show All</Typography>
+        <Typography>Show All</Typography>
         </Box>
       </Box>
       <Box
@@ -41,7 +62,8 @@ function SectionBox() {
         {sections.map((box: any) => {
           const { id, isLoaded } = box;
           return (
-            <Tooltip title="Row 3 #279777" placement="bottom-end">
+              <MuiThemeProvider theme={theme}>
+                <Tooltip title="Row 3 #487849 H60 x W40 x 20kg Delivered 06:10pm">               
             <Box
               key={id}
               sx={{
@@ -52,6 +74,9 @@ function SectionBox() {
               }}
             />
             </Tooltip>
+
+          </MuiThemeProvider>
+
           );
         })}
       </Box>

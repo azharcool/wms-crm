@@ -48,10 +48,9 @@ function Dashboard() {
                   <SectionList />
                 </Box>
               </Box>
-              <Box sx={{ flex: 1 }}>
+              <Box sx={{height:"100vh", display:"flex", flexDirection:"column", justifyContent:"flex-start" }}>
                 <UsedSection />
                <DeleveryTabs />
-
               </Box>
             </Box>
           </CardContent>

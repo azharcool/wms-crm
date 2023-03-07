@@ -38,8 +38,13 @@ function DeleveryTabs() {
       setValue(newValue);
     };
   return (
-    <Box sx={{ width: '100%' }}>
-    <Box sx={{  }}>
+<Box
+        component="main"
+        sx={{
+        //   flexGrow: 1,
+          py: 4,
+
+        }}>    <Box sx={{  }}>
       <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
         <Tab label="Received" color={palette.success.lightGreen} />
         <Tab label="Sent"  />
@@ -86,65 +91,8 @@ function DeleveryTabs() {
             <Typography variant='caption'>Deleverd 06:15pm</Typography>
 
         </Box>
-        </Box>   <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
-        <Box
-              sx={{
-                width: 40,
-                height: 40,
-                background: palette.box.dark,
-                borderRadius: 0.9,
-                display:'flex',
-                justifyContent:"center",
-                alignItems:"center"
-              }}
-            >
-            <SystemUpdateAltIcon sx={{color:"white"}} />
         </Box>
-        <Box sx={{ml:3}}>
-            <Typography variant='subtitle1'>Box 132883</Typography>
-            <Typography variant='caption'>Deleverd 06:15pm</Typography>
-
-        </Box>
-        </Box>   <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
-        <Box
-              sx={{
-                width: 40,
-                height: 40,
-                background: palette.box.dark,
-                borderRadius: 0.9,
-                display:'flex',
-                justifyContent:"center",
-                alignItems:"center"
-              }}
-            >
-            <SystemUpdateAltIcon sx={{color:"white"}} />
-        </Box>
-        <Box sx={{ml:3}}>
-            <Typography variant='subtitle1'>Box 132883</Typography>
-            <Typography variant='caption'>Deleverd 06:15pm</Typography>
-
-        </Box>
-        </Box>   <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
-        <Box
-              sx={{
-                width: 40,
-                height: 40,
-                background: palette.box.dark,
-                borderRadius: 0.9,
-                display:'flex',
-                justifyContent:"center",
-                alignItems:"center"
-              }}
-            >
-            <SystemUpdateAltIcon sx={{color:"white"}} />
-        </Box>
-        <Box sx={{ml:3}}>
-            <Typography variant='subtitle1'>Box 132883</Typography>
-            <Typography variant='caption'>Deleverd 06:15pm</Typography>
-
-        </Box>
-        </Box>  
-         <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
+        <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
         <Box
               sx={{
                 width: 40,
@@ -183,7 +131,8 @@ function DeleveryTabs() {
             <Typography variant='caption'>Deleverd 06:15pm</Typography>
 
         </Box>
-        </Box>  <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
+        </Box>
+        <Box sx={{display:'flex', flexDirection:"row", alignItem:"center", flex:"start",}}>
         <Box
               sx={{
                 width: 40,
@@ -203,7 +152,6 @@ function DeleveryTabs() {
 
         </Box>
         </Box>
-        
     </TabPanel>
     <TabPanel value={value} index={1}>
       Item Two

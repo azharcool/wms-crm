@@ -22,8 +22,8 @@ function UsedSection() {
 <Box
         component="main"
         sx={{
-          flexGrow: 1,
-          py: 8,
+        //   flexGrow: 1,
+          py: 3,
 
         }}>
             <Box sx={{background:palette.success.dark, borderRadius:2}}>
