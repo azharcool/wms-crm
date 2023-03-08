@@ -8,6 +8,13 @@ import { IPermissionRequest, IWarehouses } from "../query/useApiAction";
 
 const defaultValues: IWarehouses = {
   id: 0,
+  Aisle:"",
+  Bay:"",
+  level:"",
+  Bin:"",
+  X:"",
+  Z:  "",
+  Y: "",
   warehouseName: "",
   area: "",
   warehouse: undefined,

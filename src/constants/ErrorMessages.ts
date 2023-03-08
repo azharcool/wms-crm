@@ -1,5 +1,6 @@
 const ErrorMessages = {
 
+
   login: {
     email: "Please enter your email",
     password: "Please enter your password",
@@ -50,6 +51,9 @@ const ErrorMessages = {
     screenUrl: "Please enter screen url",
     screenCode: "Please enter screen code",
   },
+  Container: {
+    quantity: "Please enter Quantity",
+ },
   warehouse: {
     warehouseName: "Please enter warehouse name",
     label: "Please enter label",

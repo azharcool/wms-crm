@@ -41,6 +41,9 @@ interface IAddScreen {
 
 const initialValues: any = {
   id: 0,
+  X: "",
+  Y: "",
+  Z: "",
   warehouseName: "",
   area: "",
   label: "",
@@ -185,7 +188,7 @@ function LocationsForm(props: IAddScreen) {
         </IconButton>
       </DialogTitle>
       <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Areas</DialogTitle>
+        <DialogTitle>New Locations</DialogTitle>
         <Box>
           <Button
             disabled={!(isValid && dirty)}
@@ -210,218 +213,8 @@ function LocationsForm(props: IAddScreen) {
         </Box>
       </DialogActions>
       <PerfectScrollbar>
+        {/* Coding */}
         <Box sx={{ display: "flex", flexDirection: "column" }}>
-          {/* <Box sx={{ 
-            display: "flex", 
-            flexDirection: "column" }}> */}
-            <Box
-              sx={{
-                display: "flex",
-                flex: 4,
-                gap: 2,
-              }}
-            >
-              <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-                <DialogTitle>Area/Zone</DialogTitle>
-                <Divider sx={{ my: 1 }} />
-                <Box
-                  sx={{
-                    display: "flex",
-                    gap: 2,
-                    alignItems: "center",
-                    marginBottom: "1rem",
-                  }}
-                >
-                  <TextField
-                    isSelect
-                    error={!!touched.warehouse && !!errors.warehouse}
-                    helperText={
-                      (touched.warehouse && errors && errors.warehouse) || ""
-                    }
-                    label="Warehouse Name"
-                    menuItems={formStatus}
-                    name="warehouseName"
-                    placeholder=""
-                    style={{ width: "550px" }}
-                    value={values.warehouseName}
-                    onBlur={handleBlur("warehouseName")}
-                    onChange={handleChange("warehouseName")}
-                    onSelectHandler={(event) => {
-                      if (event.target.value) {
-                        setFieldValue("warehouseName", event.target.value);
-                      } else {
-                        setFieldValue("warehouseName", "");
-                      }
-                    }}
-                  />
-                  <TextField
-                    isSelect
-                    error={!!touched.status && !!errors.status}
-                    helperText={
-                      (touched.status && errors && errors.status) || ""
-                    }
-                    label="Status"
-                    menuItems={formStatus}
-                    name="status"
-                    placeholder="Status"
-                    style={{ width: "550px" }}
-                    value={values.status}
-                    onBlur={handleBlur("status")}
-                    onChange={handleChange("status")}
-                    onSelectHandler={(event) => {
-                      if (event.target.value) {
-                        setFieldValue("warehouse", event.target.value);
-                      } else {
-                        setFieldValue("warehouse", "");
-                      }
-                    }}
-                  />
-                  <TextField
-                    isSelect
-                    error={!!touched.area && !!errors.area}
-                    helperText={(touched.area && errors && errors.area) || ""}
-                    label="area"
-                    menuItems={formStatus}
-                    name="area"
-                    placeholder="area"
-                    style={{ width: "550px" }}
-                    value={values.area}
-                    onBlur={handleBlur("area")}
-                    onChange={handleChange("area")}
-                    onSelectHandler={(event) => {
-                      if (event.target.value) {
-                        setFieldValue("area", event.target.value);
-                      } else {
-                        setFieldValue("area", "");
-                      }
-                    }}
-                  />
-                </Box>
-              </DialogContent>
-      
-       <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
-       <DialogTitle>Setting</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-
-              <Box
-                sx={{
-                  // display: "flex",
-                  gap: 1,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Name"
-                  name="name"
-                  placeholder="Name"
-                  // style={{ width: "550px" }}
-                  type="email"
-                  value={values.email}
-                  onBlur={handleBlur("email")}
-                  onChange={handleChange("email")}
-                  // margin="normal"
-                />
-                <TextField
-                  sx={{ margin: "normal" }}
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-                <TextField
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-                <TextField
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-                <TextField
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-              </Box>
-            </DialogContent>
-
-            {/* <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Area/Zone</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-               <Box
-                sx={{
-                  // display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-                /> 
-              </DialogContent> */}
-          </Box>
           <Box
             sx={{
               display: "flex",
@@ -430,7 +223,7 @@ function LocationsForm(props: IAddScreen) {
             }}
           >
             <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Shelf/Bin</DialogTitle>
+              <DialogTitle>Area/Zone</DialogTitle>
               <Divider sx={{ my: 1 }} />
               <Box
                 sx={{
@@ -502,8 +295,86 @@ function LocationsForm(props: IAddScreen) {
                     }
                   }}
                 />
+                {/* <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+                 <DialogTitle>Area/Zone1</DialogTitle>
+                 <Divider sx={{ my: 1 }} />
+                 <Box
+                   sx={{
+                     // display: "flex",
+                     gap: 2,
+                     alignItems: "center",
+                     marginBottom: "1rem",
+                   }}
+                 >
+                   <TextField
+                     isSelect
+                     error={!!touched.warehouse && !!errors.warehouse}
+                     helperText={
+                       (touched.warehouse && errors && errors.warehouse) || ""
+                     }
+                     label="Warehouse Name"
+                     menuItems={formStatus}
+                     name="warehouseName"
+                     placeholder=""
+                     style={{ width: "550px" }}
+                     value={values.warehouseName}
+                     onBlur={handleBlur("warehouseName")}
+                     onChange={handleChange("warehouseName")}
+                     onSelectHandler={(event) => {
+                       if (event.target.value) {
+                         setFieldValue("warehouseName", event.target.value);
+                       } else {
+                         setFieldValue("warehouseName", "");
+                       }
+                     }}
+                   />
+                   <TextField
+                     isSelect
+                     error={!!touched.status && !!errors.status}
+                     helperText={
+                       (touched.status && errors && errors.status) || ""
+                     }
+                     label="Status"
+                     menuItems={formStatus}
+                     name="status"
+                     placeholder="Status"
+                     style={{ width: "550px" }}
+                     value={values.status}
+                     onBlur={handleBlur("status")}
+                     onChange={handleChange("status")}
+                     onSelectHandler={(event) => {
+                       if (event.target.value) {
+                         setFieldValue("warehouse", event.target.value);
+                       } else {
+                         setFieldValue("warehouse", "");
+                       }
+                     }}
+                   />
+                   <TextField
+                     isSelect
+                     error={!!touched.area && !!errors.area}
+                     helperText={(touched.area && errors && errors.area) || ""}
+                     label="area"
+                     menuItems={formStatus}
+                     name="area"
+                     placeholder="area"
+                     style={{ width: "550px" }}
+                     value={values.area}
+                     onBlur={handleBlur("area")}
+                     onChange={handleChange("area")}
+                     onSelectHandler={(event) => {
+                       if (event.target.value) {
+                         setFieldValue("area", event.target.value);
+                       } else {
+                         setFieldValue("area", "");
+                       }
+                     }}
+                   />
+                 </Box>
+               </DialogContent>  */}
               </Box>
             </DialogContent>
+
             <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
               <DialogTitle>Setting</DialogTitle>
               <Divider sx={{ my: 1 }} />
@@ -523,12 +394,10 @@ function LocationsForm(props: IAddScreen) {
                   label="Name"
                   name="name"
                   placeholder="Name"
-                  // style={{ width: "550px" }}
                   type="email"
                   value={values.email}
                   onBlur={handleBlur("email")}
                   onChange={handleChange("email")}
-                  // margin="normal"
                 />
                 <TextField
                   sx={{ margin: "normal" }}
@@ -613,20 +482,202 @@ function LocationsForm(props: IAddScreen) {
                 />
               </Box>
             </DialogContent>
+            {/* </Box> */}
 
             {/* <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Area/Zone</DialogTitle>
+               <DialogTitle>Area/Zone</DialogTitle>
+               <Divider sx={{ my: 1 }} />
+                <Box
+                 sx={{
+                   // display: "flex",
+                   gap: 2,
+                   alignItems: "center",
+                   marginBottom: "1rem",
+                 }}
+                 /> 
+               </DialogContent> */}
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flex: 4,
+              gap: 2,
+            }}
+          >
+            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+              <DialogTitle>Shelf/Bin</DialogTitle>
               <Divider sx={{ my: 1 }} />
-               <Box
+              <Box
                 sx={{
-                  // display: "flex",
+                  display: "flex",
                   gap: 2,
                   alignItems: "center",
                   marginBottom: "1rem",
                 }}
-                /> 
-              </DialogContent> */}
+              >
+                <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Aisle"
+                  name="Aisle"
+                  placeholder="Aisle"
+                  value={values.Aisle}
+                  onBlur={handleBlur("Aisle")}
+                  onChange={handleChange("Aisle")}
+                />
+                 <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Bay/Rack"
+                  name="Bay"
+                  placeholder="Bay/Rack"
+                  value={values.Bay}
+                  onBlur={handleBlur("Bay")}
+                  onChange={handleChange("Bay")}
+                />
+                 <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Level/Shelf"
+                  name="level"
+                  placeholder="level/shelf"
+                 
+                  value={values.level}
+                  onBlur={handleBlur("level")}
+                  onChange={handleChange("level")}
+                />
+                 <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Bin/Position"
+                  name="Bin"
+                  placeholder="Bin/Position"
+              
+                  value={values.Bin}
+                  onBlur={handleBlur("Bin")}
+                  onChange={handleChange("Bin")}
+                />
+              </Box>
+            </DialogContent>
+            <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
+              <DialogTitle>Cordinate</DialogTitle>
+              <Divider sx={{ my: 1 }} />
+
+              <Box
+                sx={{
+                  gap: 1,
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="X"
+                  name="X"
+                  placeholder="X"
+                  value={values.X}
+                  onBlur={handleBlur("X")}
+                  onChange={handleChange("X")}
+                />
+                <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Y"
+                  name="Y"
+                  placeholder="Y"
+                  value={values.Y}
+                  onBlur={handleBlur("Y")}
+                  onChange={handleChange("Y")}
+                />
+                <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Z"
+                  name="Z"
+                  placeholder="Z"
+                  value={values.Z}
+                  onBlur={handleBlur("Z")}
+                  onChange={handleChange("Z")}
+                />
+              </Box>
+            </DialogContent>
+          
           </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flex: 2,
+              gap: 2,
+            }}
+          >
+            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+              <DialogTitle>Dimension</DialogTitle>
+              <Divider sx={{ my: 1 }} />
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Aisle"
+                  name="Aisle"
+                  placeholder="Aisle"
+                  value={values.Aisle}
+                  onBlur={handleBlur("Aisle")}
+                  onChange={handleChange("Aisle")}
+                />
+                 <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Bay/Rack"
+                  name="Bay"
+                  placeholder="Bay/Rack"
+                  value={values.Bay}
+                  onBlur={handleBlur("Bay")}
+                  onChange={handleChange("Bay")}
+                />
+                 <TextField
+                  sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Level/Shelf"
+                  name="level"
+                  placeholder="level/shelf"
+                 
+                  value={values.level}
+                  onBlur={handleBlur("level")}
+                  onChange={handleChange("level")}
+                />
+                 <TextField
+                  // sx={{ margin: "normal" }}
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  label="Bin/Position"
+                  name="Bin"
+                  placeholder="Bin/Position"
+              
+                  value={values.Bin}
+                  onBlur={handleBlur("Bin")}
+                  onChange={handleChange("Bin")}
+                />
+              </Box>
+            </DialogContent>
+        </Box>
         </Box>
       </PerfectScrollbar>
     </Slider>
