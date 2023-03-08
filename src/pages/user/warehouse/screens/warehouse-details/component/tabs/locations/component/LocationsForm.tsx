@@ -1,4 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
+
 import {
   Box,
   Card,
@@ -6,6 +7,7 @@ import {
   Divider,
   FormControlLabel,
   IconButton,
+  InputLabel,
   styled,
   Switch,
   Typography,
@@ -63,14 +65,6 @@ const initialValues: any = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPicking: false,
-
-  //   permissions: "",
-  //   permissionDescription: "",
-  //   permissionCode: "",
-  //   screenId: 0,
-  //   screenUrl: "",
-  //   screenCode: "",
-  //   isScreen: false,
 };
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
@@ -240,10 +234,10 @@ function LocationsForm(props: IAddScreen) {
                   helperText={
                     (touched.warehouse && errors && errors.warehouse) || ""
                   }
-                  label="Warehouse Name"
+                  // label="Warehouse Name"
                   menuItems={formStatus}
                   name="warehouseName"
-                  placeholder=""
+                  placeholder="warehouseName"
                   style={{ width: "550px" }}
                   value={values.warehouseName}
                   onBlur={handleBlur("warehouseName")}
@@ -260,10 +254,10 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
+                  // label="Status"
                   menuItems={formStatus}
                   name="status"
-                  placeholder="Status"
+                  placeholder="area"
                   style={{ width: "550px" }}
                   value={values.status}
                   onBlur={handleBlur("status")}
@@ -280,10 +274,10 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.area && !!errors.area}
                   helperText={(touched.area && errors && errors.area) || ""}
-                  label="area"
+                  // label="area"
                   menuItems={formStatus}
                   name="area"
-                  placeholder="area"
+                  placeholder="Zone"
                   style={{ width: "550px" }}
                   value={values.area}
                   onBlur={handleBlur("area")}
@@ -296,71 +290,139 @@ function LocationsForm(props: IAddScreen) {
                     }
                   }}
                 />
-               
               </Box>
-              <Box sx={{backgroundColor:"red" ,width: "100%"}}>
+              <Box sx={{ backgroundColor: "red", width: "100%" }}>
                 {/* <Typography>
                   hi
                 </Typography> */}
                 <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Shelf/Bin</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Aisle"
-                  name="Aisle"
-                  placeholder="Aisle"
-                  value={values.Aisle}
-                  onBlur={handleBlur("Aisle")}
-                  onChange={handleChange("Aisle")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Bay/Rack"
-                  name="Bay"
-                  placeholder="Bay/Rack"
-                  value={values.Bay}
-                  onBlur={handleBlur("Bay")}
-                  onChange={handleChange("Bay")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Level/Shelf"
-                  name="level"
-                  placeholder="level/shelf"
-                 
-                  value={values.level}
-                  onBlur={handleBlur("level")}
-                  onChange={handleChange("level")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Bin/Position"
-                  name="Bin"
-                  placeholder="Bin/Position"
-              
-                  value={values.Bin}
-                  onBlur={handleBlur("Bin")}
-                  onChange={handleChange("Bin")}
-                />
-              </Box>
-            </DialogContent>
+                  <DialogTitle>Shelf/Bin</DialogTitle>
+                  <Divider sx={{ my: 1 }} />
+                  <Box
+                    sx={{
+                      display: "flex",
+                      gap: 2,
+                      alignItems: "center",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    <TextField
+                      error={!!touched.aisle && !!errors.aisle}
+                      helperText={(touched.aisle && errors && errors.aisle) || ""}
+                      name="aisle"
+                      // label="Aisle"
+                      placeholder="Aisle"
+                      sx={{ margin: "normal" }}
+                      value={values.aisle}
+                      onBlur={handleBlur("aisle")}
+                      onChange={handleChange("aisle")}
+                    />
+                    <TextField
+                      error={!!touched.bay && !!errors.bay}
+                      helperText={(touched.bay && errors && errors.bay) || ""}
+                      name="bay"
+                   
+                      // label="Bay/Rack"
+                      placeholder="Bay/Rack"
+                      sx={{ margin: "normal" }}
+                      value={values.bay}
+                      onBlur={handleBlur("bay")}
+                      onChange={handleChange("bay")}
+                    />
+                    <TextField
+                      error={!!touched.level && !!errors.level}
+                      name="level"
+                      helperText={
+                        (touched.level && errors && errors.level) || ""
+                      }
+                      // label="Level/Shelf"
+                      placeholder="level/shelf"
+                      sx={{ margin: "normal" }}
+                      value={values.level}
+                      onBlur={handleBlur("level")}
+                      onChange={handleChange("level")}
+                    />
+                    <TextField
+                      error={!!touched.bin && !!errors.bin}
+                      name="bin"
+                      helperText={
+                        (touched.bin && errors && errors.bin) || ""
+                      }
+                      // label="Bin/Position"
+                      placeholder="Bin/Position"
+                      sx={{ margin: "normal" }}
+                      value={values.bin}
+                      onBlur={handleBlur("bin")}
+                      onChange={handleChange("bin")}
+                    />
+                  </Box>
+                </DialogContent>
+                <Box sx={{ backgroundColor: "red" }}>
+                  {" "}
+                  <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+                    <DialogTitle>Dimension</DialogTitle>
+                    <Divider sx={{ my: 1 }} />
+                    <Box
+                      sx={{
+                        display: "flex",
+                        gap: 2,
+                        alignItems: "center",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      <TextField
+                        error={!!touched.volume && !!errors.volume}
+                        name="volume"
+                        helperText={
+                          (touched.volume  && errors.volume) || ""
+                        }
+                        // label="Aisle"
+                        placeholder="Volume"
+                        sx={{ margin: "normal" }}
+                        value={values.volume}
+                        onBlur={handleBlur("volume")}
+                        onChange={handleChange("volume")}
+                      />
+                      <TextField
+                        error={!!touched.height && !!errors.height}
+                        name="height"
+                        helperText={
+                          (touched.height && errors.height) || ""
+                        }
+                        // label="Bay/Rack"
+                        placeholder="Height"
+                        sx={{ margin: "normal" }}
+                        value={values.height}
+                        onBlur={handleBlur("height")}
+                        onChange={handleChange("height")}
+                      />
+                      <TextField
+                        error={!!touched.width && !!errors.width}
+                        name="width"
+                        helperText={
+                          (touched.width  && errors.width) || ""
+                        }
+                        // label="Level/Shelf"
+                        placeholder="Width"
+                        sx={{ margin: "normal" }}
+                        value={values.width}
+                        onBlur={handleBlur("width")}
+                        onChange={handleChange("width")}
+                      />
+                      <TextField
+                        // sx={{ margin: "normal" }}
+                        error={!!touched.max && !!errors.max}
+                        helperText={(touched.max && errors && errors.max) || ""}
+                        // label="Bin/Position"
+                        name="max"
+                        placeholder="max.load"
+                        value={values.max}
+                        onBlur={handleBlur("max")}
+                        onChange={handleChange("max")}
+                      />
+                    </Box>
+                  </DialogContent>
+                </Box>
               </Box>
             </DialogContent>
 
@@ -377,27 +439,45 @@ function LocationsForm(props: IAddScreen) {
                 }}
               >
                 <TextField
-                  sx={{ margin: "normal" }}
                   error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Name"
-                  name="name"
                   placeholder="Name"
+                  sx={{ margin: "normal" }}
                   type="email"
                   value={values.email}
                   onBlur={handleBlur("email")}
                   onChange={handleChange("email")}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  // label="Name"
+                  name="name"
                 />
                 <TextField
+                  isSelect
+                  error={!!touched.status && !!errors.status}
+                  helperText={(touched.status && errors && errors.status) || ""}
+                  menuItems={formStatus}
                   sx={{ margin: "normal" }}
+                  value={values.status}
+                  onBlur={handleBlur("status")}
+                  onChange={handleChange("status")}
+                  onSelectHandler={(event) => {
+                    if (event.target.value) {
+                      setFieldValue("status", event.target.value);
+                    } else {
+                      setFieldValue("status", "");
+                    }
+                  }}
+                  name="status"
+                  // label="Location type"
+                  placeholder="Location type"
+                />
+
+                <TextField
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
                   menuItems={formStatus}
                   name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
+                  placeholder="Operation"
                   value={values.status}
                   onBlur={handleBlur("status")}
                   onChange={handleChange("status")}
@@ -413,51 +493,9 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
                   menuItems={formStatus}
                   name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-                <TextField
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-                <TextField
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  // style={{ width: "550px" }}
+                  placeholder="Active"
                   value={values.status}
                   onBlur={handleBlur("status")}
                   onChange={handleChange("status")}
@@ -470,251 +508,53 @@ function LocationsForm(props: IAddScreen) {
                   }}
                 />
               </Box>
-              <Box sx={{ backgroundColor:"red", width:"100%"}}>
-              <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
-              <DialogTitle>Cordinate</DialogTitle>
-              <Divider sx={{ my: 1 }} />
+              <Box sx={{ backgroundColor: "red", width: "100%" }}>
+                <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
+                  <DialogTitle>Cordinate</DialogTitle>
+                  <Divider sx={{ my: 1 }} />
 
-              <Box
-                sx={{
-                  gap: 1,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="X"
-                  name="X"
-                  placeholder="X"
-                  value={values.X}
-                  onBlur={handleBlur("X")}
-                  onChange={handleChange("X")}
-                />
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Y"
-                  name="Y"
-                  placeholder="Y"
-                  value={values.Y}
-                  onBlur={handleBlur("Y")}
-                  onChange={handleChange("Y")}
-                />
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Z"
-                  name="Z"
-                  placeholder="Z"
-                  value={values.Z}
-                  onBlur={handleBlur("Z")}
-                  onChange={handleChange("Z")}
-                />
+                  <Box
+                    sx={{
+                      gap: 1,
+                      alignItems: "center",
+                      marginBottom: "1rem",
+                    }}
+                  >
+                    <TextField
+                      error={!!touched.X && !!errors.X}
+                      helperText={(touched.X && errors && errors.X) || ""}
+                      name="X"
+                      placeholder="X"
+                      sx={{ margin: "normal" }}
+                      value={values.X}
+                      onBlur={handleBlur("X")}
+                      onChange={handleChange("X")}
+                    />
+                    <TextField
+                      error={!!touched.Y && !!errors.Y}
+                      helperText={(touched.Y && errors && errors.Y) || ""}
+                      name="Y"
+                      placeholder="Y"
+                      sx={{ margin: "normal" }}
+                      value={values.Y}
+                      onBlur={handleBlur("Y")}
+                      onChange={handleChange("Y")}
+                    />
+                    <TextField
+                      error={!!touched.Z && !!errors.Z}
+                      helperText={(touched.Z && errors && errors.Z) || ""}
+                      name="Z"
+                      placeholder="Z"
+                      sx={{ margin: "normal" }}
+                      value={values.Z}
+                      onBlur={handleBlur("Z")}
+                      onChange={handleChange("Z")}
+                    />
+                  </Box>
+                </DialogContent>
               </Box>
             </DialogContent>
-              </Box>
-            </DialogContent>
-            {/* </Box> */}
-
-            {/* <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-               <DialogTitle>Area/Zone</DialogTitle>
-               <Divider sx={{ my: 1 }} />
-                <Box
-                 sx={{
-                   // display: "flex",
-                   gap: 2,
-                   alignItems: "center",
-                   marginBottom: "1rem",
-                 }}
-                 /> 
-               </DialogContent> */}
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flex: 4,
-              gap: 2,
-            }}
-          >
-            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Shelf/Bin</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Aisle"
-                  name="Aisle"
-                  placeholder="Aisle"
-                  value={values.Aisle}
-                  onBlur={handleBlur("Aisle")}
-                  onChange={handleChange("Aisle")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Bay/Rack"
-                  name="Bay"
-                  placeholder="Bay/Rack"
-                  value={values.Bay}
-                  onBlur={handleBlur("Bay")}
-                  onChange={handleChange("Bay")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Level/Shelf"
-                  name="level"
-                  placeholder="level/shelf"
-                 
-                  value={values.level}
-                  onBlur={handleBlur("level")}
-                  onChange={handleChange("level")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Bin/Position"
-                  name="Bin"
-                  placeholder="Bin/Position"
-              
-                  value={values.Bin}
-                  onBlur={handleBlur("Bin")}
-                  onChange={handleChange("Bin")}
-                />
-              </Box>
-            </DialogContent>
-            {/* <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
-              <DialogTitle>Cordinate</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-
-              <Box
-                sx={{
-                  gap: 1,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="X"
-                  name="X"
-                  placeholder="X"
-                  value={values.X}
-                  onBlur={handleBlur("X")}
-                  onChange={handleChange("X")}
-                />
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Y"
-                  name="Y"
-                  placeholder="Y"
-                  value={values.Y}
-                  onBlur={handleBlur("Y")}
-                  onChange={handleChange("Y")}
-                />
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Z"
-                  name="Z"
-                  placeholder="Z"
-                  value={values.Z}
-                  onBlur={handleBlur("Z")}
-                  onChange={handleChange("Z")}
-                />
-              </Box>
-            </DialogContent> */}
-          
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flex: 2,
-              gap: 2,
-            }}
-          >
-            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Dimension</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Aisle"
-                  name="Aisle"
-                  placeholder="Aisle"
-                  value={values.Aisle}
-                  onBlur={handleBlur("Aisle")}
-                  onChange={handleChange("Aisle")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Bay/Rack"
-                  name="Bay"
-                  placeholder="Bay/Rack"
-                  value={values.Bay}
-                  onBlur={handleBlur("Bay")}
-                  onChange={handleChange("Bay")}
-                />
-                 <TextField
-                  sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Level/Shelf"
-                  name="level"
-                  placeholder="level/shelf"
-                 
-                  value={values.level}
-                  onBlur={handleBlur("level")}
-                  onChange={handleChange("level")}
-                />
-                 <TextField
-                  // sx={{ margin: "normal" }}
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  label="Bin/Position"
-                  name="Bin"
-                  placeholder="Bin/Position"
-              
-                  value={values.Bin}
-                  onBlur={handleBlur("Bin")}
-                  onChange={handleChange("Bin")}
-                />
-              </Box>
-            </DialogContent>
-        </Box>
         </Box>
       </PerfectScrollbar>
     </Slider>

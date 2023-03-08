@@ -30,7 +30,6 @@ import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
 import useForm from "../hooks/useForm";
 
-
 interface IAddScreen {
   open: boolean;
   handleClose: () => void;
@@ -38,7 +37,7 @@ interface IAddScreen {
 
 const initialValues: any = {
   id: 0,
-  quantity:"",
+  quantity: "",
   warehouseName: "",
   label: "",
   email: "",
@@ -56,14 +55,6 @@ const initialValues: any = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPicking: false,
-
-  //   permissions: "",
-  //   permissionDescription: "",
-  //   permissionCode: "",
-  //   screenId: 0,
-  //   screenUrl: "",
-  //   screenCode: "",
-  //   isScreen: false,
 };
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
@@ -207,7 +198,14 @@ function ContainersForm(props: IAddScreen) {
         </Box>
       </DialogActions>
       <PerfectScrollbar>
-        <Box sx={{ display: "flex", flexDirection: "column"  , fontSize:"14px" , fontFamily: "Roboto, Helvetica, Arial, sans-serif;"}}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            fontSize: "14px",
+            fontFamily: "Roboto, Helvetica, Arial, sans-serif;",
+          }}
+        >
           <Box sx={{ display: "flex", flex: 3, gap: 2 }}>
             <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
               <DialogTitle>Informations</DialogTitle>
@@ -218,25 +216,24 @@ function ContainersForm(props: IAddScreen) {
                   gap: 2,
                   alignItems: "center",
                   marginBottom: "1rem",
-                  fontSize:"12px" , fontFamily: "Roboto, Helvetica, Arial, sans-serif;"
+                  fontSize: "12px",
+                  fontFamily: "Roboto, Helvetica, Arial, sans-serif;",
                 }}
               >
                 <TextField
-                sx={{
+                  sx={{
                     fontfamily: "poppins,sans-serif",
-                     fontsize: "16px",
-                     fontweight: "500",
-                     margin: "normal",
-                }}
+                    fontsize: "16px",
+                    fontweight: "500",
+                    margin: "normal",
+                  }}
                   isSelect
-
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
-                  label="Locations"
                   menuItems={formStatus}
+                  label= " Locations"
                   name="locations"
                   placeholder="Locations"
-                //   sx={{ margin: "normal" }}
                   value={values.locations}
                   onBlur={handleBlur("locations")}
                   onChange={handleChange("locations")}
@@ -291,18 +288,17 @@ function ContainersForm(props: IAddScreen) {
 
                 <TextField
                   error={!!touched.quantity && !!errors.quantity}
-                  helperText={(touched.quantity && errors && errors.quantity) || ""}
+                  helperText={
+                    (touched.quantity && errors && errors.quantity) || ""
+                  }
                   label="Quantity"
                   name="quantity"
                   placeholder="Quantity"
-                  //   style={{ width: "550px" }}
                   value={values.quantity}
                   onBlur={handleBlur("quantity")}
                   onChange={handleChange("quantity")}
                 />
               </Box>
-
-            
             </DialogContent>
             <DialogContent dividers sx={{ background: "#fff", flex: 2 }}>
               <DialogTitle>Dimensions</DialogTitle>
@@ -316,64 +312,70 @@ function ContainersForm(props: IAddScreen) {
                   marginBottom: "1rem",
                 }}
               >
-                 <Box
-            sx={{
-            //   display: "flex",
-              gap: 2,
-              alignItems: "center",
-              marginBottom: "1rem",
-              flexDirection: "column",
-            }}
-          >
-             
-          
+                <Box
+                  sx={{
+                    //   display: "flex",
+                    gap: 2,
+                    alignItems: "center",
+                    marginBottom: "1rem",
+                    flexDirection: "column",
+                  }}
+                >
                   <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  label="Height"
-                  name="height"
-                  placeholder="Height"
-                  style={{ width: "200px", mr:"5px"}}
-                  value={values.height}
-                  onBlur={handleBlur("height")}
-                  onChange={handleChange("height")}
-                />
+                    error={!!touched.height && !!errors.height}
+                    helperText={(touched.height && errors && errors.height) || ""}
+                    name="height"
+                    placeholder="Height"
+                    style={{ width: "200px", mr: "5px" }}
+                    value={values.height}
+                    onBlur={handleBlur("height")}
+                    onChange={handleChange("height")}
+                  />
+
+                  <TextField
+                    error={!!touched.width && !!errors.width}
+                    helperText={(touched.width && errors && errors.width) || ""}
+                 
+                    name="width"
+                    placeholder="width"
+                    style={{ width: "200px" }}
+                    value={values.width}
+                    onBlur={handleBlur("width")}
+                    onChange={handleChange("width")}
+                  />
+                  <TextField
+                    error={!!touched.length && !!errors.length}
+                    helperText={(touched.length && errors && errors.length) || ""}
+                 
+                    name="length"
+                    placeholder="width"
+                    style={{ width: "200px" }}
+                    value={values.length}
+                    onBlur={handleBlur("length")}
+                    onChange={handleChange("length")}
+                  />
+                  <TextField
+                    error={!!touched.max && !!errors.max}
+                    helperText={(touched.max && errors && errors.max) || ""}
+                   
+                    name="max"
+                    placeholder="Max.Load"
+                    style={{ width: "200px", mr: "2px" }}
+                    value={values.max}
+                    onBlur={handleBlur("max")}
+                    onChange={handleChange("max")}
+                  />
+                  <TextField
+                    error={!!touched.volume && !!errors.volume}
+                    helperText={(touched.volume && errors && errors.volume) || ""}
                 
-                  <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  label="width"
-                  name="width"
-                  placeholder="width"
-                  style={{ width: "200px" }}
-                  value={values.width}
-                  onBlur={handleBlur("width")}
-                  onChange={handleChange("width")}
-                />
-                  <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  label="Max.Load"
-                  name="max"
-                  placeholder="Max.Load"
-                    style={{ width: "200px",mr:"2px" }}
-                  value={values.max}
-                  onBlur={handleBlur("max")}
-                  onChange={handleChange("max")}
-                />
-                  <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  label="Volume"
-                  name="volume"
-                  placeholder="volume"
-                  //   style={{ width: "550px" }}
-                  value={values.volume}
-                  onBlur={handleBlur("volume")}
-                  onChange={handleChange("volume")}
-                />
-            
-             
+                    name="volume"
+                    placeholder="volume"
+                    //   style={{ width: "550px" }}
+                    value={values.volume}
+                    onBlur={handleBlur("volume")}
+                    onChange={handleChange("volume")}
+                  />
                 </Box>
               </Box>
             </DialogContent>

@@ -84,7 +84,7 @@ function TextField(props: Props) {
         <FormLabel
           htmlFor={name}
           sx={{
-            color: "inherit",
+            // color: "inherit",
             fontSize: { xs: "1rem", xl: "1.3rem", fontWeight: "500" },
             marginTop: "5px",
             textTransform: "capitalize",
@@ -131,13 +131,13 @@ function TextField(props: Props) {
           className={className}
           disabled={disabled}
           error={error}
-          inputProps={{ "aria-label": "Without label" }}
-          sx={{ backgroundColor: "#fff" }}
+          // inputProps={{ "aria-label": "Without label" }}
+          // sx={{ backgroundColor: "#fff" }}
           value={value?.toString()}
           onChange={onSelectHandler}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>{placeholder}</em>
           </MenuItem>
           {menuItems?.map((item) => {
             const values = Object.values(item).join(",");

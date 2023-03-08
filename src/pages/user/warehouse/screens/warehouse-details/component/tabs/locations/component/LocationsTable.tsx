@@ -184,6 +184,7 @@ function LocationsTable(props: IProps) {
                 <TableCell>Status</TableCell>
                 <TableCell>Operations</TableCell>
                 <TableCell>Warehouse</TableCell>
+                <TableCell>Actions</TableCell>
              
               </TableRow>
             </TableHead>
