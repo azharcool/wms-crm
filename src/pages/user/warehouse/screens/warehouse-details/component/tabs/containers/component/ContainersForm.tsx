@@ -29,11 +29,7 @@ import { useSelector } from "react-redux";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
 import useForm from "../hooks/useForm";
-// import useForm from "../../hooks/useForm";
 
-// import useForm from "../hooks/useForm";
-// import { IPermissionRequest, useApiActions } from "../query/useApiAction";
-// import Containers from './../index';
 
 interface IAddScreen {
   open: boolean;
@@ -330,17 +326,7 @@ function ContainersForm(props: IAddScreen) {
             }}
           >
              
-                 {/* <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  label="Quantity"
-                  name="Quantity"
-                  placeholder="Quantity"
-                  style={{ width: "200px" }}
-                  value={values.Quantity}
-                  onBlur={handleBlur("Quantity")}
-                  onChange={handleChange("Quantity")}
-                /> */}
+          
                   <TextField
                   error={!!touched.label && !!errors.label}
                   helperText={(touched.label && errors && errors.label) || ""}
