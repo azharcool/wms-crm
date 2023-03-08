@@ -81,6 +81,10 @@ export default {
     orange: "#ff5858",
     light_10: "rgb(253 247 231)",
   },
+  box:{
+    dark:"#ee9f27",
+    light:"#f9ddb1"
+  },
   error: {
     contrastText: white,
     dark: colors.red[900], //  900: '#b71c1c',
