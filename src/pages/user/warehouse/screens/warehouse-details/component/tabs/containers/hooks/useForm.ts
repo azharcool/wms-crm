@@ -4,27 +4,64 @@
 import ErrorMessages from "constants/ErrorMessages";
 import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
-import { IPermissionRequest, IWarehouses } from "../query/useApiAction";
+import { IWarehouses } from "../query/useApiAction";
+// import { IWarehouses } from "../query/useApiAction";
+// import { IPermissionRequest, IWarehouses } from "../query/useApiAction";
+
 
 const defaultValues: IWarehouses = {
   id: 0,
-  warehouseName:"",
-  label:"",
-  email:"",
-  phoneNumber:0,
-  address:"",
-  country:"",
-  city:"",
-  zipcode:0,
-  longitude:0,
-  latitude:0,
-  status:"",
-  pickingStrategy:"",
-  receivingStrategy:"",
-  timezone:"",
-  receivingType:"",
-  defaultWarehouse:false,
-  allowPartialPicking:false
+  warehouseName: "",
+  locations: "",
+  parents: "",
+  quantity: 0,
+  containers_type: "",
+  height: 0,
+  width: 0,
+  max: 0,
+  volume: 0,
+  label: "",
+  email: "",
+  phoneNumber: 0,
+  address: "",
+  country: "",
+  city: "",
+  zipcode: 0,
+  longitude: 0,
+  latitude: 0,
+  status: "",
+  pickingStrategy: "",
+  receivingStrategy: "",
+  timezone: "",
+  receivingType: "",
+  defaultWarehouse: false,
+  allowPartialPicking: false,
+  // height: 0,
+  // width:0,
+  // length:0,
+  // max:0,
+  // volume:0,
+  // Locations:"",
+  // Containers_type:"",
+  // Parents:"",
+  // quantity:1,
+  // warehouseName:"",
+  // label:"",
+  // email:"",
+  // phoneNumber:0,
+  // address:"",
+  // country:"",
+  // city:"",
+  // zipcode:0,
+  // longitude:0,
+  // latitude:0,
+  // status:"",
+  // pickingStrategy:"",
+  // receivingStrategy:"",
+  // timezone:"",
+  // receivingType:"",
+  // defaultWarehouse:false,
+  // allowPartialPicking:false
 };
 
 const useWarehouseForm = (
@@ -57,6 +94,7 @@ const useWarehouseForm = (
       receivingType: Yup.string().required(ErrorMessages.warehouse.receivingType),
       defaultWarehouse: Yup.string().required(ErrorMessages.warehouse.defaultWarehouse),
       allowPartialPicking: Yup.string().required(ErrorMessages.warehouse.allowPartialPicking),
+      quantity:Yup.number().required(ErrorMessages.Container.quantity),
     };
    
   const schema = Yup.object().shape(validation);

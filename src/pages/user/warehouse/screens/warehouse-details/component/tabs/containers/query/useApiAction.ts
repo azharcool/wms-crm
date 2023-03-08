@@ -17,6 +17,14 @@ export interface IPermissionRequest {
 
 export interface IWarehouses{
   id: number,
+  locations:string,
+  parents:string,
+  quantity:number,
+  height:number,
+  width:number,
+  max:number,
+  volume:number,
+  containers_type: string,
   warehouseName:string,
   label:string,
   email:string,

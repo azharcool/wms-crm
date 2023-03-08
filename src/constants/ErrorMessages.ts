@@ -1,4 +1,6 @@
 const ErrorMessages = {
+
+
   login: {
     email: "Please enter your email",
     password: "Please enter your password",
@@ -49,6 +51,9 @@ const ErrorMessages = {
     screenUrl: "Please enter screen url",
     screenCode: "Please enter screen code",
   },
+  Container: {
+    quantity: "Please enter Quantity",
+ },
   warehouse: {
     warehouseName: "Please enter warehouse name",
     label: "Please enter label",
@@ -94,6 +99,14 @@ const ErrorMessages = {
     success: "Address added successfully!!",
     updated: "Address updated successfully!!",
     deleted: "Address deleted successfully!!",
+  },
+
+  add_location: {
+    Warehouse: "Please select warehouse",
+    area: "Please select area",
+    zone : "Please select zone",
+
+
   },
   add_contact: {
     // Contact Info

@@ -8,6 +8,7 @@ const AppRoutes = {
   WAREHOUSE_DETAILS: "/warehouse-details",
   AREA_DETAILS: "/area-details",
   ZONE_DETAILS: "/zone-details",
+  LOCATION_DETAILS: "/location-details",
   // CALENDAR: "/calendar",
   // INBOX: "/inbox",
   // DEALS: "/deals",
