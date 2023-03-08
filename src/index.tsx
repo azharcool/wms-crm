@@ -1,5 +1,11 @@
-import { StyledEngineProvider, ThemeProvider } from "@mui/system";
+// import { StyledEngineProvider, ThemeProvider } from "@mui/system";
+import {
+  ThemeProvider,
+  createTheme,
+  StyledEngineProvider,
+} from "@mui/material/styles";
 import { AlertProvider } from "components/alert";
+import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import { SnackbarProvider } from "components/snackbar";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -13,7 +19,11 @@ import reportWebVitals from "./reportWebVitals";
 import theme from "./theme/newTheme";
 
 const queryClient = new QueryClient();
-
+const darkTheme = createTheme({
+  palette: {
+    mode: "dark",
+  },
+});
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
@@ -21,19 +31,21 @@ root.render(
   <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <StyledEngineProvider>
-            <SnackbarProvider>
-              <AlertProvider>
-                <QueryClientProvider client={queryClient}>
-                  <Router>
-                    <App />
-                  </Router>
-                </QueryClientProvider>
-              </AlertProvider>
-            </SnackbarProvider>
-          </StyledEngineProvider>
-        </ThemeProvider>
+        <DarkModeToggle>
+          <ThemeProvider theme={darkTheme}>
+            <StyledEngineProvider>
+              <SnackbarProvider>
+                <AlertProvider>
+                  <QueryClientProvider client={queryClient}>
+                    <Router>
+                      <App />
+                    </Router>
+                  </QueryClientProvider>
+                </AlertProvider>
+              </SnackbarProvider>
+            </StyledEngineProvider>
+          </ThemeProvider>
+        </DarkModeToggle>
       </PersistGate>
     </Provider>
   </>,

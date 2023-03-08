@@ -6,6 +6,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
+import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import TextField from "components/textfield";
 import DashboardLayout from "components/dashboard-container";
 import dashboardImg from "assets/images/dashboard.png";
@@ -18,6 +19,7 @@ import DeleveryTabs from "./component/delevery-tabs";
 function Dashboard() {
   return (
     <DashboardLayout>
+      {/* <DarkModeToggle> */}
       <Box
         component="main"
         sx={{
@@ -26,7 +28,7 @@ function Dashboard() {
         }}
       >
         <Card>
-          <CardContent sx={{ paddingTop: 0, paddingLeft:0, paddingBottom:0}}>
+          <CardContent sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}>
             <Box
               sx={{
                 display: "flex",
@@ -39,7 +41,7 @@ function Dashboard() {
                 // py: 8,
               }}
             >
-              <Box sx={{ flex: 3, borderRadius:5, background:'#ffff', p:5 }}>
+              <Box sx={{ flex: 3, borderRadius: 5, background: "#ffff", p: 5 }}>
                 <Box>
                   <Section />
                 </Box>
@@ -48,14 +50,22 @@ function Dashboard() {
                   <SectionList />
                 </Box>
               </Box>
-              <Box sx={{height:"100vh", display:"flex", flexDirection:"column", justifyContent:"flex-start" }}>
+              <Box
+                sx={{
+                  height: "100vh",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                }}
+              >
                 <UsedSection />
-               <DeleveryTabs />
+                <DeleveryTabs />
               </Box>
             </Box>
           </CardContent>
         </Card>
       </Box>
+      {/* </DarkModeToggle> */}
     </DashboardLayout>
   );
 }

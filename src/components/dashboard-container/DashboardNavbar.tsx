@@ -1,3 +1,4 @@
+/* eslint-disable react/no-children-prop */
 import styled from "@emotion/styled";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
@@ -18,7 +19,7 @@ import {
 import DialButton from "components/Phone/DialButton";
 import { useRef, useState } from "react";
 import { getInitials } from "utils/get-initials";
-
+import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import UtilitiesDialog from "components/utilities-popup/UtilitiesDialog";
 import useDecodedData from "hooks/useDecodedData";
 import palette from "theme/palette";
@@ -28,7 +29,7 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
   return {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[3],
-    borderTopLeftRadius:60,
+    borderTopLeftRadius: 60,
   };
 });
 
@@ -41,6 +42,7 @@ export function DashboardNavbar(props: any) {
 
   return (
     <>
+      {/* <DarkModeToggle> */}
       <DashboardNavbarRoot
         sx={{
           left: {
@@ -77,7 +79,7 @@ export function DashboardNavbar(props: any) {
               <SearchIcon fontSize="small" />
             </IconButton> */}
             <Box>
-              <Box sx={{ maxWidth: 300, marginLeft:'1.5rem' }}>
+              <Box sx={{ maxWidth: 300, marginLeft: "1.5rem" }}>
                 <TextField
                   fullWidth
                   InputProps={{
@@ -104,6 +106,8 @@ export function DashboardNavbar(props: any) {
             </Box>
           </Tooltip>
           <Box sx={{ flexGrow: 1 }} />
+          {/* <DarkModeToggle children={undefined} /> */}
+
           <Tooltip title="Notifications">
             <IconButton
               sx={{
@@ -157,6 +161,8 @@ export function DashboardNavbar(props: any) {
           </Box>
         </Toolbar>
       </DashboardNavbarRoot>
+      {/* </DarkModeToggle> */}
+
       <AccountPopover
         anchorEl={settingsRef.current}
         open={openAccountPopover}
