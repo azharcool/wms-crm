@@ -6,7 +6,6 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Container } from "@mui/system";
-import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import TextField from "components/textfield";
 import DashboardLayout from "components/dashboard-container";
 import dashboardImg from "assets/images/dashboard.png";

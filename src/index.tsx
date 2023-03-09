@@ -4,7 +4,6 @@ import {
   StyledEngineProvider,
 } from "@mui/material/styles";
 import { AlertProvider } from "components/alert";
-import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import { SnackbarProvider } from "components/snackbar";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
@@ -19,31 +18,14 @@ import theme from "./theme/newTheme";
 
 const queryClient = new QueryClient();
 
-const lightTheme = createTheme({
-  palette: {
-    mode: "light",
-  },
-});
-
-const darkTheme = createTheme({
-  palette: {
-    mode: "dark",
-  },
-});
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
-// const newtheme = useSelector((state: any) => state.customThemeReducer.newTheme);
-
-/* <ThemeProvider theme={newtheme ? darkTheme : lightTheme}> */
 
 root.render(
   <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        {/* <DarkModeToggle> */}
-        {/* <ThemeProvider theme={darkTheme}> */}
         <StyledEngineProvider>
           <SnackbarProvider>
             <AlertProvider>
@@ -55,8 +37,6 @@ root.render(
             </AlertProvider>
           </SnackbarProvider>
         </StyledEngineProvider>
-        {/* </ThemeProvider> */}
-        {/* </DarkModeToggle> */}
       </PersistGate>
     </Provider>
   </>,

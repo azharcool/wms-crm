@@ -21,7 +21,6 @@ import {
 import DialButton from "components/Phone/DialButton";
 import { useRef, useState } from "react";
 import { getInitials } from "utils/get-initials";
-import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import UtilitiesDialog from "components/utilities-popup/UtilitiesDialog";
 import useDecodedData from "hooks/useDecodedData";
 import palette from "theme/palette";
@@ -70,7 +69,6 @@ export function DashboardNavbar(props: any) {
 
   return (
     <>
-      {/* <DarkModeToggle> */}
       <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
         <DashboardNavbarRoot
           sx={{
@@ -137,7 +135,7 @@ export function DashboardNavbar(props: any) {
             <Box sx={{ flexGrow: 1 }} />
             {/* <DarkModeToggle children={undefined} /> */}
 
-            <Tooltip title="Notifications">
+            <Tooltip title="Theme">
               <IconButton
                 onClick={handleTheme}
                 sx={{

@@ -83,7 +83,9 @@ function SectionBox() {
           {sections.map((box: any) => {
             const { id, isLoaded } = box;
             return (
-              <MuiThemeProvider theme={theme}>
+              <MuiThemeProvider
+                theme={newtheme.isDarkMode ? darkTheme : lightTheme}
+              >
                 <Tooltip title="Row 3 #487849 H60 x W40 x 20kg Delivered 06:10pm">
                   <Box
                     key={id}
