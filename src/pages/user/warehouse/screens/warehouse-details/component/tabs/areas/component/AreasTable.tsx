@@ -1,6 +1,7 @@
 import CreateIcon from "@mui/icons-material/Create";
 import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from "@mui/icons-material/Delete";
+
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -20,6 +21,7 @@ import {
   Toolbar,
   Tooltip,
   Typography,
+  Button
 } from "@mui/material";
 import { useAlert } from "components/alert";
 import { useState } from "react";
@@ -280,11 +282,35 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         >
           All
         </Typography>
-        <Tooltip title="Add" onClick={()=>handleOpen()}>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
+        {/* <Tooltip title="Add" onClick={()=>handleOpen()}>
+        <Button
+              sx={{
+                backgroundColor: palette.info.dark,
+                width: "inherit",
+                height: "45px",
+                borderRadius: "5px",
+              }}
+              variant="contained"
+            >
+              <AddIcon
+                sx={{
+                  fontSize:18,
+                  mr:1
+                }}
+              />
+              <Typography
+                component="span"
+                sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
+              >
+                Add
+              </Typography>
+            </Button>
+        </Tooltip> */}
+          <Tooltip title="Add" onClick={() => handleOpen()}>
+        <IconButton>
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
         <Tooltip title="Search">
           <IconButton>
             <SearchIcon />

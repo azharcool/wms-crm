@@ -15,33 +15,35 @@ export interface IPermissionRequest {
   isScreen?: boolean;
 }
 
-export interface IWarehouses{
-  id: number,
-  locations:string,
-  parents:string,
-  quantity:number,
-  height:number,
-  width:number,
-  max:number,
-  volume:number,
-  containers_type: string,
-  warehouseName:string,
-  label:string,
-  email:string,
-  phoneNumber:number,
-  address:string,
-  country:string,
-  city:string,
-  zipcode:number,
-  longitude:number,
-  latitude:number,
-  status:string,
-  pickingStrategy:string,
-  receivingStrategy:string,
-  timezone:string,
-  receivingType:string,
-  defaultWarehouse:boolean,
-  allowPartialPicking:boolean
+export interface IWarehouses {
+  // length: unknown;
+  id: number;
+  locations: string;
+  parents: string;
+  quantity: number;
+  height: number;
+  length: number;
+  width: number;
+  max: number;
+  volume: number;
+  containers_type: string;
+  warehouseName: string;
+  label: string;
+  email: string;
+  phoneNumber: number;
+  address: string;
+  country: string;
+  city: string;
+  zipcode: number;
+  longitude: number;
+  latitude: number;
+  status: string;
+  pickingStrategy: string;
+  receivingStrategy: string;
+  timezone: string;
+  receivingType: string;
+  defaultWarehouse: boolean;
+  allowPartialPicking: boolean;
 }
 
 const useApiActions = () => {

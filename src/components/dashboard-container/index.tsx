@@ -13,10 +13,9 @@ const DashboardLayoutRoot: any = styled("div")(({ theme }) => {
     display: "flex",
     flex: "1 1 auto",
     maxWidth: "100%",
-    backgroundColor:palette.info.dark,
     paddingTop: 5,
     [theme.breakpoints.up("lg")]: {
-      paddingLeft: 200,
+      paddingLeft: 250,
     },
   };
 });
@@ -55,8 +54,6 @@ function DashboardLayout(props: any) {
             maxWidth: "100%",
             height: "auto",
             minHeight:"100vh",
-             borderBottomLeftRadius: 60,
-             borderTopLeftRadius: 70,
           }}
         >
           {isLoading ? (

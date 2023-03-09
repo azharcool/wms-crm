@@ -3,6 +3,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import GroupIcon from "@mui/icons-material/Group";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import MinimizeIcon from '@mui/icons-material/Minimize';
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
@@ -33,9 +34,7 @@ const items = [
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
-  },
-  
-
+  }
 ];
 
 export function DashboardSidebar(props: any) {
@@ -67,8 +66,9 @@ export function DashboardSidebar(props: any) {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          backgroundColor: palette.info.dark,
-          // backgroundColor:'red',
+          // backgroundColor: palette.info.dark,
+        backgroundColor:'#152238',
+          // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521);",
           color: "#000",
           // zIndex:8,
           // "&::after": {
@@ -123,7 +123,7 @@ export function DashboardSidebar(props: any) {
         anchor="left"
         PaperProps={{
           sx: {
-            width: 200,
+            width: 250,
             borderRightColor:palette.info.dark
           },
         }}
@@ -141,7 +141,7 @@ export function DashboardSidebar(props: any) {
       PaperProps={{
         sx: {
           color: "#000",
-          width: 200,
+          width: 250,
         },
       }}
       sx={{

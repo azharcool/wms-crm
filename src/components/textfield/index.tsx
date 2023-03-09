@@ -32,6 +32,7 @@ interface Props extends InputProps {
   className?: string;
   hasAllValue?: boolean;
   minDate?: any;
+  length?:number
 }
 
 const CustomField = styled(InputField)({
@@ -76,6 +77,7 @@ function TextField(props: Props) {
     className,
     hasAllValue,
     minDate,
+    length
   } = props;
 
   return (
@@ -84,7 +86,7 @@ function TextField(props: Props) {
         <FormLabel
           htmlFor={name}
           sx={{
-            color: "inherit",
+            // color: "inherit",
             fontSize: { xs: "1rem", xl: "1.3rem", fontWeight: "500" },
             marginTop: "5px",
             textTransform: "capitalize",
@@ -103,6 +105,7 @@ function TextField(props: Props) {
           error={error}
           id={name}
           inputProps={{
+            maxLength: length,
             startAdornment: iconEnd ? null : (
               <InputAdornment position="start">{icon}</InputAdornment>
             ),
@@ -131,13 +134,13 @@ function TextField(props: Props) {
           className={className}
           disabled={disabled}
           error={error}
-          inputProps={{ "aria-label": "Without label" }}
-          sx={{ backgroundColor: "#fff" }}
+          // inputProps={{ "aria-label": "Without label" }}
+          // sx={{ backgroundColor: "#fff" }}
           value={value?.toString()}
           onChange={onSelectHandler}
         >
           <MenuItem value="">
-            <em>None</em>
+            <em>{placeholder}</em>
           </MenuItem>
           {menuItems?.map((item) => {
             const values = Object.values(item).join(",");

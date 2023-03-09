@@ -72,6 +72,7 @@ const handleClose=()=>{
                 buttonText="Edit"
                   handleClick={handleOpen}
                 title="Warehouse Details"
+                breadcrumbs={[{link:"Warehouse", to:"/warehouse"}]}
               />
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs

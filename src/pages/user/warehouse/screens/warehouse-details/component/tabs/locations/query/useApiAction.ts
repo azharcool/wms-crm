@@ -19,13 +19,17 @@ export interface IWarehouses{
   warehouse: unknown;
 
   id: number,
-  Aisle: String,
-  Bay: String,
+  aisle: string,
+  bay: string,
   level:string,
-  Bin:string,
+  bin:string,
   X: string,
   Z:string,
   Y:string,
+  volume:number,
+  height:number,
+  width:number,
+  max:number,
   warehouseName:string,
   area:string;
   label:string,

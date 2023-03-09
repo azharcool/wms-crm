@@ -53,6 +53,26 @@ const ErrorMessages = {
   },
   Container: {
     quantity: "Please enter Quantity",
+    height: "Please enter height" ,
+    width:  "Please enter width",
+    max:  "Please enter max",
+    length: "Please enter length",
+    volume:  "Please enter volume",
+ },
+ Location:{
+  X:" Please enter X-cordinates",
+  Y:" Please enter Y-cordinates",
+  Z:" Please enter Z-cordinates",
+  height: "Please enter height" ,
+  width:  "Please enter width",
+  max:  "Please enter max",
+  length: "Please enter length",
+  volume:  "Please enter volume",
+  aisle: "Please enter aisle",
+  bay: "Please enter bay",
+  level: "Please enter level",
+  bin: "Please enter bin",
+
  },
   warehouse: {
     warehouseName: "Please enter warehouse name",

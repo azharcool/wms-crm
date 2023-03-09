@@ -21,6 +21,7 @@ export const SCREEN_CODES = {
   INBOX: "inbox_01",
   CARD: "card_01",
   DEALS: "deals_01",
+  VARIANTS: "variants_01",
 };
 
 export const ACCESS_CODES = {

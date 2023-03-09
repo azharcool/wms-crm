@@ -26,27 +26,7 @@ export const Permissions = Loadable({
   loading: () => <Spinner />,
 });
 
-export const CustomFields = Loadable({
-  loader: () => import("pages/admin/settings/screens/custom-fields"),
-  loading: () => <Spinner />,
-});
-
 export const Roles = Loadable({
   loader: () => import("pages/admin/settings/screens/roles"),
-  loading: () => <Spinner />,
-});
-
-export const LeadSource = Loadable({
-  loader: () => import("pages/admin/settings/screens/lead-source"),
-  loading: () => <Spinner />,
-});
-
-export const LeadStatus = Loadable({
-  loader: () => import("pages/admin/settings/screens/lead-status"),
-  loading: () => <Spinner />,
-});
-
-export const Pipelines = Loadable({
-  loader: () => import("pages/admin/settings/screens/pipelines"),
   loading: () => <Spinner />,
 });
