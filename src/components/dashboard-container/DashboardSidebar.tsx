@@ -3,6 +3,7 @@ import ForumIcon from "@mui/icons-material/Forum";
 import GroupIcon from "@mui/icons-material/Group";
 import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import WarehouseIcon from '@mui/icons-material/Warehouse';
+import MinimizeIcon from '@mui/icons-material/Minimize';
 import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
@@ -33,6 +34,12 @@ const items = [
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
+  },
+  {
+    href: AppRoutes.VARIANTS,
+    icon: <MinimizeIcon fontSize="small" />,
+    title: "Variants",
+    screenCode: SCREEN_CODES.VARIANTS,
   },
   
 

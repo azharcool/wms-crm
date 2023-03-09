@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import { Route, Routes } from "react-router-dom";
 import AppRoutes from "./appRoutes";
 import * as AdminLoadable from "./loadRoutes/admin.load";
@@ -5,9 +6,11 @@ import * as AuthLoadable from "./loadRoutes/auth.load";
 // import * as ContactLoadable from "./loadRoutes/contact.load";
 import * as SettingsLoadable from "./loadRoutes/settings.load";
 import * as UserLoadable from "./loadRoutes/user.load";
+// import * as VariantsLoadable from "./loadRoutes/variants.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
+import { Variants } from './loadRoutes/varaints';
 
 function Application() {
   return (
@@ -23,6 +26,11 @@ function Application() {
               path={AppRoutes.WAREHOUSE}
             />
              <Route
+              // eslint-disable-next-line import/namespace
+              element={<UserLoadable.Variants />}
+              path={AppRoutes.VARIANTS}
+            />
+             <Route
               element={<UserLoadable.WarehouseDetails />}
               path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
               />
@@ -34,6 +42,16 @@ function Application() {
               element={<UserLoadable.ZoneDetails />}
               path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
               />
+               <Route
+              element={<UserLoadable.LocationDetails />}
+              path={`${AppRoutes.LOCATION_DETAILS}/:locationId`}
+              />
+               <Route
+              // eslint-disable-next-line import/namespace
+              element={<UserLoadable.ContainerDetails />}
+              path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
+              />
+
           <Route
             element={<SettingPermissionsLayout />}
             path={AppRoutes.SETTINGS}

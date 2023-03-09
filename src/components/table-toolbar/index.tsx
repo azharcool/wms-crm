@@ -38,10 +38,12 @@ function TableToolbar(props: ITableToolbar) {
           <Box sx={{ m: 1 }}>
             <Button
               sx={{
-                backgroundColor: palette.info.main,
+                // backgroundColor: palette.info.main,
                 width: "inherit",
                 height: "45px",
                 borderRadius: "5px",
+                backgroundColor: "#f1faff",
+                color: "#009ef7",
               }}
               variant="contained"
               onClick={() => {

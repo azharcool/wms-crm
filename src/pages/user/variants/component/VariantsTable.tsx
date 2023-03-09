@@ -1,10 +1,8 @@
 import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from "@mui/icons-material/Search";
+import SearchIcon from '@mui/icons-material/Search';
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
 import {
   alpha,
   Box,
@@ -23,48 +21,44 @@ import {
 } from "@mui/material";
 import { useAlert } from "components/alert";
 import { useState } from "react";
-import FilterListIcon from "@mui/icons-material/FilterList";
+import FilterListIcon from '@mui/icons-material/FilterList';
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
-import MoreMenu from "components/common/MoreMenu";
-// import LocationsForm from "./LocationsForm";
-import { IPermission } from "../query/useFetchPermissions";
-import ContainersForm from "./ContainersForm";
+import WarehouseForm from "./WarehouseForm";
+// import { IPermission } from "../query/useFetchPermissions";
+
 
 interface IProps {
-  containers: IContainers[];
+  warehouses: IWarehouse[];
   total: number;
   setCurrentPage?: (page: number) => void;
   setPageLimit?: (limit: number) => void;
   openModal?: (data: any) => void;
-  handleDeletePermission: (id: number) => void;
+  handleDeleteWarehouse: (id: string) => void;
 }
 
-interface IContainers {
-  id: string;
-  locationlabel: string;
-  area: string;
-  zone: string;
-  Aisle: any;
-  bay: any;
-  level: any;
-  bin: any;
-  status: any;
-  operations: any;
-  warehouse: string;
+interface IWarehouse{
+  id:string,
+  name:string,
+  label:string,
+  city:string,
+  email:string,
+  phone:number,
+  primaryContact:string
 }
 
-function ContainersTable(props: IProps) {
+
+function VariantTable(props: IProps) {
   const {
-    containers,
+    warehouses,
     total,
     setCurrentPage,
     setPageLimit,
     openModal,
-    handleDeletePermission,
+    handleDeleteWarehouse,
   } = props;
 
   const { setPermission } = usePermissionActions();
@@ -75,18 +69,17 @@ function ContainersTable(props: IProps) {
   );
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  const [open, setOpen] = useState(false);
-
+  const [open, setOpen]= useState(false);
   const handleSelectAll = (event: any) => {
-    const newSelectedCustomerIds: string[] = [];
+    let newSelectedCustomerIds: string[] = [];
 
-    // if (event.target.checked) {
-    //   newSelectedCustomerIds = locations.map((warehouse: any) => {
-    //     return warehouse.id;
-    //   });
-    // } else {
-    //   newSelectedCustomerIds = [];
-    // }
+    if (event.target.checked) {
+      newSelectedCustomerIds = warehouses.map((warehouse: any) => {
+        return warehouse.id;
+      });
+    } else {
+      newSelectedCustomerIds = [];
+    }
 
     setSelectedPermissionIds(newSelectedCustomerIds);
   };
@@ -139,29 +132,23 @@ function ContainersTable(props: IProps) {
       message: "Do you really want to delete",
       cancelText: "No",
       confirmText: "Yes",
-      // onConfirm: () => handleDeletePermission?.(id),
+      onConfirm: () => handleDeleteWarehouse?.(id),
     });
   };
-
-
-  // const gotoDetails = () =>{
-  //   navigate(`${AppRoutes.CONTAINER_DETAILS}/${id}`);
-  // }
-  const handleOpen = () => {
-    setOpen(true);
+  const gotoDetails = (id: string) => {
+    navigate(`${AppRoutes.WAREHOUSE_DETAILS}/${id}`);
   };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleEdit = () => {
-    setOpen(true);
-  };
+  const handleEdit=(item:IWarehouse)=>{
+   setOpen(true)
+  }
+  const handleClose =()=>{
+    setOpen(false)
+  }
   return (
     <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050, overflow: "auto" }}>
-          <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
+        <EnhancedTableToolbar numSelected={3} />
           <Table>
             <TableHead>
               <TableRow>
@@ -178,61 +165,40 @@ function ContainersTable(props: IProps) {
                   />
                 </TableCell>
                 <TableCell>Image</TableCell>
-                <TableCell>ID</TableCell>
-                <TableCell>Container type</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>SKUs</TableCell>
-                <TableCell>Qty</TableCell>
-                <TableCell>Inside</TableCell>
-                <TableCell>Dimensions</TableCell>
-                <TableCell>Volume</TableCell>
+                <TableCell>Variants</TableCell>
+                <TableCell>Pieces</TableCell>
+                <TableCell>UoM</TableCell>
+                <TableCell>Barcode</TableCell>
+                <TableCell>Listed On </TableCell>
+                <TableCell>Available</TableCell>
+                <TableCell>Unavailable</TableCell>
+                <TableCell>Onhand</TableCell>
+                <TableCell>Allocated</TableCell>
+                <TableCell>Awaiting</TableCell>         
+                <TableCell>M.R.P</TableCell>
+                <TableCell>In transfer</TableCell>
+                <TableCell>Supply price</TableCell>
+                <TableCell>Retail price</TableCell>
+                <TableCell>M.R.P</TableCell>
+                <TableCell>Category</TableCell>
+                <TableCell>Brand</TableCell>
+                <TableCell>Company</TableCell>
+                <TableCell>Tags</TableCell>
+                <TableCell>Last updated</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    // checked={selectedPermissionIds.length === total}
-                    checked={false}
-                    color="primary"
-                    indeterminate={
-                      selectedPermissionIds.length > 0 &&
-                      selectedPermissionIds.length < total
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell>Image 1</TableCell>
-                {/* <TableCell
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => gotoDetails(id)}
-                >
-                  ID1
-                </TableCell> */}
-                <TableCell>cont</TableCell>
-                <TableCell>Location 1</TableCell>
-                <TableCell>SKUs</TableCell>
-                <TableCell>1000</TableCell>
-                <TableCell>8</TableCell>
-                <TableCell>6</TableCell>
-                <TableCell>5</TableCell>
-              </TableRow>
-            </TableBody>
-            {/* <TableBody>
-              {locations.map((locations: ILocations) => {
+              {warehouses.map((warehouse:IWarehouse) => {
                 const {
                   id,
-                  locationlabel,
-                  area,
-                  zone,
-                  Aisle,
-                  bay,
-                  level,
-                  bin,
-                  status,
-                  operations,
-                  warehouse,
-                } = locations;
+                  name,
+                  label,
+                  city,
+                  email,
+                  phone,
+                  primaryContact
+                } = warehouse;
                 return (
                   <TableRow
                     key={id}
@@ -248,24 +214,12 @@ function ContainersTable(props: IProps) {
                         }}
                       />
                     </TableCell>
-                    <TableCell
-                      sx={{ cursor: "pointer" }}
-                      onClick={() => gotoDetails(id)}
-                    >
-                      {" "}
-                      {locationlabel}
-                    </TableCell>
-                    <TableCell>container 1</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>{bay}</TableCell>
-                    <TableCell>{level}</TableCell>
-                    <TableCell>{bin}</TableCell>
-                    <TableCell>{status}</TableCell>
-                    <TableCell>{operations}</TableCell>
-                    <TableCell>{warehouse}</TableCell>
-                 
-
+                    <TableCell sx={{ cursor: "pointer" }} onClick={() => gotoDetails(id)}> {name}</TableCell>
+                    <TableCell>{label}</TableCell>
+                    <TableCell>{city}</TableCell>
+                    <TableCell>{email}</TableCell>
+                    <TableCell>{phone}</TableCell>
+                    <TableCell>{primaryContact}</TableCell>
                     <TableCell>
                       <Box
                         sx={{
@@ -276,16 +230,32 @@ function ContainersTable(props: IProps) {
                           },
                         }}
                       >
-                        <Box>
-                          <IconButton onClick={() => handleEdit()}>
+                         <Box>
+                          <IconButton
+                            onClick={() => handleEdit(warehouse)}
+                          >
                             <CreateIcon
                               sx={{
                                 fontSize: "1.2rem",
                                 color: palette.secondary.lightGray,
                                 "&:hover": {
-                                  color: palette.info.dark,
+                                  color: palette.info.main,
                                 },
                               }}
+                            />
+                          </IconButton>
+                        </Box>
+                        <Box>
+                          <IconButton>
+                            <DeleteIcon
+                              sx={{
+                                fontSize: "1.2rem",
+                                color: palette.secondary.lightGray,
+                                "&:hover": {
+                                  color: palette.error.main,
+                                },
+                              }}
+                              onClick={() => handleDelete(id)}
                             />
                           </IconButton>
                         </Box>
@@ -294,7 +264,7 @@ function ContainersTable(props: IProps) {
                   </TableRow>
                 );
               })}
-            </TableBody> */}
+            </TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
@@ -307,17 +277,16 @@ function ContainersTable(props: IProps) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
       />
-      <ContainersForm handleClose={handleClose} open={open} />
+      <WarehouseForm open={open} handleClose={handleClose} isEdit={false} />
     </Card>
   );
 }
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  handleOpen: () => void;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, handleOpen } = props;
+  const { numSelected } = props;
 
   return (
     <Toolbar
@@ -330,41 +299,37 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         // }),
       }}
     >
-      <Typography
-        component="div"
-        id="tableTitle"
-        sx={{ flex: "1 1 100%" }}
-        variant="h6"
-      >
-        All
-      </Typography>
-      <Tooltip title="Add" onClick={() => handleOpen()}>
-        <IconButton>
-          <AddIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Search">
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Filter list">
-        <IconButton>
-          <FormatAlignCenterIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Filter list">
-        <IconButton>
-          <FilterListIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="More">
-        <IconButton>
-          <MoreVertIcon />
-        </IconButton>
-      </Tooltip>
+      
+        <Typography
+          sx={{ flex: '1 1 100%' }}
+          variant="h6"
+          id="tableTitle"
+          component="div"
+        >
+          All
+        </Typography>
+        <Tooltip title="Search">
+          <IconButton>
+            <SearchIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Ordering">
+          <IconButton>
+            <FormatAlignCenterIcon />
+          </IconButton>
+        </Tooltip> 
+        <Tooltip title="Filter list">
+          <IconButton>
+            <FilterListIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="More">
+          <IconButton>
+            <MoreVertIcon />
+          </IconButton>
+        </Tooltip>
     </Toolbar>
   );
 }
 
-export default ContainersTable;
+export default VariantTable;
