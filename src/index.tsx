@@ -1,4 +1,3 @@
-// import { StyledEngineProvider, ThemeProvider } from "@mui/system";
 import {
   ThemeProvider,
   createTheme,
@@ -9,7 +8,7 @@ import DarkModeToggle from "components/Darktheme/DarkModeToggle";
 import { SnackbarProvider } from "components/snackbar";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "redux/store";
@@ -19,33 +18,45 @@ import reportWebVitals from "./reportWebVitals";
 import theme from "./theme/newTheme";
 
 const queryClient = new QueryClient();
+
+const lightTheme = createTheme({
+  palette: {
+    mode: "light",
+  },
+});
+
 const darkTheme = createTheme({
   palette: {
     mode: "dark",
   },
 });
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
+// const newtheme = useSelector((state: any) => state.customThemeReducer.newTheme);
+
+/* <ThemeProvider theme={newtheme ? darkTheme : lightTheme}> */
+
 root.render(
   <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <DarkModeToggle>
-          <ThemeProvider theme={darkTheme}>
-            <StyledEngineProvider>
-              <SnackbarProvider>
-                <AlertProvider>
-                  <QueryClientProvider client={queryClient}>
-                    <Router>
-                      <App />
-                    </Router>
-                  </QueryClientProvider>
-                </AlertProvider>
-              </SnackbarProvider>
-            </StyledEngineProvider>
-          </ThemeProvider>
-        </DarkModeToggle>
+        {/* <DarkModeToggle> */}
+        {/* <ThemeProvider theme={darkTheme}> */}
+        <StyledEngineProvider>
+          <SnackbarProvider>
+            <AlertProvider>
+              <QueryClientProvider client={queryClient}>
+                <Router>
+                  <App />
+                </Router>
+              </QueryClientProvider>
+            </AlertProvider>
+          </SnackbarProvider>
+        </StyledEngineProvider>
+        {/* </ThemeProvider> */}
+        {/* </DarkModeToggle> */}
       </PersistGate>
     </Provider>
   </>,

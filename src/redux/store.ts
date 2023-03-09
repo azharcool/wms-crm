@@ -16,6 +16,7 @@ import roles from "./roles/roles";
 import screens from "./screen/screen";
 import team from "./team/team";
 import user from "./user/auth";
+import theme from "./darktheme/customtheme";
 
 const persistConfig = {
   key: "root",
@@ -34,6 +35,7 @@ const combinedReducer = combineReducers({
   leadStatuses,
   common,
   pipelines,
+  theme,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

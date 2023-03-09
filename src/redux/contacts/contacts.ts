@@ -3,10 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-// import { IColumn } from "pages/user/contacts/components/ContactTable";
-// import { INotesForm } from "pages/user/contacts/details/component/notes/useNotesForm";
-// import { IContacts } from "pages/user/contacts/details/query/useFetchContactById";
-// import { IAllCount } from "pages/user/contacts/details/query/useFetchTotalCounts";
+
 import { useAppDispatch } from "redux/store";
 
 type IContactIds = number[];
@@ -30,8 +27,7 @@ export interface IContactsReducer {
 }
 
 const initialState: IContactsReducer = {
-  // columnIds: [],
-  // contact: {} as IContacts,
+
   contactIds: [],
   myListIds: [],
   deleteIds: [],
