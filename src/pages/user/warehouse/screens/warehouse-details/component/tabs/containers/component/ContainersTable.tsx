@@ -44,17 +44,16 @@ interface IProps {
 }
 
 interface IContainers {
-  id: string;
-  locationlabel: string;
-  area: string;
-  zone: string;
-  Aisle: any;
-  bay: any;
-  level: any;
-  bin: any;
-  status: any;
-  operations: any;
-  warehouse: string;
+  id:string,
+  image:string,
+  containertype:string,
+  location:string,
+  skus:string,
+  quantity:string,
+  inside:string,
+  dimension:string,
+  volume:string,
+
 }
 
 function ContainersTable(props: IProps) {
@@ -144,9 +143,9 @@ function ContainersTable(props: IProps) {
   };
 
 
-  // const gotoDetails = () =>{
-  //   navigate(`${AppRoutes.CONTAINER_DETAILS}/${id}`);
-  // }
+  const gotoDetails = (id:any) =>{
+    navigate(`${AppRoutes.CONTAINER_DETAILS}/${id}`);
+  }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -188,51 +187,20 @@ function ContainersTable(props: IProps) {
                 <TableCell>Volume</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              <TableRow>
-                <TableCell padding="checkbox">
-                  <Checkbox
-                    // checked={selectedPermissionIds.length === total}
-                    checked={false}
-                    color="primary"
-                    indeterminate={
-                      selectedPermissionIds.length > 0 &&
-                      selectedPermissionIds.length < total
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell>Image 1</TableCell>
-                {/* <TableCell
-                  sx={{ cursor: "pointer" }}
-                  onClick={() => gotoDetails(id)}
-                >
-                  ID1
-                </TableCell> */}
-                <TableCell>cont</TableCell>
-                <TableCell>Location 1</TableCell>
-                <TableCell>SKUs</TableCell>
-                <TableCell>1000</TableCell>
-                <TableCell>8</TableCell>
-                <TableCell>6</TableCell>
-                <TableCell>5</TableCell>
-              </TableRow>
-            </TableBody>
-            {/* <TableBody>
-              {locations.map((locations: ILocations) => {
+
+        <TableBody>
+              {containers.map((containers: IContainers) => {
                 const {
                   id,
-                  locationlabel,
-                  area,
-                  zone,
-                  Aisle,
-                  bay,
-                  level,
-                  bin,
-                  status,
-                  operations,
-                  warehouse,
-                } = locations;
+                  image,
+                  containertype,
+                  location,
+                  skus,
+                  quantity,
+                  inside,
+                  dimension,
+                  volume
+                } = containers;
                 return (
                   <TableRow
                     key={id}
@@ -253,17 +221,17 @@ function ContainersTable(props: IProps) {
                       onClick={() => gotoDetails(id)}
                     >
                       {" "}
-                      {locationlabel}
+                      {image}
                     </TableCell>
-                    <TableCell>container 1</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>{bay}</TableCell>
-                    <TableCell>{level}</TableCell>
-                    <TableCell>{bin}</TableCell>
-                    <TableCell>{status}</TableCell>
-                    <TableCell>{operations}</TableCell>
-                    <TableCell>{warehouse}</TableCell>
+                    <TableCell>{id}</TableCell>
+                    <TableCell>{ containertype}</TableCell>
+                    <TableCell>{location}</TableCell>
+                    <TableCell>{skus}</TableCell>
+                    <TableCell>{quantity}</TableCell>
+                    <TableCell>{inside}</TableCell>
+                    <TableCell>{dimension}</TableCell>
+                    <TableCell>{volume}</TableCell>
+                   
                  
 
                     <TableCell>
@@ -294,7 +262,7 @@ function ContainersTable(props: IProps) {
                   </TableRow>
                 );
               })}
-            </TableBody> */}
+            </TableBody>
           </Table>
         </Box>
       </PerfectScrollbar>
