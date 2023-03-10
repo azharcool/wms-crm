@@ -264,6 +264,7 @@ function LocationsForm(props: IAddScreen) {
                       name="aisle"
                       // label="Aisle"
                       placeholder="Aisle"
+                      length={3}
                       sx={{ margin: "normal" }}
                       value={values.aisle}
                       onBlur={handleBlur("aisle")}
@@ -276,7 +277,8 @@ function LocationsForm(props: IAddScreen) {
                       error={!!touched.bay && !!errors.bay}
                       helperText={(touched.bay && errors && errors.bay) || ""}
                       name="bay"
-                   
+                      length={3}
+
                       // label="Bay/Rack"
                       placeholder="Bay/Rack"
                       sx={{ margin: "normal" }}
@@ -307,6 +309,7 @@ function LocationsForm(props: IAddScreen) {
                       helperText={
                         (touched.bin && errors && errors.bin) || ""
                       }
+                      length={3}
                       // label="Bin/Position"
                       placeholder="Bin/Position"
                       sx={{ margin: "normal" }}

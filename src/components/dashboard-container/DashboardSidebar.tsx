@@ -34,6 +34,12 @@ const items = [
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
+  },
+  {
+    href: AppRoutes.PURCHASE_ORDER,
+    icon: <ChartBarIcon fontSize="small" />,
+    title: "Purchases",
+    screenCode: SCREEN_CODES.PURCHASE,
   }
 ];
 

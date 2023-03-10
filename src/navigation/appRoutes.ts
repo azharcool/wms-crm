@@ -9,6 +9,8 @@ const AppRoutes = {
   ZONE_DETAILS: "/zone-details",
   LOCATION_DETAILS: "/location-details",
   CONTAINER_DETAILS: "/container-details",
+  PURCHASE_ORDER: "/purchase-order",
+  All_ORDER_DETAILS: "/allOrder-details",
   PERMISSIONS: "permissions",
   SCREEN_ACCESS: "screen-access",
   CUSTOM_FIELDS: "custom-fields",
