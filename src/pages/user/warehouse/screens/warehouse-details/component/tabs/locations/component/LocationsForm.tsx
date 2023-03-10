@@ -292,7 +292,7 @@ function LocationsForm(props: IAddScreen) {
                       helperText={
                         (touched.level && errors && errors.level) || ""
                       }
-                      // label="Level/Shelf"
+                     
                       placeholder="level/shelf"
                       sx={{ margin: "normal" }}
                       value={values.level}
@@ -307,7 +307,7 @@ function LocationsForm(props: IAddScreen) {
                       helperText={
                         (touched.bin && errors && errors.bin) || ""
                       }
-                      // label="Bin/Position"
+                     
                       placeholder="Bin/Position"
                       sx={{ margin: "normal" }}
                       value={values.bin}
@@ -338,7 +338,7 @@ function LocationsForm(props: IAddScreen) {
                         helperText={
                           (touched.volume  && errors.volume) || ""
                         }
-                        // label="Aisle"
+                      
                         placeholder="Volume"
                         sx={{ margin: "normal" }}
                         value={values.volume}
@@ -351,7 +351,7 @@ function LocationsForm(props: IAddScreen) {
                         helperText={
                           (touched.height && errors.height) || ""
                         }
-                        // label="Bay/Rack"
+                        
                         placeholder="Height"
                         sx={{ margin: "normal" }}
                         value={values.height}
@@ -364,7 +364,7 @@ function LocationsForm(props: IAddScreen) {
                         helperText={
                           (touched.width  && errors.width) || ""
                         }
-                        // label="Level/Shelf"
+                       
                         placeholder="Width"
                         sx={{ margin: "normal" }}
                         value={values.width}
@@ -372,10 +372,9 @@ function LocationsForm(props: IAddScreen) {
                         onChange={handleChange("width")}
                       />
                       <TextField
-                        // sx={{ margin: "normal" }}
+                       
                         error={!!touched.max && !!errors.max}
                         helperText={(touched.max && errors && errors.max) || ""}
-                        // label="Bin/Position"
                         name="max"
                         placeholder="max.load"
                         value={values.max}

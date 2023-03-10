@@ -291,7 +291,7 @@ function ContainersForm(props: IAddScreen) {
                   helperText={
                     (touched.quantity && errors && errors.quantity) || ""
                   }
-                  label="Quantity"
+                  // label="Quantity"
                   name="quantity"
                   placeholder="Quantity"
                   value={values.quantity}
@@ -335,7 +335,6 @@ function ContainersForm(props: IAddScreen) {
                   <TextField
                     error={!!touched.width && !!errors.width}
                     helperText={(touched.width && errors && errors.width) || ""}
-                 
                     name="width"
                     placeholder="width"
                     style={{ width: "200px" }}
@@ -348,8 +347,8 @@ function ContainersForm(props: IAddScreen) {
                     helperText={(touched.length && errors && errors.length) || ""}
                  
                     name="length"
-                    placeholder="width"
-                    style={{ width: "200px" }}
+                    placeholder="length"
+                    style={{ width: "200px", mt: "15px" , mr: "5px" }}
                     value={values.length}
                     onBlur={handleBlur("length")}
                     onChange={handleChange("length")}
@@ -360,7 +359,7 @@ function ContainersForm(props: IAddScreen) {
                    
                     name="max"
                     placeholder="Max.Load"
-                    style={{ width: "200px", mr: "2px" }}
+                    style={{ width: "200px",  mt: "15px"  }}
                     value={values.max}
                     onBlur={handleBlur("max")}
                     onChange={handleChange("max")}
@@ -372,6 +371,7 @@ function ContainersForm(props: IAddScreen) {
                     name="volume"
                     placeholder="volume"
                     //   style={{ width: "550px" }}
+                    style={{width: "500px",mt:"15px"}}
                     value={values.volume}
                     onBlur={handleBlur("volume")}
                     onChange={handleChange("volume")}

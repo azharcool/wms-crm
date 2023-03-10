@@ -44,11 +44,13 @@ interface IProps {
   handleDeletePermission: (id: number) => void;
 }
 
-const useStyles= makeStyles({
-  sticky:{
-    position:"sticky", left:0, background:"#f4f4f4"
-  }
-})
+const useStyles = makeStyles({
+  sticky: {
+    position: "sticky",
+    left: 0,
+    background: "#f4f4f4",
+  },
+});
 
 interface ILocations {
   id: string;
@@ -97,7 +99,7 @@ function LocationsTable(props: IProps) {
 
     setSelectedPermissionIds(newSelectedCustomerIds);
   };
-  const classes = useStyles()
+  const classes = useStyles();
   const handleSelectOne = (event: any, id: any) => {
     const selectedIndex = selectedPermissionIds.indexOf(id);
     let newSelectedCustomerIds: string[] = [];
@@ -166,136 +168,181 @@ function LocationsTable(props: IProps) {
     <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050, overflow: "hidden" }}>
-          <EnhancedTableToolbar numSelected={3} handleOpen={handleOpen} />
-          <TableContainer style={{ minWidth: 1050, overflow:'auto'}}>
-          <Table sx={{}}>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox" className={classes.sticky}>
-                  <Checkbox
-                    // checked={selectedPermissionIds.length === total}
-                    className={classes.sticky}
-                    checked={false}
-                    color="primary"
-                    indeterminate={
-                      selectedPermissionIds.length > 0 &&
-                      selectedPermissionIds.length < total
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell className={classes.sticky}>Location Label</TableCell>
-                <TableCell>Area</TableCell>
-                <TableCell>Zone</TableCell>
-                <TableCell>Aisle</TableCell>
-                <TableCell>Bay</TableCell>
-                <TableCell>Level</TableCell>
-                <TableCell>Bin</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Operations</TableCell>
-                <TableCell>Warehouse</TableCell>
-                <TableCell>Location Type</TableCell>
-                <TableCell>Location Alias</TableCell>
-                <TableCell>Container</TableCell>
-                <TableCell>Available</TableCell>
-                <TableCell>Volume</TableCell>
-                <TableCell>Used Volume</TableCell>
-                <TableCell>Dimensions</TableCell>
-                <TableCell>Max. Load</TableCell>
-                <TableCell>Used Load</TableCell>
-                <TableCell>Utilization</TableCell>
-                <TableCell>Actions</TableCell>
-             
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {locations.map((locations: ILocations) => {
-                const {
-                  id,
-                  locationlabel,
-                  area,
-                  zone,
-                  Aisle,
-                  bay,
-                  level,
-                  bin,
-                  status,
-                  operations,
-                  warehouse,
-                } = locations;
-                return (
-                  <TableRow
-                    key={id}
-                    selected={selectedPermissionIds.indexOf(id) !== -1}
+          <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
+          <TableContainer style={{ minWidth: 1050, overflow: "auto" }}>
+            <Table sx={{}}>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.sticky} padding="checkbox">
+                    <Checkbox
+                      // checked={selectedPermissionIds.length === total}
+                      checked={false}
+                      className={classes.sticky}
+                      color="primary"
+                      indeterminate={
+                        selectedPermissionIds.length > 0 &&
+                        selectedPermissionIds.length < total
+                      }
+                      onChange={handleSelectAll}
+                    />
+                  </TableCell>
+                  <TableCell
+                    sx={{
+                      cursor: "pointer",
+                      position: "sticky",
+                      left: 40,
+                      background: "white",
+                    }}
                   >
-                    <TableCell padding="checkbox"  sx={{ position:"sticky", left:0, background:'white'}}>
-                      <Checkbox
-                      sx={{ position:"sticky", left:0, background:'white'}}
-                        checked={selectedPermissionIds.indexOf(id) !== -1}
-                        value="true"
-                        onChange={(event) => {
-                          return handleSelectOne(event, id);
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                    scope="row"
-                    component="th"
-                      sx={{ cursor: "pointer", position:"sticky", left:0, background:'white'}}
-                      onClick={() => gotoDetails(id)}
+                    Location Label
+                  </TableCell>
+                  <TableCell>Area</TableCell>
+                  <TableCell>Zone</TableCell>
+                  <TableCell>Aisle</TableCell>
+                  <TableCell>Bay</TableCell>
+                  <TableCell>Level</TableCell>
+                  <TableCell>Bin</TableCell>
+                  <TableCell>Status</TableCell>
+                  <TableCell>Operations</TableCell>
+                  <TableCell>Warehouse</TableCell>
+                  <TableCell>Location Type</TableCell>
+                  <TableCell>Location Alias</TableCell>
+                  <TableCell>Container</TableCell>
+                  <TableCell>Available</TableCell>
+                  <TableCell>Volume</TableCell>
+                  <TableCell>Used Volume</TableCell>
+                  <TableCell>Dimensions</TableCell>
+                  <TableCell>Max. Load</TableCell>
+                  <TableCell>Used Load</TableCell>
+                  <TableCell>Utilization</TableCell>
+                  <TableCell
+                    sx={{
+                      cursor: "pointer",
+                      position: "sticky",
+                      right: 0,
+                      background: "white",
+                    }}
+                  >
+                    Actions
+                  </TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {locations.map((locations: ILocations) => {
+                  const {
+                    id,
+                    locationlabel,
+                    area,
+                    zone,
+                    Aisle,
+                    bay,
+                    level,
+                    bin,
+                    status,
+                    operations,
+                    warehouse,
+                  } = locations;
+                  return (
+                    <TableRow
+                      key={id}
+                      selected={selectedPermissionIds.indexOf(id) !== -1}
                     >
-                      {locationlabel}
-                    </TableCell>
-                    <TableCell>{area}</TableCell>
-                    <TableCell>{zone}</TableCell>
-                    <TableCell>{Aisle}</TableCell>
-                    <TableCell>{bay}</TableCell>
-                    <TableCell>{level}</TableCell>
-                    <TableCell>{bin}</TableCell>
-                    <TableCell>{status}</TableCell>
-                    <TableCell>{operations}</TableCell>
-                    <TableCell>{warehouse}</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>-</TableCell>
-                    <TableCell>
-                      <Box
+                      <TableCell
+                        padding="checkbox"
                         sx={{
-                          display: "flex",
-                          gap: 1,
-                          "& svg": {
-                            cursor: "pointer",
-                          },
+                          position: "sticky",
+                          left: 0,
+                          background: "white",
                         }}
                       >
-                        <Box>
-                          <IconButton onClick={() => handleEdit()}>
-                            <CreateIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.dark,
-                                },
-                              }}
-                            />
-                          </IconButton>
+                        <Checkbox
+                          checked={selectedPermissionIds.indexOf(id) !== -1}
+                          sx={{
+                            position: "sticky",
+                            left: 0,
+                            background: "white",
+                          }}
+                          value="true"
+                          onChange={(event) => {
+                            return handleSelectOne(event, id);
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        sx={{
+                          cursor: "pointer",
+                          position: "sticky",
+                          left: 40,
+                          background: "white",
+                        }}
+                        onClick={() => gotoDetails(id)}
+                      >
+                        {locationlabel}
+                      </TableCell>
+                      <TableCell>{area}</TableCell>
+                      <TableCell>{zone}</TableCell>
+                      <TableCell>{Aisle}</TableCell>
+                      <TableCell>{bay}</TableCell>
+                      <TableCell>{level}</TableCell>
+                      <TableCell>{bin}</TableCell>
+                      <TableCell>{status}</TableCell>
+                      <TableCell>{operations}</TableCell>
+                      <TableCell>{warehouse}</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      <TableCell>-</TableCell>
+                      {/* <TableCell>-</TableCell> */}
+                      <TableCell
+                        className={classes.sticky}
+                        sx={{
+                          cursor: "pointer",
+                          position: "sticky",
+                          right: 0,
+                          background: "white",
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: 1,
+                            "& svg": {
+                              cursor: "pointer",
+                            },
+                          }}
+                        >
+                          <Box>
+                            <IconButton onClick={() => handleEdit()}>
+                              <CreateIcon
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  cursor: "pointer",
+                                  position: "sticky",
+                                  right: 0,
+                                  background: "white",
+                                  // color: palette.secondary.lightGray,
+                                  // "&:hover": {
+                                  //   color: palette.info.dark,
+                                  // },
+                                }}
+                              />
+                            </IconButton>
+                          </Box>
                         </Box>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </TableContainer>
         </Box>
       </PerfectScrollbar>
@@ -332,10 +379,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       }}
     >
       <Typography
+        component="div"
+        id="tableTitle"
         sx={{ flex: "1 1 100%" }}
         variant="h6"
-        id="tableTitle"
-        component="div"
       >
         All
       </Typography>

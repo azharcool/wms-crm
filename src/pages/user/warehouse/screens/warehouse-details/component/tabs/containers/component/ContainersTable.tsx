@@ -44,16 +44,15 @@ interface IProps {
 }
 
 interface IContainers {
-  id:string,
-  image:string,
-  containertype:string,
-  location:string,
-  skus:string,
-  quantity:string,
-  inside:string,
-  dimension:string,
-  volume:string,
-
+  id: string;
+  image: string;
+  containertype: string;
+  location: string;
+  skus: string;
+  quantity: string;
+  inside: string;
+  dimension: string;
+  volume: string;
 }
 
 function ContainersTable(props: IProps) {
@@ -142,10 +141,9 @@ function ContainersTable(props: IProps) {
     });
   };
 
-
-  const gotoDetails = (id:any) =>{
+  const gotoDetails = (id: any) => {
     navigate(`${AppRoutes.CONTAINER_DETAILS}/${id}`);
-  }
+  };
   const handleOpen = () => {
     setOpen(true);
   };
@@ -176,19 +174,20 @@ function ContainersTable(props: IProps) {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell>Image</TableCell>
+                <TableCell colSpan={3}>Image</TableCell>
                 <TableCell>ID</TableCell>
-                <TableCell>Container type</TableCell>
-                <TableCell>Location</TableCell>
-                <TableCell>SKUs</TableCell>
+                <TableCell colSpan={2}>Container type</TableCell>
+                <TableCell colSpan={2}>Location</TableCell>
+                <TableCell colSpan={2}>SKUs</TableCell>
                 <TableCell>Qty</TableCell>
-                <TableCell>Inside</TableCell>
+                <TableCell colSpan={2}>Inside</TableCell>
                 <TableCell>Dimensions</TableCell>
                 <TableCell>Volume</TableCell>
+                <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
 
-        <TableBody>
+            <TableBody>
               {containers.map((containers: IContainers) => {
                 const {
                   id,
@@ -199,7 +198,7 @@ function ContainersTable(props: IProps) {
                   quantity,
                   inside,
                   dimension,
-                  volume
+                  volume,
                 } = containers;
                 return (
                   <TableRow
@@ -217,6 +216,7 @@ function ContainersTable(props: IProps) {
                       />
                     </TableCell>
                     <TableCell
+                      colSpan={3}
                       sx={{ cursor: "pointer" }}
                       onClick={() => gotoDetails(id)}
                     >
@@ -224,15 +224,13 @@ function ContainersTable(props: IProps) {
                       {image}
                     </TableCell>
                     <TableCell>{id}</TableCell>
-                    <TableCell>{ containertype}</TableCell>
-                    <TableCell>{location}</TableCell>
-                    <TableCell>{skus}</TableCell>
+                    <TableCell colSpan={2}>{containertype}</TableCell>
+                    <TableCell colSpan={2}>{location}</TableCell>
+                    <TableCell colSpan={2}>{skus}</TableCell>
                     <TableCell>{quantity}</TableCell>
-                    <TableCell>{inside}</TableCell>
+                    <TableCell colSpan={2}>{inside}</TableCell>
                     <TableCell>{dimension}</TableCell>
                     <TableCell>{volume}</TableCell>
-                   
-                 
 
                     <TableCell>
                       <Box
@@ -249,10 +247,10 @@ function ContainersTable(props: IProps) {
                             <CreateIcon
                               sx={{
                                 fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.dark,
-                                },
+                                // color: palette.secondary.lightGray,
+                                // "&:hover": {
+                                //   color: palette.info.dark,
+                                // },
                               }}
                             />
                           </IconButton>
