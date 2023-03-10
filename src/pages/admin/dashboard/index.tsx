@@ -34,6 +34,7 @@ function Dashboard() {
   });
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
       <DashboardLayout>
         <Box
           component="main"
@@ -58,9 +59,7 @@ function Dashboard() {
                   // py: 8,
                 }}
               >
-                <Box
-                  sx={{ flex: 3, borderRadius: 5, background: "#ffff", p: 5 }}
-                >
+                <Box sx={{ flex: 3, borderRadius: 5, p: 5 }}>
                   <Box>
                     <Section />
                   </Box>

@@ -6,12 +6,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
 
 import common from "./common/common";
-import contacts from "./contacts/contacts";
-import customFields from "./custom-fields/CustomFields";
-import leadSources from "./lead-source/leadSource";
-import leadStatuses from "./lead-status/leadStatus";
 import permissions from "./permissions/permissions";
-import pipelines from "./pipeline/pipeline";
 import roles from "./roles/roles";
 import screens from "./screen/screen";
 import team from "./team/team";
@@ -25,16 +20,11 @@ const persistConfig = {
 
 const combinedReducer = combineReducers({
   user,
-  contacts,
   team,
   screens,
   permissions,
   roles,
-  customFields,
-  leadSources,
-  leadStatuses,
   common,
-  pipelines,
   theme,
 });
 

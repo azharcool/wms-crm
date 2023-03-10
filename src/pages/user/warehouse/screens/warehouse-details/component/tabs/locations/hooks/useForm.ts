@@ -8,13 +8,17 @@ import { IPermissionRequest, IWarehouses } from "../query/useApiAction";
 
 const defaultValues: IWarehouses = {
   id: 0,
-  Aisle:"",
-  Bay:"",
+  aisle:"",
+  bay:"",
   level:"",
-  Bin:"",
+  bin:"",
   X:"",
   Z:  "",
   Y: "",
+  volume:0,
+  height:0,
+  width:0,
+  max:0,
   warehouseName: "",
   area: "",
   warehouse: undefined,
@@ -66,6 +70,17 @@ const useWarehouseForm = (
       receivingType: Yup.string().required(ErrorMessages.warehouse.receivingType),
       defaultWarehouse: Yup.string().required(ErrorMessages.warehouse.defaultWarehouse),
       allowPartialPicking: Yup.string().required(ErrorMessages.warehouse.allowPartialPicking),
+      X: Yup.string().required(ErrorMessages.Location.X),
+  Z:   Yup.string().required(ErrorMessages.Location.Z),
+  Y:  Yup.string().required(ErrorMessages.Location.Y),
+  volume: Yup.string().required(ErrorMessages.Location.volume),
+  height: Yup.string().required(ErrorMessages.Location.height),
+  width: Yup.string().required(ErrorMessages.Location.width),
+  max: Yup.string().required(ErrorMessages.Location.max),
+  aisle:Yup.string().required(ErrorMessages.Location.aisle),
+  bay:Yup.string().required(ErrorMessages.Location.bay),
+  level:Yup.string().required(ErrorMessages.Location.level),
+  bin:Yup.string().required(ErrorMessages.Location.bin)
     };
    
   const schema = Yup.object().shape(validation);

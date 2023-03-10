@@ -41,10 +41,7 @@ function Section() {
             //   p: 1,
           }}
         >
-          <Typography
-            sx={{ m: 1, color: palette.text.secondary, fontSize: 20 }}
-            variant="h4"
-          >
+          <Typography sx={{ m: 1, fontSize: 20 }} variant="h4">
             Warehouse Logistics
           </Typography>
           <Box sx={{ m: 1 }}>

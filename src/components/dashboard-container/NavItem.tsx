@@ -53,7 +53,11 @@ function NavItem(props: any) {
             },
           }}
         >
-          <Typography component="p" color="white" sx={{ flexGrow: 1, fontSize: "inherit" }}>
+          <Typography
+            component="p"
+            color="white"
+            sx={{ flexGrow: 1, fontSize: "inherit" }}
+          >
             {title}
           </Typography>
         </Button>

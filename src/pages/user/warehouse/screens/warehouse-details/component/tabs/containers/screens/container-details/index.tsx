@@ -12,9 +12,10 @@ import {
 } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
-import ZoanForm from "../../component/component/ZoneForm";
+import ContainersForm from "../../component/ContainersForm";
+// import AreasForm from "../../component/AreasForm";
 
-function ZoneDetails() {
+function ContainerDetails() {
     const [open,setOpen]= useState(false);
     const handleOpen=()=>{
    setOpen(true)
@@ -37,8 +38,7 @@ function ZoneDetails() {
             <TableToolbar
               buttonText="Edit"
               handleClick={handleOpen}
-              breadcrumbs={[{link:"Warehouse", to:"/warehouse"}, {link:"Warehouse Details", to:"/warehouse-details/1"}]}
-              title="Zone Details"
+              title="Area Details"
             />
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -73,24 +73,6 @@ function ZoneDetails() {
                         Warehouse 1
                       </Typography>
                     </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 2,
-                        marginBottom: "1rem",
-                      }}
-                    >
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        Area
-                      </Typography>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "500" }}
-                        variant="h6"
-                      >
-                        Area 1
-                      </Typography>
-                    </Box>
                   </Box> 
                   <Box
                     sx={{
@@ -110,13 +92,13 @@ function ZoneDetails() {
                       }}
                     >
                       <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        Label 
+                        Name 
                       </Typography>
                       <Typography
                         sx={{ fontSize: 16, fontWeight: "500" }}
                         variant="h6"
                       >
-                        Label 1
+                        name
                       </Typography>
                     </Box>
                     <Box
@@ -129,13 +111,13 @@ function ZoneDetails() {
                       }}
                     >
                       <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        Name
+                        Lable
                       </Typography>
                       <Typography
                         sx={{ fontSize: 16, fontWeight: "500" }}
                         variant="h6"
                       >
-                        Name 1
+                        Lable1
                       </Typography>
                     </Box>
                     </Box>
@@ -178,9 +160,9 @@ function ZoneDetails() {
         </Card>
       </Container>
     </Box>
-    <ZoanForm open={open} handleClose={handleCose} />
+    <ContainersForm open={open} handleClose={handleCose} />
   </DashboardLayout>
   );
 }
 
-export default ZoneDetails;
+export default ContainerDetails;

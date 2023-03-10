@@ -52,27 +52,30 @@ function Warehouse() {
             py: 8,
           }}
         >
-          <Card>
-            <CardContent sx={{ paddingTop: 0 }}>
-              <TableToolbar
-                buttonText="New"
-                handleClick={handleOpen}
-                title="Warehouses"
-              />
-              <Box sx={{ mt: 3 }}>
-                <WarehouseTable
-                  handleDeleteWarehouse={handleDeleteWarehouse}
-                  openModal={handleOpen}
-                  warehouses={Warehouses}
-                  total={0}
-                  // permissions={permissions?.data || []}
-                  // setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-                  // setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-                  // total={permissions?.totalDocs || 0}
+          <Container maxWidth={false}>
+            <Card>
+              <CardContent sx={{ paddingTop: 0 }}>
+                <TableToolbar
+                  buttonText="New"
+                  isAdd
+                  handleClick={handleOpen}
+                  title="Warehouses"
                 />
-              </Box>
-            </CardContent>
-          </Card>
+                <Box sx={{ mt: 3 }}>
+                  <WarehouseTable
+                    handleDeleteWarehouse={handleDeleteWarehouse}
+                    openModal={handleOpen}
+                    warehouses={Warehouses}
+                    total={0}
+                    // permissions={permissions?.data || []}
+                    // setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+                    // setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+                    // total={permissions?.totalDocs || 0}
+                  />
+                </Box>
+              </CardContent>
+            </Card>
+          </Container>
         </Box>
         <WarehouseForm handleClose={handleClose} open={open} />
       </DashboardLayout>

@@ -10,16 +10,16 @@ import { useSelector } from "react-redux";
 import { DashboardNavbar } from "./DashboardNavbar";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { useFetchRolePermissionsInit } from "./query/useFetchPermissions";
+import { red } from "@mui/material/colors";
 
 const DashboardLayoutRoot: any = styled("div")(({ theme }) => {
   return {
     display: "flex",
     flex: "1 1 auto",
     maxWidth: "100%",
-    backgroundColor: palette.info.dark,
     paddingTop: 5,
     [theme.breakpoints.up("lg")]: {
-      paddingLeft: 200,
+      paddingLeft: 250,
     },
   };
 });
@@ -57,17 +57,25 @@ function DashboardLayout(props: any) {
   });
 
   const darkTheme = createTheme({
+    // palette: {
+    //   mode: "dark",
+    // },
     palette: {
       mode: "dark",
+      primary: red,
+      secondary: {
+        main: "#1e1e2d",
+      },
     },
   });
   return (
     <>
       <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+        <CssBaseline />
         <DashboardLayoutRoot>
           <Box
             sx={{
-              backgroundColor: palette.gray.light,
+              // backgroundColor: palette.gray.light,
               display: "flex",
               flex: "1 1 auto",
               maxWidth: "100%",

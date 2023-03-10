@@ -53,6 +53,7 @@ function SectionList() {
   });
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
       <Box>
         <Box
           sx={{
@@ -63,10 +64,7 @@ function SectionList() {
             p: 1,
           }}
         >
-          <Typography
-            sx={{ m: 1, color: palette.text.secondary, fontSize: 20 }}
-            variant="h4"
-          >
+          <Typography sx={{ m: 1, fontSize: 20 }} variant="h4">
             List of sections
           </Typography>
           <Box sx={{ m: 1 }}>
@@ -84,83 +82,68 @@ function SectionList() {
           <TableBody>
             <TableRow hover>
               <TableCell>
-                <Typography
-                  sx={{ color: palette.text.secondary, fontSize: 15 }}
-                  variant="h4"
-                >
+                <Typography sx={{ fontSize: 15 }} variant="h4">
                   Sections 001{" "}
                 </Typography>
               </TableCell>
-              <TableCell>28/09/2023</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>28/09/2023</TableCell>
               <TableCell sx={{ display: "felx", flexDirection: "row" }}>
-                <Typography>Used</Typography>
+                <Typography sx={{ fontSize: 15 }}>Used</Typography>
                 <BorderLinearProgress variant="determinate" value={50} />
               </TableCell>
-              <TableCell>20%</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>20%</TableCell>
             </TableRow>
             <TableRow hover>
               <TableCell>
-                <Typography
-                  sx={{ color: palette.text.secondary, fontSize: 15 }}
-                  variant="h4"
-                >
+                <Typography sx={{ fontSize: 15 }} variant="h4">
                   Sections 001{" "}
                 </Typography>
               </TableCell>
-              <TableCell>28/09/2023</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>28/09/2023</TableCell>
               <TableCell sx={{ display: "felx", flexDirection: "row" }}>
-                <Typography>Used</Typography>
+                <Typography sx={{ fontSize: 15 }}>Used</Typography>
                 <BorderLinearProgress variant="determinate" value={50} />
               </TableCell>
-              <TableCell>50%</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>50%</TableCell>
             </TableRow>
             <TableRow hover>
               <TableCell>
-                <Typography
-                  sx={{ color: palette.text.secondary, fontSize: 15 }}
-                  variant="h4"
-                >
+                <Typography sx={{ fontSize: 15 }} variant="h4">
                   Sections 002{" "}
                 </Typography>
               </TableCell>
-              <TableCell>28/09/2023</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>28/09/2023</TableCell>
               <TableCell sx={{ display: "felx", flexDirection: "row" }}>
-                <Typography>Used</Typography>
+                <Typography sx={{ fontSize: 15 }}>Used</Typography>
                 <BorderLinearProgress variant="determinate" value={70} />
               </TableCell>
-              <TableCell>70%</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>70%</TableCell>
             </TableRow>
             <TableRow hover>
               <TableCell>
-                <Typography
-                  sx={{ color: palette.text.secondary, fontSize: 15 }}
-                  variant="h4"
-                >
+                <Typography sx={{ fontSize: 15 }} variant="h4">
                   Sections 003{" "}
                 </Typography>
               </TableCell>
-              <TableCell>28/09/2023</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>28/09/2023</TableCell>
               <TableCell sx={{ display: "felx", flexDirection: "row" }}>
-                <Typography>Used</Typography>
+                <Typography sx={{ fontSize: 15 }}>Used</Typography>
                 <BorderLinearProgress variant="determinate" value={40} />
               </TableCell>
-              <TableCell>40%</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>40%</TableCell>
             </TableRow>
             <TableRow hover>
               <TableCell>
-                <Typography
-                  sx={{ color: palette.text.secondary, fontSize: 15 }}
-                  variant="h4"
-                >
+                <Typography sx={{ fontSize: 15 }} variant="h4">
                   Sections 004{" "}
                 </Typography>
               </TableCell>
-              <TableCell>28/09/2023</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>28/09/2023</TableCell>
               <TableCell sx={{ display: "felx", flexDirection: "row" }}>
-                <Typography>Used</Typography>
+                <Typography sx={{ fontSize: 15 }}>Used</Typography>
                 <BorderLinearProgress variant="determinate" value={50} />
               </TableCell>
-              <TableCell>50%</TableCell>
+              <TableCell sx={{ fontSize: 15 }}>50%</TableCell>
             </TableRow>
           </TableBody>
         </Table>

@@ -78,7 +78,7 @@ function ContainersTable(props: IProps) {
   const [open, setOpen] = useState(false);
 
   const handleSelectAll = (event: any) => {
-    let newSelectedCustomerIds: string[] = [];
+    const newSelectedCustomerIds: string[] = [];
 
     // if (event.target.checked) {
     //   newSelectedCustomerIds = locations.map((warehouse: any) => {
@@ -142,9 +142,11 @@ function ContainersTable(props: IProps) {
       // onConfirm: () => handleDeletePermission?.(id),
     });
   };
-  const gotoDetails = (id: string) => {
-    navigate(`${AppRoutes.LOCATION_DETAILS}/${id}`);
-  };
+
+
+  // const gotoDetails = () =>{
+  //   navigate(`${AppRoutes.CONTAINER_DETAILS}/${id}`);
+  // }
   const handleOpen = () => {
     setOpen(true);
   };
@@ -159,7 +161,7 @@ function ContainersTable(props: IProps) {
     <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050, overflow: "auto" }}>
-          <EnhancedTableToolbar numSelected={3} handleOpen={handleOpen} />
+          <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
           <Table>
             <TableHead>
               <TableRow>
@@ -184,10 +186,38 @@ function ContainersTable(props: IProps) {
                 <TableCell>Inside</TableCell>
                 <TableCell>Dimensions</TableCell>
                 <TableCell>Volume</TableCell>
-              
-             
               </TableRow>
             </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell padding="checkbox">
+                  <Checkbox
+                    // checked={selectedPermissionIds.length === total}
+                    checked={false}
+                    color="primary"
+                    indeterminate={
+                      selectedPermissionIds.length > 0 &&
+                      selectedPermissionIds.length < total
+                    }
+                    onChange={handleSelectAll}
+                  />
+                </TableCell>
+                <TableCell>Image 1</TableCell>
+                {/* <TableCell
+                  sx={{ cursor: "pointer" }}
+                  onClick={() => gotoDetails(id)}
+                >
+                  ID1
+                </TableCell> */}
+                <TableCell>cont</TableCell>
+                <TableCell>Location 1</TableCell>
+                <TableCell>SKUs</TableCell>
+                <TableCell>1000</TableCell>
+                <TableCell>8</TableCell>
+                <TableCell>6</TableCell>
+                <TableCell>5</TableCell>
+              </TableRow>
+            </TableBody>
             {/* <TableBody>
               {locations.map((locations: ILocations) => {
                 const {
@@ -225,9 +255,9 @@ function ContainersTable(props: IProps) {
                       {" "}
                       {locationlabel}
                     </TableCell>
-                    <TableCell>{area}</TableCell>
-                    <TableCell>{zone}</TableCell>
-                    <TableCell>{Aisle}</TableCell>
+                    <TableCell>container 1</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
                     <TableCell>{bay}</TableCell>
                     <TableCell>{level}</TableCell>
                     <TableCell>{bin}</TableCell>
@@ -301,10 +331,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       }}
     >
       <Typography
+        component="div"
+        id="tableTitle"
         sx={{ flex: "1 1 100%" }}
         variant="h6"
-        id="tableTitle"
-        component="div"
       >
         All
       </Typography>

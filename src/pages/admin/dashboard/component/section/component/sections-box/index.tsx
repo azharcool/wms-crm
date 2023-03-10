@@ -52,6 +52,7 @@ function SectionBox() {
   });
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
       <Box>
         <Box
           sx={{
@@ -62,14 +63,11 @@ function SectionBox() {
             //   p: 1,
           }}
         >
-          <Typography
-            sx={{ m: 1, color: palette.text.secondary, fontSize: 20 }}
-            variant="h4"
-          >
+          <Typography sx={{ m: 1, fontSize: 20 }} variant="h4">
             Section 005
           </Typography>
           <Box sx={{ display: "flex" }}>
-            <Typography>Show All</Typography>
+            <Typography sx={{ ml: 1 }}>Show All</Typography>
           </Box>
         </Box>
         <Box
@@ -83,23 +81,21 @@ function SectionBox() {
           {sections.map((box: any) => {
             const { id, isLoaded } = box;
             return (
-              <MuiThemeProvider
-                theme={newtheme.isDarkMode ? darkTheme : lightTheme}
-              >
-                <Tooltip title="Row 3 #487849 H60 x W40 x 20kg Delivered 06:10pm">
-                  <Box
-                    key={id}
-                    sx={{
-                      width: 25,
-                      height: 25,
-                      background: isLoaded
-                        ? palette.box.dark
-                        : palette.box.light,
-                      borderRadius: 0.9,
-                    }}
-                  />
-                </Tooltip>
-              </MuiThemeProvider>
+              // <ThemeProvider
+              //   theme={newtheme.isDarkMode ? darkTheme : lightTheme}
+              // >
+              <Tooltip title="Row 3 #487849 H60 x W40 x 20kg Delivered 06:10pm">
+                <Box
+                  key={id}
+                  sx={{
+                    width: 25,
+                    height: 25,
+                    background: isLoaded ? palette.box.dark : palette.box.light,
+                    borderRadius: 0.9,
+                  }}
+                />
+              </Tooltip>
+              // </ThemeProvider>
             );
           })}
         </Box>
