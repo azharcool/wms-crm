@@ -14,6 +14,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TablePagination,
   TableRow,
@@ -21,6 +22,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 import { useAlert } from "components/alert";
 import { useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -41,6 +43,12 @@ interface IProps {
   openModal?: (data: any) => void;
   handleDeletePermission: (id: number) => void;
 }
+
+const useStyles= makeStyles({
+  sticky:{
+    position:"sticky", left:0, background:"#f4f4f4"
+  }
+})
 
 interface ILocations {
   id: string;
@@ -89,7 +97,7 @@ function LocationsTable(props: IProps) {
 
     setSelectedPermissionIds(newSelectedCustomerIds);
   };
-
+  const classes = useStyles()
   const handleSelectOne = (event: any, id: any) => {
     const selectedIndex = selectedPermissionIds.indexOf(id);
     let newSelectedCustomerIds: string[] = [];
@@ -157,14 +165,16 @@ function LocationsTable(props: IProps) {
   return (
     <Card>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050, overflow: "auto" }}>
+        <Box sx={{ minWidth: 1050, overflow: "hidden" }}>
           <EnhancedTableToolbar numSelected={3} handleOpen={handleOpen} />
-          <Table>
+          <TableContainer style={{ minWidth: 1050, overflow:'auto'}}>
+          <Table sx={{}}>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                <TableCell padding="checkbox" className={classes.sticky}>
                   <Checkbox
                     // checked={selectedPermissionIds.length === total}
+                    className={classes.sticky}
                     checked={false}
                     color="primary"
                     indeterminate={
@@ -174,7 +184,7 @@ function LocationsTable(props: IProps) {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell>Location Label</TableCell>
+                <TableCell className={classes.sticky}>Location Label</TableCell>
                 <TableCell>Area</TableCell>
                 <TableCell>Zone</TableCell>
                 <TableCell>Aisle</TableCell>
@@ -184,6 +194,16 @@ function LocationsTable(props: IProps) {
                 <TableCell>Status</TableCell>
                 <TableCell>Operations</TableCell>
                 <TableCell>Warehouse</TableCell>
+                <TableCell>Location Type</TableCell>
+                <TableCell>Location Alias</TableCell>
+                <TableCell>Container</TableCell>
+                <TableCell>Available</TableCell>
+                <TableCell>Volume</TableCell>
+                <TableCell>Used Volume</TableCell>
+                <TableCell>Dimensions</TableCell>
+                <TableCell>Max. Load</TableCell>
+                <TableCell>Used Load</TableCell>
+                <TableCell>Utilization</TableCell>
                 <TableCell>Actions</TableCell>
              
               </TableRow>
@@ -206,11 +226,11 @@ function LocationsTable(props: IProps) {
                 return (
                   <TableRow
                     key={id}
-                    hover
                     selected={selectedPermissionIds.indexOf(id) !== -1}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell padding="checkbox"  sx={{ position:"sticky", left:0, background:'white'}}>
                       <Checkbox
+                      sx={{ position:"sticky", left:0, background:'white'}}
                         checked={selectedPermissionIds.indexOf(id) !== -1}
                         value="true"
                         onChange={(event) => {
@@ -219,10 +239,11 @@ function LocationsTable(props: IProps) {
                       />
                     </TableCell>
                     <TableCell
-                      sx={{ cursor: "pointer" }}
+                    scope="row"
+                    component="th"
+                      sx={{ cursor: "pointer", position:"sticky", left:0, background:'white'}}
                       onClick={() => gotoDetails(id)}
                     >
-                      {" "}
                       {locationlabel}
                     </TableCell>
                     <TableCell>{area}</TableCell>
@@ -234,8 +255,17 @@ function LocationsTable(props: IProps) {
                     <TableCell>{status}</TableCell>
                     <TableCell>{operations}</TableCell>
                     <TableCell>{warehouse}</TableCell>
-                 
-
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
+                    <TableCell>-</TableCell>
                     <TableCell>
                       <Box
                         sx={{
@@ -266,6 +296,7 @@ function LocationsTable(props: IProps) {
               })}
             </TableBody>
           </Table>
+          </TableContainer>
         </Box>
       </PerfectScrollbar>
       <TablePagination

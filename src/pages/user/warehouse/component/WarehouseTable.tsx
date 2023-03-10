@@ -17,7 +17,10 @@ import {
   TableRow,
   Toolbar,
   Tooltip,
+  TextField,
   Typography,
+  InputAdornment,
+  SvgIcon,
 } from "@mui/material";
 import { useAlert } from "components/alert";
 import { useState } from "react";
@@ -137,9 +140,11 @@ function WarehouseTable(props: IProps) {
   const gotoDetails = (id: string) => {
     navigate(`${AppRoutes.WAREHOUSE_DETAILS}/${id}`);
   };
+
   const handleEdit=(item:IWarehouse)=>{
    setOpen(true)
   }
+  
   const handleClose =()=>{
     setOpen(false)
   }
@@ -292,11 +297,30 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         >
           All
         </Typography>
-        <Tooltip title="Search">
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-        </Tooltip>
+        <Box sx={{ maxWidth: 300, marginLeft:'1.5rem' }}>
+                <TextField
+                  fullWidth
+                  InputProps={{
+                    sx: {
+                      borderRadius: 5,
+                      "& input": {
+                        padding: "8px 10px",
+                        paddingLeft: "16px",
+                        fontSize: "0.9rem",
+                      },
+                    },
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <SvgIcon color="action" fontSize="small">
+                          <SearchIcon />
+                        </SvgIcon>
+                      </InputAdornment>
+                    ),
+                  }}
+                  placeholder="Search..."
+                  variant="outlined"
+                />
+              </Box>
         <Tooltip title="Ordering">
           <IconButton>
             <FormatAlignCenterIcon />

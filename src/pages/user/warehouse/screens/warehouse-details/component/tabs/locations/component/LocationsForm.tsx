@@ -2,15 +2,9 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import {
   Box,
-  Card,
   CircularProgress,
   Divider,
-  FormControlLabel,
   IconButton,
-  InputLabel,
-  styled,
-  Switch,
-  Typography,
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
@@ -18,7 +12,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slider from "components/layouts/popup-modals/Slider";
 import ErrorMessages from "constants/ErrorMessages";
-import MultipeSelect from "components/multiple-select";
 import TextField from "components/textfield";
 import {
   formStatus,
@@ -67,55 +60,6 @@ const initialValues: any = {
   allowPartialPicking: false,
 };
 
-const CustomSwitch = styled(Switch)(({ theme }) => ({
-  width: 42,
-  height: 26,
-  padding: 0,
-  ml: 1,
-  "& .MuiSwitch-switchBase": {
-    padding: 0,
-    margin: 2,
-    transitionDuration: "300ms",
-    "&.Mui-checked": {
-      transform: "translateX(16px)",
-      color: "#fff",
-      "& + .MuiSwitch-track": {
-        backgroundColor: theme.palette.mode === "dark" ? "#2ECA45" : "#65C466",
-        opacity: 1,
-        border: 0,
-      },
-      "&.Mui-disabled + .MuiSwitch-track": {
-        opacity: 0.5,
-      },
-    },
-    "&.Mui-focusVisible .MuiSwitch-thumb": {
-      color: "#33cf4d",
-      border: "6px solid #fff",
-    },
-    "&.Mui-disabled .MuiSwitch-thumb": {
-      color:
-        theme.palette.mode === "light"
-          ? theme.palette.grey[100]
-          : theme.palette.grey[600],
-    },
-    "&.Mui-disabled + .MuiSwitch-track": {
-      opacity: theme.palette.mode === "light" ? 0.7 : 0.3,
-    },
-  },
-  "& .MuiSwitch-thumb": {
-    boxSizing: "border-box",
-    width: 22,
-    height: 22,
-  },
-  "& .MuiSwitch-track": {
-    borderRadius: 26 / 2,
-    backgroundColor: theme.palette.mode === "light" ? "#E9E9EA" : "#39393D",
-    opacity: 1,
-    transition: theme.transitions.create(["background-color"], {
-      duration: 500,
-    }),
-  },
-}));
 
 function LocationsForm(props: IAddScreen) {
   const { open, handleClose } = props;
@@ -123,9 +67,16 @@ function LocationsForm(props: IAddScreen) {
   const screenStorage = useSelector((state: any) => state.permissions);
   const { permission } = screenStorage;
   const [screens, setScreens] = useState<IDropdown[]>([]);
+  const [aisle, setAisel]= useState();
+  const [bay, setBay]= useState();
+  const [bin, setBin]= useState();
+  const [level, setLevel]= useState();
+  const [area, setArea]= useState();
+  const [zone, setZone]= useState();
   //   const { trySave } = useApiActions();
   const { removePermission } = usePermissionActions();
   const { data: screensData } = useFetchScreens(0, 0, false);
+  
 
   const onSubmit = async (values: any) => {
     // await trySave(values);
@@ -183,7 +134,7 @@ function LocationsForm(props: IAddScreen) {
         </IconButton>
       </DialogTitle>
       <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Locations</DialogTitle>
+        <DialogTitle>New Locations {area && `${area}`}{zone && `-${zone}`}{aisle && `${aisle}`}{bay &&`-${bay}`}{level &&`-${level}`}{bin &&`-${bin}`}</DialogTitle>
         <Box>
           <Button
             disabled={!(isValid && dirty)}
@@ -254,7 +205,6 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
-                  // label="Status"
                   menuItems={formStatus}
                   name="status"
                   placeholder="area"
@@ -264,6 +214,7 @@ function LocationsForm(props: IAddScreen) {
                   onChange={handleChange("status")}
                   onSelectHandler={(event) => {
                     if (event.target.value) {
+                    // setArea(event.target.value)
                       setFieldValue("warehouse", event.target.value);
                     } else {
                       setFieldValue("warehouse", "");
@@ -284,6 +235,7 @@ function LocationsForm(props: IAddScreen) {
                   onChange={handleChange("area")}
                   onSelectHandler={(event) => {
                     if (event.target.value) {
+                    // setZone(event.target.value)
                       setFieldValue("area", event.target.value);
                     } else {
                       setFieldValue("area", "");
@@ -315,7 +267,10 @@ function LocationsForm(props: IAddScreen) {
                       sx={{ margin: "normal" }}
                       value={values.aisle}
                       onBlur={handleBlur("aisle")}
-                      onChange={handleChange("aisle")}
+                      onChange={(e:any)=>{
+                        setAisel(e.target.value)
+                        handleChange("aisle")
+                      }}
                     />
                     <TextField
                       error={!!touched.bay && !!errors.bay}
@@ -327,8 +282,10 @@ function LocationsForm(props: IAddScreen) {
                       sx={{ margin: "normal" }}
                       value={values.bay}
                       onBlur={handleBlur("bay")}
-                      onChange={handleChange("bay")}
-                    />
+                      onChange={(e:any)=>{
+                        setBay(e.target.value)
+                        handleChange("bay")
+                      }}                    />
                     <TextField
                       error={!!touched.level && !!errors.level}
                       name="level"
@@ -340,8 +297,10 @@ function LocationsForm(props: IAddScreen) {
                       sx={{ margin: "normal" }}
                       value={values.level}
                       onBlur={handleBlur("level")}
-                      onChange={handleChange("level")}
-                    />
+                      onChange={(e:any)=>{
+                        setLevel(e.target.value)
+                        handleChange("level")
+                      }}                    />
                     <TextField
                       error={!!touched.bin && !!errors.bin}
                       name="bin"
@@ -353,7 +312,10 @@ function LocationsForm(props: IAddScreen) {
                       sx={{ margin: "normal" }}
                       value={values.bin}
                       onBlur={handleBlur("bin")}
-                      onChange={handleChange("bin")}
+                      onChange={(e:any)=>{
+                        setBin(e.target.value)
+                        handleChange("bin")
+                      }}
                     />
                   </Box>
                 </DialogContent>

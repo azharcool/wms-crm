@@ -15,11 +15,8 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import DialButton from "components/Phone/DialButton";
 import { useRef, useState } from "react";
 import { getInitials } from "utils/get-initials";
-
-import UtilitiesDialog from "components/utilities-popup/UtilitiesDialog";
 import useDecodedData from "hooks/useDecodedData";
 import palette from "theme/palette";
 import AccountPopover from "./AccountPopover";
@@ -27,9 +24,8 @@ import AccountPopover from "./AccountPopover";
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
   return {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[3],
-    borderTopLeftRadius:60,
-  };
+    boxShadow: theme.shadows[3]
+    };
 });
 
 export function DashboardNavbar(props: any) {
@@ -44,10 +40,10 @@ export function DashboardNavbar(props: any) {
       <DashboardNavbarRoot
         sx={{
           left: {
-            lg: 200,
+            lg: 250,
           },
           width: {
-            lg: "calc(100% - 200px)",
+            lg: "calc(100% - 250px)",
           },
           boxShadow: "0px 1px 21px rgb(100 116 139 / 15%)",
         }}

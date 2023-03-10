@@ -34,15 +34,7 @@ const items = [
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
-  },
-  {
-    href: AppRoutes.VARIANTS,
-    icon: <MinimizeIcon fontSize="small" />,
-    title: "Variants",
-    screenCode: SCREEN_CODES.VARIANTS,
-  },
-  
-
+  }
 ];
 
 export function DashboardSidebar(props: any) {
@@ -74,8 +66,9 @@ export function DashboardSidebar(props: any) {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          backgroundColor: palette.info.dark,
-          // backgroundColor:'red',
+          // backgroundColor: palette.info.dark,
+        backgroundColor:'#152238',
+          // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521);",
           color: "#000",
           // zIndex:8,
           // "&::after": {
@@ -130,7 +123,7 @@ export function DashboardSidebar(props: any) {
         anchor="left"
         PaperProps={{
           sx: {
-            width: 200,
+            width: 250,
             borderRightColor:palette.info.dark
           },
         }}
@@ -148,7 +141,7 @@ export function DashboardSidebar(props: any) {
       PaperProps={{
         sx: {
           color: "#000",
-          width: 200,
+          width: 250,
         },
       }}
       sx={{

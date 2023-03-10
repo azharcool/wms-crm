@@ -32,6 +32,7 @@ interface Props extends InputProps {
   className?: string;
   hasAllValue?: boolean;
   minDate?: any;
+  length?:number
 }
 
 const CustomField = styled(InputField)({
@@ -76,6 +77,7 @@ function TextField(props: Props) {
     className,
     hasAllValue,
     minDate,
+    length
   } = props;
 
   return (
@@ -103,6 +105,7 @@ function TextField(props: Props) {
           error={error}
           id={name}
           inputProps={{
+            maxLength: length,
             startAdornment: iconEnd ? null : (
               <InputAdornment position="start">{icon}</InputAdornment>
             ),

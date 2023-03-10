@@ -36,11 +36,12 @@ function Warehouse() {
           py: 8,
         }}
       >
-        
+     <Container maxWidth={false}>
           <Card>
             <CardContent sx={{ paddingTop: 0 }}>
               <TableToolbar
                 buttonText="New"
+                isAdd
                 handleClick={handleOpen}
                 title="Warehouses"
               />
@@ -58,7 +59,7 @@ function Warehouse() {
               </Box>
             </CardContent>
           </Card>
-    
+    </Container>
       </Box>
       <WarehouseForm handleClose={handleClose} open={open} />
     </DashboardLayout>

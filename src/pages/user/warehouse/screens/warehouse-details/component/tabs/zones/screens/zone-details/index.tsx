@@ -37,6 +37,7 @@ function ZoneDetails() {
             <TableToolbar
               buttonText="Edit"
               handleClick={handleOpen}
+              breadcrumbs={[{link:"Warehouse", to:"/warehouse"}, {link:"Warehouse Details", to:"/warehouse-details/1"}]}
               title="Zone Details"
             />
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>

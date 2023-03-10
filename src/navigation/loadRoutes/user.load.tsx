@@ -45,8 +45,3 @@ export const ContainerDetails = Loadable({
   loading: () => <Spinner />,
 });
 
-export const Variants = Loadable({
-  // eslint-disable-next-line import/no-unresolved
-  loader: () => import("pages/user/variants"),
-  loading: () => <Spinner />,
-});
