@@ -62,7 +62,7 @@ function UsedSection() {
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <CssBaseline />
       <Box
         component="main"

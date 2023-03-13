@@ -19,13 +19,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import {
-  amber,
-  deepOrange,
-  grey,
-  blueGrey,
-  purple,
-} from "@mui/material/colors";
+import { grey, purple } from "@mui/material/colors";
 import { useRef, useState } from "react";
 import { getInitials } from "utils/get-initials";
 import useDecodedData from "hooks/useDecodedData";
@@ -54,9 +48,9 @@ export function DashboardNavbar(props: any) {
 
   const handleTheme = () => {
     if (newtheme.isDarkMode === true) {
-      dispatch(setIsDarkmode(true));
+      dispatch(setIsDarkmode());
     } else {
-      dispatch(setIsDarkmode(false));
+      dispatch(setIsDarkmode());
     }
   };
 
@@ -178,12 +172,12 @@ export function DashboardNavbar(props: any) {
 
             <Tooltip title="Theme">
               <IconButton
-                onClick={handleTheme}
                 sx={{
                   ml: 2,
-                  backgroundColor: palette.warning.orange,
-                  color: "#fff",
+                  // backgroundColor: palette.warning.orange,
+                  // color: "#fff",
                 }}
+                onClick={handleTheme}
               >
                 {newtheme.isDarkmode === true ? (
                   <Brightness4Icon />

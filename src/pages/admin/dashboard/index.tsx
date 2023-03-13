@@ -68,6 +68,8 @@ function Dashboard() {
           sx={{
             flexGrow: 1,
             py: 8,
+            ml: 4,
+            mr: 4,
           }}
         >
           <Card>
