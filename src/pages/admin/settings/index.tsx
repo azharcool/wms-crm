@@ -4,7 +4,15 @@ import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
 import LockIcon from "@mui/icons-material/Lock";
 import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
 import TuneIcon from "@mui/icons-material/Tune";
-import { Box, Card, CardHeader, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardHeader,
+  Container,
+  PaletteMode,
+  Typography,
+} from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import DashboardLayout from "components/dashboard-container";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
@@ -68,8 +76,38 @@ function Settings() {
     },
   });
 
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <DashboardLayout>
         <Box
           component="main"

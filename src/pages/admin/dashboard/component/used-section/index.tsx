@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { PaletteMode, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { CssBaseline } from "@mui/material";
@@ -8,6 +8,7 @@ import palette from "theme/palette";
 import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";
+import { grey, purple } from "@mui/material/colors";
 
 function UsedSection() {
   const [progress, setProgress] = React.useState(10);
@@ -35,6 +36,36 @@ function UsedSection() {
       mode: "dark",
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>

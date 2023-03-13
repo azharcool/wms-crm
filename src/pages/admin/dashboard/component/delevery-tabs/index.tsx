@@ -3,11 +3,12 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, PaletteMode } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
 import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
+import { grey, purple } from "@mui/material/colors";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,8 +56,38 @@ function DeleveryTabs() {
     },
   });
 
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <CssBaseline />
       <Box
         component="main"

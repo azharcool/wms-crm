@@ -1,5 +1,13 @@
 import React, { useState } from "react";
-import { Box, Card, CardContent, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Container,
+  PaletteMode,
+  Typography,
+} from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
@@ -55,8 +63,39 @@ function Areas() {
       mode: "dark",
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <Card>
           <AreasTable

@@ -1,10 +1,11 @@
-import { Box } from "@mui/material";
+import { Box, PaletteMode } from "@mui/material";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import Dialog from "@mui/material/Dialog";
 import { Transition } from "components/layouts/popup-modals/Transition";
 import * as React from "react";
+import { grey, purple } from "@mui/material/colors";
 
 interface ISlider {
   open: boolean;
@@ -28,8 +29,39 @@ function Slider(props: ISlider) {
       mode: "dark",
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Box
         sx={
           {

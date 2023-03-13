@@ -1,7 +1,8 @@
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, Card, CardContent, Container, PaletteMode } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import { memo, useState } from "react";
+import { grey, purple } from "@mui/material/colors";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
@@ -42,8 +43,38 @@ function Warehouse() {
     },
   });
 
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <DashboardLayout>
         <Box
           component="main"

@@ -1,8 +1,9 @@
-import { IconButton, Typography } from "@mui/material";
+import { IconButton, PaletteMode, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import React from "react";
 import { useSelector } from "react-redux";
+import { grey, purple } from "@mui/material/colors";
 
 interface IProps {
   title: string;
@@ -26,8 +27,38 @@ function SettingBlock(props: IProps) {
     },
   });
 
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return accessible ? (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Box
         sx={{
           display: "flex",

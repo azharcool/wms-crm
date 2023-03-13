@@ -1,17 +1,33 @@
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme, PaletteMode } from "@mui/material/styles";
+import React from "react";
+import { CssBaseline, PaletteMode } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import {
+  amber,
+  blueGrey,
+  deepOrange,
+  grey,
+  purple,
+} from "@mui/material/colors";
 import Routes from "navigation";
 import neutral from "./theme/newTheme";
 import "./App.css";
-import { red } from "@mui/material/colors";
-
-type IProps = {
-  newtheme: any;
-};
 
 function App() {
   const newtheme = useSelector((state: any) => state.theme);
+  const [mode, setMode] = React.useState<PaletteMode>("light");
+
+  const colorMode = React.useMemo(
+    () => ({
+      // The dark mode switch would invoke this method
+      toggleColorMode: () => {
+        setMode((prevMode: PaletteMode) =>
+          prevMode === "light" ? "dark" : "light",
+        );
+      },
+    }),
+    [],
+  );
 
   const lightTheme = createTheme({
     palette: {
@@ -19,48 +35,90 @@ function App() {
     },
   });
 
-  // const darkTheme = createTheme({
-  //   palette: {
-  //     mode: "dark",
-  //     primary: {
-  //       main: "#1e1e2d",
-  //       dark: "#1e1e2d",
-  //       // light: "#000000",
-  //     },
-  //   },
-  // });
   const darkTheme = createTheme({
-    // palette: {
-    //   mode: "dark",
-    // },
     palette: {
-      mode: "dark",
-      primary: red,
-      secondary: {
-        main: "#1e1e2d",
+      // mode: "dark",
+      primary: {
+        main: "#1a237e",
       },
     },
   });
+  // const darkTheme = createTheme({
+  //   // palette: {
+  //   //   mode: "dark",
+  //   // },
+  //   palette: {
+  //     mode: "dark",
+  //     primary: {
+  //       main: blueGrey[900],
+  //     },
+  //     secondary: {
+  //       main: "#1e1e2d",
+  //     },
+  //   },
+  // });
+
   // const getDesignTokens = (mode: PaletteMode) => ({
   //   palette: {
   //     mode,
-  //     primary:
-  //       ...neutral,
-  //       ...(mode === 'dark' && {
-  //         main: neutral[900]
-  //       }),
-  //     },
-  //     ...(mode === 'dark' && {
-  //       background: {
-  //         default: neutral[900],
-  //         paper: neutral[900],
-  //       },
-  //     }),
-  // })
+  //     ...(mode === "light"
+  //       ? {
+  //           // palette values for light mode
+  //           primary: amber,
+  //           divider: amber[200],
+  //           text: {
+  //             primary: grey[900],
+  //             secondary: grey[800],
+  //           },
+  //         }
+  //       : {
+  //           // palette values for dark mode
+  //           primary: deepOrange,
+  //           divider: deepOrange[700],
+  //           background: {
+  //             default: deepOrange[900],
+  //             paper: deepOrange[900],
+  //           },
+  //           text: {
+  //             primary: "#fff",
+  //             secondary: grey[500],
+  //           },
+  //         }),
+  //   },
+  // });
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   return (
     <>
-      <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
         <CssBaseline />
         <Routes />
       </ThemeProvider>

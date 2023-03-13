@@ -4,9 +4,11 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
+  PaletteMode,
   Typography,
 } from "@mui/material";
 import { CssBaseline } from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { Box, Container } from "@mui/system";
@@ -28,8 +30,39 @@ function Section() {
       mode: "dark",
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <CssBaseline />
       <Box>
         <Box

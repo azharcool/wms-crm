@@ -67,9 +67,9 @@ export function DashboardSidebar(props: any) {
           flexDirection: "column",
           height: "100%",
           // backgroundColor: palette.info.dark,
-          backgroundColor: "#152238",
+          backgroundColor: "#2f3044",
           // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521);",
-          color: "#000",
+          color: "#2f3044",
           // zIndex:8,
           // "&::after": {
           //   content: '""',
@@ -100,7 +100,7 @@ export function DashboardSidebar(props: any) {
             my: 2,
           }}
         />
-        <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
+        <Box sx={{ flexGrow: 1, color: "#1e1e2d", fontSize: "0.8rem" }}>
           {screens.map((item) => {
             return isScreenAccessible(item.screenCode) ? (
               <NavItem
@@ -124,7 +124,7 @@ export function DashboardSidebar(props: any) {
         PaperProps={{
           sx: {
             width: 250,
-            borderRightColor: palette.info.dark,
+            // borderRightColor: palette.info.dark,
           },
         }}
         variant="permanent"

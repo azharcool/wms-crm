@@ -11,6 +11,7 @@ import {
   createTheme,
   IconButton,
   InputAdornment,
+  PaletteMode,
   SvgIcon,
   TextField,
   ThemeProvider,
@@ -18,14 +19,21 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import {
+  amber,
+  deepOrange,
+  grey,
+  blueGrey,
+  purple,
+} from "@mui/material/colors";
 import { useRef, useState } from "react";
 import { getInitials } from "utils/get-initials";
 import useDecodedData from "hooks/useDecodedData";
 import palette from "theme/palette";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsDarkmode } from "redux/darktheme/customtheme";
-import Brightness1Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
+import Brightness5Icon from "@mui/icons-material/Brightness5";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
 import AccountPopover from "./AccountPopover";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
@@ -45,10 +53,10 @@ export function DashboardNavbar(props: any) {
   const dispatch = useDispatch();
 
   const handleTheme = () => {
-    if (newtheme.isDarkMode === darkTheme) {
-      dispatch(setIsDarkmode(false));
-    } else {
+    if (newtheme.isDarkMode === true) {
       dispatch(setIsDarkmode(true));
+    } else {
+      dispatch(setIsDarkmode(false));
     }
   };
 
@@ -64,9 +72,39 @@ export function DashboardNavbar(props: any) {
     },
   });
 
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
     <>
-      <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
         <DashboardNavbarRoot
           sx={{
             left: {
@@ -157,10 +195,10 @@ export function DashboardNavbar(props: any) {
                   // },
                 }}
               >
-                {newtheme.isDarkmode === darkTheme ? (
-                  <Brightness7Icon />
+                {newtheme.isDarkmode === true ? (
+                  <Brightness4Icon />
                 ) : (
-                  <Brightness1Icon />
+                  <Brightness5Icon />
                 )}
                 {/* <Badge badgeContent={4} color="primary" variant="dot">
                 <NotificationsNoneIcon fontSize="medium" />

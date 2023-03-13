@@ -1,7 +1,8 @@
 /* eslint-disable import/no-unresolved */
 import { Route, Routes } from "react-router-dom";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, PaletteMode } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { grey, purple } from "@mui/material/colors";
 import { useSelector } from "react-redux";
 import AppRoutes from "./appRoutes";
 import * as AdminLoadable from "./loadRoutes/admin.load";
@@ -26,8 +27,39 @@ function Application() {
       mode: "dark",
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Routes>
         <Route element={<ProtectedRoute />}>
           <Route element={<PermissionsLayout />}>

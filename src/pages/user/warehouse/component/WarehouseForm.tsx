@@ -6,6 +6,7 @@ import {
   Divider,
   FormControlLabel,
   IconButton,
+  PaletteMode,
   styled,
   Switch,
 } from "@mui/material";
@@ -22,6 +23,7 @@ import {
   receivingType,
 } from "constants/constants";
 import { CssBaseline } from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { IDropdown } from "constants/interfaces";
@@ -180,8 +182,39 @@ function WarehouseForm(props: IAddWarehouse) {
       mode: "dark",
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Slider open={open}>
         <DialogTitle>
           Warehouses
@@ -620,7 +653,7 @@ function WarehouseForm(props: IAddWarehouse) {
                 </Box>
               </DialogContent>
             </Box>
-            <DialogContent sx={{ background: "#fff" }} dividers>
+            <DialogContent sx={{}} dividers>
               <DialogTitle>Primary Contact</DialogTitle>
               <Divider sx={{ my: 1 }} />
 

@@ -1,16 +1,16 @@
-import { Box, CircularProgress, Container } from "@mui/material";
+import { Box, CircularProgress, Container, PaletteMode } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";
 import { useCommonActions } from "redux/common/common";
 import palette from "theme/palette";
 import { CssBaseline } from "@mui/material";
+import { grey, purple, red } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { DashboardNavbar } from "./DashboardNavbar";
 import { DashboardSidebar } from "./DashboardSidebar";
 import { useFetchRolePermissionsInit } from "./query/useFetchPermissions";
-import { red } from "@mui/material/colors";
 
 const DashboardLayoutRoot: any = styled("div")(({ theme }) => {
   return {
@@ -68,9 +68,40 @@ function DashboardLayout(props: any) {
       },
     },
   });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
     <>
-      <ThemeProvider theme={newtheme.isDarkMode ? darkTheme : lightTheme}>
+      <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
         <CssBaseline />
         <DashboardLayoutRoot>
           <Box
