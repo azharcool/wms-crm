@@ -1,3 +1,4 @@
+/* eslint-disable import/namespace */
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { Stack, styled, Typography } from "@mui/material";
