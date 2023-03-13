@@ -61,16 +61,16 @@ function Login() {
           margin: "auto",
         }}
       >
-       <Box
-              sx={{
-                display: "flex",
-                paddingTop: 2,
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-            >
-              <img src={logoURL} width="250" height="100" alt="logo" />
-            </Box>
+        <Box
+          sx={{
+            display: "flex",
+            paddingTop: 2,
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <img src={logoURL} width="250" height="100" alt="logo" />
+        </Box>
         <Box sx={{ color: palette.text.secondary }}>
           <TextField
             error={!!touched.email && !!errors.email}
@@ -119,7 +119,9 @@ function Login() {
             />
           </Typography>
           <Link to="/">
-            <Typography color={palette.info.lightBg}>Forgot Password</Typography>
+            <Typography color={palette.info.lightBg}>
+              Forgot Password
+            </Typography>
           </Link>
         </Box>
         <Box sx={{ mt: 2, width: "100%" }}>

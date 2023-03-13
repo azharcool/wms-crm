@@ -1,9 +1,13 @@
-import { StyledEngineProvider, ThemeProvider } from "@mui/system";
+import {
+  ThemeProvider,
+  createTheme,
+  StyledEngineProvider,
+} from "@mui/material/styles";
 import { AlertProvider } from "components/alert";
 import { SnackbarProvider } from "components/snackbar";
 import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistor, store } from "redux/store";
@@ -17,23 +21,22 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement,
 );
+
 root.render(
   <>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
-          <StyledEngineProvider>
-            <SnackbarProvider>
-              <AlertProvider>
-                <QueryClientProvider client={queryClient}>
-                  <Router>
-                    <App />
-                  </Router>
-                </QueryClientProvider>
-              </AlertProvider>
-            </SnackbarProvider>
-          </StyledEngineProvider>
-        </ThemeProvider>
+        <StyledEngineProvider>
+          <SnackbarProvider>
+            <AlertProvider>
+              <QueryClientProvider client={queryClient}>
+                <Router>
+                  <App />
+                </Router>
+              </QueryClientProvider>
+            </AlertProvider>
+          </SnackbarProvider>
+        </StyledEngineProvider>
       </PersistGate>
     </Provider>
   </>,

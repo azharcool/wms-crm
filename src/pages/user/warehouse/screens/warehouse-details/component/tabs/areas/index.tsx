@@ -1,16 +1,21 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   Box,
   Card,
   CardContent,
   Container,
+  PaletteMode,
   Typography,
 } from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
+import { CssBaseline } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 import AreasTable from "./component/AreasTable";
 import areas from "./__mock__/Areas.json";
 // import WarehouseForm from "./component/WarehouseForm";
 function Areas() {
-    const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageLimit, setPageLimit] = useState(10);
   // const { deletePermission } = useApiActions();
@@ -41,22 +46,62 @@ function Areas() {
     setOpen(false);
   };
 
-  const handleDeleteArea= async (id: number) => {
+  const handleDeleteArea = async (id: number) => {
     // await deletePermission(id);
   };
+
+  const newtheme = useSelector((state: any) => state.theme);
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: "light",
+    },
+  });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-  
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <Card>
-          <AreasTable   
-           handleDeletePermission={handleDeleteArea}
-                  openModal={handleOpen} 
-                  areas={areas} 
-                  total={0}  
-                  />
+          <AreasTable
+            handleDeletePermission={handleDeleteArea}
+            openModal={handleOpen}
+            areas={areas}
+            total={0}
+          />
         </Card>
-      {/* <WarehouseForm handleClose={handleClose} open={open} /> */}
+        {/* <WarehouseForm handleClose={handleClose} open={open} /> */}
       </Container>
+    </ThemeProvider>
   );
 }
 

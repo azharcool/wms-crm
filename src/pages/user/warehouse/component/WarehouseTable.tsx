@@ -1,8 +1,8 @@
 import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import {
   alpha,
   Box,
@@ -24,7 +24,7 @@ import {
 } from "@mui/material";
 import { useAlert } from "components/alert";
 import { useState } from "react";
-import FilterListIcon from '@mui/icons-material/FilterList';
+import FilterListIcon from "@mui/icons-material/FilterList";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
@@ -42,16 +42,15 @@ interface IProps {
   handleDeleteWarehouse: (id: string) => void;
 }
 
-interface IWarehouse{
-  id:string,
-  name:string,
-  label:string,
-  city:string,
-  email:string,
-  phone:number,
-  primaryContact:string
+interface IWarehouse {
+  id: string;
+  name: string;
+  label: string;
+  city: string;
+  email: string;
+  phone: number;
+  primaryContact: string;
 }
-
 
 function WarehouseTable(props: IProps) {
   const {
@@ -71,7 +70,7 @@ function WarehouseTable(props: IProps) {
   );
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  const [open, setOpen]= useState(false);
+  const [open, setOpen] = useState(false);
   const handleSelectAll = (event: any) => {
     let newSelectedCustomerIds: string[] = [];
 
@@ -141,18 +140,18 @@ function WarehouseTable(props: IProps) {
     navigate(`${AppRoutes.WAREHOUSE_DETAILS}/${id}`);
   };
 
-  const handleEdit=(item:IWarehouse)=>{
-   setOpen(true)
-  }
-  
-  const handleClose =()=>{
-    setOpen(false)
-  }
+  const handleEdit = (item: IWarehouse) => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050, overflow: "auto" }}>
-        <EnhancedTableToolbar numSelected={3} />
+          <EnhancedTableToolbar numSelected={3} />
           <Table>
             <TableHead>
               <TableRow>
@@ -178,16 +177,9 @@ function WarehouseTable(props: IProps) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {warehouses.map((warehouse:IWarehouse) => {
-                const {
-                  id,
-                  name,
-                  label,
-                  city,
-                  email,
-                  phone,
-                  primaryContact
-                } = warehouse;
+              {warehouses.map((warehouse: IWarehouse) => {
+                const { id, name, label, city, email, phone, primaryContact } =
+                  warehouse;
                 return (
                   <TableRow
                     key={id}
@@ -203,7 +195,13 @@ function WarehouseTable(props: IProps) {
                         }}
                       />
                     </TableCell>
-                    <TableCell sx={{ cursor: "pointer" }} onClick={() => gotoDetails(id)}> {name}</TableCell>
+                    <TableCell
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => gotoDetails(id)}
+                    >
+                      {" "}
+                      {name}
+                    </TableCell>
                     <TableCell>{label}</TableCell>
                     <TableCell>{city}</TableCell>
                     <TableCell>{email}</TableCell>
@@ -219,10 +217,8 @@ function WarehouseTable(props: IProps) {
                           },
                         }}
                       >
-                         <Box>
-                          <IconButton
-                            onClick={() => handleEdit(warehouse)}
-                          >
+                        <Box>
+                          <IconButton onClick={() => handleEdit(warehouse)}>
                             <CreateIcon
                               sx={{
                                 fontSize: "1.2rem",
@@ -288,54 +284,53 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         // }),
       }}
     >
-      
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          All
-        </Typography>
-        <Box sx={{ maxWidth: 300, marginLeft:'1.5rem' }}>
-                <TextField
-                  fullWidth
-                  InputProps={{
-                    sx: {
-                      borderRadius: 5,
-                      "& input": {
-                        padding: "8px 10px",
-                        paddingLeft: "16px",
-                        fontSize: "0.9rem",
-                      },
-                    },
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <SvgIcon color="action" fontSize="small">
-                          <SearchIcon />
-                        </SvgIcon>
-                      </InputAdornment>
-                    ),
-                  }}
-                  placeholder="Search..."
-                  variant="outlined"
-                />
-              </Box>
-        <Tooltip title="Ordering">
-          <IconButton>
-            <FormatAlignCenterIcon />
-          </IconButton>
-        </Tooltip> 
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="More">
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </Tooltip>
+      <Typography
+        sx={{ flex: "1 1 100%" }}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        All
+      </Typography>
+      <Box sx={{ maxWidth: 300, marginLeft: "1.5rem" }}>
+        <TextField
+          fullWidth
+          InputProps={{
+            sx: {
+              borderRadius: 5,
+              "& input": {
+                padding: "8px 10px",
+                paddingLeft: "16px",
+                fontSize: "0.9rem",
+              },
+            },
+            endAdornment: (
+              <InputAdornment position="end">
+                <SvgIcon color="action" fontSize="small">
+                  <SearchIcon />
+                </SvgIcon>
+              </InputAdornment>
+            ),
+          }}
+          placeholder="Search..."
+          variant="outlined"
+        />
+      </Box>
+      <Tooltip title="Ordering">
+        <IconButton>
+          <FormatAlignCenterIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Filter list">
+        <IconButton>
+          <FilterListIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="More">
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   );
 }
