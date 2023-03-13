@@ -1,12 +1,17 @@
-import { Box, CircularProgress, Container, PaletteMode } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import {
+  Box,
+  CircularProgress,
+  Container,
+  CssBaseline,
+  PaletteMode,
+} from "@mui/material";
+import { createTheme, styled, ThemeProvider } from "@mui/material/styles";
 import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";
 import { useCommonActions } from "redux/common/common";
-import palette from "theme/palette";
-import { CssBaseline } from "@mui/material";
-import { grey, purple, red } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+import { grey, purple } from "@mui/material/colors";
+
 import { useSelector } from "react-redux";
 import { DashboardNavbar } from "./DashboardNavbar";
 import { DashboardSidebar } from "./DashboardSidebar";
