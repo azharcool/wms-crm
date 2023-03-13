@@ -100,6 +100,19 @@ function Application() {
             />
 
             <Route
+              element={<UserLoadable.Catalog />}
+              path={`${AppRoutes.CATALOG.catalog}`}
+            >
+              <Route path={`${AppRoutes.CATALOG.products}`}>
+                <Route index element={<UserLoadable.Products />} />
+                <Route
+                  element={<UserLoadable.ProductCreate />}
+                  path={`${AppRoutes.CATALOG.productCreate}`}
+                />
+              </Route>
+            </Route>
+
+            <Route
               element={<SettingPermissionsLayout />}
               path={AppRoutes.SETTINGS}
             >
