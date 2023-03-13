@@ -1,9 +1,9 @@
 /* eslint-disable import/no-unresolved */
-import { Route, Routes } from "react-router-dom";
-import { CssBaseline, PaletteMode } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { PaletteMode } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import { Route, Routes } from "react-router-dom";
 import AppRoutes from "./appRoutes";
 import * as AdminLoadable from "./loadRoutes/admin.load";
 import * as AuthLoadable from "./loadRoutes/auth.load";
@@ -85,6 +85,18 @@ function Application() {
               // eslint-disable-next-line import/namespace
               element={<UserLoadable.ContainerDetails />}
               path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
+            />
+            <Route
+              element={<UserLoadable.PurchaseOrder />}
+              path={`${AppRoutes.PURCHASE_ORDER}`}
+            />
+            <Route
+              element={<UserLoadable.AllOrderDetails />}
+              path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
+            />
+            <Route
+              element={<UserLoadable.AddPurchaseOrder />}
+              path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
             />
 
             <Route

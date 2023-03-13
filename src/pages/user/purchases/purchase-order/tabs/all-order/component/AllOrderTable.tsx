@@ -14,6 +14,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TablePagination,
   TableRow,
@@ -21,6 +22,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
 import { useAlert } from "components/alert";
 import { useState } from "react";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -30,12 +32,9 @@ import palette from "theme/palette";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
 import MoreMenu from "components/common/MoreMenu";
-// import LocationsForm from "./LocationsForm";
-import { IPermission } from "../query/useFetchPermissions";
-import ContainersForm from "./ContainersForm";
 
 interface IProps {
-  containers: IContainers[];
+    allOrders: IAllOrders[];
   total: number;
   setCurrentPage?: (page: number) => void;
   setPageLimit?: (limit: number) => void;
@@ -43,21 +42,32 @@ interface IProps {
   handleDeletePermission: (id: number) => void;
 }
 
-interface IContainers {
+const useStyles= makeStyles({
+  sticky:{
+    position:"sticky", left:0, background:"#f4f4f4"
+  }
+})
+
+interface IAllOrders {
   id: string;
-  image: string;
-  containertype: string;
-  location: string;
-  skus: string;
-  quantity: string;
-  inside: string;
-  dimension: string;
-  volume: string;
+  po:string,
+  suppliers:string,
+  status:string,
+  products:string,
+  total:string,
+  received:string,
+  receiving:string,
+  expectedDate:string,
+  createdDate:string,
+  lastUpdated:string,
+  suppRefId:string,
+  tags:string
+
 }
 
-function ContainersTable(props: IProps) {
+function AllOrderTable(props: IProps) {
   const {
-    containers,
+    allOrders,
     total,
     setCurrentPage,
     setPageLimit,
@@ -76,19 +86,19 @@ function ContainersTable(props: IProps) {
   const [open, setOpen] = useState(false);
 
   const handleSelectAll = (event: any) => {
-    const newSelectedCustomerIds: string[] = [];
+    let newSelectedCustomerIds: string[] = [];
 
-    // if (event.target.checked) {
-    //   newSelectedCustomerIds = locations.map((warehouse: any) => {
-    //     return warehouse.id;
-    //   });
-    // } else {
-    //   newSelectedCustomerIds = [];
-    // }
+    if (event.target.checked) {
+      newSelectedCustomerIds = allOrders.map((warehouse: any) => {
+        return warehouse.id;
+      });
+    } else {
+      newSelectedCustomerIds = [];
+    }
 
     setSelectedPermissionIds(newSelectedCustomerIds);
   };
-
+  const classes = useStyles()
   const handleSelectOne = (event: any, id: any) => {
     const selectedIndex = selectedPermissionIds.indexOf(id);
     let newSelectedCustomerIds: string[] = [];
@@ -140,9 +150,8 @@ function ContainersTable(props: IProps) {
       // onConfirm: () => handleDeletePermission?.(id),
     });
   };
-
-  const gotoDetails = (id: any) => {
-    navigate(`${AppRoutes.CONTAINER_DETAILS}/${id}`);
+  const gotoDetails = (id: string) => {
+    navigate(`${AppRoutes.All_ORDER_DETAILS}/${id}`);
   };
   const handleOpen = () => {
     setOpen(true);
@@ -157,14 +166,15 @@ function ContainersTable(props: IProps) {
   return (
     <Card>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050, overflow: "auto" }}>
-          <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
-          <Table>
+        <Box sx={{ minWidth: 1050, overflow: "hidden" }}>
+          <TableContainer style={{ minWidth: 1050, overflow:'auto'}}>
+          <Table sx={{}}>
             <TableHead>
               <TableRow>
-                <TableCell padding="checkbox">
+                <TableCell padding="checkbox" className={classes.sticky}>
                   <Checkbox
                     // checked={selectedPermissionIds.length === total}
+                    className={classes.sticky}
                     checked={false}
                     color="primary"
                     indeterminate={
@@ -174,40 +184,47 @@ function ContainersTable(props: IProps) {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell colSpan={3}>Image</TableCell>
-                <TableCell>ID</TableCell>
-                <TableCell colSpan={2}>Container type</TableCell>
-                <TableCell colSpan={2}>Location</TableCell>
-                <TableCell colSpan={2}>SKUs</TableCell>
-                <TableCell>Qty</TableCell>
-                <TableCell colSpan={2}>Inside</TableCell>
-                <TableCell>Dimensions</TableCell>
-                <TableCell>Volume</TableCell>
-                <TableCell>Action</TableCell>
+                <TableCell className={classes.sticky}>PO #</TableCell>
+                <TableCell>SUPPLIER</TableCell>
+                <TableCell>STATUS</TableCell>
+                <TableCell>PRODUCTS</TableCell>
+                <TableCell>TOTAL</TableCell>
+                <TableCell>RECEIVED/ORDERED</TableCell>
+                <TableCell>RECEIVING WAREHOUSE</TableCell>
+                <TableCell>EXPECTED DATE</TableCell>
+                <TableCell>CREATED DATE</TableCell>
+                <TableCell>LAST UPDATED</TableCell>
+                <TableCell>SUPPLIER REF ID</TableCell>
+                <TableCell>TAGS</TableCell>
+                <TableCell>NOTES</TableCell>
+                <TableCell>ACTION</TableCell>             
               </TableRow>
             </TableHead>
-
             <TableBody>
-              {containers.map((containers: IContainers) => {
+              {allOrders.map((order: IAllOrders) => {
                 const {
                   id,
-                  image,
-                  containertype,
-                  location,
-                  skus,
-                  quantity,
-                  inside,
-                  dimension,
-                  volume,
-                } = containers;
+                  po,
+                  suppliers,
+                  status,
+                  products,
+                  total,
+                  received,
+                  receiving,
+                  expectedDate,
+                  createdDate,
+                  lastUpdated,
+                  suppRefId,
+                  tags
+                } = order;
                 return (
                   <TableRow
                     key={id}
-                    hover
                     selected={selectedPermissionIds.indexOf(id) !== -1}
                   >
-                    <TableCell padding="checkbox">
+                    <TableCell padding="checkbox"  sx={{ position:"sticky", left:0, background:'white'}}>
                       <Checkbox
+                      sx={{ position:"sticky", left:0, background:'white'}}
                         checked={selectedPermissionIds.indexOf(id) !== -1}
                         value="true"
                         onChange={(event) => {
@@ -216,22 +233,25 @@ function ContainersTable(props: IProps) {
                       />
                     </TableCell>
                     <TableCell
-                      colSpan={3}
-                      sx={{ cursor: "pointer" }}
+                    scope="row"
+                    component="th"
+                      sx={{ cursor: "pointer", position:"sticky", left:0, background:'white'}}
                       onClick={() => gotoDetails(id)}
                     >
-                      {" "}
-                      {image}
+                      {po}
                     </TableCell>
-                    <TableCell>{id}</TableCell>
-                    <TableCell colSpan={2}>{containertype}</TableCell>
-                    <TableCell colSpan={2}>{location}</TableCell>
-                    <TableCell colSpan={2}>{skus}</TableCell>
-                    <TableCell>{quantity}</TableCell>
-                    <TableCell colSpan={2}>{inside}</TableCell>
-                    <TableCell>{dimension}</TableCell>
-                    <TableCell>{volume}</TableCell>
-
+                    <TableCell>{suppliers}</TableCell>
+                    <TableCell>{status}</TableCell>
+                    <TableCell>{products}</TableCell>
+                    <TableCell>{total}</TableCell>
+                    <TableCell>{received}</TableCell>
+                    <TableCell>{receiving}</TableCell>
+                    <TableCell>{expectedDate}</TableCell>
+                    <TableCell>{createdDate}</TableCell>
+                    <TableCell>{lastUpdated}</TableCell>
+                    <TableCell>{suppRefId}</TableCell>
+                    <TableCell>{tags}</TableCell>
+                    <TableCell>notes</TableCell>
                     <TableCell>
                       <Box
                         sx={{
@@ -247,10 +267,10 @@ function ContainersTable(props: IProps) {
                             <CreateIcon
                               sx={{
                                 fontSize: "1.2rem",
-                                // color: palette.secondary.lightGray,
-                                // "&:hover": {
-                                //   color: palette.info.dark,
-                                // },
+                                color: palette.secondary.lightGray,
+                                "&:hover": {
+                                  color: palette.info.dark,
+                                },
                               }}
                             />
                           </IconButton>
@@ -262,6 +282,7 @@ function ContainersTable(props: IProps) {
               })}
             </TableBody>
           </Table>
+          </TableContainer>
         </Box>
       </PerfectScrollbar>
       <TablePagination
@@ -273,64 +294,8 @@ function ContainersTable(props: IProps) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
       />
-      <ContainersForm handleClose={handleClose} open={open} />
     </Card>
   );
 }
-interface EnhancedTableToolbarProps {
-  numSelected: number;
-  handleOpen: () => void;
-}
 
-function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
-  const { numSelected, handleOpen } = props;
-
-  return (
-    <Toolbar
-      sx={{
-        pl: { sm: 2 },
-        pr: { xs: 1, sm: 1 },
-        // ...(numSelected > 0 && {
-        //   bgcolor: (theme) =>
-        //     alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
-        // }),
-      }}
-    >
-      <Typography
-        component="div"
-        id="tableTitle"
-        sx={{ flex: "1 1 100%" }}
-        variant="h6"
-      >
-        All
-      </Typography>
-      <Tooltip title="Add" onClick={() => handleOpen()}>
-        <IconButton>
-          <AddIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Search">
-        <IconButton>
-          <SearchIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Filter list">
-        <IconButton>
-          <FormatAlignCenterIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Filter list">
-        <IconButton>
-          <FilterListIcon />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="More">
-        <IconButton>
-          <MoreVertIcon />
-        </IconButton>
-      </Tooltip>
-    </Toolbar>
-  );
-}
-
-export default ContainersTable;
+export default AllOrderTable;
