@@ -11,7 +11,9 @@ import {
   import DashboardLayout from "components/dashboard-container";
   import TableToolbar from "components/table-toolbar";
   import React from "react";
+import GatePass from "./tabs/gate-pass";
 import General from "./tabs/general";
+import History from "./tabs/history";
   
   interface TabPanelProps {
     children?: React.ReactNode;
@@ -84,10 +86,10 @@ import General from "./tabs/general";
                   <General />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  <General />
+                  <GatePass />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                  <General />
+                  <History />
                 </TabPanel>
               </CardContent>
             </Card>

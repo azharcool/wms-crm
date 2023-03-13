@@ -10,6 +10,7 @@ const AppRoutes = {
   LOCATION_DETAILS: "/location-details",
   CONTAINER_DETAILS: "/container-details",
   PURCHASE_ORDER: "/purchase-order",
+  ADD_PURCHASE_ORDER:"/add-purchase",
   All_ORDER_DETAILS: "/allOrder-details",
   PERMISSIONS: "permissions",
   SCREEN_ACCESS: "screen-access",

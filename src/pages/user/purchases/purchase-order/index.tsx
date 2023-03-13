@@ -14,6 +14,8 @@ import {
   Tab,
   Tabs,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "navigation/appRoutes";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import FilterListIcon from "@mui/icons-material/FilterList";
@@ -24,6 +26,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import AllOrderTable from "./tabs/all-order/component/AllOrderTable";
 import AllOrder from "./tabs/all-order";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,7 +58,10 @@ function PurchaseOrder() {
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
+ const navigation = useNavigate()
+  const handleOpen =()=>{
+  navigation(AppRoutes.ADD_PURCHASE_ORDER)
+  }
   return (
     <DashboardLayout>
       <Box
@@ -71,7 +77,7 @@ function PurchaseOrder() {
               <TableToolbar
                 buttonText="New"
                 isAdd
-                // handleClick={handleOpen}
+                handleClick={handleOpen}
                 title="Purchase Order"
               />
               <EnhancedTableToolbar value={value} handleChange={handleChange} />

@@ -61,3 +61,12 @@ export const AllOrderDetails = Loadable({
   loading: () => <Spinner />,
 });
 
+export const AddPurchaseOrder = Loadable({
+  loader: () =>
+    import(
+      "pages/user/purchases/purchase-order/screens/add-purchase"
+    ),
+  loading: () => <Spinner />,
+});
+
+

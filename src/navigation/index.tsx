@@ -51,6 +51,10 @@ function Application() {
               element={<UserLoadable.AllOrderDetails />}
               path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
               />
+               <Route
+              element={<UserLoadable.AddPurchaseOrder />}
+              path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
+              />
 
           <Route
             element={<SettingPermissionsLayout />}
