@@ -15,17 +15,17 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useRef, useState } from "react";
-import { getInitials } from "utils/get-initials";
 import useDecodedData from "hooks/useDecodedData";
+import { useRef, useState } from "react";
 import palette from "theme/palette";
+import { getInitials } from "utils/get-initials";
 import AccountPopover from "./AccountPopover";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
   return {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[3]
-    };
+    boxShadow: theme.shadows[3],
+  };
 });
 
 export function DashboardNavbar(props: any) {
@@ -73,7 +73,7 @@ export function DashboardNavbar(props: any) {
               <SearchIcon fontSize="small" />
             </IconButton> */}
             <Box>
-              <Box sx={{ maxWidth: 300, marginLeft:'1.5rem' }}>
+              <Box sx={{ maxWidth: 300, marginLeft: "1.5rem" }}>
                 <TextField
                   fullWidth
                   InputProps={{

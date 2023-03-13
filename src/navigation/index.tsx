@@ -19,49 +19,49 @@ function Application() {
             path={AppRoutes.DASHBOARD}
           />
           <Route
-              element={<UserLoadable.Warehouse />}
-              path={AppRoutes.WAREHOUSE}
-            />
-             <Route
-              element={<UserLoadable.WarehouseDetails />}
-              path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
-              />
-                <Route
-              element={<UserLoadable.AreaDetails />}
-              path={`${AppRoutes.AREA_DETAILS}/:areaId`}
-              />
-              <Route
-              element={<UserLoadable.ZoneDetails />}
-              path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
-              />
-               <Route
-              element={<UserLoadable.LocationDetails />}
-              path={`${AppRoutes.LOCATION_DETAILS}/:locationId`}
-              />
-               <Route
-              // eslint-disable-next-line import/namespace
-              element={<UserLoadable.ContainerDetails />}
-              path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
-              />
-               <Route
-              element={<UserLoadable.PurchaseOrder />}
-              path={`${AppRoutes.PURCHASE_ORDER}`}
-              />
-              <Route
-              element={<UserLoadable.AllOrderDetails />}
-              path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
-              />
-               <Route
-              element={<UserLoadable.AddPurchaseOrder />}
-              path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
-              />
+            element={<UserLoadable.Warehouse />}
+            path={AppRoutes.WAREHOUSE}
+          />
+          <Route
+            element={<UserLoadable.WarehouseDetails />}
+            path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
+          />
+          <Route
+            element={<UserLoadable.AreaDetails />}
+            path={`${AppRoutes.AREA_DETAILS}/:areaId`}
+          />
+          <Route
+            element={<UserLoadable.ZoneDetails />}
+            path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
+          />
+          <Route
+            element={<UserLoadable.LocationDetails />}
+            path={`${AppRoutes.LOCATION_DETAILS}/:locationId`}
+          />
+          <Route
+            // eslint-disable-next-line import/namespace
+            element={<UserLoadable.ContainerDetails />}
+            path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
+          />
+          <Route
+            element={<UserLoadable.PurchaseOrder />}
+            path={`${AppRoutes.PURCHASE_ORDER}`}
+          />
+          <Route
+            element={<UserLoadable.AllOrderDetails />}
+            path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
+          />
+          <Route
+            element={<UserLoadable.AddPurchaseOrder />}
+            path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
+          />
 
           <Route
             element={<SettingPermissionsLayout />}
             path={AppRoutes.SETTINGS}
           >
             <Route
-            index
+              index
               element={<SettingsLoadable.Settings />}
               path={AppRoutes.SETTINGS}
             />
@@ -84,6 +84,18 @@ function Application() {
             <Route element={<SettingsLoadable.Team />} path={AppRoutes.TEAM} />
           </Route>
 
+          <Route
+            element={<UserLoadable.Catalog />}
+            path={AppRoutes.CATALOG.catalog}
+          >
+            <Route path={AppRoutes.CATALOG.products}>
+              <Route index element={<UserLoadable.Products />} />
+              <Route
+                element={<UserLoadable.ProductCreate />}
+                path={AppRoutes.CATALOG.productCreate}
+              />
+            </Route>
+          </Route>
         </Route>
       </Route>
       <Route element={<AuthLoadable.Login />} path={AppRoutes.LOGIN} />

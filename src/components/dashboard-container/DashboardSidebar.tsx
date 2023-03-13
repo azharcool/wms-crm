@@ -27,7 +27,6 @@ export interface ISideNavMenu {
 const sideNavMenu: ISideNavMenu[] = [
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.DASHBOARD,
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
     screenCode: SCREEN_CODES.COMMON,
@@ -35,7 +34,6 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.DASHBOARD,
     icon: <WarehouseIcon fontSize="small" />,
     title: "Warehouses",
     screenCode: SCREEN_CODES.WAREHOUSE,
@@ -43,7 +41,6 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.WAREHOUSE,
     icon: <WarehouseIcon fontSize="small" />,
     title: "Catalog",
     screenCode: SCREEN_CODES.WAREHOUSE,
@@ -51,7 +48,7 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Products",
-        location: AppRoutes.CATALOG.products,
+        location: `${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
       },
       {
         id: crypto.randomUUID(),
@@ -67,7 +64,6 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.SETTINGS,
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
@@ -75,7 +71,6 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.PURCHASE_ORDER,
     icon: <ChartBarIcon fontSize="small" />,
     title: "Purchases",
     menuItems: [],

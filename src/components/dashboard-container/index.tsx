@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Container } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Toolbar from "@mui/material/Toolbar";
 import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";
 import { useCommonActions } from "redux/common/common";
@@ -46,6 +47,12 @@ function DashboardLayout(props: any) {
   return (
     <>
       <DashboardLayoutRoot>
+        <DashboardNavbar
+          onSidebarOpen={() => {
+            return setSidebarOpen(true);
+          }}
+        />
+
         <Box
           sx={{
             backgroundColor: palette.gray.light,
@@ -53,7 +60,7 @@ function DashboardLayout(props: any) {
             flex: "1 1 auto",
             maxWidth: "100%",
             height: "auto",
-            minHeight:"100vh",
+            minHeight: "100vh",
           }}
         >
           {isLoading ? (
@@ -79,16 +86,12 @@ function DashboardLayout(props: any) {
                 paddingTop: 2,
               }}
             >
+              <Toolbar />
               {children}
             </Box>
           )}
         </Box>
       </DashboardLayoutRoot>
-      <DashboardNavbar
-        onSidebarOpen={() => {
-          return setSidebarOpen(true);
-        }}
-      />
 
       <DashboardSidebar
         open={isSidebarOpen}
