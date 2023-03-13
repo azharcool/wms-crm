@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Box, Card, CardContent, Container, Typography } from "@mui/material";
 import ContainersTable from "./component/ContainersTable";
+import containers from "./__mock__/Containers.json";
 
 function Containers() {
   const [open, setOpen] = useState(false);
@@ -41,10 +42,12 @@ function Containers() {
     <Container maxWidth={false}>
       <Card>
         <ContainersTable
+          containers={containers}
+          // containers={[]}
           handleDeletePermission={handleDeleteArea}
-          // containers={Containers}
           openModal={handleOpen}
-          total={0} containers={[]}        />
+          total={0}
+        />
       </Card>
       {/* <WarehouseForm handleClose={handleClose} open={open} /> */}
     </Container>

@@ -73,6 +73,14 @@ const sideNavMenu: ISideNavMenu[] = [
     screenCode: SCREEN_CODES.SETTINGS,
     menuItems: [],
   },
+  {
+    id: crypto.randomUUID(),
+    // href: AppRoutes.PURCHASE_ORDER,
+    icon: <ChartBarIcon fontSize="small" />,
+    title: "Purchases",
+    menuItems: [],
+    screenCode: SCREEN_CODES.PURCHASE,
+  },
 ];
 
 export function DashboardSidebar(props: any) {

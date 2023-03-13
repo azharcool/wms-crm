@@ -85,8 +85,8 @@ function TableToolbar(props: ITableToolbar) {
                 width: "inherit",
                 height: "45px",
                 borderRadius: "5px",
-                backgroundColor: "#f1faff",
-                color: "#009ef7",
+                backgroundColor: palette.warning.dark,
+                color: "#fff",
               }}
               variant="contained"
               onClick={() => {

@@ -13,7 +13,7 @@ import {
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import ContainersForm from "../../component/ContainersForm";
-// import AreasForm from "../../component/AreasForm";
+
 
 function ContainerDetails() {
     const [open,setOpen]= useState(false);
@@ -38,7 +38,7 @@ function ContainerDetails() {
             <TableToolbar
               buttonText="Edit"
               handleClick={handleOpen}
-              title="Area Details"
+              title="Container Details"
             />
                   <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -64,13 +64,13 @@ function ContainerDetails() {
                       }}
                     >
                       <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        Warehouse
+                       Image
                       </Typography>
                       <Typography
                         sx={{ fontSize: 16, fontWeight: "500" }}
                         variant="h6"
                       >
-                        Warehouse 1
+                        Image 1
                       </Typography>
                     </Box>
                   </Box> 
@@ -92,13 +92,31 @@ function ContainerDetails() {
                       }}
                     >
                       <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        Name 
+                      Container type
                       </Typography>
                       <Typography
                         sx={{ fontSize: 16, fontWeight: "500" }}
                         variant="h6"
                       >
-                        name
+                        Container
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 2,
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      <Typography sx={{ fontSize: 14 }} color="text.secondary">
+                     Locations
+                      </Typography>
+                      <Typography
+                        sx={{ fontSize: 16, fontWeight: "500" }}
+                        variant="h6"
+                      >
+                        Loc-01
                       </Typography>
                     </Box>
                     <Box
@@ -111,13 +129,13 @@ function ContainerDetails() {
                       }}
                     >
                       <Typography sx={{ fontSize: 14 }} color="text.secondary">
-                        Lable
+                       Volume
                       </Typography>
                       <Typography
                         sx={{ fontSize: 16, fontWeight: "500" }}
                         variant="h6"
                       >
-                        Lable1
+                      volume
                       </Typography>
                     </Box>
                     </Box>
