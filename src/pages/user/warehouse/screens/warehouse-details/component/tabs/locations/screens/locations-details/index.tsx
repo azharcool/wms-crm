@@ -72,7 +72,7 @@ function LocationDetails() {
                         sx={{ fontSize: 16, fontWeight: "500" }}
                         variant="h6"
                       >
-                       are-01
+                       are-lab
                       </Typography>
                     </Box>
                   </Box> 

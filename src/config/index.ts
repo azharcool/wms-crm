@@ -16,6 +16,7 @@ export const SCREEN_CODES = {
   CONTACTS: "contact_01",
   CONTACT_DETAILS: "contact_details_01",
   SETTINGS: "setting_01",
+  PURCHASE: "purchase_01",
   WAREHOUSE:"warehouse_01",
   CALENDAR: "calendar_01",
   INBOX: "inbox_01",
