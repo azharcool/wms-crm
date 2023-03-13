@@ -32,7 +32,7 @@ interface Props extends InputProps {
   className?: string;
   hasAllValue?: boolean;
   minDate?: any;
-  length?:number
+  length?: number;
 }
 
 const CustomField = styled(InputField)({
@@ -77,7 +77,7 @@ function TextField(props: Props) {
     className,
     hasAllValue,
     minDate,
-    length
+    length,
   } = props;
 
   return (
@@ -118,7 +118,7 @@ function TextField(props: Props) {
           placeholder={placeholder}
           required={required}
           sx={{
-            backgroundColor: "#fff",
+            // backgroundColor: "#fff",
             borderRadius: "8px",
             fontSize: { xs: "1rem", xl: "1.3rem" },
           }}

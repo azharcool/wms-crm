@@ -1,4 +1,8 @@
 /* eslint-disable import/no-unresolved */
+import { PaletteMode } from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import AppRoutes from "./appRoutes";
 import * as AdminLoadable from "./loadRoutes/admin.load";
@@ -10,84 +14,126 @@ import ProtectedRoute from "./ProtectedRoute";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
 
 function Application() {
+  const newtheme = useSelector((state: any) => state.theme);
+
+  const lightTheme = createTheme({
+    palette: {
+      mode: "light",
+    },
+  });
+
+  const getDesignTokens = (mode: PaletteMode) => ({
+    palette: {
+      mode,
+      primary: {
+        ...purple,
+        ...(mode === "dark" && {
+          main: "#1e1e2d",
+        }),
+      },
+      ...(mode === "dark" && {
+        background: {
+          default: "#1e1e2d",
+          paper: "#1B1B33",
+        },
+      }),
+      text: {
+        ...(mode === "light"
+          ? {
+              primary: grey[900],
+              secondary: grey[800],
+            }
+          : {
+              primary: "#fff",
+              secondary: grey[500],
+            }),
+      },
+    },
+  });
+  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   return (
-    <Routes>
-      <Route element={<ProtectedRoute />}>
-        <Route element={<PermissionsLayout />}>
-          <Route
-            element={<AdminLoadable.Dashboard />}
-            path={AppRoutes.DASHBOARD}
-          />
-          <Route
+    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
+      <Routes>
+        <Route element={<ProtectedRoute />}>
+          <Route element={<PermissionsLayout />}>
+            <Route
+              element={<AdminLoadable.Dashboard />}
+              path={AppRoutes.DASHBOARD}
+            />
+            <Route
               element={<UserLoadable.Warehouse />}
               path={AppRoutes.WAREHOUSE}
             />
-             <Route
+            <Route
               element={<UserLoadable.WarehouseDetails />}
               path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
-              />
-                <Route
+            />
+            <Route
               element={<UserLoadable.AreaDetails />}
               path={`${AppRoutes.AREA_DETAILS}/:areaId`}
-              />
-              <Route
+            />
+            <Route
               element={<UserLoadable.ZoneDetails />}
               path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
-              />
-               <Route
+            />
+            <Route
               element={<UserLoadable.LocationDetails />}
               path={`${AppRoutes.LOCATION_DETAILS}/:locationId`}
-              />
-               <Route
+            />
+            <Route
               // eslint-disable-next-line import/namespace
               element={<UserLoadable.ContainerDetails />}
               path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
-              />
-               <Route
+            />
+            <Route
               element={<UserLoadable.PurchaseOrder />}
               path={`${AppRoutes.PURCHASE_ORDER}`}
-              />
-              <Route
+            />
+            <Route
               element={<UserLoadable.AllOrderDetails />}
               path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
-              />
-               <Route
+            />
+            <Route
               element={<UserLoadable.AddPurchaseOrder />}
               path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
-              />
+            />
 
-          <Route
-            element={<SettingPermissionsLayout />}
-            path={AppRoutes.SETTINGS}
-          >
             <Route
-            index
-              element={<SettingsLoadable.Settings />}
+              element={<SettingPermissionsLayout />}
               path={AppRoutes.SETTINGS}
-            />
-            <Route
-              element={<SettingsLoadable.Permissions />}
-              path={AppRoutes.PERMISSIONS}
-            />
-            <Route
-              element={<SettingsLoadable.ScreenAccess />}
-              path={AppRoutes.SCREEN_ACCESS}
-            />
-            <Route
-              element={<SettingsLoadable.Roles />}
-              path={AppRoutes.ROLES}
-            />
-            <Route
-              element={<SettingsLoadable.Screens />}
-              path={AppRoutes.SCREENS}
-            />
-            <Route element={<SettingsLoadable.Team />} path={AppRoutes.TEAM} />
+            >
+              <Route
+                index
+                element={<SettingsLoadable.Settings />}
+                path={AppRoutes.SETTINGS}
+              />
+              <Route
+                element={<SettingsLoadable.Permissions />}
+                path={AppRoutes.PERMISSIONS}
+              />
+              <Route
+                element={<SettingsLoadable.ScreenAccess />}
+                path={AppRoutes.SCREEN_ACCESS}
+              />
+              <Route
+                element={<SettingsLoadable.Roles />}
+                path={AppRoutes.ROLES}
+              />
+              <Route
+                element={<SettingsLoadable.Screens />}
+                path={AppRoutes.SCREENS}
+              />
+              <Route
+                element={<SettingsLoadable.Team />}
+                path={AppRoutes.TEAM}
+              />
+            </Route>
           </Route>
-
         </Route>
-      </Route>
-      <Route element={<AuthLoadable.Login />} path={AppRoutes.LOGIN} />
-    </Routes>
+        <Route element={<AuthLoadable.Login />} path={AppRoutes.LOGIN} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

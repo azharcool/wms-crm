@@ -1,5 +1,8 @@
-import SettingsIcon from "@mui/icons-material/Settings";
+<<<<<<< HEAD
 import WarehouseIcon from "@mui/icons-material/Warehouse";
+=======
+>>>>>>> 7a02ddf814a238e170877aabe56a128cacd08f4c
+import SettingsIcon from "@mui/icons-material/Settings";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
 import { SCREEN_CODES } from "config";
@@ -71,6 +74,8 @@ const sideNavMenu: ISideNavMenu[] = [
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
+<<<<<<< HEAD
+=======
     menuItems: [],
   },
   {
@@ -80,6 +85,7 @@ const sideNavMenu: ISideNavMenu[] = [
     title: "Purchases",
     menuItems: [],
     screenCode: SCREEN_CODES.PURCHASE,
+>>>>>>> 7a02ddf814a238e170877aabe56a128cacd08f4c
   },
 ];
 
@@ -113,9 +119,13 @@ export function DashboardSidebar(props: any) {
           flexDirection: "column",
           height: "100%",
           // backgroundColor: palette.info.dark,
+<<<<<<< HEAD
+          backgroundColor: "#2f3044",
+=======
           backgroundColor: "#152238",
+>>>>>>> 7a02ddf814a238e170877aabe56a128cacd08f4c
           // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521);",
-          color: "#000",
+          color: "#2f3044",
           // zIndex:8,
           // "&::after": {
           //   content: '""',
@@ -138,7 +148,11 @@ export function DashboardSidebar(props: any) {
             alignItems: "center",
           }}
         >
+<<<<<<< HEAD
+          <img src={logoURL} width="80%" height="80" alt="logo" />
+=======
           <img alt="logo" height="80" src={logoURL} width="80%" />
+>>>>>>> 7a02ddf814a238e170877aabe56a128cacd08f4c
         </Box>
         <Divider
           sx={{
@@ -146,8 +160,13 @@ export function DashboardSidebar(props: any) {
             my: 2,
           }}
         />
+<<<<<<< HEAD
+        <Box sx={{ flexGrow: 1, color: "#1e1e2d", fontSize: "0.8rem" }}>
+          {screens.map((item) => {
+=======
         <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
           {sideNavMenu.map((item) => {
+>>>>>>> 7a02ddf814a238e170877aabe56a128cacd08f4c
             return isScreenAccessible(item.screenCode) ? (
               <NavItem key={item.id} item={item} />
             ) : null;
@@ -165,7 +184,11 @@ export function DashboardSidebar(props: any) {
         PaperProps={{
           sx: {
             width: 250,
+<<<<<<< HEAD
+            // borderRightColor: palette.info.dark,
+=======
             borderRightColor: palette.info.dark,
+>>>>>>> 7a02ddf814a238e170877aabe56a128cacd08f4c
           },
         }}
         variant="permanent"
