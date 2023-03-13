@@ -47,12 +47,6 @@ function SectionBox() {
     },
   });
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
-
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
       mode,

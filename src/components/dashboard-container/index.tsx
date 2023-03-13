@@ -56,19 +56,6 @@ function DashboardLayout(props: any) {
     },
   });
 
-  const darkTheme = createTheme({
-    // palette: {
-    //   mode: "dark",
-    // },
-    palette: {
-      mode: "dark",
-      primary: red,
-      secondary: {
-        main: "#1e1e2d",
-      },
-    },
-  });
-
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
       mode,
