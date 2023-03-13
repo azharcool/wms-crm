@@ -1,16 +1,9 @@
-import React from "react";
 import { CssBaseline, PaletteMode } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
-import {
-  amber,
-  blueGrey,
-  deepOrange,
-  grey,
-  purple,
-} from "@mui/material/colors";
+import { grey, purple } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Routes from "navigation";
-import neutral from "./theme/newTheme";
+import React from "react";
+import { useSelector } from "react-redux";
 import "./App.css";
 
 function App() {

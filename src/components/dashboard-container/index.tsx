@@ -12,6 +12,7 @@ import { useCommonActions } from "redux/common/common";
 
 import { grey, purple } from "@mui/material/colors";
 
+import Toolbar from "@mui/material/Toolbar";
 import { useSelector } from "react-redux";
 import { DashboardNavbar } from "./DashboardNavbar";
 import { DashboardSidebar } from "./DashboardSidebar";
@@ -131,6 +132,7 @@ function DashboardLayout(props: any) {
                   paddingTop: 2,
                 }}
               >
+                <Toolbar />
                 {children}
               </Box>
             )}
