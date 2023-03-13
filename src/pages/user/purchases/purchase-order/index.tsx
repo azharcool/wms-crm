@@ -27,7 +27,6 @@ import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import AllOrderTable from "./tabs/all-order/component/AllOrderTable";
 import AllOrder from "./tabs/all-order";
 
-
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
@@ -60,7 +59,7 @@ function PurchaseOrder() {
   };
  const navigation = useNavigate()
   const handleOpen =()=>{
-  navigation(AppRoutes.ADD_PURCHASE_ORDER)
+  navigation(AppRoutes.PURCHASE.ADD_PURCHASE_ORDER)
   }
   return (
     <DashboardLayout>
@@ -87,16 +86,16 @@ function PurchaseOrder() {
                   <AllOrder />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  NEW
+                  <AllOrder/>
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                  CLOSED
+                  <AllOrder/>
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                  CANCELLED
+                  <AllOrder />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                  PROGRESS
+                  <AllOrder/>
                 </TabPanel>
               </Box>
             </CardContent>

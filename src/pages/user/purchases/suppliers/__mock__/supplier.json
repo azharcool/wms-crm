@@ -1,0 +1,13 @@
+[
+    {
+        "id":"1",
+        "name":"Smart",
+        "shortName":"smart",
+        "supplierId":"3022",
+        "city":"Nagpur",
+        "email":"smart@gmail.com",
+        "phone":9274937973,
+        "primaryContact":"smartsoftware",
+        "status":"Active"
+    }
+]

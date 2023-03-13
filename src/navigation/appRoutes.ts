@@ -26,6 +26,16 @@ const AppRoutes = {
     units: "unit",
     productCreate: "create",
   },
+
+  // Purchase
+
+  PURCHASE: {
+    PURCHASE_ORDER: "/purchase-order",
+    ADD_PURCHASE_ORDER:"/add-purchase",
+    All_ORDER_DETAILS: "/allOrder-details",
+    SUPPLIERS:"/suppliers",
+    SUPPLIERS_RETURN:"/supplier-return"
+    }
 };
 
 export default AppRoutes;
