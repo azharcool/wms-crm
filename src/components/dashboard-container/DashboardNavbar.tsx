@@ -181,7 +181,6 @@ export function DashboardNavbar(props: any) {
               </Box>
             </Tooltip>
             <Box sx={{ flexGrow: 1 }} />
-            {/* <DarkModeToggle children={undefined} /> */}
 
             <Tooltip title="Theme">
               <IconButton
@@ -190,9 +189,6 @@ export function DashboardNavbar(props: any) {
                   ml: 2,
                   backgroundColor: palette.warning.orange,
                   color: "#fff",
-                  // "&:hover": {
-                  //   color: palette.warning.orange,
-                  // },
                 }}
               >
                 {newtheme.isDarkmode === true ? (
@@ -200,9 +196,6 @@ export function DashboardNavbar(props: any) {
                 ) : (
                   <Brightness5Icon />
                 )}
-                {/* <Badge badgeContent={4} color="primary" variant="dot">
-                <NotificationsNoneIcon fontSize="medium" />
-              </Badge> */}
               </IconButton>
             </Tooltip>
 

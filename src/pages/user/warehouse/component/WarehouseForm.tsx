@@ -177,12 +177,6 @@ function WarehouseForm(props: IAddWarehouse) {
     },
   });
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-    },
-  });
-
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
       mode,

@@ -35,57 +35,6 @@ function App() {
     },
   });
 
-  const darkTheme = createTheme({
-    palette: {
-      // mode: "dark",
-      primary: {
-        main: "#1a237e",
-      },
-    },
-  });
-  // const darkTheme = createTheme({
-  //   // palette: {
-  //   //   mode: "dark",
-  //   // },
-  //   palette: {
-  //     mode: "dark",
-  //     primary: {
-  //       main: blueGrey[900],
-  //     },
-  //     secondary: {
-  //       main: "#1e1e2d",
-  //     },
-  //   },
-  // });
-
-  // const getDesignTokens = (mode: PaletteMode) => ({
-  //   palette: {
-  //     mode,
-  //     ...(mode === "light"
-  //       ? {
-  //           // palette values for light mode
-  //           primary: amber,
-  //           divider: amber[200],
-  //           text: {
-  //             primary: grey[900],
-  //             secondary: grey[800],
-  //           },
-  //         }
-  //       : {
-  //           // palette values for dark mode
-  //           primary: deepOrange,
-  //           divider: deepOrange[700],
-  //           background: {
-  //             default: deepOrange[900],
-  //             paper: deepOrange[900],
-  //           },
-  //           text: {
-  //             primary: "#fff",
-  //             secondary: grey[500],
-  //           },
-  //         }),
-  //   },
-  // });
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
       mode,
