@@ -15,6 +15,15 @@ const AppRoutes = {
   ROLES: "roles",
   SCREENS: "screens",
   TEAM: "team",
+
+  // CATALOG: "catalog",
+
+  CATALOG: {
+    catalog: "catalog",
+    products: "product",
+    variants: "variant",
+    units: "unit",
+  },
 };
 
 export default AppRoutes;
