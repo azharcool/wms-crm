@@ -24,7 +24,7 @@ import TextField from "components/textfield";
 import palette from "theme/palette";
 import AddSupplier from "./component/SupplierForm";
 
-function AddPurchaseOrder() {
+function NewSupplier() {
     const [isAddSupplier,setAddSupplier]= useState(false)
   const handleSave = () => {};
 
@@ -643,4 +643,4 @@ function AddPurchaseOrder() {
   );
 }
 
-export default AddPurchaseOrder;
+export default NewSupplier;
