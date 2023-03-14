@@ -275,7 +275,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Warehouse name"
                     name="warehouseName"
                     placeholder="Warehouse Name"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.warehouseName}
                     onBlur={handleBlur("warehouseName")}
@@ -288,7 +287,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Label"
                     name="label"
                     placeholder="Label"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.label}
                     onBlur={handleBlur("label")}
@@ -311,7 +309,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Email"
                     name="email"
                     placeholder="Email"
-                    size="small"
                     style={{ width: "550px" }}
                     type="email"
                     value={values.email}
@@ -328,7 +325,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Phone Number"
                     name="phoneNumber"
                     placeholder="Phone Number"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.phoneNumber}
                     onBlur={handleBlur("phoneNumber")}
@@ -352,7 +348,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Address"
                     name="address"
                     placeholder="Address"
-                    size="small"
                     style={{ width: "550px" }}
                     type="textarea"
                     value={values.address}
@@ -370,7 +365,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     menuItems={[{ id: 1, value: "india" }]}
                     name="country"
                     placeholder="Country"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.country}
                     onBlur={handleBlur("country")}
@@ -399,7 +393,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="City"
                     name="city"
                     placeholder="City"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.city}
                     onBlur={handleBlur("city")}
@@ -414,7 +407,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Zicode"
                     name="zipcode"
                     placeholder="Zipcode"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.zipcode}
                     onBlur={handleBlur("zipcode")}
@@ -438,7 +430,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Longitude"
                     name="longitude"
                     placeholder="Longitude"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.longitude}
                     onBlur={handleBlur("longitude")}
@@ -453,7 +444,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     label="Latitude"
                     name="latitude"
                     placeholder="Latitude"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.latitude}
                     onBlur={handleBlur("latitude")}
@@ -484,7 +474,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     menuItems={formStatus}
                     name="status"
                     placeholder="Status"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.status}
                     onBlur={handleBlur("status")}
@@ -523,7 +512,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     menuItems={pickingStrategy}
                     name="Picking Strategy"
                     placeholder="Picking Strategy"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.pickingStrategy}
                     onBlur={handleBlur("pickingStrategy")}
@@ -561,7 +549,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     menuItems={receivingStrategy}
                     name="receivingStrategy"
                     placeholder="Receiving Strategy"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.receivingStrategy}
                     onBlur={handleBlur("receivingStrategy")}
@@ -594,7 +581,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     menuItems={[{ id: 1, value: "india" }]}
                     name="timezone"
                     placeholder="Timezone"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.timezone}
                     onBlur={handleBlur("timezone")}
@@ -630,7 +616,6 @@ function WarehouseForm(props: IAddWarehouse) {
                     menuItems={receivingType}
                     name="receivingType"
                     placeholder="Receiving Type"
-                    size="small"
                     style={{ width: "550px" }}
                     value={values.receivingType}
                     onBlur={handleBlur("receivingType")}
@@ -696,7 +681,6 @@ function WarehouseForm(props: IAddWarehouse) {
                   label="First name"
                   name="firstname"
                   placeholder="First Name"
-                  size="small"
                   style={{ width: "550px" }}
                   value={values.warehouseName}
                   onBlur={handleBlur("warehouseName")}
@@ -709,7 +693,6 @@ function WarehouseForm(props: IAddWarehouse) {
                   label="Last Name"
                   name="lastname"
                   placeholder="Last Name"
-                  size="small"
                   style={{ width: "550px" }}
                   value={values.label}
                   onBlur={handleBlur("label")}
@@ -732,7 +715,6 @@ function WarehouseForm(props: IAddWarehouse) {
                   label="Email"
                   name="email"
                   placeholder="Email"
-                  size="small"
                   style={{ width: "550px" }}
                   type="email"
                   value={values.email}
@@ -748,7 +730,6 @@ function WarehouseForm(props: IAddWarehouse) {
                   label="Phone Number"
                   name="phoneNumber"
                   placeholder="Phone Number"
-                  size="small"
                   style={{ width: "550px" }}
                   value={values.phoneNumber}
                   onBlur={handleBlur("phoneNumber")}

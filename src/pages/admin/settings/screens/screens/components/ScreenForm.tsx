@@ -97,7 +97,6 @@ function AddScreen(props: IAddScreen) {
               label="Name"
               name="screenName"
               placeholder="Name"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.screenName}
               onBlur={handleBlur("screenName")}
@@ -112,7 +111,6 @@ function AddScreen(props: IAddScreen) {
               label="Code"
               name="Code"
               placeholder="Code"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.screenCode}
               onBlur={handleBlur("screenCode")}
@@ -136,7 +134,6 @@ function AddScreen(props: IAddScreen) {
               label="Url"
               name="screenUrl"
               placeholder="Url"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.screenUrl}
               onBlur={handleBlur("screenUrl")}

@@ -173,7 +173,6 @@ function PermissionTable(props: IAddScreen) {
               label="Screen"
               menuItems={screens}
               name="screen"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.screenId}
               onBlur={handleBlur("screenId")}
@@ -225,7 +224,6 @@ function PermissionTable(props: IAddScreen) {
               label="Description"
               name="permission Description"
               placeholder="Description"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.permissionDescription}
               onBlur={handleBlur("permissionDescription")}
@@ -241,7 +239,6 @@ function PermissionTable(props: IAddScreen) {
               label="Code"
               name="Code"
               placeholder="Code"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.permissionCode}
               onBlur={handleBlur("permissionCode")}
@@ -281,7 +278,6 @@ function PermissionTable(props: IAddScreen) {
                 label="Screen Code"
                 name="Screen Code"
                 placeholder="Screen Code"
-                size={undefined}
                 style={{ width: "550px" }}
                 value={values.screenCode}
                 onBlur={handleBlur("screenCode")}
@@ -296,7 +292,6 @@ function PermissionTable(props: IAddScreen) {
                 label="Screen Url"
                 name="screen Url"
                 placeholder="Screen Url"
-                size={undefined}
                 style={{ width: "550px" }}
                 value={values.screenUrl}
                 onBlur={handleBlur("screenUrl")}

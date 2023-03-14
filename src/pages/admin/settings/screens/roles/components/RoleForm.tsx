@@ -103,7 +103,6 @@ function AddRole(props: IAddRole) {
               label="Role"
               name="role"
               placeholder="Role"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.roleName}
               onBlur={handleBlur("roleName")}

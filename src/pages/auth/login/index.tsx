@@ -79,7 +79,7 @@ function Login() {
             id={undefined}
             name=""
             placeholder="Email"
-            size={undefined}
+            // size={undefined}
             value={values.email}
             onBlur={handleBlur("email")}
             onChange={handleChange("email")}
@@ -97,7 +97,7 @@ function Login() {
             id={undefined}
             name=""
             placeholder="Password"
-            size={undefined}
+            // size={undefined}
             type={showPassword ? "text" : "password"}
             value={values.password}
             onBlur={handleBlur("password")}

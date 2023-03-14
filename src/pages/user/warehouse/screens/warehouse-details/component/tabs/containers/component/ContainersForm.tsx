@@ -222,7 +222,6 @@ function ContainersForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="locations"
                   placeholder="Locations"
-                  size={undefined}
                   sx={{
                     fontfamily: "poppins,sans-serif",
                     fontsize: "16px",
@@ -249,7 +248,6 @@ function ContainersForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="containers_type"
                   placeholder="Containers_type"
-                  size={undefined}
                   sx={{ margin: "normal" }}
                   value={values.containers_type}
                   onBlur={handleBlur("containers_type")}
@@ -271,7 +269,6 @@ function ContainersForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="parents"
                   placeholder="Parents"
-                  size={undefined}
                   sx={{ margin: "normal" }}
                   value={values.parents}
                   onBlur={handleBlur("parents")}
@@ -288,16 +285,15 @@ function ContainersForm(props: IAddScreen) {
                 <TextField
                   error={!!touched.quantity && !!errors.quantity}
                   id={undefined}
+                  name="quantity"
                   placeholder="Quantity"
-                  size={undefined}
                   value={values.quantity}
                   onBlur={handleBlur("quantity")}
-                  onChange={handleChange("quantity")}
                   helperText={
                     (touched.quantity && errors && errors.quantity) || ""
                   }
                   // label="Quantity"
-                  name="quantity"
+                  onChange={handleChange("quantity")}
                 />
               </Box>
             </DialogContent>
@@ -330,7 +326,6 @@ function ContainersForm(props: IAddScreen) {
                     id={undefined}
                     name="height"
                     placeholder="Height"
-                    size={undefined}
                     style={{ width: "200px", mr: "5px" }}
                     value={values.height}
                     onBlur={handleBlur("height")}
@@ -343,7 +338,6 @@ function ContainersForm(props: IAddScreen) {
                     id={undefined}
                     name="width"
                     placeholder="width"
-                    size={undefined}
                     style={{ width: "200px" }}
                     value={values.width}
                     onBlur={handleBlur("width")}
@@ -357,7 +351,6 @@ function ContainersForm(props: IAddScreen) {
                     id={undefined}
                     name="length"
                     placeholder="length"
-                    size={undefined}
                     style={{ width: "200px", mt: "15px", mr: "5px" }}
                     value={values.length}
                     onBlur={handleBlur("length")}
@@ -369,7 +362,6 @@ function ContainersForm(props: IAddScreen) {
                     id={undefined}
                     name="max"
                     placeholder="Max.Load"
-                    size={undefined}
                     style={{ width: "200px", mt: "15px" }}
                     value={values.max}
                     onBlur={handleBlur("max")}
@@ -382,7 +374,6 @@ function ContainersForm(props: IAddScreen) {
                     }
                     id={undefined}
                     name="volume"
-                    size={undefined}
                     value={values.volume}
                     onBlur={handleBlur("volume")}
                     onChange={handleChange("volume")}

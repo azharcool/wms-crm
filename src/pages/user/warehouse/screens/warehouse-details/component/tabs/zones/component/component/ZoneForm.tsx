@@ -223,7 +223,6 @@ function ZoanForm(props: IAddScreen) {
                   label="Warehouse"
                   name="warehouse"
                   placeholder="Warehouse"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.warehouseName}
                   onBlur={handleBlur("warehouseName")}
@@ -236,7 +235,6 @@ function ZoanForm(props: IAddScreen) {
                   label="Area"
                   name="label"
                   placeholder="Area"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.label}
                   onBlur={handleBlur("label")}
@@ -259,7 +257,6 @@ function ZoanForm(props: IAddScreen) {
                   label="Label"
                   name="label"
                   placeholder="Label"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.label}
                   onBlur={handleBlur("label")}
@@ -272,7 +269,6 @@ function ZoanForm(props: IAddScreen) {
                   label="Name"
                   name="name"
                   placeholder="Name"
-                  size={undefined}
                   style={{ width: "550px" }}
                   type="email"
                   value={values.email}
@@ -302,7 +298,6 @@ function ZoanForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="status"
                   placeholder="Status"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.status}
                   onBlur={handleBlur("status")}

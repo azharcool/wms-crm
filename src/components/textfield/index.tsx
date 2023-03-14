@@ -34,9 +34,9 @@ interface Props extends InputProps {
   hasAllValue?: boolean;
   name: string;
   minDate?: any;
-  size: "small" | "medium" | undefined;
+  size?: "small" | "medium" | undefined;
   length?: number;
-  multiline?: boolean;
+  muliline?: boolean;
   rows?: number;
   id: string | undefined;
 }

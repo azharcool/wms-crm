@@ -177,13 +177,17 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.warehouse && !!errors.warehouse}
                   id={undefined}
+                  menuItems={formStatus}
                   name="warehouseName"
                   placeholder="warehouseName"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.warehouseName}
                   onBlur={handleBlur("warehouseName")}
                   onChange={handleChange("warehouseName")}
+                  helperText={
+                    (touched.warehouse && errors && errors.warehouse) || ""
+                  }
+                  // label="Warehouse Name"
                   onSelectHandler={(event) => {
                     if (event.target.value) {
                       setFieldValue("warehouseName", event.target.value);
@@ -191,11 +195,6 @@ function LocationsForm(props: IAddScreen) {
                       setFieldValue("warehouseName", "");
                     }
                   }}
-                  helperText={
-                    (touched.warehouse && errors && errors.warehouse) || ""
-                  }
-                  // label="Warehouse Name"
-                  menuItems={formStatus}
                 />
                 <TextField
                   isSelect
@@ -205,7 +204,6 @@ function LocationsForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="status"
                   placeholder="area"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.status}
                   onBlur={handleBlur("status")}
@@ -225,7 +223,6 @@ function LocationsForm(props: IAddScreen) {
                   id={undefined}
                   name="area"
                   placeholder="Zone"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.area}
                   onBlur={handleBlur("area")}
@@ -265,7 +262,6 @@ function LocationsForm(props: IAddScreen) {
                       }
                       id={undefined}
                       length={3}
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.aisle}
                       onBlur={handleBlur("aisle")}
@@ -282,7 +278,6 @@ function LocationsForm(props: IAddScreen) {
                       helperText={(touched.bay && errors && errors.bay) || ""}
                       id={undefined}
                       name="bay"
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.bay}
                       onBlur={handleBlur("bay")}
@@ -302,7 +297,6 @@ function LocationsForm(props: IAddScreen) {
                       id={undefined}
                       name="level"
                       placeholder="level/shelf"
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.level}
                       onBlur={handleBlur("level")}
@@ -316,7 +310,6 @@ function LocationsForm(props: IAddScreen) {
                       helperText={(touched.bin && errors && errors.bin) || ""}
                       id={undefined}
                       name="bin"
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.bin}
                       onBlur={handleBlur("bin")}
@@ -349,7 +342,6 @@ function LocationsForm(props: IAddScreen) {
                         id={undefined}
                         name="volume"
                         placeholder="Volume"
-                        size={undefined}
                         sx={{ margin: "normal" }}
                         value={values.volume}
                         onBlur={handleBlur("volume")}
@@ -361,7 +353,6 @@ function LocationsForm(props: IAddScreen) {
                         id={undefined}
                         name="height"
                         placeholder="Height"
-                        size={undefined}
                         sx={{ margin: "normal" }}
                         value={values.height}
                         onBlur={handleBlur("height")}
@@ -373,7 +364,6 @@ function LocationsForm(props: IAddScreen) {
                         id={undefined}
                         name="width"
                         placeholder="Width"
-                        size={undefined}
                         sx={{ margin: "normal" }}
                         value={values.width}
                         onBlur={handleBlur("width")}
@@ -385,7 +375,6 @@ function LocationsForm(props: IAddScreen) {
                         id={undefined}
                         name="max"
                         placeholder="max.load"
-                        size={undefined}
                         value={values.max}
                         onBlur={handleBlur("max")}
                         onChange={handleChange("max")}
@@ -412,7 +401,6 @@ function LocationsForm(props: IAddScreen) {
                   error={!!touched.email && !!errors.email}
                   id={undefined}
                   placeholder="Name"
-                  size={undefined}
                   sx={{ margin: "normal" }}
                   type="email"
                   value={values.email}
@@ -428,7 +416,6 @@ function LocationsForm(props: IAddScreen) {
                   helperText={(touched.status && errors && errors.status) || ""}
                   id={undefined}
                   menuItems={formStatus}
-                  size={undefined}
                   sx={{ margin: "normal" }}
                   value={values.status}
                   onBlur={handleBlur("status")}
@@ -453,7 +440,6 @@ function LocationsForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="status"
                   placeholder="Operation"
-                  size={undefined}
                   value={values.status}
                   onBlur={handleBlur("status")}
                   onChange={handleChange("status")}
@@ -473,7 +459,6 @@ function LocationsForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="status"
                   placeholder="Active"
-                  size={undefined}
                   value={values.status}
                   onBlur={handleBlur("status")}
                   onChange={handleChange("status")}
@@ -504,7 +489,6 @@ function LocationsForm(props: IAddScreen) {
                       id={undefined}
                       name="X"
                       placeholder="X"
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.X}
                       onBlur={handleBlur("X")}
@@ -516,7 +500,6 @@ function LocationsForm(props: IAddScreen) {
                       id={undefined}
                       name="Y"
                       placeholder="Y"
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.Y}
                       onBlur={handleBlur("Y")}
@@ -528,7 +511,6 @@ function LocationsForm(props: IAddScreen) {
                       id={undefined}
                       name="Z"
                       placeholder="Z"
-                      size={undefined}
                       sx={{ margin: "normal" }}
                       value={values.Z}
                       onBlur={handleBlur("Z")}

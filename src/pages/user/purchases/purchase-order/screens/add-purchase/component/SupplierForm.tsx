@@ -78,7 +78,7 @@ function AddSupplier(props: IAddUser) {
               name="company name"
               placeholder="Company name"
               style={{ width: "550px" }}
-              size={undefined} // value={values.roleId}
+              // value={values.roleId}
               // onBlur={handleBlur("roleId")}
               // onChange={handleChange("roleId")}
             />
@@ -91,7 +91,7 @@ function AddSupplier(props: IAddUser) {
               placeholder="Short Name"
               style={{ width: "550px" }}
               type="text"
-              size={undefined} // value={values.fullName}
+              // value={values.fullName}
               // onBlur={handleBlur("fullName")}
               // onChange={handleChange("fullName")}
             />
@@ -113,7 +113,7 @@ function AddSupplier(props: IAddUser) {
               placeholder="email"
               style={{ width: "550px" }}
               type="email"
-              size={undefined} // value={values.email}
+              // value={values.email}
               // onBlur={handleBlur("email")}
               // onChange={handleChange("email")}
             />
@@ -125,7 +125,7 @@ function AddSupplier(props: IAddUser) {
               name="address"
               placeholder="Phone number"
               style={{ width: "550px" }}
-              size={undefined} // value={values.address}
+              // value={values.address}
               // onBlur={handleBlur("address")}
               // onChange={handleChange("address")}
             />
@@ -153,7 +153,7 @@ function AddSupplier(props: IAddUser) {
               rows={4}
               style={{ width: "1150px" }}
               type="text"
-              size={undefined} // value={values.mobileNumber}
+              // value={values.mobileNumber}
               // onBlur={handleBlur("mobileNumber")}
               // onChange={handleChange("mobileNumber")}
             />
@@ -168,7 +168,7 @@ function AddSupplier(props: IAddUser) {
               placeholder="country"
               style={{ width: "1150px" }}
               type="text"
-              size={undefined} // value={values.mobileNumber}
+              // value={values.mobileNumber}
               // onBlur={handleBlur("mobileNumber")}
               // onChange={handleChange("mobileNumber")}
             />
@@ -189,7 +189,7 @@ function AddSupplier(props: IAddUser) {
               name="city"
               placeholder="City"
               style={{ width: "550px" }}
-              size={undefined} // value={values.roleId}
+              // value={values.roleId}
               // onBlur={handleBlur("roleId")}
               // onChange={handleChange("roleId")}
             />
@@ -202,7 +202,7 @@ function AddSupplier(props: IAddUser) {
               placeholder="Zip Code"
               style={{ width: "550px" }}
               type="text"
-              size={undefined} // value={values.fullName}
+              // value={values.fullName}
               // onBlur={handleBlur("fullName")}
               // onChange={handleChange("fullName")}
             />
@@ -224,7 +224,7 @@ function AddSupplier(props: IAddUser) {
               name="first name"
               placeholder="First name"
               style={{ width: "550px" }}
-              size={undefined} // value={values.roleId}
+              // value={values.roleId}
               // onBlur={handleBlur("roleId")}
               // onChange={handleChange("roleId")}
             />
@@ -237,7 +237,7 @@ function AddSupplier(props: IAddUser) {
               placeholder="Last Name"
               style={{ width: "550px" }}
               type="text"
-              size={undefined} // value={values.fullName}
+              // value={values.fullName}
               // onBlur={handleBlur("fullName")}
               // onChange={handleChange("fullName")}
             />
@@ -259,7 +259,7 @@ function AddSupplier(props: IAddUser) {
               placeholder="email"
               style={{ width: "550px" }}
               type="email"
-              size={undefined} // value={values.email}
+              // value={values.email}
               // onBlur={handleBlur("email")}
               // onChange={handleChange("email")}
             />
@@ -271,7 +271,7 @@ function AddSupplier(props: IAddUser) {
               name="address"
               placeholder="Phone number"
               style={{ width: "550px" }}
-              size={undefined} // value={values.address}
+              // value={values.address}
               // onBlur={handleBlur("address")}
               // onChange={handleChange("address")}
             />

@@ -223,7 +223,6 @@ function AreasForm(props: IAddScreen) {
                   label="Warehouse"
                   name="warehouse"
                   placeholder="Warehouse"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.warehouseName}
                   onBlur={handleBlur("warehouseName")}
@@ -236,7 +235,6 @@ function AreasForm(props: IAddScreen) {
                   label="Label"
                   name="label"
                   placeholder="Label"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.label}
                   onBlur={handleBlur("label")}
@@ -259,7 +257,6 @@ function AreasForm(props: IAddScreen) {
                   label="Name"
                   name="name"
                   placeholder="Name"
-                  size={undefined}
                   style={{ width: "550px" }}
                   type="email"
                   value={values.email}
@@ -289,7 +286,6 @@ function AreasForm(props: IAddScreen) {
                   menuItems={formStatus}
                   name="status"
                   placeholder="Status"
-                  size={undefined}
                   style={{ width: "550px" }}
                   value={values.status}
                   onBlur={handleBlur("status")}

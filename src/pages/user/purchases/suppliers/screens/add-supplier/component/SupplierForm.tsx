@@ -118,7 +118,6 @@ function AddSupplier(props: IAddUser) {
               label="Company name"
               name="company name"
               placeholder="Company name"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.roleId}
               onBlur={handleBlur("roleId")}
@@ -131,7 +130,6 @@ function AddSupplier(props: IAddUser) {
               label="Short name"
               name="shortname"
               placeholder="Short Name"
-              size={undefined}
               style={{ width: "550px" }}
               type="text"
               value={values.fullName}
@@ -154,7 +152,6 @@ function AddSupplier(props: IAddUser) {
               label="Email"
               name="email"
               placeholder="email"
-              size={undefined}
               style={{ width: "550px" }}
               type="email"
               value={values.email}
@@ -168,7 +165,6 @@ function AddSupplier(props: IAddUser) {
               label="Phone number"
               name="address"
               placeholder="Phone number"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.address}
               onBlur={handleBlur("address")}
@@ -196,7 +192,6 @@ function AddSupplier(props: IAddUser) {
               name="mobile"
               placeholder="Address"
               rows={4}
-              size={undefined}
               style={{ width: "1150px" }}
               type="text"
               value={values.mobileNumber}
@@ -212,7 +207,6 @@ function AddSupplier(props: IAddUser) {
               label="Country"
               name="mobile"
               placeholder="country"
-              size={undefined}
               style={{ width: "1150px" }}
               type="text"
               value={values.mobileNumber}
@@ -235,7 +229,6 @@ function AddSupplier(props: IAddUser) {
               label="City"
               name="city"
               placeholder="City"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.roleId}
               onBlur={handleBlur("roleId")}
@@ -248,7 +241,6 @@ function AddSupplier(props: IAddUser) {
               label="Zip code"
               name="zipcode"
               placeholder="Zip Code"
-              size={undefined}
               style={{ width: "550px" }}
               type="text"
               value={values.fullName}
@@ -272,7 +264,6 @@ function AddSupplier(props: IAddUser) {
               label="First name"
               name="first name"
               placeholder="First name"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.roleId}
               onBlur={handleBlur("roleId")}
@@ -285,7 +276,6 @@ function AddSupplier(props: IAddUser) {
               label="Last name"
               name="shortname"
               placeholder="Last Name"
-              size={undefined}
               style={{ width: "550px" }}
               type="text"
               value={values.fullName}
@@ -308,7 +298,6 @@ function AddSupplier(props: IAddUser) {
               label="Email"
               name="email"
               placeholder="email"
-              size={undefined}
               style={{ width: "550px" }}
               type="email"
               value={values.email}
@@ -322,7 +311,6 @@ function AddSupplier(props: IAddUser) {
               label="Phone number"
               name="address"
               placeholder="Phone number"
-              size={undefined}
               style={{ width: "550px" }}
               value={values.address}
               onBlur={handleBlur("address")}
