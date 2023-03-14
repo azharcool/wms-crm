@@ -88,3 +88,14 @@ export const ProductCreate = Loadable({
   loader: () => import("pages/user/catalog/products/components/ProductCreate"),
   loading: () => <Spinner />,
 });
+
+export const Units = Loadable({
+  loader: () => import("pages/user/catalog/units"),
+  loading: () => <Spinner />,
+});
+
+export const Bundles = Loadable({
+  loader: () => import("pages/user/catalog/bundles"),
+  loading: () => <Spinner />,
+});
+
