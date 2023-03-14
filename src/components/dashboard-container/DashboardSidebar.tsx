@@ -10,29 +10,91 @@ import palette from "theme/palette";
 import { isScreenAccessible, logoURL } from "utils";
 import NavItem from "./NavItem";
 
-const items = [
+export interface IMenuItems {
+  id: string;
+  title: string;
+  location: string;
+}
+export interface ISideNavMenu {
+  id: string;
+  href?: string | undefined;
+  icon: JSX.Element;
+  title: string;
+  screenCode: string;
+  menuItems: IMenuItems[];
+}
+
+const sideNavMenu: ISideNavMenu[] = [
   {
+    id: crypto.randomUUID(),
     href: AppRoutes.DASHBOARD,
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
     screenCode: SCREEN_CODES.COMMON,
+    menuItems: [],
   },
   {
+    id: crypto.randomUUID(),
     href: AppRoutes.WAREHOUSE,
     icon: <WarehouseIcon fontSize="small" />,
     title: "Warehouses",
     screenCode: SCREEN_CODES.WAREHOUSE,
+    menuItems: [],
   },
   {
+    id: crypto.randomUUID(),
+    href: AppRoutes.CATALOG.catalog,
+    icon: <WarehouseIcon fontSize="small" />,
+    title: "Catalog",
+    screenCode: SCREEN_CODES.WAREHOUSE,
+    menuItems: [
+      {
+        id: crypto.randomUUID(),
+        title: "Products",
+        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Variants",
+        location: AppRoutes.CATALOG.variants,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Units",
+        location: AppRoutes.CATALOG.units,
+      },
+    ],
+  },
+  {
+    id: crypto.randomUUID(),
     href: AppRoutes.SETTINGS,
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
+    menuItems: [],
   },
   {
-    href: AppRoutes.PURCHASE_ORDER,
+    id: crypto.randomUUID(),
+    href: AppRoutes.PURCHASE.PURCHASE_ORDER,
     icon: <ChartBarIcon fontSize="small" />,
     title: "Purchases",
+    menuItems: [
+      {
+        id: crypto.randomUUID(),
+        title: "Purchase order",
+        location: AppRoutes.PURCHASE.PURCHASE_ORDER,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Suppliers",
+        location: AppRoutes.PURCHASE.SUPPLIERS,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Suppliers Return",
+        location: AppRoutes.PURCHASE.SUPPLIERS_RETURN,
+      },
+    ],
     screenCode: SCREEN_CODES.PURCHASE,
   },
 ];
@@ -45,7 +107,7 @@ export function DashboardSidebar(props: any) {
 
   useEffect(() => {
     if (permissions) {
-      serScreens(items);
+      // serScreens(items);
     }
   }, [permissions]);
 
@@ -106,14 +168,9 @@ export function DashboardSidebar(props: any) {
           }}
         />
         <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
-          {screens.map((item) => {
+          {sideNavMenu.map((item) => {
             return isScreenAccessible(item.screenCode) ? (
-              <NavItem
-                key={item.title}
-                href={item.href}
-                icon={item.icon}
-                title={item.title}
-              />
+              <NavItem key={item.id} item={item} />
             ) : null;
           })}
         </Box>

@@ -1,7 +1,10 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import CreateIcon from "@mui/icons-material/Create";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Divider, Typography } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
+import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
@@ -16,10 +19,12 @@ interface ITableToolbar {
   buttonText: string;
   handleClick?: () => void;
   breadcrumbs?: IBreadcrumb[];
+  navTitle?: string;
 }
 
 function TableToolbar(props: ITableToolbar) {
-  const { title, buttonText, handleClick, breadcrumbs, isAdd } = props;
+  const { title, buttonText, handleClick, breadcrumbs, isAdd, navTitle } =
+    props;
   const navigation = useNavigate();
   const handleBread = (link: string) => {
     navigation(link);
@@ -29,7 +34,7 @@ function TableToolbar(props: ITableToolbar) {
     <Box {...props}>
       <Box>
         <Stack spacing={2} sx={{ mt: 2 }}>
-          {/* <Breadcrumbs
+          <Breadcrumbs
             aria-label="breadcrumb"
             separator={<NavigateNextIcon fontSize="small" />}
           >
@@ -48,9 +53,9 @@ function TableToolbar(props: ITableToolbar) {
             })}
             ,
             <Typography key="3" color="text.primary">
-              {title}
+              {navTitle || title}
             </Typography>
-          </Breadcrumbs> */}
+          </Breadcrumbs>
         </Stack>
         <Box
           sx={{
