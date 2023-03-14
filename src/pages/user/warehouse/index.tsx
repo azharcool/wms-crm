@@ -1,15 +1,16 @@
 import { Box, Card, CardContent, Container, PaletteMode } from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import { memo, useState } from "react";
-import { grey, purple } from "@mui/material/colors";
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 // import PermissionForm from "./components/PermissionForm";
-import Warehouses from "./component/__mock__/warhouses.json";
-import WarehouseTable from "./component/WarehouseTable";
+
 import WarehouseForm from "./component/WarehouseForm";
+import WarehouseTable from "./component/WarehouseTable";
+import Warehouses from "./component/__mock__/warhouses.json";
 // import { useApiActions } from "./query/useApiAction";
 // import { useFetchPermissions } from "./query/useFetchPermissions";
 
@@ -81,8 +82,8 @@ function Warehouse() {
             <Card>
               <CardContent sx={{ paddingTop: 0 }}>
                 <TableToolbar
-                  buttonText="New"
                   isAdd
+                  buttonText="New"
                   handleClick={handleOpen}
                   title="Warehouses"
                 />
