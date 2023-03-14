@@ -3,9 +3,10 @@ import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import { memo, useState } from "react";
 // import PermissionForm from "./components/PermissionForm";
-import Warehouses from "./component/__mock__/warhouses.json";
-import WarehouseTable from "./component/WarehouseTable";
+
 import WarehouseForm from "./component/WarehouseForm";
+import WarehouseTable from "./component/WarehouseTable";
+import Warehouses from "./component/__mock__/warhouses.json";
 // import { useApiActions } from "./query/useApiAction";
 // import { useFetchPermissions } from "./query/useFetchPermissions";
 
@@ -22,9 +23,8 @@ function Warehouse() {
     setOpen(false);
   };
 
-  const handleDeleteWarehouse= async (id: string) => {
+  const handleDeleteWarehouse = async (id: string) => {
     // await deletePermission(id);
-
   };
 
   return (
@@ -36,22 +36,22 @@ function Warehouse() {
           py: 8,
         }}
       >
-     <Container maxWidth={false}>
+        <Container maxWidth={false}>
           <Card>
             <CardContent sx={{ paddingTop: 0 }}>
               <TableToolbar
-                buttonText="New"
                 isAdd
+                buttonText="New"
                 handleClick={handleOpen}
                 title="Warehouses"
               />
               <Box sx={{ mt: 3 }}>
                 <WarehouseTable
                   handleDeleteWarehouse={handleDeleteWarehouse}
-                  openModal={handleOpen} 
-                  warehouses={Warehouses} 
-                  total={0}  
-                                 // permissions={permissions?.data || []}
+                  openModal={handleOpen}
+                  warehouses={Warehouses}
+                  total={0}
+                  // permissions={permissions?.data || []}
                   // setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
                   // setPageLimit={(limit: number) => handlePageLimitChange(limit)}
                   // total={permissions?.totalDocs || 0}
@@ -59,7 +59,7 @@ function Warehouse() {
               </Box>
             </CardContent>
           </Card>
-    </Container>
+        </Container>
       </Box>
       <WarehouseForm handleClose={handleClose} open={open} />
     </DashboardLayout>

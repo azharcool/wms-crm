@@ -1,19 +1,13 @@
-import EventNoteIcon from "@mui/icons-material/EventNote";
-import ForumIcon from "@mui/icons-material/Forum";
-import GroupIcon from "@mui/icons-material/Group";
-import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
-import WarehouseIcon from '@mui/icons-material/Warehouse';
-import MinimizeIcon from '@mui/icons-material/Minimize';
 import SettingsIcon from "@mui/icons-material/Settings";
+import WarehouseIcon from "@mui/icons-material/Warehouse";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
 import { SCREEN_CODES } from "config";
-import curveBtm from "assets/images/curve-btm.png"
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { isScreenAccessible, logoURL } from "utils";
 import palette from "theme/palette";
+import { isScreenAccessible, logoURL } from "utils";
 import NavItem from "./NavItem";
 
 const items = [
@@ -40,7 +34,7 @@ const items = [
     icon: <ChartBarIcon fontSize="small" />,
     title: "Purchases",
     screenCode: SCREEN_CODES.PURCHASE,
-  }
+  },
 ];
 
 export function DashboardSidebar(props: any) {
@@ -73,8 +67,7 @@ export function DashboardSidebar(props: any) {
           flexDirection: "column",
           height: "100%",
           // backgroundColor: palette.info.dark,
-        backgroundColor:'#152238',
-          // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521);",
+          background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521)",
           color: "#000",
           // zIndex:8,
           // "&::after": {
@@ -90,16 +83,22 @@ export function DashboardSidebar(props: any) {
           // },
         }}
       >
-         <Box
-              sx={{
-                display: "flex",
-                paddingTop: 2,
-                flexDirection: "column",
-                alignItems: "center"
-              }}
-            >
-              <img src={logoURL} width="80%" height="80" alt="logo" />
-            </Box>
+        <Box
+          sx={{
+            display: "flex",
+            paddingTop: 2,
+            flexDirection: "column",
+            alignItems: "center",
+            // justifyContent: "center",
+          }}
+        >
+          <img alt="logo" height="80" src={logoURL} width="80%" />
+          {/* <KeyboardDoubleArrowLeftIcon
+            fontSize="large"
+            sx={{ color: palette.common.white, cursor: "pointer" }}
+            onClick={onClose}
+          /> */}
+        </Box>
         <Divider
           sx={{
             borderColor: palette.info.main,
@@ -130,7 +129,8 @@ export function DashboardSidebar(props: any) {
         PaperProps={{
           sx: {
             width: 250,
-            borderRightColor:palette.info.dark
+            borderRightColor: palette.info.dark,
+            borderRight: "none",
           },
         }}
         variant="permanent"
@@ -147,6 +147,7 @@ export function DashboardSidebar(props: any) {
       PaperProps={{
         sx: {
           color: "#000",
+          borderRight: "none",
           width: 250,
         },
       }}
