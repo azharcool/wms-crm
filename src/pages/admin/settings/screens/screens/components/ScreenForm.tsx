@@ -93,6 +93,7 @@ function AddScreen(props: IAddScreen) {
               helperText={
                 (touched.screenName && errors && errors.screenName) || ""
               }
+              id={undefined}
               label="Name"
               name="screenName"
               placeholder="Name"
@@ -106,6 +107,7 @@ function AddScreen(props: IAddScreen) {
               helperText={
                 (touched.screenCode && errors && errors.screenCode) || ""
               }
+              id={undefined}
               label="Code"
               name="Code"
               placeholder="Code"
@@ -128,6 +130,7 @@ function AddScreen(props: IAddScreen) {
               helperText={
                 (touched.screenUrl && errors && errors.screenUrl) || ""
               }
+              id={undefined}
               label="Url"
               name="screenUrl"
               placeholder="Url"

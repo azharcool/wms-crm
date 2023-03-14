@@ -69,14 +69,17 @@ function Login() {
             alignItems: "center",
           }}
         >
-          <img src={logoURL} width="250" height="100" alt="logo" />
+          <img alt="logo" height="100" src={logoURL} width="250" />
         </Box>
         <Box sx={{ color: palette.text.secondary }}>
           <TextField
             error={!!touched.email && !!errors.email}
+            FieldLabel="Email Address"
             helperText={(touched.email && errors && errors.email) || ""}
-            label="Email Address"
+            id={undefined}
+            name=""
             placeholder="Email"
+            // size={undefined}
             value={values.email}
             onBlur={handleBlur("email")}
             onChange={handleChange("email")}
@@ -84,14 +87,17 @@ function Login() {
           <TextField
             iconEnd
             error={!!touched.password && !!errors.password}
+            FieldLabel="Password"
             helperText={(touched.password && errors && errors.password) || ""}
             icon={
               <IconButton onClick={handlePasswordToggle}>
                 {showPassword ? <Visibility /> : <VisibilityOff />}
               </IconButton>
             }
-            label="Password"
+            id={undefined}
+            name=""
             placeholder="Password"
+            // size={undefined}
             type={showPassword ? "text" : "password"}
             value={values.password}
             onBlur={handleBlur("password")}

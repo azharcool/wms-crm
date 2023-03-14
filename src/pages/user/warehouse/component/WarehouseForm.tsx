@@ -1,7 +1,6 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Card,
   CircularProgress,
   Divider,
   FormControlLabel,
@@ -11,9 +10,11 @@ import {
   Switch,
 } from "@mui/material";
 import Button from "@mui/material/Button";
+import { grey, purple } from "@mui/material/colors";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import {
@@ -22,16 +23,12 @@ import {
   receivingStrategy,
   receivingType,
 } from "constants/constants";
-import { CssBaseline } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
 import { IDropdown } from "constants/interfaces";
 import { useFetchScreens } from "pages/admin/settings/screens/screens/query/useFetchScreens";
 import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useSelector } from "react-redux";
 import { usePermissionActions } from "redux/permissions/permissions";
-import palette from "theme/palette";
 import useForm from "../hooks/useForm";
 // import useForm from "../hooks/useForm";
 // import { IPermissionRequest, useApiActions } from "../query/useApiAction";
@@ -255,7 +252,7 @@ function WarehouseForm(props: IAddWarehouse) {
         <PerfectScrollbar>
           <Box sx={{ display: "flex", flexDirection: "column" }}>
             <Box sx={{ display: "flex", flex: 4, gap: 2 }}>
-              <DialogContent sx={{ flex: 3 }} dividers>
+              <DialogContent dividers sx={{ flex: 3 }}>
                 <DialogTitle>Information</DialogTitle>
                 <Divider sx={{ my: 1 }} />
                 <Box
@@ -274,6 +271,7 @@ function WarehouseForm(props: IAddWarehouse) {
                         errors.warehouseName) ||
                       ""
                     }
+                    id={undefined}
                     label="Warehouse name"
                     name="warehouseName"
                     placeholder="Warehouse Name"
@@ -285,6 +283,7 @@ function WarehouseForm(props: IAddWarehouse) {
                   <TextField
                     error={!!touched.label && !!errors.label}
                     helperText={(touched.label && errors && errors.label) || ""}
+                    id={undefined}
                     label="Label"
                     name="label"
                     placeholder="Label"
@@ -306,6 +305,7 @@ function WarehouseForm(props: IAddWarehouse) {
                   <TextField
                     error={!!touched.email && !!errors.email}
                     helperText={(touched.email && errors && errors.email) || ""}
+                    id={undefined}
                     label="Email"
                     name="email"
                     placeholder="Email"
@@ -321,6 +321,7 @@ function WarehouseForm(props: IAddWarehouse) {
                       (touched.phoneNumber && errors && errors.phoneNumber) ||
                       ""
                     }
+                    id={undefined}
                     label="Phone Number"
                     name="phoneNumber"
                     placeholder="Phone Number"
@@ -343,6 +344,7 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.address && errors && errors.address) || ""
                     }
+                    id={undefined}
                     label="Address"
                     name="address"
                     placeholder="Address"
@@ -358,8 +360,9 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.country && errors && errors.country) || ""
                     }
-                    menuItems={[{ id: 1, value: "india" }]}
+                    id={undefined}
                     label="Country"
+                    menuItems={[{ id: 1, value: "india" }]}
                     name="country"
                     placeholder="Country"
                     style={{ width: "550px" }}
@@ -386,6 +389,7 @@ function WarehouseForm(props: IAddWarehouse) {
                   <TextField
                     error={!!touched.city && !!errors.city}
                     helperText={(touched.city && errors && errors.city) || ""}
+                    id={undefined}
                     label="City"
                     name="city"
                     placeholder="City"
@@ -399,6 +403,7 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.zipcode && errors && errors.zipcode) || ""
                     }
+                    id={undefined}
                     label="Zicode"
                     name="zipcode"
                     placeholder="Zipcode"
@@ -421,6 +426,7 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.longitude && errors && errors.longitude) || ""
                     }
+                    id={undefined}
                     label="Longitude"
                     name="longitude"
                     placeholder="Longitude"
@@ -434,6 +440,7 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.latitude && errors && errors.latitude) || ""
                     }
+                    id={undefined}
                     label="Latitude"
                     name="latitude"
                     placeholder="Latitude"
@@ -444,7 +451,7 @@ function WarehouseForm(props: IAddWarehouse) {
                   />
                 </Box>
               </DialogContent>
-              <DialogContent sx={{ flex: 1 }} dividers>
+              <DialogContent dividers sx={{ flex: 1 }}>
                 <DialogTitle>Setting</DialogTitle>
                 <Divider sx={{ my: 1 }} />
 
@@ -462,8 +469,9 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.status && errors && errors.status) || ""
                     }
-                    menuItems={formStatus}
+                    id={undefined}
                     label="Status"
+                    menuItems={formStatus}
                     name="status"
                     placeholder="Status"
                     style={{ width: "550px" }}
@@ -499,8 +507,9 @@ function WarehouseForm(props: IAddWarehouse) {
                         errors.pickingStrategy) ||
                       ""
                     }
-                    menuItems={pickingStrategy}
+                    id={undefined}
                     label="Picking Strategy"
+                    menuItems={pickingStrategy}
                     name="Picking Strategy"
                     placeholder="Picking Strategy"
                     style={{ width: "550px" }}
@@ -535,8 +544,9 @@ function WarehouseForm(props: IAddWarehouse) {
                         errors.receivingStrategy) ||
                       ""
                     }
-                    menuItems={receivingStrategy}
+                    id={undefined}
                     label="Receiving Strategy"
+                    menuItems={receivingStrategy}
                     name="receivingStrategy"
                     placeholder="Receiving Strategy"
                     style={{ width: "550px" }}
@@ -566,8 +576,9 @@ function WarehouseForm(props: IAddWarehouse) {
                     helperText={
                       (touched.timezone && errors && errors.timezone) || ""
                     }
-                    menuItems={[{ id: 1, value: "india" }]}
+                    id={undefined}
                     label="Timezone"
+                    menuItems={[{ id: 1, value: "india" }]}
                     name="timezone"
                     placeholder="Timezone"
                     style={{ width: "550px" }}
@@ -600,8 +611,9 @@ function WarehouseForm(props: IAddWarehouse) {
                         errors.receivingType) ||
                       ""
                     }
-                    menuItems={receivingType}
+                    id={undefined}
                     label="Receiving Type"
+                    menuItems={receivingType}
                     name="receivingType"
                     placeholder="Receiving Type"
                     style={{ width: "550px" }}
@@ -647,7 +659,7 @@ function WarehouseForm(props: IAddWarehouse) {
                 </Box>
               </DialogContent>
             </Box>
-            <DialogContent sx={{}} dividers>
+            <DialogContent dividers sx={{}}>
               <DialogTitle>Primary Contact</DialogTitle>
               <Divider sx={{ my: 1 }} />
 
@@ -665,6 +677,7 @@ function WarehouseForm(props: IAddWarehouse) {
                     (touched.warehouseName && errors && errors.warehouseName) ||
                     ""
                   }
+                  id={undefined}
                   label="First name"
                   name="firstname"
                   placeholder="First Name"
@@ -676,6 +689,7 @@ function WarehouseForm(props: IAddWarehouse) {
                 <TextField
                   error={!!touched.label && !!errors.label}
                   helperText={(touched.label && errors && errors.label) || ""}
+                  id={undefined}
                   label="Last Name"
                   name="lastname"
                   placeholder="Last Name"
@@ -697,6 +711,7 @@ function WarehouseForm(props: IAddWarehouse) {
                 <TextField
                   error={!!touched.email && !!errors.email}
                   helperText={(touched.email && errors && errors.email) || ""}
+                  id={undefined}
                   label="Email"
                   name="email"
                   placeholder="Email"
@@ -711,6 +726,7 @@ function WarehouseForm(props: IAddWarehouse) {
                   helperText={
                     (touched.phoneNumber && errors && errors.phoneNumber) || ""
                   }
+                  id={undefined}
                   label="Phone Number"
                   name="phoneNumber"
                   placeholder="Phone Number"

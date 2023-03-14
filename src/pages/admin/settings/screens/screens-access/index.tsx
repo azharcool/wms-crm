@@ -229,9 +229,11 @@ function ScreenAccess() {
                 isSelect
                 error={Boolean(roleIdError)}
                 helperText={roleIdError}
+                id={undefined}
                 label="Select Role"
                 menuItems={roles}
                 name="Role"
+                size={undefined}
                 style={{ width: "550px" }}
                 value={roleId}
                 onSelectHandler={handleRoleSelect}
@@ -249,20 +251,20 @@ function ScreenAccess() {
             </Stack>
             <Box sx={{ mt: 2 }}>
               {screens?.map((screen: IScreen) => {
-                console.log("screen", screen)
+                console.log("screen", screen);
                 return (
                   <Box sx={{ mt: 1 }}>
-                    {screen.screenName ==="Settings" && 
-                    <AccessAccordion
-                      handleSelectControl={handleSelectControl}
-                      handleSelectScreen={handleSelectScreen}
-                      id={screen.id}
-                      permissions={screen?.screenPermission || []}
-                      selectedData={data}
-                      selectedScreenIds={selectedScreenIds}
-                      title={screen?.screenName}
-                    />
-                }
+                    {screen.screenName === "Settings" && (
+                      <AccessAccordion
+                        handleSelectControl={handleSelectControl}
+                        handleSelectScreen={handleSelectScreen}
+                        id={screen.id}
+                        permissions={screen?.screenPermission || []}
+                        selectedData={data}
+                        selectedScreenIds={selectedScreenIds}
+                        title={screen?.screenName}
+                      />
+                    )}
                   </Box>
                 );
               })}

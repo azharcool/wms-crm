@@ -1,36 +1,35 @@
-import React, { useState } from "react";
-import DashboardLayout from "components/dashboard-container";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
-  Card,
-  CardContent,
-  DialogTitle,
-  Divider,
-  Typography,
-  Chip,
-  DialogContent,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
   Autocomplete,
   Button,
+  Card,
+  CardContent,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   TextField as InputField,
+  Typography,
 } from "@mui/material";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Container, Box } from "@mui/system";
+import { Box, Container } from "@mui/system";
+import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import { useState } from "react";
 import palette from "theme/palette";
 import AddSupplier from "./component/SupplierForm";
 
 function NewSupplier() {
-    const [isAddSupplier,setAddSupplier]= useState(false)
+  const [isAddSupplier, setAddSupplier] = useState(false);
   const handleSave = () => {};
 
-  const handleAdd=()=>{
-    setAddSupplier(true)
-  }
+  const handleAdd = () => {
+    setAddSupplier(true);
+  };
 
   return (
     <DashboardLayout>
@@ -44,10 +43,10 @@ function NewSupplier() {
         <Container maxWidth={false}>
           <TableToolbar
             isAdd
+            breadcrumbs={[{ link: "Purchase order", to: "/purchase-order" }]}
             buttonText="Save"
             handleClick={handleSave}
             title="New Purchase Order"
-            breadcrumbs={[{ link: "Purchase order", to: "/purchase-order" }]}
           />
           <Card>
             <CardContent sx={{ paddingTop: 2, background: "#fefeff" }}>
@@ -63,21 +62,21 @@ function NewSupplier() {
                           flexDirection: "row",
                           justifyContent: "space-between",
                           alignItems: "center",
-                          my:2,
-                          px:2
+                          my: 2,
+                          px: 2,
                         }}
                       >
                         <Autocomplete
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 450 }}
                           renderInput={(params) => (
                             <InputField
                               {...params}
                               label="Search by supplier name, email, phone number"
                             />
                           )}
+                          sx={{ width: 450 }}
                         />
                         <Button
                           sx={{
@@ -107,296 +106,314 @@ function NewSupplier() {
                       </Box>
                       <Divider sx={{ my: 1 }} />
                       {/* main */}
-                  <Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          gap: 2,
-                          justifyContent: "space-around",
-                          flex: 3,
-                          alignItems: "center",
-                        }}
-                      >
+                      <Box>
                         <Box
                           sx={{
                             display: "flex",
-                            flexDirection: "column",
-                            // gap: 2,
-                            flex: 1,
-                            justifyContent: "center",
+                            flexDirection: "row",
+                            gap: 2,
+                            justifyContent: "space-around",
+                            flex: 3,
                             alignItems: "center",
                           }}
                         >
-                          <Typography
-                            color="text.secondary"
-                            sx={{ fontSize: 15 }}
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              // gap: 2,
+                              flex: 1,
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
                           >
-                            Company name
-                          </Typography>
-                          <Typography color="" sx={{ fontSize: 15 }}>
-                            smart
-                          </Typography>
+                            <Typography
+                              color="text.secondary"
+                              sx={{ fontSize: 15 }}
+                            >
+                              Company name
+                            </Typography>
+                            <Typography color="" sx={{ fontSize: 15 }}>
+                              smart
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              flex: 1,
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Typography
+                              color="text.secondary"
+                              sx={{ fontSize: 15 }}
+                            >
+                              Contact Person
+                            </Typography>
+                            <Typography color="" sx={{ fontSize: 15 }}>
+                              smart
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: "flex",
+                              flexDirection: "column",
+                              flex: 1,
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <Typography
+                              color="text.secondary"
+                              sx={{ fontSize: 15 }}
+                            >
+                              Phone number
+                            </Typography>
+                            <Typography color="" sx={{ fontSize: 15 }}>
+                              893898982
+                            </Typography>
+                          </Box>
                         </Box>
                         <Box
                           sx={{
                             display: "flex",
-                            flexDirection: "column",
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
+                            flexDirection: "row",
+                            justifyContent: "space-around",
+                            flex: 2,
                           }}
                         >
-                          <Typography
-                            color="text.secondary"
-                            sx={{ fontSize: 15 }}
-                          >
-                            Contact Person
-                          </Typography>
-                          <Typography color="" sx={{ fontSize: 15 }}>
-                            smart
-                          </Typography>
-                        </Box>
-                        <Box
-                          sx={{
-                            display: "flex",
-                            flexDirection: "column",
-                            flex: 1,
-                            justifyContent: "center",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Typography
-                            color="text.secondary"
-                            sx={{ fontSize: 15 }}
-                          >
-                            Phone number
-                          </Typography>
-                          <Typography color="" sx={{ fontSize: 15 }}>
-                            893898982
-                          </Typography>
-                        </Box>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          flexDirection: "row",
-                          justifyContent: "space-around",
-                          flex: 2,
-                        }}
-                      >
-                        <Box
-                          sx={{ border: 1, borderColor: "#eee", m: 2, flex: 1 }}
-                        >
-                          <DialogTitle>Supplier address</DialogTitle>
-                          <Divider sx={{ my: 1 }} />
                           <Box
                             sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
+                              border: 1,
+                              borderColor: "#eee",
                               m: 2,
+                              flex: 1,
                             }}
                           >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="Address"
-                              name="address"
-                              placeholder="Address"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
+                            <DialogTitle>Supplier address</DialogTitle>
+                            <Divider sx={{ my: 1 }} />
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="Address"
+                                name="address"
+                                placeholder="Address"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="City"
+                                name="address"
+                                placeholder="City"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="Zip code"
+                                name="address"
+                                placeholder="Zip Code"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="Country"
+                                name="address"
+                                placeholder="Country"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
                           </Box>
                           <Box
                             sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
+                              border: 1,
+                              borderColor: "#eee",
                               m: 2,
+                              flex: 1,
                             }}
                           >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="City"
-                              name="address"
-                              placeholder="City"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
+                            <DialogTitle>Billing address</DialogTitle>
+                            <Divider sx={{ my: 1 }} />
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="Address"
+                                name="address"
+                                placeholder="Address"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="City"
+                                name="address"
+                                placeholder="City"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="Zip code"
+                                name="address"
+                                placeholder="Zip Code"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                gap: 2,
+                                alignItems: "center",
+                                m: 2,
+                              }}
+                            >
+                              <TextField
+                                //   error={!!touched.roleName && !!errors.roleName}
+                                //   helperText={
+                                //     (touched.roleName &&
+                                //       errors &&
+                                //       errors.roleName) ||
+                                //     ""
+                                //   }
+                                id={undefined}
+                                label="Country"
+                                name="address"
+                                placeholder="Country"
+                                style={{ width: "250px" }}
+                                size={undefined} //   value={values.roleName}
+                                //   onBlur={handleBlur("roleName")}
+                                //   onChange={handleChange("roleName")}
+                              />
+                            </Box>
                           </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="Zip code"
-                              name="address"
-                              placeholder="Zip Code"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="Country"
-                              name="address"
-                              placeholder="Country"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
-                        </Box>
-                        <Box
-                          sx={{ border: 1, borderColor: "#eee", m: 2, flex: 1 }}
-                        >
-                          <DialogTitle>Billing address</DialogTitle>
-                          <Divider sx={{ my: 1 }} />
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="Address"
-                              name="address"
-                              placeholder="Address"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="City"
-                              name="address"
-                              placeholder="City"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="Zip code"
-                              name="address"
-                              placeholder="Zip Code"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
-                          <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              label="Country"
-                              name="address"
-                              placeholder="Country"
-                              style={{ width: "250px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
-                        </Box>
                         </Box>
                       </Box>
                       {/* main */}
@@ -404,7 +421,7 @@ function NewSupplier() {
                       {/* <Box sx={{display:"flex", justifyContent:"center", alignItems:'center', height:'50vh'}}>
                         <Typography variant="title1">A supplier is not added</Typography>
                       </Box> */}
-                       {/* notAdd */}
+                      {/* notAdd */}
                     </Card>
                   </Card>
                   <DialogContent sx={{ background: "#fff", flex: 1 }}>
@@ -424,10 +441,10 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField {...params} label="Ship to warehouse" />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                       <Box sx={{ my: 1 }}>
@@ -435,10 +452,10 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField {...params} label="Company" />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                       <Box sx={{ my: 1 }}>
@@ -446,10 +463,10 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField {...params} label="Order date" />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                       <Box sx={{ my: 1 }}>
@@ -457,10 +474,10 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField {...params} label="Expected date" />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                       <Box sx={{ my: 1 }}>
@@ -468,10 +485,10 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField {...params} label="Payment type" />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                       <Box sx={{ my: 1 }}>
@@ -479,13 +496,13 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField
                               {...params}
                               label="Supplier reference id"
                             />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                       <Box sx={{ my: 1 }}>
@@ -493,10 +510,10 @@ function NewSupplier() {
                           disablePortal
                           id="combo-box-demo"
                           options={[{ label: "aasif" }]}
-                          sx={{ width: 250 }}
                           renderInput={(params) => (
                             <InputField {...params} label="Tags" />
                           )}
+                          sx={{ width: 250 }}
                         />
                       </Box>
                     </Box>
@@ -594,7 +611,7 @@ function NewSupplier() {
                     <Box
                       sx={{ display: "flex", justifyContent: "space-between" }}
                     >
-                      <Typography variant="h3" sx={{ fontSize: 15 }}>
+                      <Typography sx={{ fontSize: 15 }} variant="h3">
                         Total
                       </Typography>
                       <Typography>INR 0.00</Typography>
@@ -605,32 +622,32 @@ function NewSupplier() {
                   <DialogContent sx={{ background: "#fff" }}>
                     <DialogTitle>Supplier notes</DialogTitle>
                     <Box
-                            sx={{
-                              display: "flex",
-                              gap: 2,
-                              alignItems: "center",
-                              m: 2,
-                            }}
-                          >
-                            <TextField
-                              //   error={!!touched.roleName && !!errors.roleName}
-                              //   helperText={
-                              //     (touched.roleName &&
-                              //       errors &&
-                              //       errors.roleName) ||
-                              //     ""
-                              //   }
-                              multiline
-                              size="medium"
-                              name="notes"
-                              rows={5}
-                              placeholder="Notes"
-                              style={{ width: "450px" }}
-                              //   value={values.roleName}
-                              //   onBlur={handleBlur("roleName")}
-                              //   onChange={handleChange("roleName")}
-                            />
-                          </Box>
+                      sx={{
+                        display: "flex",
+                        gap: 2,
+                        alignItems: "center",
+                        m: 2,
+                      }}
+                    >
+                      <TextField
+                        //   error={!!touched.roleName && !!errors.roleName}
+                        //   helperText={
+                        //     (touched.roleName &&
+                        //       errors &&
+                        //       errors.roleName) ||
+                        //     ""
+                        //   }
+                        multiline
+                        name="notes"
+                        placeholder="Notes"
+                        rows={5}
+                        size="medium"
+                        style={{ width: "450px" }}
+                        id={undefined} //   value={values.roleName}
+                        //   onBlur={handleBlur("roleName")}
+                        //   onChange={handleChange("roleName")}
+                      />
+                    </Box>
                   </DialogContent>
                 </Card>
               </Box>
@@ -638,7 +655,10 @@ function NewSupplier() {
           </Card>
         </Container>
       </Box>
-      <AddSupplier open={isAddSupplier} handleClose={()=>setAddSupplier(false)} />
+      <AddSupplier
+        handleClose={() => setAddSupplier(false)}
+        open={isAddSupplier}
+      />
     </DashboardLayout>
   );
 }

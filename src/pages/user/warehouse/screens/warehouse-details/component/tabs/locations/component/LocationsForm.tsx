@@ -1,24 +1,13 @@
 import CloseIcon from "@mui/icons-material/Close";
 
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  IconButton,
-} from "@mui/material";
+import { Box, CircularProgress, Divider, IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slider from "components/layouts/popup-modals/Slider";
-import ErrorMessages from "constants/ErrorMessages";
 import TextField from "components/textfield";
-import {
-  formStatus,
-  pickingStrategy,
-  receivingStrategy,
-  receivingType,
-} from "constants/constants";
+import { formStatus } from "constants/constants";
 import { IDropdown } from "constants/interfaces";
 import { useFetchScreens } from "pages/admin/settings/screens/screens/query/useFetchScreens";
 import { useEffect, useState } from "react";
@@ -60,23 +49,21 @@ const initialValues: any = {
   allowPartialPicking: false,
 };
 
-
 function LocationsForm(props: IAddScreen) {
   const { open, handleClose } = props;
 
   const screenStorage = useSelector((state: any) => state.permissions);
   const { permission } = screenStorage;
   const [screens, setScreens] = useState<IDropdown[]>([]);
-  const [aisle, setAisel]= useState();
-  const [bay, setBay]= useState();
-  const [bin, setBin]= useState();
-  const [level, setLevel]= useState();
-  const [area, setArea]= useState();
-  const [zone, setZone]= useState();
+  const [aisle, setAisel] = useState();
+  const [bay, setBay] = useState();
+  const [bin, setBin] = useState();
+  const [level, setLevel] = useState();
+  const [area, setArea] = useState();
+  const [zone, setZone] = useState();
   //   const { trySave } = useApiActions();
   const { removePermission } = usePermissionActions();
   const { data: screensData } = useFetchScreens(0, 0, false);
-  
 
   const onSubmit = async (values: any) => {
     // await trySave(values);
@@ -134,7 +121,14 @@ function LocationsForm(props: IAddScreen) {
         </IconButton>
       </DialogTitle>
       <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Locations {area && `${area}`}{zone && `-${zone}`}{aisle && `${aisle}`}{bay &&`-${bay}`}{level &&`-${level}`}{bin &&`-${bin}`}</DialogTitle>
+        <DialogTitle>
+          New Locations {area && `${area}`}
+          {zone && `-${zone}`}
+          {aisle && `${aisle}`}
+          {bay && `-${bay}`}
+          {level && `-${level}`}
+          {bin && `-${bin}`}
+        </DialogTitle>
         <Box>
           <Button
             disabled={!(isValid && dirty)}
@@ -182,10 +176,7 @@ function LocationsForm(props: IAddScreen) {
                 <TextField
                   isSelect
                   error={!!touched.warehouse && !!errors.warehouse}
-                  helperText={
-                    (touched.warehouse && errors && errors.warehouse) || ""
-                  }
-                  // label="Warehouse Name"
+                  id={undefined}
                   menuItems={formStatus}
                   name="warehouseName"
                   placeholder="warehouseName"
@@ -193,6 +184,10 @@ function LocationsForm(props: IAddScreen) {
                   value={values.warehouseName}
                   onBlur={handleBlur("warehouseName")}
                   onChange={handleChange("warehouseName")}
+                  helperText={
+                    (touched.warehouse && errors && errors.warehouse) || ""
+                  }
+                  // label="Warehouse Name"
                   onSelectHandler={(event) => {
                     if (event.target.value) {
                       setFieldValue("warehouseName", event.target.value);
@@ -205,6 +200,7 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
                   menuItems={formStatus}
                   name="status"
                   placeholder="area"
@@ -214,7 +210,7 @@ function LocationsForm(props: IAddScreen) {
                   onChange={handleChange("status")}
                   onSelectHandler={(event) => {
                     if (event.target.value) {
-                    // setArea(event.target.value)
+                      // setArea(event.target.value)
                       setFieldValue("warehouse", event.target.value);
                     } else {
                       setFieldValue("warehouse", "");
@@ -224,9 +220,7 @@ function LocationsForm(props: IAddScreen) {
                 <TextField
                   isSelect
                   error={!!touched.area && !!errors.area}
-                  helperText={(touched.area && errors && errors.area) || ""}
-                  // label="area"
-                  menuItems={formStatus}
+                  id={undefined}
                   name="area"
                   placeholder="Zone"
                   style={{ width: "550px" }}
@@ -235,12 +229,15 @@ function LocationsForm(props: IAddScreen) {
                   onChange={handleChange("area")}
                   onSelectHandler={(event) => {
                     if (event.target.value) {
-                    // setZone(event.target.value)
+                      // setZone(event.target.value)
                       setFieldValue("area", event.target.value);
                     } else {
                       setFieldValue("area", "");
                     }
                   }}
+                  helperText={(touched.area && errors && errors.area) || ""}
+                  // label="area"
+                  menuItems={formStatus}
                 />
               </Box>
               <Box sx={{ backgroundColor: "red", width: "100%" }}>
@@ -260,65 +257,69 @@ function LocationsForm(props: IAddScreen) {
                   >
                     <TextField
                       error={!!touched.aisle && !!errors.aisle}
-                      helperText={(touched.aisle && errors && errors.aisle) || ""}
-                      name="aisle"
-                      // label="Aisle"
-                      placeholder="Aisle"
+                      helperText={
+                        (touched.aisle && errors && errors.aisle) || ""
+                      }
+                      id={undefined}
                       length={3}
                       sx={{ margin: "normal" }}
                       value={values.aisle}
                       onBlur={handleBlur("aisle")}
-                      onChange={(e:any)=>{
-                        setAisel(e.target.value)
-                        handleChange("aisle")
+                      onChange={(e: any) => {
+                        setAisel(e.target.value);
+                        handleChange("aisle");
                       }}
+                      name="aisle"
+                      // label="Aisle"
+                      placeholder="Aisle"
                     />
                     <TextField
                       error={!!touched.bay && !!errors.bay}
                       helperText={(touched.bay && errors && errors.bay) || ""}
+                      id={undefined}
                       name="bay"
-                      length={3}
-
-                      // label="Bay/Rack"
-                      placeholder="Bay/Rack"
                       sx={{ margin: "normal" }}
                       value={values.bay}
                       onBlur={handleBlur("bay")}
-                      onChange={(e:any)=>{
-                        setBay(e.target.value)
-                        handleChange("bay")
-                      }}                    />
+                      onChange={(e: any) => {
+                        setBay(e.target.value);
+                        handleChange("bay");
+                      }}
+                      length={3}
+                      // label="Bay/Rack"
+                      placeholder="Bay/Rack"
+                    />
                     <TextField
                       error={!!touched.level && !!errors.level}
-                      name="level"
                       helperText={
                         (touched.level && errors && errors.level) || ""
                       }
-                     
+                      id={undefined}
+                      name="level"
                       placeholder="level/shelf"
                       sx={{ margin: "normal" }}
                       value={values.level}
                       onBlur={handleBlur("level")}
-                      onChange={(e:any)=>{
-                        setLevel(e.target.value)
-                        handleChange("level")
-                      }}                    />
+                      onChange={(e: any) => {
+                        setLevel(e.target.value);
+                        handleChange("level");
+                      }}
+                    />
                     <TextField
                       error={!!touched.bin && !!errors.bin}
+                      helperText={(touched.bin && errors && errors.bin) || ""}
+                      id={undefined}
                       name="bin"
-                      helperText={
-                        (touched.bin && errors && errors.bin) || ""
-                      }
-                      length={3}
-                      // label="Bin/Position"
-                      placeholder="Bin/Position"
                       sx={{ margin: "normal" }}
                       value={values.bin}
                       onBlur={handleBlur("bin")}
-                      onChange={(e:any)=>{
-                        setBin(e.target.value)
-                        handleChange("bin")
+                      onChange={(e: any) => {
+                        setBin(e.target.value);
+                        handleChange("bin");
                       }}
+                      length={3}
+                      // label="Bin/Position"
+                      placeholder="Bin/Position"
                     />
                   </Box>
                 </DialogContent>
@@ -337,11 +338,9 @@ function LocationsForm(props: IAddScreen) {
                     >
                       <TextField
                         error={!!touched.volume && !!errors.volume}
+                        helperText={(touched.volume && errors.volume) || ""}
+                        id={undefined}
                         name="volume"
-                        helperText={
-                          (touched.volume  && errors.volume) || ""
-                        }
-                      
                         placeholder="Volume"
                         sx={{ margin: "normal" }}
                         value={values.volume}
@@ -350,11 +349,9 @@ function LocationsForm(props: IAddScreen) {
                       />
                       <TextField
                         error={!!touched.height && !!errors.height}
+                        helperText={(touched.height && errors.height) || ""}
+                        id={undefined}
                         name="height"
-                        helperText={
-                          (touched.height && errors.height) || ""
-                        }
-                        
                         placeholder="Height"
                         sx={{ margin: "normal" }}
                         value={values.height}
@@ -363,11 +360,9 @@ function LocationsForm(props: IAddScreen) {
                       />
                       <TextField
                         error={!!touched.width && !!errors.width}
+                        helperText={(touched.width && errors.width) || ""}
+                        id={undefined}
                         name="width"
-                        helperText={
-                          (touched.width  && errors.width) || ""
-                        }
-                       
                         placeholder="Width"
                         sx={{ margin: "normal" }}
                         value={values.width}
@@ -375,9 +370,9 @@ function LocationsForm(props: IAddScreen) {
                         onChange={handleChange("width")}
                       />
                       <TextField
-                       
                         error={!!touched.max && !!errors.max}
                         helperText={(touched.max && errors && errors.max) || ""}
+                        id={undefined}
                         name="max"
                         placeholder="max.load"
                         value={values.max}
@@ -404,6 +399,7 @@ function LocationsForm(props: IAddScreen) {
               >
                 <TextField
                   error={!!touched.email && !!errors.email}
+                  id={undefined}
                   placeholder="Name"
                   sx={{ margin: "normal" }}
                   type="email"
@@ -418,6 +414,7 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
                   menuItems={formStatus}
                   sx={{ margin: "normal" }}
                   value={values.status}
@@ -439,6 +436,7 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
                   menuItems={formStatus}
                   name="status"
                   placeholder="Operation"
@@ -457,6 +455,7 @@ function LocationsForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
                   menuItems={formStatus}
                   name="status"
                   placeholder="Active"
@@ -487,6 +486,7 @@ function LocationsForm(props: IAddScreen) {
                     <TextField
                       error={!!touched.X && !!errors.X}
                       helperText={(touched.X && errors && errors.X) || ""}
+                      id={undefined}
                       name="X"
                       placeholder="X"
                       sx={{ margin: "normal" }}
@@ -497,6 +497,7 @@ function LocationsForm(props: IAddScreen) {
                     <TextField
                       error={!!touched.Y && !!errors.Y}
                       helperText={(touched.Y && errors && errors.Y) || ""}
+                      id={undefined}
                       name="Y"
                       placeholder="Y"
                       sx={{ margin: "normal" }}
@@ -507,6 +508,7 @@ function LocationsForm(props: IAddScreen) {
                     <TextField
                       error={!!touched.Z && !!errors.Z}
                       helperText={(touched.Z && errors && errors.Z) || ""}
+                      id={undefined}
                       name="Z"
                       placeholder="Z"
                       sx={{ margin: "normal" }}
