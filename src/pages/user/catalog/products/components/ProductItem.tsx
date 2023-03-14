@@ -8,7 +8,7 @@ function ProductItem() {
       <TableCell
         padding="checkbox"
         sx={{
-          minWidth: 60,
+          width: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -21,7 +21,9 @@ function ProductItem() {
         sx={{
           width: 50,
           position: "sticky",
-          left: 0,
+          left: 60,
+          zIndex: 999,
+          background: "white",
         }}
       >
         <Box
@@ -40,39 +42,45 @@ function ProductItem() {
 
       <TableCell
         sx={{
-          width: 200,
+          width: 150,
           position: "sticky",
-          left: 0,
+          left: 130,
+          zIndex: 999,
+          background: "white",
         }}
       >
         image
       </TableCell>
       <TableCell
         sx={{
-          width: 200,
+          width: 150,
           position: "sticky",
           left: 0,
+          background: "white",
         }}
       >
         azhar
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
         image
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
         image
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
         image
@@ -80,14 +88,32 @@ function ProductItem() {
 
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
         image
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
+        }}
+      >
+        100 image
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          background: "white",
+        }}
+      >
+        100 image
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          background: "white",
         }}
       >
         100 image
