@@ -96,7 +96,7 @@ export function DashboardNavbar(props: any) {
         <DashboardNavbarRoot
           sx={{
             left: {
-              lg: 250,
+              // lg: 250,
             },
             width: {
               lg: "calc(100% - 250px)",
@@ -109,10 +109,10 @@ export function DashboardNavbar(props: any) {
             disableGutters
             sx={{
               left: {
-                lg: 200,
+                // lg: 50,
               },
               width: {
-                lg: "calc(100% - 200px)",
+                // lg: "calc(100% - 200px)",
               },
               boxShadow: "0px 1px 21px rgb(100 116 139 / 15%)",
             }}
