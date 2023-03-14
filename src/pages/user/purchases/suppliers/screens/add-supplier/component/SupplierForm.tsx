@@ -1,6 +1,4 @@
 import CloseIcon from "@mui/icons-material/Close";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Box, CircularProgress, IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
@@ -116,6 +114,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.roleId && !!errors.roleId}
               helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="Company name"
               name="company name"
               placeholder="Company name"
@@ -127,6 +126,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.fullName && !!errors.fullName}
               helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Short name"
               name="shortname"
               placeholder="Short Name"
@@ -148,6 +148,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.email && !!errors.email}
               helperText={(touched.email && errors && errors.email) || ""}
+              id={undefined}
               label="Email"
               name="email"
               placeholder="email"
@@ -160,6 +161,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.address && !!errors.address}
               helperText={(touched.address && errors && errors.address) || ""}
+              id={undefined}
               label="Phone number"
               name="address"
               placeholder="Phone number"
@@ -180,15 +182,16 @@ function AddSupplier(props: IAddUser) {
             }}
           >
             <TextField
+              multiline
               error={!!touched.mobileNumber && !!errors.mobileNumber}
               helperText={
                 (touched.mobileNumber && errors && errors.mobileNumber) || ""
               }
-              multiline
-              rows={4}
+              id={undefined}
               label="Address"
               name="mobile"
               placeholder="Address"
+              rows={4}
               style={{ width: "1150px" }}
               type="text"
               value={values.mobileNumber}
@@ -200,6 +203,7 @@ function AddSupplier(props: IAddUser) {
               helperText={
                 (touched.mobileNumber && errors && errors.mobileNumber) || ""
               }
+              id={undefined}
               label="Country"
               name="mobile"
               placeholder="country"
@@ -221,6 +225,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.roleId && !!errors.roleId}
               helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="City"
               name="city"
               placeholder="City"
@@ -232,6 +237,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.fullName && !!errors.fullName}
               helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Zip code"
               name="zipcode"
               placeholder="Zip Code"
@@ -254,6 +260,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.roleId && !!errors.roleId}
               helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="First name"
               name="first name"
               placeholder="First name"
@@ -265,6 +272,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.fullName && !!errors.fullName}
               helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Last name"
               name="shortname"
               placeholder="Last Name"
@@ -286,6 +294,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.email && !!errors.email}
               helperText={(touched.email && errors && errors.email) || ""}
+              id={undefined}
               label="Email"
               name="email"
               placeholder="email"
@@ -298,6 +307,7 @@ function AddSupplier(props: IAddUser) {
             <TextField
               error={!!touched.address && !!errors.address}
               helperText={(touched.address && errors && errors.address) || ""}
+              id={undefined}
               label="Phone number"
               name="address"
               placeholder="Phone number"
@@ -318,7 +328,9 @@ function AddSupplier(props: IAddUser) {
         >
           {isSubmitting ? (
             <CircularProgress color="warning" size={12} />
-          ) : "Save"}
+          ) : (
+            "Save"
+          )}
         </Button>
 
         <Button autoFocus variant="contained" onClick={onClose}>

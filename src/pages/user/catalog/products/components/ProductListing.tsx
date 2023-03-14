@@ -64,6 +64,14 @@ const tableTitle = [
     id: crypto.randomUUID(),
     title: "Tags",
   },
+  {
+    id: crypto.randomUUID(),
+    title: "Tags0",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Tags1",
+  },
 ];
 
 function ProductListing() {
@@ -81,7 +89,15 @@ function ProductListing() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell isCheck isHeader isSticky leftValue={0}>
+                  <CustomTableCell
+                    isCheck
+                    isHeader
+                    isSticky
+                    customStyle={{
+                      zIndex: 999,
+                    }}
+                    leftValue={0}
+                  >
                     <Checkbox
                       checked={false}
                       color="primary"
@@ -96,9 +112,9 @@ function ProductListing() {
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 200,
+                          minWidth: isImage ? 50 : 150,
                           position: isImage || isName ? "sticky" : "static",
-                          // left: isImage || isName ? (isName ? 125 : 60) : 0,
+                          left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}

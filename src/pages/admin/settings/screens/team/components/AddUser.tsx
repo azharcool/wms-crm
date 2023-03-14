@@ -116,9 +116,11 @@ function AddUser(props: IAddUser) {
               isSelect
               error={!!touched.roleId && !!errors.roleId}
               helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="Role"
               menuItems={roles}
               name="Role"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.roleId}
               onBlur={handleBlur("roleId")}
@@ -134,9 +136,11 @@ function AddUser(props: IAddUser) {
             <TextField
               error={!!touched.fullName && !!errors.fullName}
               helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Full Name"
               name="fullName"
               placeholder="Full Name"
+              size={undefined}
               style={{ width: "550px" }}
               type="text"
               value={values.fullName}
@@ -155,9 +159,11 @@ function AddUser(props: IAddUser) {
             <TextField
               error={!!touched.email && !!errors.email}
               helperText={(touched.email && errors && errors.email) || ""}
+              id={undefined}
               label="Email"
               name="email"
               placeholder="email"
+              size={undefined}
               style={{ width: "550px" }}
               type="email"
               value={values.email}
@@ -167,9 +173,11 @@ function AddUser(props: IAddUser) {
             <TextField
               error={!!touched.address && !!errors.address}
               helperText={(touched.address && errors && errors.address) || ""}
+              id={undefined}
               label="Address"
               name="address"
               placeholder="address"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.address}
               onBlur={handleBlur("address")}
@@ -189,9 +197,11 @@ function AddUser(props: IAddUser) {
               helperText={
                 (touched.mobileNumber && errors && errors.mobileNumber) || ""
               }
+              id={undefined}
               label="Mobile"
               name="mobile"
               placeholder="mobile"
+              size={undefined}
               style={{ width: "550px" }}
               type="text"
               value={values.mobileNumber}
@@ -214,9 +224,11 @@ function AddUser(props: IAddUser) {
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>
                 }
+                id={undefined}
                 label="Password"
                 name="password"
                 placeholder="password"
+                size={undefined}
                 style={{ width: "550px" }}
                 type={showPassword ? "text" : "password"}
                 value={values.password}

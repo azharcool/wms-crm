@@ -3,8 +3,8 @@ import {
   FormHelperText,
   FormLabel,
   InputAdornment,
-  TextField as InputField,
   InputProps,
+  TextField as InputField,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
@@ -22,6 +22,7 @@ interface IOptios {
 interface Props extends InputProps {
   style?: any;
   label?: string;
+  FieldLabel?: string;
   helperText?: string;
   icon?: React.ReactElement;
   iconEnd?: boolean;
@@ -31,10 +32,13 @@ interface Props extends InputProps {
   menuItems?: any[];
   className?: string;
   hasAllValue?: boolean;
+  name: string;
   minDate?: any;
+  size?: "small" | "medium" | undefined;
   length?: number;
-  multiline?:boolean;
-  rows?:number
+  muliline?: boolean;
+  rows?: number;
+  id: string | undefined;
 }
 
 const CustomField = styled(InputField)({
@@ -74,6 +78,7 @@ function TextField(props: Props) {
     icon,
     iconEnd,
     isSelect,
+    id,
     selectValue,
     menuItems,
     className,
@@ -82,12 +87,13 @@ function TextField(props: Props) {
     length,
     size,
     rows,
-    multiline
+    multiline,
+    FieldLabel,
   } = props;
 
   return (
     <FormControl sx={style}>
-      {label && (
+      {FieldLabel && (
         <FormLabel
           htmlFor={name}
           sx={{
@@ -97,20 +103,19 @@ function TextField(props: Props) {
             textTransform: "capitalize",
           }}
         >
-          {label}
+          {FieldLabel}
         </FormLabel>
       )}
 
       {!isSelect ? (
         <CustomField
           aria-describedby="my-helper-text"
+          // autoComplete="current-password"
           className={className}
           color="success"
           disabled={disabled}
-          multiline ={multiline}
-          size={size}
           error={error}
-          id={name}
+          id={id}
           inputProps={{
             maxLength: length,
             startAdornment: iconEnd ? null : (
@@ -121,9 +126,13 @@ function TextField(props: Props) {
             ) : null,
             min: minDate,
           }}
+          label={label}
+          multiline={multiline}
           name={name}
           placeholder={placeholder}
           required={required}
+          rows={rows}
+          size={size}
           sx={{
             // backgroundColor: "#fff",
             borderRadius: "8px",
@@ -131,7 +140,6 @@ function TextField(props: Props) {
           }}
           type={type}
           value={value}
-          rows={rows}
           variant="outlined"
           onBlur={onBlur}
           onChange={onChange}
@@ -142,6 +150,7 @@ function TextField(props: Props) {
           className={className}
           disabled={disabled}
           error={error}
+          size={size}
           // inputProps={{ "aria-label": "Without label" }}
           // sx={{ backgroundColor: "#fff" }}
           value={value?.toString()}

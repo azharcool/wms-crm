@@ -169,6 +169,7 @@ function PermissionTable(props: IAddScreen) {
               isSelect
               error={!!touched.screenId && !!errors.screenId}
               helperText={(touched.screenId && errors && errors.screenId) || ""}
+              id={undefined}
               label="Screen"
               menuItems={screens}
               name="screen"
@@ -189,9 +190,11 @@ function PermissionTable(props: IAddScreen) {
               helperText={
                 (touched.permissions && errors && errors.permissions) || ""
               }
+              id={undefined}
               label="Permission"
               name="Permission"
               placeholder="Permission"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.permissions}
               onBlur={handleBlur("permissions")}
@@ -217,6 +220,7 @@ function PermissionTable(props: IAddScreen) {
                   errors.permissionDescription) ||
                 ""
               }
+              id={undefined}
               label="Description"
               name="permission Description"
               placeholder="Description"
@@ -231,6 +235,7 @@ function PermissionTable(props: IAddScreen) {
                 (touched.permissionCode && errors && errors.permissionCode) ||
                 ""
               }
+              id={undefined}
               label="Code"
               name="Code"
               placeholder="Code"
@@ -269,6 +274,7 @@ function PermissionTable(props: IAddScreen) {
                 helperText={
                   (touched.screenCode && errors && errors.screenCode) || ""
                 }
+                id={undefined}
                 label="Screen Code"
                 name="Screen Code"
                 placeholder="Screen Code"
@@ -282,6 +288,7 @@ function PermissionTable(props: IAddScreen) {
                 helperText={
                   (touched.screenUrl && errors && errors.screenUrl) || ""
                 }
+                id={undefined}
                 label="Screen Url"
                 name="screen Url"
                 placeholder="Screen Url"
