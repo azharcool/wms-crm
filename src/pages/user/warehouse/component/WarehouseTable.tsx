@@ -1,35 +1,40 @@
-import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SearchIcon from "@mui/icons-material/Search";
 import {
-  alpha,
   Box,
   Card,
   Checkbox,
   IconButton,
+  InputAdornment,
+  SvgIcon,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
+  TextField,
   Toolbar,
   Tooltip,
-  TextField,
   Typography,
-  InputAdornment,
-  SvgIcon,
 } from "@mui/material";
+/// imports for mui actions button
+import CallIcon from "@mui/icons-material/Call";
+import EmailIcon from "@mui/icons-material/Email";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import Button from "@mui/material/Button";
+import Menu, { MenuProps } from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import { alpha, styled } from "@mui/material/styles";
+import Switch from "@mui/material/Switch";
 import { useAlert } from "components/alert";
-import { useState } from "react";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { usePermissionActions } from "redux/permissions/permissions";
-import palette from "theme/palette";
 import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { useNavigate } from "react-router-dom";
+import { usePermissionActions } from "redux/permissions/permissions";
 import WarehouseForm from "./WarehouseForm";
 // import { IPermission } from "../query/useFetchPermissions";
 
@@ -51,6 +56,99 @@ interface IWarehouse {
   phone: number;
   primaryContact: string;
 }
+
+const StyledMenu = styled((props: MenuProps) => (
+  <Menu
+    anchorOrigin={{
+      vertical: "bottom",
+      horizontal: "right",
+    }}
+    elevation={0}
+    transformOrigin={{
+      vertical: "top",
+      horizontal: "right",
+    }}
+    {...props}
+  />
+))(({ theme }) => ({
+  "& .MuiPaper-root": {
+    borderRadius: 6,
+    minWidth: 125,
+    color:
+      theme.palette.mode === "light"
+        ? "rgb(55, 65, 81)"
+        : theme.palette.grey[300],
+    boxShadow:
+      // "rgb(255, 255, 255) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px",
+      "0px 0px 5px 1px rgb(82 63 105 / 8%)",
+    "& .MuiMenu-list": {
+      padding: "8px",
+    },
+    "& .MuiMenuItem-root": {
+      fontSize: "13px",
+      fontWeight: "500",
+      "& .MuiSvgIcon-root": {
+        fontSize: 12,
+        color: theme.palette.text.secondary,
+        marginRight: theme.spacing(1.5),
+      },
+      "&:active": {
+        backgroundColor: alpha(
+          theme.palette.primary.main,
+          theme.palette.action.selectedOpacity,
+        ),
+      },
+      "&:hover": {
+        backgroundColor: "#f1faff",
+        color: "#009ef7",
+      },
+    },
+  },
+}));
+
+const AntSwitch = styled(Switch)(({ theme }) => ({
+  width: 28,
+  height: 16,
+  padding: 0,
+  display: "flex",
+  "&:active": {
+    "& .MuiSwitch-thumb": {
+      width: 15,
+    },
+    "& .MuiSwitch-switchBase.Mui-checked": {
+      transform: "translateX(9px)",
+    },
+  },
+  "& .MuiSwitch-switchBase": {
+    padding: 2,
+    "&.Mui-checked": {
+      transform: "translateX(12px)",
+      color: "#fff",
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: theme.palette.mode === "dark" ? "#177ddc" : "green",
+      },
+    },
+  },
+  "& .MuiSwitch-thumb": {
+    boxShadow: "0 2px 4px 0 rgb(0 35 11 / 20%)",
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    transition: theme.transitions.create(["width"], {
+      duration: 200,
+    }),
+  },
+  "& .MuiSwitch-track": {
+    borderRadius: 16 / 2,
+    opacity: 1,
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? "rgba(255,255,255,.35)"
+        : "rgba(0,0,0,.25)",
+    boxSizing: "border-box",
+  },
+}));
 
 function WarehouseTable(props: IProps) {
   const {
@@ -147,6 +245,17 @@ function WarehouseTable(props: IProps) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const opened = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    console.log("clicked");
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClosed = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <Card>
       <PerfectScrollbar>
@@ -173,6 +282,7 @@ function WarehouseTable(props: IProps) {
                 <TableCell>Email</TableCell>
                 <TableCell>Phone</TableCell>
                 <TableCell>Primary Contact</TableCell>
+                <TableCell>Status</TableCell>
                 <TableCell>Action</TableCell>
               </TableRow>
             </TableHead>
@@ -204,9 +314,66 @@ function WarehouseTable(props: IProps) {
                     </TableCell>
                     <TableCell>{label}</TableCell>
                     <TableCell>{city}</TableCell>
-                    <TableCell>{email}</TableCell>
-                    <TableCell>{phone}</TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          backgroundColor: "#e8fff3",
+                          padding: "2px 5px",
+                          width: "fit-content",
+                          color: "#50cd89",
+                          borderRadius: "10px",
+                          textAlign: "center",
+                          fontSize: "0.9rem",
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "flex-start",
+                        }}
+                      >
+                        <EmailIcon
+                          fontSize="small"
+                          sx={{
+                            color: "#50cd89",
+                            marginRight: "3px",
+                            fontSize: "16px",
+                          }}
+                        />
+                        {email}
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      <Box
+                        sx={{
+                          backgroundColor: "#e8fff3",
+                          padding: "2px 5px",
+                          width: "fit-content",
+                          color: "#50cd89",
+                          borderRadius: "10px",
+                          textAlign: "center",
+                          fontSize: "0.9rem",
+                          display: "flex",
+                          alignItems: "center",
+                        }}
+                      >
+                        <CallIcon
+                          fontSize="small"
+                          sx={{
+                            color: "#50cd89",
+                            marginRight: "3px",
+                            fontSize: "16px",
+                          }}
+                        />
+                        {phone}
+                      </Box>
+                    </TableCell>
                     <TableCell>{primaryContact}</TableCell>
+                    <TableCell>
+                      <Box>
+                        <AntSwitch
+                          defaultChecked
+                          inputProps={{ "aria-label": "ant design" }}
+                        />
+                      </Box>
+                    </TableCell>
                     <TableCell>
                       <Box
                         sx={{
@@ -218,31 +385,55 @@ function WarehouseTable(props: IProps) {
                         }}
                       >
                         <Box>
-                          <IconButton onClick={() => handleEdit(warehouse)}>
-                            <CreateIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.main,
-                                },
-                              }}
-                            />
-                          </IconButton>
-                        </Box>
-                        <Box>
-                          <IconButton>
-                            <DeleteIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.error.main,
-                                },
-                              }}
-                              onClick={() => handleDelete(id)}
-                            />
-                          </IconButton>
+                          <Button
+                            disableElevation
+                            aria-controls={
+                              opened ? "demo-customized-menu" : undefined
+                            }
+                            aria-expanded={opened ? "true" : undefined}
+                            aria-haspopup="true"
+                            endIcon={<KeyboardArrowDownIcon />}
+                            id="demo-customized-button"
+                            sx={{
+                              backgroundColor: "rgb(243 149 33 / 31%)",
+                              color: "#eb5c2c",
+                              fontSize: "12px",
+                              fontWeight: "500",
+                              padding: "8px 15px",
+                              "&:hover": {
+                                color: "#fff",
+                                backgroundColor: "#f39521",
+                              },
+                              "&:focus": {
+                                color: "#fff !important",
+                                backgroundColor: "#f39521 !important",
+                              },
+                              "&:active": {
+                                color: "#fff !important",
+                                backgroundColor: "#f39521 !important",
+                              },
+                            }}
+                            variant="contained"
+                            onClick={handleClick}
+                          >
+                            Actions
+                          </Button>
+                          <StyledMenu
+                            anchorEl={anchorEl}
+                            id="demo-customized-menu"
+                            MenuListProps={{
+                              "aria-labelledby": "demo-customized-button",
+                            }}
+                            open={opened}
+                            onClose={handleClosed}
+                          >
+                            <MenuItem disableRipple onClick={handleClosed}>
+                              Edit
+                            </MenuItem>
+                            <MenuItem disableRipple onClick={handleClosed}>
+                              Delete
+                            </MenuItem>
+                          </StyledMenu>
                         </Box>
                       </Box>
                     </TableCell>
@@ -262,7 +453,7 @@ function WarehouseTable(props: IProps) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
       />
-      <WarehouseForm open={open} handleClose={handleClose} isEdit={false} />
+      <WarehouseForm handleClose={handleClose} isEdit={false} open={open} />
     </Card>
   );
 }
@@ -285,10 +476,10 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       }}
     >
       <Typography
+        component="div"
+        id="tableTitle"
         sx={{ flex: "1 1 100%" }}
         variant="h6"
-        id="tableTitle"
-        component="div"
       >
         All
       </Typography>

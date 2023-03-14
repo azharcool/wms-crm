@@ -129,9 +129,8 @@ export function DashboardSidebar(props: any) {
           flexDirection: "column",
           height: "100%",
           // backgroundColor: palette.info.dark,
-          backgroundColor: "#2f3044",
-          // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521);",
-          color: "#2f3044",
+          background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521)",
+          color: "#000",
           // zIndex:8,
           // "&::after": {
           //   content: '""',
@@ -152,9 +151,15 @@ export function DashboardSidebar(props: any) {
             paddingTop: 2,
             flexDirection: "column",
             alignItems: "center",
+            // justifyContent: "center",
           }}
         >
           <img alt="logo" height="80" src={logoURL} width="80%" />
+          {/* <KeyboardDoubleArrowLeftIcon
+            fontSize="large"
+            sx={{ color: palette.common.white, cursor: "pointer" }}
+            onClick={onClose}
+          /> */}
         </Box>
         <Divider
           sx={{
@@ -181,7 +186,8 @@ export function DashboardSidebar(props: any) {
         PaperProps={{
           sx: {
             width: 250,
-            // borderRightColor: palette.info.dark,
+            borderRightColor: palette.info.dark,
+            borderRight: "none",
           },
         }}
         variant="permanent"
@@ -198,6 +204,7 @@ export function DashboardSidebar(props: any) {
       PaperProps={{
         sx: {
           color: "#000",
+          borderRight: "none",
           width: 250,
         },
       }}

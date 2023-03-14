@@ -3,6 +3,7 @@ import {
   Button,
   Card,
   DialogActions,
+  DialogContent,
   DialogTitle,
   Divider,
   PaletteMode,
@@ -97,45 +98,47 @@ function ProductCreate() {
         >
           <Box>
             <Card>
-              <DialogTitle>Details</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "baseline",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  // error={!!touched.warehouseName && !!errors.warehouseName}
-                  // helperText={
-                  //   (touched.warehouseName && errors && errors.warehouseName) ||
-                  //   ""
-                  // }
-                  label="Warehouse name"
-                  name="warehouseName"
-                  placeholder="Warehouse Name"
-                  style={{ width: "550px" }}
-                  // value={warehouseName}
-                  // onBlur={handleBlur("warehouseName")}
-                  // onChange={handleChange("warehouseName")}
-                />
-                <TextField
-                  // error={!!touched.warehouseName && !!errors.warehouseName}
-                  // helperText={
-                  //   (touched.warehouseName && errors && errors.warehouseName) ||
-                  //   ""
-                  // }
-                  label="Warehouse name"
-                  name="warehouseName"
-                  placeholder="Warehouse Name"
-                  style={{ width: "550px" }}
-                  // value={warehouseName}
-                  // onBlur={handleBlur("warehouseName")}
-                  // onChange={handleChange("warehouseName")}
-                />
-              </Box>
+              <DialogContent dividers sx={{ flex: 3 }}>
+                <DialogTitle>Details</DialogTitle>
+                <Divider sx={{ my: 1 }} />
+                <Box
+                  sx={{
+                    display: "flex",
+                    gap: 2,
+                    alignItems: "baseline",
+                    marginBottom: "1rem",
+                  }}
+                >
+                  <TextField
+                    // error={!!touched.warehouseName && !!errors.warehouseName}
+                    // helperText={
+                    //   (touched.warehouseName && errors && errors.warehouseName) ||
+                    //   ""
+                    // }
+                    label="Warehouse name"
+                    name="warehouseName"
+                    placeholder="Warehouse Name"
+                    style={{ width: "550px" }}
+                    // value={warehouseName}
+                    // onBlur={handleBlur("warehouseName")}
+                    // onChange={handleChange("warehouseName")}
+                  />
+                  <TextField
+                    // error={!!touched.warehouseName && !!errors.warehouseName}
+                    // helperText={
+                    //   (touched.warehouseName && errors && errors.warehouseName) ||
+                    //   ""
+                    // }
+                    label="Warehouse name"
+                    name="warehouseName"
+                    placeholder="Warehouse Name"
+                    style={{ width: "550px" }}
+                    // value={warehouseName}
+                    // onBlur={handleBlur("warehouseName")}
+                    // onChange={handleChange("warehouseName")}
+                  />
+                </Box>
+              </DialogContent>
             </Card>
           </Box>
         </Toolbar>

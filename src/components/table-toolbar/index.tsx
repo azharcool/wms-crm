@@ -1,4 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import CreateIcon from "@mui/icons-material/Create";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Divider, Typography } from "@mui/material";
@@ -71,13 +72,98 @@ function TableToolbar(props: ITableToolbar) {
           >
             {title}
           </Typography>
-          <Box sx={{ m: 1 }}>
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 2,
+            }}
+          >
+            <Box
+              sx={{
+                padding: "5px 15px",
+                border: "1px dashed #ccc",
+                borderRadius: "8px",
+                width: "115px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ display: "flex" }}>
+                <ArrowUpwardIcon
+                  // fontSize="small"
+                  sx={{
+                    color: "#50cd89",
+                    marginRight: "2px",
+                    fontSize: "1.0rem",
+                  }}
+                />
+                <Box
+                  sx={{ color: "#000", fontSize: "1.0rem", fontWeight: "700" }}
+                >
+                  5485
+                </Box>
+              </Box>
+              <Typography
+                sx={{
+                  color: "#b5b5c3",
+                  fontSize: "13px",
+                  lineHeight: "1",
+                  textAlign: "center",
+                }}
+              >
+                Warehouses
+              </Typography>
+            </Box>
+
+            <Box
+              sx={{
+                padding: "5px 15px",
+                border: "1px dashed #ccc",
+                borderRadius: "8px",
+                width: "115px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Box sx={{ display: "flex" }}>
+                <ArrowUpwardIcon
+                  // fontSize="small"
+                  sx={{
+                    color: "#50cd89",
+                    marginRight: "2px",
+                    fontSize: "1.0rem",
+                  }}
+                />
+                <Box
+                  sx={{ color: "#000", fontSize: "1.0rem", fontWeight: "700" }}
+                >
+                  6564
+                </Box>
+              </Box>
+              <Typography
+                sx={{
+                  color: "#b5b5c3",
+                  fontSize: "13px",
+                  lineHeight: "1",
+                  textAlign: "center",
+                }}
+              >
+                Locations
+              </Typography>
+            </Box>
+          </Box>
+          <Box sx={{ m: 1, display: "flex", gap: 5, alignItems: "center" }}>
             <Button
               sx={{
                 // backgroundColor: palette.info.main,
                 width: "inherit",
-                height: "45px",
                 borderRadius: "5px",
+                padding: "5px 25px",
                 backgroundColor: palette.warning.dark,
                 color: "#fff",
               }}
