@@ -63,15 +63,26 @@ const sideNavMenu: ISideNavMenu[] = [
         title: "Units",
         location: AppRoutes.CATALOG.units,
       },
+      {
+        id: crypto.randomUUID(),
+        title: "Bundles",
+        location: AppRoutes.CATALOG.bundles,
+      },{
+        id: crypto.randomUUID(),
+        title: "Categories",
+        location: AppRoutes.CATALOG.units,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Brands",
+        location: AppRoutes.CATALOG.units,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Listing",
+        location: AppRoutes.CATALOG.units,
+      }
     ],
-  },
-  {
-    id: crypto.randomUUID(),
-    href: AppRoutes.SETTINGS,
-    icon: <SettingsIcon fontSize="small" />,
-    title: "Settings",
-    screenCode: SCREEN_CODES.SETTINGS,
-    menuItems: [],
   },
   {
     id: crypto.randomUUID(),
@@ -97,6 +108,14 @@ const sideNavMenu: ISideNavMenu[] = [
     ],
     screenCode: SCREEN_CODES.PURCHASE,
   },
+  {
+    id: crypto.randomUUID(),
+    href: AppRoutes.SETTINGS,
+    icon: <SettingsIcon fontSize="small" />,
+    title: "Settings",
+    screenCode: SCREEN_CODES.SETTINGS,
+    menuItems: [],
+  }
 ];
 
 export function DashboardSidebar(props: any) {
