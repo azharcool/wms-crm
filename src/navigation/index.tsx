@@ -122,6 +122,9 @@ function Application() {
                   path={`${AppRoutes.CATALOG.productCreate}`}
                 />
               </Route>
+              <Route path={`${AppRoutes.CATALOG.units}`}>
+                  <Route index element={<UserLoadable.Units/>}/>
+              </Route>
             </Route>
 
             <Route
