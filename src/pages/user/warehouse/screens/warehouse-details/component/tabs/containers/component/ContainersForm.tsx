@@ -1,10 +1,8 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Card,
   CircularProgress,
   Divider,
-  FormControlLabel,
   IconButton,
   styled,
   Switch,
@@ -15,12 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import {
-  formStatus,
-  pickingStrategy,
-  receivingStrategy,
-  receivingType,
-} from "constants/constants";
+import { formStatus } from "constants/constants";
 import { IDropdown } from "constants/interfaces";
 import { useFetchScreens } from "pages/admin/settings/screens/screens/query/useFetchScreens";
 import { useEffect, useState } from "react";
@@ -221,19 +214,21 @@ function ContainersForm(props: IAddScreen) {
                 }}
               >
                 <TextField
+                  isSelect
+                  error={!!touched.status && !!errors.status}
+                  helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
+                  label=" Locations"
+                  menuItems={formStatus}
+                  name="locations"
+                  placeholder="Locations"
+                  size={undefined}
                   sx={{
                     fontfamily: "poppins,sans-serif",
                     fontsize: "16px",
                     fontweight: "500",
                     margin: "normal",
                   }}
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  menuItems={formStatus}
-                  label= " Locations"
-                  name="locations"
-                  placeholder="Locations"
                   value={values.locations}
                   onBlur={handleBlur("locations")}
                   onChange={handleChange("locations")}
@@ -249,10 +244,12 @@ function ContainersForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
                   label="Containers_type"
                   menuItems={formStatus}
                   name="containers_type"
                   placeholder="Containers_type"
+                  size={undefined}
                   sx={{ margin: "normal" }}
                   value={values.containers_type}
                   onBlur={handleBlur("containers_type")}
@@ -269,10 +266,12 @@ function ContainersForm(props: IAddScreen) {
                   isSelect
                   error={!!touched.status && !!errors.status}
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
                   label="Parents"
                   menuItems={formStatus}
                   name="parents"
                   placeholder="Parents"
+                  size={undefined}
                   sx={{ margin: "normal" }}
                   value={values.parents}
                   onBlur={handleBlur("parents")}
@@ -288,15 +287,17 @@ function ContainersForm(props: IAddScreen) {
 
                 <TextField
                   error={!!touched.quantity && !!errors.quantity}
+                  id={undefined}
+                  placeholder="Quantity"
+                  size={undefined}
+                  value={values.quantity}
+                  onBlur={handleBlur("quantity")}
+                  onChange={handleChange("quantity")}
                   helperText={
                     (touched.quantity && errors && errors.quantity) || ""
                   }
                   // label="Quantity"
                   name="quantity"
-                  placeholder="Quantity"
-                  value={values.quantity}
-                  onBlur={handleBlur("quantity")}
-                  onChange={handleChange("quantity")}
                 />
               </Box>
             </DialogContent>
@@ -323,9 +324,13 @@ function ContainersForm(props: IAddScreen) {
                 >
                   <TextField
                     error={!!touched.height && !!errors.height}
-                    helperText={(touched.height && errors && errors.height) || ""}
+                    helperText={
+                      (touched.height && errors && errors.height) || ""
+                    }
+                    id={undefined}
                     name="height"
                     placeholder="Height"
+                    size={undefined}
                     style={{ width: "200px", mr: "5px" }}
                     value={values.height}
                     onBlur={handleBlur("height")}
@@ -335,8 +340,10 @@ function ContainersForm(props: IAddScreen) {
                   <TextField
                     error={!!touched.width && !!errors.width}
                     helperText={(touched.width && errors && errors.width) || ""}
+                    id={undefined}
                     name="width"
                     placeholder="width"
+                    size={undefined}
                     style={{ width: "200px" }}
                     value={values.width}
                     onBlur={handleBlur("width")}
@@ -344,11 +351,14 @@ function ContainersForm(props: IAddScreen) {
                   />
                   <TextField
                     error={!!touched.length && !!errors.length}
-                    helperText={(touched.length && errors && errors.length) || ""}
-                 
+                    helperText={
+                      (touched.length && errors && errors.length) || ""
+                    }
+                    id={undefined}
                     name="length"
                     placeholder="length"
-                    style={{ width: "200px", mt: "15px" , mr: "5px" }}
+                    size={undefined}
+                    style={{ width: "200px", mt: "15px", mr: "5px" }}
                     value={values.length}
                     onBlur={handleBlur("length")}
                     onChange={handleChange("length")}
@@ -356,25 +366,29 @@ function ContainersForm(props: IAddScreen) {
                   <TextField
                     error={!!touched.max && !!errors.max}
                     helperText={(touched.max && errors && errors.max) || ""}
-                   
+                    id={undefined}
                     name="max"
                     placeholder="Max.Load"
-                    style={{ width: "200px",  mt: "15px"  }}
+                    size={undefined}
+                    style={{ width: "200px", mt: "15px" }}
                     value={values.max}
                     onBlur={handleBlur("max")}
                     onChange={handleChange("max")}
                   />
                   <TextField
                     error={!!touched.volume && !!errors.volume}
-                    helperText={(touched.volume && errors && errors.volume) || ""}
-                
+                    helperText={
+                      (touched.volume && errors && errors.volume) || ""
+                    }
+                    id={undefined}
                     name="volume"
-                    placeholder="volume"
-                    //   style={{ width: "550px" }}
-                    style={{width: "500px",mt:"15px"}}
+                    size={undefined}
                     value={values.volume}
                     onBlur={handleBlur("volume")}
                     onChange={handleChange("volume")}
+                    placeholder="volume"
+                    //   style={{ width: "550px" }}
+                    style={{ width: "500px", mt: "15px" }}
                   />
                 </Box>
               </Box>

@@ -1,19 +1,9 @@
-import React from "react";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  PaletteMode,
-  Typography,
-} from "@mui/material";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, PaletteMode, Typography } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
-import { Box, Container } from "@mui/system";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Box } from "@mui/system";
 import TextField from "components/textfield";
-import palette from "theme/palette";
+import { useSelector } from "react-redux";
 import SectionBox from "./component/sections-box";
 
 function Section() {
@@ -73,12 +63,15 @@ function Section() {
           </Typography>
           <Box sx={{ m: 1 }}>
             <TextField
-              style={{ width: "250px" }}
               isSelect
+              id={undefined}
               menuItems={[
                 { id: 1, value: "section1" },
                 { id: 2, value: "section2" },
               ]}
+              name=""
+              size={undefined}
+              style={{ width: "250px" }}
             />
           </Box>
         </Box>

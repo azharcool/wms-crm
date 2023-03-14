@@ -93,9 +93,11 @@ function AddScreen(props: IAddScreen) {
               helperText={
                 (touched.screenName && errors && errors.screenName) || ""
               }
+              id={undefined}
               label="Name"
               name="screenName"
               placeholder="Name"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.screenName}
               onBlur={handleBlur("screenName")}
@@ -106,9 +108,11 @@ function AddScreen(props: IAddScreen) {
               helperText={
                 (touched.screenCode && errors && errors.screenCode) || ""
               }
+              id={undefined}
               label="Code"
               name="Code"
               placeholder="Code"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.screenCode}
               onBlur={handleBlur("screenCode")}
@@ -128,9 +132,11 @@ function AddScreen(props: IAddScreen) {
               helperText={
                 (touched.screenUrl && errors && errors.screenUrl) || ""
               }
+              id={undefined}
               label="Url"
               name="screenUrl"
               placeholder="Url"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.screenUrl}
               onBlur={handleBlur("screenUrl")}

@@ -1,7 +1,5 @@
 import CloseIcon from "@mui/icons-material/Close";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Box, CircularProgress, IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -9,12 +7,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import { IDropdown } from "constants/interfaces";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { useSelector } from "react-redux";
-import { useTeamActions } from "redux/team/team";
 import palette from "theme/palette";
-
 
 interface IAddUser {
   open: boolean;
@@ -38,10 +34,8 @@ function AddSupplier(props: IAddUser) {
   const team = useSelector((state: any) => state.team);
   const { user } = team;
 
-  const onSubmit = async () => {
-  
-  };
-  
+  const onSubmit = async () => {};
+
   const handlePasswordToggle = () => setShowPassword((show: boolean) => !show);
 
   const onClose = () => {
@@ -79,23 +73,25 @@ function AddSupplier(props: IAddUser) {
             <TextField
               // error={!!touched.roleId && !!errors.roleId}
               // helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="Company name"
               name="company name"
               placeholder="Company name"
               style={{ width: "550px" }}
-              // value={values.roleId}
+              size={undefined} // value={values.roleId}
               // onBlur={handleBlur("roleId")}
               // onChange={handleChange("roleId")}
             />
             <TextField
               // error={!!touched.fullName && !!errors.fullName}
               // helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Short name"
               name="shortname"
               placeholder="Short Name"
               style={{ width: "550px" }}
               type="text"
-              // value={values.fullName}
+              size={undefined} // value={values.fullName}
               // onBlur={handleBlur("fullName")}
               // onChange={handleChange("fullName")}
             />
@@ -111,23 +107,25 @@ function AddSupplier(props: IAddUser) {
             <TextField
               // error={!!touched.email && !!errors.email}
               // helperText={(touched.email && errors && errors.email) || ""}
+              id={undefined}
               label="Email"
               name="email"
               placeholder="email"
               style={{ width: "550px" }}
               type="email"
-              // value={values.email}
+              size={undefined} // value={values.email}
               // onBlur={handleBlur("email")}
               // onChange={handleChange("email")}
             />
             <TextField
               // error={!!touched.address && !!errors.address}
               // helperText={(touched.address && errors && errors.address) || ""}
+              id={undefined}
               label="Phone number"
               name="address"
               placeholder="Phone number"
               style={{ width: "550px" }}
-              // value={values.address}
+              size={undefined} // value={values.address}
               // onBlur={handleBlur("address")}
               // onChange={handleChange("address")}
             />
@@ -148,13 +146,14 @@ function AddSupplier(props: IAddUser) {
               //   (touched.mobileNumber && errors && errors.mobileNumber) || ""
               // }
               multiline
-              rows={4}
+              id={undefined}
               label="Address"
               name="mobile"
               placeholder="Address"
+              rows={4}
               style={{ width: "1150px" }}
               type="text"
-              // value={values.mobileNumber}
+              size={undefined} // value={values.mobileNumber}
               // onBlur={handleBlur("mobileNumber")}
               // onChange={handleChange("mobileNumber")}
             />
@@ -163,12 +162,13 @@ function AddSupplier(props: IAddUser) {
               // helperText={
               //   (touched.mobileNumber && errors && errors.mobileNumber) || ""
               // }
+              id={undefined}
               label="Country"
               name="mobile"
               placeholder="country"
               style={{ width: "1150px" }}
               type="text"
-              // value={values.mobileNumber}
+              size={undefined} // value={values.mobileNumber}
               // onBlur={handleBlur("mobileNumber")}
               // onChange={handleChange("mobileNumber")}
             />
@@ -184,23 +184,25 @@ function AddSupplier(props: IAddUser) {
             <TextField
               // error={!!touched.roleId && !!errors.roleId}
               // helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="City"
               name="city"
               placeholder="City"
               style={{ width: "550px" }}
-              // value={values.roleId}
+              size={undefined} // value={values.roleId}
               // onBlur={handleBlur("roleId")}
               // onChange={handleChange("roleId")}
             />
             <TextField
               // error={!!touched.fullName && !!errors.fullName}
               // helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Zip code"
               name="zipcode"
               placeholder="Zip Code"
               style={{ width: "550px" }}
               type="text"
-              // value={values.fullName}
+              size={undefined} // value={values.fullName}
               // onBlur={handleBlur("fullName")}
               // onChange={handleChange("fullName")}
             />
@@ -217,23 +219,25 @@ function AddSupplier(props: IAddUser) {
             <TextField
               // error={!!touched.roleId && !!errors.roleId}
               // helperText={(touched.roleId && errors && errors.roleId) || ""}
+              id={undefined}
               label="First name"
               name="first name"
               placeholder="First name"
               style={{ width: "550px" }}
-              // value={values.roleId}
+              size={undefined} // value={values.roleId}
               // onBlur={handleBlur("roleId")}
               // onChange={handleChange("roleId")}
             />
             <TextField
               // error={!!touched.fullName && !!errors.fullName}
               // helperText={(touched.fullName && errors && errors.fullName) || ""}
+              id={undefined}
               label="Last name"
               name="shortname"
               placeholder="Last Name"
               style={{ width: "550px" }}
               type="text"
-              // value={values.fullName}
+              size={undefined} // value={values.fullName}
               // onBlur={handleBlur("fullName")}
               // onChange={handleChange("fullName")}
             />
@@ -249,23 +253,25 @@ function AddSupplier(props: IAddUser) {
             <TextField
               // error={!!touched.email && !!errors.email}
               // helperText={(touched.email && errors && errors.email) || ""}
+              id={undefined}
               label="Email"
               name="email"
               placeholder="email"
               style={{ width: "550px" }}
               type="email"
-              // value={values.email}
+              size={undefined} // value={values.email}
               // onBlur={handleBlur("email")}
               // onChange={handleChange("email")}
             />
             <TextField
               // error={!!touched.address && !!errors.address}
               // helperText={(touched.address && errors && errors.address) || ""}
+              id={undefined}
               label="Phone number"
               name="address"
               placeholder="Phone number"
               style={{ width: "550px" }}
-              // value={values.address}
+              size={undefined} // value={values.address}
               // onBlur={handleBlur("address")}
               // onChange={handleChange("address")}
             />
@@ -282,8 +288,8 @@ function AddSupplier(props: IAddUser) {
           {/* {isSubmitting ? (
             <CircularProgress color="warning" size={12} />
           ) : */}
-           Save
-           {/* } */}
+          Save
+          {/* } */}
         </Button>
 
         <Button autoFocus variant="contained" onClick={onClose}>

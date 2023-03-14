@@ -169,9 +169,11 @@ function PermissionTable(props: IAddScreen) {
               isSelect
               error={!!touched.screenId && !!errors.screenId}
               helperText={(touched.screenId && errors && errors.screenId) || ""}
+              id={undefined}
               label="Screen"
               menuItems={screens}
               name="screen"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.screenId}
               onBlur={handleBlur("screenId")}
@@ -189,9 +191,11 @@ function PermissionTable(props: IAddScreen) {
               helperText={
                 (touched.permissions && errors && errors.permissions) || ""
               }
+              id={undefined}
               label="Permission"
               name="Permission"
               placeholder="Permission"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.permissions}
               onBlur={handleBlur("permissions")}
@@ -217,9 +221,11 @@ function PermissionTable(props: IAddScreen) {
                   errors.permissionDescription) ||
                 ""
               }
+              id={undefined}
               label="Description"
               name="permission Description"
               placeholder="Description"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.permissionDescription}
               onBlur={handleBlur("permissionDescription")}
@@ -231,9 +237,11 @@ function PermissionTable(props: IAddScreen) {
                 (touched.permissionCode && errors && errors.permissionCode) ||
                 ""
               }
+              id={undefined}
               label="Code"
               name="Code"
               placeholder="Code"
+              size={undefined}
               style={{ width: "550px" }}
               value={values.permissionCode}
               onBlur={handleBlur("permissionCode")}
@@ -269,9 +277,11 @@ function PermissionTable(props: IAddScreen) {
                 helperText={
                   (touched.screenCode && errors && errors.screenCode) || ""
                 }
+                id={undefined}
                 label="Screen Code"
                 name="Screen Code"
                 placeholder="Screen Code"
+                size={undefined}
                 style={{ width: "550px" }}
                 value={values.screenCode}
                 onBlur={handleBlur("screenCode")}
@@ -282,9 +292,11 @@ function PermissionTable(props: IAddScreen) {
                 helperText={
                   (touched.screenUrl && errors && errors.screenUrl) || ""
                 }
+                id={undefined}
                 label="Screen Url"
                 name="screen Url"
                 placeholder="Screen Url"
+                size={undefined}
                 style={{ width: "550px" }}
                 value={values.screenUrl}
                 onBlur={handleBlur("screenUrl")}

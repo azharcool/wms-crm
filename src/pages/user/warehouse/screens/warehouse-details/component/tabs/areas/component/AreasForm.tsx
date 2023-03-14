@@ -1,10 +1,8 @@
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Box,
-  Card,
   CircularProgress,
   Divider,
-  FormControlLabel,
   IconButton,
   styled,
   Switch,
@@ -15,7 +13,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import { formStatus, pickingStrategy, receivingStrategy, receivingType } from "constants/constants";
+import { formStatus } from "constants/constants";
 import { IDropdown } from "constants/interfaces";
 import { useFetchScreens } from "pages/admin/settings/screens/screens/query/useFetchScreens";
 import { useEffect, useState } from "react";
@@ -34,31 +32,31 @@ interface IAddScreen {
 
 const initialValues: any = {
   id: 0,
-  warehouseName:"",
-  label:"",
-  email:"",
-  phoneNumber:"",
-  address:"",
-  country:"",
-  city:"",
-  zipcode:"",
-  longitude:"",
-  latitude:"",
-  status:"",
-  pickingStrategy:"",
-  receivingStrategy:"",
-  timezone:"",
-  receivingType:"",
-  defaultWarehouse:false,
-  allowPartialPicking:false
-   
-//   permissions: "",
-//   permissionDescription: "",
-//   permissionCode: "",
-//   screenId: 0,
-//   screenUrl: "",
-//   screenCode: "",
-//   isScreen: false,
+  warehouseName: "",
+  label: "",
+  email: "",
+  phoneNumber: "",
+  address: "",
+  country: "",
+  city: "",
+  zipcode: "",
+  longitude: "",
+  latitude: "",
+  status: "",
+  pickingStrategy: "",
+  receivingStrategy: "",
+  timezone: "",
+  receivingType: "",
+  defaultWarehouse: false,
+  allowPartialPicking: false,
+
+  //   permissions: "",
+  //   permissionDescription: "",
+  //   permissionCode: "",
+  //   screenId: 0,
+  //   screenUrl: "",
+  //   screenCode: "",
+  //   isScreen: false,
 };
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
@@ -117,13 +115,12 @@ function AreasForm(props: IAddScreen) {
   const screenStorage = useSelector((state: any) => state.permissions);
   const { permission } = screenStorage;
   const [screens, setScreens] = useState<IDropdown[]>([]);
-//   const { trySave } = useApiActions();
+  //   const { trySave } = useApiActions();
   const { removePermission } = usePermissionActions();
   const { data: screensData } = useFetchScreens(0, 0, false);
 
   const onSubmit = async (values: any) => {
     // await trySave(values);
-
     // handleClose();
     // removePermission();
     // formik.resetForm();
@@ -178,141 +175,136 @@ function AreasForm(props: IAddScreen) {
         </IconButton>
       </DialogTitle>
       <DialogActions style={{ justifyContent: "space-between" }}>
-      <DialogTitle>
-        New Areas
-      </DialogTitle>
-      <Box>
-        <Button
-          disabled={!(isValid && dirty)}
-          sx={{ width: "inherit", backgroundColor: palette.info.main, marginRight:"1rem" }}
-          variant="contained"
-          onClick={() => handleSubmit()}
-        >
-          {isSubmitting ? (
-            <CircularProgress color="warning" size={12} />
-          ) : (
-            "Save"
-          )}
-        </Button>
+        <DialogTitle>New Areas</DialogTitle>
+        <Box>
+          <Button
+            disabled={!(isValid && dirty)}
+            sx={{
+              width: "inherit",
+              backgroundColor: palette.info.main,
+              marginRight: "1rem",
+            }}
+            variant="contained"
+            onClick={() => handleSubmit()}
+          >
+            {isSubmitting ? (
+              <CircularProgress color="warning" size={12} />
+            ) : (
+              "Save"
+            )}
+          </Button>
 
-        <Button autoFocus variant="contained" onClick={onClose}>
-          Discard
-        </Button>
+          <Button autoFocus variant="contained" onClick={onClose}>
+            Discard
+          </Button>
         </Box>
       </DialogActions>
       <PerfectScrollbar>
-        <Box sx={{display:'flex', flexDirection:'column'}}>
-        <Box sx={{display:'flex', flex:4, gap:2}}>
-        <DialogContent sx={{background:'#fff', flex:3}}  dividers>
-        <DialogTitle>
-          Details
-        </DialogTitle>
-        <Divider sx={{my:1}}/>
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}
-          >
-            <TextField
-              error={!!touched.warehouseName && !!errors.warehouseName}
-              helperText={(touched.warehouseName && errors && errors.warehouseName) || ""}
-              label="Warehouse"
-              name="warehouse"
-              placeholder="Warehouse"
-              style={{ width: "550px" }}
-              value={values.warehouseName}
-              onBlur={handleBlur("warehouseName")}
-              onChange={handleChange("warehouseName")}
-            />
-            <TextField
-              error={!!touched.label && !!errors.label}
-              helperText={
-                (touched.label && errors && errors.label) || ""
-              }
-              label="Label"
-              name="label"
-              placeholder="Label"
-              style={{ width: "550px" }}
-              value={values.label}
-              onBlur={handleBlur("label")}
-              onChange={handleChange("label")}
-            />
-          </Box>
-       
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}
-          >
-            <TextField
-              error={
-                !!touched.email &&
-                !!errors.email
-              }
-              helperText={
-                (touched.email &&
-                  errors &&
-                  errors.email) ||
-                ""
-              }
-              label="Name"
-              name="name"
-              placeholder="Name"
-              style={{ width: "550px" }}
-              type="email"
-              value={values.email}
-              onBlur={handleBlur("email")}
-              onChange={handleChange("email")}
-            />
-          
-          </Box>  
-        </DialogContent>
-        <DialogContent sx={{background:'#fff',flex:1}} dividers>
-        <DialogTitle>
-          Setting
-        </DialogTitle>
-        <Divider sx={{my:1}}/>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ display: "flex", flex: 4, gap: 2 }}>
+            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+              <DialogTitle>Details</DialogTitle>
+              <Divider sx={{ my: 1 }} />
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <TextField
+                  error={!!touched.warehouseName && !!errors.warehouseName}
+                  helperText={
+                    (touched.warehouseName && errors && errors.warehouseName) ||
+                    ""
+                  }
+                  id={undefined}
+                  label="Warehouse"
+                  name="warehouse"
+                  placeholder="Warehouse"
+                  size={undefined}
+                  style={{ width: "550px" }}
+                  value={values.warehouseName}
+                  onBlur={handleBlur("warehouseName")}
+                  onChange={handleChange("warehouseName")}
+                />
+                <TextField
+                  error={!!touched.label && !!errors.label}
+                  helperText={(touched.label && errors && errors.label) || ""}
+                  id={undefined}
+                  label="Label"
+                  name="label"
+                  placeholder="Label"
+                  size={undefined}
+                  style={{ width: "550px" }}
+                  value={values.label}
+                  onBlur={handleBlur("label")}
+                  onChange={handleChange("label")}
+                />
+              </Box>
 
-          <Box
-            sx={{
-              display: "flex",
-              gap: 2,
-              alignItems: "center",
-              marginBottom: "1rem",
-            }}
-          >
-           <TextField
-            isSelect
-              error={!!touched.status && !!errors.status}
-              helperText={
-                (touched.status && errors && errors.status) ||
-                ""
-              }
-              menuItems={formStatus}
-              label="Status"
-              name="status"
-              placeholder="Status"
-              style={{ width: "550px" }}
-              value={values.status}
-              onBlur={handleBlur("status")}
-              onChange={handleChange("status")}
-              onSelectHandler={(event) => {
-                if (event.target.value) {
-                  setFieldValue("status", event.target.value);
-                } else {
-                  setFieldValue("status", "");
-                }
-              }}
-            />
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <TextField
+                  error={!!touched.email && !!errors.email}
+                  helperText={(touched.email && errors && errors.email) || ""}
+                  id={undefined}
+                  label="Name"
+                  name="name"
+                  placeholder="Name"
+                  size={undefined}
+                  style={{ width: "550px" }}
+                  type="email"
+                  value={values.email}
+                  onBlur={handleBlur("email")}
+                  onChange={handleChange("email")}
+                />
+              </Box>
+            </DialogContent>
+            <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
+              <DialogTitle>Setting</DialogTitle>
+              <Divider sx={{ my: 1 }} />
+
+              <Box
+                sx={{
+                  display: "flex",
+                  gap: 2,
+                  alignItems: "center",
+                  marginBottom: "1rem",
+                }}
+              >
+                <TextField
+                  isSelect
+                  error={!!touched.status && !!errors.status}
+                  helperText={(touched.status && errors && errors.status) || ""}
+                  id={undefined}
+                  label="Status"
+                  menuItems={formStatus}
+                  name="status"
+                  placeholder="Status"
+                  size={undefined}
+                  style={{ width: "550px" }}
+                  value={values.status}
+                  onBlur={handleBlur("status")}
+                  onChange={handleChange("status")}
+                  onSelectHandler={(event) => {
+                    if (event.target.value) {
+                      setFieldValue("status", event.target.value);
+                    } else {
+                      setFieldValue("status", "");
+                    }
+                  }}
+                />
+              </Box>
+            </DialogContent>
           </Box>
-       </DialogContent>
-       </Box>
         </Box>
       </PerfectScrollbar>
     </Slider>

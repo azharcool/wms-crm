@@ -210,11 +210,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="Address"
                                 name="address"
                                 placeholder="Address"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -235,11 +236,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="City"
                                 name="address"
                                 placeholder="City"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -260,11 +262,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="Zip code"
                                 name="address"
                                 placeholder="Zip Code"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -285,11 +288,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="Country"
                                 name="address"
                                 placeholder="Country"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -321,11 +325,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="Address"
                                 name="address"
                                 placeholder="Address"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -346,11 +351,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="City"
                                 name="address"
                                 placeholder="City"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -371,11 +377,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="Zip code"
                                 name="address"
                                 placeholder="Zip Code"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -396,11 +403,12 @@ function AddPurchaseOrder() {
                                 //       errors.roleName) ||
                                 //     ""
                                 //   }
+                                id={undefined}
                                 label="Country"
                                 name="address"
                                 placeholder="Country"
                                 style={{ width: "250px" }}
-                                //   value={values.roleName}
+                                size={undefined} //   value={values.roleName}
                                 //   onBlur={handleBlur("roleName")}
                                 //   onChange={handleChange("roleName")}
                               />
@@ -635,7 +643,7 @@ function AddPurchaseOrder() {
                         rows={5}
                         size="medium"
                         style={{ width: "450px" }}
-                        //   value={values.roleName}
+                        id={undefined} //   value={values.roleName}
                         //   onBlur={handleBlur("roleName")}
                         //   onChange={handleChange("roleName")}
                       />
