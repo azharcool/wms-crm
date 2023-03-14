@@ -24,7 +24,8 @@ const AppRoutes = {
     products: "product",
     variants: "variant",
     units: "unit",
-    bundles:"bundles",
+    bundles: "bundles",
+    categories: "categories",
     productCreate: "create",
   },
 
@@ -32,11 +33,11 @@ const AppRoutes = {
 
   PURCHASE: {
     PURCHASE_ORDER: "/purchase-order",
-    ADD_PURCHASE_ORDER:"/add-purchase",
+    ADD_PURCHASE_ORDER: "/add-purchase",
     All_ORDER_DETAILS: "/allOrder-details",
-    SUPPLIERS:"/suppliers",
-    SUPPLIERS_RETURN:"/supplier-return"
-    }
+    SUPPLIERS: "/suppliers",
+    SUPPLIERS_RETURN: "/supplier-return",
+  },
 };
 
 export default AppRoutes;
