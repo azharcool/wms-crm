@@ -1,3 +1,4 @@
+/* eslint-disable import/namespace */
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CircleIcon from "@mui/icons-material/Circle";
 import palette from "theme/palette";
