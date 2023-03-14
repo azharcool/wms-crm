@@ -1,5 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import styled from "@emotion/styled";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness5Icon from "@mui/icons-material/Brightness5";
 import MenuIcon from "@mui/icons-material/Menu";
 import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import SearchIcon from "@mui/icons-material/Search";
@@ -20,14 +22,12 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { useRef, useState } from "react";
-import { getInitials } from "utils/get-initials";
 import useDecodedData from "hooks/useDecodedData";
-import palette from "theme/palette";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsDarkmode } from "redux/darktheme/customtheme";
-import Brightness5Icon from "@mui/icons-material/Brightness5";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
+import palette from "theme/palette";
+import { getInitials } from "utils/get-initials";
 import AccountPopover from "./AccountPopover";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {

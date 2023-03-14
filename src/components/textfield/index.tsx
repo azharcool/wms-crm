@@ -33,6 +33,8 @@ interface Props extends InputProps {
   hasAllValue?: boolean;
   minDate?: any;
   length?: number;
+  multiline?:boolean;
+  rows?:number
 }
 
 const CustomField = styled(InputField)({
@@ -78,6 +80,9 @@ function TextField(props: Props) {
     hasAllValue,
     minDate,
     length,
+    size,
+    rows,
+    multiline
   } = props;
 
   return (
@@ -102,6 +107,8 @@ function TextField(props: Props) {
           className={className}
           color="success"
           disabled={disabled}
+          multiline ={multiline}
+          size={size}
           error={error}
           id={name}
           inputProps={{
@@ -124,6 +131,7 @@ function TextField(props: Props) {
           }}
           type={type}
           value={value}
+          rows={rows}
           variant="outlined"
           onBlur={onBlur}
           onChange={onChange}

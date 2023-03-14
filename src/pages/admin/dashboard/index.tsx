@@ -1,24 +1,14 @@
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  PaletteMode,
-  Typography,
-} from "@mui/material";
-import { Box, Container } from "@mui/system";
-import TextField from "components/textfield";
-import DashboardLayout from "components/dashboard-container";
-import dashboardImg from "assets/images/dashboard.png";
-import palette from "theme/palette";
+import { Card, CardContent, CssBaseline, PaletteMode } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box } from "@mui/system";
+import DashboardLayout from "components/dashboard-container";
+
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+import DeleveryTabs from "./component/delevery-tabs";
 import Section from "./component/section";
 import SectionList from "./component/section-list";
 import UsedSection from "./component/used-section";
-import DeleveryTabs from "./component/delevery-tabs";
 
 function Dashboard() {
   const newtheme = useSelector((state: any) => state.theme);

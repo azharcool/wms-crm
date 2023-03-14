@@ -1,21 +1,12 @@
-import {
-  Box,
-  Button,
-  Divider,
-  InputAdornment,
-  SvgIcon,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Breadcrumbs from "@mui/material/Breadcrumbs";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import CreateIcon from "@mui/icons-material/Create";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Box, Button, Divider, Typography } from "@mui/material";
+import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
-import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Search as SearchIcon } from "assets/icons/search";
-import palette from "theme/palette";
 import { useNavigate } from "react-router-dom";
+import palette from "theme/palette";
 
 interface IBreadcrumb {
   link: string;
@@ -23,14 +14,16 @@ interface IBreadcrumb {
 }
 interface ITableToolbar {
   title: string;
-  isAdd?:boolean;
+  isAdd?: boolean;
   buttonText: string;
   handleClick?: () => void;
   breadcrumbs?: IBreadcrumb[];
+  navTitle?: string;
 }
 
 function TableToolbar(props: ITableToolbar) {
-  const { title, buttonText, handleClick, breadcrumbs, isAdd } = props;
+  const { title, buttonText, handleClick, breadcrumbs, isAdd, navTitle } =
+    props;
   const navigation = useNavigate();
   const handleBread = (link: string) => {
     navigation(link);
@@ -41,16 +34,16 @@ function TableToolbar(props: ITableToolbar) {
       <Box>
         <Stack spacing={2} sx={{ mt: 2 }}>
           <Breadcrumbs
-            separator={<NavigateNextIcon fontSize="small" />}
             aria-label="breadcrumb"
+            separator={<NavigateNextIcon fontSize="small" />}
           >
             {breadcrumbs?.map((item: IBreadcrumb) => {
               const { link, to } = item;
               return (
                 <Link
-                  underline="hover"
                   key={1}
                   color="inherit"
+                  underline="hover"
                   onClick={() => handleBread(to)}
                 >
                   {link}
@@ -59,7 +52,7 @@ function TableToolbar(props: ITableToolbar) {
             })}
             ,
             <Typography key="3" color="text.primary">
-              {title}
+              {navTitle || title}
             </Typography>
           </Breadcrumbs>
         </Stack>
@@ -93,20 +86,21 @@ function TableToolbar(props: ITableToolbar) {
                 handleClick?.();
               }}
             >
-              {isAdd? <AddCircleIcon
-                sx={{
-                  fontSize:18,
-                  mr:1
-                }}
-              />
-            :
-              <CreateIcon
-                sx={{
-                  fontSize:16,
-                  mr:1
-                }}
-              />
-}
+              {isAdd ? (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ) : (
+                <CreateIcon
+                  sx={{
+                    fontSize: 16,
+                    mr: 1,
+                  }}
+                />
+              )}
               <Typography
                 component="span"
                 sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}

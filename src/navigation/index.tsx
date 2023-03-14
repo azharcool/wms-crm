@@ -98,6 +98,31 @@ function Application() {
               element={<UserLoadable.AddPurchaseOrder />}
               path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
             />
+              <Route
+              element={<UserLoadable.AllOrderDetails />}
+              path={`${AppRoutes.PURCHASE.All_ORDER_DETAILS}/:orderId`}
+              />
+               <Route
+              element={<UserLoadable.AddPurchaseOrder />}
+              path={`${AppRoutes.PURCHASE.ADD_PURCHASE_ORDER}`}
+              />
+               <Route
+              element={<UserLoadable.Suppliers />}
+              path={`${AppRoutes.PURCHASE.SUPPLIERS}`}
+              />
+
+            <Route
+              element={<UserLoadable.Catalog />}
+              path={`${AppRoutes.CATALOG.catalog}`}
+            >
+              <Route path={`${AppRoutes.CATALOG.products}`}>
+                <Route index element={<UserLoadable.Products />} />
+                <Route
+                  element={<UserLoadable.ProductCreate />}
+                  path={`${AppRoutes.CATALOG.productCreate}`}
+                />
+              </Route>
+            </Route>
 
             <Route
               element={<SettingPermissionsLayout />}

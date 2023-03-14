@@ -17,7 +17,7 @@ export interface IMenuItems {
 }
 export interface ISideNavMenu {
   id: string;
-  // href: string;
+  href?: string | undefined;
   icon: JSX.Element;
   title: string;
   screenCode: string;
@@ -27,7 +27,7 @@ export interface ISideNavMenu {
 const sideNavMenu: ISideNavMenu[] = [
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.DASHBOARD,
+    href: AppRoutes.DASHBOARD,
     icon: <ChartBarIcon fontSize="small" />,
     title: "Dashboard",
     screenCode: SCREEN_CODES.COMMON,
@@ -35,7 +35,7 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.DASHBOARD,
+    href: AppRoutes.WAREHOUSE,
     icon: <WarehouseIcon fontSize="small" />,
     title: "Warehouses",
     screenCode: SCREEN_CODES.WAREHOUSE,
@@ -43,7 +43,7 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.WAREHOUSE,
+    href: AppRoutes.CATALOG.catalog,
     icon: <WarehouseIcon fontSize="small" />,
     title: "Catalog",
     screenCode: SCREEN_CODES.WAREHOUSE,
@@ -51,7 +51,7 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Products",
-        location: AppRoutes.CATALOG.products,
+        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
       },
       {
         id: crypto.randomUUID(),
@@ -67,7 +67,7 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.SETTINGS,
+    href: AppRoutes.SETTINGS,
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
@@ -75,10 +75,26 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    // href: AppRoutes.PURCHASE_ORDER,
+    href: AppRoutes.PURCHASE.PURCHASE_ORDER,
     icon: <ChartBarIcon fontSize="small" />,
     title: "Purchases",
-    menuItems: [],
+    menuItems: [
+      {
+        id: crypto.randomUUID(),
+        title: "Purchase order",
+        location: AppRoutes.PURCHASE.PURCHASE_ORDER,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Suppliers",
+        location: AppRoutes.PURCHASE.SUPPLIERS,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Suppliers Return",
+        location: AppRoutes.PURCHASE.SUPPLIERS_RETURN,
+      },
+    ],
     screenCode: SCREEN_CODES.PURCHASE,
   },
 ];

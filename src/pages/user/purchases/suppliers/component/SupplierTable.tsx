@@ -34,12 +34,12 @@ import { useNavigate } from "react-router-dom";
 import MoreMenu from "components/common/MoreMenu";
 
 interface IProps {
-    allOrders: IAllOrders[];
+    suppliers: ISuppliers[];
   total: number;
   setCurrentPage?: (page: number) => void;
   setPageLimit?: (limit: number) => void;
   openModal?: (data: any) => void;
-  handleDeletePermission: (id: number) => void;
+  handleDeletePermission?: (id: number) => void;
 }
 
 const useStyles= makeStyles({
@@ -48,26 +48,21 @@ const useStyles= makeStyles({
   }
 })
 
-interface IAllOrders {
+interface ISuppliers {
   id: string;
-  po:string,
-  suppliers:string,
+  name:string,
+  shortName:string,
+  supplierId:string,
+  city:string,
+  email:string,
+  phone:number,
+  primaryContact:string,
   status:string,
-  products:string,
-  total:string,
-  received:string,
-  receiving:string,
-  expectedDate:string,
-  createdDate:string,
-  lastUpdated:string,
-  suppRefId:string,
-  tags:string
-
 }
 
-function AllOrderTable(props: IProps) {
+function SupplierTable(props: IProps) {
   const {
-    allOrders,
+    suppliers,
     total,
     setCurrentPage,
     setPageLimit,
@@ -89,7 +84,7 @@ function AllOrderTable(props: IProps) {
     let newSelectedCustomerIds: string[] = [];
 
     if (event.target.checked) {
-      newSelectedCustomerIds = allOrders.map((warehouse: any) => {
+      newSelectedCustomerIds = suppliers.map((warehouse: any) => {
         return warehouse.id;
       });
     } else {
@@ -184,39 +179,30 @@ function AllOrderTable(props: IProps) {
                     onChange={handleSelectAll}
                   />
                 </TableCell>
-                <TableCell className={classes.sticky}>PO #</TableCell>
-                <TableCell>SUPPLIER</TableCell>
+                <TableCell className={classes.sticky}>Name</TableCell>
+                <TableCell>SHORT NAME</TableCell>
+                <TableCell>SUPPLIER ID</TableCell>
+                <TableCell>CITY</TableCell>
+                <TableCell>EMAIL</TableCell>
+                <TableCell>PHONE</TableCell>
+                <TableCell>PRIMARY CONTACT</TableCell>
                 <TableCell>STATUS</TableCell>
-                <TableCell>PRODUCTS</TableCell>
-                <TableCell>TOTAL</TableCell>
-                <TableCell>RECEIVED/ORDERED</TableCell>
-                <TableCell>RECEIVING WAREHOUSE</TableCell>
-                <TableCell>EXPECTED DATE</TableCell>
-                <TableCell>CREATED DATE</TableCell>
-                <TableCell>LAST UPDATED</TableCell>
-                <TableCell>SUPPLIER REF ID</TableCell>
-                <TableCell>TAGS</TableCell>
-                <TableCell>NOTES</TableCell>
                 <TableCell>ACTION</TableCell>             
               </TableRow>
             </TableHead>
             <TableBody>
-              {allOrders.map((order: IAllOrders) => {
+              {suppliers.map((supplier: ISuppliers) => {
                 const {
                   id,
-                  po,
-                  suppliers,
+                  name,
+                  shortName,
+                  supplierId,
+                  city,
+                  email,
+                  phone,
+                  primaryContact,
                   status,
-                  products,
-                  total,
-                  received,
-                  receiving,
-                  expectedDate,
-                  createdDate,
-                  lastUpdated,
-                  suppRefId,
-                  tags
-                } = order;
+                } = supplier;
                 return (
                   <TableRow
                     key={id}
@@ -238,20 +224,15 @@ function AllOrderTable(props: IProps) {
                       sx={{ cursor: "pointer", position:"sticky", left:0, background:'white'}}
                       onClick={() => gotoDetails(id)}
                     >
-                      {po}
+                      {name}
                     </TableCell>
-                    <TableCell>{suppliers}</TableCell>
+                    <TableCell>{shortName}</TableCell>
+                    <TableCell>{supplierId}</TableCell>
+                    <TableCell>{city}</TableCell>
+                    <TableCell>{email}</TableCell>
+                    <TableCell>{phone}</TableCell>
+                    <TableCell>{primaryContact}</TableCell>
                     <TableCell>{status}</TableCell>
-                    <TableCell>{products}</TableCell>
-                    <TableCell>{total}</TableCell>
-                    <TableCell>{received}</TableCell>
-                    <TableCell>{receiving}</TableCell>
-                    <TableCell>{expectedDate}</TableCell>
-                    <TableCell>{createdDate}</TableCell>
-                    <TableCell>{lastUpdated}</TableCell>
-                    <TableCell>{suppRefId}</TableCell>
-                    <TableCell>{tags}</TableCell>
-                    <TableCell>notes</TableCell>
                     <TableCell>
                       <Box
                         sx={{
@@ -298,4 +279,4 @@ function AllOrderTable(props: IProps) {
   );
 }
 
-export default AllOrderTable;
+export default SupplierTable;

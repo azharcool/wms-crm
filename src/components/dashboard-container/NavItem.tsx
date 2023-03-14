@@ -1,7 +1,8 @@
 /* eslint-disable import/namespace */
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import RemoveIcon from "@mui/icons-material/Remove";
-import { Stack, styled, Typography } from "@mui/material";
+import CircleIcon from "@mui/icons-material/Circle";
+import palette from "theme/palette";
+import { Button, ListItem, Stack, styled, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -26,11 +27,13 @@ interface IMenuListItem {
 
 function MenuListItem(props: IMenuListItem) {
   const { item } = props;
+  const active = window.location.pathname.includes(item?.location || "");
+
   return (
     <Stack alignItems="center" direction="row" gap={1}>
-      <RemoveIcon
+      <CircleIcon
         sx={{
-          color: "#ffff",
+          color: active ? palette.info.main : "#ffff",
           fontSize: "12px",
         }}
       />
@@ -39,7 +42,7 @@ function MenuListItem(props: IMenuListItem) {
         href={item.location}
         sx={{
           fontSize: "16px",
-          color: "#ffff",
+          color: active ? palette.info.main : "#ffff",
           fontWeight: "500",
           textDecoration: "none",
         }}
@@ -57,9 +60,9 @@ interface INavItem {
 function NavItem(props: INavItem) {
   const { item } = props;
 
-  // const active = window.location.pathname.includes(href);
+  const active = window.location.pathname.includes(item?.href || "");
 
-  return (
+  return item.menuItems?.length > 0 ? (
     <Accordion
       square
       id="panel1-accordian"
@@ -82,11 +85,21 @@ function NavItem(props: INavItem) {
         id="panel1a-header"
         sx={{
           borderRadius: 0,
+          backgroundColor: active ? palette.info.main : "transparent",
+          "&::before": {
+            backgroundColor: "transparent",
+          },
+          "& .MuiButton-startIcon": {
+            color: "white",
+          },
+          "&:hover": {
+            backgroundColor: palette.sidebar.navHover,
+          },
         }}
       >
         <Typography
           sx={{
-            color: "#ffff",
+            color:  "#ffff",
           }}
         >
           {item.title}
@@ -98,6 +111,51 @@ function NavItem(props: INavItem) {
         })}
       </AccordionDetails>
     </Accordion>
+  ) : (
+    <ListItem
+      disableGutters
+      sx={{
+        display: "flex",
+        mb: 0.5,   
+        py: 0,
+        px: 0.5,
+      }}
+      // {...others}
+    >
+      <Link to={item?.href || ""}>
+        <Button
+          disableRipple
+          component="a"
+          // startIcon={icon}
+          sx={{
+            // backgroundColor: active && "rgba(255,255,255, 0.08)",
+            borderRadius: 1,
+            color: palette.text.primary,
+            backgroundColor: active ? palette.info.main : "transparent",
+            // fontWeight: active && "fontWeightBold",
+            justifyContent: "flex-start",
+            px: 2,
+            textAlign: "left",
+            textTransform: "none",
+            width: "100%",
+            "& .MuiButton-startIcon": {
+              color: "white",
+            },
+            "&:hover": {
+              backgroundColor: palette.sidebar.navHover,
+            },
+          }}
+        >
+          <Typography
+            component="p"
+            color="white"
+            sx={{ flexGrow: 1, fontSize: "inherit" }}
+          >
+            {item.title}
+          </Typography>
+        </Button>
+      </Link>
+    </ListItem>
   );
 
   // return (

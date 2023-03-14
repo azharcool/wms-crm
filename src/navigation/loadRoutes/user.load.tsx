@@ -29,7 +29,6 @@ export const ZoneDetails = Loadable({
 
 export const LocationDetails = Loadable({
   loader: () =>
-   
     import(
       "pages/user/warehouse/screens/warehouse-details/component/tabs/locations/screens/locations-details"
     ),
@@ -37,7 +36,6 @@ export const LocationDetails = Loadable({
 });
 export const ContainerDetails = Loadable({
   loader: () =>
-   
     import(
       // eslint-disable-next-line import/no-unresolved
       "pages/user/warehouse/screens/warehouse-details/component/tabs/containers/screens/container-details"
@@ -63,10 +61,30 @@ export const AllOrderDetails = Loadable({
 
 export const AddPurchaseOrder = Loadable({
   loader: () =>
+    import("pages/user/purchases/purchase-order/screens/add-purchase"),
+  loading: () => <Spinner />,
+});
+
+export const Catalog = Loadable({
+  loader: () => import("pages/user/catalog"),
+  loading: () => <Spinner />,
+
+});
+
+export const Suppliers = Loadable({
+  loader: () =>
     import(
-      "pages/user/purchases/purchase-order/screens/add-purchase"
+      "pages/user/purchases/suppliers"
     ),
   loading: () => <Spinner />,
 });
 
+export const Products = Loadable({
+  loader: () => import("pages/user/catalog/products"),
+  loading: () => <Spinner />,
+});
 
+export const ProductCreate = Loadable({
+  loader: () => import("pages/user/catalog/products/components/ProductCreate"),
+  loading: () => <Spinner />,
+});
