@@ -27,6 +27,7 @@ const AppRoutes = {
     bundles: "bundles",
     categories: "categories",
     brands: "brands",
+    listing: "listing",
     productCreate: "create",
   },
 

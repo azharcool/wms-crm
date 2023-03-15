@@ -12,40 +12,84 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import BrandItem from "./BrandItem";
+import ListingItem from "./ListingItem";
 
-// const tabs = [
-//   {
-//     id: crypto.randomUUID(),
-//     title: "New",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Pick",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Close",
-//   },
-// ];
+const tabs = [
+  {
+    id: crypto.randomUUID(),
+    title: "Unpublished",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Pending",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Published",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Paused",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Rejected",
+  },
+];
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
     title: "Image",
   },
+
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "SKU",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Channel",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Status",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Qty",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Retail price",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "M.R.P",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Brand",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Category",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Tags",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Last Updated",
   },
 ];
 
-function BrandListing() {
+function ListingList() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar
-      // tabs={tabs}
-      />
+      <EnhancedTableToolbar tabs={tabs} />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -60,11 +104,11 @@ function BrandListing() {
                   <CustomTableCell
                     isCheck
                     isHeader
-                    // isSticky
-                    // customStyle={{
-                    //   zIndex: 999,
-                    // }}
-                    // leftValue={0}
+                    isSticky
+                    customStyle={{
+                      zIndex: 999,
+                    }}
+                    leftValue={0}
                   >
                     <Checkbox
                       checked={false}
@@ -74,15 +118,16 @@ function BrandListing() {
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
-                    const isName = item.title.includes("Name");
+                    const isSku = item.title.includes("SKU");
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 150,
-                          // position: isImage || isName ? "sticky" : "static",
-                          // left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          minWidth: isImage ? 50 : isSku ? 350 : 150,
+                          position: isImage || isSku ? "sticky" : "static",
+                          left: isImage || isSku ? (isSku ? 130 : 60) : 0,
+                          // border: "1px solid red",
                         }}
                       >
                         {item.title}
@@ -95,10 +140,10 @@ function BrandListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <BrandItem />
-                <BrandItem />
-                <BrandItem />
-                <BrandItem />
+                <ListingItem />
+                <ListingItem />
+                <ListingItem />
+                <ListingItem />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -108,4 +153,4 @@ function BrandListing() {
   );
 }
 
-export default BrandListing;
+export default ListingList;
