@@ -68,14 +68,10 @@ export const AddPurchaseOrder = Loadable({
 export const Catalog = Loadable({
   loader: () => import("pages/user/catalog"),
   loading: () => <Spinner />,
-
 });
 
 export const Suppliers = Loadable({
-  loader: () =>
-    import(
-      "pages/user/purchases/suppliers"
-    ),
+  loader: () => import("pages/user/purchases/suppliers"),
   loading: () => <Spinner />,
 });
 
@@ -99,3 +95,12 @@ export const Bundles = Loadable({
   loading: () => <Spinner />,
 });
 
+export const Categories = Loadable({
+  loader: () => import("pages/user/catalog/categories"),
+  loading: () => <Spinner />,
+});
+
+export const Brands = Loadable({
+  loader: () => import("pages/user/catalog/brands"),
+  loading: () => <Spinner />,
+});
