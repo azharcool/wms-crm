@@ -95,6 +95,10 @@ export const Bundles = Loadable({
   loading: () => <Spinner />,
 });
 
+export const Variant = Loadable({
+  loader: () => import("pages/user/catalog/variant/index"),
+  loading: () => <Spinner />,
+});
 export const Categories = Loadable({
   loader: () => import("pages/user/catalog/categories"),
   loading: () => <Spinner />,

@@ -134,6 +134,9 @@ function Application() {
               <Route path={`${AppRoutes.CATALOG.listing}`}>
                 <Route index element={<UserLoadable.Listing />} />
               </Route>
+              <Route path={`${AppRoutes.CATALOG.variants}`}>
+                <Route index element={<UserLoadable.Variant />} />
+              </Route>
             </Route>
 
             <Route

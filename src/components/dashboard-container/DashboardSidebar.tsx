@@ -56,7 +56,7 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Variants",
-        location: AppRoutes.CATALOG.variants,
+        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.variants}`,
       },
       {
         id: crypto.randomUUID(),
