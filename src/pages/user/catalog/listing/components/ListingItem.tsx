@@ -3,7 +3,7 @@ import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
-function CategoriesItem() {
+function ListingItem() {
   return (
     <TableRow>
       <TableCell
@@ -43,14 +43,14 @@ function CategoriesItem() {
 
       <TableCell
         sx={{
-          width: 200,
+          width: 350,
           position: "sticky",
           left: 130,
           zIndex: 999,
           background: "white",
         }}
       >
-        watches
+        SKU
       </TableCell>
       <TableCell
         sx={{
@@ -58,15 +58,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          background: "white",
-        }}
-      >
-        Parent Category
+        chanel
       </TableCell>
       <TableCell
         sx={{
@@ -82,7 +74,42 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        Mar 9, 2023 17:39:39
+        Qty
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+          background: "white",
+        }}
+      >
+        Retail price
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 200,
+          background: "white",
+        }}
+      >
+        M.R.P
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 200,
+          background: "white",
+        }}
+      >
+        Brand
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 200,
+          background: "white",
+        }}
+      >
+        Category
       </TableCell>
 
       <TableCell
@@ -92,6 +119,15 @@ function CategoriesItem() {
         }}
       >
         Tags
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 200,
+          background: "white",
+        }}
+      >
+        Last Updated
       </TableCell>
 
       <TableCell
@@ -107,4 +143,4 @@ function CategoriesItem() {
   );
 }
 
-export default CategoriesItem;
+export default ListingItem;
