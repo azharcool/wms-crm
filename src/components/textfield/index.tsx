@@ -38,6 +38,7 @@ interface Props extends InputProps {
   muliline?: boolean;
   rows?: number;
   id?: string;
+  onClickIcon?: React.MouseEventHandler<HTMLDivElement>;
 }
 
 function TextField(props: Props) {
@@ -67,6 +68,7 @@ function TextField(props: Props) {
     rows,
     multiline,
     FieldLabel,
+    onClickIcon,
   } = props;
 
   return (
@@ -94,15 +96,19 @@ function TextField(props: Props) {
           disabled={disabled}
           error={error}
           id={id}
-          inputProps={{
-            maxLength: length,
+          InputProps={{
+            // maxLength: length,
             startAdornment: iconEnd ? null : (
-              <InputAdornment position="start">{icon}</InputAdornment>
+              <InputAdornment position="start" onClick={onClickIcon}>
+                {icon}
+              </InputAdornment>
             ),
             endAdornment: iconEnd ? (
-              <InputAdornment position="end">{icon}</InputAdornment>
+              <InputAdornment position="end" onClick={onClickIcon}>
+                {icon}
+              </InputAdornment>
             ) : null,
-            min: minDate,
+            // min: minDate,
           }}
           label={label}
           multiline={multiline}
@@ -124,13 +130,14 @@ function TextField(props: Props) {
         />
       ) : (
         <Select
-          displayEmpty
+          // displayEmpty
           className={className}
           disabled={disabled}
           error={error}
           size={size}
-          // inputProps={{ "aria-label": "Without label" }}
-          // sx={{ backgroundColor: "#fff" }}
+          sx={{
+            boxShadow: "none",
+          }}
           value={value?.toString()}
           onChange={onSelectHandler}
         >

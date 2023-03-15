@@ -40,12 +40,17 @@ function ToolBarButton(props: ITooblarButton) {
     <Box sx={{ m: 1, display: "flex", gap: 5, alignItems: "center" }}>
       <Button
         sx={{
-          // backgroundColor: palette.info.main,
           width: "inherit",
           borderRadius: "5px",
           padding: "5px 25px",
           backgroundColor: palette.warning.dark,
           color: "#fff",
+          boxShadow: "none",
+          "&:hover": {
+            backgroundColor: palette.warning.dark,
+            opacity: 0.6,
+            boxShadow: "none",
+          },
         }}
         variant="contained"
         onClick={() => {

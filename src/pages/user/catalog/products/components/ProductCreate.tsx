@@ -1,26 +1,29 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import LoopIcon from "@mui/icons-material/Loop";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+import RefreshIcon from "@mui/icons-material/Refresh";
 import {
-  Box,
+  Button,
   Card,
-  CardContent,
   Container,
   DialogContent,
   DialogTitle,
   Divider,
-  IconButton,
+  Grid,
   PaletteMode,
-  Toolbar,
+  Stack,
   Typography,
 } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CustomSwitch from "components/custom-switch";
+import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { useSelector } from "react-redux";
-// import Typography from "theme/typography";
-
-import { Stack } from "@mui/system";
-import TableToolbar from "components/table-toolbar";
+import palette from "theme/palette";
 
 const detailMenu = [
   {
@@ -37,26 +40,146 @@ const detailMenu = [
   },
 ];
 
+const uniqueBarcodingStrategy = [
+  {
+    id: crypto.randomUUID(),
+    value: "Per each Unit",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Per SKU or Set",
+  },
+];
+
+const UoM = [
+  {
+    id: crypto.randomUUID(),
+    value: "Box",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Bottle",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Can",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Litre",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Piece",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Pack",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Unit",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "IBCs",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Drum",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Bags",
+  },
+];
+
+const fullfillmentSwitchs = [
+  {
+    id: crypto.randomUUID(),
+    value: "Track Serial numbers",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Track Expiry dates",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Sync Supply Price",
+  },
+];
+
+const categorys = [
+  {
+    id: crypto.randomUUID(),
+    value: "Watches",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Topical",
+  },
+];
+
+const brands = [
+  {
+    id: crypto.randomUUID(),
+    value: "honda",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Puma",
+  },
+];
+
+const strategys = [
+  {
+    id: crypto.randomUUID(),
+    value: "First In First Out",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "First Expired First Out",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Last In First  Out",
+  },
+];
+
 interface ICustomCard {
   title: string;
   children: React.ReactNode;
 }
-function CustomCard(props: ICustomCard) {
+function CustomCardContent(props: ICustomCard) {
   const { title, children } = props;
   return (
-    <Card
-      sx={{
-        flex: 1,
-      }}
-    >
-      <CardContent>
-        <DialogTitle>
-          <Typography component="h6">{title}</Typography>
-        </DialogTitle>
-        <Divider />
-        <DialogContent>{children}</DialogContent>
-      </CardContent>
-    </Card>
+    <>
+      <DialogTitle>
+        <Typography component="h6">{title}</Typography>
+      </DialogTitle>
+      <Divider />
+      <DialogContent>{children}</DialogContent>
+    </>
+  );
+}
+
+interface ICustomAccordian {
+  title: string;
+  children: React.ReactNode;
+}
+function CustomAccordian(props: ICustomAccordian) {
+  const { title, children } = props;
+  return (
+    <Accordion>
+      <AccordionSummary
+        aria-controls="panel1a-content"
+        expandIcon={<ExpandMoreIcon />}
+        id="panel1a-header"
+      >
+        <Typography>{title}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>{children}</AccordionDetails>
+    </Accordion>
   );
 }
 
@@ -139,248 +262,247 @@ function ProductCreate() {
           title="New Product"
         />
 
-        <Stack direction="row" gap={3} marginTop={2}>
-          <CustomCard title="Details">
-            <TextField id="name" label="Name" name="name" size="small" />
-            <TextField
-              isSelect
-              menuItems={detailMenu}
-              name="type"
-              value={detailMenu[0].id}
-            />
-            <TextField id="name" label="Name" name="name" size="small" />
-          </CustomCard>
-
-          <CustomCard title="Tracking">
-            <TextField id="name" label="Name" name="name" size="small" />
-            <TextField id="name" label="Name" name="name" size="small" />
-            <TextField id="name" label="Name" name="name" size="small" />
-          </CustomCard>
-        </Stack>
-      </Container>
-
-      <Box
-        sx={{
-          // alignItems: "center",
-          // flexDirection: "row",
-          // justifyContent: "flex-start",
-          display: "flex",
-        }}
-      >
-        <Toolbar
-          sx={{
-            left: {
-              lg: 2,
-              flex: 1,
-            },
-          }}
-        >
-          <Box>
+        <Grid container marginTop={2} spacing={2}>
+          <Grid item xs={8}>
             <Card
               sx={{
                 flex: 1,
               }}
             >
-              <CardContent
-                sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}
-              >
-                <DialogContent sx={{ flex: 3 }}>
-                  <Typography>Details</Typography>
-                  <Divider sx={{ my: 1 }} />
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: 2,
-                      alignItems: "center",
-                      flexDirection: "column",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <TextField
-                      // error={!!touched.warehouseName && !!errors.warehouseName}
-                      // helperText={
-                      //   (touched.warehouseName && errors && errors.warehouseName) ||
-                      //   ""
-                      // }
-                      id="outlined-password-input"
-                      size="small" // value={warehouseName}
-                      label="Name"
-                      // name="warehouseName"
-                      // placeholder="Warehouse Name"
-                      style={{ width: "650px" }}
-                      name="" // onBlur={handleBlur("warehouseName")}
-                      // onChange={handleChange("warehouseName")}
-                    />
-                    <TextField
-                      // error={!!touched.warehouseName && !!errors.warehouseName}
-                      // helperText={
-                      //   (touched.warehouseName && errors && errors.warehouseName) ||
-                      //   ""
-                      // }
-                      isSelect
-                      id="" // onBlur={handleBlur("warehouseName")}
-                      name="" // onChange={handleChange("warehouseName")}
-                      size="small" // value={warehouseName}
-                      style={{ width: "650px" }}
-                      label="Digital Product"
-                      // name="type"
-                      placeholder="Warehouse Name"
-                    />
-                    <TextField
-                      // error={!!touched.warehouseName && !!errors.warehouseName}
-                      // helperText={
-                      //   (touched.warehouseName && errors && errors.warehouseName) ||
-                      //   ""
-                      // }
-                      multiline
-                      id="outlined-password-input"
-                      label="Description"
-                      // placeholder="Warehouse Name"
-                      // size="small"
-                      size={undefined} // value={warehouseName}
-                      style={{ width: "650px" }}
-                      name="" // name="Description"
-                      // onBlur={handleBlur("warehouseName")}
-                      // onChange={handleChange("warehouseName")}
-                    />
-                  </Box>
-                </DialogContent>
-              </CardContent>
-            </Card>
-          </Box>
-        </Toolbar>
-        <Toolbar
-          sx={{
-            left: {
-              lg: 2,
-              flex: 1,
-            },
-          }}
-        >
-          <Box sx={{ borderRadius: 5 }}>
-            <Card
-              sx={
-                {
-                  // flex: 1,
-                }
-              }
-            >
-              <CardContent
-              // sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}
-              >
-                <DialogContent sx={{ flex: 1 }}>
-                  <Typography>Tracking</Typography>
-                  <Divider sx={{ my: 1 }} />
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: 2,
-                      alignItems: "center",
-                      flexDirection: "column",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <TextField
-                      // error={!!touched.warehouseName && !!errors.warehouseName}
-                      // helperText={
-                      //   (touched.warehouseName && errors && errors.warehouseName) ||
-                      //   ""
-                      //
-                      id="" // onBlur={handleBlur("warehouseName")}
-                      name="" // value={warehouseName}
-                      style={{ width: "290px" }}
-                      label="SKU"
-                      // name="SKU" // onChange={handleChange("warehouseName")}
-                      size="small"
-                    />
-                    <TextField
-                      iconEnd
-                      icon={
-                        <IconButton>
-                          <LoopIcon />
-                        </IconButton>
-                      }
-                      id="filled-helperText" // onBlur={handleBlur("warehouseName")}
-                      label="Barcode"
-                      name="" // onChange={handleChange("warehouseName")}
-                      placeholder="Warehouse Name"
-                      size="small" // value={warehouseName}
-                      style={{ width: "290px" }}
-                      defaultValue="Default Value"
-                      // name="type"
-                      value="86563713019"
-                    />
-                    <TextField
-                      isSelect
-                      id="outlined-password-input"
-                      label="Description"
-                      // iconEnd={true}
-                      // placeholder="Warehouse Name"
-                      // size="small"
-                      size={undefined} // value={warehouseName}
-                      style={{ width: "290px" }}
-                      name="" // name="Description"
-                      // onBlur={handleBlur("warehouseName")}
-                      // onChange={handleChange("warehouseName")}
-                    />
-                    <Box
-                      sx={{
-                        alignItems: "center",
-                        flexDirection: "column",
-                        gap: 2,
-                      }}
-                    >
-                      <TextField
-                        isSelect
-                        id="outlined-password-input"
-                        label="Description"
-                        // iconEnd={true}
-                        // placeholder="Warehouse Name"
-                        // size="small"
-                        size="small" // value={warehouseName}
-                        style={{ width: "150px", padding: 1 }}
-                        name="" // name="Description"
-                        // onBlur={handleBlur("warehouseName")}
-                        // onChange={handleChange("warehouseName")}
-                      />
-                      <TextField
-                        isSelect
-                        id="outlined-password-input"
-                        label="UoM"
-                        // iconEnd={true}
-                        // placeholder="Warehouse Name"
-                        // size="small"
-                        size="small" // value={warehouseName}
-                        style={{ width: "150px", padding: 1 }}
-                        name="" // name="Description"
-                        // onBlur={handleBlur("warehouseName")}
-                        // onChange={handleChange("warehouseName")}
-                      />
-                    </Box>
+              <CustomCardContent title="Details">
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    iconEnd
+                    icon={<Inventory2Icon />}
+                    id="productName"
+                    label="Name"
+                    name="productName"
+                    size="small"
+                    onChange={() => {}}
+                  />
+                  <TextField
+                    isSelect
+                    label="Type"
+                    menuItems={detailMenu}
+                    name="type"
+                    size="small"
+                    value={detailMenu[0].id}
+                    onSelectHandler={() => {}}
+                  />
+                </Stack>
 
-                    {/* <Card
-                      sx={{
-                        backgroundColor: "#e1f5fe",
-                        width: "300px",
-                        height: "100px",
-                        // justifyContent: "center",
-                        alignItems: "center",
-                        flexDirection: "column",
-                      }}
-                    >
-                      <InfoIcon />
-                      <Typography sx={{ color: "#000" }}>
-                        Track every single item by Unique Unit Barcode. Eg.
-                        Electronics.
-                      </Typography>
-                    </Card> */}
-                  </Box>
-                </DialogContent>
-              </CardContent>
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    iconEnd
+                    icon={<RefreshIcon />}
+                    id="sku"
+                    label="Sku"
+                    name="sku"
+                    size="small"
+                    onChange={() => {}}
+                    onClickIcon={() => {
+                      console.log("clicked....");
+                    }}
+                  />
+
+                  <TextField
+                    iconEnd
+                    icon={<RefreshIcon />}
+                    id="barcode"
+                    label="Barcode"
+                    name="barcode"
+                    size="small"
+                    onChange={() => {}}
+                    onClickIcon={() => {
+                      console.log("clicked....");
+                    }}
+                  />
+                </Stack>
+
+                <TextField
+                  multiline
+                  id="description"
+                  label="Description"
+                  name="description"
+                  onChange={() => {}}
+                />
+
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    isSelect
+                    menuItems={uniqueBarcodingStrategy}
+                    name="Unique Barcoding strategy"
+                    size="small"
+                    value={uniqueBarcodingStrategy[0].id}
+                    onSelectHandler={() => {}}
+                  />
+                  <TextField
+                    id="quantity"
+                    label="Quantity"
+                    name="quantity"
+                    size="small"
+                    onChange={() => {}}
+                  />
+
+                  <TextField
+                    isSelect
+                    menuItems={UoM}
+                    name="UoM"
+                    size="small"
+                    value={UoM[0].id}
+                    onSelectHandler={() => {}}
+                  />
+                </Stack>
+              </CustomCardContent>
+
+              <CustomCardContent title="Image">
+                <TextField
+                  id="name"
+                  label="Name"
+                  name="name"
+                  size="small"
+                  onChange={() => {}}
+                />
+              </CustomCardContent>
             </Card>
-          </Box>
-        </Toolbar>
-      </Box>
+          </Grid>
+          <Grid item xs={4}>
+            <Button
+              sx={{
+                marginBottom: 2,
+                flex: 1,
+                backgroundColor: palette.warning.dark,
+                color: "#fff",
+                boxShadow: "none",
+                opacity: 0.8,
+                "&:hover": {
+                  backgroundColor: palette.warning.dark,
+                  opacity: 0.6,
+                  boxShadow: "none",
+                },
+              }}
+              variant="contained"
+            >
+              Add Variants
+            </Button>
+
+            <CustomAccordian title="Supply">
+              <TextField
+                isSelect
+                menuItems={UoM}
+                name="UoM"
+                size="small"
+                value={UoM[0].id}
+                onSelectHandler={() => {}}
+              />
+            </CustomAccordian>
+            <CustomAccordian title="Organization">
+              <TextField
+                isSelect
+                id="categorys"
+                menuItems={categorys}
+                name="categorys"
+                size="small"
+                value={categorys[0].id}
+                onSelectHandler={() => {}}
+              />
+              <TextField
+                isSelect
+                id="categorys"
+                label="Brand"
+                menuItems={brands}
+                name="brand"
+                size="small"
+                value={brands[0].id}
+                onSelectHandler={() => {}}
+              />
+              <TextField
+                id="tags"
+                label="Tags"
+                name="tags"
+                size="small"
+                onChange={() => {}}
+              />
+            </CustomAccordian>
+            <CustomAccordian title="Dimensions">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  iconEnd
+                  icon={<Typography>cm</Typography>}
+                  id="height"
+                  label="Height"
+                  name="height"
+                  size="small"
+                  onChange={() => {}}
+                />
+
+                <TextField
+                  iconEnd
+                  icon={<Typography>cm</Typography>}
+                  id="width"
+                  label="Width"
+                  name="width"
+                  size="small"
+                  onChange={() => {}}
+                />
+              </Stack>
+
+              <Stack direction="row" gap={2}>
+                <TextField
+                  iconEnd
+                  icon={<Typography>cm</Typography>}
+                  id="lenght"
+                  label="Lenght"
+                  name="lenght"
+                  size="small"
+                  onChange={() => {}}
+                />
+
+                <TextField
+                  iconEnd
+                  icon={<Typography>kg</Typography>}
+                  id="weight"
+                  label="Weight"
+                  name="weight"
+                  size="small"
+                  onChange={() => {}}
+                />
+              </Stack>
+            </CustomAccordian>
+
+            <CustomAccordian title="Fulfillment">
+              <TextField
+                isSelect
+                label="Strategy"
+                menuItems={strategys}
+                name="strategy"
+                size="small"
+                value={strategys[0].id}
+                onSelectHandler={() => {}}
+              />
+
+              <TextField
+                id="minExpiryDays"
+                label="Min Expiry Days"
+                name="minExpiryDays"
+                size="small"
+                onChange={() => {}}
+              />
+
+              {fullfillmentSwitchs?.map((item) => {
+                return (
+                  <CustomSwitch
+                    key={item.id}
+                    checked={false}
+                    title={item.value}
+                    onChange={() => {}}
+                  />
+                );
+              })}
+            </CustomAccordian>
+          </Grid>
+        </Grid>
+      </Container>
     </ThemeProvider>
   );
 }
