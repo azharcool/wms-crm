@@ -1,6 +1,4 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import CreateIcon from "@mui/icons-material/Create";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 import { Box, Button, Divider, Typography } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -20,11 +18,62 @@ interface ITableToolbar {
   handleClick?: () => void;
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;
+  rightActions?: IRightActions[];
+}
+
+interface IRightActions {
+  id: string;
+  title: string;
+  onClick: () => void;
+  icon: React.ReactNode;
+}
+
+interface ITooblarButton {
+  handleClick: () => void;
+  title: string;
+  icon: React.ReactNode;
+}
+
+function ToolBarButton(props: ITooblarButton) {
+  const { handleClick, title, icon } = props;
+  return (
+    <Box sx={{ m: 1, display: "flex", gap: 5, alignItems: "center" }}>
+      <Button
+        sx={{
+          // backgroundColor: palette.info.main,
+          width: "inherit",
+          borderRadius: "5px",
+          padding: "5px 25px",
+          backgroundColor: palette.warning.dark,
+          color: "#fff",
+        }}
+        variant="contained"
+        onClick={() => {
+          handleClick?.();
+        }}
+      >
+        {icon}
+        <Typography
+          component="span"
+          sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
+        >
+          {title}
+        </Typography>
+      </Button>
+    </Box>
+  );
 }
 
 function TableToolbar(props: ITableToolbar) {
-  const { title, buttonText, handleClick, breadcrumbs, isAdd, navTitle } =
-    props;
+  const {
+    title,
+    buttonText,
+    handleClick,
+    breadcrumbs,
+    isAdd,
+    navTitle,
+    rightActions,
+  } = props;
   const navigation = useNavigate();
   const handleBread = (link: string) => {
     navigation(link);
@@ -157,62 +206,21 @@ function TableToolbar(props: ITableToolbar) {
               </Typography>
             </Box>
           </Box>
-          <Box sx={{ m: 1, display: "flex", gap: 5, alignItems: "center" }}>
-            <Button
-              sx={{
-                // backgroundColor: palette.info.main,
-                width: "inherit",
-                borderRadius: "5px",
-                padding: "5px 25px",
-                backgroundColor: palette.warning.dark,
-                color: "#fff",
-              }}
-              variant="contained"
-              onClick={() => {
-                handleClick?.();
-              }}
-            >
-              {isAdd ? (
-                <AddCircleIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
+
+          <Stack direction="row" gap={1}>
+            {rightActions?.map((item) => {
+              return (
+                <ToolBarButton
+                  key={item.id}
+                  handleClick={item.onClick}
+                  icon={item.icon}
+                  title={item.title}
                 />
-              ) : (
-                <CreateIcon
-                  sx={{
-                    fontSize: 16,
-                    mr: 1,
-                  }}
-                />
-              )}
-              <Typography
-                component="span"
-                sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
-              >
-                {buttonText}
-              </Typography>
-            </Button>
-          </Box>
+              );
+            })}
+          </Stack>
         </Box>
         <Divider />
-        {/* <Box sx={{ maxWidth: 500, mt: 3, width: "100%", marginLeft: "auto" }}>
-          <TextField
-            fullWidth
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <SvgIcon color="action" fontSize="small">
-                    <SearchIcon />
-                  </SvgIcon>
-                </InputAdornment>
-              ),
-            }}
-            placeholder="Search Users..."
-            variant="outlined"
-          />
-        </Box> */}
       </Box>
     </Box>
   );
