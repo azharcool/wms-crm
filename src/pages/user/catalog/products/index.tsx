@@ -1,3 +1,4 @@
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
@@ -16,6 +17,21 @@ function Products() {
               navigate(AppRoutes.CATALOG.productCreate);
             }}
             navTitle="CATALOG"
+            rightActions={[
+              {
+                id: crypto.randomUUID(),
+                title: "New",
+                onClick: () => {},
+                icon: (
+                  <AddCircleIcon
+                    sx={{
+                      fontSize: 18,
+                      mr: 1,
+                    }}
+                  />
+                ),
+              },
+            ]}
             title="Products"
           />
           <Box sx={{ mt: 3 }}>
