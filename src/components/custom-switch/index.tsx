@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
@@ -47,11 +47,26 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-function CustomSwitch() {
+interface ICustomSwitch {
+  title?: string;
+  checked?: boolean;
+  onChange?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    checked: boolean,
+  ) => void;
+}
+function CustomSwitch(props: ICustomSwitch) {
+  const { title, checked, onChange } = props;
+
   return (
-    <Box>
-      <AntSwitch defaultChecked inputProps={{ "aria-label": "ant design" }} />
-    </Box>
+    <Stack alignItems="center" direction="row" gap={2}>
+      <AntSwitch
+        checked={checked}
+        inputProps={{ "aria-label": "ant design" }}
+        onChange={onChange}
+      />
+      {title ? <Typography>{title}</Typography> : null}
+    </Stack>
   );
 }
 
