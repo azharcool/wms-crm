@@ -59,6 +59,9 @@ function DashboardLayout(props: any) {
   const lightTheme = createTheme({
     palette: {
       mode: "light",
+      background: {
+        default: "#fdf9f6",
+      },
     },
   });
 
