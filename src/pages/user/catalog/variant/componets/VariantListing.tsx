@@ -37,16 +37,61 @@ const tableTitle = [
 
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "Variant",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "Inventory",
+    title: "Pieces",
   },
   {
     id: crypto.randomUUID(),
-    title: "Variants",
+    title: "UoM",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Barcode",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Listed On",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Available",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Unavailable",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "On hand",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Allocated",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Awaiting",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "In transfer",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Supply price",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Retail price",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "M.R.P",
   },
   {
     id: crypto.randomUUID(),
@@ -63,6 +108,10 @@ const tableTitle = [
   {
     id: crypto.randomUUID(),
     title: "Tags",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Last Updated",
   },
 ];
 

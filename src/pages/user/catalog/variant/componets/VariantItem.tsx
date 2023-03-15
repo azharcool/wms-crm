@@ -45,7 +45,7 @@ function VariantItem() {
           left: 0,
         }}
       >
-        image
+        TSXX-274606-3
       </TableCell>
       <TableCell
         sx={{
@@ -54,45 +54,118 @@ function VariantItem() {
           left: 0,
         }}
       >
+        1
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      />
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        6712372552956
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      />
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        0
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        0
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        0
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        0
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        0
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        0
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        INR 0.00
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        INR 0.00
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        INR 0.00
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      />
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      />
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
         azhar
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
-      >
-        image
-      </TableCell>
+      />
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        image
+        Mar 14, 2023 14:40:35
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        image
-      </TableCell>
-
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        image
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        100 image
-      </TableCell>
-
       <TableCell
         sx={{
           position: "sticky",
