@@ -1,7 +1,7 @@
 import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import { useNavigate } from "react-router-dom";
-import VariantListing from "./componets/VariantListing";
+import VariantListing from "./components/VariantListing";
 
 function Variant() {
   const navigate = useNavigate();
