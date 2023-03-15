@@ -128,6 +128,9 @@ function Application() {
               <Route path={`${AppRoutes.CATALOG.categories}`}>
                 <Route index element={<UserLoadable.Categories />} />
               </Route>
+              <Route path={`${AppRoutes.CATALOG.brands}`}>
+                <Route index element={<UserLoadable.Brands />} />
+              </Route>
             </Route>
 
             <Route

@@ -3,7 +3,7 @@ import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
-function CategoriesItem() {
+function BrandItem() {
   return (
     <TableRow>
       <TableCell
@@ -107,4 +107,4 @@ function CategoriesItem() {
   );
 }
 
-export default CategoriesItem;
+export default BrandItem;

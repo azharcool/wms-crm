@@ -12,7 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import CategoriesItem from "./CategoriesItem";
+import BrandItem from "./BrandItem";
 
 const tabs = [
   {
@@ -62,7 +62,7 @@ const tableTitle = [
   },
 ];
 
-function CategoriesListing() {
+function BrandListing() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -115,10 +115,10 @@ function CategoriesListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
+                <BrandItem />
+                <BrandItem />
+                <BrandItem />
+                <BrandItem />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -128,4 +128,4 @@ function CategoriesListing() {
   );
 }
 
-export default CategoriesListing;
+export default BrandListing;
