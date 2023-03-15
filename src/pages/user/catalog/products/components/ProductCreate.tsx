@@ -221,9 +221,11 @@ function ProductCreate() {
         >
           <Box sx={{ borderRadius: 5 }}>
             <Card
-              sx={{
-                flex: 1,
-              }}
+              sx={
+                {
+                  // flex: 1,
+                }
+              }
             >
               <CardContent
               // sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}
