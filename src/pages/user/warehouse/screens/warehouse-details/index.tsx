@@ -3,7 +3,6 @@ import {
   Card,
   CardContent,
   Container,
-  Divider,
   Tab,
   Tabs,
   Typography,
@@ -28,10 +27,10 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
-      role="tabpanel"
+      aria-labelledby={`simple-tab-${index}`}
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      role="tabpanel"
       {...other}
     >
       {value === index && (
@@ -44,17 +43,17 @@ function TabPanel(props: TabPanelProps) {
 }
 function WarehouseDetails() {
   const [value, setValue] = React.useState(0);
-   const [open, setOpen]= React.useState(false)
+  const [open, setOpen] = React.useState(false);
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-  }; 
+  };
 
-  const handleOpen=()=>{
-    setOpen(true)
-  }
-const handleClose=()=>{
-  setOpen(false)
-}
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <DashboardLayout>
@@ -69,16 +68,16 @@ const handleClose=()=>{
           <Card>
             <CardContent sx={{ paddingTop: 0 }}>
               <TableToolbar
+                breadcrumbs={[{ link: "Warehouse", to: "/warehouse" }]}
                 buttonText="Edit"
-                  handleClick={handleOpen}
+                handleClick={handleOpen}
                 title="Warehouse Details"
-                breadcrumbs={[{link:"Warehouse", to:"/warehouse"}]}
               />
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Tabs
+                  aria-label="basic tabs example"
                   value={value}
                   onChange={handleChange}
-                  aria-label="basic tabs example"
                 >
                   <Tab label="GENERAL" />
                   <Tab label="AREAS" />
@@ -87,26 +86,26 @@ const handleClose=()=>{
                   <Tab label="CONTAINERS" />
                 </Tabs>
               </Box>
-              <TabPanel value={value} index={0}>
+              <TabPanel index={0} value={value}>
                 <General />
               </TabPanel>
-              <TabPanel value={value} index={1}>
+              <TabPanel index={1} value={value}>
                 <Areas />
               </TabPanel>
-              <TabPanel value={value} index={2}>
+              <TabPanel index={2} value={value}>
                 <Zones />
               </TabPanel>
-              <TabPanel value={value} index={3}>
+              <TabPanel index={3} value={value}>
                 <Locations />
               </TabPanel>
-              <TabPanel value={value} index={4}>
+              <TabPanel index={4} value={value}>
                 <Containers />
               </TabPanel>
             </CardContent>
           </Card>
         </Container>
       </Box>
-      <WarehouseForm open={open} handleClose={handleClose} />
+      <WarehouseForm handleClose={handleClose} open={open} />
     </DashboardLayout>
   );
 }

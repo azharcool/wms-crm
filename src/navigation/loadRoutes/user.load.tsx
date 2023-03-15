@@ -99,8 +99,15 @@ export const Variant = Loadable({
   loader: () => import("pages/user/catalog/variant/index"),
   loading: () => <Spinner />,
 });
+
 export const Categories = Loadable({
   loader: () => import("pages/user/catalog/categories"),
+  loading: () => <Spinner />,
+});
+
+export const CategoryDetail = Loadable({
+  loader: () =>
+    import("pages/user/catalog/categories/components/CategoriesDetail"),
   loading: () => <Spinner />,
 });
 

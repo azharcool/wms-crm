@@ -1,9 +1,17 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 
 function CategoriesItem() {
+  const navigate = useNavigate();
+
+  const handleItemClick = () => {
+    navigate(`${123436}/${AppRoutes.CATALOG.categoryDetail}`);
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -48,7 +56,9 @@ function CategoriesItem() {
           left: 130,
           zIndex: 999,
           background: "white",
+          cursor: "pointer",
         }}
+        onClick={() => handleItemClick()}
       >
         watches
       </TableCell>
