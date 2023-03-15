@@ -46,7 +46,7 @@ const tableTitle = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Parent category",
+    title: "Parent Category",
   },
   {
     id: crypto.randomUUID(),
@@ -54,7 +54,7 @@ const tableTitle = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Last updated",
+    title: "Last Updated",
   },
   {
     id: crypto.randomUUID(),

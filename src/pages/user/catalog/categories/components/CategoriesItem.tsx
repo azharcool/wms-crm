@@ -66,7 +66,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        {" "}
+        Parent Category
       </TableCell>
       <TableCell
         sx={{
@@ -91,7 +91,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        {" "}
+        Tags
       </TableCell>
 
       <TableCell
