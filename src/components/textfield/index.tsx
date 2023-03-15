@@ -8,15 +8,14 @@ import {
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { styled } from "@mui/material/styles";
 import * as React from "react";
 import palette from "theme/palette";
 
 type IOnSelect = (_: SelectChangeEvent) => void;
 
-interface IOptios {
+interface IMenuOption {
   value: string;
-  id: number;
+  id: string | number;
 }
 
 interface Props extends InputProps {
@@ -29,36 +28,17 @@ interface Props extends InputProps {
   isSelect?: boolean;
   onSelectHandler?: IOnSelect;
   selectValue?: string | number;
-  menuItems?: any[];
+  menuItems?: IMenuOption[];
   className?: string;
-  hasAllValue?: boolean;
+
   name: string;
   minDate?: any;
-  size?: "small" | "medium" | undefined;
+  size?: "small" | "medium";
   length?: number;
   muliline?: boolean;
   rows?: number;
-  id: string | undefined;
+  id?: string;
 }
-
-const CustomField = styled(InputField)({
-  // "& input + fieldset": {
-  //   border: "none",
-  //   borderBottom: "1px solid transparent",
-  // },
-  // "& input:valid + fieldset": {
-  //   borderColor: " green",
-  //   borderWidth: 2,
-  // },
-  // "& input:invalid + fieldset": {
-  //   borderColor: "red",
-  //   borderWidth: 2,
-  // },
-  // "& input:valid:focus + fieldset": {
-  //   borderLeftWidth: 6,
-  //   padding: "4px !important", // override inline-style
-  // },
-});
 
 function TextField(props: Props) {
   const {
@@ -79,10 +59,8 @@ function TextField(props: Props) {
     iconEnd,
     isSelect,
     id,
-    selectValue,
     menuItems,
     className,
-    hasAllValue,
     minDate,
     length,
     size,
@@ -108,7 +86,7 @@ function TextField(props: Props) {
       )}
 
       {!isSelect ? (
-        <CustomField
+        <InputField
           aria-describedby="my-helper-text"
           // autoComplete="current-password"
           className={className}
@@ -156,13 +134,15 @@ function TextField(props: Props) {
           value={value?.toString()}
           onChange={onSelectHandler}
         >
-          <MenuItem value="">
-            <em>{placeholder}</em>
-          </MenuItem>
+          {placeholder && (
+            <MenuItem value="">
+              <em>{placeholder}</em>
+            </MenuItem>
+          )}
+
           {menuItems?.map((item) => {
-            const values = Object.values(item).join(",");
             return (
-              <MenuItem key={item.value} value={hasAllValue ? values : item.id}>
+              <MenuItem key={item.value} value={item.id}>
                 {item.value}
               </MenuItem>
             );

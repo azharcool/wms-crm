@@ -6,6 +6,7 @@ import {
   CardContent,
   Container,
   DialogContent,
+  DialogTitle,
   Divider,
   IconButton,
   PaletteMode,
@@ -18,7 +19,46 @@ import TextField from "components/textfield";
 import { useSelector } from "react-redux";
 // import Typography from "theme/typography";
 
+import { Stack } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
+
+const detailMenu = [
+  {
+    id: crypto.randomUUID(),
+    value: "Digital product",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Physical product",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Service",
+  },
+];
+
+interface ICustomCard {
+  title: string;
+  children: React.ReactNode;
+}
+function CustomCard(props: ICustomCard) {
+  const { title, children } = props;
+  return (
+    <Card
+      sx={{
+        flex: 1,
+      }}
+    >
+      <CardContent>
+        <DialogTitle>
+          <Typography component="h6">{title}</Typography>
+        </DialogTitle>
+        <Divider />
+        <DialogContent>{children}</DialogContent>
+      </CardContent>
+    </Card>
+  );
+}
 
 function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -98,28 +138,26 @@ function ProductCreate() {
           ]}
           title="New Product"
         />
+
+        <Stack direction="row" gap={3} marginTop={2}>
+          <CustomCard title="Details">
+            <TextField id="name" label="Name" name="name" size="small" />
+            <TextField
+              isSelect
+              menuItems={detailMenu}
+              name="type"
+              value={detailMenu[0].id}
+            />
+            <TextField id="name" label="Name" name="name" size="small" />
+          </CustomCard>
+
+          <CustomCard title="Tracking">
+            <TextField id="name" label="Name" name="name" size="small" />
+            <TextField id="name" label="Name" name="name" size="small" />
+            <TextField id="name" label="Name" name="name" size="small" />
+          </CustomCard>
+        </Stack>
       </Container>
-      {/* 
-      <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Product</DialogTitle>
-
-        <Box>
-          <Button
-            sx={{
-              width: "inherit",
-              marginRight: "1rem",
-            }}
-            title="Save"
-            variant="contained"
-          >
-            Save
-          </Button>
-
-          <Button autoFocus variant="contained">
-            Discard
-          </Button>
-        </Box>
-      </DialogActions> */}
 
       <Box
         sx={{
