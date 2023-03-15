@@ -1,11 +1,10 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
-import ProductListing from "./components/ProductListing";
+import BrandListing from "./components/BrandListing";
 
-function Products() {
+function Brands() {
   const navigate = useNavigate();
   return (
     <Container maxWidth={false}>
@@ -17,25 +16,10 @@ function Products() {
               navigate(AppRoutes.CATALOG.productCreate);
             }}
             navTitle="CATALOG"
-            rightActions={[
-              {
-                id: crypto.randomUUID(),
-                title: "New",
-                onClick: () => {},
-                icon: (
-                  <AddCircleIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 1,
-                    }}
-                  />
-                ),
-              },
-            ]}
-            title="Products"
+            title="Brands"
           />
           <Box sx={{ mt: 3 }}>
-            <ProductListing />
+            <BrandListing />
           </Box>
         </CardContent>
       </Card>
@@ -43,4 +27,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Brands;

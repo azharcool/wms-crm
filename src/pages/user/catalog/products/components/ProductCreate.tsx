@@ -1,12 +1,11 @@
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import LoopIcon from "@mui/icons-material/Loop";
 import {
   Box,
-  Button,
   Card,
   CardContent,
-  DialogActions,
+  Container,
   DialogContent,
-  DialogTitle,
   Divider,
   IconButton,
   PaletteMode,
@@ -19,14 +18,9 @@ import TextField from "components/textfield";
 import { useSelector } from "react-redux";
 // import Typography from "theme/typography";
 
-interface IProductCreate {
-  open: boolean;
-  handleClose: () => void;
-  isEdit?: boolean;
-}
+import TableToolbar from "components/table-toolbar";
 
 function ProductCreate() {
-  // const { open, handleClose, isEdit } = props;
   const newtheme = useSelector((state: any) => state.theme);
 
   const lightTheme = createTheme({
@@ -67,13 +61,47 @@ function ProductCreate() {
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      {/* <Typography>PRODUCTS</Typography> */}
-      {/* <DialogTitle>New Product</DialogTitle> */}
+      <Container maxWidth={false}>
+        <TableToolbar
+          buttonText="Save"
+          handleClick={() => {
+            // navigate(AppRoutes.CATALOG.productCreate);
+          }}
+          navTitle="PRODUCTS"
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "Discard",
+              onClick: () => {},
+              icon: (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+            {
+              id: crypto.randomUUID(),
+              title: "Save",
+              onClick: () => {},
+              icon: (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
+          title="New Product"
+        />
+      </Container>
+      {/* 
       <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>
-          {/* {isEdit ? "Edit Warehouse" : "New Warehouses"} */}
-          New Product
-        </DialogTitle>
+        <DialogTitle>New Product</DialogTitle>
 
         <Box>
           <Button
@@ -91,8 +119,8 @@ function ProductCreate() {
             Discard
           </Button>
         </Box>
-      </DialogActions>
-      {/* <PerfectScrollbar> */}
+      </DialogActions> */}
+
       <Box
         sx={{
           // alignItems: "center",
@@ -315,8 +343,6 @@ function ProductCreate() {
           </Box>
         </Toolbar>
       </Box>
-
-      {/* </PerfectScrollbar> */}
     </ThemeProvider>
   );
 }

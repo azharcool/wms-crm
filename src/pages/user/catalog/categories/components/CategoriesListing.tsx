@@ -12,7 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import ProductItem from "./ProductItem";
+import CategoriesItem from "./CategoriesItem";
 
 const tabs = [
   {
@@ -42,39 +42,27 @@ const tableTitle = [
 
   {
     id: crypto.randomUUID(),
-    title: "Inventory",
+    title: "Position",
   },
   {
     id: crypto.randomUUID(),
-    title: "Variants",
+    title: "Parent category",
   },
   {
     id: crypto.randomUUID(),
-    title: "Category",
+    title: "Status",
   },
   {
     id: crypto.randomUUID(),
-    title: "Brand",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Company",
+    title: "Last updated",
   },
   {
     id: crypto.randomUUID(),
     title: "Tags",
   },
-  {
-    id: crypto.randomUUID(),
-    title: "Tags0",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Tags1",
-  },
 ];
 
-function ProductListing() {
+function CategoriesListing() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -127,10 +115,10 @@ function ProductListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
+                <CategoriesItem />
+                <CategoriesItem />
+                <CategoriesItem />
+                <CategoriesItem />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -140,4 +128,4 @@ function ProductListing() {
   );
 }
 
-export default ProductListing;
+export default CategoriesListing;

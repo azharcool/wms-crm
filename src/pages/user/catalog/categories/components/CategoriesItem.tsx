@@ -1,8 +1,9 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
-function ProductItem() {
+function CategoriesItem() {
   return (
     <TableRow>
       <TableCell
@@ -42,81 +43,55 @@ function ProductItem() {
 
       <TableCell
         sx={{
-          width: 150,
+          width: 200,
           position: "sticky",
           left: 130,
           zIndex: 999,
           background: "white",
         }}
       >
-        image
+        watches
       </TableCell>
       <TableCell
         sx={{
-          width: 150,
-          position: "sticky",
-          left: 0,
+          minWidth: 200,
           background: "white",
         }}
       >
-        azhar
+        0
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 150,
+          minWidth: 200,
           background: "white",
         }}
       >
-        image
+        {" "}
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 150,
+          minWidth: 200,
           background: "white",
         }}
       >
-        image
+        <CustomSwitch />
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 150,
+          minWidth: 200,
           background: "white",
         }}
       >
-        image
+        Mar 9, 2023 17:39:39
       </TableCell>
 
       <TableCell
         sx={{
-          minWidth: 150,
+          minWidth: 200,
           background: "white",
         }}
       >
-        image
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          background: "white",
-        }}
-      >
-        100 image
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          background: "white",
-        }}
-      >
-        100 image
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          background: "white",
-        }}
-      >
-        100 image
+        {" "}
       </TableCell>
 
       <TableCell
@@ -132,4 +107,4 @@ function ProductItem() {
   );
 }
 
-export default ProductItem;
+export default CategoriesItem;
