@@ -140,6 +140,18 @@ function CategoriesCreate() {
                     onChange={() => {}}
                   />
                 </Stack>
+                <Stack direction="row" gap={2} marginTop={2}>
+                  <TextField
+                    multiline
+                    id="categoyDetail"
+                    label="Detail"
+                    name="categoyDetail"
+                    rows={3}
+                    size="small"
+                    value="some other details"
+                    onChange={() => {}}
+                  />
+                </Stack>
               </CustomCardContent>
 
               <CustomCardContent title="Organization">

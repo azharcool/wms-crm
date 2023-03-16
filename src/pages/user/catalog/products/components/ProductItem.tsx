@@ -1,8 +1,12 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 
 function ProductItem() {
+  const navigate = useNavigate();
+
   return (
     <TableRow>
       <TableCell
@@ -47,6 +51,10 @@ function ProductItem() {
           left: 130,
           zIndex: 999,
           background: "white",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
         }}
       >
         image

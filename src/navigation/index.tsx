@@ -134,6 +134,10 @@ function Application() {
                   element={<UserLoadable.ProductCreate />}
                   path={`${AppRoutes.CATALOG.productCreate}`}
                 />
+                <Route
+                  element={<UserLoadable.ProductDetail />}
+                  path={`${AppRoutes.CATALOG.productDetail}/:productId`}
+                />
               </Route>
               <Route path={`${AppRoutes.CATALOG.units}`}>
                 <Route index element={<UserLoadable.Units />} />

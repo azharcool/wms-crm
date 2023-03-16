@@ -90,6 +90,11 @@ export const ProductCreate = Loadable({
   loading: () => <Spinner />,
 });
 
+export const ProductDetail = Loadable({
+  loader: () => import("pages/user/catalog/products/components/ProductDetail"),
+  loading: () => <Spinner />,
+});
+
 export const Units = Loadable({
   loader: () => import("pages/user/catalog/units"),
   loading: () => <Spinner />,

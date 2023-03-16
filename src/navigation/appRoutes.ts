@@ -22,6 +22,7 @@ const AppRoutes = {
   CATALOG: {
     catalog: "catalog",
     products: "product",
+    productDetail: "detail",
     variants: "variant",
     units: "unit",
     bundles: "bundles",

@@ -1,4 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
@@ -18,6 +19,21 @@ function Categories() {
             }}
             navTitle="CATALOG"
             rightActions={[
+              {
+                id: crypto.randomUUID(),
+                title: "Bulk Actions",
+                onClick: () => {
+                  navigate(`${AppRoutes.CATALOG.categoryCreate}`);
+                },
+                icon: (
+                  <ArrowDropDownIcon
+                    sx={{
+                      fontSize: 18,
+                      mr: 2,
+                    }}
+                  />
+                ),
+              },
               {
                 id: crypto.randomUUID(),
                 title: "New",
