@@ -14,58 +14,38 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import BrandItem from "./BrandItem";
 
-const tabs = [
-  {
-    id: crypto.randomUUID(),
-    title: "New",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Pick",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Close",
-  },
-];
+// const tabs = [
+//   {
+//     id: crypto.randomUUID(),
+//     title: "New",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: "Pick",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: "Close",
+//   },
+// ];
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
     title: "Image",
   },
-
   {
     id: crypto.randomUUID(),
     title: "Name",
-  },
-
-  {
-    id: crypto.randomUUID(),
-    title: "Position",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Parent category",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Status",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Last updated",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Tags",
   },
 ];
 
 function BrandListing() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tabs} />
+      <EnhancedTableToolbar
+      // tabs={tabs}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -80,11 +60,11 @@ function BrandListing() {
                   <CustomTableCell
                     isCheck
                     isHeader
-                    isSticky
-                    customStyle={{
-                      zIndex: 999,
-                    }}
-                    leftValue={0}
+                    // isSticky
+                    // customStyle={{
+                    //   zIndex: 999,
+                    // }}
+                    // leftValue={0}
                   >
                     <Checkbox
                       checked={false}
@@ -101,8 +81,8 @@ function BrandListing() {
                         isHeader
                         customStyle={{
                           minWidth: isImage ? 50 : 150,
-                          position: isImage || isName ? "sticky" : "static",
-                          left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          // position: isImage || isName ? "sticky" : "static",
+                          // left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}

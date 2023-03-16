@@ -12,7 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import CategoriesItem from "./CategoriesItem";
+import PurchaseItem from "./PurchaseItem";
 
 const tabs = [
   {
@@ -21,48 +21,75 @@ const tabs = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Pick",
+    title: "Closed",
   },
   {
     id: crypto.randomUUID(),
-    title: "Close",
+    title: "Cancelled",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Progress",
   },
 ];
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "Image",
+    title: "Po#",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "Supplier",
   },
 
-  {
-    id: crypto.randomUUID(),
-    title: "Position",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Parent Category",
-  },
   {
     id: crypto.randomUUID(),
     title: "Status",
   },
   {
     id: crypto.randomUUID(),
-    title: "Last Updated",
+    title: "Products",
   },
   {
     id: crypto.randomUUID(),
+    title: "Total",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Received/Ordered",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Receiving warehouse",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Expected date",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Created date",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Last updated",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Supplier ref id",
+  },  {
+    id: crypto.randomUUID(),
     title: "Tags",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Notes",
   },
 ];
 
-function CategoriesListing() {
+function PurchaseListing() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -77,15 +104,7 @@ function CategoriesListing() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
-                      zIndex: 999,
-                    }}
-                    leftValue={0}
-                  >
+                  <CustomTableCell isCheck isHeader isSticky leftValue={0}>
                     <Checkbox
                       checked={false}
                       color="primary"
@@ -100,9 +119,9 @@ function CategoriesListing() {
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 150,
+                          minWidth: isImage ? 50 : 200,
                           position: isImage || isName ? "sticky" : "static",
-                          left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          // left: isImage || isName ? (isName ? 125 : 60) : 0,
                         }}
                       >
                         {item.title}
@@ -115,10 +134,10 @@ function CategoriesListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
+                <PurchaseItem />
+                <PurchaseItem />
+                <PurchaseItem />
+                <PurchaseItem />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -128,4 +147,4 @@ function CategoriesListing() {
   );
 }
 
-export default CategoriesListing;
+export default PurchaseListing;

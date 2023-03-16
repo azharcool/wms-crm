@@ -61,12 +61,12 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Units",
-        location: AppRoutes.CATALOG.units,
+        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.units}`,
       },
       {
         id: crypto.randomUUID(),
         title: "Bundles",
-        location: AppRoutes.CATALOG.bundles,
+        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.bundles}`,
       },
       {
         id: crypto.randomUUID(),
@@ -81,7 +81,7 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Listing",
-        location: AppRoutes.CATALOG.units,
+        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.listing}`,
       },
     ],
   },
@@ -94,7 +94,7 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Purchase order",
-        location: AppRoutes.PURCHASE.PURCHASE_ORDER,
+        location: `/${AppRoutes.PURCHASE.purchase}/${AppRoutes.PURCHASE.PURCHASE_ORDER}`,
       },
       {
         id: crypto.randomUUID(),

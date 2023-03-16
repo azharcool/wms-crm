@@ -2,9 +2,9 @@ import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
-import PurchaseListing from "./component/PurchaseListing";
+import ListingList from "./components/ListingList";
 
-function PurchaseOrder() {
+function Listing() {
   const navigate = useNavigate();
   return (
     <Container maxWidth={false}>
@@ -16,10 +16,10 @@ function PurchaseOrder() {
               navigate(AppRoutes.CATALOG.productCreate);
             }}
             navTitle="CATALOG"
-            title="Products"
+            title="Listing"
           />
           <Box sx={{ mt: 3 }}>
-            <PurchaseListing />
+            <ListingList />
           </Box>
         </CardContent>
       </Card>
@@ -27,4 +27,4 @@ function PurchaseOrder() {
   );
 }
 
-export default PurchaseOrder;
+export default Listing;

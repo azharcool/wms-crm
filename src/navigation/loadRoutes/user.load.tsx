@@ -70,6 +70,12 @@ export const Catalog = Loadable({
   loading: () => <Spinner />,
 });
 
+export const Purchase = Loadable({
+  loader: () => import("pages/user/purchases"),
+  loading: () => <Spinner />,
+
+});
+
 export const Suppliers = Loadable({
   loader: () => import("pages/user/purchases/suppliers"),
   loading: () => <Spinner />,
@@ -90,6 +96,11 @@ export const Units = Loadable({
   loading: () => <Spinner />,
 });
 
+export const UnitsHistory = Loadable({
+  loader: () => import("pages/user/catalog/units/component/unit-history"),
+  loading: () => <Spinner />,
+});
+
 export const Bundles = Loadable({
   loader: () => import("pages/user/catalog/bundles"),
   loading: () => <Spinner />,
@@ -99,6 +110,16 @@ export const Variant = Loadable({
   loader: () => import("pages/user/catalog/variant/index"),
   loading: () => <Spinner />,
 });
+export const BundlesDetail = Loadable({
+  loader: () => import("pages/user/catalog/bundles/component/BundleDetails"),
+  loading: () => <Spinner />,
+});
+
+export const CreateBundles = Loadable({
+  loader: () => import("pages/user/catalog/bundles/component/BundleCreate"),
+  loading: () => <Spinner />,
+});
+
 export const Categories = Loadable({
   loader: () => import("pages/user/catalog/categories"),
   loading: () => <Spinner />,
@@ -106,5 +127,10 @@ export const Categories = Loadable({
 
 export const Brands = Loadable({
   loader: () => import("pages/user/catalog/brands"),
+  loading: () => <Spinner />,
+});
+
+export const Listing = Loadable({
+  loader: () => import("pages/user/catalog/listing"),
   loading: () => <Spinner />,
 });
