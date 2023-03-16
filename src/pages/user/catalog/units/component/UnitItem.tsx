@@ -28,8 +28,11 @@ function UnitItem() {
         sx={{
           width: 50,
           position: "sticky",
-          left: 0,
-          cursor:"pointer"
+          left: 60,
+          zIndex: 999,
+          cursor:"pointer",
+          background: "white",
+
         }}
         onClick={()=>goToDetails("1")}
       >
@@ -51,7 +54,9 @@ function UnitItem() {
         sx={{
           width: 200,
           position: "sticky",
-          left: 0,
+          zIndex: 999,
+          left: 130,
+          background: "white",
         }}
       >
         IPHONE XR White

@@ -94,7 +94,7 @@ const tableTitle = [
 function UnitListing() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar  />
+      <EnhancedTableToolbar />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -106,7 +106,15 @@ function UnitListing() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell isCheck isHeader isSticky leftValue={0}>
+                  <CustomTableCell
+                    isCheck
+                    isHeader
+                    isSticky
+                    customStyle={{
+                      zIndex: 999,
+                    }}
+                    leftValue={0}
+                  >
                     <Checkbox
                       checked={false}
                       color="primary"
@@ -115,15 +123,15 @@ function UnitListing() {
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
-                    const isName = item.title.includes("Name");
+                    const isVariant = item.title.includes("Variant");
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
                           minWidth: isImage ? 50 : 200,
-                          position: isImage || isName ? "sticky" : "static",
-                          // left: isImage || isName ? (isName ? 125 : 60) : 0,
+                          position: isImage || isVariant ? "sticky" : "static",
+                          left: isImage || isVariant ? (isVariant ? 125 : 60) : 0,
                         }}
                       >
                         {item.title}

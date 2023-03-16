@@ -116,7 +116,7 @@ export const Variant = Loadable({
 });
 
 export const BundlesDetail = Loadable({
-  loader: () => import("pages/user/catalog/bundles/component/BundleDetails"),
+  loader: () => import("pages/user/catalog/bundles/component/bundle-details/BundleDetails"),
   loading: () => <Spinner />,
 });
 
