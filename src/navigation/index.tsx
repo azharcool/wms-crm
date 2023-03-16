@@ -172,6 +172,9 @@ function Application() {
               </Route>
               <Route path={`${AppRoutes.CATALOG.variants}`}>
                 <Route index element={<UserLoadable.Variant />} />
+                <Route path={`${AppRoutes.CATALOG.variantsDetails}`}>
+                  <Route index element={<UserLoadable.VariantDetails />} />
+                </Route>
               </Route>
             </Route>
 
