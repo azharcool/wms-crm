@@ -3,7 +3,10 @@ import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import { grey } from "@mui/material/colors";
+import TextField from "components/textfield";
+
+import CustomCardContent from "components/card/CustomCardContent";
+import { useState } from "react";
 
 interface ICustomAccordian {
   title: string;
@@ -25,6 +28,8 @@ function CustomAccordian(props: ICustomAccordian) {
   );
 }
 export default function General() {
+  const [editable, setEditable] = useState(false);
+
   const commonStyles = {
     bgcolor: "background.paper",
     m: 1,
@@ -32,87 +37,122 @@ export default function General() {
     width: "5rem",
     height: "5rem",
   };
+  const istrue = !editable;
+
   return (
     <Box>
       <Grid container spacing={2}>
         <Grid item md={8} xs={6}>
-          <Card sx={{ p: 3 }}>
-            <Typography>Options</Typography>
-            <Divider sx={{ width: "100%", pt: 2 }} />
-            <Grid container columns={10} spacing={2}>
-              <Grid item xs={4}>
-                <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                  Laptop
-                </Typography>
-                <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "600" }}>
-                  Crt
-                </Typography>
-              </Grid>
-              <Grid item xs={4}>
-                <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                  Mobile
-                </Typography>
-                <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "600" }}>
-                  android
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid sx={{ pt: 2 }}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Mobile
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "600" }}>
-                android
-              </Typography>
-            </Grid>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  disabled={istrue}
+                  id="categoryName"
+                  label="Laptop"
+                  name="categoryName"
+                  //   nameRef={nameRef}
+                  size="small"
+                  value="ssd"
+                  onChange={() => {}}
+                />
+
+                <TextField
+                  disabled={istrue}
+                  id="categoySlug"
+                  label="mobile"
+                  name="categoySlug"
+                  size="small"
+                  value="android"
+                  onChange={() => {}}
+                />
+              </Stack>
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="headphones"
+                name="categoySlug"
+                size="small"
+                value="wireless"
+                onChange={() => {}}
+              />
+            </CustomCardContent>
           </Card>
-          <Card sx={{ p: 3, mt: 3 }}>
-            <Typography>Details</Typography>
-            <Divider sx={{ width: "100%", pt: 2 }} />
-            <Grid sx={{ pt: 2 }}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Details
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "600" }}>
-                android
-              </Typography>
-            </Grid>
-            <Grid sx={{ pt: 2 }}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Description
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "600" }}>
-                Not provided
-              </Typography>
-            </Grid>
+
+          <Card
+            sx={{
+              flex: 1,
+              mt: 2,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  disabled={istrue}
+                  id="categoryName"
+                  label="Name"
+                  name="categoryName"
+                  //   nameRef={nameRef}
+                  size="small"
+                  value="lenovo ssd, adroid, WIRELESS"
+                  onChange={() => {}}
+                />
+
+                <TextField
+                  disabled={istrue}
+                  id="categoySlug"
+                  label="Description"
+                  name="categoySlug"
+                  size="small"
+                  value="Not provided"
+                  onChange={() => {}}
+                />
+              </Stack>
+            </CustomCardContent>
           </Card>
-          <Card sx={{ p: 3, mt: 3 }}>
-            <Typography>Options</Typography>
-            <Divider sx={{ width: "100%", pt: 2 }} />
-            <Grid sx={{ pt: 2 }}>
-              <Box
-                sx={{
-                  ...commonStyles,
-                  borderColor: "grey.500",
-                  width: "450px",
-                  height: "200px",
-                }}
-              >
-                <Typography
+          <Card sx={{ flex: 1, mt: 2 }}>
+            <CustomCardContent title="Options">
+              <Grid sx={{ pt: 2 }}>
+                <Box
                   sx={{
-                    textAlign: "center",
+                    ...commonStyles,
+                    borderColor: "grey.500",
+                    width: "450px",
+                    height: "200px",
                   }}
                 >
-                  No Images
-                </Typography>
-              </Box>
-            </Grid>
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                    }}
+                  >
+                    No Images
+                  </Typography>
+                </Box>
+              </Grid>
+            </CustomCardContent>
           </Card>
         </Grid>
         <Grid item md={4} xs={6}>
           {/* <Card> */}
           <CustomAccordian title="Supply">
-            <Divider />
+            <Stack direction="column" gap={2}>
+              <TextField
+                disabled={istrue}
+                id="categoryName"
+                label="Description"
+                name="categoryName"
+                //   nameRef={nameRef}
+                size="small"
+                value="Not provided"
+                onChange={() => {}}
+              />
+            </Stack>
+            {/* <Divider />
             <Grid sx={{}}>
               <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
                 Description
@@ -120,140 +160,195 @@ export default function General() {
               <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
                 Not provided
               </Typography>
-            </Grid>
+            </Grid> */}
           </CustomAccordian>
           <CustomAccordian title="Tracking">
             <Divider />
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                SKU
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                LECRADWI-274585-286449
-              </Typography>
-            </Grid>
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Barcode
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                2677078251252
-              </Typography>
-            </Grid>
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Unique Barcoding strategy
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                Per SKU or Set
-              </Typography>
-              <Grid container columns={10} spacing={2}>
-                <Grid item xs={5}>
-                  <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                    Quantity
-                  </Typography>
-                  <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                    1
-                  </Typography>
-                </Grid>
-                <Grid item xs={5}>
-                  <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                    UoM
-                  </Typography>
-                  <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                    Not provided
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
+            <Stack direction="column" gap={2}>
+              <TextField
+                disabled={istrue}
+                id="categoryName"
+                label="SKU"
+                name="categoryName"
+                //   nameRef={nameRef}
+                size="small"
+                value="LESSADWI-274585-286451"
+                onChange={() => {}}
+              />
+
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Barcode"
+                name="categoySlug"
+                size="small"
+                value="5132234447589"
+                onChange={() => {}}
+              />
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Unique Barcoding strategy"
+                name="categoySlug"
+                size="small"
+                value="Per SKU or Set"
+                onChange={() => {}}
+              />
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Barcode"
+                name="categoySlug"
+                size="small"
+                value="Per SKU or Set"
+                onChange={() => {}}
+              />
+              <Stack direction="row" gap={2}>
+                <TextField
+                  disabled={istrue}
+                  id="categoryName"
+                  label="Quantity"
+                  name="categoryName"
+                  //   nameRef={nameRef}
+                  size="small"
+                  value="1"
+                  onChange={() => {}}
+                />
+
+                <TextField
+                  disabled={istrue}
+                  id="categoySlug"
+                  label="UoM"
+                  name="categoySlug"
+                  size="small"
+                  value="Not provided"
+                  onChange={() => {}}
+                />
+              </Stack>
+            </Stack>
           </CustomAccordian>
           <CustomAccordian title="Dimensions">
             <Divider />
             <Stack direction="row" gap={2}>
-              <Grid container columns={10} spacing={2}>
-                <Grid item xs={5}>
-                  <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                    Height
-                  </Typography>
-                  <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                    0.00 cm
-                  </Typography>
-                </Grid>
-                <Grid item xs={5}>
-                  <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                    Width
-                  </Typography>
-                  <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                    0.00 cm
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Stack>
+              <TextField
+                disabled={istrue}
+                id="categoryName"
+                label="Height"
+                name="categoryName"
+                //   nameRef={nameRef}
+                size="small"
+                value="0.00 cm"
+                onChange={() => {}}
+              />
 
-            <Grid container columns={10} spacing={2}>
-              <Grid item xs={5}>
-                <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                  Length
-                </Typography>
-                <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                  0.00 cm
-                </Typography>
-              </Grid>
-              <Grid item xs={5}>
-                <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                  Length
-                </Typography>
-                <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                  0.00 Kg
-                </Typography>
-              </Grid>
-            </Grid>
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Width"
+                name="categoySlug"
+                size="small"
+                value="0.00 cm"
+                onChange={() => {}}
+              />
+            </Stack>
+            <Stack direction="row" gap={2}>
+              <TextField
+                disabled={istrue}
+                id="categoryName"
+                label="Lenght"
+                name="categoryName"
+                //   nameRef={nameRef}
+                size="small"
+                value="0.00 cm"
+                onChange={() => {}}
+              />
+
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Weight"
+                name="categoySlug"
+                size="small"
+                value="0.00 cm"
+                onChange={() => {}}
+              />
+            </Stack>
           </CustomAccordian>
           <CustomAccordian title="Reorder">
             <Divider />
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Reorder Point
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                0
-              </Typography>
-            </Grid>
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Reorder Quantity
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                0
-              </Typography>
-            </Grid>
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Min Replenishment Point
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                0
-              </Typography>
-            </Grid>
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Max Replenishment Point
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                0
-              </Typography>
-            </Grid>
+            <Stack direction="column" gap={2}>
+              <TextField
+                disabled={istrue}
+                id="categoryName"
+                label="Reorder Point "
+                name="categoryName"
+                //   nameRef={nameRef}
+                size="small"
+                value="0"
+                onChange={() => {}}
+              />
+
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Reorder Quantity "
+                name="categoySlug"
+                size="small"
+                value="0"
+                onChange={() => {}}
+              />
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Min Replenishment Point"
+                name="categoySlug"
+                size="small"
+                value="0"
+                onChange={() => {}}
+              />
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Max Replenishment Point"
+                name="categoySlug"
+                size="small"
+                value="0"
+                onChange={() => {}}
+              />
+            </Stack>
           </CustomAccordian>
           <CustomAccordian title="Fulfillment">
             <Divider />
-            <Grid sx={{}}>
+            <Stack direction="column" gap={2}>
+              <TextField
+                disabled={istrue}
+                id="categoryName"
+                label="Fulfillment"
+                name="categoryName"
+                //   nameRef={nameRef}
+                size="small"
+                value=""
+                onChange={() => {}}
+              />
+
+              <TextField
+                disabled={istrue}
+                id="categoySlug"
+                label="Sync Supply Price"
+                name="categoySlug"
+                size="small"
+                value=""
+                onChange={() => {}}
+              />
+            </Stack>
+            {/* <Grid sx={{}}>
               <Typography sx={{ fontSize: 16, pt: 2, color: grey[500] }}>
                 Fulfillment
               </Typography>
               <Typography sx={{ fontSize: 16, pt: 2, color: grey[500] }}>
                 Sync Supply Price
               </Typography>
-            </Grid>
+            </Grid> */}
           </CustomAccordian>
           {/* </Card> */}
         </Grid>

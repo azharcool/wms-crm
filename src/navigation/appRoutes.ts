@@ -25,9 +25,14 @@ const AppRoutes = {
     variants: "variant",
     units: "unit",
     bundles: "bundles",
+    bundleDetails: "bundle-details",
+    bundleCreate: "bundle-create",
     categories: "categories",
+    categoryCreate: "create",
+    categoryDetail: "detail",
     brands: "brands",
     listing: "listing",
+    unitHistory: "unit-history",
     productCreate: "create",
     variantsDetails: "variantsDetails",
   },
@@ -35,11 +40,12 @@ const AppRoutes = {
   // Purchase
 
   PURCHASE: {
-    PURCHASE_ORDER: "/purchase-order",
-    ADD_PURCHASE_ORDER: "/add-purchase",
-    All_ORDER_DETAILS: "/allOrder-details",
-    SUPPLIERS: "/suppliers",
-    SUPPLIERS_RETURN: "/supplier-return",
+    purchase: "purchase",
+    PURCHASE_ORDER: "purchase-order",
+    ADD_PURCHASE_ORDER: "add-purchase",
+    All_ORDER_DETAILS: "allOrder-details",
+    SUPPLIERS: "suppliers",
+    SUPPLIERS_RETURN: "supplier-return",
   },
 };
 

@@ -1,3 +1,6 @@
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
@@ -9,11 +12,71 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
+
 import TableToolbar from "components/table-toolbar";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SidebarButton from "./components/SidebarButton";
+
 import Tabs from "./components/Tabs";
 
 function VariantDetails() {
+  const navigate = useNavigate();
+  const nameRef = useRef<any>(null);
+  const [editable, setEditable] = useState(false);
+
+  const rightActionsData = [
+    {
+      id: crypto.randomUUID(),
+      title: "Discard",
+      onClick: () => {
+        setEditable(false);
+        // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);
+      },
+      icon: (
+        <ArrowBackIosIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Edit",
+      onClick: () => {
+        setEditable(true);
+        setTimeout(() => {
+          nameRef.current?.focus();
+        }, 500);
+      },
+      icon: (
+        <EditIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Save",
+      onClick: () => {
+        setEditable(false);
+        navigate(-1);
+      },
+      icon: (
+        <SaveIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+  ];
   return (
     <Container maxWidth={false}>
       <Box
@@ -72,10 +135,19 @@ function VariantDetails() {
 
           <Grid item xs={9}>
             <TableToolbar
-              buttonText="New"
-              navTitle="CATALOG"
-              title="lenovo crt, adroid, WIRELESS"
+              breadcrumbs={[{ link: "CATAGORIES", to: "/Watches" }]}
+              buttonText="Save"
+              handleClick={() => {
+                // navigate(AppRoutes.CATALOG.CategoriesDetail);
+              }}
+              rightActions={
+                editable
+                  ? rightActionsData.filter((i) => i.title !== "Edit")
+                  : rightActionsData.filter((i) => i.title === "Edit")
+              }
+              title="lenovo ssd, adroid, WIRELESS"
             />
+
             <Tabs />
           </Grid>
         </Grid>

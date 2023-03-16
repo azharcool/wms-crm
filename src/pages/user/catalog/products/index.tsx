@@ -13,15 +13,14 @@ function Products() {
         <CardContent sx={{ paddingTop: 0 }}>
           <TableToolbar
             buttonText="New"
-            handleClick={() => {
-              navigate(AppRoutes.CATALOG.productCreate);
-            }}
             navTitle="CATALOG"
             rightActions={[
               {
                 id: crypto.randomUUID(),
                 title: "New",
-                onClick: () => {},
+                onClick: () => {
+                  navigate(AppRoutes.CATALOG.productCreate);
+                },
                 icon: (
                   <AddCircleIcon
                     sx={{

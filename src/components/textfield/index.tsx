@@ -39,6 +39,7 @@ interface Props extends InputProps {
   rows?: number;
   id?: string;
   onClickIcon?: React.MouseEventHandler<HTMLDivElement>;
+  nameRef?: any;
 }
 
 function TextField(props: Props) {
@@ -48,6 +49,7 @@ function TextField(props: Props) {
     value,
     disabled,
     error,
+    nameRef,
     label,
     onChange,
     onSelectHandler,
@@ -89,9 +91,6 @@ function TextField(props: Props) {
 
       {!isSelect ? (
         <InputField
-          aria-describedby="my-helper-text"
-          // autoComplete="current-password"
-          className={className}
           color="success"
           disabled={disabled}
           error={error}
@@ -110,6 +109,7 @@ function TextField(props: Props) {
             ) : null,
             // min: minDate,
           }}
+          inputRef={nameRef}
           label={label}
           multiline={multiline}
           name={name}
@@ -127,6 +127,9 @@ function TextField(props: Props) {
           variant="outlined"
           onBlur={onBlur}
           onChange={onChange}
+          aria-describedby="my-helper-text"
+          // autoComplete="current-password"
+          className={className}
         />
       ) : (
         <Select

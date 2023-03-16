@@ -1,23 +1,21 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
-import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
-function CategoriesItem() {
-  const navigate = useNavigate();
-
-  const handleItemClick = () => {
-    navigate(`${AppRoutes.CATALOG.categoryDetail}/${123}`);
-  };
-
+function UnitItem() {
+    const navigate = useNavigate()
+    const goToDetails = (id: string) => {
+        navigate(`${AppRoutes.CATALOG.unitHistory}/${id}`);
+      };
+    
   return (
     <TableRow>
       <TableCell
         padding="checkbox"
         sx={{
-          width: 60,
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -30,10 +28,10 @@ function CategoriesItem() {
         sx={{
           width: 50,
           position: "sticky",
-          left: 60,
-          zIndex: 999,
-          background: "white",
+          left: 0,
+          cursor:"pointer"
         }}
+        onClick={()=>goToDetails("1")}
       >
         <Box
           sx={{
@@ -53,55 +51,123 @@ function CategoriesItem() {
         sx={{
           width: 200,
           position: "sticky",
-          left: 130,
-          zIndex: 999,
-          background: "white",
-          cursor: "pointer",
+          left: 0,
         }}
-        onClick={() => handleItemClick()}
       >
-        watches
+        IPHONE XR White
+      </TableCell>
+      <TableCell
+        sx={{
+          width: 200,
+          position: "sticky",
+          left: 0,
+        }}
+      >
+        9734973947
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
         }}
       >
-        0
+        YES
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
         }}
       >
-        Parent Category
+        50
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
         }}
       >
-        <CustomSwitch />
+        image
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
         }}
       >
-        Mar 9, 2023 17:39:39
+        -
+      </TableCell> <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        -
+      </TableCell> <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        -
       </TableCell>
-
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
         }}
       >
-        Tags
+        -
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        -
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        -
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        -
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        demo
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        STG
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        smart
+      </TableCell>
+      
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        March 14, 2023
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        06:34:00
       </TableCell>
 
       <TableCell
@@ -117,4 +183,4 @@ function CategoriesItem() {
   );
 }
 
-export default CategoriesItem;
+export default UnitItem;
