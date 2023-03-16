@@ -224,7 +224,7 @@ function UnitHistory() {
             },
           }}
         >
-          <Grid container marginTop={2} spacing={2}>
+          <Grid container spacing={1}>
             <Grid item xs={12}>
               <Card
                 sx={{
@@ -232,230 +232,120 @@ function UnitHistory() {
                 }}
               >
                 <CustomCardContent title="Details">
-                  <Stack gap={6}>
-                <Stack direction="row" gap={4}>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  <Stack direction="row" gap={4}>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                  </Stack>
-                  </Stack>
-                  </Stack>
+                  <Grid container marginTop={1} spacing={2}>
+                    <Grid item xs={12}>
+                      <Stack direction="row" flexWrap="wrap" gap={2}>
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>{" "}
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>{" "}
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>{" "}
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>{" "}
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>
+                        <Stack direction="column" gap={2}>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">Name</Typography>
+                            <Typography>bundl-334</Typography>
+                          </Stack>
+                          <Stack direction="column" gap={1}>
+                            <Typography color="text.secondary">
+                              Description
+                            </Typography>
+                            <Typography>not provided</Typography>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+                    </Grid>
+                  </Grid>
                 </CustomCardContent>
               </Card>
             </Grid>
