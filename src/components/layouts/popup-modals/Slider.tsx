@@ -1,21 +1,48 @@
-import { Box, PaletteMode } from "@mui/material";
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import CloseIcon from "@mui/icons-material/CancelRounded";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  IconButton,
+  PaletteMode,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import Dialog from "@mui/material/Dialog";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { Transition } from "components/layouts/popup-modals/Transition";
 import * as React from "react";
-import { grey, purple } from "@mui/material/colors";
+import { useSelector } from "react-redux";
+import palette from "theme/palette";
 
 interface ISlider {
   open: boolean;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   size?: "lg" | "sm";
   noHeight?: boolean;
+  title?: string;
+  handleClose?: () => void;
+  handleChange?: () => void;
+  isSubmitting?: boolean;
+  buttonText?: string;
 }
 
 function Slider(props: ISlider) {
-  const { open, children, size, noHeight } = props;
+  const {
+    open,
+    children,
+    size,
+    noHeight,
+    title,
+    handleChange,
+    handleClose,
+    isSubmitting,
+    buttonText,
+  } = props;
   const newtheme = useSelector((state: any) => state.theme);
 
   const lightTheme = createTheme({
@@ -57,11 +84,9 @@ function Slider(props: ISlider) {
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Box
-        sx={
-          {
-            // backgroundColor: "#F6F7FB",
-          }
-        }
+        sx={{
+          backgroundColor: "#fdf9f6",
+        }}
       >
         <Dialog
           fullWidth
@@ -75,7 +100,7 @@ function Slider(props: ISlider) {
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
               height: noHeight ? null : "100vh",
-              // backgroundColor: "#F6F7FB",
+              backgroundColor: "##fdf9f6",
             },
           }}
           sx={{
@@ -87,7 +112,86 @@ function Slider(props: ISlider) {
           }}
           TransitionComponent={Transition}
         >
-          {children}
+          <DialogTitle>
+            <Typography component="h5" variant="h5">
+              {title}
+            </Typography>
+            <IconButton
+              aria-label="close"
+              sx={{
+                position: "absolute",
+                right: 8,
+                top: 8,
+                color: "#8B0000",
+              }}
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+
+          <DialogContent
+            sx={{
+              backgroundColor: "#fdf9f6",
+            }}
+          >
+            {children}
+          </DialogContent>
+
+          <DialogActions
+            sx={{
+              padding: "1.2rem 0",
+              justifyContent: "center",
+            }}
+          >
+            <Stack
+              alignItems="center"
+              direction="row"
+              justifyContent="center"
+              spacing={2}
+            >
+              <Button
+                autoFocus
+                style={{ padding: "0.5rem 1rem", minWidth: 150 }}
+                sx={{
+                  backgroundColor: palette.warning.dark,
+                  boxShadow: "none",
+                  "&:hover": {
+                    backgroundColor: palette.warning.dark,
+                    opacity: 0.6,
+                    boxShadow: "none",
+                  },
+                }}
+                variant="contained"
+                onClick={handleChange}
+              >
+                {isSubmitting ? (
+                  <CircularProgress color="warning" size={20} />
+                ) : (
+                  buttonText
+                )}
+              </Button>
+
+              <Button
+                autoFocus
+                color="error"
+                startIcon={<CloseIcon />}
+                style={{ padding: "0.5rem 1rem", backgroundColor: "#8B0000" }}
+                sx={{
+                  boxShadow: "none",
+                  "&:hover": {
+                    backgroundColor: "#8B0000",
+                    opacity: 0.6,
+                    boxShadow: "none",
+                  },
+                }}
+                variant="contained"
+                onClick={handleClose}
+              >
+                Cancel
+              </Button>
+            </Stack>
+          </DialogActions>
         </Dialog>
       </Box>
     </ThemeProvider>
