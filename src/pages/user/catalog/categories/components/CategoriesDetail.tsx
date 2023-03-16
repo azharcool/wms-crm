@@ -2,16 +2,16 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import {
-    Box,
-    Card,
-    Container,
-    DialogContent,
-    DialogTitle,
-    Divider,
-    Grid,
-    PaletteMode,
-    Stack,
-    Typography
+  Box,
+  Card,
+  Container,
+  DialogContent,
+  DialogTitle,
+  Divider,
+  Grid,
+  PaletteMode,
+  Stack,
+  Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -121,7 +121,7 @@ function CategoriesDetail() {
       title: "Save",
       onClick: () => {
         setEditable(false);
-        // navigate(`${AppRoutes.CATALOG.categories}`, { replace: true });
+        navigate(-1);
       },
       icon: (
         <SaveIcon

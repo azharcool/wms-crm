@@ -9,7 +9,7 @@ function CategoriesItem() {
   const navigate = useNavigate();
 
   const handleItemClick = () => {
-    navigate(`${123436}/${AppRoutes.CATALOG.categoryDetail}`);
+    navigate(`${AppRoutes.CATALOG.categoryDetail}/${123}`);
   };
 
   return (
