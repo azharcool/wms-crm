@@ -1,29 +1,27 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   Button,
   Card,
   Container,
-  DialogContent,
-  DialogTitle,
-  Divider,
   Grid,
   PaletteMode,
   Stack,
   Typography,
 } from "@mui/material";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CustomAccordian from "components/accordian/CustomAccordian";
+import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
+import AddVariant from "./AddVariant";
 
 const detailMenu = [
   {
@@ -146,51 +144,20 @@ const strategys = [
   },
 ];
 
-interface ICustomCard {
-  title: string;
-  children: React.ReactNode;
-}
-function CustomCardContent(props: ICustomCard) {
-  const { title, children } = props;
-  return (
-    <>
-      <DialogTitle>
-        <Typography component="h6">{title}</Typography>
-      </DialogTitle>
-      <Divider />
-      <DialogContent>{children}</DialogContent>
-    </>
-  );
-}
-
-interface ICustomAccordian {
-  title: string;
-  children: React.ReactNode;
-}
-function CustomAccordian(props: ICustomAccordian) {
-  const { title, children } = props;
-  return (
-    <Accordion>
-      <AccordionSummary
-        aria-controls="panel1a-content"
-        expandIcon={<ExpandMoreIcon />}
-        id="panel1a-header"
-      >
-        <Typography>{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
-    </Accordion>
-  );
-}
-
 function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
+  const [openVariant, setOpenVariant] = useState(false);
+  const navigate = useNavigate();
 
   const lightTheme = createTheme({
     palette: {
       mode: "light",
     },
   });
+
+  const handleVariant = () => {
+    setOpenVariant((s) => !s);
+  };
 
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -382,6 +349,9 @@ function ProductCreate() {
                 },
               }}
               variant="contained"
+              onClick={() => {
+                handleVariant();
+              }}
             >
               Add Variants
             </Button>
@@ -503,6 +473,9 @@ function ProductCreate() {
           </Grid>
         </Grid>
       </Container>
+      {openVariant ? (
+        <AddVariant handleClose={handleVariant} open={openVariant} />
+      ) : null}
     </ThemeProvider>
   );
 }
