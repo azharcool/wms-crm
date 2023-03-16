@@ -15,7 +15,7 @@ function BundleItem() {
       <TableCell
         padding="checkbox"
         sx={{
-          minWidth: 60,
+          width: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -28,7 +28,9 @@ function BundleItem() {
         sx={{
           width: 50,
           position: "sticky",
-          left: 0,
+          left: 60,
+          zIndex: 999,
+          background: "white",
         }}
         onClick={()=>goToDetails("1")}
       >
@@ -48,9 +50,11 @@ function BundleItem() {
 
       <TableCell
         sx={{
-          width: 200,
+          width: 150,
           position: "sticky",
-          left: 0,
+          left: 130,
+          zIndex: 999,
+          background: "white",
         }}
       >
         -
@@ -58,8 +62,6 @@ function BundleItem() {
       <TableCell
         sx={{
           width: 200,
-          position: "sticky",
-          left: 0,
         }}
       >
         -

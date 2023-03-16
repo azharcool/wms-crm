@@ -1,113 +1,16 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import Inventory2Icon from "@mui/icons-material/Inventory2";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import {
-  Button,
-  Card,
-  Container,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Grid,
-  PaletteMode,
-  Stack,
-  Typography,
-} from "@mui/material";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
+import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CustomSwitch from "components/custom-switch";
+import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import palette from "theme/palette";
-
-const detailMenu = [
-  {
-    id: crypto.randomUUID(),
-    value: "Digital product",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Physical product",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Service",
-  },
-];
-
-const uniqueBarcodingStrategy = [
-  {
-    id: crypto.randomUUID(),
-    value: "Per each Unit",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Per SKU or Set",
-  },
-];
-
-const UoM = [
-  {
-    id: crypto.randomUUID(),
-    value: "Box",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Bottle",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Can",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Litre",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Piece",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Pack",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Unit",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "IBCs",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Drum",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Bags",
-  },
-];
-
-const fullfillmentSwitchs = [
-  {
-    id: crypto.randomUUID(),
-    value: "Track Serial numbers",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Track Expiry dates",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Sync Supply Price",
-  },
-];
+import { useNavigate } from "react-router-dom";
 
 const categorys = [
   {
@@ -131,59 +34,10 @@ const brands = [
   },
 ];
 
-const strategys = [
-  {
-    id: crypto.randomUUID(),
-    value: "First In First Out",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "First Expired First Out",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Last In First  Out",
-  },
-];
-
-interface ICustomCard {
-  title: string;
-  children: React.ReactNode;
-}
-function CustomCardContent(props: ICustomCard) {
-  const { title, children } = props;
-  return (
-    <>
-      <DialogTitle>
-        <Typography component="h6">{title}</Typography>
-      </DialogTitle>
-      <Divider />
-      <DialogContent>{children}</DialogContent>
-    </>
-  );
-}
-
-interface ICustomAccordian {
-  title: string;
-  children: React.ReactNode;
-}
-function CustomAccordian(props: ICustomAccordian) {
-  const { title, children } = props;
-  return (
-    <Accordion>
-      <AccordionSummary
-        aria-controls="panel1a-content"
-        expandIcon={<ExpandMoreIcon />}
-        id="panel1a-header"
-      >
-        <Typography>{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
-    </Accordion>
-  );
-}
-
 function BundleCreate() {
+  const navigate = useNavigate();
+  const [editable, setEditable] = useState(false);
+
   const newtheme = useSelector((state: any) => state.theme);
 
   const lightTheme = createTheme({
@@ -222,44 +76,55 @@ function BundleCreate() {
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
+  const rightActionsData = [
+    {
+      id: crypto.randomUUID(),
+      title: "Discard",
+      onClick: () => {
+        setEditable(false);
+      },
+      icon: (
+        <ArrowBackIosIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Save",
+      onClick: () => {
+        setEditable(false);
+        navigate("/catalog/bundles");
+      },
+      icon: (
+        <SaveIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+  ];
+
+  const fontColor = {
+    style: { color: "red" },
+  };
+
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
+          breadcrumbs={[{ link: "Bundles", to: "/bundleDetails" }]}
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.productCreate);
+            // navigate(AppRoutes.CATALOG.CategoriesCreate);
           }}
-          navTitle="BUNDLES"
-          rightActions={[
-            {
-              id: crypto.randomUUID(),
-              title: "Discard",
-              onClick: () => {},
-              icon: (
-                <AddCircleIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
-            },
-            {
-              id: crypto.randomUUID(),
-              title: "Save",
-              onClick: () => {},
-              icon: (
-                <AddCircleIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
-            },
-          ]}
-          title="New Bundles"
+          rightActions={rightActionsData}
+          title="New Bundle"
         />
 
         <Grid container marginTop={2} spacing={2}>
@@ -270,95 +135,126 @@ function BundleCreate() {
               }}
             >
               <CustomCardContent title="Details">
-                <Stack direction="row" gap={2}>
+                <Stack direction="column" gap={3}>
                   <TextField
-                    iconEnd
-                    icon={<Inventory2Icon />}
-                    id="productName"
+                    id="categoryName"
+                    inputProps={fontColor}
                     label="Name"
-                    name="productName"
+                    name="categoryName"
                     size="small"
+                    value="bundle"
+                    onChange={() => {}}
+                  />
+                  <TextField
+                    multiline
+                    id="description"
+                    label="Description"
+                    name="description"
                     onChange={() => {}}
                   />
                 </Stack>
-
-                <TextField
-                  multiline
-                  id="description"
-                  label="Description"
-                  name="description"
-                  onChange={() => {}}
-                />
               </CustomCardContent>
+              <CustomCardContent title="Tracking">
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    iconEnd
+                    icon={<RefreshIcon />}
+                    id="sku"
+                    label="Sku"
+                    name="sku"
+                    size="small"
+                    onChange={() => {}}
+                    onClickIcon={() => {
+                      console.log("clicked....");
+                    }}
+                  />
 
-              <CustomCardContent title="Image">
-                <TextField
-                  id="name"
-                  label="Image"
-                  type="file"
-                  name="name"
-                  size="small"
-                  onChange={() => {}}
-                />
+                  <TextField
+                    iconEnd
+                    icon={<RefreshIcon />}
+                    id="barcode"
+                    label="Barcode"
+                    name="barcode"
+                    size="small"
+                    onChange={() => {}}
+                    onClickIcon={() => {
+                      console.log("clicked....");
+                    }}
+                  />
+                </Stack>
+              </CustomCardContent>
+              <CustomCardContent title="Organization">
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    isSelect
+                    id="categorys"
+                    menuItems={categorys}
+                    name="categorys"
+                    size="small"
+                    value={categorys[0].id}
+                    onSelectHandler={() => {}}
+                  />
+                  <TextField
+                    isSelect
+                    id="categorys"
+                    label="Brand"
+                    menuItems={brands}
+                    name="brand"
+                    size="small"
+                    value={brands[0].id}
+                    onSelectHandler={() => {}}
+                  />
+                </Stack>
+
+                <Stack direction="row" gap={2} marginTop={2}>
+                  <TextField
+                    id="categoyTags"
+                    label="Tags"
+                    name="categoyTags"
+                    size="small"
+                    value="0"
+                    onChange={() => {}}
+                  />
+                </Stack>
               </CustomCardContent>
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <CustomAccordian title="Tracking">
-              <TextField
-                iconEnd
-                icon={<RefreshIcon />}
-                id="sku"
-                label="Sku"
-                name="sku"
-                size="small"
-                onChange={() => {}}
-                onClickIcon={() => {
-                  console.log("clicked....");
-                }}
-              />
-
-              <TextField
-                iconEnd
-                icon={<RefreshIcon />}
-                id="barcode"
-                label="Barcode"
-                name="barcode"
-                size="small"
-                onChange={() => {}}
-                onClickIcon={() => {
-                  console.log("clicked....");
-                }}
-              />
-            </CustomAccordian>
-            <CustomAccordian title="Organization">
-              <TextField
-                isSelect
-                id="categorys"
-                menuItems={categorys}
-                name="categorys"
-                size="small"
-                value={categorys[0].id}
-                onSelectHandler={() => {}}
-              />
-              <TextField
-                isSelect
-                id="categorys"
-                label="Brand"
-                menuItems={brands}
-                name="brand"
-                size="small"
-                value={brands[0].id}
-                onSelectHandler={() => {}}
-              />
-              <TextField
-                id="tags"
-                label="Tags"
-                name="tags"
-                size="small"
-                onChange={() => {}}
-              />
-            </CustomAccordian>
+            <Card
+              sx={{
+                flex: 1,
+              }}
+            >
+              <CustomCardContent title="Image">
+                <Box
+                  sx={{
+                    padding: "16px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: "150px",
+                      height: "150px",
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      borderRadius: "10px",
+                      border: "1px dashed rgb(236, 236, 236)",
+                    }}
+                  >
+                    <img
+                      alt="new"
+                      src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+                      style={{ objectFit: "cover" }}
+                      width="100%"
+                    />
+                  </Box>
+                </Box>
+              </CustomCardContent>
+            </Card>
           </Grid>
         </Grid>
       </Container>
