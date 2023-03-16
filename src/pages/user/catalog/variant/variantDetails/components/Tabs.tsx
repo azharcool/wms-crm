@@ -3,6 +3,12 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import General from "./General";
+import History from "./History";
+import International from "./International";
+import InventoryLog from "./InventoryLog";
+import Stock from "./Stock";
+import Suppliers from "./Suppliers";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -61,22 +67,22 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel index={0} value={value}>
-        {/* <SidebarButton /> */}
+        <General />
       </TabPanel>
       <TabPanel index={1} value={value}>
-        Item Two
+        <Stock />
       </TabPanel>
       <TabPanel index={2} value={value}>
-        Item Three
+        <Suppliers />
       </TabPanel>
       <TabPanel index={3} value={value}>
-        Item One
+        <History />
       </TabPanel>
       <TabPanel index={4} value={value}>
-        Item Two
+        <International />
       </TabPanel>
       <TabPanel index={5} value={value}>
-        Item Three
+        <InventoryLog />
       </TabPanel>
     </Box>
   );

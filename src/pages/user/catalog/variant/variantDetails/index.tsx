@@ -1,7 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
-  Card,
   Container,
   Divider,
   Grid,
@@ -16,17 +15,24 @@ import Tabs from "./components/Tabs";
 
 function VariantDetails() {
   return (
-    // <DashboardLayout>
     <Container maxWidth={false}>
       <Box
-        // component="main"
         sx={{
           flexGrow: 1,
         }}
       >
         <Grid container columns={12} spacing={2}>
           <Grid item xs={3}>
-            <Card sx={{ ml: -2.5, mt: -2 }}>
+            <Box
+              sx={{
+                ml: -2.5,
+                mt: -2,
+                backgroundColor: "#fff",
+                height: "100%",
+                overflow: "scroll",
+                position: "sticky",
+              }}
+            >
               <Tooltip title="Search">
                 <Box sx={{ mt: 2, p: 1 }}>
                   <Box sx={{ maxWidth: 300 }}>
@@ -56,42 +62,16 @@ function VariantDetails() {
                 </Box>
               </Tooltip>
               <Divider sx={{ pb: 1 }} />
-              {/* <Box sx={{ p: 1 }}>
-                <Grid container columns={10} spacing={2}>
-                  <Grid item xs={2}>
-                    <Box
-                      sx={{
-                        width: "40px",
-                        height: "40px",
-                      }}
-                    >
-                      <img
-                        alt="new"
-                        src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-                        width="100%"
-                      />
-                    </Box>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <Typography sx={{ fontSize: 15 }}>tshirt xxl</Typography>
-                    <Typography sx={{ fontSize: 15 }}>
-                      LESSADWI-274585-286451
-                    </Typography>
-                  </Grid>
-                </Grid>
-              </Box> */}
+
               <SidebarButton />
               <SidebarButton />
               <SidebarButton />
               <SidebarButton />
-            </Card>
+            </Box>
           </Grid>
+
           <Grid item xs={9}>
             <TableToolbar
-              // buttonText="New"
-              // handleClick={() => {
-              //   navigate(AppRoutes.CATALOG.productCreate);
-              // }}
               buttonText="New"
               navTitle="CATALOG"
               title="lenovo crt, adroid, WIRELESS"
@@ -100,10 +80,7 @@ function VariantDetails() {
           </Grid>
         </Grid>
       </Box>
-      {/* <Box sx={{}} /> */}
     </Container>
-    // </DashboardLayout>
   );
 }
-
 export default VariantDetails;
