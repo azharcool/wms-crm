@@ -25,7 +25,7 @@ export const isScreenAccessible = (screenCode: string) => {
   if (!user.token) return false;
   const decodedToken: any = jwtDecode(user.token);
   const { permissions } = common;
-  console.log("permission", JSON.stringify(permissions,null,2))
+  console.log("permission", JSON.stringify(permissions, null, 2));
   if (decodedToken.RoleName === ADMIN_ROLE || screenCode === "common") {
     return true;
   }
@@ -36,7 +36,8 @@ export const isScreenAccessible = (screenCode: string) => {
   return !!screenPermission;
 };
 
-export const logoURL = "https://stordel.com/wp-content/uploads/2023/01/%D8%B4%D8%B9%D8%A7%D8%B1-%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A9-1-05-1536x768.png"
+export const logoURL =
+  "https://stordel.com/wp-content/uploads/2023/01/%D8%B4%D8%B9%D8%A7%D8%B1-%D8%A7%D9%84%D8%B4%D8%B1%D9%83%D8%A9-1-05-1536x768.png";
 
 export const isControlAccessible = (code: string, screenCode: string) => {
   const state = store.getState();
@@ -109,4 +110,8 @@ export function formatPhoneNumber(phoneNumberString: string) {
 
 export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
+export function generateRandomNumber(length: number) {
+  return String(new Date().getTime()).slice(length);
 }
