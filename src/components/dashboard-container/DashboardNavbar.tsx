@@ -42,7 +42,7 @@ export function DashboardNavbar(props: any) {
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
   const decode = useDecodedData();
-  const { FullName, email } = decode;
+  // const { FullName, email } = decode;
   const newtheme = useSelector((state: any) => state.theme);
   const dispatch = useDispatch();
 
@@ -231,10 +231,10 @@ export function DashboardNavbar(props: any) {
                 }}
               >
                 <Typography component="h6" sx={{ fontSize: "inherit" }}>
-                  {FullName}
+                  {decode?.FullName}
                 </Typography>
                 <Typography component="p" sx={{ fontSize: "inherit" }}>
-                  {email}
+                  {decode?.email}
                 </Typography>
               </Box>
             </Box>
