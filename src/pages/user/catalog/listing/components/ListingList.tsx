@@ -12,20 +12,28 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import CategoriesItem from "./CategoriesItem";
+import ListingItem from "./ListingItem";
 
 const tabs = [
   {
     id: crypto.randomUUID(),
-    title: "New",
+    title: "Unpublished",
   },
   {
     id: crypto.randomUUID(),
-    title: "Pick",
+    title: "Pending",
   },
   {
     id: crypto.randomUUID(),
-    title: "Close",
+    title: "Published",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Paused",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Rejected",
   },
 ];
 
@@ -37,16 +45,12 @@ const tableTitle = [
 
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "SKU",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "Position",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Parent Category",
+    title: "Channel",
   },
   {
     id: crypto.randomUUID(),
@@ -54,15 +58,35 @@ const tableTitle = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Last Updated",
+    title: "Qty",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Retail price",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "M.R.P",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Brand",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Category",
   },
   {
     id: crypto.randomUUID(),
     title: "Tags",
   },
+  {
+    id: crypto.randomUUID(),
+    title: "Last Updated",
+  },
 ];
 
-function CategoriesListing() {
+function ListingList() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -94,15 +118,16 @@ function CategoriesListing() {
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
-                    const isName = item.title.includes("Name");
+                    const isSku = item.title.includes("SKU");
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 150,
-                          position: isImage || isName ? "sticky" : "static",
-                          left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          minWidth: isImage ? 50 : isSku ? 350 : 150,
+                          position: isImage || isSku ? "sticky" : "static",
+                          left: isImage || isSku ? (isSku ? 130 : 60) : 0,
+                          // border: "1px solid red",
                         }}
                       >
                         {item.title}
@@ -115,10 +140,10 @@ function CategoriesListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
+                <ListingItem />
+                <ListingItem />
+                <ListingItem />
+                <ListingItem />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -128,4 +153,4 @@ function CategoriesListing() {
   );
 }
 
-export default CategoriesListing;
+export default ListingList;

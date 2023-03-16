@@ -1,12 +1,12 @@
 /* eslint-disable import/namespace */
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CircleIcon from "@mui/icons-material/Circle";
-import palette from "theme/palette";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Button, ListItem, Stack, styled, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import { Link as RRDLink } from "react-router-dom";
+import palette from "theme/palette";
 import { IMenuItems, ISideNavMenu } from "./DashboardSidebar";
 
 const Link = styled(RRDLink)`
@@ -68,8 +68,8 @@ function NavItem(props: INavItem) {
       id="panel1-accordian"
       sx={{
         backgroundColor: "transparent",
-        "&::before": {
-          backgroundColor: "transparent",
+        "&:before": {
+          backgroundColor: "red",
         },
       }}
     >
@@ -99,7 +99,7 @@ function NavItem(props: INavItem) {
       >
         <Typography
           sx={{
-            color:  "#ffff",
+            color: "#ffff",
           }}
         >
           {item.title}
@@ -107,7 +107,7 @@ function NavItem(props: INavItem) {
       </AccordionSummary>
       <AccordionDetails>
         {item.menuItems.map((item) => {
-          return <MenuListItem item={item} />;
+          return <MenuListItem key={item.id} item={item} />;
         })}
       </AccordionDetails>
     </Accordion>
@@ -116,7 +116,7 @@ function NavItem(props: INavItem) {
       disableGutters
       sx={{
         display: "flex",
-        mb: 0.5,   
+        mb: 0.5,
         py: 0,
         px: 0.5,
       }}
@@ -147,8 +147,8 @@ function NavItem(props: INavItem) {
           }}
         >
           <Typography
-            component="p"
             color="white"
+            component="p"
             sx={{ flexGrow: 1, fontSize: "inherit" }}
           >
             {item.title}
