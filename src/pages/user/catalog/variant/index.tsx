@@ -14,7 +14,7 @@ function Variant() {
             // handleClick={() => {
             //   navigate(AppRoutes.CATALOG.productCreate);
             // }}
-            buttonText=""
+            buttonText="New"
             navTitle="CATALOG"
             title="Variant"
           />

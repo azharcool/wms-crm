@@ -28,6 +28,7 @@ const AppRoutes = {
     categories: "categories",
     brands: "brands",
     productCreate: "create",
+    variantsDetails: "variantsDetails",
   },
 
   // Purchase
