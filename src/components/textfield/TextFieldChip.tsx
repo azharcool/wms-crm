@@ -13,10 +13,20 @@ interface ITextFieldChip extends InputProps {
   size?: "small" | "medium";
   handleDelete?: (_: IChip) => void;
   style?: any;
+  handleKeyDown?: (_: string) => void;
 }
 
 function TextFieldChip(props: ITextFieldChip) {
-  const { label, size, chips, handleDelete, style } = props;
+  const {
+    label,
+    size,
+    chips,
+    handleDelete,
+    style,
+    onChange,
+    handleKeyDown,
+    value,
+  } = props;
   return (
     <FormControl>
       <TextField
@@ -39,7 +49,9 @@ function TextFieldChip(props: ITextFieldChip) {
         name="chip"
         size={size}
         style={style}
-        onChange={() => {}}
+        value={value}
+        onChange={onChange}
+        onKeyDown={(e) => handleKeyDown && handleKeyDown(e.key)}
       />
     </FormControl>
   );
