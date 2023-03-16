@@ -105,9 +105,21 @@ export const Categories = Loadable({
   loading: () => <Spinner />,
 });
 
+export const CategoryCreate = Loadable({
+  loader: () =>
+    import("pages/user/catalog/categories/components/CategoriesCreate"),
+  loading: () => <Spinner />,
+});
+
 export const CategoryDetail = Loadable({
   loader: () =>
     import("pages/user/catalog/categories/components/CategoriesDetail"),
+  loading: () => <Spinner />,
+});
+
+export const CategoryUpdate = Loadable({
+  loader: () =>
+    import("pages/user/catalog/categories/components/CategoriesUpdate"),
   loading: () => <Spinner />,
 });
 

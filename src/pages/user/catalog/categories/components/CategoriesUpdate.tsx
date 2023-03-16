@@ -1,6 +1,5 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import SaveIcon from "@mui/icons-material/Save";
 import {
   Box,
   Card,
@@ -20,10 +19,7 @@ import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const detailMenu = [
   {
@@ -183,10 +179,7 @@ function CustomAccordian(props: ICustomAccordian) {
   );
 }
 
-function CategoriesCreate() {
-  const navigate = useNavigate();
-  const [editable, setEditable] = useState(false);
-
+function CategoriesUpdate() {
   const newtheme = useSelector((state: any) => state.theme);
 
   const lightTheme = createTheme({
@@ -225,55 +218,31 @@ function CategoriesCreate() {
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
-  const rightActionsData = [
-    {
-      id: crypto.randomUUID(),
-      title: "Discard",
-      onClick: () => {
-        setEditable(false);
-      },
-      icon: (
-        <ArrowBackIosIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Save",
-      onClick: () => {
-        setEditable(false);
-        navigate(AppRoutes.CATALOG.categories);
-      },
-      icon: (
-        <SaveIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-  ];
-
-  const fontColor = {
-    style: { color: "red" },
-  };
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "CATAGORIES", to: "/New Category" }]}
+          breadcrumbs={[{ link: "CATAGORIES-UPDATE", to: "/Watches" }]}
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.CategoriesCreate);
+            // navigate(AppRoutes.CATALOG.CategoriesUpdate);
           }}
-          rightActions={rightActionsData}
-          title="New Category"
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "Edit",
+              onClick: () => {},
+              icon: (
+                <EditIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
+          title="Watches"
         />
 
         <Grid container marginTop={2} spacing={2}>
@@ -286,8 +255,8 @@ function CategoriesCreate() {
               <CustomCardContent title="Details">
                 <Stack direction="row" gap={2}>
                   <TextField
+                    disabled
                     id="categoryName"
-                    inputProps={fontColor}
                     label="Name"
                     name="categoryName"
                     size="small"
@@ -295,6 +264,7 @@ function CategoriesCreate() {
                     onChange={() => {}}
                   />
                   <TextField
+                    disabled
                     id="categoySlug"
                     label="Slug"
                     name="categoySlug"
@@ -304,6 +274,7 @@ function CategoriesCreate() {
                   />
 
                   <TextField
+                    disabled
                     id="categoyDetail"
                     label="Detail"
                     name="categoyDetail"
@@ -317,6 +288,7 @@ function CategoriesCreate() {
               <CustomCardContent title="Organization">
                 <Stack direction="row" gap={2}>
                   <TextField
+                    disabled
                     id="categoryParent"
                     label="Parent"
                     name="categoryParent"
@@ -325,6 +297,7 @@ function CategoriesCreate() {
                     onChange={() => {}}
                   />
                   <TextField
+                    disabled
                     id="categoyPosition"
                     label="Positon"
                     name="categoyPosition"
@@ -336,6 +309,7 @@ function CategoriesCreate() {
 
                 <Stack direction="row" gap={2} marginTop={2}>
                   <TextField
+                    disabled
                     id="categoryStatus"
                     label="Status"
                     name="categoryStatus"
@@ -344,6 +318,7 @@ function CategoriesCreate() {
                     onChange={() => {}}
                   />
                   <TextField
+                    disabled
                     id="categoyTags"
                     label="Tags"
                     name="categoyTags"
@@ -398,4 +373,4 @@ function CategoriesCreate() {
   );
 }
 
-export default CategoriesCreate;
+export default CategoriesUpdate;
