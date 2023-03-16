@@ -1,42 +1,15 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
-import {
-  Box,
-  Card,
-  Container,
-  DialogContent,
-  DialogTitle,
-  Divider,
-  Grid,
-  PaletteMode,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-interface ICustomCard {
-  title: string;
-  children: React.ReactNode;
-}
-function CustomCardContent(props: ICustomCard) {
-  const { title, children } = props;
-  return (
-    <>
-      <DialogTitle>
-        <Typography component="h6">{title}</Typography>
-      </DialogTitle>
-      <Divider />
-      <DialogContent>{children}</DialogContent>
-    </>
-  );
-}
 
 function CategoriesDetail() {
   const navigate = useNavigate();
