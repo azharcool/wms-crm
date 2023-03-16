@@ -1,27 +1,29 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   Button,
   Card,
   Container,
+  DialogContent,
+  DialogTitle,
+  Divider,
   Grid,
   PaletteMode,
   Stack,
   Typography,
 } from "@mui/material";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CustomAccordian from "components/accordian/CustomAccordian";
-import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
-import AddVariant from "./AddVariant";
 
 const detailMenu = [
   {
@@ -144,20 +146,51 @@ const strategys = [
   },
 ];
 
-function ProductCreate() {
+interface ICustomCard {
+  title: string;
+  children: React.ReactNode;
+}
+function CustomCardContent(props: ICustomCard) {
+  const { title, children } = props;
+  return (
+    <>
+      <DialogTitle>
+        <Typography component="h6">{title}</Typography>
+      </DialogTitle>
+      <Divider />
+      <DialogContent>{children}</DialogContent>
+    </>
+  );
+}
+
+interface ICustomAccordian {
+  title: string;
+  children: React.ReactNode;
+}
+function CustomAccordian(props: ICustomAccordian) {
+  const { title, children } = props;
+  return (
+    <Accordion>
+      <AccordionSummary
+        aria-controls="panel1a-content"
+        expandIcon={<ExpandMoreIcon />}
+        id="panel1a-header"
+      >
+        <Typography>{title}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>{children}</AccordionDetails>
+    </Accordion>
+  );
+}
+
+function BundleCreate() {
   const newtheme = useSelector((state: any) => state.theme);
-  const [openVariant, setOpenVariant] = useState(false);
-  const navigate = useNavigate();
 
   const lightTheme = createTheme({
     palette: {
       mode: "light",
     },
   });
-
-  const handleVariant = () => {
-    setOpenVariant((s) => !s);
-  };
 
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -197,7 +230,7 @@ function ProductCreate() {
           handleClick={() => {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
-          navTitle="PRODUCTS"
+          navTitle="BUNDLES"
           rightActions={[
             {
               id: crypto.randomUUID(),
@@ -226,7 +259,7 @@ function ProductCreate() {
               ),
             },
           ]}
-          title="New Product"
+          title="New Bundles"
         />
 
         <Grid container marginTop={2} spacing={2}>
@@ -247,43 +280,6 @@ function ProductCreate() {
                     size="small"
                     onChange={() => {}}
                   />
-                  <TextField
-                    isSelect
-                    label="Type"
-                    menuItems={detailMenu}
-                    name="type"
-                    size="small"
-                    value={detailMenu[0].id}
-                    onSelectHandler={() => {}}
-                  />
-                </Stack>
-
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    iconEnd
-                    icon={<RefreshIcon />}
-                    id="sku"
-                    label="Sku"
-                    name="sku"
-                    size="small"
-                    onChange={() => {}}
-                    onClickIcon={() => {
-                      console.log("clicked....");
-                    }}
-                  />
-
-                  <TextField
-                    iconEnd
-                    icon={<RefreshIcon />}
-                    id="barcode"
-                    label="Barcode"
-                    name="barcode"
-                    size="small"
-                    onChange={() => {}}
-                    onClickIcon={() => {
-                      console.log("clicked....");
-                    }}
-                  />
                 </Stack>
 
                 <TextField
@@ -293,39 +289,13 @@ function ProductCreate() {
                   name="description"
                   onChange={() => {}}
                 />
-
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    isSelect
-                    menuItems={uniqueBarcodingStrategy}
-                    name="Unique Barcoding strategy"
-                    size="small"
-                    value={uniqueBarcodingStrategy[0].id}
-                    onSelectHandler={() => {}}
-                  />
-                  <TextField
-                    id="quantity"
-                    label="Quantity"
-                    name="quantity"
-                    size="small"
-                    onChange={() => {}}
-                  />
-
-                  <TextField
-                    isSelect
-                    menuItems={UoM}
-                    name="UoM"
-                    size="small"
-                    value={UoM[0].id}
-                    onSelectHandler={() => {}}
-                  />
-                </Stack>
               </CustomCardContent>
 
               <CustomCardContent title="Image">
                 <TextField
                   id="name"
-                  label="Name"
+                  label="Image"
+                  type="file"
                   name="name"
                   size="small"
                   onChange={() => {}}
@@ -334,36 +304,31 @@ function ProductCreate() {
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <Button
-              sx={{
-                marginBottom: 2,
-                flex: 1,
-                backgroundColor: palette.warning.dark,
-                color: "#fff",
-                boxShadow: "none",
-                opacity: 0.8,
-                "&:hover": {
-                  backgroundColor: palette.warning.dark,
-                  opacity: 0.6,
-                  boxShadow: "none",
-                },
-              }}
-              variant="contained"
-              onClick={() => {
-                handleVariant();
-              }}
-            >
-              Add Variants
-            </Button>
-
-            <CustomAccordian title="Supply">
+            <CustomAccordian title="Tracking">
               <TextField
-                isSelect
-                menuItems={UoM}
-                name="UoM"
+                iconEnd
+                icon={<RefreshIcon />}
+                id="sku"
+                label="Sku"
+                name="sku"
                 size="small"
-                value={UoM[0].id}
-                onSelectHandler={() => {}}
+                onChange={() => {}}
+                onClickIcon={() => {
+                  console.log("clicked....");
+                }}
+              />
+
+              <TextField
+                iconEnd
+                icon={<RefreshIcon />}
+                id="barcode"
+                label="Barcode"
+                name="barcode"
+                size="small"
+                onChange={() => {}}
+                onClickIcon={() => {
+                  console.log("clicked....");
+                }}
               />
             </CustomAccordian>
             <CustomAccordian title="Organization">
@@ -394,90 +359,11 @@ function ProductCreate() {
                 onChange={() => {}}
               />
             </CustomAccordian>
-            <CustomAccordian title="Dimensions">
-              <Stack direction="row" gap={2}>
-                <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
-                  id="height"
-                  label="Height"
-                  name="height"
-                  size="small"
-                  onChange={() => {}}
-                />
-
-                <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
-                  id="width"
-                  label="Width"
-                  name="width"
-                  size="small"
-                  onChange={() => {}}
-                />
-              </Stack>
-
-              <Stack direction="row" gap={2}>
-                <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
-                  id="lenght"
-                  label="Lenght"
-                  name="lenght"
-                  size="small"
-                  onChange={() => {}}
-                />
-
-                <TextField
-                  iconEnd
-                  icon={<Typography>kg</Typography>}
-                  id="weight"
-                  label="Weight"
-                  name="weight"
-                  size="small"
-                  onChange={() => {}}
-                />
-              </Stack>
-            </CustomAccordian>
-
-            <CustomAccordian title="Fulfillment">
-              <TextField
-                isSelect
-                label="Strategy"
-                menuItems={strategys}
-                name="strategy"
-                size="small"
-                value={strategys[0].id}
-                onSelectHandler={() => {}}
-              />
-
-              <TextField
-                id="minExpiryDays"
-                label="Min Expiry Days"
-                name="minExpiryDays"
-                size="small"
-                onChange={() => {}}
-              />
-
-              {fullfillmentSwitchs?.map((item) => {
-                return (
-                  <CustomSwitch
-                    key={item.id}
-                    checked={false}
-                    title={item.value}
-                    onChange={() => {}}
-                  />
-                );
-              })}
-            </CustomAccordian>
           </Grid>
         </Grid>
       </Container>
-      {openVariant ? (
-        <AddVariant handleClose={handleVariant} open={openVariant} />
-      ) : null}
     </ThemeProvider>
   );
 }
 
-export default ProductCreate;
+export default BundleCreate;
