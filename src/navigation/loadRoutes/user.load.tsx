@@ -73,7 +73,6 @@ export const Catalog = Loadable({
 export const Purchase = Loadable({
   loader: () => import("pages/user/purchases"),
   loading: () => <Spinner />,
-
 });
 
 export const Suppliers = Loadable({
@@ -110,6 +109,7 @@ export const Variant = Loadable({
   loader: () => import("pages/user/catalog/variant/index"),
   loading: () => <Spinner />,
 });
+
 export const BundlesDetail = Loadable({
   loader: () => import("pages/user/catalog/bundles/component/BundleDetails"),
   loading: () => <Spinner />,
@@ -122,6 +122,18 @@ export const CreateBundles = Loadable({
 
 export const Categories = Loadable({
   loader: () => import("pages/user/catalog/categories"),
+  loading: () => <Spinner />,
+});
+
+export const CategoryCreate = Loadable({
+  loader: () =>
+    import("pages/user/catalog/categories/components/CategoriesCreate"),
+  loading: () => <Spinner />,
+});
+
+export const CategoryDetail = Loadable({
+  loader: () =>
+    import("pages/user/catalog/categories/components/CategoriesDetail"),
   loading: () => <Spinner />,
 });
 

@@ -109,9 +109,9 @@ function Application() {
             <Route
               element={<UserLoadable.Suppliers />}
               path={`${AppRoutes.PURCHASE.SUPPLIERS}`}
-              />
-          
-          <Route
+            />
+
+            <Route
               element={<UserLoadable.Purchase />}
               path={`${AppRoutes.PURCHASE.purchase}`}
             >
@@ -122,8 +122,7 @@ function Application() {
                   path={`${AppRoutes.CATALOG.productCreate}`}
                 /> */}
               </Route>
-
-              </Route>
+            </Route>
 
             <Route
               element={<UserLoadable.Catalog />}
@@ -138,25 +137,32 @@ function Application() {
               </Route>
               <Route path={`${AppRoutes.CATALOG.units}`}>
                 <Route index element={<UserLoadable.Units />} />
-                  <Route
+                <Route
                   element={<UserLoadable.UnitsHistory />}
                   path={`${AppRoutes.CATALOG.unitHistory}/:unitId`}
                 />
               </Route>
               <Route path={`${AppRoutes.CATALOG.categories}`}>
                 <Route index element={<UserLoadable.Categories />} />
+                <Route
+                  element={<UserLoadable.CategoryDetail />}
+                  path={`${AppRoutes.CATALOG.categoryDetail}/:id`}
+                />
+                <Route
+                  element={<UserLoadable.CategoryCreate />}
+                  path={`${AppRoutes.CATALOG.categoryCreate}`}
+                />
               </Route>
               <Route path={`${AppRoutes.CATALOG.brands}`}>
                 <Route index element={<UserLoadable.Brands />} />
-
               </Route>
               <Route path={`${AppRoutes.CATALOG.bundles}`}>
-                  <Route index element={<UserLoadable.Bundles/>}/>
-                  <Route
+                <Route index element={<UserLoadable.Bundles />} />
+                <Route
                   element={<UserLoadable.BundlesDetail />}
                   path={`${AppRoutes.CATALOG.bundleDetails}/:bundleId`}
                 />
-                 <Route
+                <Route
                   element={<UserLoadable.CreateBundles />}
                   path={`${AppRoutes.CATALOG.bundleCreate}/:bundleId`}
                 />

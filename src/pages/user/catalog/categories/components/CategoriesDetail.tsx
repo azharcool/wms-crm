@@ -1,4 +1,5 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
@@ -6,13 +7,13 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function CategoriesCreate() {
+function CategoriesDetail() {
   const navigate = useNavigate();
+  const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
 
   const newtheme = useSelector((state: any) => state.theme);
@@ -59,6 +60,7 @@ function CategoriesCreate() {
       title: "Discard",
       onClick: () => {
         setEditable(false);
+        // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);
       },
       icon: (
         <ArrowBackIosIcon
@@ -71,10 +73,28 @@ function CategoriesCreate() {
     },
     {
       id: crypto.randomUUID(),
+      title: "Edit",
+      onClick: () => {
+        setEditable(true);
+        setTimeout(() => {
+          nameRef.current?.focus();
+        }, 500);
+      },
+      icon: (
+        <EditIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+    {
+      id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
         setEditable(false);
-        navigate(AppRoutes.CATALOG.categories);
+        navigate(-1);
       },
       icon: (
         <SaveIcon
@@ -87,21 +107,23 @@ function CategoriesCreate() {
     },
   ];
 
-  const fontColor = {
-    style: { color: "red" },
-  };
+  const istrue = !editable;
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "CATAGORIES", to: "/New Category" }]}
+          breadcrumbs={[{ link: "CATAGORIES", to: "/Watches" }]}
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.CategoriesCreate);
+            // navigate(AppRoutes.CATALOG.CategoriesDetail);
           }}
-          rightActions={rightActionsData}
-          title="New Category"
+          rightActions={
+            editable
+              ? rightActionsData.filter((i) => i.title !== "Edit")
+              : rightActionsData.filter((i) => i.title === "Edit")
+          }
+          title="Watches"
         />
 
         <Grid container marginTop={2} spacing={2}>
@@ -114,15 +136,18 @@ function CategoriesCreate() {
               <CustomCardContent title="Details">
                 <Stack direction="row" gap={2}>
                   <TextField
+                    disabled={istrue}
                     id="categoryName"
-                    inputProps={fontColor}
                     label="Name"
                     name="categoryName"
+                    nameRef={nameRef}
                     size="small"
                     value="Watches"
                     onChange={() => {}}
                   />
+
                   <TextField
+                    disabled={istrue}
                     id="categoySlug"
                     label="Slug"
                     name="categoySlug"
@@ -132,6 +157,7 @@ function CategoriesCreate() {
                   />
 
                   <TextField
+                    disabled={istrue}
                     id="categoyDetail"
                     label="Detail"
                     name="categoyDetail"
@@ -145,6 +171,7 @@ function CategoriesCreate() {
               <CustomCardContent title="Organization">
                 <Stack direction="row" gap={2}>
                   <TextField
+                    disabled={istrue}
                     id="categoryParent"
                     label="Parent"
                     name="categoryParent"
@@ -153,6 +180,7 @@ function CategoriesCreate() {
                     onChange={() => {}}
                   />
                   <TextField
+                    disabled={istrue}
                     id="categoyPosition"
                     label="Positon"
                     name="categoyPosition"
@@ -164,6 +192,7 @@ function CategoriesCreate() {
 
                 <Stack direction="row" gap={2} marginTop={2}>
                   <TextField
+                    disabled={istrue}
                     id="categoryStatus"
                     label="Status"
                     name="categoryStatus"
@@ -172,6 +201,7 @@ function CategoriesCreate() {
                     onChange={() => {}}
                   />
                   <TextField
+                    disabled={istrue}
                     id="categoyTags"
                     label="Tags"
                     name="categoyTags"
@@ -226,4 +256,4 @@ function CategoriesCreate() {
   );
 }
 
-export default CategoriesCreate;
+export default CategoriesDetail;
