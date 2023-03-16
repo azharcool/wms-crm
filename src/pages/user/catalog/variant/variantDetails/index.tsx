@@ -92,8 +92,8 @@ function VariantDetails() {
                 mt: -2,
                 backgroundColor: "#fff",
                 height: "100%",
-                overflow: "scroll",
-                position: "sticky",
+                // overflow: "scroll",
+                // position: "sticky",
               }}
             >
               <Tooltip title="Search">
