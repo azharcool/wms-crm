@@ -137,12 +137,6 @@ export const CategoryDetail = Loadable({
   loading: () => <Spinner />,
 });
 
-export const CategoryUpdate = Loadable({
-  loader: () =>
-    import("pages/user/catalog/categories/components/CategoriesUpdate"),
-  loading: () => <Spinner />,
-});
-
 export const Brands = Loadable({
   loader: () => import("pages/user/catalog/brands"),
   loading: () => <Spinner />,
