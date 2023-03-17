@@ -6,16 +6,44 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import { FormikHelpers } from "formik";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useAddCategoriesForm, {
+  AddCategoriesForm,
+} from "../hooks/useAddCategoriesForm";
+
+const initialValues: AddCategoriesForm = {
+  parentCategoryId: "",
+  position: "",
+  tag: "",
+  name: "",
+  slug: "",
+  detail: "",
+  status: "",
+};
 
 function CategoriesCreate() {
   const navigate = useNavigate();
   const [editable, setEditable] = useState(false);
-
   const newtheme = useSelector((state: any) => state.theme);
+
+  const categoryForm = useAddCategoriesForm({
+    onSubmit,
+    initialValues,
+  });
+
+  const { touched, errors, values, handleChange, handleBlur, setFieldValue } =
+    categoryForm;
+
+  function onSubmit(
+    values: AddCategoriesForm,
+    helper: FormikHelpers<AddCategoriesForm>,
+  ) {
+    console.log(values);
+  }
 
   const lightTheme = createTheme({
     palette: {
@@ -87,10 +115,6 @@ function CategoriesCreate() {
     },
   ];
 
-  const fontColor = {
-    style: { color: "red" },
-  };
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -115,7 +139,6 @@ function CategoriesCreate() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     id="categoryName"
-                    inputProps={fontColor}
                     label="Name"
                     name="categoryName"
                     size="small"

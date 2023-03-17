@@ -164,6 +164,10 @@ const API_URLS = {
   GET_BY_ID_PRODUCT: `product/${endPoints.getbyid}`,
   BULK_DELETE_PRODUCT: `product/${endPoints.bulkDelete}`,
   DELETE_PRODUCT: `product/${endPoints.delete}`,
+
+  // Categories
+  GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
+  ADD_CATEGORY: `category/${endPoints.add}`,
 };
 
 export default API_URLS;
