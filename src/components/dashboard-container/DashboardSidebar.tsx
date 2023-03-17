@@ -189,7 +189,7 @@ export function DashboardSidebar(props: any) {
         />
         <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
           {sideNavMenu.map((item) => {
-            return !isScreenAccessible(item.screenCode) ? (
+            return isScreenAccessible(item.screenCode) ? (
               <NavItem key={item.id} item={item} />
             ) : null;
           })}

@@ -24,6 +24,8 @@ const QueryKeys = {
   myContactList: "my-contact-list-by-listId",
   getAllActivities: "get-all-activities",
   allCounts: "all-counts",
+
+  getAllProduct: "getAllProduct",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;
