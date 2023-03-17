@@ -9,9 +9,15 @@ import {
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 // import "react-perfect-scrollbar/dist/css/styles.css";
 
-function VariantItem() {
+interface IVariantItem {
+  item: IGetAllVariantResponseData;
+}
+
+function VariantItem(props: IVariantItem) {
+  const { item } = props;
   const navigate = useNavigate();
 
   const handleNavigation = () => {
@@ -63,11 +69,11 @@ function VariantItem() {
         <Box onClick={() => handleNavigation()}>
           <Tooltip title="TshirtXXL">
             <Typography sx={{ textDecoration: "underline" }}>
-              TshirtXXL
+              {item.optionName}
             </Typography>
           </Tooltip>
         </Box>
-        <Typography> TSXX-274606-3</Typography>
+        <Typography>{item.sku}</Typography>
       </TableCell>
       <TableCell
         sx={{
@@ -76,25 +82,29 @@ function VariantItem() {
           left: 0,
         }}
       >
-        1
+        {/* Pieces */}-
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      />
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        6712372552956
+        {/* UoM */}-
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
-      />
+      >
+        {item.barcode}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        {/* listed on */}-
+      </TableCell>
       <TableCell
         sx={{
           minWidth: 200,

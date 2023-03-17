@@ -1,9 +1,12 @@
 import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
+import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
-export async function getAllPaginationVariant(restUrl: string): Promise<any> {
-  let URL = `${API_URLS.GET_ALL_PAGINATION_PRODUCT}`;
+export async function getAllPaginationVariant(
+  restUrl: string,
+): Promise<IGetAllVariantResponseRoot> {
+  let URL = `${API_URLS.GET_ALL_PAGINATION_VARIANT}`;
   if (restUrl) {
     URL = `${URL}?${restUrl}`;
   }

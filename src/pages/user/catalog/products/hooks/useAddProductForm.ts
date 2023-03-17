@@ -17,12 +17,12 @@ export interface AddProductForm {
   height: string;
   width: string;
   length: string;
-  weigth: string;
+  weight: string;
   strategy: string;
   minExpiryDays: string;
-  trackSerialNumbers: string;
-  trackExpiryDates: string;
-  syncSupplyPrice: string;
+  trackSerialNumbers: boolean;
+  trackExpiryDates: boolean;
+  syncSupplyPrice: boolean;
 }
 
 interface IuseAddProductForm {
@@ -55,12 +55,12 @@ const deafultValues: AddProductForm = {
   height: "",
   width: "",
   length: "",
-  weigth: "",
+  weight: "",
   strategy: "",
   minExpiryDays: "",
-  trackSerialNumbers: "",
-  trackExpiryDates: "",
-  syncSupplyPrice: "",
+  trackSerialNumbers: false,
+  trackExpiryDates: false,
+  syncSupplyPrice: false,
 };
 function useAddProductForm({
   onSubmit,

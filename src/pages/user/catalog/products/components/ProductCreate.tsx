@@ -33,69 +33,69 @@ import AddVariant from "./AddVariant";
 
 const detailMenu = [
   {
-    id: crypto.randomUUID(),
+    id: "Physical product",
     value: "Digital product",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Physical product",
     value: "Physical product",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Service",
     value: "Service",
   },
 ];
 
 const uniqueBarcodingStrategy = [
   {
-    id: crypto.randomUUID(),
+    id: "Per each Unit",
     value: "Per each Unit",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Per SKU or Set",
     value: "Per SKU or Set",
   },
 ];
 
 const UoM = [
   {
-    id: crypto.randomUUID(),
+    id: "Box",
     value: "Box",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Bottle",
     value: "Bottle",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Can",
     value: "Can",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Litre",
     value: "Litre",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Piece",
     value: "Piece",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Pack",
     value: "Pack",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Unit",
     value: "Unit",
   },
   {
-    id: crypto.randomUUID(),
+    id: "IBCs",
     value: "IBCs",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Drum",
     value: "Drum",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Bags",
     value: "Bags",
   },
 ];
@@ -104,50 +104,53 @@ const fullfillmentSwitchs = [
   {
     id: crypto.randomUUID(),
     value: "Track Serial numbers",
+    name: "trackSerialNumbers",
   },
   {
     id: crypto.randomUUID(),
     value: "Track Expiry dates",
+    name: "trackExpiryDates",
   },
   {
     id: crypto.randomUUID(),
     value: "Sync Supply Price",
+    name: "syncSupplyPrice",
   },
 ];
 
 const categorys = [
   {
-    id: crypto.randomUUID(),
+    id: "Watches",
     value: "Watches",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Topical",
     value: "Topical",
   },
 ];
 
 const brands = [
   {
-    id: crypto.randomUUID(),
+    id: "honda",
     value: "honda",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Puma",
     value: "Puma",
   },
 ];
 
 const strategys = [
   {
-    id: crypto.randomUUID(),
+    id: "First In First Out",
     value: "First In First Out",
   },
   {
-    id: crypto.randomUUID(),
+    id: "First Expired First Out",
     value: "First Expired First Out",
   },
   {
-    id: crypto.randomUUID(),
+    id: "Last In First  Out",
     value: "Last In First  Out",
   },
 ];
@@ -168,12 +171,12 @@ const initialValues: AddProductForm = {
   height: "",
   width: "",
   length: "",
-  weigth: "",
+  weight: "",
   strategy: "",
   minExpiryDays: "",
-  trackSerialNumbers: "",
-  trackExpiryDates: "",
-  syncSupplyPrice: "",
+  trackSerialNumbers: false,
+  trackExpiryDates: false,
+  syncSupplyPrice: false,
 };
 
 function ProductCreate() {
@@ -204,12 +207,17 @@ function ProductCreate() {
     _: FormikHelpers<AddProductForm>,
   ) {
     const data: IAddProductRequestRoot = {
+      userId: Number(userDecoded.id),
       name: values.name,
+      // type: values.type || detailMenu[0].value || "",
+      // description: values.description || "",
+      // supplyPrice: Number(values.supply),
       sku: values.sku,
       barcode: values.barcode,
-      userId: Number(userDecoded.id),
-      strategy: values.strategy,
-      description: values.description,
+      // strategy: values.strategy,
+      // quantity: Number(values.quantity) || 0,
+      // barcodeStrategy: values.uniqueBarcoding,
+      // trackExpiryDates: values.trackExpiryDates,
     };
     const response = await addProductAction(data);
     if (response) {
@@ -397,12 +405,12 @@ function ProductCreate() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     isSelect
+                    id="uniqueBarcodingStrategy"
+                    label="Unique Barcoding strategy"
                     menuItems={uniqueBarcodingStrategy}
                     name="Unique Barcoding strategy"
                     size="small"
-                    value={
-                      values.uniqueBarcoding || uniqueBarcodingStrategy[0].id
-                    }
+                    value={values.uniqueBarcoding}
                     onSelectHandler={(e) => {
                       setFieldValue("uniqueBarcoding", e.target.value);
                     }}
@@ -416,17 +424,19 @@ function ProductCreate() {
                     onChange={(e) => {
                       setFieldValue(
                         "quantity",
-                        e.target.value.replace(/[^0-9F]/g, ""),
+                        e.target.value.replace(/[^0-9]/g, ""),
                       );
                     }}
                   />
 
                   <TextField
                     isSelect
+                    id="UoM"
+                    label="UoM"
                     menuItems={UoM}
                     name="UoM"
                     size="small"
-                    value={values.UoM || UoM[0].id}
+                    value={values.UoM}
                     onSelectHandler={(e) => {
                       setFieldValue("UoM", e.target.value);
                     }}
@@ -471,39 +481,49 @@ function ProductCreate() {
             <CustomAccordian title="Supply">
               <TextField
                 isSelect
+                id="UoM"
+                label="UoM"
                 menuItems={UoM}
                 name="UoM"
                 size="small"
-                value={UoM[0].id}
-                onSelectHandler={() => {}}
+                value={values.UoM}
+                onSelectHandler={(e) => {
+                  setFieldValue("UoM", e.target.value);
+                }}
               />
             </CustomAccordian>
             <CustomAccordian title="Organization">
               <TextField
                 isSelect
                 id="categorys"
+                label="Categorys"
                 menuItems={categorys}
                 name="categorys"
                 size="small"
-                value={categorys[0].id}
-                onSelectHandler={() => {}}
+                value={values.category}
+                onSelectHandler={(e) => {
+                  setFieldValue("category", e.target.value);
+                }}
               />
               <TextField
                 isSelect
-                id="categorys"
+                id="Brand"
                 label="Brand"
                 menuItems={brands}
                 name="brand"
                 size="small"
-                value={brands[0].id}
-                onSelectHandler={() => {}}
+                value={values.brand}
+                onSelectHandler={(e) => {
+                  setFieldValue("brand", e.target.value);
+                }}
               />
               <TextField
                 id="tags"
                 label="Tags"
                 name="tags"
                 size="small"
-                onChange={() => {}}
+                value={values.tags}
+                onChange={handleChange("tags")}
               />
             </CustomAccordian>
             <CustomAccordian title="Dimensions">
@@ -515,7 +535,13 @@ function ProductCreate() {
                   label="Height"
                   name="height"
                   size="small"
-                  onChange={() => {}}
+                  value={values.height}
+                  onChange={(e) => {
+                    setFieldValue(
+                      "height",
+                      e.target.value.replace(/[^0-9]/g, ""),
+                    );
+                  }}
                 />
 
                 <TextField
@@ -525,7 +551,13 @@ function ProductCreate() {
                   label="Width"
                   name="width"
                   size="small"
-                  onChange={() => {}}
+                  value={values.width}
+                  onChange={(e) => {
+                    setFieldValue(
+                      "width",
+                      e.target.value.replace(/[^0-9]/g, ""),
+                    );
+                  }}
                 />
               </Stack>
 
@@ -533,11 +565,17 @@ function ProductCreate() {
                 <TextField
                   iconEnd
                   icon={<Typography>cm</Typography>}
-                  id="lenght"
-                  label="Lenght"
-                  name="lenght"
+                  id="length"
+                  label="length"
+                  name="length"
                   size="small"
-                  onChange={() => {}}
+                  value={values.length}
+                  onChange={(e) => {
+                    setFieldValue(
+                      "length",
+                      e.target.value.replace(/[^0-9]/g, ""),
+                    );
+                  }}
                 />
 
                 <TextField
@@ -547,7 +585,13 @@ function ProductCreate() {
                   label="Weight"
                   name="weight"
                   size="small"
-                  onChange={() => {}}
+                  value={values.weight}
+                  onChange={(e) => {
+                    setFieldValue(
+                      "weight",
+                      e.target.value.replace(/[^0-9]/g, ""),
+                    );
+                  }}
                 />
               </Stack>
             </CustomAccordian>
@@ -559,8 +603,10 @@ function ProductCreate() {
                 menuItems={strategys}
                 name="strategy"
                 size="small"
-                value={strategys[0].id}
-                onSelectHandler={() => {}}
+                value={values.strategy}
+                onSelectHandler={(e) => {
+                  setFieldValue("strategy", e.target.value);
+                }}
               />
 
               <TextField
@@ -568,16 +614,23 @@ function ProductCreate() {
                 label="Min Expiry Days"
                 name="minExpiryDays"
                 size="small"
-                onChange={() => {}}
+                onChange={(e) => {
+                  setFieldValue(
+                    "minExpiryDays",
+                    e.target.value.replace(/^[0-9]/g, ""),
+                  );
+                }}
               />
 
               {fullfillmentSwitchs?.map((item) => {
                 return (
                   <CustomSwitch
                     key={item.id}
-                    checked={false}
+                    checked={Boolean(values[item.name as keyof AddProductForm])}
                     title={item.value}
-                    onChange={() => {}}
+                    onChange={(e) => {
+                      setFieldValue(item.name, e.target.checked);
+                    }}
                   />
                 );
               })}
@@ -585,7 +638,7 @@ function ProductCreate() {
           </Grid>
         </Grid>
       </Container>
-      {openVariant && productId ? (
+      {openVariant ? (
         <AddVariant
           handleClose={handleVariant}
           open={openVariant}
