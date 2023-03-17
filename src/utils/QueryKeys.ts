@@ -26,6 +26,7 @@ const QueryKeys = {
   allCounts: "all-counts",
   getAllBrand: "getAllBrand",
   getAllProduct: "getAllProduct",
+  getAllCategories: "getAllCategories",
   getAllVariant: "getAllVariant",
 };
 

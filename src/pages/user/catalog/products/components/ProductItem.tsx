@@ -52,6 +52,10 @@ function ProductItem(props: IProductItem) {
           left: 130,
           zIndex: 999,
           background: "white",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          // navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
         }}
       >
         {item.name}

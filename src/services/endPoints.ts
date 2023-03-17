@@ -165,6 +165,9 @@ const API_URLS = {
   BULK_DELETE_PRODUCT: `product/${endPoints.bulkDelete}`,
   DELETE_PRODUCT: `product/${endPoints.delete}`,
 
+  // Categories
+  GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
+  ADD_CATEGORY: `category/${endPoints.add}`,
   // Variant
   GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,
   ADD_VARIANT: `variant/${endPoints.add}`,

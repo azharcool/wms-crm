@@ -1,11 +1,16 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
-import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { IGetCategoriesResponseData } from "types/catalog/catagories/getCategoriesResponse";
 
-function CategoriesItem() {
+interface ICategoriesItem {
+  item: IGetCategoriesResponseData;
+}
+
+function CategoriesItem(props: ICategoriesItem) {
+  const { item } = props;
   const navigate = useNavigate();
 
   const handleItemClick = () => {
@@ -60,7 +65,7 @@ function CategoriesItem() {
         }}
         onClick={() => handleItemClick()}
       >
-        watches
+        {item?.name}
       </TableCell>
       <TableCell
         sx={{
@@ -68,7 +73,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        0
+        {item.position}
       </TableCell>
       <TableCell
         sx={{
@@ -76,7 +81,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        Parent Category
+        {item.parentCategoryId}
       </TableCell>
       <TableCell
         sx={{
@@ -84,7 +89,8 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        <CustomSwitch />
+        {/* <CustomSwitch /> */}
+        {item.status}
       </TableCell>
       <TableCell
         sx={{
@@ -92,7 +98,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        Mar 9, 2023 17:39:39
+        {item.updatedOn}
       </TableCell>
 
       <TableCell
@@ -101,7 +107,7 @@ function CategoriesItem() {
           background: "white",
         }}
       >
-        Tags
+        {item.tag}
       </TableCell>
 
       <TableCell
