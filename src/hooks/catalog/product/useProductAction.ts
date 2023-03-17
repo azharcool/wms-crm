@@ -23,7 +23,7 @@ function useProductAction() {
     } catch (error: any) {
       snackbar?.show({
         title: error.message,
-        type: "success",
+        type: "error",
       });
       return "";
     }
