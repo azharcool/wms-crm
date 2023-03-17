@@ -2,6 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, Card, CardContent, Container } from "@mui/material";
 
 import TableToolbar from "components/table-toolbar";
+import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddBrand from "./components/AddBrand";
@@ -9,6 +10,15 @@ import BrandListing from "./components/BrandListing";
 
 function Brands() {
   const [openBrand, setOpenBrand] = useState(false);
+  const [brandPagination, setBrandPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const {
+    data: brandData,
+    refetch,
+    isLoading,
+  } = useGetAllBrand(brandPagination);
 
   const handleVariant = () => {
     setOpenBrand((s) => !s);
@@ -44,7 +54,7 @@ function Brands() {
             title="Brands"
           />
           <Box sx={{ mt: 3 }}>
-            <BrandListing />
+            <BrandListing data={brandData} />
           </Box>
         </CardContent>
       </Card>
@@ -56,6 +66,3 @@ function Brands() {
 }
 
 export default Brands;
-function setOpenVariant(arg0: (s: any) => boolean) {
-  throw new Error("Function not implemented.");
-}

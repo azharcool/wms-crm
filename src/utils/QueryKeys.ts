@@ -24,7 +24,7 @@ const QueryKeys = {
   myContactList: "my-contact-list-by-listId",
   getAllActivities: "get-all-activities",
   allCounts: "all-counts",
-
+  getAllBrand: "getAllBrand",
   getAllProduct: "getAllProduct",
 };
 

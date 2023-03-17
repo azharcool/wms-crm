@@ -12,6 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
 import BrandItem from "./BrandItem";
 
 // const tabs = [
@@ -40,7 +41,14 @@ const tableTitle = [
   },
 ];
 
-function BrandListing() {
+interface IBrandListing {
+  data?: IGetBrandResponseRoot;
+}
+
+function BrandListing(props: IBrandListing) {
+  const { data } = props;
+  console.log("data.>>jd", data);
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
@@ -95,10 +103,9 @@ function BrandListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <BrandItem />
-                <BrandItem />
-                <BrandItem />
-                <BrandItem />
+                {data?.data.map((item) => {
+                  return <BrandItem brandData={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>
