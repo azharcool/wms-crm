@@ -2,6 +2,7 @@ import axios from "axios";
 import { store } from "redux/store";
 
 const client = axios.create({
+  baseURL: "http://localuser02-001-site2.etempurl.com/api/",
   headers: {
     "Content-Type": "application/json",
   },
