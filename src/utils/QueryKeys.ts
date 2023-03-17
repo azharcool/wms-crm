@@ -26,6 +26,7 @@ const QueryKeys = {
   allCounts: "all-counts",
 
   getAllProduct: "getAllProduct",
+  getAllVariant: "getAllVariant",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

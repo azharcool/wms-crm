@@ -12,6 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
 import VariantItem from "./VariantItem";
 
 const tabs = [
@@ -115,7 +116,12 @@ const tableTitle = [
   },
 ];
 
-function VariantListing() {
+interface IVariantListing {
+  data?: IGetAllVariantResponseRoot;
+}
+
+function VariantListing(props: IVariantListing) {
+  const { data } = props;
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -160,10 +166,9 @@ function VariantListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <VariantItem />
-                <VariantItem />
-                <VariantItem />
-                <VariantItem />
+                {data?.data?.map((item) => {
+                  return <VariantItem key={item.id} item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>
