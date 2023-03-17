@@ -155,6 +155,14 @@ const API_URLS = {
   ADD_PREFERENCE: `${BASE_URL}/preference/${endPoints.savePreference}`,
   GET_PREFERENCE: `${BASE_URL}/preference/${endPoints.getPreference}`,
   GET_ALL_CUSTOM_FIELDS: `${BASE_URL}/custom/${endPoints.getAllCustomFields}`,
+
+  // Product
+  GET_ALL_PAGINATION_PRODUCT: `product/${endPoints.getAllPagination}`,
+  ADD_PRODUCT: `product/${endPoints.add}`,
+  EDIT_PRODUCT: `product/${endPoints.edit}`,
+  GET_BY_ID_PRODUCT: `product/${endPoints.getbyid}`,
+  BULK_DELETE_PRODUCT: `product/${endPoints.bulkDelete}`,
+  DELETE_PRODUCT: `product/${endPoints.delete}`,
 };
 
 export default API_URLS;
