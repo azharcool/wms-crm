@@ -10,11 +10,12 @@ import ProductListing from "./components/ProductListing";
 function Products() {
   const navigate = useNavigate();
   const [productPagination, setproductPagination] = useState({
-    pageSize: 1,
-    page: 10,
+    pageSize: 10,
+    page: 1,
   });
 
-  const getProductQuery = useGetAllProduct(productPagination);
+  const { data: productPaginationResponse } =
+    useGetAllProduct(productPagination);
 
   return (
     <Container maxWidth={false}>
@@ -43,7 +44,7 @@ function Products() {
             title="Products"
           />
           <Box sx={{ mt: 3 }}>
-            <ProductListing />
+            <ProductListing data={productPaginationResponse} />
           </Box>
         </CardContent>
       </Card>

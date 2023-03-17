@@ -7,13 +7,40 @@ import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
-import AppRoutes from "navigation/appRoutes";
+import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
+import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
 import useAddCategoriesForm, {
   AddCategoriesForm,
 } from "../hooks/useAddCategoriesForm";
+
+const detailMenu = [
+  {
+    id: crypto.randomUUID(),
+    value: "Watches",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Video, DVD & Blu-Ray",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Toys & Games",
+  },
+];
+const statusMenu = [
+  {
+    id: "1",
+    value: "Active",
+  },
+  {
+    id: "2",
+    value: "Inactive",
+  },
+];
 
 const initialValues: AddCategoriesForm = {
   parentCategoryId: "",
@@ -27,6 +54,9 @@ const initialValues: AddCategoriesForm = {
 
 function CategoriesCreate() {
   const navigate = useNavigate();
+  const userDecoded = useDecodedData();
+  const { addCategoriesAction } = useCategoriesAction();
+  const [categoryId, setCategoryId] = useState("");
   const [editable, setEditable] = useState(false);
   const newtheme = useSelector((state: any) => state.theme);
 
@@ -35,14 +65,34 @@ function CategoriesCreate() {
     initialValues,
   });
 
-  const { touched, errors, values, handleChange, handleBlur, setFieldValue } =
-    categoryForm;
+  const {
+    touched,
+    errors,
+    values,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    handleSubmit,
+  } = categoryForm;
 
-  function onSubmit(
+  async function onSubmit(
     values: AddCategoriesForm,
-    helper: FormikHelpers<AddCategoriesForm>,
+    _: FormikHelpers<AddCategoriesForm>,
   ) {
-    console.log(values);
+    const data: IAddCategoriesRequestRoot = {
+      userId: Number(userDecoded.id),
+      parentCategoryId: Number(values.parentCategoryId),
+      position: Number(values.position),
+      tag: values.tag,
+      name: values.name,
+      slug: values.slug,
+      detail: values.slug,
+      status: Number(values.status === "Active" ? "1" : "2"),
+    };
+    const response = await addCategoriesAction(data);
+    if (response) {
+      setCategoryId(response);
+    }
   }
 
   const lightTheme = createTheme({
@@ -87,6 +137,7 @@ function CategoriesCreate() {
       title: "Discard",
       onClick: () => {
         setEditable(false);
+        navigate(-1);
       },
       icon: (
         <ArrowBackIosIcon
@@ -102,7 +153,7 @@ function CategoriesCreate() {
       title: "Save",
       onClick: () => {
         setEditable(false);
-        navigate(AppRoutes.CATALOG.categories);
+        handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -122,7 +173,7 @@ function CategoriesCreate() {
           breadcrumbs={[{ link: "CATAGORIES", to: "/New Category" }]}
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.CategoriesCreate);
+            handleSubmit();
           }}
           rightActions={rightActionsData}
           title="New Category"
@@ -138,41 +189,35 @@ function CategoriesCreate() {
               <CustomCardContent title="Details">
                 <Stack direction="row" gap={2}>
                   <TextField
-                    id="categoryName"
+                    error={!!touched.name && !!errors.name}
+                    helperText={(touched.name && errors && errors.name) || ""}
+                    id="name"
                     label="Name"
-                    name="categoryName"
+                    name="name"
                     size="small"
-                    value="Watches"
-                    onChange={() => {}}
+                    value={values.name}
+                    onBlur={handleBlur("name")}
+                    onChange={handleChange("name")}
                   />
                   <TextField
-                    id="categoySlug"
+                    id="slug"
                     label="Slug"
-                    name="categoySlug"
+                    name="slug"
                     size="small"
-                    value="Not Provided"
-                    onChange={() => {}}
-                  />
-
-                  <TextField
-                    id="categoyDetail"
-                    label="Detail"
-                    name="categoyDetail"
-                    size="small"
-                    value="some other details"
-                    onChange={() => {}}
+                    value={values.slug}
+                    onChange={handleChange("slug")}
                   />
                 </Stack>
                 <Stack direction="row" gap={2} marginTop={2}>
                   <TextField
                     multiline
-                    id="categoyDetail"
+                    id="detail"
                     label="Detail"
-                    name="categoyDetail"
+                    name="detail"
                     rows={3}
                     size="small"
-                    value="some other details"
-                    onChange={() => {}}
+                    value={values.detail}
+                    onChange={handleChange("detail")}
                   />
                 </Stack>
               </CustomCardContent>
@@ -180,39 +225,47 @@ function CategoriesCreate() {
               <CustomCardContent title="Organization">
                 <Stack direction="row" gap={2}>
                   <TextField
-                    id="categoryParent"
+                    isSelect
+                    id="parentCategoryId"
                     label="Parent"
-                    name="categoryParent"
+                    menuItems={detailMenu}
+                    name="parentCategoryId"
                     size="small"
-                    value="Not Provided"
-                    onChange={() => {}}
+                    value={values.parentCategoryId}
+                    onSelectHandler={(e) => {
+                      setFieldValue("parentCategoryId", e.target.value);
+                    }}
                   />
                   <TextField
-                    id="categoyPosition"
+                    id="position"
                     label="Positon"
-                    name="categoyPosition"
+                    name="position"
                     size="small"
-                    value="0"
-                    onChange={() => {}}
+                    value={values.position}
+                    onChange={handleChange("position")}
                   />
                 </Stack>
 
                 <Stack direction="row" gap={2} marginTop={2}>
                   <TextField
-                    id="categoryStatus"
+                    isSelect
+                    id="status"
                     label="Status"
-                    name="categoryStatus"
+                    menuItems={statusMenu}
+                    name="status"
                     size="small"
-                    value="Active"
-                    onChange={() => {}}
+                    value={values.status}
+                    onSelectHandler={(e) => {
+                      setFieldValue("status", e.target.value);
+                    }}
                   />
                   <TextField
-                    id="categoyTags"
+                    id="tag"
                     label="Tags"
-                    name="categoyTags"
+                    name="tag"
                     size="small"
-                    value="0"
-                    onChange={() => {}}
+                    value={values.tag}
+                    onChange={handleChange("tag")}
                   />
                 </Stack>
               </CustomCardContent>

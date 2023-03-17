@@ -2,12 +2,22 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
 import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoriesListing from "./components/CategoriesListing";
 
 function Categories() {
   const navigate = useNavigate();
+  const [categoryPagination, setCategoryPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+
+  const { data: CategoryPaginationResponse } =
+    useGetAllCategories(categoryPagination);
+
   return (
     <Container maxWidth={false}>
       <Card>
@@ -53,7 +63,7 @@ function Categories() {
             title="Categories"
           />
           <Box sx={{ mt: 3 }}>
-            <CategoriesListing />
+            <CategoriesListing data={CategoryPaginationResponse} />
           </Box>
         </CardContent>
       </Card>

@@ -1,5 +1,7 @@
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
+import { IAddCategoriesResponseRoot } from "types/catalog/catagories/addCategoriesResponse";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
+
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -15,7 +17,7 @@ export async function getAllPaginationCategories(
 
 export async function addCategory(
   request: IAddCategoriesRequestRoot,
-): Promise<any> {
+): Promise<IAddCategoriesResponseRoot> {
   const URL = `${API_URLS.ADD_CATEGORY}`;
   return client.post(URL, request);
 }

@@ -168,6 +168,13 @@ const API_URLS = {
   // Categories
   GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
   ADD_CATEGORY: `category/${endPoints.add}`,
+  // Variant
+  GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,
+  ADD_VARIANT: `variant/${endPoints.add}`,
+  EDIT_VARIANT: `variant/${endPoints.edit}`,
+  GET_BY_ID_VARIANT: `variant/${endPoints.getbyid}`,
+  BULK_DELETE_VARIANT: `variant/${endPoints.bulkDelete}`,
+  DELETE_VARIANT: `variant/${endPoints.delete}`,
 };
 
 export default API_URLS;

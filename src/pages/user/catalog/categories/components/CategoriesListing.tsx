@@ -12,6 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetCategoriesResponseRoot } from "types/catalog/catagories/getCategoriesResponse";
 import CategoriesItem from "./CategoriesItem";
 
 const tabs = [
@@ -62,7 +63,13 @@ const tableTitle = [
   },
 ];
 
-function CategoriesListing() {
+interface ICategoriesListing {
+  data?: IGetCategoriesResponseRoot;
+}
+
+function CategoriesListing(props: ICategoriesListing) {
+  const { data } = props;
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -115,10 +122,10 @@ function CategoriesListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
-                <CategoriesItem />
+                {/* <CategoriesItem /> */}
+                {data?.data?.map((item) => {
+                  return <CategoriesItem item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>

@@ -12,6 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 import ProductItem from "./ProductItem";
 
 const tabs = [
@@ -66,15 +67,24 @@ const tableTitle = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Tags0",
+    title: "Track SN",
   },
   {
     id: crypto.randomUUID(),
-    title: "Tags1",
+    title: "Track expiry",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Last updated",
   },
 ];
 
-function ProductListing() {
+interface IProductListing {
+  data?: IGetProductResponseRoot;
+}
+
+function ProductListing(props: IProductListing) {
+  const { data } = props;
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tabs} />
@@ -127,10 +137,9 @@ function ProductListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
-                <ProductItem />
+                {data?.data?.map((item) => {
+                  return <ProductItem item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>

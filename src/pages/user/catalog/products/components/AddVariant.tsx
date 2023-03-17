@@ -18,10 +18,15 @@ import CustomSwitch from "components/custom-switch";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
+import useVariantAction from "hooks/catalog/variant/useVariantAction";
+import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
+import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
 import { generateRandomNumber } from "utils";
 
 const itemsLabel = [
@@ -107,15 +112,58 @@ interface IVariantItem {
 interface IAddVariant {
   open: boolean;
   handleClose: () => void;
+  productId: string;
 }
 function AddVariant(props: IAddVariant) {
-  const { open, handleClose } = props;
+  const { open, handleClose, productId } = props;
   const [variants, setVariants] = useState<IVariant[]>([]);
   const [items, setItems] = useState<IVariantItem[]>([]);
 
-  const handleVariantOptions = () => {
-    //
-  };
+  const userDecoded = useDecodedData();
+  const navigate = useNavigate();
+
+  const { addVariantAction } = useVariantAction();
+
+  async function onSubmit() {
+    const options = variants.map((item) => {
+      return {
+        userId: Number(userDecoded.id),
+        productId: Number(productId),
+        optionName: item.optionName,
+        value: item.values.map((i) => i.value).toString(),
+      };
+    });
+
+    const variantt = items.map((i) => {
+      return {
+        userId: Number(userDecoded.id),
+        optionName: variants.map((i) => i.optionName).toString(),
+        value: "string",
+        variantName: i.variant,
+        sku: i.sku,
+        barcode: i.barcode,
+        supplyPrice: Number(i.supplyPrice),
+        mrp: Number(i.MRP),
+        retailPrice: Number(i.retailPrice),
+        height: Number(i.weightAndDimensions.height),
+        width: Number(i.weightAndDimensions.width),
+        length: Number(i.weightAndDimensions.lenght),
+        weight: Number(i.weightAndDimensions.weight),
+        crossDocking: true,
+        enable: true,
+      };
+    });
+    const data: IAddVariantRequestRoot = {
+      variantt,
+      option: options,
+    };
+
+    const response = await addVariantAction(data);
+
+    if (response) {
+      navigate(`/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`);
+    }
+  }
 
   const handleDeleteVariantById = (id: string) => {
     const filterVariants = variants.filter((i) => i.id !== id);
@@ -162,7 +210,9 @@ function AddVariant(props: IAddVariant) {
   return (
     <Slider
       buttonText="Add Variants"
-      handleChange={() => {}}
+      handleChange={() => {
+        onSubmit();
+      }}
       handleClose={handleClose}
       open={open}
       title="Add Variants"

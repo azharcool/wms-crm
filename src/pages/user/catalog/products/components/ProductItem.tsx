@@ -1,12 +1,13 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useNavigate } from "react-router-dom";
+import { IGetProductResponseData } from "types/catalog/products/getProductResponse";
 
-function ProductItem() {
-  const navigate = useNavigate();
-
+interface IProductItem {
+  item: IGetProductResponseData;
+}
+function ProductItem(props: IProductItem) {
+  const { item } = props;
   return (
     <TableRow>
       <TableCell
@@ -54,10 +55,10 @@ function ProductItem() {
           cursor: "pointer",
         }}
         onClick={() => {
-          navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
+          // navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
         }}
       >
-        image
+        {item.name}
       </TableCell>
       <TableCell
         sx={{
@@ -67,7 +68,7 @@ function ProductItem() {
           background: "white",
         }}
       >
-        azhar
+        {/* inventory */}-
       </TableCell>
       <TableCell
         sx={{
@@ -75,7 +76,7 @@ function ProductItem() {
           background: "white",
         }}
       >
-        image
+        {/* variants count */}-
       </TableCell>
       <TableCell
         sx={{
@@ -83,7 +84,7 @@ function ProductItem() {
           background: "white",
         }}
       >
-        image
+        {/* category */}-
       </TableCell>
       <TableCell
         sx={{
@@ -91,7 +92,7 @@ function ProductItem() {
           background: "white",
         }}
       >
-        image
+        {/* brand */}-
       </TableCell>
 
       <TableCell
@@ -100,7 +101,7 @@ function ProductItem() {
           background: "white",
         }}
       >
-        image
+        {/* company */}-
       </TableCell>
       <TableCell
         sx={{
@@ -108,7 +109,7 @@ function ProductItem() {
           background: "white",
         }}
       >
-        100 image
+        {/* tags */}-
       </TableCell>
       <TableCell
         sx={{
@@ -116,7 +117,8 @@ function ProductItem() {
           background: "white",
         }}
       >
-        100 image
+        {/* track SN */}
+        {item.trackSerialNumbers || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -124,7 +126,18 @@ function ProductItem() {
           background: "white",
         }}
       >
-        100 image
+        {/* track expiry */}
+        {item.trackExpiryDates || "-"}
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 150,
+          background: "white",
+        }}
+      >
+        {/* last updated  */}
+        {item.updatedOn || "-"}
       </TableCell>
 
       <TableCell

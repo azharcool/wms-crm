@@ -1,4 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
@@ -18,10 +19,14 @@ import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
+import useProductAction from "hooks/catalog/product/useProductAction";
+import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
+import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { generateRandomNumber } from "utils";
 import useAddProductForm, { AddProductForm } from "../hooks/useAddProductForm";
 import AddVariant from "./AddVariant";
@@ -174,20 +179,42 @@ const initialValues: AddProductForm = {
 function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
   const [openVariant, setOpenVariant] = useState(false);
+  const [productId, setProductId] = useState("");
+
   const navigate = useNavigate();
+  const { addProductAction } = useProductAction();
+  const userDecoded = useDecodedData();
 
   const productForm = useAddProductForm({
     onSubmit,
     initialValues,
   });
-  const { touched, errors, values, handleChange, handleBlur, setFieldValue } =
-    productForm;
+  const {
+    touched,
+    errors,
+    values,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    handleSubmit,
+  } = productForm;
 
-  function onSubmit(
+  async function onSubmit(
     values: AddProductForm,
-    helper: FormikHelpers<AddProductForm>,
+    _: FormikHelpers<AddProductForm>,
   ) {
-    console.log(values);
+    const data: IAddProductRequestRoot = {
+      name: values.name,
+      sku: values.sku,
+      barcode: values.barcode,
+      userId: Number(userDecoded.id),
+      strategy: values.strategy,
+      description: values.description,
+    };
+    const response = await addProductAction(data);
+    if (response) {
+      setProductId(response);
+    }
   }
 
   const lightTheme = createTheme({
@@ -230,24 +257,26 @@ function ProductCreate() {
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
-  console.log(values);
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.productCreate);
+            handleSubmit();
           }}
           navTitle="PRODUCTS"
           rightActions={[
             {
               id: crypto.randomUUID(),
               title: "Discard",
-              onClick: () => {},
+              onClick: () => {
+                navigate(
+                  `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
+                );
+              },
               icon: (
-                <AddCircleIcon
+                <ArrowBackIosIcon
                   sx={{
                     fontSize: 18,
                     mr: 1,
@@ -258,7 +287,9 @@ function ProductCreate() {
             {
               id: crypto.randomUUID(),
               title: "Save",
-              onClick: () => {},
+              onClick: () => {
+                handleSubmit();
+              },
               icon: (
                 <AddCircleIcon
                   sx={{
@@ -554,8 +585,12 @@ function ProductCreate() {
           </Grid>
         </Grid>
       </Container>
-      {openVariant ? (
-        <AddVariant handleClose={handleVariant} open={openVariant} />
+      {openVariant && productId ? (
+        <AddVariant
+          handleClose={handleVariant}
+          open={openVariant}
+          productId={productId}
+        />
       ) : null}
     </ThemeProvider>
   );

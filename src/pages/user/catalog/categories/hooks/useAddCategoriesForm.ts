@@ -20,9 +20,7 @@ interface IuseAddCategoriesForm {
 }
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("enter product name"),
-  sku: Yup.string().required("generate product sku"),
-  barcode: Yup.string().required("generate product barcode"),
+  name: Yup.string().required("enter category name"),
 });
 
 const deafultValues: AddCategoriesForm = {
