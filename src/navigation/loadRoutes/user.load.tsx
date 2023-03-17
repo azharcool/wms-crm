@@ -91,7 +91,10 @@ export const ProductCreate = Loadable({
 });
 
 export const ProductDetail = Loadable({
-  loader: () => import("pages/user/catalog/products/components/ProductDetail"),
+  loader: () =>
+    import(
+      "pages/user/catalog/products/components/product-detail/ProductDetail"
+    ),
   loading: () => <Spinner />,
 });
 
@@ -116,7 +119,8 @@ export const Variant = Loadable({
 });
 
 export const BundlesDetail = Loadable({
-  loader: () => import("pages/user/catalog/bundles/component/bundle-details/BundleDetails"),
+  loader: () =>
+    import("pages/user/catalog/bundles/component/bundle-details/BundleDetails"),
   loading: () => <Spinner />,
 });
 
