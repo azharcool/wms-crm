@@ -138,6 +138,12 @@ function Login() {
               backgroundColor: palette.info.main,
               height: "50px",
               borderRadius: "5px",
+              boxShadow: "none",
+              ":hover": {
+                boxShadow: "none",
+                backgroundColor: palette.info.main,
+                opacity: 0.6,
+              },
             }}
             variant="contained"
             onClick={() => handleSubmit()}
