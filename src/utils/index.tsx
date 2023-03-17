@@ -112,6 +112,7 @@ export function capitalizeFirstLetter(text: string) {
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
 
-export function generateRandomNumber(length: number) {
-  return String(new Date().getTime()).slice(length);
+export function generateRandomNumber(digit: number) {
+  // return String(new Date().getTime()).slice(length);
+  return Math.random().toFixed(digit).split(".")[1];
 }

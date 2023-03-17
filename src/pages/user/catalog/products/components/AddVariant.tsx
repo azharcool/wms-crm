@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Grid,
+  Stack,
   Table,
   TableBody,
   TableCell,
@@ -21,6 +22,7 @@ import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import palette from "theme/palette";
+import { generateRandomNumber } from "utils";
 
 const itemsLabel = [
   {
@@ -93,6 +95,7 @@ interface IVariantItem {
   id: string;
   image: string;
   variant: string;
+  variantLabel: string;
   sku: string;
   barcode: string;
   supplyPrice: string;
@@ -113,7 +116,6 @@ function AddVariant(props: IAddVariant) {
   const handleVariantOptions = () => {
     //
   };
-  console.log(variants);
 
   const handleDeleteVariantById = (id: string) => {
     const filterVariants = variants.filter((i) => i.id !== id);
@@ -133,6 +135,29 @@ function AddVariant(props: IAddVariant) {
 
     setVariants(newVariants);
   };
+
+  function generateVariants(
+    array: IValue[][],
+    idx = 0,
+    currentCombination: string[] = [],
+  ): string[][] {
+    if (idx === array.length) {
+      return [currentCombination];
+    }
+
+    const currentArr = array[idx];
+    const output: string[][] = [];
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < currentArr.length; i++) {
+      const newCombination = [...currentCombination, currentArr[i].value];
+      const newIdx = idx + 1;
+      const subCombination = generateVariants(array, newIdx, newCombination);
+      output.push(...subCombination);
+    }
+
+    return output;
+  }
 
   return (
     <Slider
@@ -242,38 +267,36 @@ function AddVariant(props: IAddVariant) {
                                 return i;
                               });
 
-                              const [firstVariant, ...restVariants] =
-                                newVariant;
+                              const newOptions: IValue[][] = newVariant.map(
+                                (i) => i.values,
+                              );
 
-                              if (restVariants.length) {
-                                //
-                              } else {
-                                const newItems: IVariantItem[] =
-                                  firstVariant.values.map((i) => {
-                                    return {
-                                      id: crypto.randomUUID(),
-                                      image:
-                                        "https://app.storfox.com/d9f5ac726db86ff29f7b.png",
-                                      variant: `puma ${i.value}`,
-                                      sku: "",
-                                      barcode: "",
-                                      supplyPrice: "",
-                                      MRP: "",
-                                      retailPrice: "",
-                                      weightAndDimensions: {
-                                        weight: "",
-                                        width: "",
-                                        height: "",
-                                        lenght: "",
-                                      },
-                                    };
-                                  });
+                              const generatedVariantItems: string[][] =
+                                generateVariants(newOptions);
 
-                                setItems(newItems);
+                              const newItems: IVariantItem[] =
+                                generatedVariantItems.map((i) => {
+                                  return {
+                                    id: crypto.randomUUID(),
+                                    image:
+                                      "https://app.storfox.com/d9f5ac726db86ff29f7b.png",
+                                    variant: `puma ${i.join(",")}`,
+                                    variantLabel: `puma ${i.join(" ")}`,
+                                    sku: "",
+                                    barcode: "",
+                                    supplyPrice: "",
+                                    MRP: "",
+                                    retailPrice: "",
+                                    weightAndDimensions: {
+                                      weight: "",
+                                      width: "",
+                                      height: "",
+                                      lenght: "",
+                                    },
+                                  };
+                                });
 
-                                console.log({ newItems });
-                              }
-                              console.table(firstVariant);
+                              setItems(newItems);
 
                               setVariants(newVariant);
                             }
@@ -367,6 +390,41 @@ function AddVariant(props: IAddVariant) {
                                   fontSize: "12px",
                                   cursor: "pointer",
                                 }}
+                                onClick={() => {
+                                  if (item.subTitle.includes("Generate Sku")) {
+                                    const newRandom = generateRandomNumber(4);
+
+                                    const newItems = items.map((i, idx) => {
+                                      const position = String(idx + 1);
+                                      const newName: string[] =
+                                        i.variantLabel.split(" ");
+                                      const generateSku: string = newName
+                                        .map((i) => i.slice(0, 2))
+                                        .join("")
+                                        .toUpperCase()
+                                        .concat("-", newRandom, "-")
+                                        .concat(position);
+
+                                      return {
+                                        ...i,
+                                        sku: generateSku,
+                                      };
+                                    });
+
+                                    setItems(newItems);
+                                  } else if (
+                                    item.subTitle.includes("Generate barcode")
+                                  ) {
+                                    const newItems = items.map((i) => {
+                                      return {
+                                        ...i,
+                                        barcode: generateRandomNumber(13),
+                                      };
+                                    });
+
+                                    setItems(newItems);
+                                  }
+                                }}
                               >
                                 {item.subTitle}
                               </Typography>
@@ -385,7 +443,9 @@ function AddVariant(props: IAddVariant) {
                             textAlign: "center",
                           }}
                         >
-                          <Typography>No Variants Found!</Typography>
+                          <Typography>
+                            No Variants Found! create variant Options
+                          </Typography>
                         </TableCell>
                       </TableRow>
                     ) : null}
@@ -413,10 +473,31 @@ function AddVariant(props: IAddVariant) {
                               minWidth: "200px",
                             }}
                           >
-                            <Typography>{item.variant}</Typography>
-                            <Typography>
-                              {item.variant.split(" ").slice(1).join()}
-                            </Typography>
+                            <Stack direction="row" gap={1}>
+                              <Box>
+                                <Typography>{item.variant}</Typography>
+                                <Typography
+                                  sx={{
+                                    fontSize: "12px",
+                                  }}
+                                >
+                                  {item.variant.split(" ").slice(1).join()}
+                                </Typography>
+                              </Box>
+                              <Box>
+                                <Typography
+                                  sx={{
+                                    color: "green",
+                                    fontSize: "10px",
+                                    backgroundColor: "#b6dcb6",
+                                    padding: "5px",
+                                    borderRadius: "2px",
+                                  }}
+                                >
+                                  New
+                                </Typography>
+                              </Box>
+                            </Stack>
                           </TableCell>
 
                           <TableCell
@@ -429,6 +510,7 @@ function AddVariant(props: IAddVariant) {
                               label="sku"
                               name="sku"
                               size="small"
+                              value={item.sku}
                               onChange={() => {}}
                             />
                           </TableCell>
@@ -443,6 +525,7 @@ function AddVariant(props: IAddVariant) {
                               label="barcode"
                               name="barcode"
                               size="small"
+                              value={item.barcode}
                               onChange={() => {}}
                             />
                           </TableCell>

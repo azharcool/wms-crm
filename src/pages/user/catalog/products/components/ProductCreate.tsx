@@ -327,7 +327,7 @@ function ProductCreate() {
                           .map((i) => i.slice(0, 6))
                           .join("")
                           .toUpperCase()
-                          .concat("-", generateRandomNumber(-4));
+                          .concat("-", generateRandomNumber(4));
 
                         setFieldValue("sku", generateSku);
                       }
@@ -348,7 +348,7 @@ function ProductCreate() {
                     value={values.barcode}
                     onChange={handleChange("barcode")}
                     onClickIcon={() => {
-                      const newBarcode = generateRandomNumber(-16);
+                      const newBarcode = generateRandomNumber(13);
                       setFieldValue("barcode", newBarcode);
                     }}
                   />
