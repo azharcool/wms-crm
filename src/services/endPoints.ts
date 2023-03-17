@@ -175,6 +175,7 @@ const API_URLS = {
 
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
+  ADD_BRAND: `brand/${endPoints.add}`,
 };
 
 export default API_URLS;

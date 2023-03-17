@@ -1,23 +1,24 @@
 import { useSnackbar } from "components/snackbar";
 import useDecodedData from "hooks/useDecodedData";
-import { addProduct } from "services/product.services";
-import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
+import { addBrandAction } from "services/brand.services";
+import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 
-function useProductAction() {
+function useBrandAction() {
   const snackbar = useSnackbar();
   const userDecoded = useDecodedData();
 
   const addProductAction = async (
-    data: IAddProductRequestRoot,
+    body: IAddBrandRequestRoot,
   ): Promise<string> => {
     try {
-      const response = await addProduct(data);
+      const response = await addBrandAction({
+        ...body,
+      });
       if (response.statusCode === 200) {
         snackbar?.show({
           title: response.message,
           type: "success",
         });
-        return response?.productId?.toString();
       }
       return "";
     } catch (error: any) {
@@ -30,8 +31,8 @@ function useProductAction() {
   };
 
   return {
-    addProductAction,
+    addBrandAction,
   };
 }
 
-export default useProductAction;
+export default useBrandAction;

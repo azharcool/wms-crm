@@ -3,6 +3,7 @@ import {
   FormHelperText,
   FormLabel,
   InputAdornment,
+  InputLabel,
   InputProps,
   TextField as InputField,
 } from "@mui/material";
@@ -132,32 +133,36 @@ function TextField(props: Props) {
           className={className}
         />
       ) : (
-        <Select
-          // displayEmpty
-          className={className}
-          disabled={disabled}
-          error={error}
-          size={size}
-          sx={{
-            boxShadow: "none",
-          }}
-          value={value?.toString()}
-          onChange={onSelectHandler}
-        >
-          {placeholder && (
-            <MenuItem value="">
-              <em>{placeholder}</em>
+        <>
+          <InputLabel id={id}>{label}</InputLabel>
+          <Select
+            // displayEmpty
+            className={className}
+            disabled={disabled}
+            error={error}
+            id={id}
+            label={label}
+            labelId={id}
+            size={size}
+            sx={{
+              boxShadow: "none",
+            }}
+            value={value?.toString()}
+            onChange={onSelectHandler}
+          >
+            <MenuItem disabled={Boolean(placeholder)} value="">
+              <em>{placeholder || "None"}</em>
             </MenuItem>
-          )}
 
-          {menuItems?.map((item) => {
-            return (
-              <MenuItem key={item.value} value={item.id}>
-                {item.value}
-              </MenuItem>
-            );
-          })}
-        </Select>
+            {menuItems?.map((item) => {
+              return (
+                <MenuItem key={item.value} value={item.id}>
+                  {item.value}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </>
       )}
 
       {helperText && (

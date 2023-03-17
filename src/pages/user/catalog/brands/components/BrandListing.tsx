@@ -47,7 +47,6 @@ interface IBrandListing {
 
 function BrandListing(props: IBrandListing) {
   const { data } = props;
-  console.log("data.>>jd", data);
 
   return (
     <PerfectScrollbar>

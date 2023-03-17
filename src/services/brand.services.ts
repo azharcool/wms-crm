@@ -1,4 +1,5 @@
 // import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
+import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
@@ -13,17 +14,12 @@ export async function getAllBrand(
   return client.get(URL);
 }
 
-// async function getAllBrand(): Promise<IGetBrandResponseRoot> {
-//   const url = `${API_URLS.GET_ALL_BRAND}`;
-//   return client.get(url);
-// }
-// http://localuser02-001-site2.etempurl.com/api/brand/getall
-
-// export async function addBrand(
-//   request: IAddProductRequestRoot,
-// ): Promise<IGetBrandResponseRoot> {
-//   const URL = `${API_URLS.ADD_PRODUCT}`;
-//   return client.post(URL, request);
-// }
+export async function addBrandAction(
+  body: IAddBrandRequestRoot,
+): Promise<IGetBrandResponseRoot> {
+  console.log("request", body);
+  const URL = `${API_URLS.ADD_BRAND}`;
+  return client.post(URL, body);
+}
 
 // export { getAllDataBrand };

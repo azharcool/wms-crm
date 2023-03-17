@@ -9,7 +9,6 @@ interface IBrandItem {
 
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
-  console.log("brandData>>>>>>", brandData);
   // const [brandPagination, setBrandPagination] = useState({
   //   pageSize: 10,
   //   page: 1,

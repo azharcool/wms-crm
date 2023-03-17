@@ -6,30 +6,32 @@ import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
 export interface IAddBrand {
-  userId: number;
   id: number;
-  title: string;
-  completed: boolean;
+  userId: number;
+  name: string;
+  slug: string;
+  image: string;
+  fileUrl: string;
 }
 
 const defaultValues: IAddBrand = {
-  userId: 1,
-  id: 1,
-  title: "",
-  completed: false,
+  id: 0,
+  userId: 0,
+  name: "",
+  slug: "",
+  image: "",
+  fileUrl: "",
 };
 
 const schema = Yup.object().shape({
   // Client Info
-  firstName: Yup.string().required(ErrorMessages.edit_contact.firstName),
-  lastName: Yup.string().required(ErrorMessages.edit_contact.lastName),
-  phone: Yup.string().required(ErrorMessages.edit_contact.phoneNumber),
-  email: Yup.string().required(ErrorMessages.edit_contact.email),
-  leadStatusId: Yup.string().required(ErrorMessages.edit_contact.leadStatus),
-  rate: Yup.string().required(ErrorMessages.edit_contact.leadStatus),
+  name: Yup.string().required(ErrorMessages.add_brand.name),
+  slug: Yup.string().required(ErrorMessages.add_brand.slug),
+  image: Yup.string().required(ErrorMessages.add_brand.image),
+  fileUrl: Yup.string().required(ErrorMessages.add_brand.fileUrl),
 });
 
-const useEditContactForm = (
+const useAddBrandForm = (
   onSubmit: (
     values: IAddBrand,
     formikHelpers: FormikHelpers<IAddBrand>,
@@ -47,4 +49,4 @@ const useEditContactForm = (
   });
 };
 
-export default useEditContactForm;
+export default useAddBrandForm;
