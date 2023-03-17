@@ -1,4 +1,5 @@
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
+import { IAddProductResponseRoot } from "types/catalog/products/addProductResponse";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
@@ -15,7 +16,7 @@ export async function getAllPaginationProduct(
 
 export async function addProduct(
   request: IAddProductRequestRoot,
-): Promise<any> {
+): Promise<IAddProductResponseRoot> {
   const URL = `${API_URLS.ADD_PRODUCT}`;
   return client.post(URL, request);
 }

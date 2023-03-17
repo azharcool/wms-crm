@@ -57,13 +57,13 @@ function ToolBarButton(props: ITooblarButton) {
           handleClick?.();
         }}
       >
+        {icon}
         <Typography
           component="span"
           sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
         >
           {title}
         </Typography>
-        {icon}
       </Button>
     </Box>
   );
