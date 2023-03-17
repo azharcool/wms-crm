@@ -1,5 +1,4 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, Button, Card, Grid, Stack } from "@mui/material";
+import { Box, Card, Stack } from "@mui/material";
 
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
@@ -7,54 +6,6 @@ import TextField from "components/textfield";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-
-const itemsLabel = [
-  {
-    id: crypto.randomUUID(),
-    value: "Image",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Variant",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "SKU",
-    subTitle: "Generate Sku",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Barcode",
-    subTitle: "Generate barcode",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Supply",
-    subTitle: "Copy to all",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "M.R.P",
-    subTitle: "Copy to all",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Retail price",
-    subTitle: "Copy to all",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Weight/Dimensions",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Cross docking",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Enabled",
-  },
-];
 
 interface IValue {
   parentId: string;
@@ -105,98 +56,88 @@ function AddBrand(props: IAddVariant) {
       handleChange={() => {}}
       handleClose={handleClose}
       open={open}
+      size="sm"
       title="New Brand"
     >
       <PerfectScrollbar>
-        <Box
+        <Stack
+          gap={2}
           sx={{
             marginTop: "50px",
-            // backgroundColor: "white",
             borderRadius: "5px",
           }}
         >
-          <Grid container spacing={2}>
-            <Grid item xs={8}>
-              <Card
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="column" gap={2}>
+                <TextField
+                  id="categoryName"
+                  label="Name"
+                  name="categoryName"
+                  size="small"
+                  value=""
+                  onChange={() => {}}
+                />
+
+                <TextField
+                  id="categoySlug"
+                  label="Slug"
+                  name="categoySlug"
+                  size="small"
+                  value=""
+                  onChange={() => {}}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+          <Card>
+            <CustomCardContent title="Image">
+              {/* <Box
                 sx={{
-                  flex: 1,
+                  display: "flex",
+                  justifyContent: "flex-end",
+                  alignItems: "flex-end",
                 }}
               >
-                <CustomCardContent title="Details">
-                  <Stack direction="column" gap={2}>
-                    <TextField
-                      disabled={istrue}
-                      id="categoryName"
-                      label="Name"
-                      name="categoryName"
-                      //   nameRef={nameRef}
-                      size="small"
-                      value=""
-                      onChange={() => {}}
-                    />
+                <Button startIcon={<DeleteIcon />} variant="outlined">
+                  Delete
+                </Button>
+              </Box> */}
 
-                    <TextField
-                      disabled={istrue}
-                      id="categoySlug"
-                      label="Slug"
-                      name="categoySlug"
-                      size="small"
-                      value=""
-                      onChange={() => {}}
-                    />
-                  </Stack>
-                </CustomCardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={4}>
-              <Card>
-                <CustomCardContent title="Image">
-                  {/* <Stack direction="column" gap={2}> */}
-                  <Box
-                    sx={{
-                      display: "flex",
-                      justifyContent: "flex-end",
-                      alignItems: "flex-end",
-                    }}
-                  >
-                    <Button startIcon={<DeleteIcon />} variant="outlined">
-                      Delete
-                    </Button>
-                  </Box>
-
-                  <Box
-                    sx={{
-                      padding: "16px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: "150px",
-                        height: "150px",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        borderRadius: "10px",
-                        border: "1px dashed rgb(236, 236, 236)",
-                      }}
-                    >
-                      <img
-                        alt="new"
-                        src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-                        style={{ objectFit: "cover" }}
-                        width="100%"
-                      />
-                    </Box>
-                  </Box>
-                  {/* </Stack> */}
-                </CustomCardContent>
-              </Card>
-            </Grid>
-          </Grid>
-        </Box>
+              <Box
+                sx={{
+                  padding: "16px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  sx={{
+                    width: "150px",
+                    height: "150px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    borderRadius: "10px",
+                    border: "1px dashed rgb(236, 236, 236)",
+                  }}
+                >
+                  <img
+                    alt="new"
+                    src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+                    style={{ objectFit: "cover" }}
+                    width="100%"
+                  />
+                </Box>
+              </Box>
+            </CustomCardContent>
+          </Card>
+        </Stack>
       </PerfectScrollbar>
     </Slider>
   );
