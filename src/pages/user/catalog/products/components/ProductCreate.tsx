@@ -17,10 +17,13 @@ import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import { FormikHelpers } from "formik";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
+import { generateRandomNumber } from "utils";
+import useAddProductForm, { AddProductForm } from "../hooks/useAddProductForm";
 import AddVariant from "./AddVariant";
 
 const detailMenu = [
@@ -144,10 +147,48 @@ const strategys = [
   },
 ];
 
+const initialValues: AddProductForm = {
+  name: "",
+  sku: "",
+  type: "",
+  barcode: "",
+  description: "",
+  uniqueBarcoding: "",
+  quantity: "",
+  UoM: "",
+  supply: "",
+  category: "",
+  brand: "",
+  tags: "",
+  height: "",
+  width: "",
+  length: "",
+  weigth: "",
+  strategy: "",
+  minExpiryDays: "",
+  trackSerialNumbers: "",
+  trackExpiryDates: "",
+  syncSupplyPrice: "",
+};
+
 function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
   const [openVariant, setOpenVariant] = useState(false);
   const navigate = useNavigate();
+
+  const productForm = useAddProductForm({
+    onSubmit,
+    initialValues,
+  });
+  const { touched, errors, values, handleChange, handleBlur, setFieldValue } =
+    productForm;
+
+  function onSubmit(
+    values: AddProductForm,
+    helper: FormikHelpers<AddProductForm>,
+  ) {
+    console.log(values);
+  }
 
   const lightTheme = createTheme({
     palette: {
@@ -188,6 +229,8 @@ function ProductCreate() {
     },
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
+
+  console.log(values);
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
@@ -240,48 +283,73 @@ function ProductCreate() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     iconEnd
+                    error={!!touched.name && !!errors.name}
+                    helperText={(touched.name && errors && errors.name) || ""}
                     icon={<Inventory2Icon />}
-                    id="productName"
+                    id="name"
                     label="Name"
-                    name="productName"
+                    name="name"
                     size="small"
-                    onChange={() => {}}
+                    value={values.name}
+                    onBlur={handleBlur("name")}
+                    onChange={handleChange("name")}
                   />
                   <TextField
                     isSelect
+                    id="type"
                     label="Type"
                     menuItems={detailMenu}
                     name="type"
                     size="small"
-                    value={detailMenu[0].id}
-                    onSelectHandler={() => {}}
+                    value={values.type || detailMenu[0].id}
+                    onSelectHandler={(e) => {
+                      setFieldValue("type", e.target.value);
+                    }}
                   />
                 </Stack>
 
                 <Stack direction="row" gap={2}>
                   <TextField
                     iconEnd
+                    error={!!touched.sku && !!errors.sku}
+                    helperText={(touched.sku && errors && errors.sku) || ""}
                     icon={<RefreshIcon />}
                     id="sku"
                     label="Sku"
                     name="sku"
                     size="small"
-                    onChange={() => {}}
+                    value={values.sku}
+                    onChange={handleChange("sku")}
                     onClickIcon={() => {
-                      console.log("clicked....");
+                      if (values.name) {
+                        const newName = values.name.split(" ");
+                        const generateSku = newName
+                          .map((i) => i.slice(0, 6))
+                          .join("")
+                          .toUpperCase()
+                          .concat("-", generateRandomNumber(4));
+
+                        setFieldValue("sku", generateSku);
+                      }
                     }}
                   />
 
                   <TextField
                     iconEnd
+                    error={!!touched.barcode && !!errors.barcode}
+                    helperText={
+                      (touched.barcode && errors && errors.barcode) || ""
+                    }
                     icon={<RefreshIcon />}
                     id="barcode"
                     label="Barcode"
                     name="barcode"
                     size="small"
-                    onChange={() => {}}
+                    value={values.barcode}
+                    onChange={handleChange("barcode")}
                     onClickIcon={() => {
-                      console.log("clicked....");
+                      const newBarcode = generateRandomNumber(13);
+                      setFieldValue("barcode", newBarcode);
                     }}
                   />
                 </Stack>
@@ -291,7 +359,8 @@ function ProductCreate() {
                   id="description"
                   label="Description"
                   name="description"
-                  onChange={() => {}}
+                  value={values.description}
+                  onChange={handleChange("description")}
                 />
 
                 <Stack direction="row" gap={2}>
@@ -300,15 +369,25 @@ function ProductCreate() {
                     menuItems={uniqueBarcodingStrategy}
                     name="Unique Barcoding strategy"
                     size="small"
-                    value={uniqueBarcodingStrategy[0].id}
-                    onSelectHandler={() => {}}
+                    value={
+                      values.uniqueBarcoding || uniqueBarcodingStrategy[0].id
+                    }
+                    onSelectHandler={(e) => {
+                      setFieldValue("uniqueBarcoding", e.target.value);
+                    }}
                   />
                   <TextField
                     id="quantity"
                     label="Quantity"
                     name="quantity"
                     size="small"
-                    onChange={() => {}}
+                    value={values.quantity}
+                    onChange={(e) => {
+                      setFieldValue(
+                        "quantity",
+                        e.target.value.replace(/[^0-9F]/g, ""),
+                      );
+                    }}
                   />
 
                   <TextField
@@ -316,8 +395,10 @@ function ProductCreate() {
                     menuItems={UoM}
                     name="UoM"
                     size="small"
-                    value={UoM[0].id}
-                    onSelectHandler={() => {}}
+                    value={values.UoM || UoM[0].id}
+                    onSelectHandler={(e) => {
+                      setFieldValue("UoM", e.target.value);
+                    }}
                   />
                 </Stack>
               </CustomCardContent>

@@ -1,8 +1,23 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  TableCell,
+  TableRow,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
-import "react-perfect-scrollbar/dist/css/styles.css";
+import AppRoutes from "navigation/appRoutes";
+import { useNavigate } from "react-router-dom";
+// import "react-perfect-scrollbar/dist/css/styles.css";
 
 function VariantItem() {
+  const navigate = useNavigate();
+
+  const handleNavigation = () => {
+    navigate(AppRoutes.CATALOG.variantsDetails);
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -45,7 +60,14 @@ function VariantItem() {
           left: 0,
         }}
       >
-        TSXX-274606-3
+        <Box onClick={() => handleNavigation()}>
+          <Tooltip title="TshirtXXL">
+            <Typography sx={{ textDecoration: "underline" }}>
+              TshirtXXL
+            </Typography>
+          </Tooltip>
+        </Box>
+        <Typography> TSXX-274606-3</Typography>
       </TableCell>
       <TableCell
         sx={{
