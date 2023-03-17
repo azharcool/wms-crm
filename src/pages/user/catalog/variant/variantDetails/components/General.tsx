@@ -152,15 +152,6 @@ export default function General() {
                 onChange={() => {}}
               />
             </Stack>
-            {/* <Divider />
-            <Grid sx={{}}>
-              <Typography sx={{ fontSize: 13, pt: 2, color: grey[500] }}>
-                Description
-              </Typography>
-              <Typography sx={{ fontSize: 14, pt: 2, fontWeight: "500" }}>
-                Not provided
-              </Typography>
-            </Grid> */}
           </CustomAccordian>
           <CustomAccordian title="Tracking">
             <Divider />
@@ -341,16 +332,7 @@ export default function General() {
                 onChange={() => {}}
               />
             </Stack>
-            {/* <Grid sx={{}}>
-              <Typography sx={{ fontSize: 16, pt: 2, color: grey[500] }}>
-                Fulfillment
-              </Typography>
-              <Typography sx={{ fontSize: 16, pt: 2, color: grey[500] }}>
-                Sync Supply Price
-              </Typography>
-            </Grid> */}
           </CustomAccordian>
-          {/* </Card> */}
         </Grid>
       </Grid>
     </Box>

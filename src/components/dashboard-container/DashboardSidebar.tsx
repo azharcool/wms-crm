@@ -183,7 +183,7 @@ export function DashboardSidebar(props: any) {
         </Box>
         <Divider
           sx={{
-            borderColor: palette.info.main,
+            // borderColor: palette.info.main,
             my: 2,
           }}
         />

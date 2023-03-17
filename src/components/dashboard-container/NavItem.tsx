@@ -5,6 +5,7 @@ import { Button, ListItem, Stack, styled, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
+import { orange } from "@mui/material/colors";
 import { Link as RRDLink } from "react-router-dom";
 import palette from "theme/palette";
 import { IMenuItems, ISideNavMenu } from "./DashboardSidebar";
@@ -69,7 +70,7 @@ function NavItem(props: INavItem) {
       sx={{
         backgroundColor: "transparent",
         "&:before": {
-          backgroundColor: "red",
+          // backgroundColor: "red",
         },
       }}
     >
@@ -93,7 +94,7 @@ function NavItem(props: INavItem) {
             color: "white",
           },
           "&:hover": {
-            backgroundColor: palette.sidebar.navHover,
+            backgroundColor: orange[300],
           },
         }}
       >
@@ -131,7 +132,8 @@ function NavItem(props: INavItem) {
             // backgroundColor: active && "rgba(255,255,255, 0.08)",
             borderRadius: 1,
             color: palette.text.primary,
-            backgroundColor: active ? palette.info.main : "transparent",
+            // color: "#f39521",
+            backgroundColor: active ? palette.info.main : "#f39521",
             // fontWeight: active && "fontWeightBold",
             justifyContent: "flex-start",
             px: 2,
@@ -142,7 +144,7 @@ function NavItem(props: INavItem) {
               color: "white",
             },
             "&:hover": {
-              backgroundColor: palette.sidebar.navHover,
+              backgroundColor: orange[300],
             },
           }}
         >
