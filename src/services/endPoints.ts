@@ -175,6 +175,10 @@ const API_URLS = {
   GET_BY_ID_VARIANT: `variant/${endPoints.getbyid}`,
   BULK_DELETE_VARIANT: `variant/${endPoints.bulkDelete}`,
   DELETE_VARIANT: `variant/${endPoints.delete}`,
+
+  // Brand
+  GET_ALL_BRAND: `brand/${endPoints.getAll}`,
+  ADD_BRAND: `brand/${endPoints.add}`,
 };
 
 export default API_URLS;

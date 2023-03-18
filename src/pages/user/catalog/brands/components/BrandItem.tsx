@@ -1,8 +1,25 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetBrandResponseData } from "types/catalog/brands/getBrandResponse";
 
-function BrandItem() {
+interface IBrandItem {
+  brandData: IGetBrandResponseData;
+}
+
+function BrandItem(props: IBrandItem) {
+  const { brandData } = props;
+  // const [brandPagination, setBrandPagination] = useState({
+  //   pageSize: 10,
+  //   page: 1,
+  // });
+  // const {
+  //   data: brandData,
+  //   refetch,
+  //   isLoading,
+  // } = useGetAllBrand(brandPagination);
+
+  // console.log("Data>>>>>>>>>", JSON.stringify(brandData, null, 2));
   return (
     <TableRow>
       <TableCell
@@ -35,6 +52,7 @@ function BrandItem() {
           <img
             alt="new"
             src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+            // src={brandData.fileName}
             width="100%"
           />
         </Box>
@@ -49,7 +67,9 @@ function BrandItem() {
           background: "white",
         }}
       >
-        watches
+        {brandData.name || "-"}
+        {/* {brandData?.data.name} */}
+        {/* {br} */}
       </TableCell>
 
       <TableCell

@@ -1,6 +1,4 @@
 const ErrorMessages = {
-
-
   login: {
     email: "Please enter your email",
     password: "Please enter your password",
@@ -53,27 +51,26 @@ const ErrorMessages = {
   },
   Container: {
     quantity: "Please enter Quantity",
-    height: "Please enter height" ,
-    width:  "Please enter width",
-    max:  "Please enter max",
+    height: "Please enter height",
+    width: "Please enter width",
+    max: "Please enter max",
     length: "Please enter length",
-    volume:  "Please enter volume",
- },
- Location:{
-  X:" Please enter X-cordinates",
-  Y:" Please enter Y-cordinates",
-  Z:" Please enter Z-cordinates",
-  height: "Please enter height" ,
-  width:  "Please enter width",
-  max:  "Please enter max",
-  length: "Please enter length",
-  volume:  "Please enter volume",
-  aisle: "Please enter aisle",
-  bay: "Please enter bay",
-  level: "Please enter level",
-  bin: "Please enter bin",
-
- },
+    volume: "Please enter volume",
+  },
+  Location: {
+    X: " Please enter X-cordinates",
+    Y: " Please enter Y-cordinates",
+    Z: " Please enter Z-cordinates",
+    height: "Please enter height",
+    width: "Please enter width",
+    max: "Please enter max",
+    length: "Please enter length",
+    volume: "Please enter volume",
+    aisle: "Please enter aisle",
+    bay: "Please enter bay",
+    level: "Please enter level",
+    bin: "Please enter bin",
+  },
   warehouse: {
     warehouseName: "Please enter warehouse name",
     label: "Please enter label",
@@ -91,8 +88,6 @@ const ErrorMessages = {
     receivingType: "Please Select receiving type",
     defaultWarehouse: "Please Select default warehouse",
     allowPartialPicking: "Please Select Partial Picking",
-
-
   },
   forgotPassword: {
     resetLink: "We have e-mailed Your password reset link!",
@@ -124,9 +119,7 @@ const ErrorMessages = {
   add_location: {
     Warehouse: "Please select warehouse",
     area: "Please select area",
-    zone : "Please select zone",
-
-
+    zone: "Please select zone",
   },
   add_contact: {
     // Contact Info
@@ -238,6 +231,12 @@ const ErrorMessages = {
   },
   other: {
     preference: "Preference saved successfully!!",
+  },
+  add_brand: {
+    name: "Please enter name",
+    slug: "Please enter slug",
+    image: "Please add image",
+    fileUrl: "Please enter URL",
   },
 };
 
