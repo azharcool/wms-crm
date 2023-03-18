@@ -28,7 +28,7 @@ function VariantDetails() {
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
-      title: "Discard",
+      title: "Cancel",
       onClick: () => {
         setEditable(false);
         // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);

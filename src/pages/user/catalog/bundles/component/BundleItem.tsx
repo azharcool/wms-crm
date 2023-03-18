@@ -1,14 +1,33 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import { FILE_URL } from "config";
+import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
-function BundleItem() {
-  const navigate = useNavigate()
-  const goToDetails = (id: string) => {
-      navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
-    };
+interface IProps {
+  bundle: IBundle;
+}
+
+function BundleItem(props: IProps) {
+  const { bundle } = props;
+  const navigate = useNavigate();
+  const goToDetails = async (id: number) => {
+    // const response = await getBundleByIdAction(id)
+    navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
+  };
+
+  const {
+    picture,
+    name,
+    barcode,
+    updatedOn,
+    createdOn,
+    categoryName,
+    brandName,
+  } = bundle;
 
   return (
     <TableRow>
@@ -32,7 +51,7 @@ function BundleItem() {
           zIndex: 999,
           background: "white",
         }}
-        onClick={()=>goToDetails("1")}
+        onClick={() => goToDetails(1)}
       >
         <Box
           sx={{
@@ -40,11 +59,7 @@ function BundleItem() {
             height: "40px",
           }}
         >
-          <img
-            alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
-          />
+          <img alt="new" src={`${FILE_URL}${picture[0]?.atachment}`} width="100%" />
         </Box>
       </TableCell>
 
@@ -57,57 +72,65 @@ function BundleItem() {
           background: "white",
         }}
       >
-        -
+        {name}
       </TableCell>
       <TableCell
         sx={{
-          width: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        INR
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        {categoryName}
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        {brandName}
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        company
       </TableCell>
 
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        tags
       </TableCell>
-    
+
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
-      </TableCell><TableCell
+        {createdOn}
+      </TableCell>
+      <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        {createdOn}
       </TableCell>
       <TableCell
         sx={{
