@@ -15,7 +15,7 @@ interface IBreadcrumb {
 interface ITableToolbar {
   title: string;
   isAdd?: boolean;
-  buttonText: string;
+  buttonText: string | JSX.Element;
   handleClick?: () => void;
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;

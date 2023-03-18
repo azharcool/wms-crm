@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import {
   Box,
   Checkbox,
@@ -126,7 +127,7 @@ function BundleListing() {
                   <TableMessage colspan={6} message="No content Available" />
                 ) : (
                   bundles?.data?.map((bundle: IBundle) => {
-                    return <BundleItem bundle={bundle} />;
+                    return <BundleItem bundle={bundle} refetch={refetch} />;
                   })
                 )}
               </TableBody>
