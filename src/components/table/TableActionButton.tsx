@@ -5,6 +5,10 @@ import { alpha, styled } from "@mui/material/styles";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
+interface ITableActionButton {
+  onDeleteHandle?: () => void;
+}
+
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
     anchorOrigin={{
@@ -54,7 +58,8 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-function TableActionButton() {
+function TableActionButton(props: ITableActionButton) {
+  const { onDeleteHandle } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const opened = Boolean(anchorEl);
@@ -121,7 +126,15 @@ function TableActionButton() {
           <MenuItem disableRipple onClick={handleClosed}>
             Edit
           </MenuItem>
-          <MenuItem disableRipple onClick={handleClosed}>
+          <MenuItem
+            disableRipple
+            onClick={() => {
+              handleClosed();
+              if (onDeleteHandle) {
+                onDeleteHandle();
+              }
+            }}
+          >
             Delete
           </MenuItem>
         </StyledMenu>

@@ -12,15 +12,12 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
+import { getSelectedProduct } from "redux/catalog/productSelector";
+import { setAllProductIds } from "redux/catalog/productSlice";
+import { useAppDispatch } from "redux/store";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 import ProductItem from "./ProductItem";
-
-const tabs = [
-  {
-    id: crypto.randomUUID(),
-    title: "All",
-  },
-];
 
 const tableTitle = [
   {
@@ -75,11 +72,27 @@ interface IProductListing {
   data?: IGetProductResponseRoot;
 }
 
+type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
 function ProductListing(props: IProductListing) {
   const { data } = props;
+  const getSelectedProductIdsState = useSelector(getSelectedProduct);
+  const dispatch = useAppDispatch();
+
+  const selectAll = (event: IChangeEvent, checked: boolean) => {
+    if (data) {
+      dispatch(
+        setAllProductIds({
+          ids: data?.data.map((i) => i.id),
+          checked,
+        }),
+      );
+    }
+  };
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tabs} />
+      <EnhancedTableToolbar />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -101,14 +114,17 @@ function ProductListing(props: IProductListing) {
                     leftValue={0}
                   >
                     <Checkbox
-                      checked={false}
+                      checked={
+                        data?.data.length === getSelectedProductIdsState.length
+                      }
                       color="primary"
-                      onChange={() => {}}
+                      onChange={selectAll}
                     />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isName = item.title.includes("Name");
+
                     return (
                       <CustomTableCell
                         key={item.id}
@@ -130,7 +146,7 @@ function ProductListing(props: IProductListing) {
               </TableHead>
               <TableBody>
                 {data?.data?.map((item) => {
-                  return <ProductItem item={item} />;
+                  return <ProductItem key={item.id} item={item} />;
                 })}
               </TableBody>
             </Table>

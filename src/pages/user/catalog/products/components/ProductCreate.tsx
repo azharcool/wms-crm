@@ -209,15 +209,15 @@ function ProductCreate() {
     const data: IAddProductRequestRoot = {
       userId: Number(userDecoded.id),
       name: values.name,
-      // type: values.type || detailMenu[0].value || "",
-      // description: values.description || "",
-      // supplyPrice: Number(values.supply),
+      type: values.type || detailMenu[0].value || "",
+      description: values.description || "",
+      supplyPrice: Number(values.supply),
       sku: values.sku,
       barcode: values.barcode,
-      // strategy: values.strategy,
-      // quantity: Number(values.quantity) || 0,
-      // barcodeStrategy: values.uniqueBarcoding,
-      // trackExpiryDates: values.trackExpiryDates,
+      strategy: values.strategy,
+      quantity: Number(values.quantity) || 0,
+      barcodeStrategy: values.uniqueBarcoding,
+      trackExpiryDates: values.trackExpiryDates,
     };
     const response = await addProductAction(data);
     if (response) {
@@ -277,7 +277,7 @@ function ProductCreate() {
           rightActions={[
             {
               id: crypto.randomUUID(),
-              title: "Discard",
+              title: "Cancel",
               onClick: () => {
                 navigate(
                   `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
@@ -638,7 +638,7 @@ function ProductCreate() {
           </Grid>
         </Grid>
       </Container>
-      {openVariant ? (
+      {openVariant && productId ? (
         <AddVariant
           handleClose={handleVariant}
           open={openVariant}

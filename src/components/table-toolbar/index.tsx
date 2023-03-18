@@ -1,8 +1,17 @@
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { Box, Button, Divider, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Divider,
+  FormControl,
+  Select,
+  Typography,
+} from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
+import MenuItem from "@mui/material/MenuItem";
+import { SelectChangeEvent } from "@mui/material/Select";
 import Stack from "@mui/material/Stack";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
@@ -19,6 +28,8 @@ interface ITableToolbar {
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;
   rightActions?: IRightActions[];
+  hasBulk?: boolean;
+  onBulkHandle?: (_: string) => void;
 }
 
 interface IRightActions {
@@ -32,6 +43,35 @@ interface ITooblarButton {
   handleClick: () => void;
   title: string;
   icon: React.ReactNode;
+}
+
+interface IBulkActionButton {
+  onBulkHandle?: (status: string) => void;
+}
+
+function BulkActionButton(props: IBulkActionButton) {
+  const { onBulkHandle } = props;
+
+  const handleChange = (event: SelectChangeEvent) => {
+    if (onBulkHandle) onBulkHandle(event.target.value);
+  };
+
+  return (
+    <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <Select
+        displayEmpty
+        inputProps={{ "aria-label": "Without label" }}
+        size="small"
+        value=""
+        onChange={handleChange}
+      >
+        <MenuItem value="">
+          <em>Bulk Actions</em>
+        </MenuItem>
+        <MenuItem value="delete">Delete</MenuItem>
+      </Select>
+    </FormControl>
+  );
 }
 
 function ToolBarButton(props: ITooblarButton) {
@@ -78,6 +118,8 @@ function TableToolbar(props: ITableToolbar) {
     isAdd,
     navTitle,
     rightActions,
+    hasBulk,
+    onBulkHandle,
   } = props;
   const navigation = useNavigate();
   const handleBread = (link: string) => {
@@ -213,6 +255,7 @@ function TableToolbar(props: ITableToolbar) {
           </Box>
 
           <Stack direction="row" gap={1}>
+            {hasBulk ? <BulkActionButton onBulkHandle={onBulkHandle} /> : null}
             {rightActions?.map((item) => {
               return (
                 <ToolBarButton
