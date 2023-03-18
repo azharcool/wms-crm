@@ -54,9 +54,13 @@ const StyledMenu = styled((props: MenuProps) => (
   },
 }));
 
-function TableActionButton() {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+interface ITableAction {
+  handleDelete?: (data: any) => void;
+}
 
+function TableActionButton(props: ITableAction) {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { handleDelete } = props;
   const opened = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -121,7 +125,7 @@ function TableActionButton() {
           <MenuItem disableRipple onClick={handleClosed}>
             Edit
           </MenuItem>
-          <MenuItem disableRipple onClick={handleClosed}>
+          <MenuItem disableRipple onClick={handleDelete}>
             Delete
           </MenuItem>
         </StyledMenu>
