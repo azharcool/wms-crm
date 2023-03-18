@@ -7,13 +7,11 @@ function useBrandAction() {
   const snackbar = useSnackbar();
   const userDecoded = useDecodedData();
 
-  const addProductAction = async (
-    body: IAddBrandRequestRoot,
+  const addBrandActionFunc = async (
+    data: IAddBrandRequestRoot,
   ): Promise<string> => {
     try {
-      const response = await addBrandAction({
-        ...body,
-      });
+      const response = await addBrandAction(data);
       if (response.statusCode === 200) {
         snackbar?.show({
           title: response.message,
@@ -31,7 +29,7 @@ function useBrandAction() {
   };
 
   return {
-    addBrandAction,
+    addBrandActionFunc,
   };
 }
 

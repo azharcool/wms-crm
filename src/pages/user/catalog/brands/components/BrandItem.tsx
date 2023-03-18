@@ -9,17 +9,7 @@ interface IBrandItem {
 
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
-  // const [brandPagination, setBrandPagination] = useState({
-  //   pageSize: 10,
-  //   page: 1,
-  // });
-  // const {
-  //   data: brandData,
-  //   refetch,
-  //   isLoading,
-  // } = useGetAllBrand(brandPagination);
 
-  // console.log("Data>>>>>>>>>", JSON.stringify(brandData, null, 2));
   return (
     <TableRow>
       <TableCell
