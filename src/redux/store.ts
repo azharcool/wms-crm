@@ -5,13 +5,14 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
 
+import product from "./catalog/productSlice";
 import common from "./common/common";
+import theme from "./darktheme/customtheme";
 import permissions from "./permissions/permissions";
 import roles from "./roles/roles";
 import screens from "./screen/screen";
 import team from "./team/team";
 import user from "./user/auth";
-import theme from "./darktheme/customtheme";
 
 const persistConfig = {
   key: "root",
@@ -26,6 +27,7 @@ const combinedReducer = combineReducers({
   roles,
   common,
   theme,
+  product,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
@@ -45,3 +47,4 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export { persistor, store };
+

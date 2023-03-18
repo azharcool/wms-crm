@@ -3,8 +3,6 @@ import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
-import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
-import moment from "moment";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -150,7 +148,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        <TableActionButton handleDelete={handleBundleDelete} />
+        <TableActionButton onDeleteHandle={handleBundleDelete} />
       </TableCell>
     </TableRow>
   );

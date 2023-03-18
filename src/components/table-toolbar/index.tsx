@@ -4,6 +4,7 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
+import BulkActionButton from "components/button/BulkActionButton";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 
@@ -19,6 +20,8 @@ interface ITableToolbar {
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;
   rightActions?: IRightActions[];
+  hasBulk?: boolean;
+  onBulkHandle?: (_: string) => void;
 }
 
 interface IRightActions {
@@ -78,6 +81,8 @@ function TableToolbar(props: ITableToolbar) {
     isAdd,
     navTitle,
     rightActions,
+    hasBulk,
+    onBulkHandle,
   } = props;
   const navigation = useNavigate();
   const handleBread = (link: string) => {
@@ -213,6 +218,7 @@ function TableToolbar(props: ITableToolbar) {
           </Box>
 
           <Stack direction="row" gap={1}>
+            {hasBulk ? <BulkActionButton onBulkHandle={onBulkHandle} /> : null}
             {rightActions?.map((item) => {
               return (
                 <ToolBarButton
