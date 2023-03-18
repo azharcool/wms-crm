@@ -18,15 +18,7 @@ import ProductItem from "./ProductItem";
 const tabs = [
   {
     id: crypto.randomUUID(),
-    title: "New",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Pick",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Close",
+    title: "All",
   },
 ];
 
