@@ -13,7 +13,11 @@ import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { addBrandAction } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
+import { QueryKeys } from "utils/QueryKeys";
 
 interface IValue {
   parentId: string;
@@ -55,17 +59,19 @@ function AddBrand(props: IAddVariant) {
   const { open, handleClose } = props;
   const [variants, setVariants] = useState<IVariant[]>([]);
   const [items, setItems] = useState<IVariantItem[]>([]);
+  const [openBrand, setOpenBrand] = useState(false);
   const [editable, setEditable] = useState(false);
   const [brandId, setBrandId] = useState("");
   const userDecoded = useDecodedData();
-
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   console.log("userDecoded", userDecoded);
 
   const initialValues: IAddBrand = {
     id: 0,
     userId: 0,
-    name: "string",
-    slug: "string",
+    name: "",
+    slug: "",
     image: "string",
     fileUrl: "string",
   };
@@ -87,7 +93,7 @@ function AddBrand(props: IAddVariant) {
     isSubmitting,
   } = formik;
 
-  const { addBrandAction } = useBrandAction();
+  const { addBrandActionFunc } = useBrandAction();
 
   const handle = () => {
     const body: IAddBrandRequestRoot = {
@@ -112,8 +118,11 @@ function AddBrand(props: IAddVariant) {
       // trackExpiryDates: values.trackExpiryDates,
     };
     const response = await addBrandAction(data);
-    if (response) {
+    if (response.statusCode === 200) {
       // setBrandId(response);
+      // navigate(AppRoutes.CATALOG.brands);
+      handleClose();
+      queryClient.invalidateQueries([QueryKeys.getAllBrand]);
     }
   }
 

@@ -25,6 +25,7 @@ const QueryKeys = {
   getAllActivities: "get-all-activities",
   allCounts: "all-counts",
   getAllBrand: "getAllBrand",
+  addBrand: "addBrand",
   getAllProduct: "getAllProduct",
   getAllCategories: "getAllCategories",
   getAllVariant: "getAllVariant",

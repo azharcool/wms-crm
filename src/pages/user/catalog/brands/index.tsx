@@ -3,12 +3,14 @@ import { Box, Card, CardContent, Container } from "@mui/material";
 
 import TableToolbar from "components/table-toolbar";
 import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useQueryClient } from "react-query";
+import { QueryKeys } from "utils/QueryKeys";
 import AddBrand from "./components/AddBrand";
 import BrandListing from "./components/BrandListing";
 
 function Brands() {
+  const queryClient = useQueryClient();
   const [openBrand, setOpenBrand] = useState(false);
   const [brandPagination, setBrandPagination] = useState({
     pageSize: 10,
@@ -20,10 +22,16 @@ function Brands() {
     isLoading,
   } = useGetAllBrand(brandPagination);
 
+  useEffect(() => {
+    if (brandData?.data) {
+      queryClient.invalidateQueries([QueryKeys.getAllBrand]);
+    }
+  }, [brandData]);
+
   const handleVariant = () => {
     setOpenBrand((s) => !s);
   };
-  const navigate = useNavigate();
+
   return (
     <Container maxWidth={false}>
       <Card>
