@@ -1,7 +1,10 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
+import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
+import moment from "moment";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -14,12 +17,14 @@ interface IProps {
 function BundleItem(props: IProps) {
   const { bundle } = props;
   const navigate = useNavigate();
+  const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     // const response = await getBundleByIdAction(id)
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
   };
 
   const {
+    id,
     picture,
     name,
     barcode,
@@ -28,7 +33,9 @@ function BundleItem(props: IProps) {
     categoryName,
     brandName,
   } = bundle;
-
+  const handleBundleDelete = async () => {
+    const response = await deleteBundleAction(id);
+  };
   return (
     <TableRow>
       <TableCell
@@ -59,7 +66,11 @@ function BundleItem(props: IProps) {
             height: "40px",
           }}
         >
-          <img alt="new" src={`${FILE_URL}${picture[0]?.atachment}`} width="100%" />
+          <img
+            alt="new"
+            src={`${FILE_URL}${picture[0]?.atachment}`}
+            width="100%"
+          />
         </Box>
       </TableCell>
 
@@ -122,7 +133,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {createdOn}
+        {DateTimeFormat(createdOn)}
       </TableCell>
       <TableCell
         sx={{
@@ -130,7 +141,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {createdOn}
+        {DateTimeFormat(createdOn)}
       </TableCell>
       <TableCell
         sx={{
@@ -139,7 +150,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        <TableActionButton />
+        <TableActionButton handleDelete={handleBundleDelete} />
       </TableCell>
     </TableRow>
   );

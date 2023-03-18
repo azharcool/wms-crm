@@ -13,4 +13,4 @@ function useGetAllBundle(props: IuseGetAllBundle) {
   return useQuery(cachedKey, () => getAllPaginationBundle(url));
 }
 
-export default useGetAllBundle;
+export default useGetAllBundle; 
