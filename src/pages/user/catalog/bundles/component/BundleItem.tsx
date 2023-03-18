@@ -1,4 +1,5 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { useAlert } from "components/alert";
 import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
@@ -10,17 +11,18 @@ import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
   bundle: IBundle;
+  refetch: any;
 }
 
 function BundleItem(props: IProps) {
-  const { bundle } = props;
+  const { bundle, refetch } = props;
   const navigate = useNavigate();
   const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     // const response = await getBundleByIdAction(id)
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
   };
-
+  const alert = useAlert();
   const {
     id,
     picture,
@@ -32,7 +34,16 @@ function BundleItem(props: IProps) {
     brandName,
   } = bundle;
   const handleBundleDelete = async () => {
-    const response = await deleteBundleAction(id);
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete bundle",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteBundleAction(id);
+        refetch()
+      },
+    });
   };
   return (
     <TableRow>
@@ -65,7 +76,7 @@ function BundleItem(props: IProps) {
           }}
         >
           <img
-            alt="new"
+            alt=""
             src={`${FILE_URL}${picture[0]?.atachment}`}
             width="100%"
           />
