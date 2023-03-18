@@ -12,6 +12,7 @@ function Bundles() {
       <Card>
         <CardContent sx={{ paddingTop: 0 }}>
           <TableToolbar
+            hasBulk
             buttonText="New"
             handleClick={() => {
               //   navigate(AppRoutes.CATALOG.productCreate);
@@ -35,6 +36,7 @@ function Bundles() {
               },
             ]}
             title="Bundles"
+            onBulkHandle={() => {}}
           />
           <Box sx={{ mt: 3 }}>
             <BundleListing />

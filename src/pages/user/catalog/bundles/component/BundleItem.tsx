@@ -1,15 +1,39 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
+import { FILE_URL } from "config";
+import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
-function BundleItem() {
-  const navigate = useNavigate()
-  const goToDetails = (id: string) => {
-      navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
-    };
+interface IProps {
+  bundle: IBundle;
+}
 
+function BundleItem(props: IProps) {
+  const { bundle } = props;
+  const navigate = useNavigate();
+  const { deleteBundleAction } = useBundleAction();
+  const goToDetails = async (id: number) => {
+    // const response = await getBundleByIdAction(id)
+    navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
+  };
+
+  const {
+    id,
+    picture,
+    name,
+    barcode,
+    updatedOn,
+    createdOn,
+    categoryName,
+    brandName,
+  } = bundle;
+  const handleBundleDelete = async () => {
+    const response = await deleteBundleAction(id);
+  };
   return (
     <TableRow>
       <TableCell
@@ -32,7 +56,7 @@ function BundleItem() {
           zIndex: 999,
           background: "white",
         }}
-        onClick={()=>goToDetails("1")}
+        onClick={() => goToDetails(1)}
       >
         <Box
           sx={{
@@ -42,7 +66,7 @@ function BundleItem() {
         >
           <img
             alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+            src={`${FILE_URL}${picture[0]?.atachment}`}
             width="100%"
           />
         </Box>
@@ -57,57 +81,65 @@ function BundleItem() {
           background: "white",
         }}
       >
-        -
+        {name}
       </TableCell>
       <TableCell
         sx={{
-          width: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        INR
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        {categoryName}
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        {brandName}
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        company
       </TableCell>
 
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        tags
       </TableCell>
-    
+
       <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
-      </TableCell><TableCell
+        {DateTimeFormat(createdOn)}
+      </TableCell>
+      <TableCell
         sx={{
-          minWidth: 200,
+          minWidth: 150,
+          background: "white",
         }}
       >
-        -
+        {DateTimeFormat(createdOn)}
       </TableCell>
       <TableCell
         sx={{
@@ -116,7 +148,7 @@ function BundleItem() {
           background: "white",
         }}
       >
-        <TableActionButton />
+        <TableActionButton onDeleteHandle={handleBundleDelete} />
       </TableCell>
     </TableRow>
   );
