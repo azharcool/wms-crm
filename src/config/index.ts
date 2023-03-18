@@ -1,6 +1,7 @@
 // const { BASE_URL } = process.env;
 const BASE_URL = "http://wmsmanagement-001-site1.dtempurl.com/api"; // "http://ecallcrm-001-site1.atempurl.com/api";
 // http://wmsmanagement-001-site1.dtempurl.com/swagger/index.html
+export const FILE_URL = "http://wmsmanagement-001-site1.dtempurl.com/Attachment/"
 const config = {
   IMAGE_BASE_URL: BASE_URL,
   BASE_URL,

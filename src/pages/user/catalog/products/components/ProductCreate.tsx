@@ -277,7 +277,7 @@ function ProductCreate() {
           rightActions={[
             {
               id: crypto.randomUUID(),
-              title: "Discard",
+              title: "Cancel",
               onClick: () => {
                 navigate(
                   `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,

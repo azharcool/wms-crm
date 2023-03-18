@@ -134,7 +134,7 @@ function CategoriesCreate() {
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
-      title: "Discard",
+      title: "Cancel",
       onClick: () => {
         setEditable(false);
         navigate(-1);
