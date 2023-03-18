@@ -11,6 +11,11 @@ export interface IGetByIdBundleResponseRoot {
   totalDocs: number;
   limit: number;
 }
+export interface IDeleteBundleByIdResponseRoot {
+  statusCode: 200;
+  message: string;
+}
+
 export interface IBundle {
   id: number;
   userId: number;

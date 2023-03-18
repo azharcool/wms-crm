@@ -1,6 +1,10 @@
 import client from "utils/ApiClient";
-import { IAddBundleRequestRoot } from '../types/catalog/bundles/addBundleRequest';
-import { IGetBundleResponseRoot, IGetByIdBundleResponseRoot } from '../types/catalog/bundles/getBundleResponse';
+import { IDeleteBundleByIdResponseRoot } from "../types/catalog/bundles/getBundleResponse";
+import { IAddBundleRequestRoot } from "../types/catalog/bundles/addBundleRequest";
+import {
+  IGetBundleResponseRoot,
+  IGetByIdBundleResponseRoot,
+} from "../types/catalog/bundles/getBundleResponse";
 import API_URLS from "./endPoints";
 
 export async function getAllPaginationBundle(
@@ -13,16 +17,21 @@ export async function getAllPaginationBundle(
   return client.get(URL);
 }
 
-export async function addBundle(
-  request: IAddBundleRequestRoot,
-): Promise<any> {
+export async function addBundle(request: IAddBundleRequestRoot): Promise<any> {
   const URL = `${API_URLS.ADD_BUNDLE}`;
   return client.post(URL, request);
 }
 
 export async function getBundleById(
-    request: string,
-  ): Promise<IGetByIdBundleResponseRoot> {
-    const URL = `${API_URLS.GET_BY_ID_BUNDLE}?${request}`;
-    return client.get(URL);
-  }
+  request: string,
+): Promise<IGetByIdBundleResponseRoot> {
+  const URL = `${API_URLS.GET_BY_ID_BUNDLE}?${request}`;
+  return client.get(URL);
+}
+
+export async function deleteBundleById(
+  id: number,
+): Promise<IDeleteBundleByIdResponseRoot> {
+  const URL = `${API_URLS.DELETE_BUNDLE}/${id}`;
+  return client.delete(URL);
+}
