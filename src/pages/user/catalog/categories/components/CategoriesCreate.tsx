@@ -4,6 +4,7 @@ import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
+import DragAndDropImage from "components/drag-and-drop-image";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
@@ -282,10 +283,12 @@ function CategoriesCreate() {
                   sx={{
                     padding: "16px",
                     display: "flex",
+                    flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
+                  <DragAndDropImage />
                   <Box
                     sx={{
                       width: "150px",
