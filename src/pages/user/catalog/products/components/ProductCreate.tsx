@@ -18,11 +18,15 @@ import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
 import useProductAction from "hooks/catalog/product/useProductAction";
+import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
+import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
+import useGetAllSupplier from "hooks/querys/catalog/supplier/useGetAllSupplier";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
@@ -33,7 +37,7 @@ import AddVariant from "./AddVariant";
 
 const detailMenu = [
   {
-    id: "Physical product",
+    id: "Digital product",
     value: "Digital product",
   },
   {
@@ -59,43 +63,43 @@ const uniqueBarcodingStrategy = [
 
 const UoM = [
   {
-    id: "Box",
+    id: "1",
     value: "Box",
   },
   {
-    id: "Bottle",
+    id: "2",
     value: "Bottle",
   },
   {
-    id: "Can",
+    id: "3",
     value: "Can",
   },
   {
-    id: "Litre",
+    id: "4",
     value: "Litre",
   },
   {
-    id: "Piece",
+    id: "5",
     value: "Piece",
   },
   {
-    id: "Pack",
+    id: "6",
     value: "Pack",
   },
   {
-    id: "Unit",
+    id: "7",
     value: "Unit",
   },
   {
-    id: "IBCs",
+    id: "8",
     value: "IBCs",
   },
   {
-    id: "Drum",
+    id: "9",
     value: "Drum",
   },
   {
-    id: "Bags",
+    id: "10",
     value: "Bags",
   },
 ];
@@ -118,28 +122,6 @@ const fullfillmentSwitchs = [
   },
 ];
 
-const categorys = [
-  {
-    id: "Watches",
-    value: "Watches",
-  },
-  {
-    id: "Topical",
-    value: "Topical",
-  },
-];
-
-const brands = [
-  {
-    id: "honda",
-    value: "honda",
-  },
-  {
-    id: "Puma",
-    value: "Puma",
-  },
-];
-
 const strategys = [
   {
     id: "First In First Out",
@@ -155,6 +137,11 @@ const strategys = [
   },
 ];
 
+interface IMenuItem {
+  id: string;
+  value: string;
+}
+
 const initialValues: AddProductForm = {
   name: "",
   sku: "",
@@ -162,7 +149,7 @@ const initialValues: AddProductForm = {
   barcode: "",
   description: "",
   uniqueBarcoding: "",
-  quantity: "",
+  quantity: "1",
   UoM: "",
   supply: "",
   category: "",
@@ -177,12 +164,27 @@ const initialValues: AddProductForm = {
   trackSerialNumbers: false,
   trackExpiryDates: false,
   syncSupplyPrice: false,
+  supplyPrice: "",
+  maximumRetailPrice: "",
+  retailPrice: "",
 };
 
 function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
   const [openVariant, setOpenVariant] = useState(false);
   const [productId, setProductId] = useState("");
+  const [brand, setBrand] = useState<IMenuItem[]>([]);
+  const [supplier, setSupplier] = useState<IMenuItem[]>([]);
+  const [category, setSetCategory] = useState<IMenuItem[]>([]);
+  const [tags, setTags] = useState<IMenuItem[]>([]);
+
+  const { data: brandResponse } = useGetAllBrand({
+    pageSize: 10,
+    page: 1,
+  });
+
+  const { data: supplierResponse } = useGetAllSupplier();
+  const { data: getAllCategoryResponse } = useGetAllCategories({});
 
   const navigate = useNavigate();
   const { addProductAction } = useProductAction();
@@ -202,6 +204,42 @@ function ProductCreate() {
     handleSubmit,
   } = productForm;
 
+  useEffect(() => {
+    if (getAllCategoryResponse?.data) {
+      const response = getAllCategoryResponse.data.map((item) => {
+        return {
+          id: String(item.id),
+          value: item.name,
+        };
+      });
+      setSetCategory(response);
+    }
+  }, [getAllCategoryResponse]);
+
+  useEffect(() => {
+    if (supplierResponse?.data) {
+      const response = supplierResponse.data.map((item) => {
+        return {
+          id: String(item.id),
+          value: item.companyName,
+        };
+      });
+      setSupplier(response);
+    }
+  }, [supplierResponse]);
+
+  useEffect(() => {
+    if (brandResponse?.data) {
+      const response = brandResponse.data.map((item) => {
+        return {
+          id: String(item.id),
+          value: item.name,
+        };
+      });
+      setBrand(response);
+    }
+  }, [brandResponse]);
+
   async function onSubmit(
     values: AddProductForm,
     _: FormikHelpers<AddProductForm>,
@@ -211,13 +249,57 @@ function ProductCreate() {
       name: values.name,
       type: values.type || detailMenu[0].value || "",
       description: values.description || "",
-      supplyPrice: Number(values.supply),
+
       sku: values.sku,
       barcode: values.barcode,
       strategy: values.strategy,
-      quantity: Number(values.quantity) || 0,
+      ...(!Number.isNaN(+values.quantity) && {
+        quantity: Number(values.quantity),
+      }),
+
       barcodeStrategy: values.uniqueBarcoding,
       trackExpiryDates: values.trackExpiryDates,
+
+      ...(!Number.isNaN(+values.brand) && {
+        brandId: Number(values.brand),
+      }),
+      tags: tags.map((i) => i.value).toString(),
+      ...(!Number.isNaN(+values.supply) && {
+        supplierId: Number(values.supply),
+      }),
+
+      trackSerialNumbers: values.trackSerialNumbers,
+      syncSupplyPrice: values.syncSupplyPrice,
+
+      ...(!Number.isNaN(+values.UoM) && { uom: Number(values.UoM) }),
+      ...(!Number.isNaN(+values.category) && {
+        categoryId: Number(values.category),
+      }),
+      ...(!Number.isNaN(+values.minExpiryDays) && {
+        expiryDays: Number(values.minExpiryDays),
+      }),
+      ...(!Number.isNaN(+values.height) && {
+        height: Number(values.height),
+      }),
+      ...(!Number.isNaN(+values.width) && {
+        width: Number(values.width),
+      }),
+      ...(!Number.isNaN(+values.length) && {
+        length: Number(values.length),
+      }),
+      ...(!Number.isNaN(+values.weight) && {
+        weight: Number(values.weight),
+      }),
+
+      ...(!Number.isNaN(+values.supplyPrice) && {
+        supplyPrice: Number(values.supplyPrice),
+      }),
+      ...(!Number.isNaN(+values.maximumRetailPrice) && {
+        maxRetailPrice: Number(values.maximumRetailPrice),
+      }),
+      ...(!Number.isNaN(+values.retailPrice) && {
+        retailPrice: Number(values.retailPrice),
+      }),
     };
     const response = await addProductAction(data);
     if (response) {
@@ -416,6 +498,7 @@ function ProductCreate() {
                     }}
                   />
                   <TextField
+                    disabled={values.uniqueBarcoding.includes("Per each Unit")}
                     id="quantity"
                     label="Quantity"
                     name="quantity"
@@ -442,6 +525,50 @@ function ProductCreate() {
                     }}
                   />
                 </Stack>
+              </CustomCardContent>
+
+              <CustomCardContent title="Pricing">
+                <Stack>
+                  <TextField
+                    id="supplyPrice"
+                    label="Supply price"
+                    name="supplyPrice"
+                    size="small"
+                    value={values.supplyPrice}
+                    onChange={(e) => {
+                      setFieldValue(
+                        "supplyPrice",
+                        e.target.value.replace(/[^0-9]/g, ""),
+                      );
+                    }}
+                  />
+                  <TextField
+                    id="MaximumRetailPrice"
+                    label="Maximum Retail price"
+                    name="MaximumRetailPrice"
+                    size="small"
+                    value={values.maximumRetailPrice}
+                    onChange={(e) => {
+                      setFieldValue(
+                        "maximumRetailPrice",
+                        e.target.value.replace(/[^0-9]/g, ""),
+                      );
+                    }}
+                  />
+                </Stack>
+                <TextField
+                  id="Retail price"
+                  label="Retail price"
+                  name="retailPrice"
+                  size="small"
+                  value={values.retailPrice}
+                  onChange={(e) => {
+                    setFieldValue(
+                      "retailPrice",
+                      e.target.value.replace(/[^0-9]/g, ""),
+                    );
+                  }}
+                />
               </CustomCardContent>
 
               <CustomCardContent title="Image">
@@ -481,14 +608,14 @@ function ProductCreate() {
             <CustomAccordian title="Supply">
               <TextField
                 isSelect
-                id="UoM"
-                label="UoM"
-                menuItems={UoM}
-                name="UoM"
+                id="supply"
+                label="supplier"
+                menuItems={supplier}
+                name="supply"
                 size="small"
-                value={values.UoM}
+                value={values.supply}
                 onSelectHandler={(e) => {
-                  setFieldValue("UoM", e.target.value);
+                  setFieldValue("supply", e.target.value);
                 }}
               />
             </CustomAccordian>
@@ -497,7 +624,7 @@ function ProductCreate() {
                 isSelect
                 id="categorys"
                 label="Categorys"
-                menuItems={categorys}
+                menuItems={category}
                 name="categorys"
                 size="small"
                 value={values.category}
@@ -509,7 +636,7 @@ function ProductCreate() {
                 isSelect
                 id="Brand"
                 label="Brand"
-                menuItems={brands}
+                menuItems={brand}
                 name="brand"
                 size="small"
                 value={values.brand}
@@ -517,7 +644,24 @@ function ProductCreate() {
                   setFieldValue("brand", e.target.value);
                 }}
               />
-              <TextField
+              <TextFieldChip
+                chips={tags}
+                handleDelete={(item) => {
+                  const newTags = tags.filter((i) => i.id !== item.id);
+                  setTags(newTags);
+                }}
+                handleKeyDown={(keyCode: string) => {
+                  if (keyCode === "Enter") {
+                    setTags((s) => [
+                      ...s,
+                      {
+                        id: crypto.randomUUID(),
+                        value: values.tags,
+                      },
+                    ]);
+                    setFieldValue("tags", "");
+                  }
+                }}
                 id="tags"
                 label="Tags"
                 name="tags"
@@ -610,14 +754,16 @@ function ProductCreate() {
               />
 
               <TextField
+                disabled={!values.trackExpiryDates}
                 id="minExpiryDays"
                 label="Min Expiry Days"
                 name="minExpiryDays"
                 size="small"
+                value={values.minExpiryDays}
                 onChange={(e) => {
                   setFieldValue(
                     "minExpiryDays",
-                    e.target.value.replace(/^[0-9]/g, ""),
+                    e.target.value.replace(/[^0-9]/g, ""),
                   );
                 }}
               />

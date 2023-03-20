@@ -167,6 +167,7 @@ const API_URLS = {
   DELETE_PRODUCT: `product/${endPoints.delete}`,
 
   // Categories
+  GET_ALL_CATEGORIES: `category/${endPoints.getAll}`,
   GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
   ADD_CATEGORY: `category/${endPoints.add}`,
   // Variant
@@ -189,6 +190,9 @@ const API_URLS = {
   GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
   BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
+
+  //  Supplier
+  GET_ALL_SUPPLIER: `supplier/${endPoints.getAll}`,
 };
 
 export default API_URLS;
