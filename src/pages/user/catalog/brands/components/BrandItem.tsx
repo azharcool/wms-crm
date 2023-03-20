@@ -1,6 +1,8 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 import { IGetBrandResponseData } from "types/catalog/brands/getBrandResponse";
 
 interface IBrandItem {
@@ -9,7 +11,7 @@ interface IBrandItem {
 
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
-
+  const navigate = useNavigate();
   return (
     <TableRow>
       <TableCell
@@ -56,8 +58,13 @@ function BrandItem(props: IBrandItem) {
           // zIndex: 999,
           background: "white",
         }}
+        onClick={() => {
+          navigate(AppRoutes.CATALOG.brandDetails);
+        }}
       >
-        {brandData.name || "-"}
+        <Typography sx={{ textDecoration: "underline" }}>
+          {brandData.name || "-"}
+        </Typography>
         {/* {brandData?.data.name} */}
         {/* {br} */}
       </TableCell>

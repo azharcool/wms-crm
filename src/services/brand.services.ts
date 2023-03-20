@@ -22,4 +22,11 @@ export async function addBrandAction(
   return client.post(URL, body);
 }
 
+export async function BrandDetailAction(
+  body: IAddBrandRequestRoot,
+): Promise<IGetBrandResponseRoot> {
+  console.log("request", body);
+  const URL = `${API_URLS.GET_BY_ID_PRODUCT_BRAND_DETAIL}`;
+  return client.post(URL, body);
+}
 // export { getAllDataBrand };

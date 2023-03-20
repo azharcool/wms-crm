@@ -14,6 +14,7 @@ const endPoints = {
   getAll: "getall",
   getAllPagination: "getall-pagination",
   bulkDelete: "Bulkdelete",
+
   // team endpoints
   addUser: "add-user",
   editUser: "edit-user",
@@ -179,14 +180,15 @@ const API_URLS = {
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
-  
-   // bundle
-   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
-   ADD_BUNDLE: `bundle/${endPoints.add}`,
-   EDIT_BUDLE: `bundle/${endPoints.edit}`,
-   GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
-   BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
-   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
+  GET_BY_ID_PRODUCT_BRAND_DETAIL: `brand/${endPoints.getbyid}`,
+
+  // bundle
+  GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
+  ADD_BUNDLE: `bundle/${endPoints.add}`,
+  EDIT_BUDLE: `bundle/${endPoints.edit}`,
+  GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
+  BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
+  DELETE_BUNDLE: `bundle/${endPoints.delete}`,
 };
 
 export default API_URLS;

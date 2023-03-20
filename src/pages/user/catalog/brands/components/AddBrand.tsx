@@ -24,48 +24,17 @@ interface IValue {
   id: string;
   value: string;
 }
-interface IVariant {
-  id: string;
-  optionName: string;
-  values: IValue[];
-  value: string;
-}
 
-interface IWeightAndDimensions {
-  weight: string;
-  width: string;
-  height: string;
-  lenght: string;
-}
-
-interface IVariantItem {
-  id: string;
-  image: string;
-  variant: string;
-  variantLabel: string;
-  sku: string;
-  barcode: string;
-  supplyPrice: string;
-  MRP: string;
-  retailPrice: string;
-  weightAndDimensions: IWeightAndDimensions;
-}
-
-interface IAddVariant {
+interface IAddBrands {
   open: boolean;
   handleClose: () => void;
 }
-function AddBrand(props: IAddVariant) {
+function AddBrand(props: IAddBrands) {
   const { open, handleClose } = props;
-  const [variants, setVariants] = useState<IVariant[]>([]);
-  const [items, setItems] = useState<IVariantItem[]>([]);
-  const [openBrand, setOpenBrand] = useState(false);
   const [editable, setEditable] = useState(false);
-  const [brandId, setBrandId] = useState("");
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  console.log("userDecoded", userDecoded);
 
   const initialValues: IAddBrand = {
     id: 0,
