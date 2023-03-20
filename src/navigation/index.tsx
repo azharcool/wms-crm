@@ -150,7 +150,7 @@ function Application() {
                 <Route index element={<UserLoadable.Categories />} />
                 <Route
                   element={<UserLoadable.CategoryDetail />}
-                  path={`${AppRoutes.CATALOG.categoryDetail}/:id`}
+                  path={`${AppRoutes.CATALOG.categoryDetail}/:categoryId`}
                 />
                 <Route
                   element={<UserLoadable.CategoryCreate />}

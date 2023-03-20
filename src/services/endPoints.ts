@@ -169,6 +169,10 @@ const API_URLS = {
   GET_ALL_CATEGORIES: `category/${endPoints.getAll}`,
   GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
   ADD_CATEGORY: `category/${endPoints.add}`,
+  BULK_DELETE_CATAGORY: `category/${endPoints.bulkDelete}`,
+  DELETE_CATEGORY: `category/${endPoints.delete}`,
+  GET_BY_ID_CATEGORY: `category/${endPoints.getbyid}`,
+
   // Variant
   GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,
   ADD_VARIANT: `variant/${endPoints.add}`,

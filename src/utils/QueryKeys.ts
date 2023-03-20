@@ -29,6 +29,7 @@ const QueryKeys = {
   getAllProduct: "getAllProduct",
   getByIdProduct: "getByIdProduct",
   getAllCategories: "getAllCategories",
+  getByIdCategory: "getByIdCategory",
   getAllVariant: "getAllVariant",
   getAllBundle: "getAllBundle",
   getByIdBundle: "getByIdBundle",
