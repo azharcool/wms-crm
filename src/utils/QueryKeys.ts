@@ -27,11 +27,11 @@ const QueryKeys = {
   getAllBrand: "getAllBrand",
   addBrand: "addBrand",
   getAllProduct: "getAllProduct",
+  getByIdProduct: "getByIdProduct",
   getAllCategories: "getAllCategories",
   getAllVariant: "getAllVariant",
   getAllBundle: "getAllBundle",
   getByIdBundle: "getByIdBundle",
-
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;
