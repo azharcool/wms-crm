@@ -1,8 +1,10 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import useProductAction from "hooks/catalog/product/useProductAction";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getSelectedProductById } from "redux/catalog/productSelector";
 import { setProductId } from "redux/catalog/productSlice";
 import { RootState, useAppDispatch } from "redux/store";
@@ -12,6 +14,7 @@ interface IProductItem {
   item: IGetProductResponseData;
 }
 function ProductItem(props: IProductItem) {
+  const navigate = useNavigate();
   const { item } = props;
   const { deleteProductAsync } = useProductAction();
   const getSelectedProductByIdState = useSelector((state: RootState) =>
@@ -75,7 +78,7 @@ function ProductItem(props: IProductItem) {
           cursor: "pointer",
         }}
         onClick={() => {
-          // navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
+          navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
         }}
       >
         {item.name}
