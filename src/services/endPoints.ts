@@ -170,6 +170,7 @@ const API_URLS = {
   ADD_CATEGORY: `category/${endPoints.add}`,
   BULK_DELETE_CATAGORY: `category/${endPoints.bulkDelete}`,
   DELETE_CATEGORY: `category/${endPoints.delete}`,
+  GET_BY_ID_CATEGORY: `category/${endPoints.getbyid}`,
 
   // Variant
   GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,

@@ -24,10 +24,6 @@ function CategoriesItem(props: ICategoriesItem) {
 
   const dispatch = useAppDispatch();
 
-  const handleItemClick = () => {
-    navigate(`${AppRoutes.CATALOG.categoryDetail}/${123}`);
-  };
-
   const select = () => {
     dispatch(setCategoryId(item.id));
   };
@@ -82,7 +78,9 @@ function CategoriesItem(props: ICategoriesItem) {
           background: "white",
           cursor: "pointer",
         }}
-        onClick={() => handleItemClick()}
+        onClick={() => {
+          navigate(`${AppRoutes.CATALOG.categoryDetail}/${item.id}`);
+        }}
       >
         {item?.name}
       </TableCell>

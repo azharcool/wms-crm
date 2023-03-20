@@ -7,16 +7,22 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CategoriesDetail() {
+  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
+  const { categoryId } = useParams();
+  const { data: categoryItemResponse } = useGetByIdCategory({
+    categoryId: Number(categoryId),
+  });
 
-  const newtheme = useSelector((state: any) => state.theme);
+  console.log({ categoryItemResponse }, categoryId);
 
   const lightTheme = createTheme({
     palette: {

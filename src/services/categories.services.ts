@@ -23,6 +23,11 @@ export async function addCategory(
   return client.post(URL, request);
 }
 
+export async function getByIdCategory(id: number) {
+  const URL = `${API_URLS.GET_BY_ID_CATEGORY}?id=${id}`;
+  return client.get(URL);
+}
+
 export async function deleteCategory(id: number): Promise<IResponse> {
   const URL = `${API_URLS.DELETE_CATEGORY}/${id}`;
   return client.delete(URL);
