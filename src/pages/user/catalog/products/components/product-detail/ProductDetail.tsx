@@ -59,8 +59,6 @@ function ProductDetail() {
     productId: Number(productId),
   });
 
-  console.log({ productItemResponse }, productId);
-
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };

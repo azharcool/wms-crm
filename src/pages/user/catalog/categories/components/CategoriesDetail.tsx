@@ -22,8 +22,6 @@ function CategoriesDetail() {
     categoryId: Number(categoryId),
   });
 
-  console.log({ categoryItemResponse }, categoryId);
-
   const lightTheme = createTheme({
     palette: {
       mode: "light",
