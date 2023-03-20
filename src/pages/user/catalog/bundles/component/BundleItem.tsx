@@ -41,7 +41,7 @@ function BundleItem(props: IProps) {
       confirmText: "Yes",
       onConfirm: async () => {
         await deleteBundleAction(id);
-        refetch()
+        refetch();
       },
     });
   };
@@ -76,10 +76,15 @@ function BundleItem(props: IProps) {
           }}
         >
           <img
+            alt="new"
+            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+            width="100%"
+          />
+          {/* <img
             alt=""
             src={`${FILE_URL}${picture[0]?.atachment}`}
             width="100%"
-          />
+          /> */}
         </Box>
       </TableCell>
 
@@ -92,7 +97,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {name}
+        {name || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -108,7 +113,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {categoryName}
+        {categoryName || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -116,7 +121,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {brandName}
+       {brandName || "-"}
       </TableCell>
       <TableCell
         sx={{

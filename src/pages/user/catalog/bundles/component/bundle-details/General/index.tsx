@@ -72,7 +72,7 @@ function General(props: IGeneral) {
                 id="categoryName"
                 name="categoryName"
                 size="small"
-                value={!isTrue? "name" :bundle?.data?.name}
+                value={!isTrue? "" :bundle?.data?.name}
                 onChange={() => {}}
                 disabled={isTrue}
                 // inputProps={fontColor}
@@ -84,7 +84,7 @@ function General(props: IGeneral) {
                 id="description"
                 label="Description"
                 name="description"
-                value={isTrue? "description" :bundle?.data?.description}
+                value={isTrue? "" :bundle?.data?.description}
                 onChange={() => {}}
               />
             </Stack>
@@ -99,7 +99,7 @@ function General(props: IGeneral) {
                 label={!isTrue ? "Sku":""}
                 name="sku"
                 size="small"
-                value={!isTrue? "sku" :bundle?.data?.sku}
+                value={!isTrue? "" :bundle?.data?.sku}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -114,7 +114,7 @@ function General(props: IGeneral) {
                 label={!isTrue? "Barcode" :bundle?.data?.barcode}
                 name="barcode"
                 size="small"
-                value={!isTrue? "barcode" :bundle?.data?.barcode}
+                value={!isTrue? "" :bundle?.data?.barcode}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
