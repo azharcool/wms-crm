@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import TextField from "components/textfield";
+import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import React, { useRef, useState } from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import Dropzone from "react-dropzone";
+// eslint-disable-next-line import/no-extraneous-dependencies
 
 interface ICustomCard {
   title: string;
@@ -37,23 +38,22 @@ interface IGeneral {
 
 function General(props: IGeneral) {
   const { isTrue } = props;
-  const [imageList, setImageList] = useState<any>([]);
-
+  const [selectedFiles, setSelectedFiles] = useState();
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
+  const bundleData = {
+    id: 3,
+  };
+  const {
+    data: bundle,
+    refetch,
+    isLoading,
+    isFetching: isFetchingBundle,
+  } = useGetByIdBundle(bundleData);
 
-  const onDrop = (acceptedFiles: any) => {
-    acceptedFiles.map((file: any, index: number) => {
-      const reader = new FileReader();
-      reader.onload = (e: any) => {
-        setImageList((prevState: any) => [
-          ...prevState,
-          { id: index, src: e.target.result },
-        ]);
-      };
-      reader.readAsDataURL(file);
-      return file;
-    });
+  console.log("responseDetails10", JSON.stringify(bundle?.data, null, 2));
+  const onDrop = (files: any) => {
+    console.log("filess12", URL.createObjectURL(files[0]));
   };
 
   return (
@@ -70,7 +70,7 @@ function General(props: IGeneral) {
                 id="categoryName"
                 name="categoryName"
                 size="small"
-                value="bundle"
+                value={!isTrue ? "" : bundle?.data?.name}
                 onChange={() => {}}
                 disabled={isTrue}
                 // inputProps={fontColor}
@@ -82,6 +82,7 @@ function General(props: IGeneral) {
                 id="description"
                 label="Description"
                 name="description"
+                value={isTrue ? "" : bundle?.data?.description}
                 onChange={() => {}}
               />
             </Stack>
@@ -93,9 +94,10 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="sku"
-                label="Sku"
+                label={!isTrue ? "Sku" : ""}
                 name="sku"
                 size="small"
+                value={!isTrue ? "" : bundle?.data?.sku}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -107,9 +109,10 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="barcode"
-                label="Barcode"
+                label={!isTrue ? "Barcode" : bundle?.data?.barcode}
                 name="barcode"
                 size="small"
+                value={!isTrue ? "" : bundle?.data?.barcode}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -122,6 +125,7 @@ function General(props: IGeneral) {
               <TextField
                 isSelect
                 disabled={isTrue}
+                value={!isTrue ? "category" : bundle?.data?.categoryName}
                 id="categorys"
                 // menuItems={categorys}
                 name="categorys"
@@ -133,9 +137,10 @@ function General(props: IGeneral) {
                 isSelect
                 disabled={isTrue}
                 id="categorys"
+                name="brand"
                 label="Brand"
                 // menuItems={brands}
-                name="brand"
+                value={!isTrue ? "brand" : bundle?.data?.brandName}
                 size="small"
                 // value={brands[0].id}
                 onSelectHandler={() => {}}
@@ -149,7 +154,7 @@ function General(props: IGeneral) {
                 label="Tags"
                 name="categoyTags"
                 size="small"
-                value="0"
+                value={!isTrue ? "tag" : bundle?.data?.tag}
                 onChange={() => {}}
               />
             </Stack>
@@ -182,12 +187,6 @@ function General(props: IGeneral) {
                   border: "1px dashed rgb(236, 236, 236)",
                 }}
               >
-                {/* <input
-                          multiple
-                          id="files"
-                          style={{ display: "none" }}
-                          onChange={(e) => handleFileRead(e)}
-                        /> */}
                 <Dropzone multiple={false} onDrop={onDrop}>
                   {({ getRootProps, getInputProps }) => (
                     <Grid container xs={12}>
@@ -197,10 +196,16 @@ function General(props: IGeneral) {
                         sx={{ p: 2 }}
                       >
                         <input {...getInputProps()} />
-
-                        <Typography color="text.secondary" variant="subtitle1">
-                          Drop your image here, or click to select
-                        </Typography>
+                        {selectedFiles ? (
+                          <Box className="selected-file">{selectedFiles}</Box>
+                        ) : (
+                          <Typography
+                            color="text.secondary"
+                            variant="subtitle1"
+                          >
+                            Drop your image here, or click to select
+                          </Typography>
+                        )}
                       </Grid>
                     </Grid>
                   )}

@@ -124,7 +124,7 @@ function VariantListing(props: IVariantListing) {
   const { data } = props;
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tabs} />
+      <EnhancedTableToolbar />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -145,15 +145,15 @@ function VariantListing(props: IVariantListing) {
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
-                    const isName = item.title.includes("Name");
+                    const isName = item.title.includes("Variant");
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 200,
+                          minWidth: isImage ? 50 : 150,
                           position: isImage || isName ? "sticky" : "static",
-                          // left: isImage || isName ? (isName ? 125 : 60) : 0,
+                          left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}

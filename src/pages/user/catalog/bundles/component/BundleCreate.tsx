@@ -1,16 +1,21 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import SaveIcon from "@mui/icons-material/Save";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
+import SaveIcon from "@mui/icons-material/Save";
+import { Box, Card, CircularProgress, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
+import { FormikHelpers } from "formik";
+import useBundleAction from "hooks/catalog/bundle/useBundleAction";
+import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
+import { generateRandomNumber } from "utils";
+import useAddBundleForm, { AddBundleForm } from "../hooks/useAddBundleForm";
 
 const categorys = [
   {
@@ -34,9 +39,53 @@ const brands = [
   },
 ];
 
+const initialValues: AddBundleForm = {
+  name: "",
+  sku: "",
+  barcode: "",
+
+  description: "",
+  categorys: "",
+  brand: "",
+  tags: "",
+};
 function BundleCreate() {
   const navigate = useNavigate();
   const [editable, setEditable] = useState(false);
+  const userDecoded = useDecodedData();
+  const { addBundleAction } = useBundleAction();
+  const bundleForm = useAddBundleForm({
+    onSubmit,
+    initialValues,
+  });
+  const {
+    touched,
+    errors,
+    values,
+    handleChange,
+    isSubmitting,
+    handleBlur,
+    handleSubmit,
+    setFieldValue,
+  } = bundleForm;
+
+  async function onSubmit(
+    values: AddBundleForm,
+    helper: FormikHelpers<AddBundleForm>,
+  ) {
+    const data: IAddBundleRequestRoot = {
+      name: values.name,
+      sku: values.sku,
+      barcode: values.barcode,
+      categoryId: Number(values.categorys),
+      brandId: Number(values.brand),
+      userId: Number(userDecoded.id),
+      description: values.description,
+    };
+    await addBundleAction(data);
+    navigate("/catalog/bundles");
+    setEditable(false);
+  }
 
   const newtheme = useSelector((state: any) => state.theme);
 
@@ -79,7 +128,7 @@ function BundleCreate() {
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
-      title: "Discard",
+      title: "Cancel",
       onClick: () => {
         setEditable(false);
       },
@@ -96,8 +145,7 @@ function BundleCreate() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        setEditable(false);
-        navigate("/catalog/bundles");
+        handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -110,17 +158,20 @@ function BundleCreate() {
     },
   ];
 
-  const fontColor = {
-    style: { color: "red" },
-  };
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "Bundles", to: "/bundleDetails" }]}
-          buttonText="Save"
+          breadcrumbs={[{ link: "Bundles", to: "/catalog/bundles" }]}
+          buttonText={
+            isSubmitting ? (
+              <CircularProgress color="primary" size={12} />
+            ) : (
+              "Save"
+            )
+          }
           handleClick={() => {
+            handleSubmit();
             // navigate(AppRoutes.CATALOG.CategoriesCreate);
           }}
           rightActions={rightActionsData}
@@ -137,20 +188,25 @@ function BundleCreate() {
               <CustomCardContent title="Details">
                 <Stack direction="column" gap={3}>
                   <TextField
-                    id="categoryName"
-                    inputProps={fontColor}
+                    iconEnd
+                    error={!!touched.name && !!errors.name}
+                    helperText={(touched.name && errors && errors.name) || ""}
+                    // icon={<Inventory2Icon />}
+                    id="name"
                     label="Name"
-                    name="categoryName"
+                    name="name"
                     size="small"
-                    value="bundle"
-                    onChange={() => {}}
+                    value={values.name}
+                    onBlur={handleBlur("name")}
+                    onChange={handleChange("name")}
                   />
                   <TextField
                     multiline
                     id="description"
                     label="Description"
                     name="description"
-                    onChange={() => {}}
+                    value={values.description}
+                    onChange={handleChange("description")}
                   />
                 </Stack>
               </CustomCardContent>
@@ -158,14 +214,27 @@ function BundleCreate() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     iconEnd
+                    error={!!touched.sku && !!errors.sku}
+                    helperText={(touched.sku && errors && errors.sku) || ""}
                     icon={<RefreshIcon />}
                     id="sku"
                     label="Sku"
                     name="sku"
                     size="small"
-                    onChange={() => {}}
+                    value={values.sku}
+                    onChange={handleChange("sku")}
+                    onBlur={handleBlur("sku")}
                     onClickIcon={() => {
-                      console.log("clicked....");
+                      if (values.name) {
+                        const newName = values.name.split(" ");
+                        const generateSku = newName
+                          .map((i) => i.slice(0, 6))
+                          .join("")
+                          .toUpperCase()
+                          .concat("-", generateRandomNumber(4));
+
+                        setFieldValue("sku", generateSku);
+                      }
                     }}
                   />
 
@@ -176,9 +245,10 @@ function BundleCreate() {
                     label="Barcode"
                     name="barcode"
                     size="small"
-                    onChange={() => {}}
+                    value={values.barcode}
                     onClickIcon={() => {
-                      console.log("clicked....");
+                      const newBarcode = generateRandomNumber(13);
+                      setFieldValue("barcode", newBarcode);
                     }}
                   />
                 </Stack>
@@ -188,21 +258,26 @@ function BundleCreate() {
                   <TextField
                     isSelect
                     id="categorys"
+                    label="category"
                     menuItems={categorys}
                     name="categorys"
                     size="small"
-                    value={categorys[0].id}
-                    onSelectHandler={() => {}}
+                    value={values.categorys}
+                    onSelectHandler={(e) => {
+                      setFieldValue("categorys", e.target.value);
+                    }}
                   />
                   <TextField
                     isSelect
-                    id="categorys"
+                    id="brand"
                     label="Brand"
                     menuItems={brands}
                     name="brand"
+                    value={values.brand}
                     size="small"
-                    value={brands[0].id}
-                    onSelectHandler={() => {}}
+                    onSelectHandler={(e) => {
+                      setFieldValue("brand", e.target.value);
+                    }}
                   />
                 </Stack>
 
@@ -212,8 +287,8 @@ function BundleCreate() {
                     label="Tags"
                     name="categoyTags"
                     size="small"
-                    value="0"
-                    onChange={() => {}}
+                    value={values.tags}
+                    onChange={handleChange("tags")}
                   />
                 </Stack>
               </CustomCardContent>

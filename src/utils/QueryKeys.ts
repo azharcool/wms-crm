@@ -24,10 +24,14 @@ const QueryKeys = {
   myContactList: "my-contact-list-by-listId",
   getAllActivities: "get-all-activities",
   allCounts: "all-counts",
-
+  getAllBrand: "getAllBrand",
+  addBrand: "addBrand",
   getAllProduct: "getAllProduct",
   getAllCategories: "getAllCategories",
   getAllVariant: "getAllVariant",
+  getAllBundle: "getAllBundle",
+  getByIdBundle: "getByIdBundle",
+
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

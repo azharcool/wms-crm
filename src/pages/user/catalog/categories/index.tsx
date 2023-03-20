@@ -1,5 +1,4 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { Box, Card, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
@@ -23,27 +22,28 @@ function Categories() {
       <Card>
         <CardContent sx={{ paddingTop: 0 }}>
           <TableToolbar
+            hasBulk
             buttonText="New"
             handleClick={() => {
               navigate(AppRoutes.CATALOG.productCreate);
             }}
             navTitle="CATALOG"
             rightActions={[
-              {
-                id: crypto.randomUUID(),
-                title: "Bulk Actions",
-                onClick: () => {
-                  navigate(`${AppRoutes.CATALOG.categoryCreate}`);
-                },
-                icon: (
-                  <ArrowDropDownIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 2,
-                    }}
-                  />
-                ),
-              },
+              // {
+              //   id: crypto.randomUUID(),
+              //   title: "Bulk Actions",
+              //   onClick: () => {
+              //     navigate(`${AppRoutes.CATALOG.categoryCreate}`);
+              //   },
+              //   icon: (
+              //     <ArrowDropDownIcon
+              //       sx={{
+              //         fontSize: 18,
+              //         mr: 2,
+              //       }}
+              //     />
+              //   ),
+              // },
               {
                 id: crypto.randomUUID(),
                 title: "New",
@@ -61,6 +61,7 @@ function Categories() {
               },
             ]}
             title="Categories"
+            onBulkHandle={() => {}}
           />
           <Box sx={{ mt: 3 }}>
             <CategoriesListing data={CategoryPaginationResponse} />

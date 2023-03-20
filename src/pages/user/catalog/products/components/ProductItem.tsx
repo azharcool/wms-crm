@@ -1,8 +1,13 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useProductAction from "hooks/catalog/product/useProductAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getSelectedProductById } from "redux/catalog/productSelector";
+import { setProductId } from "redux/catalog/productSlice";
+import { RootState, useAppDispatch } from "redux/store";
 import { IGetProductResponseData } from "types/catalog/products/getProductResponse";
 
 interface IProductItem {
@@ -11,6 +16,17 @@ interface IProductItem {
 function ProductItem(props: IProductItem) {
   const navigate = useNavigate();
   const { item } = props;
+  const { deleteProductAsync } = useProductAction();
+  const getSelectedProductByIdState = useSelector((state: RootState) =>
+    getSelectedProductById(state, item.id),
+  );
+
+  const dispatch = useAppDispatch();
+
+  const select = () => {
+    dispatch(setProductId(item.id));
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -23,7 +39,11 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
+        <Checkbox
+          checked={getSelectedProductByIdState}
+          color="primary"
+          onChange={select}
+        />
       </TableCell>
       <TableCell
         sx={{
@@ -150,7 +170,11 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        <TableActionButton />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteProductAsync(item.id);
+          }}
+        />
       </TableCell>
     </TableRow>
   );
