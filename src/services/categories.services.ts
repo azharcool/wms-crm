@@ -1,3 +1,4 @@
+import { IResponse } from "constants/interfaces";
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
 import { IAddCategoriesResponseRoot } from "types/catalog/catagories/addCategoriesResponse";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
@@ -20,4 +21,14 @@ export async function addCategory(
 ): Promise<IAddCategoriesResponseRoot> {
   const URL = `${API_URLS.ADD_CATEGORY}`;
   return client.post(URL, request);
+}
+
+export async function deleteCategory(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_CATEGORY}/${id}`;
+  return client.delete(URL);
+}
+
+export async function bulkDeleteCategory(ids: string): Promise<IResponse> {
+  const URL = `${API_URLS.BULK_DELETE_CATAGORY}/${ids}`;
+  return client.delete(URL);
 }

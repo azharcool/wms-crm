@@ -168,6 +168,9 @@ const API_URLS = {
   // Categories
   GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
   ADD_CATEGORY: `category/${endPoints.add}`,
+  BULK_DELETE_CATAGORY: `category/${endPoints.bulkDelete}`,
+  DELETE_CATEGORY: `category/${endPoints.delete}`,
+
   // Variant
   GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,
   ADD_VARIANT: `variant/${endPoints.add}`,
@@ -179,14 +182,14 @@ const API_URLS = {
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
-  
-   // bundle
-   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
-   ADD_BUNDLE: `bundle/${endPoints.add}`,
-   EDIT_BUDLE: `bundle/${endPoints.edit}`,
-   GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
-   BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
-   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
+
+  // bundle
+  GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
+  ADD_BUNDLE: `bundle/${endPoints.add}`,
+  EDIT_BUDLE: `bundle/${endPoints.edit}`,
+  GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
+  BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
+  DELETE_BUNDLE: `bundle/${endPoints.delete}`,
 };
 
 export default API_URLS;
