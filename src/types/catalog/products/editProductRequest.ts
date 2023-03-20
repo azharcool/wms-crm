@@ -1,0 +1,30 @@
+export interface EditProductRequestRoot {
+  id: number;
+  userId: number;
+  name: string;
+  type: string;
+  description: string;
+  supplyPrice: number;
+  maxRetailPrice: number;
+  retailPrice: number;
+  sku: string;
+  barcode: string;
+  barcodeStrategy: string;
+  quantity: number;
+  uom: number;
+  supplierId: number;
+  categoryId: number;
+  brandId: number;
+  tags: string;
+  height: number;
+  width: number;
+  length: number;
+  weight: number;
+  strategy: string;
+  expiryDays: number;
+  trackSerialNumbers: boolean;
+  trackExpiryDates: boolean;
+  syncSupplyPrice: boolean;
+  image: string[];
+  fileUrl: string;
+}

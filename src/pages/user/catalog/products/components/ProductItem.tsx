@@ -14,8 +14,8 @@ interface IProductItem {
   item: IGetProductResponseData;
 }
 function ProductItem(props: IProductItem) {
-  const navigate = useNavigate();
   const { item } = props;
+  const navigate = useNavigate();
   const { deleteProductAsync } = useProductAction();
   const getSelectedProductByIdState = useSelector((state: RootState) =>
     getSelectedProductById(state, item.id),
@@ -78,7 +78,7 @@ function ProductItem(props: IProductItem) {
           cursor: "pointer",
         }}
         onClick={() => {
-          navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
+          navigate(`${AppRoutes.CATALOG.productDetail}/${item.id}`);
         }}
       >
         {item.name}
