@@ -1,12 +1,15 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 import { IGetProductResponseData } from "types/catalog/products/getProductResponse";
 
 interface IProductItem {
   item: IGetProductResponseData;
 }
 function ProductItem(props: IProductItem) {
+  const navigate = useNavigate();
   const { item } = props;
   return (
     <TableRow>
@@ -55,7 +58,7 @@ function ProductItem(props: IProductItem) {
           cursor: "pointer",
         }}
         onClick={() => {
-          // navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
+          navigate(`${AppRoutes.CATALOG.productDetail}/${123}`);
         }}
       >
         {item.name}

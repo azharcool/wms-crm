@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import TextField from "components/textfield";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import Dropzone from "react-dropzone";
 
@@ -42,57 +42,18 @@ function General(props: IGeneral) {
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
 
-  const onDrop = useCallback((acceptedFiles: any) => {
-    const tempArr: any[] = [];
-    acceptedFiles.forEach((file: any) => {
+  const onDrop = (acceptedFiles: any) => {
+    acceptedFiles.map((file: any, index: number) => {
       const reader = new FileReader();
-      // reader.readAsDataURL(file);
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const binaryStr = reader.result;
-        tempArr.push(binaryStr);
+      reader.onload = (e: any) => {
+        setImageList((prevState: any) => [
+          ...prevState,
+          { id: index, src: e.target.result },
+        ]);
       };
       reader.readAsDataURL(file);
-      console.log("binaryArr>>>", JSON.stringify(tempArr, null, 2));
+      return file;
     });
-  }, []);
-
-  const handleFileRead = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { files } = event.target as HTMLInputElement;
-
-    if (!files) return;
-    const filesArr = Object.values(files);
-
-    Promise.all(
-      filesArr.map((file) => {
-        return convertBase64(file);
-      }),
-    )
-      .then((images) => {
-        setImageList([...imageList, ...images]);
-      })
-      .catch((error) => console.log(error));
-  };
-
-  const convertBase64 = (file: any): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleCancleFile = (Remimage: any) => {
-    setImageList((images: any) =>
-      images.filter((image: any) => image !== Remimage),
-    );
   };
 
   return (
