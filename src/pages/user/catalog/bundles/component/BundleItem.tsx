@@ -1,10 +1,9 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { useAlert } from "components/alert";
 import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
-import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
-import moment from "moment";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -12,17 +11,18 @@ import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
   bundle: IBundle;
+  refetch: any;
 }
 
 function BundleItem(props: IProps) {
-  const { bundle } = props;
+  const { bundle, refetch } = props;
   const navigate = useNavigate();
   const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     // const response = await getBundleByIdAction(id)
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
   };
-
+  const alert = useAlert();
   const {
     id,
     picture,
@@ -34,7 +34,16 @@ function BundleItem(props: IProps) {
     brandName,
   } = bundle;
   const handleBundleDelete = async () => {
-    const response = await deleteBundleAction(id);
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete bundle",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteBundleAction(id);
+        refetch();
+      },
+    });
   };
   return (
     <TableRow>
@@ -68,9 +77,14 @@ function BundleItem(props: IProps) {
         >
           <img
             alt="new"
-            src={`${FILE_URL}${picture[0]?.atachment}`}
+            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
             width="100%"
           />
+          {/* <img
+            alt=""
+            src={`${FILE_URL}${picture[0]?.atachment}`}
+            width="100%"
+          /> */}
         </Box>
       </TableCell>
 
@@ -83,7 +97,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {name}
+        {name || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -99,7 +113,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {categoryName}
+        {categoryName || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -107,7 +121,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {brandName}
+       {brandName || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -150,7 +164,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        <TableActionButton handleDelete={handleBundleDelete} />
+        <TableActionButton onDeleteHandle={handleBundleDelete} />
       </TableCell>
     </TableRow>
   );

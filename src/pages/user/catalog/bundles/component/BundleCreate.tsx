@@ -1,7 +1,7 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
+import { Box, Card, CircularProgress, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
@@ -63,6 +63,7 @@ function BundleCreate() {
     errors,
     values,
     handleChange,
+    isSubmitting,
     handleBlur,
     handleSubmit,
     setFieldValue,
@@ -81,7 +82,9 @@ function BundleCreate() {
       userId: Number(userDecoded.id),
       description: values.description,
     };
-    const response = await addBundleAction(data);
+    await addBundleAction(data);
+    navigate("/catalog/bundles");
+    setEditable(false);
   }
 
   const newtheme = useSelector((state: any) => state.theme);
@@ -143,8 +146,6 @@ function BundleCreate() {
       title: "Save",
       onClick: () => {
         handleSubmit();
-        setEditable(false);
-        navigate("/catalog/bundles");
       },
       icon: (
         <SaveIcon
@@ -162,7 +163,13 @@ function BundleCreate() {
       <Container maxWidth={false}>
         <TableToolbar
           breadcrumbs={[{ link: "Bundles", to: "/catalog/bundles" }]}
-          buttonText="Save"
+          buttonText={
+            isSubmitting ? (
+              <CircularProgress color="primary" size={12} />
+            ) : (
+              "Save"
+            )
+          }
           handleClick={() => {
             handleSubmit();
             // navigate(AppRoutes.CATALOG.CategoriesCreate);

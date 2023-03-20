@@ -1,4 +1,3 @@
-import { PER_PAGE } from "constants/constants";
 import { IResponse } from "constants/interfaces";
 // import { IActivitiesResponse } from "pages/user/contacts/details/query/useFetchActivities";
 import client from "utils/ApiClient";
@@ -18,6 +17,9 @@ async function completeActivity(id: number): Promise<IResponse> {
 async function getAllActivitiesByContactId(id: number): Promise<IResponse> {
   ///
   return client.get(`${API_URLS.GET_ALL_ACTIVITIES}/${id}`);
+}
+async function getbyId(id: number) {
+  return client.get(`${API_URLS.GET_BY_ID_PRODUCT_BRAND_DETAIL}/${id}`);
 }
 
 async function totalCounts(id: number): Promise<IResponse> {
@@ -49,9 +51,10 @@ async function saveActivity(values: any): Promise<IResponse> {
 export {
   completeActivity,
   deleteActivity,
-  // fetchActivities,
   fetchActivitiesTypes,
   getAllActivitiesByContactId,
+  // fetchActivities,
+  getbyId,
   saveActivity,
   totalCounts,
 };

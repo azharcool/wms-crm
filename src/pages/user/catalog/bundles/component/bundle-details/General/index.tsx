@@ -7,11 +7,11 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
-import Dropzone from "react-dropzone";
 import { Box, Stack } from "@mui/system";
 import TextField from "components/textfield";
-import React, { useCallback, useRef, useState } from "react";
+import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
+import React, { useRef, useState } from "react";
+import Dropzone from "react-dropzone";
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 interface ICustomCard {
@@ -51,8 +51,6 @@ function General(props: IGeneral) {
     isFetching: isFetchingBundle,
   } = useGetByIdBundle(bundleData);
 
- 
-
   console.log("responseDetails10", JSON.stringify(bundle?.data, null, 2));
   const onDrop = (files: any) => {
     console.log("filess12", URL.createObjectURL(files[0]));
@@ -72,7 +70,7 @@ function General(props: IGeneral) {
                 id="categoryName"
                 name="categoryName"
                 size="small"
-                value={!isTrue? "name" :bundle?.data?.name}
+                value={!isTrue ? "" : bundle?.data?.name}
                 onChange={() => {}}
                 disabled={isTrue}
                 // inputProps={fontColor}
@@ -84,7 +82,7 @@ function General(props: IGeneral) {
                 id="description"
                 label="Description"
                 name="description"
-                value={isTrue? "description" :bundle?.data?.description}
+                value={isTrue ? "" : bundle?.data?.description}
                 onChange={() => {}}
               />
             </Stack>
@@ -96,10 +94,10 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="sku"
-                label={!isTrue ? "Sku":""}
+                label={!isTrue ? "Sku" : ""}
                 name="sku"
                 size="small"
-                value={!isTrue? "sku" :bundle?.data?.sku}
+                value={!isTrue ? "" : bundle?.data?.sku}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -111,10 +109,10 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="barcode"
-                label={!isTrue? "Barcode" :bundle?.data?.barcode}
+                label={!isTrue ? "Barcode" : bundle?.data?.barcode}
                 name="barcode"
                 size="small"
-                value={!isTrue? "barcode" :bundle?.data?.barcode}
+                value={!isTrue ? "" : bundle?.data?.barcode}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -127,10 +125,10 @@ function General(props: IGeneral) {
               <TextField
                 isSelect
                 disabled={isTrue}
+                value={!isTrue ? "category" : bundle?.data?.categoryName}
                 id="categorys"
                 // menuItems={categorys}
                 name="categorys"
-                value={!isTrue? "category" :bundle?.data?.categoryName}
                 size="small"
                 // value={categorys[0].id}
                 onSelectHandler={() => {}}
@@ -139,10 +137,10 @@ function General(props: IGeneral) {
                 isSelect
                 disabled={isTrue}
                 id="categorys"
+                name="brand"
                 label="Brand"
                 // menuItems={brands}
-                value={!isTrue? "brand" :bundle?.data?.brandName}
-                name="brand"
+                value={!isTrue ? "brand" : bundle?.data?.brandName}
                 size="small"
                 // value={brands[0].id}
                 onSelectHandler={() => {}}
@@ -154,9 +152,9 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 id="categoyTags"
                 label="Tags"
-                value={!isTrue? "tag" :bundle?.data?.tag}
                 name="categoyTags"
                 size="small"
+                value={!isTrue ? "tag" : bundle?.data?.tag}
                 onChange={() => {}}
               />
             </Stack>
@@ -189,7 +187,7 @@ function General(props: IGeneral) {
                   border: "1px dashed rgb(236, 236, 236)",
                 }}
               >
-                <Dropzone onDrop={onDrop} multiple={false}>
+                <Dropzone multiple={false} onDrop={onDrop}>
                   {({ getRootProps, getInputProps }) => (
                     <Grid container xs={12}>
                       <Grid

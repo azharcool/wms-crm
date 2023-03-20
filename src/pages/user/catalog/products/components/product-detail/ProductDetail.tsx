@@ -13,114 +13,13 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
+import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import General from "./General";
 import Variants from "./Variants";
 // import AddVariant from "../AddVariant";
-
-const uniqueBarcodingStrategy = [
-  {
-    id: crypto.randomUUID(),
-    value: "Per each Unit",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Per SKU or Set",
-  },
-];
-
-const UoM = [
-  {
-    id: crypto.randomUUID(),
-    value: "Box",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Bottle",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Can",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Litre",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Piece",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Pack",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Unit",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "IBCs",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Drum",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Bags",
-  },
-];
-
-const fullfillmentSwitchs = [
-  {
-    id: crypto.randomUUID(),
-    value: "Track Serial numbers",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Track Expiry dates",
-  },
-];
-
-const categorys = [
-  {
-    id: crypto.randomUUID(),
-    value: "Watches",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Topical",
-  },
-];
-
-const brands = [
-  {
-    id: crypto.randomUUID(),
-    value: "honda",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Puma",
-  },
-];
-
-const strategys = [
-  {
-    id: crypto.randomUUID(),
-    value: "First In First Out",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "First Expired First Out",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Last In First  Out",
-  },
-];
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -155,6 +54,12 @@ function ProductDetail() {
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
+  const { productId } = useParams();
+  const { data: productItemResponse } = useGetByIdProduct({
+    productId: Number(productId),
+  });
+
+  console.log({ productItemResponse });
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -203,7 +108,7 @@ function ProductDetail() {
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
-      title: "Discard",
+      title: "Cancel",
       onClick: () => {
         setEditable(false);
       },

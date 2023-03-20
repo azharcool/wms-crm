@@ -42,7 +42,9 @@ function VariantItem(props: IVariantItem) {
         sx={{
           width: 50,
           position: "sticky",
-          left: 0,
+          left: 60,
+          zIndex: 999,
+          background: "white",
         }}
       >
         <Box
@@ -61,9 +63,12 @@ function VariantItem(props: IVariantItem) {
 
       <TableCell
         sx={{
-          width: 200,
+          width: 150,
           position: "sticky",
-          left: 0,
+          left: 130,
+          zIndex: 999,
+          background: "white",
+          cursor: "pointer",
         }}
       >
         <Box onClick={() => handleNavigation()}>
@@ -77,9 +82,10 @@ function VariantItem(props: IVariantItem) {
       </TableCell>
       <TableCell
         sx={{
-          width: 200,
+          width: 150,
           position: "sticky",
           left: 0,
+          background: "white",
         }}
       >
         {/* Pieces */}-

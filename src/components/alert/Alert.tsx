@@ -9,6 +9,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
+import palette from "theme/palette";
 
 type IProps = {
   open: boolean;
@@ -43,10 +44,42 @@ function Alert(props: IProps) {
         <Typography>{message}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button color="primary" variant="contained" onClick={handleClose}>
+        <Button
+          sx={{
+            width: "inherit",
+            borderRadius: "5px",
+            padding: "5px 25px",
+            backgroundColor: palette.warning.dark,
+            color: "#fff",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: palette.warning.dark,
+              opacity: 0.6,
+              boxShadow: "none",
+            },
+          }}
+          variant="contained"
+          onClick={handleClose}
+        >
           {cancelText}
         </Button>
-        <Button color="secondary" variant="contained" onClick={onConfirm}>
+        <Button
+          sx={{
+            width: "inherit",
+            borderRadius: "5px",
+            padding: "5px 25px",
+            backgroundColor: palette.warning.dark,
+            color: "#fff",
+            boxShadow: "none",
+            "&:hover": {
+              backgroundColor: palette.warning.dark,
+              opacity: 0.6,
+              boxShadow: "none",
+            },
+          }}
+          variant="contained"
+          onClick={onConfirm}
+        >
           {confirmText}
         </Button>
       </DialogActions>

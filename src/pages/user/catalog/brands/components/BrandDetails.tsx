@@ -202,7 +202,8 @@ function BrandDetails() {
                     nameRef={nameRef}
                     size="small"
                     value={values.name}
-                    onChange={() => {}}
+                    onBlur={handleBlur("name")}
+                    onChange={handleChange("name")}
                   />
 
                   <TextField
@@ -214,7 +215,8 @@ function BrandDetails() {
                     name="categoySlug"
                     size="small"
                     value={values.slug}
-                    onChange={() => {}}
+                    onBlur={handleBlur("slug")}
+                    onChange={handleChange("slug")}
                   />
                 </Stack>
               </CustomCardContent>
