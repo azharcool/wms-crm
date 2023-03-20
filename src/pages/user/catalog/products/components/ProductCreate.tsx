@@ -1,8 +1,10 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CancelIcon from "@mui/icons-material/Cancel";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
+  Box,
   Button,
   Card,
   Container,
@@ -16,6 +18,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
+import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
@@ -177,6 +180,7 @@ function ProductCreate() {
   const [supplier, setSupplier] = useState<IMenuItem[]>([]);
   const [category, setSetCategory] = useState<IMenuItem[]>([]);
   const [tags, setTags] = useState<IMenuItem[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
   const { data: brandResponse } = useGetAllBrand({
     pageSize: 10,
@@ -300,6 +304,10 @@ function ProductCreate() {
       ...(!Number.isNaN(+values.retailPrice) && {
         retailPrice: Number(values.retailPrice),
       }),
+
+      ...(uploadedFiles.length && {
+        image: uploadedFiles.map((i) => i.value),
+      }),
     };
     const response = await addProductAction(data);
     if (response) {
@@ -315,6 +323,33 @@ function ProductCreate() {
 
   const handleVariant = () => {
     setOpenVariant((s) => !s);
+  };
+
+  const handleFile = async (e: any) => {
+    const allFiles = Array.from(e.target.files);
+    const images = await Promise.all(
+      allFiles.map((file) => convertBase64(file)),
+    );
+
+    const newUploadedFiles = images.map((item) => ({
+      id: crypto.randomUUID(),
+      value: item,
+    }));
+
+    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+  };
+
+  const convertBase64 = (file: any): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
   };
 
   const getDesignTokens = (mode: PaletteMode) => ({
@@ -572,13 +607,46 @@ function ProductCreate() {
               </CustomCardContent>
 
               <CustomCardContent title="Image">
-                <TextField
-                  id="name"
-                  label="Name"
-                  name="name"
-                  size="small"
-                  onChange={() => {}}
-                />
+                <Stack direction="row" flexWrap="wrap" gap={2}>
+                  {uploadedFiles.map((item) => {
+                    return (
+                      <Box
+                        key={item.id}
+                        sx={{
+                          position: "relative",
+                        }}
+                      >
+                        <CancelIcon
+                          sx={{
+                            width: "17px",
+                            height: "17px",
+                            cursor: "pointer",
+                            color: `${palette.error.lightRed}`,
+                            position: "absolute",
+                            right: "-5px",
+                            top: "-5px",
+                            background: "white",
+                          }}
+                          onClick={() => {
+                            const newUploadedFile = uploadedFiles.filter(
+                              (i) => i.id !== item.id,
+                            );
+                            setUploadedFiles(newUploadedFile);
+                          }}
+                        />
+                        <img
+                          alt={item.value}
+                          src={item.value}
+                          style={{
+                            width: "120px",
+                            height: "120px",
+                          }}
+                        />
+                      </Box>
+                    );
+                  })}
+                  <UploadButton handleFile={handleFile} />
+                </Stack>
               </CustomCardContent>
             </Card>
           </Grid>
