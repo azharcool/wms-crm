@@ -6,6 +6,11 @@ import { IGetProductResponseRoot } from "types/catalog/products/getProductRespon
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
+export async function getAllCategories(): Promise<IGetProductResponseRoot> {
+  const URL = `${API_URLS.GET_ALL_CATEGORIES}`;
+  return client.get(URL);
+}
+
 export async function getAllPaginationCategories(
   restUrl: string,
 ): Promise<IGetProductResponseRoot> {
