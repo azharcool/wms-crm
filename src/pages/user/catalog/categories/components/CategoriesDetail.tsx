@@ -11,7 +11,7 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-function CategoriesDetail(props: ICategoriesDetail) {
+function CategoriesDetail() {
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
