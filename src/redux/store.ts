@@ -4,7 +4,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
-
+import bundle from "./catalog/bundleSlice";
 import product from "./catalog/productSlice";
 import common from "./common/common";
 import theme from "./darktheme/customtheme";
@@ -28,6 +28,7 @@ const combinedReducer = combineReducers({
   common,
   theme,
   product,
+  bundle,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
@@ -47,4 +48,3 @@ export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 export { persistor, store };
-

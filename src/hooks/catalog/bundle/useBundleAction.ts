@@ -1,12 +1,18 @@
-import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { useSnackbar } from "components/snackbar";
 import useDecodedData from "hooks/useDecodedData";
-import { addProduct } from "services/product.services";
-import { addBundle, deleteBundleById } from "services/bundle.services";
+import { useQueryClient } from "react-query";
+import {
+  addBundle,
+  bulkDeleteBundle,
+  deleteBundleById,
+} from "services/bundle.services";
+import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
+import { QueryKeys } from "utils/QueryKeys";
 
 function useBundleAction() {
   const snackbar = useSnackbar();
   const userDecoded = useDecodedData();
+  const queryClient = useQueryClient();
 
   const addBundleAction = async (
     data: IAddBundleRequestRoot,
@@ -51,9 +57,30 @@ function useBundleAction() {
     }
   };
 
+  const bulkDeleteBundleAsync = async (ids: string): Promise<boolean> => {
+    try {
+      const response = await bulkDeleteBundle(ids);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllBundle]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
   return {
     addBundleAction,
-    deleteBundleAction
+    deleteBundleAction,
+    bulkDeleteBundleAsync,
   };
 }
 
