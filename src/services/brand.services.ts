@@ -1,5 +1,6 @@
 // import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
+import { IDeleteBrandByIdResponseRoot } from "types/catalog/brands/deleteByIdResponse";
 import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
 import { IGetByIdBrandResponseRoot } from "types/catalog/brands/getByIdBrandResponse";
 import client from "utils/ApiClient";
@@ -34,4 +35,11 @@ export async function addBrandDetail(
 ): Promise<IGetBrandResponseRoot> {
   const URL = `${API_URLS.PUT_BRAND}`;
   return client.put(URL, body);
+}
+
+export async function deleteBrandById(
+  id: number,
+): Promise<IDeleteBrandByIdResponseRoot> {
+  const URL = `${API_URLS.DELETE_BRAND}/${id}`;
+  return client.delete(URL);
 }

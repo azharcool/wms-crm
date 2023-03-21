@@ -60,6 +60,7 @@ function Brands() {
               },
             ]}
             title="Brands"
+            onBulkHandle={() => {}}
           />
           <Box sx={{ mt: 3 }}>
             <BrandListing data={brandData} />

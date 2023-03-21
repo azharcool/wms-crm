@@ -188,7 +188,7 @@ const API_URLS = {
   ADD_BRAND: `brand/${endPoints.add}`,
   GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
   PUT_BRAND: `brand/${endPoints.edit}`,
-
+  DELETE_BRAND: `brand/${endPoints.delete}`,
   // bundle
   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
   ADD_BUNDLE: `bundle/${endPoints.add}`,
