@@ -23,13 +23,13 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
+import useBrand from "hooks/catalog/brand/useBrand";
+import useCategory from "hooks/catalog/categories/useCategory";
 import useProductAction from "hooks/catalog/product/useProductAction";
-import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
-import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
-import useGetAllSupplier from "hooks/querys/catalog/supplier/useGetAllSupplier";
+import useSupplier from "hooks/catalog/supplier/useSupplier";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
@@ -176,19 +176,12 @@ function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
   const [openVariant, setOpenVariant] = useState(false);
   const [productId, setProductId] = useState("");
-  const [brand, setBrand] = useState<IMenuItem[]>([]);
-  const [supplier, setSupplier] = useState<IMenuItem[]>([]);
-  const [category, setSetCategory] = useState<IMenuItem[]>([]);
   const [tags, setTags] = useState<IMenuItem[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
-  const { data: brandResponse } = useGetAllBrand({
-    pageSize: 10,
-    page: 1,
-  });
-
-  const { data: supplierResponse } = useGetAllSupplier();
-  const { data: getAllCategoryResponse } = useGetAllCategories({});
+  const { category } = useCategory();
+  const { supplier } = useSupplier();
+  const { brand } = useBrand();
 
   const navigate = useNavigate();
   const { addProductAction } = useProductAction();
@@ -207,42 +200,6 @@ function ProductCreate() {
     setFieldValue,
     handleSubmit,
   } = productForm;
-
-  useEffect(() => {
-    if (getAllCategoryResponse?.data) {
-      const response = getAllCategoryResponse.data.map((item) => {
-        return {
-          id: String(item.id),
-          value: item.name,
-        };
-      });
-      setSetCategory(response);
-    }
-  }, [getAllCategoryResponse]);
-
-  useEffect(() => {
-    if (supplierResponse?.data) {
-      const response = supplierResponse.data.map((item) => {
-        return {
-          id: String(item.id),
-          value: item.companyName,
-        };
-      });
-      setSupplier(response);
-    }
-  }, [supplierResponse]);
-
-  useEffect(() => {
-    if (brandResponse?.data) {
-      const response = brandResponse.data.map((item) => {
-        return {
-          id: String(item.id),
-          value: item.name,
-        };
-      });
-      setBrand(response);
-    }
-  }, [brandResponse]);
 
   async function onSubmit(
     values: AddProductForm,
