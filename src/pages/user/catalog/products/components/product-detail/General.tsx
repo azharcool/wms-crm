@@ -2,6 +2,25 @@ import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TextField from "components/textfield";
+import { useFormik } from "formik";
+import useBrand from "hooks/catalog/brand/useBrand";
+import useCategory from "hooks/catalog/categories/useCategory";
+import { IGetByIdProductData } from "types/catalog/products/getByIdProductResponse";
+
+const detailMenu = [
+  {
+    id: "Digital product",
+    value: "Digital product",
+  },
+  {
+    id: "Physical product",
+    value: "Physical product",
+  },
+  {
+    id: "Service",
+    value: "Service",
+  },
+];
 
 const UoM = [
   {
@@ -72,14 +91,45 @@ const fullfillmentSwitchs = [
   },
 ];
 
+interface IMenuItem {
+  id: string;
+  value: string;
+}
+
 interface IGeneral {
   isTrue?: boolean;
   nameRef?: any;
   editable?: boolean;
+  data?: IGetByIdProductData;
 }
 
 function General(props: IGeneral) {
-  const { isTrue, nameRef, editable } = props;
+  const { isTrue, nameRef, editable, data } = props;
+
+  const { category } = useCategory();
+  const { brand } = useBrand();
+
+  const { values, handleChange, setFieldValue } = useFormik({
+    initialValues: {
+      productName: data?.name || "",
+      productType: data?.type || "",
+      productDescription: data?.description || "",
+      productCategory: data?.categoryId || "",
+      productTags: data?.tags || "",
+      productBrand: data?.brandId || "",
+      UoM: data?.uom || "",
+      productHeight: data?.height || "",
+      productWidth: data?.width || "",
+      productLength: data?.length || "",
+      productWeight: data?.weight || "",
+      strategy: data?.strategy || "",
+      minExpiryDays: data?.expiryDays || "",
+    },
+    onSubmit: () => {},
+  });
+
+  console.log(values);
+
   return (
     <Grid container padding={0} spacing={2}>
       <Grid item xs={8}>
@@ -97,18 +147,22 @@ function General(props: IGeneral) {
                 name="productName"
                 nameRef={nameRef}
                 size="small"
-                value="Watches"
-                onChange={() => {}}
+                value={values.productName}
+                onChange={handleChange("productName")}
               />
 
               <TextField
+                isSelect
                 disabled={isTrue}
                 id="productType"
                 label="Type"
+                menuItems={detailMenu}
                 name="productType"
                 size="small"
-                value="Not Provided"
-                onChange={() => {}}
+                value={values.productType}
+                onSelectHandler={(e) => {
+                  setFieldValue("productType", e.target.value);
+                }}
               />
             </Stack>
             <Stack direction="row" gap={2} marginTop={2}>
@@ -120,8 +174,8 @@ function General(props: IGeneral) {
                 name="productDescription"
                 rows={3}
                 size="small"
-                value="some other details"
-                onChange={() => {}}
+                value={values.productDescription}
+                onChange={handleChange("productDescription")}
               />
             </Stack>
           </CustomCardContent>
@@ -129,22 +183,28 @@ function General(props: IGeneral) {
           <CustomCardContent title="Organization">
             <Stack direction="row" gap={2}>
               <TextField
+                isSelect
                 disabled={isTrue}
                 id="productCategory"
                 label="Category"
+                menuItems={category}
                 name="productCategory"
                 size="small"
-                value="Not Provided"
-                onChange={() => {}}
+                value={values.productCategory}
+                onChange={handleChange("productCategory")}
               />
               <TextField
+                isSelect
                 disabled={isTrue}
                 id="productBrand"
                 label="Brand"
+                menuItems={brand}
                 name="productBrand"
                 size="small"
-                value="0"
-                onChange={() => {}}
+                value={values.productBrand}
+                onSelectHandler={(e) => {
+                  setFieldValue("productBrand", e.target.value);
+                }}
               />
             </Stack>
 
@@ -155,8 +215,8 @@ function General(props: IGeneral) {
                 label="Tags"
                 name="productTags"
                 size="small"
-                value="Active"
-                onChange={() => {}}
+                value={values.productTags}
+                onChange={handleChange("productTags")}
               />
             </Stack>
           </CustomCardContent>
@@ -168,8 +228,10 @@ function General(props: IGeneral) {
               menuItems={UoM}
               name="UoM"
               size="small"
-              value={UoM[0].id}
-              onSelectHandler={() => {}}
+              value={values.UoM}
+              onSelectHandler={(e) => {
+                setFieldValue("UoM", e.target.value);
+              }}
             />
           </CustomCardContent>
         </Card>
@@ -217,8 +279,13 @@ function General(props: IGeneral) {
                 label="Height"
                 name="productHeight"
                 size="small"
-                value="Height in cm"
-                onChange={() => {}}
+                value={values.productHeight}
+                onChange={(e) => {
+                  setFieldValue(
+                    "productHeight",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
               <TextField
                 disabled={isTrue}
@@ -226,8 +293,13 @@ function General(props: IGeneral) {
                 label="Width"
                 name="productWidth"
                 size="small"
-                value="Width in cm"
-                onChange={() => {}}
+                value={values.productWidth}
+                onChange={(e) => {
+                  setFieldValue(
+                    "productWidth",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
             </Stack>
 
@@ -238,8 +310,13 @@ function General(props: IGeneral) {
                 label="Length"
                 name="productLength"
                 size="small"
-                value="Length in cm"
-                onChange={() => {}}
+                value={values.productLength}
+                onChange={(e) => {
+                  setFieldValue(
+                    "productLength",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
               <TextField
                 disabled={isTrue}
@@ -247,8 +324,13 @@ function General(props: IGeneral) {
                 label="Weight"
                 name="productWeight"
                 size="small"
-                value="Weight in kg"
-                onChange={() => {}}
+                value={values.productWeight}
+                onChange={(e) => {
+                  setFieldValue(
+                    "productWeight",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
             </Stack>
           </CustomCardContent>
@@ -261,8 +343,10 @@ function General(props: IGeneral) {
                 menuItems={strategys}
                 name="strategy"
                 size="small"
-                value={strategys[0].id}
-                onSelectHandler={() => {}}
+                value={values.strategy}
+                onSelectHandler={(e) => {
+                  setFieldValue("strategy", e.target.value);
+                }}
               />
             </Stack>
             <Stack direction="row" gap={2} marginTop={2}>
@@ -272,8 +356,13 @@ function General(props: IGeneral) {
                 label="Min Expiry Days"
                 name="minExpiryDays"
                 size="small"
-                value="0"
-                onChange={() => {}}
+                value={values.minExpiryDays}
+                onChange={(e) => {
+                  setFieldValue(
+                    "minExpiryDays",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
             </Stack>
 
@@ -290,7 +379,10 @@ function General(props: IGeneral) {
                 })
               : fullfillmentSwitchs.map((item) => {
                   return (
-                    <Typography sx={{ fontSize: "14px", color: "#9ea1b6" }}>
+                    <Typography
+                      key={item.id}
+                      sx={{ fontSize: "14px", color: "#9ea1b6" }}
+                    >
                       {item.value}
                     </Typography>
                   );

@@ -33,8 +33,9 @@ export async function addCategory(
 export async function editCategory(
   request: EditCategoryRequestRoot,
 ): Promise<EditCategoryResponseRoot> {
+  console.log("request>>", request);
   const URL = `${API_URLS.EDIT_CATEGORY}`;
-  return client.post(URL, request);
+  return client.put(URL, request);
 }
 
 export async function getByIdCategory(id: number) {

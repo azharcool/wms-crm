@@ -42,6 +42,8 @@ function useCategoriesAction() {
     data: EditCategoryRequestRoot,
   ): Promise<boolean> => {
     try {
+      console.log("edit category called");
+      console.log("EditCategoryRequestRoot>>", data);
       const response = await editCategory(data);
       if (response.statusCode === 200) {
         queryClient.invalidateQueries([QueryKeys.getAllCategories]);
@@ -49,6 +51,7 @@ function useCategoriesAction() {
           title: response.message,
           type: "success",
         });
+        return true;
       }
       return true;
     } catch (error: any) {
@@ -56,6 +59,7 @@ function useCategoriesAction() {
         title: error.message,
         type: "error",
       });
+      console.log("error>>", error);
       return false;
     }
   };

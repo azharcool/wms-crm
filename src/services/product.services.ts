@@ -2,6 +2,7 @@ import { IResponse } from "constants/interfaces";
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { IAddProductResponseRoot } from "types/catalog/products/addProductResponse";
 import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
+import { IGetByIdProductRoot } from "types/catalog/products/getByIdProductResponse";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
@@ -28,7 +29,7 @@ export async function editProduct(request: EditProductRequestRoot) {
   return client.post(URL, request);
 }
 
-export async function getByIdProduct(id: number) {
+export async function getByIdProduct(id: number): Promise<IGetByIdProductRoot> {
   const URL = `${API_URLS.GET_BY_ID_PRODUCT}?id=${id}`;
   return client.get(URL);
 }

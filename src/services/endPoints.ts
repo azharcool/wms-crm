@@ -11,9 +11,11 @@ const endPoints = {
   add: "add",
   edit: "edit",
   delete: "delete",
+  put: "put",
   getAll: "getall",
   getAllPagination: "getall-pagination",
   bulkDelete: "Bulkdelete",
+
   // team endpoints
   addUser: "add-user",
   editUser: "edit-user",
@@ -185,6 +187,8 @@ const API_URLS = {
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
+  GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
+  PUT_BRAND: `brand/${endPoints.edit}`,
 
   // bundle
   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,

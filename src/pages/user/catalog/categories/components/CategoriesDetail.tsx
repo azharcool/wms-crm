@@ -7,17 +7,16 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import { FormikHelpers } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
+import useCategory from "hooks/catalog/categories/useCategory";
 import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
 import useDecodedData from "hooks/useDecodedData";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
-import useEditCategoriesForm, {
-  EditCategoriesForm,
-} from "../hooks/useEditCategoriesForm";
+import { EditCategoriesForm } from "../hooks/useEditCategoriesForm";
 
 const detailMenu = [
   {
@@ -48,6 +47,7 @@ function CategoriesDetail() {
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
+  const { category } = useCategory();
   const [editable, setEditable] = useState(false);
   const { categoryId } = useParams();
   const { data: categoryItemResponse } = useGetByIdCategory({
@@ -56,39 +56,56 @@ function CategoriesDetail() {
   const userDecoded = useDecodedData();
   const { editCategoryAction } = useCategoriesAction();
 
-  console.log("categoryItemResponse>>", categoryItemResponse);
-
-  const initialValues: EditCategoriesForm = {
-    parentCategoryId: categoryItemResponse?.data.parentCategoryId,
-    position: categoryItemResponse?.data.position,
-    tag: categoryItemResponse?.data.tag,
-    name: categoryItemResponse?.data.name,
-    slug: categoryItemResponse?.data.slug,
-    detail: categoryItemResponse?.data.detail,
-    status: categoryItemResponse?.data.status,
-  };
-
-  const categoryForm = useEditCategoriesForm({
-    onSubmit,
-    initialValues,
-  });
-
-  console.log("values>>", categoryForm.values);
+  // console.log("categoryItemResponse>>", categoryItemResponse);
 
   const {
-    touched,
-    errors,
     values,
     handleChange,
-    handleBlur,
     setFieldValue,
+    touched,
+    errors,
+    handleBlur,
     handleSubmit,
-  } = categoryForm;
+  } = useFormik({
+    initialValues: {
+      parentCategoryId: "",
+      position: "",
+      tag: "",
+      name: "",
+      slug: "",
+      detail: "",
+      status: "",
+    },
+    onSubmit,
+  });
+
+  // console.log("values>>", values);
+  useEffect(() => {
+    if (categoryItemResponse?.data) {
+      setFieldValue(
+        "parentCategoryId",
+        String(categoryItemResponse?.data.parentCategoryId) || "",
+      );
+      setFieldValue(
+        "position",
+        String(categoryItemResponse?.data.position) || "",
+      );
+      setFieldValue("tag", categoryItemResponse?.data.tag || "");
+      setFieldValue("name", categoryItemResponse?.data.name || "");
+      setFieldValue("slug", categoryItemResponse?.data.slug || "");
+      setFieldValue("detail", categoryItemResponse?.data.detail || "");
+      setFieldValue(
+        "status",
+        categoryItemResponse?.data.status === 2 ? "Active" : "Inactive" || "",
+      );
+    }
+  }, [categoryItemResponse?.data, setFieldValue]);
 
   async function onSubmit(
     values: EditCategoriesForm,
     _: FormikHelpers<EditCategoriesForm>,
   ) {
+    console.log("submit called");
     const data: EditCategoryRequestRoot = {
       id: categoryItemResponse?.data.id,
       userId: Number(userDecoded.id),
@@ -101,9 +118,9 @@ function CategoriesDetail() {
       status: Number(values.status === "Active" ? "1" : "2"),
     };
     const response = await editCategoryAction(data);
-    // if (response) {
-    //   setCategoryId(response);
-    // }
+    if (response) {
+      setEditable(false);
+    }
   }
 
   const lightTheme = createTheme({
@@ -148,7 +165,6 @@ function CategoriesDetail() {
       title: "Cancel",
       onClick: () => {
         setEditable(false);
-        // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);
       },
       icon: (
         <ArrowBackIosIcon
@@ -181,9 +197,8 @@ function CategoriesDetail() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        setEditable(false);
         handleSubmit();
-        // navigate(-1);
+        navigate(-1);
       },
       icon: (
         <SaveIcon
@@ -202,10 +217,12 @@ function CategoriesDetail() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "CATAGORIES", to: "/Watches" }]}
+          breadcrumbs={[
+            { link: "CATAGORIES", to: categoryItemResponse?.data.name },
+          ]}
           buttonText="Save"
           handleClick={() => {
-            handleSubmit();
+            // handleSubmit();
           }}
           rightActions={
             editable
@@ -267,7 +284,7 @@ function CategoriesDetail() {
                     disabled={istrue}
                     id="parentCategoryId"
                     label="Parent"
-                    menuItems={detailMenu}
+                    menuItems={category}
                     name="parentCategoryId"
                     size="small"
                     value={values.parentCategoryId}
