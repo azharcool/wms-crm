@@ -36,6 +36,7 @@ const AppRoutes = {
     unitHistory: "unit-history",
     productCreate: "create",
     variantsDetails: "variantsDetails",
+    brandDetails: "brandDetails",
   },
 
   // Purchase

@@ -7,21 +7,41 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
+import { FormikHelpers } from "formik";
+import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
+import useBrandDetailsForm, {
+  IBrandDetail,
+} from "hooks/catalog/brand/useBrandDetailsForm";
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { addBrandDetail } from "services/brand.services";
+import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 
-function CategoriesDetail() {
-  const newtheme = useSelector((state: any) => state.theme);
+function BrandDetails() {
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
+  const { brandId } = useParams();
   const [editable, setEditable] = useState(false);
-  const { categoryId } = useParams();
-  const { data: categoryItemResponse } = useGetByIdCategory({
-    categoryId: Number(categoryId),
+  const userDecoded = useDecodedData();
+  const { data: brandItemResponse } = useGetByIdBrand({
+    brandId: Number(brandId),
   });
-  // console.log("categoryItemResponse", categoryItemResponse);
+
+  console.log("brandItemResponse", brandItemResponse);
+
+  const newtheme = useSelector((state: any) => state.theme);
+
+  const initialValues: IBrandDetail = {
+    id: brandItemResponse?.data?.id || 0,
+    userId: 0,
+    name: brandItemResponse?.data?.name || "",
+    slug: brandItemResponse?.data?.slug || "",
+    image: "string",
+    fileUrl: "string",
+  };
 
   const lightTheme = createTheme({
     palette: {
@@ -99,7 +119,8 @@ function CategoriesDetail() {
       title: "Save",
       onClick: () => {
         setEditable(false);
-        navigate(-1);
+        // navigate(-1);
+        handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -112,13 +133,65 @@ function CategoriesDetail() {
     },
   ];
 
+  const formik = useBrandDetailsForm(onSubmit, initialValues);
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+    isSubmitting,
+  } = formik;
+
+  const { addBrandDetailFunc } = useBrandDetail();
+
+  const handle = () => {
+    const body: IAddBrandRequestRoot = {
+      // id: brandItemResponse?.data?.id,
+      userId: userDecoded?.id,
+      name: values.name,
+      slug: values.slug,
+    };
+    addBrandDetail(body);
+  };
+
+  async function onSubmit(
+    values: IBrandDetail,
+    _: FormikHelpers<IBrandDetail>,
+  ) {
+    const data: IAddBrandRequestRoot = {
+      userId: Number(userDecoded.id),
+      id: brandItemResponse?.data?.id,
+      name: values.name,
+      // type: values.type || detailMenu[0].value || "",
+      // description: values.description || "",
+      // supplyPrice: Number(values.supply),
+      slug: values.slug,
+      // strategy: values.strategy,
+      // quantity: Number(values.quantity) || 0,
+      // barcodeStrategy: values.uniqueBarcoding,
+      // trackExpiryDates: values.trackExpiryDates,
+    };
+    const response = await addBrandDetail(data);
+    if (response.statusCode === 200) {
+      // setBrandId(response);
+      // navigate(AppRoutes.CATALOG.brands);
+      //   handleClose();
+      //   queryClient.invalidateQueries([QueryKeys.getAllBrand]);
+    }
+  }
+
   const istrue = !editable;
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "CATAGORIES", to: "/Watches" }]}
+          breadcrumbs={[{ link: "CATAGORIES", to: "/BrandDetails" }]}
           buttonText="Save"
           handleClick={() => {
             // navigate(AppRoutes.CATALOG.CategoriesDetail);
@@ -128,7 +201,7 @@ function CategoriesDetail() {
               ? rightActionsData.filter((i) => i.title !== "Edit")
               : rightActionsData.filter((i) => i.title === "Edit")
           }
-          title="Watches"
+          title="BrandDetails"
         />
 
         <Grid container marginTop={2} spacing={2}>
@@ -139,80 +212,32 @@ function CategoriesDetail() {
               }}
             >
               <CustomCardContent title="Details">
-                <Stack direction="row" gap={2}>
+                <Stack direction="column" gap={2}>
                   <TextField
                     disabled={istrue}
+                    error={!!touched.name && !!errors.name}
+                    helperText={(touched.name && errors && errors.name) || ""}
                     id="categoryName"
                     label="Name"
                     name="categoryName"
                     nameRef={nameRef}
                     size="small"
-                    value={categoryItemResponse?.data.name}
-                    onChange={() => {}}
+                    value={values.name}
+                    onBlur={handleBlur("name")}
+                    onChange={handleChange("name")}
                   />
 
                   <TextField
                     disabled={istrue}
+                    error={!!touched.name && !!errors.name}
+                    helperText={(touched.name && errors && errors.name) || ""}
                     id="categoySlug"
                     label="Slug"
                     name="categoySlug"
                     size="small"
-                    value={categoryItemResponse?.data.slug}
-                    onChange={() => {}}
-                  />
-
-                  <TextField
-                    disabled={istrue}
-                    id="categoyDetail"
-                    label="Detail"
-                    name="categoyDetail"
-                    size="small"
-                    value={categoryItemResponse?.data.slug}
-                    onChange={() => {}}
-                  />
-                </Stack>
-              </CustomCardContent>
-
-              <CustomCardContent title="Organization">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    disabled={istrue}
-                    id="categoryParent"
-                    label="Parent"
-                    name="categoryParent"
-                    size="small"
-                    value={categoryItemResponse?.data.parentCategoryId}
-                    onChange={() => {}}
-                  />
-                  <TextField
-                    disabled={istrue}
-                    id="categoyPosition"
-                    label="Positon"
-                    name="categoyPosition"
-                    size="small"
-                    value={categoryItemResponse?.data.position}
-                    onChange={() => {}}
-                  />
-                </Stack>
-
-                <Stack direction="row" gap={2} marginTop={2}>
-                  <TextField
-                    disabled={istrue}
-                    id="categoryStatus"
-                    label="Status"
-                    name="categoryStatus"
-                    size="small"
-                    value={categoryItemResponse?.data.status}
-                    onChange={() => {}}
-                  />
-                  <TextField
-                    disabled={istrue}
-                    id="categoyTags"
-                    label="Tags"
-                    name="categoyTags"
-                    size="small"
-                    value={categoryItemResponse?.data.tag}
-                    onChange={() => {}}
+                    value={values.slug}
+                    onBlur={handleBlur("slug")}
+                    onChange={handleChange("slug")}
                   />
                 </Stack>
               </CustomCardContent>
@@ -261,4 +286,4 @@ function CategoriesDetail() {
   );
 }
 
-export default CategoriesDetail;
+export default BrandDetails;

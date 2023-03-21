@@ -5,6 +5,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
 
+import brand from "./catalog/brandSlice";
 import category from "./catalog/categorySlice";
 import product from "./catalog/productSlice";
 import common from "./common/common";
@@ -30,6 +31,7 @@ const combinedReducer = combineReducers({
   theme,
   product,
   category,
+  brand,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
