@@ -56,8 +56,6 @@ function CategoriesDetail() {
   const userDecoded = useDecodedData();
   const { editCategoryAction } = useCategoriesAction();
 
-  // console.log("categoryItemResponse>>", categoryItemResponse);
-
   const {
     values,
     handleChange,
@@ -79,7 +77,6 @@ function CategoriesDetail() {
     onSubmit,
   });
 
-  // console.log("values>>", values);
   useEffect(() => {
     if (categoryItemResponse?.data) {
       setFieldValue(
@@ -105,7 +102,6 @@ function CategoriesDetail() {
     values: EditCategoriesForm,
     _: FormikHelpers<EditCategoriesForm>,
   ) {
-    console.log("submit called");
     const data: EditCategoryRequestRoot = {
       id: categoryItemResponse?.data.id,
       userId: Number(userDecoded.id),
