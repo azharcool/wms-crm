@@ -1,3 +1,4 @@
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import DeleteIcon from "@mui/icons-material/Delete";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import {
@@ -15,13 +16,15 @@ import {
 } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
+import CustomModal from "components/layouts/popup-modals/CustomModal";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
+import { useFormik } from "formik";
 import useVariantAction from "hooks/catalog/variant/useVariantAction";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
+import { SyntheticEvent, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -111,18 +114,156 @@ interface IVariantItem {
 
 interface IAddVariant {
   open: boolean;
-  handleClose: () => void;
+  handleClose: (_?: "open") => void;
   productId: string;
 }
+
+interface IDimension {
+  weight: string;
+  width: string;
+  height: string;
+  length: string;
+}
+
+type HandleEvent = {
+  e: SyntheticEvent;
+  id: string;
+  status: "number" | "";
+};
+
+interface IDimensionModal {
+  open: boolean;
+  handleClose: () => void;
+  handleSubmit: (_: IDimension) => void;
+}
+function DimensionModal(props: IDimensionModal) {
+  const { open, handleClose, handleSubmit } = props;
+  const formik = useFormik({
+    initialValues: {
+      weight: "",
+      width: "",
+      height: "",
+      length: "",
+    },
+    onSubmit: (values) => {
+      handleSubmit(values);
+    },
+  });
+  return (
+    <CustomModal handleClose={handleClose} open={open}>
+      <CustomCardContent title="Set weight and dimensions">
+        <Stack direction="row" gap={2}>
+          <TextField
+            id="weight"
+            label="Weight"
+            name="weight"
+            value={formik.values.weight}
+            onChange={(e) => {
+              formik.setFieldValue(
+                "weight",
+                e.target.value.replace(/[^0-9]/g, ""),
+              );
+            }}
+          />
+          <TextField
+            id="width"
+            label="Width"
+            name="width"
+            value={formik.values.width}
+            onChange={(e) => {
+              formik.setFieldValue(
+                "width",
+                e.target.value.replace(/[^0-9]/g, ""),
+              );
+            }}
+          />
+        </Stack>
+        <Stack direction="row" gap={2}>
+          <TextField
+            id="height"
+            label="Height"
+            name="height"
+            value={formik.values.height}
+            onChange={(e) => {
+              formik.setFieldValue(
+                "height",
+                e.target.value.replace(/[^0-9]/g, ""),
+              );
+            }}
+          />
+          <TextField
+            id="length"
+            label="Length"
+            name="length"
+            value={formik.values.length}
+            onChange={(e) => {
+              formik.setFieldValue(
+                "length",
+                e.target.value.replace(/[^0-9]/g, ""),
+              );
+            }}
+          />
+        </Stack>
+        <Stack direction="row" gap={2}>
+          <Button
+            startIcon={<ArrowBackIosIcon />}
+            sx={{
+              borderColor: "#8B0000",
+              color: "#8B0000",
+              width: "50%",
+              boxShadow: "none",
+              ":hover": {
+                boxShadow: "none",
+                borderColor: "#8B0000",
+                opacity: 0.6,
+                color: "#8B0000",
+              },
+            }}
+            variant="outlined"
+            onClick={() => handleClose()}
+          >
+            Cancel
+          </Button>
+          <Button
+            sx={{
+              width: "50%",
+              backgroundColor: palette.warning.dark,
+              boxShadow: "none",
+              "&:hover": {
+                backgroundColor: palette.warning.dark,
+                opacity: 0.6,
+                boxShadow: "none",
+              },
+            }}
+            variant="contained"
+            onClick={() => formik.handleSubmit()}
+          >
+            Done
+          </Button>
+        </Stack>
+      </CustomCardContent>
+    </CustomModal>
+  );
+}
+
 function AddVariant(props: IAddVariant) {
   const { open, handleClose, productId } = props;
   const [variants, setVariants] = useState<IVariant[]>([]);
   const [items, setItems] = useState<IVariantItem[]>([]);
+  const [openModal, setOpenModal] = useState("");
 
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
 
   const { addVariantAction } = useVariantAction();
+
+  const handleModal = (status?: string) => {
+    if (status) {
+      setOpenModal(status);
+      return;
+    }
+    setOpenModal("");
+  };
 
   async function onSubmit() {
     const options = variants.map((item) => {
@@ -153,6 +294,7 @@ function AddVariant(props: IAddVariant) {
         enable: true,
       };
     });
+
     const data: IAddVariantRequestRoot = {
       variantt,
       option: options,
@@ -168,6 +310,25 @@ function AddVariant(props: IAddVariant) {
   const handleDeleteVariantById = (id: string) => {
     const filterVariants = variants.filter((i) => i.id !== id);
     setVariants(filterVariants);
+  };
+
+  const handleSubmit = (values: IDimension) => {
+    const newItems = items.map((i) => {
+      if (i.id === openModal) {
+        return {
+          ...i,
+          weightAndDimensions: {
+            height: values.height,
+            width: values.width,
+            lenght: values.length,
+            weight: values.weight,
+          },
+        };
+      }
+      return i;
+    });
+    setItems(newItems);
+    handleModal();
   };
 
   const handleAddVariants = () => {
@@ -206,6 +367,22 @@ function AddVariant(props: IAddVariant) {
 
     return output;
   }
+
+  const handleItem = ({ e, id, status }: HandleEvent) => {
+    const target = e.target as HTMLInputElement;
+    const value =
+      status === "number" ? target.value.replace(/[^0-9]/g, "") : target.value;
+    const newItems = items.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          [target.name]: value,
+        };
+      }
+      return item;
+    });
+    setItems(newItems);
+  };
 
   return (
     <Slider
@@ -561,7 +738,9 @@ function AddVariant(props: IAddVariant) {
                               name="sku"
                               size="small"
                               value={item.sku}
-                              onChange={() => {}}
+                              onChange={(e) =>
+                                handleItem({ e, id: item.id, status: "" })
+                              }
                             />
                           </TableCell>
 
@@ -576,7 +755,9 @@ function AddVariant(props: IAddVariant) {
                               name="barcode"
                               size="small"
                               value={item.barcode}
-                              onChange={() => {}}
+                              onChange={(e) =>
+                                handleItem({ e, id: item.id, status: "" })
+                              }
                             />
                           </TableCell>
 
@@ -598,7 +779,10 @@ function AddVariant(props: IAddVariant) {
                               id="supplyPrice"
                               name="supplyPrice"
                               size="small"
-                              onChange={() => {}}
+                              value={item.supplyPrice}
+                              onChange={(e) =>
+                                handleItem({ e, id: item.id, status: "number" })
+                              }
                             />
                           </TableCell>
                           <TableCell
@@ -619,7 +803,9 @@ function AddVariant(props: IAddVariant) {
                               id="mrp"
                               name="mrp"
                               size="small"
-                              onChange={() => {}}
+                              onChange={(e) =>
+                                handleItem({ e, id: item.id, status: "number" })
+                              }
                             />
                           </TableCell>
 
@@ -633,22 +819,25 @@ function AddVariant(props: IAddVariant) {
                               id="retailPrice"
                               name="retailPrice"
                               size="small"
-                              onChange={() => {}}
+                              onChange={(e) =>
+                                handleItem({ e, id: item.id, status: "number" })
+                              }
                             />
                           </TableCell>
 
                           <TableCell
                             sx={{
                               minWidth: "200px",
+                              textAlign: "center",
                             }}
                           >
-                            <TextField
-                              icon={<Typography>INR</Typography>}
-                              id="wt-dimension"
-                              name="wt-dimension"
-                              size="small"
-                              onChange={() => {}}
-                            />
+                            <Button
+                              onClick={() => {
+                                handleModal(item.id);
+                              }}
+                            >
+                              <ModeEditIcon />
+                            </Button>
                           </TableCell>
                           <TableCell>
                             <Button>
@@ -669,6 +858,13 @@ function AddVariant(props: IAddVariant) {
           </CustomCardContent>
         </Box>
       </PerfectScrollbar>
+      {openModal ? (
+        <DimensionModal
+          handleClose={() => handleModal()}
+          handleSubmit={handleSubmit}
+          open={Boolean(openModal)}
+        />
+      ) : null}
     </Slider>
   );
 }
