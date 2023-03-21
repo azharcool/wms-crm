@@ -24,9 +24,11 @@ export async function addProduct(
   return client.post(URL, request);
 }
 
-export async function editProduct(request: EditProductRequestRoot) {
+export async function editProduct(
+  request: EditProductRequestRoot,
+): Promise<IResponse> {
   const URL = `${API_URLS.EDIT_PRODUCT}`;
-  return client.post(URL, request);
+  return client.put(URL, request);
 }
 
 export async function getByIdProduct(id: number): Promise<IGetByIdProductRoot> {
