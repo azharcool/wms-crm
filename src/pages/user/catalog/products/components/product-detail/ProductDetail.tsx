@@ -13,10 +13,13 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
+import { useFormik } from "formik";
+import useProductAction from "hooks/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
 import General from "./General";
 import Variants from "./Variants";
 // import AddVariant from "../AddVariant";
@@ -54,6 +57,7 @@ function ProductDetail() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const { productId } = useParams();
+  const { editProductAction } = useProductAction();
   const { data: productItemResponse } = useGetByIdProduct({
     productId: Number(productId),
   });
@@ -65,6 +69,44 @@ function ProductDetail() {
   const lightTheme = createTheme({
     palette: {
       mode: "light",
+    },
+  });
+  const formik = useFormik({
+    initialValues: {
+      productName: "",
+      productType: "",
+      productDescription: "",
+      productCategory: "",
+      productTags: "",
+      productBrand: "",
+      UoM: "",
+      productHeight: "",
+      productWidth: "",
+      productLength: "",
+      productWeight: "",
+      strategy: "",
+      minExpiryDays: "",
+    },
+    onSubmit: async (values) => {
+      const editData: EditProductRequestRoot = {
+        id: productItemResponse?.data?.id || 0,
+        name: values.productName,
+        type: values.productType,
+        description: values.productDescription,
+        tags: values.productTags,
+        brandId: Number(values.productBrand),
+        uom: Number(values.UoM),
+        height: Number(values.productHeight),
+        width: Number(values.productWidth),
+        length: Number(values.productLength),
+        weight: Number(values.productWeight),
+        strategy: values.strategy,
+        expiryDays: Number(values.minExpiryDays),
+      };
+      const response = await editProductAction(editData);
+      if (response) {
+        formik.resetForm();
+      }
     },
   });
 
@@ -184,6 +226,7 @@ function ProductDetail() {
           <General
             data={productItemResponse?.data}
             editable={editable}
+            formik={formik}
             isTrue={istrue}
             nameRef={nameRef}
           />
