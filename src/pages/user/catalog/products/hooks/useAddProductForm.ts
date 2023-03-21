@@ -23,6 +23,9 @@ export interface AddProductForm {
   trackSerialNumbers: boolean;
   trackExpiryDates: boolean;
   syncSupplyPrice: boolean;
+  supplyPrice: string;
+  maximumRetailPrice: string;
+  retailPrice: string;
 }
 
 interface IuseAddProductForm {
@@ -61,6 +64,9 @@ const deafultValues: AddProductForm = {
   trackSerialNumbers: false,
   trackExpiryDates: false,
   syncSupplyPrice: false,
+  supplyPrice: "",
+  maximumRetailPrice: "",
+  retailPrice: "",
 };
 function useAddProductForm({
   onSubmit,

@@ -134,7 +134,9 @@ function TextField(props: Props) {
         />
       ) : (
         <>
-          <InputLabel id={id}>{label}</InputLabel>
+          <InputLabel id={id} size="small">
+            {label}
+          </InputLabel>
           <Select
             // displayEmpty
             className={className}
@@ -143,6 +145,11 @@ function TextField(props: Props) {
             id={id}
             label={label}
             labelId={id}
+            MenuProps={{
+              sx: {
+                maxHeight: "300px",
+              },
+            }}
             size={size}
             sx={{
               boxShadow: "none",

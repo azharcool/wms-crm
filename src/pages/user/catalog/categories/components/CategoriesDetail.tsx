@@ -7,16 +7,20 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function CategoriesDetail() {
+  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
-
-  const newtheme = useSelector((state: any) => state.theme);
+  const { categoryId } = useParams();
+  const { data: categoryItemResponse } = useGetByIdCategory({
+    categoryId: Number(categoryId),
+  });
 
   const lightTheme = createTheme({
     palette: {
@@ -142,7 +146,7 @@ function CategoriesDetail() {
                     name="categoryName"
                     nameRef={nameRef}
                     size="small"
-                    value="Watches"
+                    value={categoryItemResponse?.data.name}
                     onChange={() => {}}
                   />
 
@@ -152,7 +156,7 @@ function CategoriesDetail() {
                     label="Slug"
                     name="categoySlug"
                     size="small"
-                    value="Not Provided"
+                    value={categoryItemResponse?.data.slug}
                     onChange={() => {}}
                   />
 
@@ -162,7 +166,7 @@ function CategoriesDetail() {
                     label="Detail"
                     name="categoyDetail"
                     size="small"
-                    value="some other details"
+                    value={categoryItemResponse?.data.slug}
                     onChange={() => {}}
                   />
                 </Stack>
@@ -176,7 +180,7 @@ function CategoriesDetail() {
                     label="Parent"
                     name="categoryParent"
                     size="small"
-                    value="Not Provided"
+                    value={categoryItemResponse?.data.parentCategoryId}
                     onChange={() => {}}
                   />
                   <TextField
@@ -185,7 +189,7 @@ function CategoriesDetail() {
                     label="Positon"
                     name="categoyPosition"
                     size="small"
-                    value="0"
+                    value={categoryItemResponse?.data.position}
                     onChange={() => {}}
                   />
                 </Stack>
@@ -197,7 +201,7 @@ function CategoriesDetail() {
                     label="Status"
                     name="categoryStatus"
                     size="small"
-                    value="Active"
+                    value={categoryItemResponse?.data.status}
                     onChange={() => {}}
                   />
                   <TextField
@@ -206,7 +210,7 @@ function CategoriesDetail() {
                     label="Tags"
                     name="categoyTags"
                     size="small"
-                    value="0"
+                    value={categoryItemResponse?.data.tag}
                     onChange={() => {}}
                   />
                 </Stack>

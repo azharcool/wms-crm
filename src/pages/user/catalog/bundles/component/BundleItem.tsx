@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedBundleById } from "redux/catalog/bundleSelector";
 import { setBundleId } from "redux/catalog/bundleSlice";
+
 import { RootState, useAppDispatch } from "redux/store";
 import { IBundle } from "types/catalog/bundles/getBundleResponse";
 

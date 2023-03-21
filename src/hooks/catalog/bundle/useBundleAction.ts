@@ -1,5 +1,4 @@
 import { useSnackbar } from "components/snackbar";
-import useDecodedData from "hooks/useDecodedData";
 import { useQueryClient } from "react-query";
 import {
   addBundle,
@@ -11,7 +10,6 @@ import { QueryKeys } from "utils/QueryKeys";
 
 function useBundleAction() {
   const snackbar = useSnackbar();
-  const userDecoded = useDecodedData();
   const queryClient = useQueryClient();
 
   const addBundleAction = async (
