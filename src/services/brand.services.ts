@@ -29,7 +29,7 @@ export async function getByIdBrand(
   return client.get(URL);
 }
 
-export async function putBrandDetail(
+export async function addBrandDetail(
   body: IAddBrandRequestRoot,
 ): Promise<IGetBrandResponseRoot> {
   const URL = `${API_URLS.PUT_BRAND}`;

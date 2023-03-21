@@ -12,12 +12,12 @@ import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
 import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
-import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { putBrandDetail } from "services/brand.services";
+import { addBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 
 function BrandDetails() {
@@ -156,7 +156,7 @@ function BrandDetails() {
       name: values.name,
       slug: values.slug,
     };
-    putBrandDetail(body);
+    addBrandDetail(body);
   };
 
   async function onSubmit(
@@ -176,7 +176,7 @@ function BrandDetails() {
       // barcodeStrategy: values.uniqueBarcoding,
       // trackExpiryDates: values.trackExpiryDates,
     };
-    const response = await putBrandDetail(data);
+    const response = await addBrandDetail(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
       // navigate(AppRoutes.CATALOG.brands);

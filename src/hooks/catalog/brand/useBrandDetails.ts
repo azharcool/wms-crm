@@ -1,6 +1,6 @@
 import { useSnackbar } from "components/snackbar";
 import useDecodedData from "hooks/useDecodedData";
-import { putBrandDetail } from "services/brand.services";
+import { addBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 
 function useBrandDetail() {
@@ -11,7 +11,7 @@ function useBrandDetail() {
     data: IAddBrandRequestRoot,
   ): Promise<string> => {
     try {
-      const response = await putBrandDetail(data);
+      const response = await addBrandDetail(data);
       if (response.statusCode === 200) {
         snackbar?.show({
           title: response.message,
