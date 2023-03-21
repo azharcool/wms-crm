@@ -8,29 +8,37 @@ import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
+import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
 import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
+import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { BrandDetailAction } from "services/brand.services";
+import { useNavigate, useParams } from "react-router-dom";
+import { putBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 
 function BrandDetails() {
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
+  const { brandId } = useParams();
   const [editable, setEditable] = useState(false);
   const userDecoded = useDecodedData();
+  const { data: brandItemResponse } = useGetByIdBrand({
+    brandId: Number(brandId),
+  });
+
+  console.log("brandItemResponse", brandItemResponse);
 
   const newtheme = useSelector((state: any) => state.theme);
 
   const initialValues: IBrandDetail = {
-    id: 0,
+    id: brandItemResponse?.data?.id || 0,
     userId: 0,
-    name: "",
-    slug: "",
+    name: brandItemResponse?.data?.name || "",
+    slug: brandItemResponse?.data?.slug || "",
     image: "string",
     fileUrl: "string",
   };
@@ -139,12 +147,25 @@ function BrandDetails() {
     isSubmitting,
   } = formik;
 
+  const { addBrandDetailFunc } = useBrandDetail();
+
+  const handle = () => {
+    const body: IAddBrandRequestRoot = {
+      // id: brandItemResponse?.data?.id,
+      userId: userDecoded?.id,
+      name: values.name,
+      slug: values.slug,
+    };
+    putBrandDetail(body);
+  };
+
   async function onSubmit(
     values: IBrandDetail,
     _: FormikHelpers<IBrandDetail>,
   ) {
     const data: IAddBrandRequestRoot = {
       userId: Number(userDecoded.id),
+      id: brandItemResponse?.data?.id,
       name: values.name,
       // type: values.type || detailMenu[0].value || "",
       // description: values.description || "",
@@ -155,7 +176,7 @@ function BrandDetails() {
       // barcodeStrategy: values.uniqueBarcoding,
       // trackExpiryDates: values.trackExpiryDates,
     };
-    const response = await BrandDetailAction(data);
+    const response = await putBrandDetail(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
       // navigate(AppRoutes.CATALOG.brands);

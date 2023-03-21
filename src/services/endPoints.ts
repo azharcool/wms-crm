@@ -11,6 +11,7 @@ const endPoints = {
   add: "add",
   edit: "edit",
   delete: "delete",
+  put: "put",
   getAll: "getall",
   getAllPagination: "getall-pagination",
   bulkDelete: "Bulkdelete",
@@ -170,6 +171,10 @@ const API_URLS = {
   GET_ALL_CATEGORIES: `category/${endPoints.getAll}`,
   GET_ALL_PAGINATION_CATEGORIES: `category/${endPoints.getAllPagination}`,
   ADD_CATEGORY: `category/${endPoints.add}`,
+  BULK_DELETE_CATAGORY: `category/${endPoints.bulkDelete}`,
+  DELETE_CATEGORY: `category/${endPoints.delete}`,
+  GET_BY_ID_CATEGORY: `category/${endPoints.getbyid}`,
+
   // Variant
   GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,
   ADD_VARIANT: `variant/${endPoints.add}`,
@@ -181,7 +186,8 @@ const API_URLS = {
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
-  GET_BY_ID_PRODUCT_BRAND_DETAIL: `brand/${endPoints.getbyid}`,
+  GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
+  PUT_BRAND: `brand/${endPoints.edit}`,
 
   // bundle
   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,

@@ -2,7 +2,10 @@ import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getSelectedBrandById } from "redux/catalog/brandSelector";
+import { RootState } from "redux/store";
 import { IGetBrandResponseData } from "types/catalog/brands/getBrandResponse";
 
 interface IBrandItem {
@@ -12,6 +15,11 @@ interface IBrandItem {
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
   const navigate = useNavigate();
+
+  const getSelectedBrandByIdState = useSelector((state: RootState) =>
+    getSelectedBrandById(state, brandData.id),
+  );
+
   return (
     <TableRow>
       <TableCell
@@ -59,7 +67,7 @@ function BrandItem(props: IBrandItem) {
           background: "white",
         }}
         onClick={() => {
-          navigate(AppRoutes.CATALOG.brandDetails);
+          navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
         }}
       >
         <Typography sx={{ textDecoration: "underline" }}>

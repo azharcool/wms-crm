@@ -19,7 +19,7 @@ async function getAllActivitiesByContactId(id: number): Promise<IResponse> {
   return client.get(`${API_URLS.GET_ALL_ACTIVITIES}/${id}`);
 }
 async function getbyId(id: number) {
-  return client.get(`${API_URLS.GET_BY_ID_PRODUCT_BRAND_DETAIL}/${id}`);
+  return client.get(`${API_URLS.GET_BY_ID_BRAND}/${id}`);
 }
 
 async function totalCounts(id: number): Promise<IResponse> {

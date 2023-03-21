@@ -1,17 +1,17 @@
 import { useSnackbar } from "components/snackbar";
 import useDecodedData from "hooks/useDecodedData";
-import { BrandDetailAction } from "services/brand.services";
+import { putBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 
-function useBrandDetailAction() {
+function useBrandDetail() {
   const snackbar = useSnackbar();
   const userDecoded = useDecodedData();
 
-  const addBrandDetailActionFunc = async (
+  const addBrandDetailFunc = async (
     data: IAddBrandRequestRoot,
   ): Promise<string> => {
     try {
-      const response = await BrandDetailAction(data);
+      const response = await putBrandDetail(data);
       if (response.statusCode === 200) {
         snackbar?.show({
           title: response.message,
@@ -29,8 +29,8 @@ function useBrandDetailAction() {
   };
 
   return {
-    addBrandDetailActionFunc,
+    addBrandDetailFunc,
   };
 }
 
-export default useBrandDetailAction;
+export default useBrandDetail;

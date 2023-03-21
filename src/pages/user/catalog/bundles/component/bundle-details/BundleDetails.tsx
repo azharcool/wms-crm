@@ -30,10 +30,10 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
-      role="tabpanel"
+      aria-labelledby={`simple-tab-${index}`}
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      role="tabpanel"
       {...other}
     >
       {value === index && (
@@ -152,12 +152,12 @@ function BundleDetails() {
           handleClick={() => {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
+          navTitle="BUNDLES"
           rightActions={
             editable
               ? rightActionsData.filter((i) => i.title !== "Edit")
               : rightActionsData.filter((i) => i.title === "Edit")
           }
-          navTitle="BUNDLES"
           title="bundles"
         />
         <Stack direction="row">
@@ -170,10 +170,10 @@ function BundleDetails() {
             <Tab label="Composition" />
           </Tabs>
         </Stack>
-        <TabPanel value={value} index={0}>
+        <TabPanel index={0} value={value}>
           <General isTrue={istrue} />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel index={1} value={value}>
           <Composition isTrue={istrue} />
         </TabPanel>
       </Container>

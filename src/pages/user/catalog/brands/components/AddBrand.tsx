@@ -5,7 +5,7 @@ import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
 import useAddBrandForm, {
-  IAddBrand,
+  IAddBrand
 } from "hooks/catalog/brand/useAddBrandForm";
 
 import useBrandAction from "hooks/catalog/brand/useBrandAction";
@@ -41,8 +41,8 @@ function AddBrand(props: IAddBrands) {
     userId: 0,
     name: "",
     slug: "",
-    image: "string",
-    fileUrl: "string",
+    image: "",
+    fileUrl: "",
   };
 
   // const onSubmit = async (values: IAddBrand) => {

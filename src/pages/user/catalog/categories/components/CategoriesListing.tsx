@@ -12,6 +12,10 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
+import { getSelectedCategory } from "redux/catalog/categorySelector";
+import { setAllCategoryIds } from "redux/catalog/categorySlice";
+import { useAppDispatch } from "redux/store";
 import { IGetCategoriesResponseRoot } from "types/catalog/catagories/getCategoriesResponse";
 import CategoriesItem from "./CategoriesItem";
 
@@ -67,8 +71,23 @@ interface ICategoriesListing {
   data?: IGetCategoriesResponseRoot;
 }
 
+type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
 function CategoriesListing(props: ICategoriesListing) {
   const { data } = props;
+  const getSelectedCategoryIdsState = useSelector(getSelectedCategory);
+  const dispatch = useAppDispatch();
+
+  const selectAll = (event: IChangeEvent, checked: boolean) => {
+    if (data) {
+      dispatch(
+        setAllCategoryIds({
+          ids: data?.data.map((i) => i.id),
+          checked,
+        }),
+      );
+    }
+  };
 
   return (
     <PerfectScrollbar>
@@ -94,9 +113,11 @@ function CategoriesListing(props: ICategoriesListing) {
                     leftValue={0}
                   >
                     <Checkbox
-                      checked={false}
+                      checked={
+                        data?.data.length === getSelectedCategoryIdsState.length
+                      }
                       color="primary"
-                      onChange={() => {}}
+                      onChange={selectAll}
                     />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
@@ -122,9 +143,8 @@ function CategoriesListing(props: ICategoriesListing) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {/* <CategoriesItem /> */}
                 {data?.data?.map((item) => {
-                  return <CategoriesItem item={item} />;
+                  return <CategoriesItem key={item.id} item={item} />;
                 })}
               </TableBody>
             </Table>

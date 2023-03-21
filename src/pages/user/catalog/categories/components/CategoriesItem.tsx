@@ -1,8 +1,13 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getSelectedCategoryById } from "redux/catalog/categorySelector";
+import { setCategoryId } from "redux/catalog/categorySlice";
+import { RootState, useAppDispatch } from "redux/store";
 import { IGetCategoriesResponseData } from "types/catalog/catagories/getCategoriesResponse";
 
 interface ICategoriesItem {
@@ -12,9 +17,15 @@ interface ICategoriesItem {
 function CategoriesItem(props: ICategoriesItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const { deleteCategoryAsync } = useCategoriesAction();
+  const getSelectedCategoryByIdState = useSelector((state: RootState) =>
+    getSelectedCategoryById(state, item.id),
+  );
 
-  const handleItemClick = () => {
-    navigate(`${AppRoutes.CATALOG.categoryDetail}/${123}`);
+  const dispatch = useAppDispatch();
+
+  const select = () => {
+    dispatch(setCategoryId(item.id));
   };
 
   return (
@@ -29,7 +40,11 @@ function CategoriesItem(props: ICategoriesItem) {
           background: "white",
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
+        <Checkbox
+          checked={getSelectedCategoryByIdState}
+          color="primary"
+          onChange={select}
+        />
       </TableCell>
       <TableCell
         sx={{
@@ -63,7 +78,9 @@ function CategoriesItem(props: ICategoriesItem) {
           background: "white",
           cursor: "pointer",
         }}
-        onClick={() => handleItemClick()}
+        onClick={() => {
+          navigate(`${AppRoutes.CATALOG.categoryDetail}/${item.id}`);
+        }}
       >
         {item?.name}
       </TableCell>
@@ -117,7 +134,11 @@ function CategoriesItem(props: ICategoriesItem) {
           background: "white",
         }}
       >
-        <TableActionButton />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteCategoryAsync(item.id);
+          }}
+        />
       </TableCell>
     </TableRow>
   );
