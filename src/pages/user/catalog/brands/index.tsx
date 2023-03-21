@@ -2,16 +2,19 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, Card, CardContent, Container } from "@mui/material";
 
 import TableToolbar from "components/table-toolbar";
+import useBrandAction from "hooks/catalog/brand/useBrandAction";
 import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useQueryClient } from "react-query";
-import { QueryKeys } from "utils/QueryKeys";
+import { useSelector } from "react-redux";
+import { getSelectedBrand } from "redux/catalog/brandSelector";
 import AddBrand from "./components/AddBrand";
 import BrandListing from "./components/BrandListing";
 
 function Brands() {
   const queryClient = useQueryClient();
   const [openBrand, setOpenBrand] = useState(false);
+
   const [brandPagination, setBrandPagination] = useState({
     pageSize: 10,
     page: 1,
@@ -21,13 +24,9 @@ function Brands() {
     refetch,
     isLoading,
   } = useGetAllBrand(brandPagination);
+  const { bulkDeleteBrandAsync } = useBrandAction();
 
-  useEffect(() => {
-    if (brandData?.data) {
-      queryClient.invalidateQueries([QueryKeys.getAllBrand]);
-    }
-  }, [brandData]);
-
+  const getSelectedBrandIdsState = useSelector(getSelectedBrand);
   const handleVariant = () => {
     setOpenBrand((s) => !s);
   };
@@ -37,6 +36,7 @@ function Brands() {
       <Card>
         <CardContent sx={{ paddingTop: 0 }}>
           <TableToolbar
+            hasBulk
             buttonText="New"
             handleClick={() => {
               // navigate(AppRoutes.CATALOG.productCreate);
@@ -60,7 +60,10 @@ function Brands() {
               },
             ]}
             title="Brands"
-            onBulkHandle={() => {}}
+            onBulkHandle={() => {
+              const ids = getSelectedBrandIdsState.toString();
+              bulkDeleteBrandAsync(ids);
+            }}
           />
           <Box sx={{ mt: 3 }}>
             <BrandListing data={brandData} />

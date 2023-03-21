@@ -165,23 +165,13 @@ function BrandDetails() {
   ) {
     const data: IAddBrandRequestRoot = {
       userId: Number(userDecoded.id),
-      id: brandItemResponse?.data?.id,
+      id: brandItemResponse?.data?.id || 0,
       name: values.name,
-      // type: values.type || detailMenu[0].value || "",
-      // description: values.description || "",
-      // supplyPrice: Number(values.supply),
       slug: values.slug,
-      // strategy: values.strategy,
-      // quantity: Number(values.quantity) || 0,
-      // barcodeStrategy: values.uniqueBarcoding,
-      // trackExpiryDates: values.trackExpiryDates,
     };
     const response = await addBrandDetail(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
-      // navigate(AppRoutes.CATALOG.brands);
-      //   handleClose();
-      //   queryClient.invalidateQueries([QueryKeys.getAllBrand]);
     }
   }
 

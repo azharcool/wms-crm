@@ -50,7 +50,6 @@ function TabPanel(props: TabPanelProps) {
 function ProductDetail() {
   const newtheme = useSelector((state: any) => state.theme);
   const nameRef = useRef<any>(null);
-  const [openVariant, setOpenVariant] = useState(false);
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
@@ -68,10 +67,6 @@ function ProductDetail() {
       mode: "light",
     },
   });
-
-  const handleVariant = () => {
-    setOpenVariant((s) => !s);
-  };
 
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -172,7 +167,7 @@ function ProductDetail() {
               ? rightActionsData.filter((i) => i.title !== "Edit")
               : rightActionsData.filter((i) => i.title === "Edit")
           }
-          title="Puma"
+          title={productItemResponse?.data.name || ""}
         />
 
         <Stack direction="row">
@@ -186,15 +181,17 @@ function ProductDetail() {
           </Tabs>
         </Stack>
         <TabPanel index={0} value={value}>
-          <General editable={editable} isTrue={istrue} nameRef={nameRef} />
+          <General
+            data={productItemResponse?.data}
+            editable={editable}
+            isTrue={istrue}
+            nameRef={nameRef}
+          />
         </TabPanel>
         <TabPanel index={1} value={value}>
           <Variants isTrue={istrue} />
         </TabPanel>
       </Container>
-      {/* {openVariant ? (
-        <AddVariant handleClose={handleVariant} open={openVariant} />
-      ) : null} */}
     </ThemeProvider>
   );
 }

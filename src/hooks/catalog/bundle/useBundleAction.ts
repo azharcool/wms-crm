@@ -1,8 +1,7 @@
-import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { useSnackbar } from "components/snackbar";
 import useDecodedData from "hooks/useDecodedData";
-import { addProduct } from "services/product.services";
 import { addBundle, deleteBundleById } from "services/bundle.services";
+import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 
 function useBundleAction() {
   const snackbar = useSnackbar();
@@ -53,7 +52,7 @@ function useBundleAction() {
 
   return {
     addBundleAction,
-    deleteBundleAction
+    deleteBundleAction,
   };
 }
 

@@ -2,7 +2,6 @@ import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
-import { FILE_URL } from "config";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -121,7 +120,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-       {brandName || "-"}
+        {brandName || "-"}
       </TableCell>
       <TableCell
         sx={{

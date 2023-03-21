@@ -1,8 +1,9 @@
 // import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
+import { IResponse } from "constants/interfaces";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
-import { IDeleteBrandByIdResponseRoot } from "types/catalog/brands/deleteByIdResponse";
 import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
 import { IGetByIdBrandResponseRoot } from "types/catalog/brands/getByIdBrandResponse";
+import { IAddProductResponseRoot } from "types/catalog/products/addProductResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -16,12 +17,19 @@ export async function getAllBrand(
   return client.get(URL);
 }
 
-export async function addBrandAction(
-  body: IAddBrandRequestRoot,
-): Promise<IGetBrandResponseRoot> {
+export async function addBrand(
+  data: IAddBrandRequestRoot,
+): Promise<IAddProductResponseRoot> {
   const URL = `${API_URLS.ADD_BRAND}`;
-  return client.post(URL, body);
+  return client.post(URL, data);
 }
+
+// export async function addProduct(
+//   request: IAddProductRequestRoot,
+// ): Promise<IAddProductResponseRoot> {
+//   const URL = `${API_URLS.ADD_PRODUCT}`;
+//   return client.post(URL, request);
+// }
 
 export async function getByIdBrand(
   id: number,
@@ -37,9 +45,12 @@ export async function addBrandDetail(
   return client.put(URL, body);
 }
 
-export async function deleteBrandById(
-  id: number,
-): Promise<IDeleteBrandByIdResponseRoot> {
+export async function deleteBrand(id: number): Promise<IResponse> {
   const URL = `${API_URLS.DELETE_BRAND}/${id}`;
+  return client.delete(URL);
+}
+
+export async function bulkDeleteBrand(ids: string): Promise<IResponse> {
+  const URL = `${API_URLS.BULK_DELETE_BRAND}/${ids}`;
   return client.delete(URL);
 }
