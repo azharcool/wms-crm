@@ -277,6 +277,7 @@ function AddVariant(props: IAddVariant) {
 
     const variantt = items.map((i) => {
       return {
+        productId: Number(productId),
         userId: Number(userDecoded.id),
         optionName: variants.map((i) => i.optionName).toString(),
         value: "string",

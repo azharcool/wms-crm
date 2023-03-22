@@ -12,9 +12,7 @@ import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
 import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
-
 import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
-
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -32,8 +30,6 @@ function BrandDetails() {
     brandId: Number(brandId),
   });
 
-  console.log("brandItemResponse", brandItemResponse);
-  // useGetByIdBrand
   const newtheme = useSelector((state: any) => state.theme);
 
   const initialValues: IBrandDetail = {
@@ -87,7 +83,6 @@ function BrandDetails() {
       title: "Cancel",
       onClick: () => {
         setEditable(false);
-        // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);
       },
       icon: (
         <ArrowBackIosIcon
@@ -172,9 +167,6 @@ function BrandDetails() {
       slug: values.slug,
     };
     const response = await addBrandDetail(data);
-    if (response.statusCode === 200) {
-      // setBrandId(response);
-    }
   }
 
   const istrue = !editable;

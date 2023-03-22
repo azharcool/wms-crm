@@ -16,6 +16,7 @@ import TableToolbar from "components/table-toolbar";
 import { useFormik } from "formik";
 import useProductAction from "hooks/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
+import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -53,6 +54,7 @@ function TabPanel(props: TabPanelProps) {
 function ProductDetail() {
   const newtheme = useSelector((state: any) => state.theme);
   const nameRef = useRef<any>(null);
+  const userDecoded = useDecodedData();
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
   const [openVariant, setOpenVariant] = useState(false);
@@ -97,12 +99,14 @@ function ProductDetail() {
     onSubmit: async (values) => {
       const editData: EditProductRequestRoot = {
         id: productItemResponse?.data?.id || 0,
+        userId: Number(userDecoded.id),
         name: values.productName,
         type: values.productType,
         description: values.productDescription,
         tags: values.productTags,
         brandId: Number(values.productBrand),
         uom: Number(values.UoM),
+        categoryId: Number(values.productCategory),
         height: Number(values.productHeight),
         width: Number(values.productWidth),
         length: Number(values.productLength),
