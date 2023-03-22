@@ -53,7 +53,7 @@ function General(props: IGeneral) {
   const onDrop = (files: any) => {
     console.log("filess12", URL.createObjectURL(files[0]));
   };
-
+  
   return (
     <Grid container marginTop={2} spacing={2}>
       <Grid item xs={8}>

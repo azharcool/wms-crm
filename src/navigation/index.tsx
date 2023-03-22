@@ -66,6 +66,10 @@ function Application() {
               path={AppRoutes.WAREHOUSE}
             />
             <Route
+              element={<UserLoadable.WarehouseCreate />}
+              path={AppRoutes.WAREHOUSE_CREATE}
+            />
+            <Route
               element={<UserLoadable.WarehouseDetails />}
               path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
             />
