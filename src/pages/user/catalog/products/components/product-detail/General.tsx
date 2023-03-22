@@ -7,90 +7,7 @@ import useBrand from "hooks/catalog/brand/useBrand";
 import useCategory from "hooks/catalog/categories/useCategory";
 import { useEffect } from "react";
 import { IGetByIdProductData } from "types/catalog/products/getByIdProductResponse";
-
-const detailMenu = [
-  {
-    id: "Digital product",
-    value: "Digital product",
-  },
-  {
-    id: "Physical product",
-    value: "Physical product",
-  },
-  {
-    id: "Service",
-    value: "Service",
-  },
-];
-
-const UoM = [
-  {
-    id: crypto.randomUUID(),
-    value: "Box",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Bottle",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Can",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Litre",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Piece",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Pack",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Unit",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "IBCs",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Drum",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Bags",
-  },
-];
-
-const strategys = [
-  {
-    id: crypto.randomUUID(),
-    value: "First In First Out",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "First Expired First Out",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Last In First  Out",
-  },
-];
-
-const fullfillmentSwitchs = [
-  {
-    id: crypto.randomUUID(),
-    value: "Track Serial numbers",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Track Expiry dates",
-  },
-];
+import { detailMenu, fullfillmentSwitchs, strategys, UoM } from "__mock__";
 
 interface IGeneral {
   isTrue?: boolean;
@@ -332,6 +249,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
+                // disabled={isTrue}
                 disabled={isTrue}
                 label="Strategy"
                 menuItems={strategys}

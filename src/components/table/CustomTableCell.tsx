@@ -21,13 +21,14 @@ function CustomTableCell(props: ICustomTableCell) {
     leftValue,
     rightValue,
     isHeader,
+    minWt,
   } = props;
   return (
     <TableCell
       padding={isCheck ? "checkbox" : "normal"}
       style={customStyle}
       sx={{
-        minWidth: 60,
+        minWidth: minWt || 60,
         ...(isSticky
           ? {
               position: "sticky",
