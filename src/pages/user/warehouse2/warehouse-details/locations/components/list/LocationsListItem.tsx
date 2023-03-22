@@ -4,7 +4,7 @@ import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
-function ContainerListItem(props: any) {
+function LocationsListItem(props: any) {
   const { item } = props;
   const navigate = useNavigate();
   const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
@@ -104,4 +104,4 @@ function ContainerListItem(props: any) {
   );
 }
 
-export default ContainerListItem;
+export default LocationsListItem;

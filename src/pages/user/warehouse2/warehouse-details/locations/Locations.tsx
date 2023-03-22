@@ -1,5 +1,7 @@
+import LocationsListing from "./components/list/LocationsListing";
+
 function Locations() {
-  return <div>Locations</div>;
+  return <LocationsListing />;
 }
 
 export default Locations;

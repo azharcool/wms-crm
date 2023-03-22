@@ -20,11 +20,6 @@ const tableTitle = [
     id: crypto.randomUUID(),
     title: "Name",
   },
-
-  // {
-  //   id: crypto.randomUUID(),
-  //   title: "Label",
-  // },
   {
     id: crypto.randomUUID(),
     title: "Label",
@@ -89,8 +84,6 @@ function WarehouseListing() {
                         customStyle={{
                           position: isName && "sticky",
                           left: isName && "60px",
-                          // position: isLabel || isName ? "sticky" : "static",
-                          // left: isLabel || isName ? (isName ? 60 : 167) : 0,
                         }}
                         minWt={150}
                       >

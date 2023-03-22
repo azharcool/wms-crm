@@ -35,7 +35,7 @@ const sideNavMenu: ISideNavMenu[] = [
   },
   {
     id: crypto.randomUUID(),
-    href: AppRoutes.WAREHOUSE,
+    href: `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`,
     icon: <WarehouseIcon fontSize="small" />,
     title: "Warehouses",
     screenCode: SCREEN_CODES.WAREHOUSE,

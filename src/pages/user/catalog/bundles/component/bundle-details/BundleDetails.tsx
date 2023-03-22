@@ -19,7 +19,7 @@ import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { IAddCompositionbundleRootRequest } from "types/catalog/bundleCompo/addBundleCompoRequest";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
@@ -130,12 +130,7 @@ function BundleDetails() {
     onSubmit,
     initialValues,
   });
-  const {
-    values,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-  } = bundleForm;
+  const { values, handleChange, handleSubmit, setFieldValue } = bundleForm;
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -239,16 +234,16 @@ function BundleDetails() {
             <Tab label="Composition" />
           </Tabs>
         </Stack>
-        <TabPanel value={value} index={0}>
-          <General isTrue={istrue} data={bundle?.data} />
+        <TabPanel index={0} value={value}>
+          <General data={bundle?.data} isTrue={istrue} />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel index={1} value={value}>
           <Composition
-            isTrue={istrue}
             bundleId={Number(bundleId)}
-            values={values}
-            setFieldValue={setFieldValue}
             handleChange={handleChange}
+            isTrue={istrue}
+            setFieldValue={setFieldValue}
+            values={values}
           />
         </TabPanel>
       </Container>
