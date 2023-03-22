@@ -10,8 +10,11 @@ import {
   Tab,
   Tabs,
   TextField,
+  Button,
+  Typography,
 } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
+import palette from "theme/palette";
 import CustomIcon from "./CustomIcon";
 
 interface ITab {
@@ -20,10 +23,13 @@ interface ITab {
 }
 interface IEnhancedTableToolbar {
   tabs?: ITab[];
+  handleClick?: () => void;
+  title?: string;
+  icon?: React.ReactNode;
 }
 
 function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
-  const { tabs } = props;
+  const { tabs, title, handleClick, icon } = props;
   return (
     <Toolbar
       sx={{
@@ -78,6 +84,33 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
           <CustomIcon title="Filter list">
             <FilterListIcon />
           </CustomIcon>
+          <Button
+            sx={{
+              width: "inherit",
+              borderRadius: "5px",
+              padding: "5px 25px",
+              backgroundColor: palette.warning.dark,
+              color: "#fff",
+              boxShadow: "none",
+              "&:hover": {
+                backgroundColor: palette.warning.dark,
+                opacity: 0.6,
+                boxShadow: "none",
+              },
+            }}
+            variant="contained"
+            onClick={() => {
+              handleClick?.();
+            }}
+          >
+            {icon}
+            <Typography
+              component="span"
+              sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
+            >
+              {title}
+            </Typography>
+          </Button>
           <CustomIcon title="More">
             <MoreVertIcon />
           </CustomIcon>
