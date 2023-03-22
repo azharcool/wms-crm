@@ -1,3 +1,4 @@
+import { IResponse } from "constants/interfaces";
 import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
 import { GetAllVariantByProductIdRoot } from "types/catalog/variants/getAllVariantByProductId";
 import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
@@ -40,4 +41,14 @@ export async function getAllVariantByProductId(
     URL = `${URL}?${restUrl}`;
   }
   return client.get(URL);
+}
+
+export async function deleteVariant(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_VARIANT}/${id}`;
+  return client.delete(URL);
+}
+
+export async function buldDeleteVariant(ids: string): Promise<IResponse> {
+  const URL = `${API_URLS.BULK_DELETE_VARIANT}/${ids}`;
+  return client.delete(URL);
 }

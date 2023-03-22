@@ -6,6 +6,7 @@ const AppRoutes = {
   WAREHOUSE: "/warehouse",
   WAREHOUSE_DETAILS: "/warehouse-details",
   AREA_DETAILS: "/area-details",
+  WAREHOUSE_CREATE: "/warehouse-create",
   ZONE_DETAILS: "/zone-details",
   LOCATION_DETAILS: "/location-details",
   CONTAINER_DETAILS: "/container-details",
@@ -48,6 +49,26 @@ const AppRoutes = {
     All_ORDER_DETAILS: "allOrder-details",
     SUPPLIERS: "suppliers",
     SUPPLIERS_RETURN: "supplier-return",
+  },
+
+  warehouse: {
+    warehouseLayout: "warehouse",
+    listing: "listing",
+    details: "details",
+    create: "create",
+
+    // tabs
+    generalDetails: "general/details",
+    areas: "areas/listing",
+    zones: "zones/listing",
+    locations: "locations/listing",
+    containers: "containers/listing",
+
+    // details
+    areasDetails: "areas/details",
+    zonesDetails: "zones/details",
+    locationsDetails: "locations/details",
+    containersDetails: "containers/details",
   },
 };
 

@@ -108,7 +108,26 @@ function CompositionListing(props: IComposition) {
   // useEffect(() => {
   //   setVariant(bundleComp?.data);
   // });
-
+  const renderOption = (props: any, option: any) => (
+    <Stack direction="row" sx={{ m: 1 }} >
+      <Box
+        sx={{
+          width: "40px",
+          height: "40px",
+        }}
+      >
+        <img
+          alt="new"
+          src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+          width="100%"
+        />
+      </Box>
+      <Stack direction="column" ml={1}>
+        <Typography>{option?.variantName}</Typography>
+        <Typography color="text.secondary" fontSize={13}>{option?.sku}</Typography>
+      </Stack>
+    </Stack>
+  );
   return (
     <PerfectScrollbar>
       <Box sx={{ minWidth: 850, minHeight: 500 }}>
