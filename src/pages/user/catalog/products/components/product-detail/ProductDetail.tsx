@@ -13,13 +13,16 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
+import { useFormik } from "formik";
+import useProductAction from "hooks/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
+import AddVariant from "../AddVariant";
 import General from "./General";
 import Variants from "./Variants";
-// import AddVariant from "../AddVariant";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,19 +55,67 @@ function ProductDetail() {
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
+  const [openVariant, setOpenVariant] = useState(false);
+
   const navigate = useNavigate();
   const { productId } = useParams();
+  const { editProductAction } = useProductAction();
   const { data: productItemResponse } = useGetByIdProduct({
     productId: Number(productId),
   });
 
+  const handleVariant = () => {
+    setOpenVariant((s) => !s);
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    setEditable(false);
   };
 
   const lightTheme = createTheme({
     palette: {
       mode: "light",
+    },
+  });
+  const formik = useFormik({
+    initialValues: {
+      productName: "",
+      productType: "",
+      productDescription: "",
+      productCategory: "",
+      productTags: "",
+      productBrand: "",
+      UoM: "",
+      productHeight: "",
+      productWidth: "",
+      productLength: "",
+      productWeight: "",
+      strategy: "",
+      minExpiryDays: "",
+    },
+    onSubmit: async (values) => {
+      const editData: EditProductRequestRoot = {
+        id: productItemResponse?.data?.id || 0,
+        name: values.productName,
+        type: values.productType,
+        description: values.productDescription,
+        tags: values.productTags,
+        brandId: Number(values.productBrand),
+        uom: Number(values.UoM),
+        height: Number(values.productHeight),
+        width: Number(values.productWidth),
+        length: Number(values.productLength),
+        weight: Number(values.productWeight),
+        strategy: values.strategy,
+        expiryDays: Number(values.minExpiryDays),
+      };
+      const response = await editProductAction(editData);
+      if (response) {
+        setEditable(false);
+        formik.resetForm();
+        navigate(-1);
+      }
     },
   });
 
@@ -118,10 +169,14 @@ function ProductDetail() {
       id: crypto.randomUUID(),
       title: "Edit",
       onClick: () => {
-        setEditable(true);
-        setTimeout(() => {
-          nameRef.current?.focus();
-        }, 500);
+        if (value === 0) {
+          setEditable(true);
+          setTimeout(() => {
+            nameRef.current?.focus();
+          }, 500);
+        } else {
+          handleVariant();
+        }
       },
       icon: (
         <EditIcon
@@ -136,8 +191,7 @@ function ProductDetail() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        setEditable(false);
-        navigate(-1);
+        formik.handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -184,6 +238,7 @@ function ProductDetail() {
           <General
             data={productItemResponse?.data}
             editable={editable}
+            formik={formik}
             isTrue={istrue}
             nameRef={nameRef}
           />
@@ -192,6 +247,13 @@ function ProductDetail() {
           <Variants isTrue={istrue} />
         </TabPanel>
       </Container>
+      {openVariant && productId ? (
+        <AddVariant
+          handleClose={handleVariant}
+          open={openVariant}
+          productId={productId}
+        />
+      ) : null}
     </ThemeProvider>
   );
 }

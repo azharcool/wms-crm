@@ -296,6 +296,7 @@ function AddVariant(props: IAddVariant) {
     });
 
     const data: IAddVariantRequestRoot = {
+      productId: Number(productId),
       variantt,
       option: options,
     };

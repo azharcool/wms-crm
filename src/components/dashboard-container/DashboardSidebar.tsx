@@ -148,21 +148,9 @@ export function DashboardSidebar(props: any) {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-          // backgroundColor: palette.info.dark,
+
           background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521)",
           color: "#000",
-          // zIndex:8,
-          // "&::after": {
-          //   content: '""',
-          //   position: "absolute",
-          //   backgroundImage: `url(${curveBtm})`,
-          //   width: "300px",
-          //   height: "100px",
-          //   bottom: "0",
-          //   left:"1rem",
-          //   backgroundRepeat:"no-repeat",
-          //   zIndex: 9,
-          // },
         }}
       >
         <Box
@@ -171,19 +159,12 @@ export function DashboardSidebar(props: any) {
             paddingTop: 2,
             flexDirection: "column",
             alignItems: "center",
-            // justifyContent: "center",
           }}
         >
           <img alt="logo" height="80" src={logoURL} width="80%" />
-          {/* <KeyboardDoubleArrowLeftIcon
-            fontSize="large"
-            sx={{ color: palette.common.white, cursor: "pointer" }}
-            onClick={onClose}
-          /> */}
         </Box>
         <Divider
           sx={{
-            // borderColor: palette.info.main,
             my: 2,
           }}
         />

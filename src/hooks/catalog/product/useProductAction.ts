@@ -5,14 +5,38 @@ import {
   addProduct,
   buldDeleteProduct,
   deleteProduct,
+  editProduct,
 } from "services/product.services";
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
+import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
 function useProductAction() {
   const snackbar = useSnackbar();
   const userDecoded = useDecodedData();
   const queryClient = useQueryClient();
+
+  const editProductAction = async (
+    data: EditProductRequestRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editProduct(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllProduct]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
 
   const addProductAction = async (
     data: IAddProductRequestRoot,
@@ -80,6 +104,7 @@ function useProductAction() {
     addProductAction,
     deleteProductAsync,
     bulkDeleteProductAsync,
+    editProductAction,
   };
 }
 

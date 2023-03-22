@@ -5,7 +5,11 @@ import TableActionButton from "components/table/TableActionButton";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getSelectedBundleById } from "redux/catalog/bundleSelector";
+import { setBundleId } from "redux/catalog/bundleSlice";
+import { RootState, useAppDispatch } from "redux/store";
 import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
@@ -17,10 +21,24 @@ function BundleItem(props: IProps) {
   const { bundle, refetch } = props;
   const navigate = useNavigate();
   const { deleteBundleAction } = useBundleAction();
+  // console.log("bundle", item);
   const goToDetails = async (id: number) => {
-    // const response = await getBundleByIdAction(id)
-    navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
+    navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`, {
+      state: { bundleId: id },
+    });
   };
+
+  const getSelectedBundleByIdState = useSelector((state: RootState) =>
+    getSelectedBundleById(state, bundle.id),
+  );
+
+  const dispatch = useAppDispatch();
+
+  const select = () => {
+    dispatch(setBundleId(bundle.id));
+    console.log("item id---->", bundle.id);
+  };
+
   const alert = useAlert();
   const {
     id,
@@ -29,9 +47,11 @@ function BundleItem(props: IProps) {
     barcode,
     updatedOn,
     createdOn,
+    tag,
     categoryName,
     brandName,
   } = bundle;
+
   const handleBundleDelete = async () => {
     alert?.show({
       title: "Confirmation",
@@ -56,7 +76,11 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
+        <Checkbox
+          checked={getSelectedBundleByIdState}
+          color="primary"
+          onChange={select}
+        />
       </TableCell>
       <TableCell
         sx={{
@@ -66,7 +90,7 @@ function BundleItem(props: IProps) {
           zIndex: 999,
           background: "white",
         }}
-        onClick={() => goToDetails(1)}
+        onClick={() => goToDetails(id)}
       >
         <Box
           sx={{
@@ -96,7 +120,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {name || "-"}
+        {name || "not provided"}
       </TableCell>
       <TableCell
         sx={{
@@ -120,7 +144,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {brandName || "-"}
+        {brandName || "not provided"}
       </TableCell>
       <TableCell
         sx={{
@@ -128,7 +152,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        company
+        not provided
       </TableCell>
 
       <TableCell
@@ -137,7 +161,7 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        tags
+        {tag}
       </TableCell>
 
       <TableCell
