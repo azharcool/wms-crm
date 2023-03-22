@@ -10,8 +10,9 @@ import {
 import { Box, Stack } from "@mui/system";
 import TextField from "components/textfield";
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
-import React, { useRef, useState } from "react";
-import Dropzone from "react-dropzone";
+import React, { useCallback, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 interface ICustomCard {
@@ -34,24 +35,21 @@ function CustomCardContent(props: ICustomCard) {
 
 interface IGeneral {
   isTrue: boolean;
+  data: IBundleDetails | undefined;
 }
 
 function General(props: IGeneral) {
-  const { isTrue } = props;
+  const { isTrue, data } = props;
   const [selectedFiles, setSelectedFiles] = useState();
-  const nameRef = useRef<any>(null);
-  const [editable, setEditable] = useState(false);
-  const bundleData = {
-    id: 3,
-  };
+  const { state } = useLocation();
+  const { bundleId } = state;
   const {
     data: bundle,
     refetch,
     isLoading,
     isFetching: isFetchingBundle,
-  } = useGetByIdBundle(bundleData);
+  } = useGetByIdBundle(bundleId);
 
-  console.log("responseDetails10", JSON.stringify(bundle?.data, null, 2));
   const onDrop = (files: any) => {
     console.log("filess12", URL.createObjectURL(files[0]));
   };
@@ -70,7 +68,7 @@ function General(props: IGeneral) {
                 id="categoryName"
                 name="categoryName"
                 size="small"
-                value={!isTrue ? "" : bundle?.data?.name}
+                value={bundle?.data?.name}
                 onChange={() => {}}
                 disabled={isTrue}
                 // inputProps={fontColor}
@@ -82,7 +80,7 @@ function General(props: IGeneral) {
                 id="description"
                 label="Description"
                 name="description"
-                value={isTrue ? "" : bundle?.data?.description}
+                value={bundle?.data?.description}
                 onChange={() => {}}
               />
             </Stack>
@@ -94,10 +92,10 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="sku"
-                label={!isTrue ? "Sku" : ""}
+                // label="sku"
                 name="sku"
                 size="small"
-                value={!isTrue ? "" : bundle?.data?.sku}
+                value={bundle?.data?.sku}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -109,10 +107,11 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="barcode"
-                label={!isTrue ? "Barcode" : bundle?.data?.barcode}
+                // label="barcode"
+                // label={!isTrue ? "Barcode" : bundle?.data?.barcode}
                 name="barcode"
                 size="small"
-                value={!isTrue ? "" : bundle?.data?.barcode}
+                value={bundle?.data?.barcode}
                 onChange={() => {}}
                 onClickIcon={() => {
                   console.log("clicked....");
@@ -123,24 +122,24 @@ function General(props: IGeneral) {
           <CustomCardContent title="Organization">
             <Stack direction="row" gap={2}>
               <TextField
-                isSelect
+                // isSelect
                 disabled={isTrue}
-                value={!isTrue ? "category" : bundle?.data?.categoryName}
                 id="categorys"
                 // menuItems={categorys}
                 name="categorys"
+                value={bundle?.data?.categoryName}
                 size="small"
                 // value={categorys[0].id}
                 onSelectHandler={() => {}}
               />
               <TextField
-                isSelect
+                // isSelect
                 disabled={isTrue}
                 id="categorys"
                 name="brand"
-                label="Brand"
+                // label="Brand"
                 // menuItems={brands}
-                value={!isTrue ? "brand" : bundle?.data?.brandName}
+                value={bundle?.data?.brandName}
                 size="small"
                 // value={brands[0].id}
                 onSelectHandler={() => {}}
@@ -151,10 +150,10 @@ function General(props: IGeneral) {
               <TextField
                 disabled={isTrue}
                 id="categoyTags"
-                label="Tags"
+                // label="Tags"
+                value={bundle?.data?.tag}
                 name="categoyTags"
                 size="small"
-                value={!isTrue ? "tag" : bundle?.data?.tag}
                 onChange={() => {}}
               />
             </Stack>
@@ -187,7 +186,7 @@ function General(props: IGeneral) {
                   border: "1px dashed rgb(236, 236, 236)",
                 }}
               >
-                <Dropzone multiple={false} onDrop={onDrop}>
+                {/* <Dropzone multiple={false} onDrop={onDrop}>
                   {({ getRootProps, getInputProps }) => (
                     <Grid container xs={12}>
                       <Grid
@@ -209,13 +208,13 @@ function General(props: IGeneral) {
                       </Grid>
                     </Grid>
                   )}
-                </Dropzone>
-                {/* <img
+                </Dropzone> */}
+                <img
                   alt="new"
                   src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
                   style={{ objectFit: "cover" }}
                   width="100%"
-                /> */}
+                />
               </Box>
             </Box>
           </CustomCardContent>

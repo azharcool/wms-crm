@@ -6,6 +6,7 @@ import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
 import bundle from "./catalog/bundleSlice";
 
+import brand from "./catalog/brandSlice";
 import category from "./catalog/categorySlice";
 import product from "./catalog/productSlice";
 import common from "./common/common";
@@ -32,6 +33,7 @@ const combinedReducer = combineReducers({
   product,
   bundle,
   category,
+  brand
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

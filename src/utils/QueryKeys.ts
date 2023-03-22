@@ -34,6 +34,8 @@ const QueryKeys = {
   getAllBundle: "getAllBundle",
   getByIdBundle: "getByIdBundle",
   getAllSupplier: "getAllSupplier",
+  getByIdBrand: "getByIdBrand",
+  getAllVariantByProductId: "getAllVariantByProductId",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

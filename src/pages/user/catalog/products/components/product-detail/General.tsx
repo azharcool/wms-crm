@@ -2,6 +2,26 @@ import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TextField from "components/textfield";
+import { FormikProps } from "formik";
+import useBrand from "hooks/catalog/brand/useBrand";
+import useCategory from "hooks/catalog/categories/useCategory";
+import { useEffect } from "react";
+import { IGetByIdProductData } from "types/catalog/products/getByIdProductResponse";
+
+const detailMenu = [
+  {
+    id: "Digital product",
+    value: "Digital product",
+  },
+  {
+    id: "Physical product",
+    value: "Physical product",
+  },
+  {
+    id: "Service",
+    value: "Service",
+  },
+];
 
 const UoM = [
   {
@@ -76,10 +96,34 @@ interface IGeneral {
   isTrue?: boolean;
   nameRef?: any;
   editable?: boolean;
+  data?: IGetByIdProductData;
+  formik: FormikProps<any>;
 }
 
 function General(props: IGeneral) {
-  const { isTrue, nameRef, editable } = props;
+  const { isTrue, nameRef, editable, data, formik } = props;
+
+  const { category } = useCategory();
+  const { brand } = useBrand();
+
+  useEffect(() => {
+    if (data) {
+      formik?.setFieldValue("productName", data?.name || "");
+      formik?.setFieldValue("productType", data?.type);
+      formik?.setFieldValue("productDescription", data?.description || "");
+      formik?.setFieldValue("productCategory", data?.categoryId || "");
+      formik?.setFieldValue("productTags", data?.tags || "");
+      formik?.setFieldValue("productBrand", data?.brandId || "");
+      formik?.setFieldValue("UoM", data?.uom || "");
+      formik?.setFieldValue("productHeight", data?.height || "");
+      formik?.setFieldValue("productWidth", data?.width || "");
+      formik?.setFieldValue("productLength", data?.length || "");
+      formik?.setFieldValue("productWeight", data?.weight || "");
+      formik?.setFieldValue("strategy", data?.strategy || "");
+      formik?.setFieldValue("minExpiryDays", data?.expiryDays || "");
+    }
+  }, [data]);
+
   return (
     <Grid container padding={0} spacing={2}>
       <Grid item xs={8}>
@@ -97,18 +141,22 @@ function General(props: IGeneral) {
                 name="productName"
                 nameRef={nameRef}
                 size="small"
-                value="Watches"
-                onChange={() => {}}
+                value={formik?.values.productName}
+                onChange={formik.handleChange("productName")}
               />
 
               <TextField
+                isSelect
                 disabled={isTrue}
                 id="productType"
                 label="Type"
+                menuItems={detailMenu}
                 name="productType"
                 size="small"
-                value="Not Provided"
-                onChange={() => {}}
+                value={formik?.values.productType}
+                onSelectHandler={(e) => {
+                  formik?.setFieldValue("productType", e.target.value);
+                }}
               />
             </Stack>
             <Stack direction="row" gap={2} marginTop={2}>
@@ -120,8 +168,8 @@ function General(props: IGeneral) {
                 name="productDescription"
                 rows={3}
                 size="small"
-                value="some other details"
-                onChange={() => {}}
+                value={formik?.values.productDescription}
+                onChange={formik.handleChange("productDescription")}
               />
             </Stack>
           </CustomCardContent>
@@ -129,22 +177,28 @@ function General(props: IGeneral) {
           <CustomCardContent title="Organization">
             <Stack direction="row" gap={2}>
               <TextField
+                isSelect
                 disabled={isTrue}
                 id="productCategory"
                 label="Category"
+                menuItems={category}
                 name="productCategory"
                 size="small"
-                value="Not Provided"
-                onChange={() => {}}
+                value={formik?.values.productCategory}
+                onChange={formik.handleChange("productCategory")}
               />
               <TextField
+                isSelect
                 disabled={isTrue}
                 id="productBrand"
                 label="Brand"
+                menuItems={brand}
                 name="productBrand"
                 size="small"
-                value="0"
-                onChange={() => {}}
+                value={formik?.values.productBrand}
+                onSelectHandler={(e) => {
+                  formik?.setFieldValue("productBrand", e.target.value);
+                }}
               />
             </Stack>
 
@@ -155,8 +209,8 @@ function General(props: IGeneral) {
                 label="Tags"
                 name="productTags"
                 size="small"
-                value="Active"
-                onChange={() => {}}
+                value={formik?.values.productTags}
+                onChange={formik.handleChange("productTags")}
               />
             </Stack>
           </CustomCardContent>
@@ -168,8 +222,10 @@ function General(props: IGeneral) {
               menuItems={UoM}
               name="UoM"
               size="small"
-              value={UoM[0].id}
-              onSelectHandler={() => {}}
+              value={formik?.values.UoM}
+              onSelectHandler={(e) => {
+                formik?.setFieldValue("UoM", e.target.value);
+              }}
             />
           </CustomCardContent>
         </Card>
@@ -217,8 +273,13 @@ function General(props: IGeneral) {
                 label="Height"
                 name="productHeight"
                 size="small"
-                value="Height in cm"
-                onChange={() => {}}
+                value={formik?.values.productHeight}
+                onChange={(e) => {
+                  formik?.setFieldValue(
+                    "productHeight",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
               <TextField
                 disabled={isTrue}
@@ -226,8 +287,13 @@ function General(props: IGeneral) {
                 label="Width"
                 name="productWidth"
                 size="small"
-                value="Width in cm"
-                onChange={() => {}}
+                value={formik?.values.productWidth}
+                onChange={(e) => {
+                  formik?.setFieldValue(
+                    "productWidth",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
             </Stack>
 
@@ -238,8 +304,13 @@ function General(props: IGeneral) {
                 label="Length"
                 name="productLength"
                 size="small"
-                value="Length in cm"
-                onChange={() => {}}
+                value={formik?.values.productLength}
+                onChange={(e) => {
+                  formik?.setFieldValue(
+                    "productLength",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
               <TextField
                 disabled={isTrue}
@@ -247,8 +318,13 @@ function General(props: IGeneral) {
                 label="Weight"
                 name="productWeight"
                 size="small"
-                value="Weight in kg"
-                onChange={() => {}}
+                value={formik?.values.productWeight}
+                onChange={(e) => {
+                  formik?.setFieldValue(
+                    "productWeight",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
             </Stack>
           </CustomCardContent>
@@ -261,8 +337,10 @@ function General(props: IGeneral) {
                 menuItems={strategys}
                 name="strategy"
                 size="small"
-                value={strategys[0].id}
-                onSelectHandler={() => {}}
+                value={formik?.values.strategy}
+                onSelectHandler={(e) => {
+                  formik?.setFieldValue("strategy", e.target.value);
+                }}
               />
             </Stack>
             <Stack direction="row" gap={2} marginTop={2}>
@@ -272,8 +350,13 @@ function General(props: IGeneral) {
                 label="Min Expiry Days"
                 name="minExpiryDays"
                 size="small"
-                value="0"
-                onChange={() => {}}
+                value={formik?.values.minExpiryDays}
+                onChange={(e) => {
+                  formik?.setFieldValue(
+                    "minExpiryDays",
+                    e.target.value.replace(/[^0-9]/g, ""),
+                  );
+                }}
               />
             </Stack>
 
@@ -290,7 +373,10 @@ function General(props: IGeneral) {
                 })
               : fullfillmentSwitchs.map((item) => {
                   return (
-                    <Typography sx={{ fontSize: "14px", color: "#9ea1b6" }}>
+                    <Typography
+                      key={item.id}
+                      sx={{ fontSize: "14px", color: "#9ea1b6" }}
+                    >
                       {item.value}
                     </Typography>
                   );

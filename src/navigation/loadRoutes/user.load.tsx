@@ -159,3 +159,7 @@ export const Listing = Loadable({
   loader: () => import("pages/user/catalog/listing"),
   loading: () => <Spinner />,
 });
+export const BrandDetails = Loadable({
+  loader: () => import("pages/user/catalog/brands/components/BrandDetails"),
+  loading: () => <Spinner />,
+});

@@ -13,13 +13,16 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
+import { useFormik } from "formik";
+import useProductAction from "hooks/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
+import AddVariant from "../AddVariant";
 import General from "./General";
 import Variants from "./Variants";
-// import AddVariant from "../AddVariant";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -50,17 +53,24 @@ function TabPanel(props: TabPanelProps) {
 function ProductDetail() {
   const newtheme = useSelector((state: any) => state.theme);
   const nameRef = useRef<any>(null);
-  const [openVariant, setOpenVariant] = useState(false);
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
+  const [openVariant, setOpenVariant] = useState(false);
+
   const navigate = useNavigate();
   const { productId } = useParams();
+  const { editProductAction } = useProductAction();
   const { data: productItemResponse } = useGetByIdProduct({
     productId: Number(productId),
   });
 
+  const handleVariant = () => {
+    setOpenVariant((s) => !s);
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    setEditable(false);
   };
 
   const lightTheme = createTheme({
@@ -68,10 +78,46 @@ function ProductDetail() {
       mode: "light",
     },
   });
-
-  const handleVariant = () => {
-    setOpenVariant((s) => !s);
-  };
+  const formik = useFormik({
+    initialValues: {
+      productName: "",
+      productType: "",
+      productDescription: "",
+      productCategory: "",
+      productTags: "",
+      productBrand: "",
+      UoM: "",
+      productHeight: "",
+      productWidth: "",
+      productLength: "",
+      productWeight: "",
+      strategy: "",
+      minExpiryDays: "",
+    },
+    onSubmit: async (values) => {
+      const editData: EditProductRequestRoot = {
+        id: productItemResponse?.data?.id || 0,
+        name: values.productName,
+        type: values.productType,
+        description: values.productDescription,
+        tags: values.productTags,
+        brandId: Number(values.productBrand),
+        uom: Number(values.UoM),
+        height: Number(values.productHeight),
+        width: Number(values.productWidth),
+        length: Number(values.productLength),
+        weight: Number(values.productWeight),
+        strategy: values.strategy,
+        expiryDays: Number(values.minExpiryDays),
+      };
+      const response = await editProductAction(editData);
+      if (response) {
+        setEditable(false);
+        formik.resetForm();
+        navigate(-1);
+      }
+    },
+  });
 
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -123,10 +169,14 @@ function ProductDetail() {
       id: crypto.randomUUID(),
       title: "Edit",
       onClick: () => {
-        setEditable(true);
-        setTimeout(() => {
-          nameRef.current?.focus();
-        }, 500);
+        if (value === 0) {
+          setEditable(true);
+          setTimeout(() => {
+            nameRef.current?.focus();
+          }, 500);
+        } else {
+          handleVariant();
+        }
       },
       icon: (
         <EditIcon
@@ -141,8 +191,7 @@ function ProductDetail() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        setEditable(false);
-        navigate(-1);
+        formik.handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -172,7 +221,7 @@ function ProductDetail() {
               ? rightActionsData.filter((i) => i.title !== "Edit")
               : rightActionsData.filter((i) => i.title === "Edit")
           }
-          title="Puma"
+          title={productItemResponse?.data.name || ""}
         />
 
         <Stack direction="row">
@@ -186,15 +235,25 @@ function ProductDetail() {
           </Tabs>
         </Stack>
         <TabPanel index={0} value={value}>
-          <General editable={editable} isTrue={istrue} nameRef={nameRef} />
+          <General
+            data={productItemResponse?.data}
+            editable={editable}
+            formik={formik}
+            isTrue={istrue}
+            nameRef={nameRef}
+          />
         </TabPanel>
         <TabPanel index={1} value={value}>
           <Variants isTrue={istrue} />
         </TabPanel>
       </Container>
-      {/* {openVariant ? (
-        <AddVariant handleClose={handleVariant} open={openVariant} />
-      ) : null} */}
+      {openVariant && productId ? (
+        <AddVariant
+          handleClose={handleVariant}
+          open={openVariant}
+          productId={productId}
+        />
+      ) : null}
     </ThemeProvider>
   );
 }

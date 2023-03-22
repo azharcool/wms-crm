@@ -20,7 +20,7 @@ interface IuseAddCategoriesForm {
 }
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("enter category name"),
+  name: Yup.string().required("Category name required."),
 });
 
 const deafultValues: AddCategoriesForm = {
