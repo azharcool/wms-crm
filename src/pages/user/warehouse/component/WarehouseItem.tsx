@@ -1,14 +1,18 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useNavigate } from "react-router-dom";
 
-function WarehouseItem() {
+function WarehouseItem(props: any) {
+  const { item } = props;
+  const navigate = useNavigate();
   return (
     <TableRow>
       <TableCell
         padding="checkbox"
         sx={{
-          width: 60,
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -17,34 +21,12 @@ function WarehouseItem() {
       >
         <Checkbox checked={false} />
       </TableCell>
+
       <TableCell
         sx={{
-          width: 50,
+          minWidth: 150,
           position: "sticky",
           left: 60,
-          zIndex: 999,
-          background: "white",
-        }}
-      >
-        <Box
-          sx={{
-            width: "40px",
-            height: "40px",
-          }}
-        >
-          <img
-            alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
-          />
-        </Box>
-      </TableCell>
-
-      {/* <TableCell
-        sx={{
-          width: 150,
-          position: "sticky",
-          left: 130,
           zIndex: 999,
           background: "white",
           cursor: "pointer",
@@ -54,13 +36,13 @@ function WarehouseItem() {
         }}
       >
         {item.name}
-      </TableCell> */}
+      </TableCell>
       <TableCell
         sx={{
-          width: 150,
+          minWidth: 150,
           position: "sticky",
-          left: 0,
-          background: "white",
+          // left: 169,
+          // background: "white",
         }}
       >
         {/* inventory */}-
@@ -68,7 +50,7 @@ function WarehouseItem() {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* variants count */}-
@@ -76,7 +58,7 @@ function WarehouseItem() {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* category */}-
@@ -84,7 +66,7 @@ function WarehouseItem() {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* brand */}-
@@ -93,7 +75,7 @@ function WarehouseItem() {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* company */}-
@@ -101,42 +83,15 @@ function WarehouseItem() {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* tags */}-
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          background: "white",
-        }}
-      >
-        {/* track SN */}
-        {/* {item.trackSerialNumbers || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          background: "white",
-        }}
-      >
-        {/* track expiry */}
-        {/* {item.trackExpiryDates || "-"} */}
-      </TableCell>
 
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
-        }}
-      >
-        {/* last updated  */}
-        {/* {item.updatedOn || "-"} */}
-      </TableCell>
-
-      <TableCell
-        sx={{
           position: "sticky",
           right: 0,
           background: "white",
