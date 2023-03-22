@@ -162,7 +162,7 @@ function BrandDetails() {
   ) {
     const data: IAddBrandRequestRoot = {
       userId: Number(userDecoded.id),
-      id: brandItemResponse?.data?.id,
+      id: brandItemResponse?.data?.id || 0,
       name: values.name,
       slug: values.slug,
     };

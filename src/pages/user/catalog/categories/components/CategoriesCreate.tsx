@@ -14,24 +14,11 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
+import { detailMenu } from "__mock__";
 import useAddCategoriesForm, {
   AddCategoriesForm,
 } from "../hooks/useAddCategoriesForm";
 
-const detailMenu = [
-  {
-    id: crypto.randomUUID(),
-    value: "Watches",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Video, DVD & Blu-Ray",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Toys & Games",
-  },
-];
 const statusMenu = [
   {
     id: "1",
