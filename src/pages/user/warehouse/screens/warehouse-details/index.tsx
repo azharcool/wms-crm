@@ -60,7 +60,6 @@ function WarehouseDetails() {
         component="main"
         sx={{
           flexGrow: 1,
-          py: 8,
         }}
       >
         <Container maxWidth={false}>
