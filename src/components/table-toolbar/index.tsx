@@ -27,7 +27,7 @@ interface ITableToolbar {
 interface IRightActions {
   id: string;
   title: string;
-  onClick: () => void;
+  onClick?: any;
   icon: React.ReactNode;
 }
 

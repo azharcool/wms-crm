@@ -13,11 +13,21 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
+import { FormikHelpers } from "formik";
+import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
+import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
+import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
+import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { IAddCompositionbundleRootRequest } from "types/catalog/bundleCompo/addBundleCompoRequest";
+import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import Composition from "./Composition";
 import General from "./General";
+import useAddBundleCompositionForm, {
+  AddBundleCompForm,
+} from "./hooks/useAddBundleComposition";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,13 +61,14 @@ function BundleDetails() {
   const newtheme = useSelector((state: any) => state.theme);
   const [value, setValue] = useState(0);
   const [editable, setEditable] = useState(false);
+
   const lightTheme = createTheme({
     palette: {
       mode: "light",
     },
   });
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
@@ -90,6 +101,42 @@ function BundleDetails() {
     },
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
+
+  const { bundleId } = useParams();
+  const {
+    data: bundle,
+    refetch,
+    isLoading,
+    isFetching: isFetchingBundle,
+  } = useGetByIdBundle(Number(bundleId));
+
+  const userDecoded = useDecodedData();
+  const { addBundleCompositionAction } = useBundleCompositionAction();
+  const { data: variantResponse } = useGetAllVariant({});
+  const variantData: IGetAllVariantResponseData[] | undefined =
+    variantResponse?.data;
+  const initialValues: AddBundleCompForm = {
+    userId: Number(userDecoded.id),
+    bundleId: Number(bundleId),
+    productId: 1,
+    productVariantId: 1,
+    unitPrice: 1,
+    conditionCode: "",
+    discount: 10,
+    qty: 10,
+    total: 10,
+  };
+  const bundleForm = useAddBundleCompositionForm({
+    onSubmit,
+    initialValues,
+  });
+  const {
+    values,
+    handleChange,
+    handleSubmit,
+    setFieldValue,
+  } = bundleForm;
+  console.log("bundleValue1", JSON.stringify(values, null, 2));
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -128,9 +175,10 @@ function BundleDetails() {
     {
       id: crypto.randomUUID(),
       title: "Save",
-      onClick: () => {
-        setEditable(false);
-        navigate(-1);
+      onClick: (e: any) => {
+        handleSubmit();
+        // setEditable(false);
+        // navigate(-1);
       },
       icon: (
         <SaveIcon
@@ -142,7 +190,29 @@ function BundleDetails() {
       ),
     },
   ];
-
+  async function onSubmit(
+    values: AddBundleCompForm,
+    helper: FormikHelpers<AddBundleCompForm>,
+  ) {
+    const data: IAddCompositionbundleRootRequest = {
+      bundleComposition: [
+        {
+          userId: Number(userDecoded.id),
+          bundleId: Number(bundleId),
+          productId: 1,
+          productVariantId: 1,
+          unitPrice: 1,
+          conditionCode: values.conditionCode,
+          discount: Number(values.discount),
+          qty: Number(values.qty),
+          total: 10,
+        },
+      ],
+    };
+    await addBundleCompositionAction(data);
+    // navigate("/catalog/bundles");
+    // setEditable(false);
+  }
   const istrue = !editable;
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
@@ -164,17 +234,23 @@ function BundleDetails() {
           <Tabs
             aria-label="basic tabs example"
             value={value}
-            onChange={handleChange}
+            onChange={handleTabChange}
           >
             <Tab label="General" />
             <Tab label="Composition" />
           </Tabs>
         </Stack>
-        <TabPanel index={0} value={value}>
-          <General isTrue={istrue} />
+        <TabPanel value={value} index={0}>
+          <General isTrue={istrue} data={bundle?.data} />
         </TabPanel>
-        <TabPanel index={1} value={value}>
-          <Composition isTrue={istrue} />
+        <TabPanel value={value} index={1}>
+          <Composition
+            isTrue={istrue}
+            bundleId={Number(bundleId)}
+            values={values}
+            setFieldValue={setFieldValue}
+            handleChange={handleChange}
+          />
         </TabPanel>
       </Container>
     </ThemeProvider>
