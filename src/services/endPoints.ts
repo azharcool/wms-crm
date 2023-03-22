@@ -183,6 +183,8 @@ const API_URLS = {
   GET_BY_ID_VARIANT: `variant/${endPoints.getbyid}`,
   BULK_DELETE_VARIANT: `variant/${endPoints.bulkDelete}`,
   DELETE_VARIANT: `variant/${endPoints.delete}`,
+  GET_ALL_PAGINATION_VARIANT_BY_PRODUCTID:
+    "variant/getall-pagination-by-productId",
 
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,

@@ -1,5 +1,4 @@
 import {
-  Paper,
   Table,
   TableBody,
   TableContainer,
@@ -7,7 +6,11 @@ import {
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
+import useGetAllVariantByProductId from "hooks/querys/catalog/variants/useGetAllVariantByProductId";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useParams } from "react-router-dom";
 import VariantItem from "./VariantItem";
 
 const tableTitle = [
@@ -57,36 +60,51 @@ interface IVariantLIsting {
 
 function VariantListing(props: IVariantLIsting) {
   const { isTrue } = props;
+  const [variantPagination, setVariantPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const { productId } = useParams();
+  const { data: variantResponse } = useGetAllVariantByProductId({
+    page: 1,
+    pageSize: 10,
+    productId: Number(productId),
+  });
+
   return (
-    <TableContainer component={Paper}>
-      <Table
-        sx={{
-          height: "100%",
-        }}
-      >
-        <TableHead>
-          <TableRow>
-            {tableTitle.map((item) => {
-              const isImage = item.title.includes("Image");
-              return (
-                <CustomTableCell
-                  key={item.id}
-                  isHeader
-                  customStyle={{
-                    minWidth: isImage ? 50 : 200,
-                  }}
-                >
-                  {item.title}
-                </CustomTableCell>
-              );
+    <TableContainer>
+      <PerfectScrollbar>
+        <Table
+          sx={{
+            height: "100%",
+          }}
+        >
+          <TableHead>
+            <TableRow>
+              {tableTitle.map((item) => {
+                const isImage = item.title.includes("Image");
+                return (
+                  <CustomTableCell
+                    key={item.id}
+                    isHeader
+                    customStyle={{
+                      minWidth: isImage ? 50 : 200,
+                    }}
+                  >
+                    {item.title}
+                  </CustomTableCell>
+                );
+              })}
+              {/* {!isTrue && <CustomTableCell isHeader>Actions</CustomTableCell>} */}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {variantResponse?.data.map((item) => {
+              return <VariantItem key={item.id} isTrue={isTrue} item={item} />;
             })}
-            {/* {!isTrue && <CustomTableCell isHeader>Actions</CustomTableCell>} */}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <VariantItem isTrue={isTrue} />
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      </PerfectScrollbar>
     </TableContainer>
   );
 }
