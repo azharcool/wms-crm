@@ -24,13 +24,6 @@ export async function addBrand(
   return client.post(URL, data);
 }
 
-// export async function addProduct(
-//   request: IAddProductRequestRoot,
-// ): Promise<IAddProductResponseRoot> {
-//   const URL = `${API_URLS.ADD_PRODUCT}`;
-//   return client.post(URL, request);
-// }
-
 export async function getByIdBrand(
   id: number,
 ): Promise<IGetByIdBrandResponseRoot> {
