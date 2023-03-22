@@ -1,112 +1,48 @@
-import { Box, Card, CardContent, Container, PaletteMode } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { Box, CardContent, Container } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
-import { memo, useState } from "react";
-
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useSelector } from "react-redux";
-// import PermissionForm from "./components/PermissionForm";
-
-import WarehouseForm from "./component/WarehouseForm";
-import WarehouseTable from "./component/WarehouseTable";
-import Warehouses from "./component/__mock__/warhouses.json";
-// import { useApiActions } from "./query/useApiAction";
-// import { useFetchPermissions } from "./query/useFetchPermissions";
+import { useNavigate } from "react-router-dom";
 
 function Warehouse() {
-  const [open, setOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(10);
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDeleteWarehouse = async (id: string) => {
-    // await deletePermission(id);
-  };
-  const newtheme = useSelector((state: any) => state.theme);
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
+  const navigate = useNavigate();
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <DashboardLayout>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 8,
-          }}
-        >
-          <Container maxWidth={false}>
-            <Card>
-              <CardContent sx={{ paddingTop: 0 }}>
-                <TableToolbar
-                  isAdd
-                  buttonText="New"
-                  handleClick={handleOpen}
-                  title="Warehouses"
-                />
-                <Box sx={{ mt: 3 }}>
-                  <WarehouseTable
-                    handleDeleteWarehouse={handleDeleteWarehouse}
-                    openModal={handleOpen}
-                    warehouses={Warehouses}
-                    total={0}
-                    // permissions={permissions?.data || []}
-                    // setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-                    // setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-                    // total={permissions?.totalDocs || 0}
+    <DashboardLayout>
+      <Container maxWidth={false}>
+        <CardContent sx={{ paddingTop: 0 }}>
+          <TableToolbar
+            hasBulk
+            buttonText="New"
+            navTitle="Warehouses"
+            rightActions={[
+              {
+                id: crypto.randomUUID(),
+                title: "New",
+                onClick: () => {
+                  // navigate(AppRoutes.CATALOG.productCreate);
+                },
+                icon: (
+                  <AddCircleIcon
+                    sx={{
+                      fontSize: 18,
+                      mr: 1,
+                    }}
                   />
-                </Box>
-              </CardContent>
-            </Card>
-          </Container>
-        </Box>
-        <WarehouseForm handleClose={handleClose} open={open} />
-      </DashboardLayout>
-    </ThemeProvider>
+                ),
+              },
+            ]}
+            title="Warehouses"
+            onBulkHandle={() => {}}
+          />
+          <Box sx={{ mt: 3 }}>
+            {/* <ProductListing data={productPaginationResponse} /> */}
+          </Box>
+        </CardContent>
+      </Container>
+    </DashboardLayout>
+    // </ThemeProvider>
   );
 }
 
-export default memo(Warehouse);
+export default Warehouse;

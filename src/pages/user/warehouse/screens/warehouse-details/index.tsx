@@ -10,7 +10,6 @@ import {
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import React from "react";
-import WarehouseForm from "../../component/WarehouseForm";
 import Areas from "./component/tabs/areas";
 import Containers from "./component/tabs/containers";
 import General from "./component/tabs/general";
@@ -105,7 +104,7 @@ function WarehouseDetails() {
           </Card>
         </Container>
       </Box>
-      <WarehouseForm handleClose={handleClose} open={open} />
+      {/* <WarehouseForm handleClose={handleClose} open={open} /> */}
     </DashboardLayout>
   );
 }
