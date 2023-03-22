@@ -1,4 +1,5 @@
 export interface IAddVariantRequestRoot {
+  productId?: number;
   variantt?: Variantt[];
   option?: Option[];
 }

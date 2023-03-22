@@ -23,13 +23,19 @@ function useProductAction() {
       const response = await editProduct(data);
       if (response.statusCode === 200) {
         queryClient.invalidateQueries([QueryKeys.getAllProduct]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
         return true;
       }
-      return false;
-    } catch (error) {
-      //
-      return false;
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
     }
+    return false;
   };
 
   const addProductAction = async (
