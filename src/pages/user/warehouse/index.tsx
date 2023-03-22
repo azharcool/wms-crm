@@ -2,7 +2,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
+import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import WarehouseListing from "./component/WarehouseListing";
 
 function Warehouse() {
   const navigate = useNavigate();
@@ -20,7 +22,7 @@ function Warehouse() {
                 id: crypto.randomUUID(),
                 title: "New",
                 onClick: () => {
-                  // navigate(AppRoutes.CATALOG.productCreate);
+                  navigate(AppRoutes.WAREHOUSE_CREATE);
                 },
                 icon: (
                   <AddCircleIcon
@@ -36,6 +38,7 @@ function Warehouse() {
             onBulkHandle={() => {}}
           />
           <Box sx={{ mt: 3 }}>
+            <WarehouseListing />
             {/* <ProductListing data={productPaginationResponse} /> */}
           </Box>
         </CardContent>

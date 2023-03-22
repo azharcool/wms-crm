@@ -21,7 +21,9 @@ export interface IGetProductResponseData {
   uom?: number;
   supplierId?: number;
   categoryId: number;
+  categoryName: string;
   brandId: number;
+  brandName: string;
   tags?: string;
   height?: number;
   width?: number;

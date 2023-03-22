@@ -3,6 +3,7 @@ import {
   Checkbox,
   Paper,
   Table,
+  TableBody,
   TableContainer,
   TableHead,
   TableRow,
@@ -11,54 +12,43 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-// import ProductItem from "./ProductItem";
+import WarehouseItem from "./WarehouseItem";
+import Warehouse from "./__mock__/warhouses.json";
 
 const tableTitle = [
-  {
-    id: crypto.randomUUID(),
-    title: "Image",
-  },
-
   {
     id: crypto.randomUUID(),
     title: "Name",
   },
 
+  // {
+  //   id: crypto.randomUUID(),
+  //   title: "Label",
+  // },
   {
     id: crypto.randomUUID(),
-    title: "Inventory",
+    title: "Label",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "City",
   },
   {
     id: crypto.randomUUID(),
-    title: "Variants",
+    title: "Email",
   },
   {
     id: crypto.randomUUID(),
-    title: "Category",
+    title: "Phone",
   },
   {
     id: crypto.randomUUID(),
-    title: "Brand",
+    title: "Primary",
   },
   {
     id: crypto.randomUUID(),
-    title: "Company",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Tags",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Track SN",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Track expiry",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Last updated",
+    title: "Status",
   },
 ];
 
@@ -89,18 +79,20 @@ function WarehouseListing() {
                     <Checkbox checked={false} />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
-                    const isImage = item.title.includes("Image");
                     const isName = item.title.includes("Name");
+                    const isLabel = item.title.includes("Label");
 
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 150,
-                          position: isImage || isName ? "sticky" : "static",
-                          left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          position: isName && "sticky",
+                          left: isName && "60px",
+                          // position: isLabel || isName ? "sticky" : "static",
+                          // left: isLabel || isName ? (isName ? 60 : 167) : 0,
                         }}
+                        minWt={150}
                       >
                         {item.title}
                       </CustomTableCell>
@@ -111,11 +103,11 @@ function WarehouseListing() {
                   </CustomTableCell>
                 </TableRow>
               </TableHead>
-              {/* <TableBody>
-                {data?.data?.map((item) => {
-                  return <ProductItem key={item.id} item={item} />;
+              <TableBody>
+                {Warehouse?.map((item) => {
+                  return <WarehouseItem key={item.id} item={item} />;
                 })}
-              </TableBody> */}
+              </TableBody>
             </Table>
           </PerfectScrollbar>
         </TableContainer>

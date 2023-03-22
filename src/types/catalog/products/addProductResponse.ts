@@ -1,5 +1,5 @@
 export interface IAddProductResponseRoot {
-  statusCode: number;
+  statusCode: any;
   message: string;
   productId: number;
 }

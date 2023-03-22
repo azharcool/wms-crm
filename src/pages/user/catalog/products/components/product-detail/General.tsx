@@ -102,7 +102,9 @@ function General(props: IGeneral) {
                 name="productCategory"
                 size="small"
                 value={formik?.values.productCategory}
-                onChange={formik.handleChange("productCategory")}
+                onSelectHandler={(e) => {
+                  formik.setFieldValue("productCategory", e.target.value);
+                }}
               />
               <TextField
                 isSelect
@@ -249,6 +251,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
+                // disabled={isTrue}
                 disabled={isTrue}
                 label="Strategy"
                 menuItems={strategys}

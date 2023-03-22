@@ -1,6 +1,6 @@
 export interface IGetBrandResponseRoot {
   message: string;
-  statusCode: any;
+  statusCode: number;
   data: IGetBrandResponseData[];
   totalDocs: number;
 }

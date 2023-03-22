@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import { FormikHelpers, useFormik } from "formik";
+import { FormikHelpers } from "formik";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import useCategory from "hooks/catalog/categories/useCategory";
 import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
@@ -16,22 +16,10 @@ import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
-import { EditCategoriesForm } from "../hooks/useEditCategoriesForm";
+import useEditCategoriesForm, {
+  EditCategoriesForm,
+} from "../hooks/useEditCategoriesForm";
 
-const detailMenu = [
-  {
-    id: crypto.randomUUID(),
-    value: "Watches",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Video, DVD & Blu-Ray",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Toys & Games",
-  },
-];
 const statusMenu = [
   {
     id: "1",
@@ -43,6 +31,16 @@ const statusMenu = [
   },
 ];
 
+const initialValues: EditCategoriesForm = {
+  parentCategoryId: "",
+  position: "",
+  tag: "",
+  name: "",
+  slug: "",
+  detail: "",
+  status: "",
+};
+
 function CategoriesDetail() {
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
@@ -53,35 +51,30 @@ function CategoriesDetail() {
   const { data: categoryItemResponse } = useGetByIdCategory({
     categoryId: Number(categoryId),
   });
+
   const userDecoded = useDecodedData();
   const { editCategoryAction } = useCategoriesAction();
 
+  const categoryForm = useEditCategoriesForm({
+    onSubmit,
+    initialValues,
+  });
+
   const {
-    values,
-    handleChange,
-    setFieldValue,
     touched,
     errors,
+    values,
+    handleChange,
     handleBlur,
+    setFieldValue,
     handleSubmit,
-  } = useFormik({
-    initialValues: {
-      parentCategoryId: "",
-      position: "",
-      tag: "",
-      name: "",
-      slug: "",
-      detail: "",
-      status: "",
-    },
-    onSubmit,
-  });
+  } = categoryForm;
 
   useEffect(() => {
     if (categoryItemResponse?.data) {
       setFieldValue(
         "parentCategoryId",
-        String(categoryItemResponse?.data.parentCategoryId) || "",
+        categoryItemResponse?.data.parentCategoryId || "",
       );
       setFieldValue(
         "position",
@@ -91,10 +84,7 @@ function CategoriesDetail() {
       setFieldValue("name", categoryItemResponse?.data.name || "");
       setFieldValue("slug", categoryItemResponse?.data.slug || "");
       setFieldValue("detail", categoryItemResponse?.data.detail || "");
-      setFieldValue(
-        "status",
-        categoryItemResponse?.data.status === 2 ? "Active" : "Inactive" || "",
-      );
+      setFieldValue("status", categoryItemResponse?.data.status || "");
     }
   }, [categoryItemResponse?.data, setFieldValue]);
 
@@ -111,7 +101,7 @@ function CategoriesDetail() {
       name: values.name,
       slug: values.slug,
       detail: values.slug,
-      status: Number(values.status === "Active" ? "1" : "2"),
+      status: Number(values.status),
     };
     const response = await editCategoryAction(data);
     if (response) {
@@ -305,6 +295,7 @@ function CategoriesDetail() {
                     disabled={istrue}
                     id="status"
                     label="Status"
+                    menuItems={statusMenu}
                     name="status"
                     size="small"
                     value={values.status}

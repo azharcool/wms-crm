@@ -44,7 +44,6 @@ function Bundles() {
             title="Bundles"
             onBulkHandle={() => {
               const ids = getSelectedBulkIdsState.toString();
-              console.log({ ids });
               if (ids) {
                 bulkDeleteBundleAsync(ids);
               }

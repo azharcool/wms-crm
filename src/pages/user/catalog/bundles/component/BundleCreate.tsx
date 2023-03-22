@@ -124,7 +124,6 @@ function BundleCreate() {
         image: uploadedFiles.map((i) => i.value),
       }),
     };
-    console.log("bundleCreate", JSON.stringify(data, null, 2));
     await addBundleAction(data);
     navigate("/catalog/bundles");
     setEditable(false);

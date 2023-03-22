@@ -50,10 +50,6 @@ function General(props: IGeneral) {
     isFetching: isFetchingBundle,
   } = useGetByIdBundle(bundleId);
 
-  const onDrop = (files: any) => {
-    console.log("filess12", URL.createObjectURL(files[0]));
-  };
-
   return (
     <Grid container marginTop={2} spacing={2}>
       <Grid item xs={8}>
@@ -186,29 +182,7 @@ function General(props: IGeneral) {
                   border: "1px dashed rgb(236, 236, 236)",
                 }}
               >
-                {/* <Dropzone multiple={false} onDrop={onDrop}>
-                  {({ getRootProps, getInputProps }) => (
-                    <Grid container xs={12}>
-                      <Grid
-                        item
-                        {...getRootProps({ className: "" })}
-                        sx={{ p: 2 }}
-                      >
-                        <input {...getInputProps()} />
-                        {selectedFiles ? (
-                          <Box className="selected-file">{selectedFiles}</Box>
-                        ) : (
-                          <Typography
-                            color="text.secondary"
-                            variant="subtitle1"
-                          >
-                            Drop your image here, or click to select
-                          </Typography>
-                        )}
-                      </Grid>
-                    </Grid>
-                  )}
-                </Dropzone> */}
+
                 <img
                   alt="new"
                   src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
