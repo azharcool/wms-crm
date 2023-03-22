@@ -50,6 +50,26 @@ const AppRoutes = {
     SUPPLIERS: "suppliers",
     SUPPLIERS_RETURN: "supplier-return",
   },
+
+  warehouse: {
+    warehouseLayout: "warehouse",
+    listing: "listing",
+    details: "details",
+    create: "create",
+
+    // tabs
+    generalDetails: "general/details",
+    areas: "areas/listing",
+    zones: "zones/listing",
+    locations: "locations/listing",
+    containers: "containers/listing",
+
+    // details
+    areasDetails: "areas/details",
+    zonesDetails: "zones/details",
+    locationsDetails: "locations/details",
+    containersDetails: "containers/details",
+  },
 };
 
 export default AppRoutes;

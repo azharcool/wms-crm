@@ -1,6 +1,8 @@
+import { IResponse } from "constants/interfaces";
 import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
 import { GetAllVariantByProductIdRoot } from "types/catalog/variants/getAllVariantByProductId";
 import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
+import { GetVariantByIdRoot } from "types/catalog/variants/getVariantByIdResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -15,7 +17,7 @@ export async function getAllPaginationVariant(
 }
 
 export async function getAllVariant(): Promise<IGetAllVariantResponseRoot> {
-  let URL = `${API_URLS.GET_ALL_VARIANT}`;
+  const URL = `${API_URLS.GET_ALL_VARIANT}`;
   return client.get(URL);
 }
 
@@ -26,6 +28,11 @@ export async function addVariant(
   return client.post(URL, request);
 }
 
+export async function getVariantById(id: number): Promise<GetVariantByIdRoot> {
+  const URL = `${API_URLS.GET_BY_ID_VARIANT}?id=${id}`;
+  return client.get(URL);
+}
+
 export async function getAllVariantByProductId(
   restUrl: string,
 ): Promise<GetAllVariantByProductIdRoot> {
@@ -34,4 +41,14 @@ export async function getAllVariantByProductId(
     URL = `${URL}?${restUrl}`;
   }
   return client.get(URL);
+}
+
+export async function deleteVariant(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_VARIANT}/${id}`;
+  return client.delete(URL);
+}
+
+export async function buldDeleteVariant(ids: string): Promise<IResponse> {
+  const URL = `${API_URLS.BULK_DELETE_VARIANT}/${ids}`;
+  return client.delete(URL);
 }
