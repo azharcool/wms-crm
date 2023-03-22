@@ -12,8 +12,9 @@ import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
 import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
-import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
-// import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -32,7 +33,7 @@ function BrandDetails() {
   });
 
   console.log("brandItemResponse", brandItemResponse);
-
+  // useGetByIdBrand
   const newtheme = useSelector((state: any) => state.theme);
 
   const initialValues: IBrandDetail = {
@@ -166,23 +167,13 @@ function BrandDetails() {
   ) {
     const data: IAddBrandRequestRoot = {
       userId: Number(userDecoded.id),
-      id: brandItemResponse?.data?.id,
+      id: brandItemResponse?.data?.id || 0,
       name: values.name,
-      // type: values.type || detailMenu[0].value || "",
-      // description: values.description || "",
-      // supplyPrice: Number(values.supply),
       slug: values.slug,
-      // strategy: values.strategy,
-      // quantity: Number(values.quantity) || 0,
-      // barcodeStrategy: values.uniqueBarcoding,
-      // trackExpiryDates: values.trackExpiryDates,
     };
     const response = await addBrandDetail(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
-      // navigate(AppRoutes.CATALOG.brands);
-      //   handleClose();
-      //   queryClient.invalidateQueries([QueryKeys.getAllBrand]);
     }
   }
 
