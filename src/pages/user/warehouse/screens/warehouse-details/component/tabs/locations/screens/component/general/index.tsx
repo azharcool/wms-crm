@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   Box,
   Card,
@@ -12,7 +11,8 @@ import {
 } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
-import LocationsForm from "../../../component/LocationsForm";
+import { useState } from "react";
+import LocationsForm from "../../../component/LocationForm";
 
 function General() {
   const [open, setOpen] = useState(false);

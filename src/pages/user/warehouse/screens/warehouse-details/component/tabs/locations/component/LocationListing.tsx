@@ -12,52 +12,98 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import WarehouseItem from "./WarehouseItem";
-import Warehouse from "./__mock__/warhouses.json";
+import LocationItem from "./LocationItem";
+
+import Locations from "../__mock__/Locations.json";
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "Name",
-  },
-
-  // {
-  //   id: crypto.randomUUID(),
-  //   title: "Label",
-  // },
-  {
-    id: crypto.randomUUID(),
-    title: "Label",
+    title: "Location Label",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "City",
+    title: "Area",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Zone",
   },
   {
     id: crypto.randomUUID(),
-    title: "Email",
+    title: "Aisle",
   },
   {
     id: crypto.randomUUID(),
-    title: "Phone",
+    title: "Level",
   },
   {
     id: crypto.randomUUID(),
-    title: "Primary",
+    title: "Bin",
   },
   {
     id: crypto.randomUUID(),
     title: "Status",
   },
+  {
+    id: crypto.randomUUID(),
+    title: "Operation",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Warehouse",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Location Type",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Location alias",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Containers",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Available",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Volume",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Used Volume",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Dimensions",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Max.Load",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Used Load",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Utilization",
+  },
 ];
 
-function WarehouseListing() {
+function LocationListing() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
 
-      <Box sx={{ minWidth: 1050, minHeight: 500 }}>
+      <Box sx={{ minHeight: 500 }}>
         <TableContainer component={Paper}>
           <PerfectScrollbar>
             <Table
@@ -79,16 +125,17 @@ function WarehouseListing() {
                     <Checkbox checked={false} />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
-                    const isName = item.title.includes("Name");
-                    const isLabel = item.title.includes("Label");
+                    const isLocationLabel =
+                      item.title.includes("LocationLabel");
+                    // const isLabel = item.title.includes("Label");
 
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          position: isName && "sticky",
-                          left: isName && "60px",
+                          position: isLocationLabel && "sticky",
+                          left: isLocationLabel && "60px",
                           // position: isLabel || isName ? "sticky" : "static",
                           // left: isLabel || isName ? (isName ? 60 : 167) : 0,
                         }}
@@ -104,8 +151,8 @@ function WarehouseListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Warehouse?.map((item) => {
-                  return <WarehouseItem key={item.id} item={item} />;
+                {Locations?.map((item: any) => {
+                  return <LocationItem key={item.id} item={item} />;
                 })}
               </TableBody>
             </Table>
@@ -116,4 +163,4 @@ function WarehouseListing() {
   );
 }
 
-export default WarehouseListing;
+export default LocationListing;

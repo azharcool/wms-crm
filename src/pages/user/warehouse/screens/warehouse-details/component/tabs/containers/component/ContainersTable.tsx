@@ -1,12 +1,10 @@
-import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import CreateIcon from "@mui/icons-material/Create";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SearchIcon from "@mui/icons-material/Search";
 import {
-  alpha,
   Box,
   Card,
   Checkbox,
@@ -22,16 +20,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useAlert } from "components/alert";
-import { useState } from "react";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import { usePermissionActions } from "redux/permissions/permissions";
-import palette from "theme/palette";
 import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import { useNavigate } from "react-router-dom";
-import MoreMenu from "components/common/MoreMenu";
+import { usePermissionActions } from "redux/permissions/permissions";
 // import LocationsForm from "./LocationsForm";
-import { IPermission } from "../query/useFetchPermissions";
 import ContainersForm from "./ContainersForm";
 
 interface IProps {
@@ -157,7 +151,7 @@ function ContainersTable(props: IProps) {
   return (
     <Card>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050, overflow: "auto" }}>
+        <Box sx={{ overflow: "auto" }}>
           <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
           <Table>
             <TableHead>

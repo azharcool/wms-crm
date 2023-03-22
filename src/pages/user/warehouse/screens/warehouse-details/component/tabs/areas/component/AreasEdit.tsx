@@ -1,6 +1,4 @@
 import { Card, Grid, Stack, styled, Switch } from "@mui/material";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
@@ -153,26 +151,11 @@ function AreasForm(props: IAddScreen) {
       handleClose={handleClose}
       open={open}
       size="sm"
-      title="New Brand"
+      title="Edit Area"
     >
-      {/* <DialogTitle>
-        Areas
-        <IconButton
-          aria-label="close"
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme: any) => theme.palette.grey[500],
-          }}
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle> */}
-      <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Areas</DialogTitle>
-      </DialogActions>
+      {/* <DialogActions style={{ justifyContent: "space-between" }}>
+        {/* <DialogTitle>New Areas</DialogTitle> */}
+      {/* </DialogActions>  */}
       <Grid container marginTop={2} spacing={2}>
         <Grid item xs={12}>
           <Card

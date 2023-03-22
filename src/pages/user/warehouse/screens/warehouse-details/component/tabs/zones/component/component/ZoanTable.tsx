@@ -1,14 +1,11 @@
+import AddIcon from "@mui/icons-material/Add";
 import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from '@mui/icons-material/Search';
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SearchIcon from "@mui/icons-material/Search";
 import {
-  alpha,
   Box,
-  Card,
   Checkbox,
   IconButton,
   Table,
@@ -22,14 +19,12 @@ import {
   Typography,
 } from "@mui/material";
 import { useAlert } from "components/alert";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
-import FilterListIcon from '@mui/icons-material/FilterList';
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useNavigate } from "react-router-dom";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
-import AppRoutes from "navigation/appRoutes";
-import { useNavigate } from "react-router-dom";
-import MoreMenu from "components/common/MoreMenu";
 import ZoanForm from "./ZoneForm";
 // import { IPermission } from "../query/useFetchPermissions";
 
@@ -42,15 +37,14 @@ interface IProps {
   handleDeletePermission: (id: number) => void;
 }
 
-interface IZones{
-  id:string,
-  name:string
-  label:string,
-  warehouse:string,
-  area:string,
-  status:string  
+interface IZones {
+  id: string;
+  name: string;
+  label: string;
+  warehouse: string;
+  area: string;
+  status: string;
 }
-
 
 function ZoanTable(props: IProps) {
   const {
@@ -147,14 +141,15 @@ function ZoanTable(props: IProps) {
   const handleClose = () => {
     setOpen(false);
   };
- const handleEdit=()=>{
-  setOpen(true)
- }
+  const handleEdit = () => {
+    setOpen(true);
+  };
   return (
-    <Card>
+    // <Card>
+    <>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050, overflow: "auto" }}>
-        <EnhancedTableToolbar numSelected={3} handleOpen={handleOpen} />
+        <Box sx={{ overflow: "auto" }}>
+          <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
           <Table>
             <TableHead>
               <TableRow>
@@ -179,15 +174,8 @@ function ZoanTable(props: IProps) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {zones.map((zone:IZones) => {
-                const {
-                  id,
-                  name,
-                  label,
-                   warehouse,
-                   area,
-                   status
-                } = zone;
+              {zones.map((zone: IZones) => {
+                const { id, name, label, warehouse, area, status } = zone;
                 return (
                   <TableRow
                     key={id}
@@ -203,7 +191,13 @@ function ZoanTable(props: IProps) {
                         }}
                       />
                     </TableCell>
-                    <TableCell sx={{ cursor: "pointer" }} onClick={() => gotoDetails(id)}> {name}</TableCell>
+                    <TableCell
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => gotoDetails(id)}
+                    >
+                      {" "}
+                      {name}
+                    </TableCell>
                     <TableCell>{label}</TableCell>
                     <TableCell>{warehouse}</TableCell>
                     <TableCell>{area}</TableCell>
@@ -219,9 +213,7 @@ function ZoanTable(props: IProps) {
                         }}
                       >
                         <Box>
-                          <IconButton
-                            onClick={() => handleEdit()}
-                          >
+                          <IconButton onClick={() => handleEdit()}>
                             <CreateIcon
                               sx={{
                                 fontSize: "1.2rem",
@@ -235,7 +227,7 @@ function ZoanTable(props: IProps) {
                         </Box>
                       </Box>
                     </TableCell>
-                                      </TableRow>
+                  </TableRow>
                 );
               })}
             </TableBody>
@@ -251,14 +243,15 @@ function ZoanTable(props: IProps) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
       />
-     <ZoanForm handleClose={handleClose} open={open} />
+      <ZoanForm handleClose={handleClose} open={open} />
+    </>
 
-    </Card>
+    // </Card>
   );
 }
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  handleOpen:()=>void
+  handleOpen: () => void;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
@@ -275,40 +268,39 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         // }),
       }}
     >
-      
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          All
-        </Typography>
-        <Tooltip title="Add" onClick={()=>handleOpen()}>
-          <IconButton>
-            <AddIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Search">
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FormatAlignCenterIcon />
-          </IconButton>
-        </Tooltip> 
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="More">
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </Tooltip>
+      <Typography
+        component="div"
+        id="tableTitle"
+        sx={{ flex: "1 1 100%" }}
+        variant="h6"
+      >
+        All
+      </Typography>
+      <Tooltip title="Add" onClick={() => handleOpen()}>
+        <IconButton>
+          <AddIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Search">
+        <IconButton>
+          <SearchIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Filter list">
+        <IconButton>
+          <FormatAlignCenterIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Filter list">
+        <IconButton>
+          <FilterListIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="More">
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   );
 }
