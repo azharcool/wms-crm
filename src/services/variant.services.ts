@@ -14,6 +14,11 @@ export async function getAllPaginationVariant(
   return client.get(URL);
 }
 
+export async function getAllVariant(): Promise<IGetAllVariantResponseRoot> {
+  let URL = `${API_URLS.GET_ALL_VARIANT}`;
+  return client.get(URL);
+}
+
 export async function addVariant(
   request: IAddVariantRequestRoot,
 ): Promise<any> {

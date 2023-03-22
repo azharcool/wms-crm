@@ -2,13 +2,9 @@ import { useQuery } from "react-query";
 import { getBundleById } from "services/bundle.services";
 import { QueryKeys } from "utils/QueryKeys";
 
-interface IuseGetByIdBundle {
- id:number
-}
-
-function useGetByIdBundle(props: IuseGetByIdBundle) {
-  const cachedKey = [QueryKeys.getAllBundle, props.id];
-  const url = `id=${props.id}`;
+function useGetByIdBundle(id:number) {
+  const cachedKey = [QueryKeys.getAllBundle, id];
+  const url = `id=${id}`;
   return useQuery(cachedKey, () => getBundleById(url));
 }
 

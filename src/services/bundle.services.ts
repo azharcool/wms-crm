@@ -1,3 +1,4 @@
+import { IResponse } from "constants/interfaces";
 import client from "utils/ApiClient";
 import { IAddBundleRequestRoot } from "../types/catalog/bundles/addBundleRequest";
 import {
@@ -5,7 +6,6 @@ import {
   IGetBundleResponseRoot,
   IGetByIdBundleResponseRoot,
 } from "../types/catalog/bundles/getBundleResponse";
-
 import API_URLS from "./endPoints";
 
 export async function getAllPaginationBundle(

@@ -28,11 +28,29 @@ export interface IBundle {
   barcode: string;
   categoryId: number;
   brandId: number;
-  tag: any;
+  tag: string;
   status: number;
   createdOn: string;
   updatedOn: any;
   picture: IPicture[];
+}
+export interface IBundleDetails {
+  id: number
+  userId: number
+  userName: string
+  name: string
+  description: string
+  sku: string
+  barcode: string
+  categoryId: any
+  categoryName: any
+  brandName: any
+  brandId: any
+  tag: any
+  status: number
+  createdOn: string
+  updatedOn: any
+  picture: any[]
 }
 
 export interface IPicture {

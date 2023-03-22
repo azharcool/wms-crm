@@ -33,7 +33,7 @@ const combinedReducer = combineReducers({
   product,
   bundle,
   category,
-  brand,
+  brand
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
