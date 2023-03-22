@@ -136,7 +136,6 @@ function BundleDetails() {
     handleSubmit,
     setFieldValue,
   } = bundleForm;
-    console.log("bundleValue1", JSON.stringify(values, null, 2));
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
