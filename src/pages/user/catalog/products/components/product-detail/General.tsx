@@ -249,6 +249,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
+                // disabled={isTrue}
                 disabled={isTrue}
                 label="Strategy"
                 menuItems={strategys}
