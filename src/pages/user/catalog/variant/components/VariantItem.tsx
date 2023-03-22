@@ -20,10 +20,6 @@ function VariantItem(props: IVariantItem) {
   const { item } = props;
   const navigate = useNavigate();
 
-  const handleNavigation = () => {
-    navigate(AppRoutes.CATALOG.variantsDetails);
-  };
-
   return (
     <TableRow>
       <TableCell
@@ -71,7 +67,11 @@ function VariantItem(props: IVariantItem) {
           cursor: "pointer",
         }}
       >
-        <Box onClick={() => handleNavigation()}>
+        <Box
+          onClick={() => {
+            navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`);
+          }}
+        >
           <Tooltip title="TshirtXXL">
             <Typography sx={{ textDecoration: "underline" }}>
               {item.optionName}
