@@ -185,7 +185,9 @@ function General(props: IGeneral) {
                 name="productCategory"
                 size="small"
                 value={formik?.values.productCategory}
-                onChange={formik.handleChange("productCategory")}
+                onSelectHandler={(e) => {
+                  formik.setFieldValue("productCategory", e.target.value);
+                }}
               />
               <TextField
                 isSelect

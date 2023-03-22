@@ -74,7 +74,7 @@ function CategoriesDetail() {
     if (categoryItemResponse?.data) {
       setFieldValue(
         "parentCategoryId",
-        String(categoryItemResponse?.data.parentCategoryId) || "",
+        categoryItemResponse?.data.parentCategoryId || "",
       );
       setFieldValue(
         "position",
@@ -84,10 +84,7 @@ function CategoriesDetail() {
       setFieldValue("name", categoryItemResponse?.data.name || "");
       setFieldValue("slug", categoryItemResponse?.data.slug || "");
       setFieldValue("detail", categoryItemResponse?.data.detail || "");
-      setFieldValue(
-        "status",
-        categoryItemResponse?.data.status === 2 ? "Active" : "Inactive" || "",
-      );
+      setFieldValue("status", categoryItemResponse?.data.status || "");
     }
   }, [categoryItemResponse?.data, setFieldValue]);
 
@@ -104,7 +101,7 @@ function CategoriesDetail() {
       name: values.name,
       slug: values.slug,
       detail: values.slug,
-      status: Number(values.status === "Active" ? "1" : "2"),
+      status: Number(values.status),
     };
     const response = await editCategoryAction(data);
     if (response) {
