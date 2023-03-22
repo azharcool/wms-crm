@@ -5,6 +5,10 @@ export const Warehouse = Loadable({
   loader: () => import("pages/user/warehouse"),
   loading: () => <Spinner />,
 });
+export const WarehouseCreate = Loadable({
+  loader: () => import("pages/user/warehouse/component/AddWarehouse"),
+  loading: () => <Spinner />,
+});
 
 export const WarehouseDetails = Loadable({
   loader: () => import("pages/user/warehouse/screens/warehouse-details"),

@@ -159,21 +159,21 @@ function VariantItem(props: IVariantItem) {
           minWidth: 200,
         }}
       >
-        INR 0.00
+        INR {item.supplyPrice}.00
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        INR 0.00
+        INR {item.retailPrice}.00
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        INR 0.00
+        INR {item.mrp}.00
       </TableCell>
       <TableCell
         sx={{
