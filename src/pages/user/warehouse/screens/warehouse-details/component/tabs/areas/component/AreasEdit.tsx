@@ -228,34 +228,6 @@ function AreasForm(props: IAddScreen) {
             </CustomCardContent>
           </Card>
         </Grid>
-        {/* <Grid item xs={4}>
-          <Card
-            sx={{
-              flex: 1,
-            }}
-          >
-            <CustomCardContent title="Setting">
-              <Stack direction="column" gap={4}>
-                <TextField
-                  isSelect
-                  disabled={istrue}
-                  id="productType"
-                  label="Type"
-                  menuItems={detailMenu}
-                  name="productType"
-                  size="small"
-                  value=""
-                  // onSelectHandler={(e) => {
-                  //   formik?.setFieldValue(
-                  //     "productType",
-                  //     e.target.value,
-                  //   );
-                  // }}
-                />
-              </Stack>
-            </CustomCardContent>
-          </Card>
-        </Grid> */}
       </Grid>
     </Slider>
   );
