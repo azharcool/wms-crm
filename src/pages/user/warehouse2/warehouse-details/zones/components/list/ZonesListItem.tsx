@@ -4,7 +4,7 @@ import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
-function ContainerListItem(props: any) {
+function ZonesListItem(props: any) {
   const { item } = props;
   const navigate = useNavigate();
   const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
@@ -38,16 +38,7 @@ function ContainerListItem(props: any) {
       >
         {item.name}azhar
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          position: "sticky",
-          // left: 169,
-          // background: "white",
-        }}
-      >
-        {/* inventory */}-
-      </TableCell>
+
       <TableCell
         sx={{
           minWidth: 150,
@@ -56,21 +47,14 @@ function ContainerListItem(props: any) {
       >
         {/* variants count */}-
       </TableCell>
+
       <TableCell
         sx={{
           minWidth: 150,
           // background: "white",
         }}
       >
-        {/* category */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* brand */}-
+        {/* variants count */}-
       </TableCell>
 
       <TableCell
@@ -79,8 +63,9 @@ function ContainerListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* category */}-
       </TableCell>
+
       <TableCell
         sx={{
           minWidth: 150,
@@ -104,4 +89,4 @@ function ContainerListItem(props: any) {
   );
 }
 
-export default ContainerListItem;
+export default ZonesListItem;

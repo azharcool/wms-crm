@@ -12,6 +12,7 @@ import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
+import warehouseRouting from "./warehouse.routing";
 
 function Application() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -69,6 +70,7 @@ function Application() {
               element={<UserLoadable.WarehouseCreate />}
               path={AppRoutes.WAREHOUSE_CREATE}
             />
+            {warehouseRouting}
             <Route
               element={<UserLoadable.WarehouseDetails />}
               path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}

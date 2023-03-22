@@ -1,5 +1,7 @@
+import ZonesListing from "./components/list/ZonesListing";
+
 function Zones() {
-  return <div>Zones</div>;
+  return <ZonesListing />;
 }
 
 export default Zones;
