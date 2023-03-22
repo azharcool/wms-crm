@@ -1,12 +1,22 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Box, Card, Grid, Stack, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import TextField from "components/textfield";
+import { FormikProps } from "formik";
+import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
 
 import CustomCardContent from "components/card/CustomCardContent";
-import { useState } from "react";
+import { useEffect } from "react";
+
+interface IGeneral {
+  isTrue?: boolean;
+  nameRef?: any;
+  editable?: boolean;
+  data?: IGetByIdVariantData;
+  formik: FormikProps<any>;
+}
 
 interface ICustomAccordian {
   title: string;
@@ -27,8 +37,29 @@ function CustomAccordian(props: ICustomAccordian) {
     </Accordion>
   );
 }
-export default function General() {
-  const [editable, setEditable] = useState(false);
+
+export default function General(props: IGeneral) {
+  const { isTrue, nameRef, editable, data, formik } = props;
+  // const [editable, setEditable] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      formik?.setFieldValue("productName", data?.productName || "");
+      formik?.setFieldValue("optionName", data?.optionName || "");
+      formik?.setFieldValue("variantName", data?.variantName || "");
+      formik?.setFieldValue("height", data?.height);
+      formik?.setFieldValue("weight", data?.weight);
+      formik?.setFieldValue("width", data?.width);
+      formik?.setFieldValue("length", data?.length);
+      formik?.setFieldValue("mrp", data?.mrp || "");
+      formik?.setFieldValue("retailPrice", data?.retailPrice || "");
+      formik?.setFieldValue("supplyPrice", data?.supplyPrice);
+      formik?.setFieldValue("sku", data?.sku || "");
+      formik?.setFieldValue("barcode", data?.barcode || "");
+      formik?.setFieldValue("value", data?.value || "");
+      formik?.setFieldValue("crossDocking", data?.crossDocking || "");
+    }
+  }, [data]);
 
   const commonStyles = {
     bgcolor: "background.paper",
@@ -93,12 +124,12 @@ export default function General() {
               <Stack direction="row" gap={2}>
                 <TextField
                   disabled={istrue}
-                  id="categoryName"
+                  id="optionName"
                   label="Name"
-                  name="categoryName"
+                  name="optionName"
                   //   nameRef={nameRef}
                   size="small"
-                  value="lenovo ssd, adroid, WIRELESS"
+                  value={formik?.values.optionName}
                   onChange={() => {}}
                 />
 
@@ -143,9 +174,9 @@ export default function General() {
             <Stack direction="column" gap={2}>
               <TextField
                 disabled={istrue}
-                id="categoryName"
-                label="Description"
-                name="categoryName"
+                id="supplier"
+                label="Supplier"
+                name="supplier"
                 //   nameRef={nameRef}
                 size="small"
                 value="Not provided"
@@ -154,26 +185,25 @@ export default function General() {
             </Stack>
           </CustomAccordian>
           <CustomAccordian title="Tracking">
-            <Divider />
             <Stack direction="column" gap={2}>
               <TextField
                 disabled={istrue}
-                id="categoryName"
+                id="sku"
                 label="SKU"
-                name="categoryName"
+                name="sku"
                 //   nameRef={nameRef}
                 size="small"
-                value="LESSADWI-274585-286451"
+                value={formik?.values.sku}
                 onChange={() => {}}
               />
 
               <TextField
                 disabled={istrue}
-                id="categoySlug"
+                id="barcode"
                 label="Barcode"
-                name="categoySlug"
+                name="barcode"
                 size="small"
-                value="5132234447589"
+                value={formik?.values.barcode}
                 onChange={() => {}}
               />
               <TextField
@@ -219,54 +249,59 @@ export default function General() {
             </Stack>
           </CustomAccordian>
           <CustomAccordian title="Dimensions">
-            <Divider />
             <Stack direction="row" gap={2}>
               <TextField
+                iconEnd
                 disabled={istrue}
-                id="categoryName"
+                icon={<Typography>cm</Typography>}
+                id="height"
                 label="Height"
-                name="categoryName"
-                //   nameRef={nameRef}
+                name="height"
                 size="small"
-                value="0.00 cm"
+                value={formik?.values.height}
                 onChange={() => {}}
               />
 
               <TextField
+                iconEnd
                 disabled={istrue}
-                id="categoySlug"
+                icon={<Typography>cm</Typography>}
+                id="width"
                 label="Width"
-                name="categoySlug"
+                name="width"
                 size="small"
-                value="0.00 cm"
+                value={formik?.values.width}
                 onChange={() => {}}
               />
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
+                iconEnd
                 disabled={istrue}
-                id="categoryName"
+                icon={<Typography>cm</Typography>}
+                id="length"
                 label="Lenght"
-                name="categoryName"
+                value={formik?.values.length}
+                onChange={() => {}}
+                name="length"
                 //   nameRef={nameRef}
                 size="small"
-                value="0.00 cm"
-                onChange={() => {}}
               />
 
               <TextField
+                iconEnd
                 disabled={istrue}
-                id="categoySlug"
+                icon={<Typography>kg</Typography>}
+                id="weight"
                 label="Weight"
-                name="categoySlug"
+                name="weight"
                 size="small"
-                value="0.00 cm"
+                value={formik?.values.weight}
                 onChange={() => {}}
               />
             </Stack>
           </CustomAccordian>
           <CustomAccordian title="Reorder">
-            <Divider />
             <Stack direction="column" gap={2}>
               <TextField
                 disabled={istrue}
@@ -309,7 +344,6 @@ export default function General() {
             </Stack>
           </CustomAccordian>
           <CustomAccordian title="Fulfillment">
-            <Divider />
             <Stack direction="column" gap={2}>
               <TextField
                 disabled={istrue}
@@ -323,12 +357,14 @@ export default function General() {
               />
 
               <TextField
+                iconEnd
                 disabled={istrue}
-                id="categoySlug"
+                icon={<Typography>INR</Typography>}
+                id="supplyPrice"
                 label="Sync Supply Price"
-                name="categoySlug"
+                name="supplyPrice"
                 size="small"
-                value=""
+                value={formik.values.supplyPrice}
                 onChange={() => {}}
               />
             </Stack>

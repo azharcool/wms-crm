@@ -36,6 +36,7 @@ const QueryKeys = {
   getAllSupplier: "getAllSupplier",
   getByIdBrand: "getByIdBrand",
   getAllVariantByProductId: "getAllVariantByProductId",
+  getByIdVariant: "getByIdVariant",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

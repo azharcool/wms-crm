@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CancelIcon from "@mui/icons-material/Cancel";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import SaveIcon from "@mui/icons-material/Save";
 import {
@@ -12,24 +12,22 @@ import {
   Stack,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import CancelIcon from "@mui/icons-material/Cancel";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
-import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
+import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
 import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
 import useDecodedData from "hooks/useDecodedData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { generateRandomNumber } from "utils";
-import TextFieldChip from "components/textfield/TextFieldChip";
 import useAddBundleForm, { AddBundleForm } from "../hooks/useAddBundleForm";
 
 interface IMenuItem {
@@ -45,7 +43,7 @@ const initialValues: AddBundleForm = {
   categorys: "",
   brand: "",
   tags: "",
-  image:[]
+  image: [],
 };
 function BundleCreate() {
   const navigate = useNavigate();
@@ -425,7 +423,6 @@ function BundleCreate() {
                       </Box>
                     );
                   })}
-                  <UploadButton handleFile={handleFile} />
                 </Stack>
               </CustomCardContent>
             </Card>
