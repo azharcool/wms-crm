@@ -32,7 +32,7 @@ function WarehouseItem(props: any) {
           cursor: "pointer",
         }}
         onClick={() => {
-          navigate(`${AppRoutes.CATALOG.productDetail}/${item.id}`);
+          navigate(`${AppRoutes.WAREHOUSE_DETAILS}/${item.id}`);
         }}
       >
         {item.name}
