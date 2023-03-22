@@ -9,6 +9,7 @@ export interface AddBundleForm {
   categorys:string;
   brand: string; 
   tags: string; 
+  image:string[]
 }
 
 interface IuseAddBundleForm {
@@ -31,7 +32,8 @@ const deafultValues: AddBundleForm = {
   description: "",
   categorys:"",
   brand: "",
-  tags: ""
+  tags: "",
+  image:[]
 };
 
 function useAddBundleForm({

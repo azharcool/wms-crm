@@ -1,6 +1,8 @@
 import { IResponse } from "constants/interfaces";
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
 import { IAddCategoriesResponseRoot } from "types/catalog/catagories/addCategoriesResponse";
+import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
+import { EditCategoryResponseRoot } from "types/catalog/catagories/editCategoryResponse";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 
 import client from "utils/ApiClient";
@@ -26,6 +28,13 @@ export async function addCategory(
 ): Promise<IAddCategoriesResponseRoot> {
   const URL = `${API_URLS.ADD_CATEGORY}`;
   return client.post(URL, request);
+}
+
+export async function editCategory(
+  request: EditCategoryRequestRoot,
+): Promise<EditCategoryResponseRoot> {
+  const URL = `${API_URLS.EDIT_CATEGORY}`;
+  return client.put(URL, request);
 }
 
 export async function getByIdCategory(id: number) {

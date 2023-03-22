@@ -4,6 +4,7 @@ import TextField from "components/textfield";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { GetAllVariantByProductIdData } from "types/catalog/variants/getAllVariantByProductId";
 
 const conditionCode = [
   {
@@ -18,137 +19,141 @@ const conditionCode = [
 
 interface IVariantItem {
   isTrue?: boolean;
+  item: GetAllVariantByProductIdData;
 }
 function VariantItem(props: IVariantItem) {
-  const { isTrue } = props;
+  const { isTrue, item } = props;
+
   const navigate = useNavigate();
   const goToDetails = (id: string) => {
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
   };
 
   return (
-    <TableRow>
-      <TableCell
-        sx={{
-          width: 50,
-          background: "white",
-        }}
-        onClick={() => goToDetails("1")}
-      >
-        <Box
+    <>
+      <TableRow>
+        <TableCell
           sx={{
-            width: "40px",
-            height: "40px",
+            width: 50,
+            background: "white",
+          }}
+          onClick={() => goToDetails("1")}
+        >
+          <Box
+            sx={{
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            <img
+              alt="new"
+              src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+              width="100%"
+            />
+          </Box>
+        </TableCell>
+
+        <TableCell
+          sx={{
+            width: 170,
+            background: "white",
           }}
         >
-          <img
-            alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
+          {item?.optionName}
+        </TableCell>
+
+        <TableCell
+          sx={{
+            width: 120,
+          }}
+        >
+          <TextField
+            disabled={isTrue}
+            id="SKU"
+            label="SKU"
+            name="SKU"
+            size="small"
+            value={item.sku}
+            onChange={() => {}}
           />
-        </Box>
-      </TableCell>
+        </TableCell>
 
-      <TableCell
-        sx={{
-          width: 170,
-          background: "white",
-        }}
-      >
-        VariantValue
-      </TableCell>
-
-      <TableCell
-        sx={{
-          width: 120,
-        }}
-      >
-        <TextField
-          disabled={isTrue}
-          id="SKU"
-          label="SKU"
-          name="SKU"
-          size="small"
-          value="AZHART-762"
-          onChange={() => {}}
-        />
-      </TableCell>
-
-      <TableCell
-        sx={{
-          width: 120,
-        }}
-      >
-        <TextField
-          disabled={isTrue}
-          id="discount"
-          label="discount"
-          name="discount"
-          size="small"
-          value="4773400814241"
-          onChange={() => {}}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 80,
-        }}
-      >
-        <TextField
-          disabled={isTrue}
-          id="supplyPrice"
-          label="INR"
-          name="supplyPrice"
-          size="small"
-          value="0"
-          onChange={() => {}}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 80,
-        }}
-      >
-        <TextField
-          disabled={isTrue}
-          id="MRP"
-          label="M.R.P"
-          name="MRP"
-          size="small"
-          value="0"
-          onChange={() => {}}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 80,
-        }}
-      >
-        <TextField
-          disabled={isTrue}
-          id="RetailPrice"
-          label="Retail Price"
-          name="RetailPrice"
-          size="small"
-          value="0"
-          onChange={() => {}}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 80,
-        }}
-      >
-        <CustomSwitch />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 80,
-        }}
-      >
-        <CustomSwitch />
-      </TableCell>
-    </TableRow>
+        <TableCell
+          sx={{
+            width: 120,
+          }}
+        >
+          <TextField
+            disabled={isTrue}
+            id="barcoe"
+            label="Barcode"
+            name="barcode"
+            size="small"
+            value={item.barcode}
+            onChange={() => {}}
+          />
+        </TableCell>
+        <TableCell
+          sx={{
+            width: 80,
+          }}
+        >
+          <TextField
+            disabled={isTrue}
+            id="supplyPrice"
+            label="INR"
+            name="supplyPrice"
+            size="small"
+            value={item.supplyPrice}
+            onChange={() => {}}
+          />
+        </TableCell>
+        <TableCell
+          sx={{
+            width: 80,
+          }}
+        >
+          <TextField
+            disabled={isTrue}
+            id="MRP"
+            label="M.R.P"
+            name="MRP"
+            size="small"
+            value={item.mrp}
+            onChange={() => {}}
+          />
+        </TableCell>
+        <TableCell
+          sx={{
+            width: 80,
+          }}
+        >
+          <TextField
+            disabled={isTrue}
+            id="RetailPrice"
+            label="Retail Price"
+            name="RetailPrice"
+            size="small"
+            value={item.retailPrice}
+            onChange={() => {}}
+          />
+        </TableCell>
+        <TableCell
+          sx={{
+            width: 80,
+          }}
+        >
+          <CustomSwitch checked={item.crossDocking} />
+        </TableCell>
+        <TableCell
+          sx={{
+            width: 80,
+          }}
+        >
+          <CustomSwitch />
+        </TableCell>
+      </TableRow>
+    </>
   );
 }
 

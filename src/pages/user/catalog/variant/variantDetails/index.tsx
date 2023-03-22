@@ -93,11 +93,11 @@ function VariantDetails() {
                 backgroundColor: "#fff",
                 height: "100%",
                 // overflow: "scroll",
-                // position: "sticky",
+                position: "fixed",
               }}
             >
               <Tooltip title="Search">
-                <Box sx={{ mt: 2, p: 1 }}>
+                <Box sx={{ p: 1 }}>
                   <Box sx={{ maxWidth: 300 }}>
                     <TextField
                       fullWidth
