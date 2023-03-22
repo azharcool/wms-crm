@@ -13,7 +13,7 @@ import useForm from "../hooks/useForm";
 // import { IPermissionRequest, useApiActions } from "../query/useApiAction";
 
 interface IAddScreen {
-  open: boolean;
+  openEdit: boolean;
   handleClose: () => void;
 }
 
@@ -36,14 +36,6 @@ const initialValues: any = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPicking: false,
-
-  //   permissions: "",
-  //   permissionDescription: "",
-  //   permissionCode: "",
-  //   screenId: 0,
-  //   screenUrl: "",
-  //   screenCode: "",
-  //   isScreen: false,
 };
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
@@ -97,7 +89,7 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function AreasForm(props: IAddScreen) {
-  const { open, handleClose } = props;
+  const { openEdit, handleClose } = props;
   const [editable, setEditable] = useState(false);
   const nameRef = useRef<any>(null);
   const screenStorage = useSelector((state: any) => state.permissions);
@@ -149,13 +141,10 @@ function AreasForm(props: IAddScreen) {
     <Slider
       buttonText="save"
       handleClose={handleClose}
-      open={open}
+      open={openEdit}
       size="sm"
       title="Edit Area"
     >
-      {/* <DialogActions style={{ justifyContent: "space-between" }}>
-        {/* <DialogTitle>New Areas</DialogTitle> */}
-      {/* </DialogActions>  */}
       <Grid container marginTop={2} spacing={2}>
         <Grid item xs={12}>
           <Card
