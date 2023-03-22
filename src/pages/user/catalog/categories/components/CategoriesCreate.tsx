@@ -332,8 +332,8 @@ function CategoriesCreate() {
                           alt={item.value}
                           src={item.value}
                           style={{
-                            width: "120px",
-                            height: "120px",
+                            width: "100px",
+                            height: "100px",
                           }}
                         />
                       </Box>
