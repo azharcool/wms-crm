@@ -135,7 +135,6 @@ function DragAndDropImage(props: IDragAndDropImage) {
   } = useDropzone({
     accept: { "image/*": [] },
     onDrop: async (acceptedFiles) => {
-      //   console.log("acceptedFiles>>", acceptedFiles);
       const images = await Promise.all(
         acceptedFiles.map((file) => convertBase64(file)),
       );
