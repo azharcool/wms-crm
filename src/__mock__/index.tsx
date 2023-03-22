@@ -99,3 +99,79 @@ export const strategys = [
     value: "Last In First  Out",
   },
 ];
+
+export const warehouseStatus = [
+  {
+    id: "Active",
+    value: "Active",
+  },
+  {
+    id: "Inactive",
+    value: "Inactive",
+  },
+];
+
+export const pickingStrategy = [
+  {
+    id: "Create one picklist per oder",
+    value: "Create one picklist per oder.",
+  },
+  {
+    id: "Create picklist by closest location(required x, y, z)",
+    value: "Create picklist by closest location(required x, y, z)",
+  },
+];
+
+export const receivingStrategy = [
+  {
+    id: "Receive to temp location(receiving)",
+    value: "Receive to temp location(receiving)",
+  },
+  {
+    id: "Receive to permanent location(picking)",
+    value: "Receive to permanent location(picking)",
+  },
+];
+
+export const timezone = [
+  {
+    id: "India",
+    value: "India",
+  },
+];
+
+export const receivingType = [
+  {
+    id: "Over receive",
+    value: "Over receive",
+  },
+  {
+    id: "Under receive",
+    value: "Under receive",
+  },
+  {
+    id: "Over and under receive",
+    value: "Over and under receive",
+  },
+  {
+    id: "Invoice receive",
+    value: "Invoice receive",
+  },
+  {
+    id: "Blind receive",
+    value: "Blind receive",
+  },
+];
+
+export const newWarehouseSwitchs = [
+  {
+    id: crypto.randomUUID(),
+    value: "Default Warehouse",
+    name: "defaultWarehouse",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Allow Partial Picking",
+    name: "allowpartialpicking",
+  }
+];

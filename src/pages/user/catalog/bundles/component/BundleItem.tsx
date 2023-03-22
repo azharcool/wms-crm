@@ -21,7 +21,6 @@ function BundleItem(props: IProps) {
   const { bundle, refetch } = props;
   const navigate = useNavigate();
   const { deleteBundleAction } = useBundleAction();
-  // console.log("bundle", item);
   const goToDetails = async (id: number) => {
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`, {
       state: { bundleId: id },
@@ -36,7 +35,6 @@ function BundleItem(props: IProps) {
 
   const select = () => {
     dispatch(setBundleId(bundle.id));
-    console.log("item id---->", bundle.id);
   };
 
   const alert = useAlert();

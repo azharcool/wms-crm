@@ -6,6 +6,7 @@ const AppRoutes = {
   WAREHOUSE: "/warehouse",
   WAREHOUSE_DETAILS: "/warehouse-details",
   AREA_DETAILS: "/area-details",
+  WAREHOUSE_CREATE: "/warehouse-create",
   ZONE_DETAILS: "/zone-details",
   LOCATION_DETAILS: "/location-details",
   CONTAINER_DETAILS: "/container-details",
