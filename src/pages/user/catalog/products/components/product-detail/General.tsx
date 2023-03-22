@@ -122,7 +122,7 @@ function General(props: IGeneral) {
       formik?.setFieldValue("strategy", data?.strategy || "");
       formik?.setFieldValue("minExpiryDays", data?.expiryDays || "");
     }
-  }, [data, formik]);
+  }, [data]);
 
   return (
     <Grid container padding={0} spacing={2}>

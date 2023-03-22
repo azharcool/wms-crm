@@ -178,11 +178,14 @@ const API_URLS = {
 
   // Variant
   GET_ALL_PAGINATION_VARIANT: `variant/${endPoints.getAllPagination}`,
+  GET_ALL_VARIANT: `variant/${endPoints.getAll}`,
   ADD_VARIANT: `variant/${endPoints.add}`,
   EDIT_VARIANT: `variant/${endPoints.edit}`,
   GET_BY_ID_VARIANT: `variant/${endPoints.getbyid}`,
   BULK_DELETE_VARIANT: `variant/${endPoints.bulkDelete}`,
   DELETE_VARIANT: `variant/${endPoints.delete}`,
+  GET_ALL_PAGINATION_VARIANT_BY_PRODUCTID:
+    "variant/getall-pagination-by-productId",
 
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
@@ -190,16 +193,24 @@ const API_URLS = {
   GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
   PUT_BRAND: `brand/${endPoints.edit}`,
 
-  // bundle
-  GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
-  ADD_BUNDLE: `bundle/${endPoints.add}`,
-  EDIT_BUDLE: `bundle/${endPoints.edit}`,
-  GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
-  BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
-  DELETE_BUNDLE: `bundle/${endPoints.delete}`,
-
   //  Supplier
   GET_ALL_SUPPLIER: `supplier/${endPoints.getAll}`,
+  
+   // bundle
+   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
+   ADD_BUNDLE: `bundle/${endPoints.add}`,
+   EDIT_BUDLE: `bundle/${endPoints.edit}`,
+   GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
+   BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
+   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
+
+   // bundle Composition
+   GET_ALL_PAGINATION_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getAllPagination}`,
+   ADD_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.add}`,
+   EDIT_BUDLE_COMPOSITION: `bundleComposition/${endPoints.edit}`,
+   GET_BY_ID_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getbyid}`,
+   BULK_DELETE_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.bulkDelete}`,
+   DELETE_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.delete}`,
 };
 
 export default API_URLS;

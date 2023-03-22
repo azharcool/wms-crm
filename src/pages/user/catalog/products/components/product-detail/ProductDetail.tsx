@@ -20,9 +20,9 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
+import AddVariant from "../AddVariant";
 import General from "./General";
 import Variants from "./Variants";
-// import AddVariant from "../AddVariant";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -55,6 +55,8 @@ function ProductDetail() {
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
+  const [openVariant, setOpenVariant] = useState(false);
+
   const navigate = useNavigate();
   const { productId } = useParams();
   const { editProductAction } = useProductAction();
@@ -62,8 +64,13 @@ function ProductDetail() {
     productId: Number(productId),
   });
 
+  const handleVariant = () => {
+    setOpenVariant((s) => !s);
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
+    setEditable(false);
   };
 
   const lightTheme = createTheme({
@@ -105,7 +112,9 @@ function ProductDetail() {
       };
       const response = await editProductAction(editData);
       if (response) {
+        setEditable(false);
         formik.resetForm();
+        navigate(-1);
       }
     },
   });
@@ -160,10 +169,14 @@ function ProductDetail() {
       id: crypto.randomUUID(),
       title: "Edit",
       onClick: () => {
-        setEditable(true);
-        setTimeout(() => {
-          nameRef.current?.focus();
-        }, 500);
+        if (value === 0) {
+          setEditable(true);
+          setTimeout(() => {
+            nameRef.current?.focus();
+          }, 500);
+        } else {
+          handleVariant();
+        }
       },
       icon: (
         <EditIcon
@@ -178,8 +191,7 @@ function ProductDetail() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        setEditable(false);
-        navigate(-1);
+        formik.handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -235,6 +247,13 @@ function ProductDetail() {
           <Variants isTrue={istrue} />
         </TabPanel>
       </Container>
+      {openVariant && productId ? (
+        <AddVariant
+          handleClose={handleVariant}
+          open={openVariant}
+          productId={productId}
+        />
+      ) : null}
     </ThemeProvider>
   );
 }
