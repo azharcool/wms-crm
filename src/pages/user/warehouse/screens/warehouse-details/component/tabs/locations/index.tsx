@@ -1,55 +1,30 @@
-import React, { useState } from "react";
-import { Box, Card, CardContent, Container, Typography } from "@mui/material";
-// import AreasTable from "./component/AreasTable";
-import LocationsTable from "./component/LocationsTable";
-import locations from "./__mock__/Locations.json";
-// import WarehouseForm from "./component/WarehouseForm";
+import { Container } from "@mui/material";
+import useProductAction from "hooks/catalog/product/useProductAction";
+import useGetAllProduct from "hooks/querys/catalog/product/useGetAllProduct";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getSelectedProduct } from "redux/catalog/productSelector";
+import LocationListing from "./component/LocationListing";
+// import ProductListing from "./components/ProductListing";
+// import Locations from './index';
+
 function Locations() {
-  const [open, setOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [pageLimit, setPageLimit] = useState(10);
-  // const { deletePermission } = useApiActions();
-  // const {
-  //   data: permissions,
-  //   refetch,
-  //   isLoading,
-  // } = useFetchPermissions(currentPage, pageLimit);
+  const navigate = useNavigate();
+  const [productPagination, setproductPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const getSelectedProductIdsState = useSelector(getSelectedProduct);
 
-  // const handlePageChange = (pageNo: number) => {
-  //   setCurrentPage(pageNo);
-  //   setTimeout(() => {
-  //     refetch();
-  //   }, 500);
-  // };
-  // const handlePageLimitChange = (limit: number) => {
-  //   setPageLimit(limit);
-  //   setTimeout(() => {
-  //     refetch();
-  //   }, 500);
-  // };
+  const { bulkDeleteProductAsync } = useProductAction();
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  const { data: productPaginationResponse } =
+    useGetAllProduct(productPagination);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDeleteArea = async (id: number) => {
-    // await deletePermission(id);
-  };
   return (
     <Container maxWidth={false}>
-      <Card>
-        <LocationsTable
-          handleDeletePermission={handleDeleteArea}
-          locations={locations}
-          openModal={handleOpen}
-          total={0}
-        />
-      </Card>
-      {/* <WarehouseForm handleClose={handleClose} open={open} /> */}
+      <LocationListing />
     </Container>
   );
 }
