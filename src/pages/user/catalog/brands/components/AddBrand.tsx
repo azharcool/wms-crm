@@ -5,9 +5,8 @@ import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
 import useAddBrandForm, {
-  IAddBrand
+  IAddBrand,
 } from "hooks/catalog/brand/useAddBrandForm";
-
 import useBrandAction from "hooks/catalog/brand/useBrandAction";
 import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
@@ -15,7 +14,8 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { addBrandAction } from "services/brand.services";
+import { addBrand } from "services/brand.services";
+// import { addBrandAction } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
@@ -35,7 +35,7 @@ function AddBrand(props: IAddBrands) {
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-
+  // const { addBrandDetailFunc } = useBrandAction();
   const initialValues: IAddBrand = {
     id: 0,
     userId: 0,
@@ -62,31 +62,27 @@ function AddBrand(props: IAddBrands) {
     isSubmitting,
   } = formik;
 
-  const { addBrandActionFunc } = useBrandAction();
+  const { addBrandAction } = useBrandAction();
 
-  const handle = () => {
-    const body: IAddBrandRequestRoot = {
-      userId: userDecoded?.id,
-      name: values.name,
-      slug: values.slug,
-    };
-    addBrandAction(body);
-  };
+  // const handle = () => {
+  //   const body: IAddBrandRequestRoot = {
+  //     userId: userDecoded?.id,
+  //     name: values.name,
+  //     slug: values.slug,
+  //     id: 0,
+  //     image: "",
+  //     fileUrl: "",
+  //   };
+  //   addBrandDetailFunc(body);
+  // };
 
   async function onSubmit(values: IAddBrand, _: FormikHelpers<IAddBrand>) {
     const data: IAddBrandRequestRoot = {
       userId: Number(userDecoded.id),
       name: values.name,
-      // type: values.type || detailMenu[0].value || "",
-      // description: values.description || "",
-      // supplyPrice: Number(values.supply),
       slug: values.slug,
-      // strategy: values.strategy,
-      // quantity: Number(values.quantity) || 0,
-      // barcodeStrategy: values.uniqueBarcoding,
-      // trackExpiryDates: values.trackExpiryDates,
     };
-    const response = await addBrandAction(data);
+    const response = await addBrand(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
       // navigate(AppRoutes.CATALOG.brands);
@@ -198,3 +194,10 @@ function AddBrand(props: IAddBrands) {
 }
 
 export default AddBrand;
+function addBrandDetailFunc(data: IAddBrandRequestRoot) {
+  throw new Error("Function not implemented.");
+}
+
+function addBrandAction(data: IAddBrandRequestRoot) {
+  throw new Error("Function not implemented.");
+}

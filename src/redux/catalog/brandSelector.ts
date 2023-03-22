@@ -5,7 +5,7 @@ export const getBrand = (state: RootState) => state.brand;
 
 export const getSelectedBrand = createSelector(
   getBrand,
-  (category) => category.brandIds,
+  (brand) => brand.brandIds,
 );
 
 export const getSelectedBrandById = createSelector(

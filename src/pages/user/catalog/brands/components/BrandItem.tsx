@@ -1,11 +1,14 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
+import useBrandAction from "hooks/catalog/brand/useBrandAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedBrandById } from "redux/catalog/brandSelector";
-import { RootState } from "redux/store";
+import { setBrandId } from "redux/catalog/brandSlice";
+import { RootState, useAppDispatch } from "redux/store";
 import { IGetBrandResponseData } from "types/catalog/brands/getBrandResponse";
 
 interface IBrandItem {
@@ -15,10 +18,29 @@ interface IBrandItem {
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
   const navigate = useNavigate();
-
+  const alert = useAlert();
+  const { deleteBrandAsync } = useBrandAction();
   const getSelectedBrandByIdState = useSelector((state: RootState) =>
     getSelectedBrandById(state, brandData.id),
   );
+  const dispatch = useAppDispatch();
+
+  const select = () => {
+    dispatch(setBrandId(brandData.id));
+  };
+
+  const handleBrandDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete Brand",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteBrandAsync(brandData?.id);
+        // refetch();
+      },
+    });
+  };
 
   return (
     <TableRow>
@@ -32,7 +54,11 @@ function BrandItem(props: IBrandItem) {
           background: "white",
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
+        <Checkbox
+          checked={getSelectedBrandByIdState}
+          color="primary"
+          onChange={select}
+        />
       </TableCell>
       <TableCell
         sx={{
@@ -84,7 +110,12 @@ function BrandItem(props: IBrandItem) {
           background: "white",
         }}
       >
-        <TableActionButton />
+        <TableActionButton
+          onDeleteHandle={() => {
+            // deleteProductAsync(brandData.id);
+            handleBrandDelete();
+          }}
+        />
       </TableCell>
     </TableRow>
   );

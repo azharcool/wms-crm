@@ -3,6 +3,7 @@ import { Box, CardContent, Container } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import { useNavigate } from "react-router-dom";
+import WarehouseListing from "./component/WarehouseListing";
 
 function Warehouse() {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ function Warehouse() {
             onBulkHandle={() => {}}
           />
           <Box sx={{ mt: 3 }}>
+            <WarehouseListing />
             {/* <ProductListing data={productPaginationResponse} /> */}
           </Box>
         </CardContent>
