@@ -91,7 +91,7 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        {/* inventory */}-
+        {/* inventory */}0
       </TableCell>
       <TableCell
         sx={{
@@ -99,7 +99,8 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        {/* variants count */}-
+        {/* variants count */}
+        {item.variantCount}
       </TableCell>
       <TableCell
         sx={{
@@ -107,7 +108,8 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        {/* category */}-
+        {/* category */}
+        {item.categoryName}
       </TableCell>
       <TableCell
         sx={{
@@ -115,7 +117,8 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        {/* brand */}-
+        {/* brand */}
+        {item.brandName}
       </TableCell>
 
       <TableCell
@@ -124,7 +127,7 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        {/* company */}-
+        {/* company */}Not Provided
       </TableCell>
       <TableCell
         sx={{
@@ -132,7 +135,8 @@ function ProductItem(props: IProductItem) {
           background: "white",
         }}
       >
-        {/* tags */}-
+        {/* tags */}
+        {item.tags}
       </TableCell>
       <TableCell
         sx={{
@@ -141,7 +145,7 @@ function ProductItem(props: IProductItem) {
         }}
       >
         {/* track SN */}
-        {item.trackSerialNumbers || "-"}
+        {item.trackSerialNumbers === true ? "Yes" : "No"}
       </TableCell>
       <TableCell
         sx={{
@@ -150,7 +154,7 @@ function ProductItem(props: IProductItem) {
         }}
       >
         {/* track expiry */}
-        {item.trackExpiryDates || "-"}
+        {item.trackExpiryDates === true ? "Yes" : "No"}
       </TableCell>
 
       <TableCell
