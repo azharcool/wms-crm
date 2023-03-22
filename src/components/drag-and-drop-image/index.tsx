@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import UploadButton from "components/image-upload-button/UploadButton";
 import React, { useMemo, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
@@ -165,11 +166,16 @@ function DragAndDropImage(props: IDragAndDropImage) {
     [isFocused, isDragAccept, isDragReject],
   );
 
+  function handleFile(e: any): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Box className="container">
       <Box {...getRootProps()}>
         <input {...getInputProps()} />
-        <p>Drag and drop here, or click to select</p>
+
+        <UploadButton handleFile={handleFile} />
       </Box>
       <Box sx={thumbsContainer}>
         {files
