@@ -7,21 +7,117 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import { FormikHelpers, useFormik } from "formik";
+import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
+import useCategory from "hooks/catalog/categories/useCategory";
 import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
-import { useRef, useState } from "react";
+import useDecodedData from "hooks/useDecodedData";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
+import { EditCategoriesForm } from "../hooks/useEditCategoriesForm";
+
+const detailMenu = [
+  {
+    id: crypto.randomUUID(),
+    value: "Watches",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Video, DVD & Blu-Ray",
+  },
+  {
+    id: crypto.randomUUID(),
+    value: "Toys & Games",
+  },
+];
+const statusMenu = [
+  {
+    id: "1",
+    value: "Active",
+  },
+  {
+    id: "2",
+    value: "Inactive",
+  },
+];
 
 function CategoriesDetail() {
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
+  const { category } = useCategory();
   const [editable, setEditable] = useState(false);
   const { categoryId } = useParams();
   const { data: categoryItemResponse } = useGetByIdCategory({
     categoryId: Number(categoryId),
   });
-  // console.log("categoryItemResponse", categoryItemResponse);
+  const userDecoded = useDecodedData();
+  const { editCategoryAction } = useCategoriesAction();
+
+  const {
+    values,
+    handleChange,
+    setFieldValue,
+    touched,
+    errors,
+    handleBlur,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      parentCategoryId: "",
+      position: "",
+      tag: "",
+      name: "",
+      slug: "",
+      detail: "",
+      status: "",
+    },
+    onSubmit,
+  });
+
+  useEffect(() => {
+    if (categoryItemResponse?.data) {
+      setFieldValue(
+        "parentCategoryId",
+        String(categoryItemResponse?.data.parentCategoryId) || "",
+      );
+      setFieldValue(
+        "position",
+        String(categoryItemResponse?.data.position) || "",
+      );
+      setFieldValue("tag", categoryItemResponse?.data.tag || "");
+      setFieldValue("name", categoryItemResponse?.data.name || "");
+      setFieldValue("slug", categoryItemResponse?.data.slug || "");
+      setFieldValue("detail", categoryItemResponse?.data.detail || "");
+      setFieldValue(
+        "status",
+        categoryItemResponse?.data.status === 2 ? "Active" : "Inactive" || "",
+      );
+    }
+  }, [categoryItemResponse?.data, setFieldValue]);
+
+  async function onSubmit(
+    values: EditCategoriesForm,
+    _: FormikHelpers<EditCategoriesForm>,
+  ) {
+    const data: EditCategoryRequestRoot = {
+      id: categoryItemResponse?.data.id,
+      userId: Number(userDecoded.id),
+      parentCategoryId: Number(values.parentCategoryId),
+      position: Number(values.position),
+      tag: values.tag,
+      name: values.name,
+      slug: values.slug,
+      detail: values.slug,
+      status: Number(values.status === "Active" ? "1" : "2"),
+    };
+    const response = await editCategoryAction(data);
+    if (response) {
+      setEditable(false);
+    }
+  }
 
   const lightTheme = createTheme({
     palette: {
@@ -65,7 +161,6 @@ function CategoriesDetail() {
       title: "Cancel",
       onClick: () => {
         setEditable(false);
-        // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);
       },
       icon: (
         <ArrowBackIosIcon
@@ -98,7 +193,7 @@ function CategoriesDetail() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        setEditable(false);
+        handleSubmit();
         navigate(-1);
       },
       icon: (
@@ -118,17 +213,19 @@ function CategoriesDetail() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "CATAGORIES", to: "/Watches" }]}
+          breadcrumbs={[
+            { link: "CATAGORIES", to: categoryItemResponse?.data.name },
+          ]}
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.CategoriesDetail);
+            // handleSubmit();
           }}
           rightActions={
             editable
               ? rightActionsData.filter((i) => i.title !== "Edit")
               : rightActionsData.filter((i) => i.title === "Edit")
           }
-          title="Watches"
+          title={categoryItemResponse?.data.name}
         />
 
         <Grid container marginTop={2} spacing={2}>
@@ -142,33 +239,36 @@ function CategoriesDetail() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     disabled={istrue}
-                    id="categoryName"
+                    error={!!touched.name && !!errors.name}
+                    helperText={(touched.name && errors && errors.name) || ""}
+                    id="name"
                     label="Name"
-                    name="categoryName"
+                    name="name"
                     nameRef={nameRef}
                     size="small"
-                    value={categoryItemResponse?.data.name}
-                    onChange={() => {}}
+                    value={values.name}
+                    onBlur={handleBlur("name")}
+                    onChange={handleChange("name")}
                   />
 
                   <TextField
                     disabled={istrue}
-                    id="categoySlug"
+                    id="slug"
                     label="Slug"
-                    name="categoySlug"
+                    name="slug"
                     size="small"
-                    value={categoryItemResponse?.data.slug}
-                    onChange={() => {}}
+                    value={values.slug}
+                    onChange={handleChange("slug")}
                   />
 
                   <TextField
                     disabled={istrue}
-                    id="categoyDetail"
+                    id="detail"
                     label="Detail"
-                    name="categoyDetail"
+                    name="detail"
                     size="small"
-                    value={categoryItemResponse?.data.slug}
-                    onChange={() => {}}
+                    value={values.detail}
+                    onChange={handleChange("detail")}
                   />
                 </Stack>
               </CustomCardContent>
@@ -176,43 +276,50 @@ function CategoriesDetail() {
               <CustomCardContent title="Organization">
                 <Stack direction="row" gap={2}>
                   <TextField
+                    isSelect
                     disabled={istrue}
-                    id="categoryParent"
+                    id="parentCategoryId"
                     label="Parent"
-                    name="categoryParent"
+                    menuItems={category}
+                    name="parentCategoryId"
                     size="small"
-                    value={categoryItemResponse?.data.parentCategoryId}
-                    onChange={() => {}}
+                    value={values.parentCategoryId}
+                    onSelectHandler={(e) => {
+                      setFieldValue("parentCategoryId", e.target.value);
+                    }}
                   />
                   <TextField
                     disabled={istrue}
-                    id="categoyPosition"
+                    id="position"
                     label="Positon"
-                    name="categoyPosition"
+                    name="position"
                     size="small"
-                    value={categoryItemResponse?.data.position}
-                    onChange={() => {}}
+                    value={values.position}
+                    onChange={handleChange("position")}
                   />
                 </Stack>
 
                 <Stack direction="row" gap={2} marginTop={2}>
                   <TextField
+                    isSelect
                     disabled={istrue}
-                    id="categoryStatus"
+                    id="status"
                     label="Status"
-                    name="categoryStatus"
+                    name="status"
                     size="small"
-                    value={categoryItemResponse?.data.status}
-                    onChange={() => {}}
+                    value={values.status}
+                    onSelectHandler={(e) => {
+                      setFieldValue("status", e.target.value);
+                    }}
                   />
                   <TextField
                     disabled={istrue}
-                    id="categoyTags"
+                    id="tag"
                     label="Tags"
-                    name="categoyTags"
+                    name="tag"
                     size="small"
-                    value={categoryItemResponse?.data.tag}
-                    onChange={() => {}}
+                    value={values.tag}
+                    onChange={handleChange("tag")}
                   />
                 </Stack>
               </CustomCardContent>

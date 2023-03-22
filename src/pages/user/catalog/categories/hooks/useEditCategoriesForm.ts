@@ -1,7 +1,7 @@
 import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
-export interface AddCategoriesForm {
+export interface EditCategoriesForm {
   parentCategoryId: string;
   position: string;
   tag: string;
@@ -11,19 +11,19 @@ export interface AddCategoriesForm {
   status: string;
 }
 
-interface IuseAddCategoriesForm {
+interface IuseEditCategoriesForm {
   onSubmit: (
-    values: AddCategoriesForm,
-    formikHelpers: FormikHelpers<AddCategoriesForm>,
+    values: EditCategoriesForm,
+    formikHelpers: FormikHelpers<EditCategoriesForm>,
   ) => void | Promise<unknown>;
-  initialValues: AddCategoriesForm;
+  initialValues: EditCategoriesForm;
 }
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Category name required."),
 });
 
-const deafultValues: AddCategoriesForm = {
+const deafultValues: EditCategoriesForm = {
   parentCategoryId: "",
   position: "",
   tag: "",
@@ -32,15 +32,15 @@ const deafultValues: AddCategoriesForm = {
   detail: "",
   status: "",
 };
-function useAddCategoriesForm({
+function useEditCategoriesForm({
   onSubmit,
   initialValues = deafultValues,
-}: IuseAddCategoriesForm) {
-  return useFormik<AddCategoriesForm>({
+}: IuseEditCategoriesForm) {
+  return useFormik<EditCategoriesForm>({
     initialValues,
     onSubmit,
     validationSchema,
   });
 }
 
-export default useAddCategoriesForm;
+export default useEditCategoriesForm;

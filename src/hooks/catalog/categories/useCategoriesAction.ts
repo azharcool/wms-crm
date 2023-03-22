@@ -5,8 +5,10 @@ import {
   addCategory,
   bulkDeleteCategory,
   deleteCategory,
+  editCategory,
 } from "services/categories.services";
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
+import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
 function useCategoriesAction() {
@@ -30,9 +32,32 @@ function useCategoriesAction() {
     } catch (error: any) {
       snackbar?.show({
         title: error.message,
-        type: "success",
+        type: "error",
       });
       return "";
+    }
+  };
+
+  const editCategoryAction = async (
+    data: EditCategoryRequestRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editCategory(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllCategories]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+      return true;
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+      return false;
     }
   };
 
@@ -79,6 +104,7 @@ function useCategoriesAction() {
   return {
     addCategoriesAction,
     deleteCategoryAsync,
+    editCategoryAction,
     bulkDeleteCategoriesAsync,
   };
 }
