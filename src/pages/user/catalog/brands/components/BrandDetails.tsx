@@ -12,7 +12,7 @@ import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
 import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
-import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -31,7 +31,7 @@ function BrandDetails() {
   });
 
   console.log("brandItemResponse", brandItemResponse);
-
+  // useGetByIdBrand
   const newtheme = useSelector((state: any) => state.theme);
 
   const initialValues: IBrandDetail = {
