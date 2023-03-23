@@ -197,22 +197,49 @@ const API_URLS = {
 
   //  Supplier
   GET_ALL_SUPPLIER: `supplier/${endPoints.getAll}`,
-  
-   // bundle
-   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
-   ADD_BUNDLE: `bundle/${endPoints.add}`,
-   EDIT_BUDLE: `bundle/${endPoints.edit}`,
-   GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
-   BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
-   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
 
-   // bundle Composition
-   GET_ALL_PAGINATION_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getAllPagination}`,
-   ADD_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.add}`,
-   EDIT_BUDLE_COMPOSITION: `bundleComposition/${endPoints.edit}`,
-   GET_BY_ID_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getbyid}`,
-   BULK_DELETE_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.bulkDelete}`,
-   DELETE_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.delete}`,
+  // bundle
+  GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
+  ADD_BUNDLE: `bundle/${endPoints.add}`,
+  EDIT_BUDLE: `bundle/${endPoints.edit}`,
+  GET_BY_ID_BUNDLE: `bundle/${endPoints.getbyid}`,
+  BULK_DELETE_BUNDLE: `bundle/${endPoints.bulkDelete}`,
+  DELETE_BUNDLE: `bundle/${endPoints.delete}`,
+
+  // bundle Composition
+  GET_ALL_PAGINATION_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getAllPagination}`,
+  ADD_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.add}`,
+  EDIT_BUDLE_COMPOSITION: `bundleComposition/${endPoints.edit}`,
+  GET_BY_ID_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getbyid}`,
+  BULK_DELETE_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.bulkDelete}`,
+  DELETE_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.delete}`,
+
+  // Warehouse
+  ADD_WAREHOUSE: `warehouse/${endPoints.add}`,
+  EDIT_WAREHOUSE: `warehouse/${endPoints.edit}`,
+  GET_ALL_WAREHOUSE: `warehouse/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_WAREHOUSE: `warehouse/${endPoints.getAllPagination}`,
+  GET_BY_ID_WAREHOUSE: `warehouse/${endPoints.getbyid}`,
+  DELETE_WAREHOUSE: `warehouse/${endPoints.delete}`,
+  BULK_DELETE_WAREHOUSE: `warehouse/${endPoints.bulkDelete}`,
+
+  // WarehouseArea
+  ADD_WAREHOUSEAREA: `warehouseArea/${endPoints.add}`,
+  EDIT_WAREHOUSEAREA: `warehouseArea/${endPoints.edit}`,
+  GET_ALL_WAREHOUSEAREA: `warehouseArea/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_WAREHOUSEAREA: `warehouseArea/${endPoints.getAllPagination}`,
+  GET_BY_ID_WAREHOUSEAREA: `warehouseArea/${endPoints.getbyid}`,
+  DELETE_WAREHOUSEAREA: `warehouseArea/${endPoints.delete}`,
+  BULK_DELETE_WAREHOUSEAREA: `warehouseArea/${endPoints.bulkDelete}`,
+
+  // Zone
+  ADD_ZONE: `zone/${endPoints.add}`,
+  EDIT_ZONE: `zone/${endPoints.edit}`,
+  GET_ALL_ZONE: `zone/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_ZONE: `zone/${endPoints.getAllPagination}`,
+  GET_BY_ID_ZONE: `zone/${endPoints.getbyid}`,
+  DELETE_ZONE: `zone/${endPoints.delete}`,
+  BULK_DELETE_ZONE: `zone/${endPoints.bulkDelete}`,
 };
 
 export default API_URLS;

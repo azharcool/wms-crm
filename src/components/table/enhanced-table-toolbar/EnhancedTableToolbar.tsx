@@ -1,3 +1,4 @@
+import AddIcon from "@mui/icons-material/Add";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -20,10 +21,13 @@ interface ITab {
 }
 interface IEnhancedTableToolbar {
   tabs?: ITab[];
+  handleClick?: () => void;
+  title?: string;
+  icon?: React.ReactNode;
 }
 
 function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
-  const { tabs } = props;
+  const { tabs, title, handleClick, icon } = props;
   return (
     <Toolbar
       sx={{
@@ -77,6 +81,9 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
           </CustomIcon>
           <CustomIcon title="Filter list">
             <FilterListIcon />
+          </CustomIcon>
+          <CustomIcon title="Create">
+            <AddIcon />
           </CustomIcon>
           <CustomIcon title="More">
             <MoreVertIcon />

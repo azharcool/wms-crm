@@ -1,5 +1,7 @@
+import ContainerListing from "./components/list/ContainerListing";
+
 function Containers() {
-  return <div>Containers</div>;
+  return <ContainerListing />;
 }
 
 export default Containers;

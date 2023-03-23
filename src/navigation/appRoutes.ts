@@ -19,6 +19,7 @@ const AppRoutes = {
   ROLES: "roles",
   SCREENS: "screens",
   TEAM: "team",
+  BARCODE: "Barcode",
 
   CATALOG: {
     catalog: "catalog",
@@ -36,7 +37,7 @@ const AppRoutes = {
     listing: "listing",
     unitHistory: "unit-history",
     productCreate: "create",
-    variantsDetails: "variantsDetails",
+    variantsDetails: "detail",
     brandDetails: "brandDetails",
   },
 

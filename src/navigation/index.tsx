@@ -12,6 +12,7 @@ import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
+import warehouseRouting from "./warehouse.routing";
 
 function Application() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -69,6 +70,7 @@ function Application() {
               element={<UserLoadable.WarehouseCreate />}
               path={AppRoutes.WAREHOUSE_CREATE}
             />
+            {warehouseRouting}
             <Route
               element={<UserLoadable.WarehouseDetails />}
               path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
@@ -183,7 +185,7 @@ function Application() {
               </Route>
               <Route path={`${AppRoutes.CATALOG.variants}`}>
                 <Route index element={<UserLoadable.Variant />} />
-                <Route path={`${AppRoutes.CATALOG.variantsDetails}`}>
+                <Route path={`${AppRoutes.CATALOG.variantsDetails}/:variantId`}>
                   <Route index element={<UserLoadable.VariantDetails />} />
                 </Route>
               </Route>
@@ -217,6 +219,10 @@ function Application() {
               <Route
                 element={<SettingsLoadable.Team />}
                 path={AppRoutes.TEAM}
+              />
+              <Route
+                element={<SettingsLoadable.Barcode />}
+                path={AppRoutes.BARCODE}
               />
             </Route>
           </Route>

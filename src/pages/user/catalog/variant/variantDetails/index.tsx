@@ -12,18 +12,24 @@ import {
   TextField,
   Tooltip,
 } from "@mui/material";
-
 import TableToolbar from "components/table-toolbar";
+import { useFormik } from "formik";
+import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import SidebarButton from "./components/SidebarButton";
 
 import Tabs from "./components/Tabs";
 
 function VariantDetails() {
   const navigate = useNavigate();
+  const { variantId } = useParams();
   const nameRef = useRef<any>(null);
   const [editable, setEditable] = useState(false);
+
+  const { data: variantItemResponse } = useGetByIdVariant({
+    variantId: Number(variantId),
+  });
 
   const rightActionsData = [
     {
@@ -77,6 +83,31 @@ function VariantDetails() {
       ),
     },
   ];
+
+  const formik = useFormik({
+    initialValues: {
+      variantName: "",
+      productName: "",
+      optionName: "",
+      height: "",
+      weight: "",
+      width: "",
+      length: "",
+      mrp: "",
+      retailPrice: "",
+      supplyPrice: "",
+      sku: "",
+      barcode: "",
+      value: "",
+      crossDocking: "",
+    },
+    onSubmit: () => {
+      console.log("submit");
+    },
+  });
+
+  const istrue = !editable;
+
   return (
     <Container maxWidth={false}>
       <Box
@@ -148,7 +179,13 @@ function VariantDetails() {
               title="lenovo ssd, adroid, WIRELESS"
             />
 
-            <Tabs />
+            <Tabs
+              data={variantItemResponse?.data}
+              editable={editable}
+              formik={formik}
+              isTrue={istrue}
+              nameRef={nameRef}
+            />
           </Grid>
         </Grid>
       </Box>

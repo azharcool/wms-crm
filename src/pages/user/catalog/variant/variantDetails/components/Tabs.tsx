@@ -2,13 +2,23 @@ import Box from "@mui/material/Box";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
+import { FormikProps } from "formik";
 import * as React from "react";
+import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
 import General from "./General";
 import History from "./History";
 import International from "./International";
 import InventoryLog from "./InventoryLog";
 import Stock from "./Stock";
 import Suppliers from "./Suppliers";
+
+interface ITabs {
+  isTrue?: boolean;
+  nameRef?: any;
+  editable?: boolean;
+  data?: IGetByIdVariantData;
+  formik: FormikProps<any>;
+}
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -43,7 +53,9 @@ function a11yProps(index: number) {
   };
 }
 
-export default function BasicTabs() {
+export default function BasicTabs(props: ITabs) {
+  const { formik, data, editable, isTrue, nameRef } = props;
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -67,7 +79,13 @@ export default function BasicTabs() {
         </Tabs>
       </Box>
       <TabPanel index={0} value={value}>
-        <General />
+        <General
+          data={data}
+          editable={editable}
+          formik={formik}
+          isTrue={isTrue}
+          nameRef={nameRef}
+        />
       </TabPanel>
       <TabPanel index={1} value={value}>
         <Stock />

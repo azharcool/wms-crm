@@ -4,10 +4,8 @@ import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
-function ContainerListItem(props: any) {
-  const { item } = props;
+function ZoneItem(props: any) {
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
   return (
     <TableRow>
       <TableCell
@@ -25,7 +23,7 @@ function ContainerListItem(props: any) {
 
       <TableCell
         sx={{
-          minWidth: 150,
+          minWidth: 50,
           position: "sticky",
           left: 60,
           zIndex: 999,
@@ -33,10 +31,10 @@ function ContainerListItem(props: any) {
           cursor: "pointer",
         }}
         onClick={() => {
-          navigate(navigateDetails);
+          navigate(`${AppRoutes.ZONE_DETAILS}/${1}`);
         }}
       >
-        {item.name}azhar
+        name
       </TableCell>
       <TableCell
         sx={{
@@ -81,14 +79,6 @@ function ContainerListItem(props: any) {
       >
         {/* company */}-
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* tags */}-
-      </TableCell>
 
       <TableCell
         sx={{
@@ -104,4 +94,4 @@ function ContainerListItem(props: any) {
   );
 }
 
-export default ContainerListItem;
+export default ZoneItem;

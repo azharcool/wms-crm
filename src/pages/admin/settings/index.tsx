@@ -41,6 +41,10 @@ function Settings() {
     navigate(AppRoutes.SCREEN_ACCESS);
   };
 
+  const gotoBarcode = () => {
+    navigate(AppRoutes.BARCODE);
+  };
+
   // const gotoCustomField = () => {
   //   navigate(AppRoutes.CUSTOM_FIELDS);
   // };
@@ -167,12 +171,12 @@ function Settings() {
                     title="Screen Access"
                   />
                   <SettingBlock
-                    accessible={isControlAccessible(
-                      ACCESS_CODES.SCREEN_ACCESS,
-                      SCREEN_CODES.SETTINGS,
-                    )}
+                    // accessible={isControlAccessible(
+                    //   ACCESS_CODES.SCREEN_ACCESS,
+                    //   SCREEN_CODES.SETTINGS,
+                    // )}
                     color={palette.success.light}
-                    handleClick={gotoScreenAccess}
+                    handleClick={gotoBarcode}
                     icon={
                       <HorizontalSplitIcon
                         fontSize="medium"

@@ -1,0 +1,38 @@
+[
+    {
+      "id":"1",
+      "name":"warehouse1",
+      "label":"label1",
+      "city":"Nagpur",
+      "email":"abc@gmail.com",
+      "phone":1234567890,
+      "primaryContact":"aasif sheikh"
+    },
+    {
+      "id":"2",
+      "name":"warehouse2",
+      "label":"label2",
+      "city":"Nagpur",
+      "email":"abc@gmail.com",
+      "phone":1234567890,
+      "primaryContact":"aasif sheikh"
+    },
+    {
+      "id":"3",
+      "name":"warehouse2",
+      "label":"label2",
+      "city":"Nagpur",
+      "email":"abc@gmail.com",
+      "phone":1234567890,
+      "primaryContact":"aasif sheikh"
+    },
+    {
+      "id":"4",
+      "name":"warehouse2",
+      "label":"label2",
+      "city":"Nagpur",
+      "email":"abc@gmail.com",
+      "phone":1234567890,
+      "primaryContact":"aasif sheikh"
+    }
+  ]
