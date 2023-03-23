@@ -1,6 +1,7 @@
 import { IResponse } from "constants/interfaces";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
 import { IAddWarehouseResponseRoot } from "types/warehouse/addWarehouseResponse";
+import { IGetByIdWarehouseResponseRoot } from "types/warehouse/getByIdWarehouseResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -29,7 +30,7 @@ export async function getAllPaginationWarehouse(restUrl: string) {
   return client.get(URL);
 }
 
-export async function getByIdWarehouse(id: number) {
+export async function getByIdWarehouse(id: number):Promise<IGetByIdWarehouseResponseRoot> {
   const URL = `${API_URLS.GET_BY_ID_WAREHOUSE}?id=${id}`;
   return client.get(URL);
 }

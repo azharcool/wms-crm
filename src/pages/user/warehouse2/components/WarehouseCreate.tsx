@@ -150,9 +150,7 @@ function WarehouseCreate() {
               id: crypto.randomUUID(),
               title: "Cancel",
               onClick: () => {
-                navigate(
-                  `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
-                );
+                navigate(`/${AppRoutes.warehouse.warehouseLayout}`);
               },
               icon: (
                 <ArrowBackIosIcon
