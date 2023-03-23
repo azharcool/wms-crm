@@ -1,8 +1,12 @@
 import { IResponse } from "constants/interfaces";
+import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
+import { IAddWarehouseResponseRoot } from "types/warehouse/addWarehouseResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
-export async function addWarehouse(request: any): Promise<any> {
+export async function addWarehouse(
+  request: IAddWarehouseRequestRoot,
+): Promise<IAddWarehouseResponseRoot> {
   const URL = `${API_URLS.ADD_WAREHOUSE}`;
   return client.post(URL, request);
 }

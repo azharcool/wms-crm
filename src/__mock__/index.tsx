@@ -102,11 +102,11 @@ export const strategys = [
 
 export const warehouseStatus = [
   {
-    id: "Active",
+    id: "1",
     value: "Active",
   },
   {
-    id: "Inactive",
+    id: "2",
     value: "Inactive",
   },
 ];
