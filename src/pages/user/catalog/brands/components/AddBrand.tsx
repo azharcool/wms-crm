@@ -1,5 +1,4 @@
 import { Box, Card, Stack } from "@mui/material";
-
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import Slider from "components/layouts/popup-modals/Slider";
@@ -34,10 +33,10 @@ interface IAddBrands {
 function AddBrand(props: IAddBrands) {
   const { open, handleClose } = props;
   const [editable, setEditable] = useState(false);
+  // const [brandId, setBrandId] = useState("")
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
-  // const { addBrandDetailFunc } = useBrandAction();
   const initialValues: IAddBrand = {
     id: 0,
     userId: 0,
@@ -47,22 +46,10 @@ function AddBrand(props: IAddBrands) {
     fileUrl: "",
   };
 
-  // const onSubmit = async (values: IAddBrand) => {
-  //   handle();
-  // };
   const formik = useAddBrandForm(onSubmit, initialValues);
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    setFieldValue,
-    values,
-    errors,
-    touched,
-    isValid,
-    dirty,
-    isSubmitting,
-  } = formik;
+
+  const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
+    formik;
 
   const { addBrandAction } = useBrandAction();
   const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
@@ -72,11 +59,8 @@ function AddBrand(props: IAddBrands) {
   //     userId: userDecoded?.id,
   //     name: values.name,
   //     slug: values.slug,
-  //     id: 0,
-  //     image: "",
-  //     fileUrl: "",
   //   };
-  //   addBrandDetailFunc(body);
+  //   addBrandAction(body);
   // };
 
   async function onSubmit(values: IAddBrand, _: FormikHelpers<IAddBrand>) {
@@ -88,16 +72,12 @@ function AddBrand(props: IAddBrands) {
     const response = await addBrand(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
-      // navigate(AppRoutes.CATALOG.brands);
       handleClose();
       queryClient.invalidateQueries([QueryKeys.getAllBrand]);
     }
   }
 
   const istrue = !editable;
-  function handleFile(e: any): void {
-    throw new Error("Function not implemented.");
-  }
 
   return (
     <Slider
@@ -202,10 +182,3 @@ function AddBrand(props: IAddBrands) {
 }
 
 export default AddBrand;
-function addBrandDetailFunc(data: IAddBrandRequestRoot) {
-  throw new Error("Function not implemented.");
-}
-
-function addBrandAction(data: IAddBrandRequestRoot) {
-  throw new Error("Function not implemented.");
-}
