@@ -13,6 +13,7 @@ import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
+import useGeneralForm, { IGeneralForm } from "../../../hooks/useGeneralForm";
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 interface ICustomCard {
@@ -52,6 +53,30 @@ function General(props: IGeneral) {
     isFetching: isFetchingBundle,
   } = useGetByIdBundle(bundleId);
 
+  const initialValues: IGeneralForm = {
+    name: bundle?.data.name || "",
+    description: bundle?.data.description || "",
+  };
+
+  const onSubmit = async (values: IGeneralForm) => {
+    //
+  };
+
+  const formik = useGeneralForm(onSubmit, initialValues);
+
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    values,
+    errors,
+    touched,
+    isValid,
+    dirty,
+    isSubmitting,
+    resetForm,
+  } = formik;
+
   useEffect(() => {
     setName(bundle?.data?.name);
   }, [bundle]);
@@ -66,25 +91,30 @@ function General(props: IGeneral) {
           <CustomCardContent title="Details">
             <Stack direction="column" gap={3}>
               <TextField
+                disabled={isTrue}
+                error={!!touched.name && !!errors.name}
+                helperText={(touched.name && errors && errors.name) || ""}
                 id="categoryName"
+                label="Name"
                 name="categoryName"
                 size="small"
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
-                disabled={isTrue}
-                // inputProps={fontColor}
-                label="Name"
+                value={values.name}
+                onBlur={handleBlur("name")}
+                onChange={handleChange("name")}
               />
               <TextField
                 multiline
                 disabled={isTrue}
+                error={!!touched.description && !!errors.description}
+                helperText={
+                  (touched.description && errors && errors.description) || ""
+                }
                 id="description"
                 label="Description"
                 name="description"
-                value={bundle?.data?.description}
-                onChange={() => {}}
+                value={values.description}
+                onBlur={handleBlur("description")}
+                onChange={handleChange("description")}
               />
             </Stack>
           </CustomCardContent>
@@ -100,9 +130,7 @@ function General(props: IGeneral) {
                 size="small"
                 value={bundle?.data?.sku}
                 onChange={() => {}}
-                onClickIcon={() => {
-                  console.log("clicked....");
-                }}
+                onClickIcon={() => {}}
               />
 
               <TextField
@@ -116,9 +144,7 @@ function General(props: IGeneral) {
                 size="small"
                 value={bundle?.data?.barcode}
                 onChange={() => {}}
-                onClickIcon={() => {
-                  console.log("clicked....");
-                }}
+                onClickIcon={() => {}}
               />
             </Stack>
           </CustomCardContent>

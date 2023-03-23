@@ -243,6 +243,10 @@ const ErrorMessages = {
     country: "Please select country",
     city: "Please enter city name",
   },
+  general: {
+    name: "please enter name",
+    description: "please enter description",
+  },
 };
 
 export default ErrorMessages;
