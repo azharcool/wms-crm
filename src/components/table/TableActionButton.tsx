@@ -123,9 +123,6 @@ function TableActionButton(props: ITableActionButton) {
           open={opened}
           onClose={handleClosed}
         >
-          <MenuItem disableRipple onClick={handleClosed}>
-            Edit
-          </MenuItem>
           <MenuItem
             disableRipple
             onClick={() => {
