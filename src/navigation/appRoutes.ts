@@ -43,6 +43,16 @@ const AppRoutes = {
 
   // Purchase
 
+  SETTING: {
+    PERMISSIONS: "permissions",
+    SCREEN_ACCESS: "screen-access",
+    CUSTOM_FIELDS: "custom-fields",
+    ROLES: "roles",
+    SCREENS: "screens",
+    TEAM: "team",
+    BARCODE: "Barcode",
+  },
+
   PURCHASE: {
     purchase: "purchase",
     PURCHASE_ORDER: "purchase-order",

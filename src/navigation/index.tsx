@@ -202,7 +202,7 @@ function Application() {
               />
               <Route
                 element={<SettingsLoadable.Permissions />}
-                path={AppRoutes.PERMISSIONS}
+                path={AppRoutes.SETTINGS}
               />
               <Route
                 element={<SettingsLoadable.ScreenAccess />}
