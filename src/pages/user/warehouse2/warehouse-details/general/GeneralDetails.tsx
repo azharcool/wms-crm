@@ -1,8 +1,15 @@
 import { Card, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
+import useGetByIdWarehouse from "hooks/querys/catalog/warehouse/useGetByIdWarehouse";
+import { useParams } from "react-router-dom";
 
 function WarehouseGeneral() {
+  const { detailsId } = useParams();
+
+  const { data: warehouse } = useGetByIdWarehouse({
+    warehouseId: Number(detailsId),
+  });
   return (
     <Grid container marginTop={2} spacing={2}>
       <Grid item xs={8}>
@@ -21,7 +28,7 @@ function WarehouseGeneral() {
                 label="Warehouse Name"
                 name="name"
                 size="small"
-                value="warehouse 1"
+                value={warehouse?.data.warehouseName}
               />
               <TextField
                 disabled
@@ -29,7 +36,7 @@ function WarehouseGeneral() {
                 label="Label"
                 name="label"
                 size="small"
-                value="label 1"
+                value={warehouse?.data.label}
               />
             </Stack>
 
@@ -39,7 +46,7 @@ function WarehouseGeneral() {
               id="adress"
               label="Address"
               name="address"
-              value="abc xyz"
+              value={warehouse?.data.address}
             />
 
             <Stack direction="row" gap={2}>
@@ -49,7 +56,7 @@ function WarehouseGeneral() {
                 label="Phone Number"
                 name="phone"
                 size="small"
-                value="112345"
+                value={warehouse?.data.phoneNumber}
               />
               <TextField
                 disabled
@@ -57,7 +64,7 @@ function WarehouseGeneral() {
                 label="Country"
                 name="country"
                 size="small"
-                value="india"
+                value={warehouse?.data.country}
               />
             </Stack>
             <Stack direction="row" gap={2}>
@@ -67,7 +74,7 @@ function WarehouseGeneral() {
                 label="City"
                 name="city"
                 size="small"
-                value="Nagpur"
+                value={warehouse?.data.city}
               />
               <TextField
                 disabled
@@ -75,17 +82,17 @@ function WarehouseGeneral() {
                 label="Zip Code"
                 name="zip"
                 size="small"
-                value="122345"
+                value={warehouse?.data.zipCode}
               />
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
                 disabled
-                id="logintude"
+                id="lng"
                 label="Longitude"
-                name="longitude"
+                name="lng"
                 size="small"
-                value="122345"
+                value={warehouse?.data.lng}
               />
 
               <TextField
@@ -94,6 +101,7 @@ function WarehouseGeneral() {
                 label="Latitude"
                 name="latitude"
                 size="small"
+                value={warehouse?.data.lat}
               />
             </Stack>
           </CustomCardContent>
@@ -106,7 +114,7 @@ function WarehouseGeneral() {
                 label="First Name"
                 name="fname"
                 size="small"
-                value="Aasif"
+                value={warehouse?.data.firstName}
               />
               <TextField
                 disabled
@@ -114,7 +122,7 @@ function WarehouseGeneral() {
                 label="Last Name"
                 name="lname"
                 size="small"
-                value="Sheikh"
+                value={warehouse?.data.lastName}
               />
             </Stack>
             <Stack direction="row" gap={2}>
@@ -124,6 +132,7 @@ function WarehouseGeneral() {
                 label="Email"
                 name="email"
                 size="small"
+                value={warehouse?.data.primaryEmail}
               />
               <TextField
                 disabled
@@ -131,6 +140,7 @@ function WarehouseGeneral() {
                 label="Phone Number"
                 name="phone"
                 size="small"
+                value={warehouse?.data.primaryPhoneNumber}
               />
             </Stack>
           </CustomCardContent>
@@ -148,7 +158,7 @@ function WarehouseGeneral() {
               label="Status"
               name="status"
               size="small"
-              value="Active"
+              value={warehouse?.data.status}
             />
 
             <TextField
@@ -156,20 +166,28 @@ function WarehouseGeneral() {
               label="Picking Strategy"
               name="pickingstrategy"
               size="small"
-              value="Create one picklist per order"
+              value={warehouse?.data.pickingStrategy}
             />
             <TextField
               disabled
               label="Recieving Strategy"
               name="recievingstrategy"
               size="small"
+              value={warehouse?.data.receivingStrategy}
             />
-            <TextField disabled label="Timezone" name="timezone" size="small" />
+            <TextField
+              disabled
+              label="Timezone"
+              value={warehouse?.data.timezone}
+              name="timezone"
+              size="small"
+            />
             <TextField
               disabled
               label="Recieving Type"
               name="type"
               size="small"
+              value={warehouse?.data.receivingType}
             />
           </CustomCardContent>
         </Card>

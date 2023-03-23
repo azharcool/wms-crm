@@ -238,6 +238,11 @@ const ErrorMessages = {
     image: "Please add image",
     fileUrl: "Please enter URL",
   },
+  add_warehouse: {
+    warehouseName: "Please enter warehouse name",
+    country: "Please select country",
+    city: "Please enter city name",
+  },
 };
 
 export default ErrorMessages;
