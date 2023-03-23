@@ -1,3 +1,4 @@
+import AddIcon from "@mui/icons-material/Add";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -10,11 +11,8 @@ import {
   Tab,
   Tabs,
   TextField,
-  Button,
-  Typography,
 } from "@mui/material";
 import Toolbar from "@mui/material/Toolbar";
-import palette from "theme/palette";
 import CustomIcon from "./CustomIcon";
 
 interface ITab {
@@ -84,33 +82,9 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
           <CustomIcon title="Filter list">
             <FilterListIcon />
           </CustomIcon>
-          <Button
-            sx={{
-              width: "inherit",
-              borderRadius: "5px",
-              padding: "5px 25px",
-              backgroundColor: palette.warning.dark,
-              color: "#fff",
-              boxShadow: "none",
-              "&:hover": {
-                backgroundColor: palette.warning.dark,
-                opacity: 0.6,
-                boxShadow: "none",
-              },
-            }}
-            variant="contained"
-            onClick={() => {
-              handleClick?.();
-            }}
-          >
-            {icon}
-            <Typography
-              component="span"
-              sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
-            >
-              {title}
-            </Typography>
-          </Button>
+          <CustomIcon title="Create">
+            <AddIcon />
+          </CustomIcon>
           <CustomIcon title="More">
             <MoreVertIcon />
           </CustomIcon>

@@ -1,12 +1,14 @@
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 function WarehouseDetails() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     warehouse: {
       warehouseLayout,
@@ -19,16 +21,25 @@ function WarehouseDetails() {
     },
   } = AppRoutes;
 
+  const navLinks = new Map([
+    [0, `/${warehouseLayout}/${details}/1/${generalDetails}`],
+    [1, `/${warehouseLayout}/${details}/1/${areas}`],
+    [2, `/${warehouseLayout}/${details}/1/${zones}`],
+    [3, `/${warehouseLayout}/${details}/1/${locations}`],
+    [4, `/${warehouseLayout}/${details}/1/${containers}`],
+  ]);
+
+  useEffect(() => {
+    navLinks.forEach((value, key) => {
+      if (value.includes(location.pathname)) {
+        setValue(key);
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
-
-    const navLinks = new Map([
-      [0, `/${warehouseLayout}/${details}/1/${generalDetails}`],
-      [1, `/${warehouseLayout}/${details}/1/${areas}`],
-      [2, `/${warehouseLayout}/${details}/1/${zones}`],
-      [3, `/${warehouseLayout}/${details}/1/${locations}`],
-      [4, `/${warehouseLayout}/${details}/1/${containers}`],
-    ]);
 
     const link = navLinks.get(newValue || 0);
 
