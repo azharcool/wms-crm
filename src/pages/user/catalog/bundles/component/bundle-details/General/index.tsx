@@ -110,7 +110,7 @@ function General(props: IGeneral) {
                   (touched.description && errors && errors.description) || ""
                 }
                 id="description"
-                label="Description"
+                label="Descriptio"
                 name="description"
                 value={values.description}
                 onBlur={handleBlur("description")}
