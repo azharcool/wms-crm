@@ -1,6 +1,4 @@
 import { Card, Grid, Stack, styled, Switch } from "@mui/material";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
@@ -15,7 +13,7 @@ import useForm from "../hooks/useForm";
 // import { IPermissionRequest, useApiActions } from "../query/useApiAction";
 
 interface IAddScreen {
-  open: boolean;
+  openEdit: boolean;
   handleClose: () => void;
 }
 
@@ -38,14 +36,6 @@ const initialValues: any = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPicking: false,
-
-  //   permissions: "",
-  //   permissionDescription: "",
-  //   permissionCode: "",
-  //   screenId: 0,
-  //   screenUrl: "",
-  //   screenCode: "",
-  //   isScreen: false,
 };
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
@@ -99,7 +89,7 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 function AreasForm(props: IAddScreen) {
-  const { open, handleClose } = props;
+  const { openEdit, handleClose } = props;
   const [editable, setEditable] = useState(false);
   const nameRef = useRef<any>(null);
   const screenStorage = useSelector((state: any) => state.permissions);
@@ -151,28 +141,10 @@ function AreasForm(props: IAddScreen) {
     <Slider
       buttonText="save"
       handleClose={handleClose}
-      open={open}
+      open={openEdit}
       size="sm"
-      title="New Brand"
+      title="Edit Area"
     >
-      {/* <DialogTitle>
-        Areas
-        <IconButton
-          aria-label="close"
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme: any) => theme.palette.grey[500],
-          }}
-          onClick={onClose}
-        >
-          <CloseIcon />
-        </IconButton>
-      </DialogTitle> */}
-      <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Areas</DialogTitle>
-      </DialogActions>
       <Grid container marginTop={2} spacing={2}>
         <Grid item xs={12}>
           <Card
@@ -256,34 +228,6 @@ function AreasForm(props: IAddScreen) {
             </CustomCardContent>
           </Card>
         </Grid>
-        {/* <Grid item xs={4}>
-          <Card
-            sx={{
-              flex: 1,
-            }}
-          >
-            <CustomCardContent title="Setting">
-              <Stack direction="column" gap={4}>
-                <TextField
-                  isSelect
-                  disabled={istrue}
-                  id="productType"
-                  label="Type"
-                  menuItems={detailMenu}
-                  name="productType"
-                  size="small"
-                  value=""
-                  // onSelectHandler={(e) => {
-                  //   formik?.setFieldValue(
-                  //     "productType",
-                  //     e.target.value,
-                  //   );
-                  // }}
-                />
-              </Stack>
-            </CustomCardContent>
-          </Card>
-        </Grid> */}
       </Grid>
     </Slider>
   );
