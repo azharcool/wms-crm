@@ -79,6 +79,32 @@ function AddBrand(props: IAddBrands) {
 
   const istrue = !editable;
 
+  const handleFile = async (e: any) => {
+    const allFiles = Array.from(e.target.files);
+    const images = await Promise.all(
+      allFiles.map((file) => convertBase64(file)),
+    );
+
+    const newUploadedFiles = images.map((item) => ({
+      id: crypto.randomUUID(),
+      value: item,
+    }));
+
+    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+  };
+  const convertBase64 = (file: any): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   return (
     <Slider
       buttonText="save"
@@ -164,8 +190,8 @@ function AddBrand(props: IAddBrands) {
                         alt={item.value}
                         src={item.value}
                         style={{
-                          width: "120px",
-                          height: "120px",
+                          width: "100px",
+                          height: "100px",
                         }}
                       />
                     </Box>
