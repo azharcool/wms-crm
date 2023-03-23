@@ -7,7 +7,11 @@ import { useNavigate } from "react-router-dom";
 function AreaListItem(props: any) {
   const { item } = props;
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
+  const {
+    warehouse: { warehouseLayout, areasDetails },
+  } = AppRoutes;
+
+  const navigateDetails = `/${warehouseLayout}/${areasDetails}/1`;
   return (
     <TableRow>
       <TableCell

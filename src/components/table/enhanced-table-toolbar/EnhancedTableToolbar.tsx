@@ -21,13 +21,16 @@ interface ITab {
 }
 interface IEnhancedTableToolbar {
   tabs?: ITab[];
+  // remove later on
   handleClick?: () => void;
   title?: string;
   icon?: React.ReactNode;
+
+  handle?: (_: "create" | "filter") => void;
 }
 
 function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
-  const { tabs, title, handleClick, icon } = props;
+  const { tabs, handle } = props;
   return (
     <Toolbar
       sx={{
@@ -82,7 +85,7 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
           <CustomIcon title="Filter list">
             <FilterListIcon />
           </CustomIcon>
-          <CustomIcon title="Create">
+          <CustomIcon title="Create" onClick={() => handle && handle("create")}>
             <AddIcon />
           </CustomIcon>
           <CustomIcon title="More">

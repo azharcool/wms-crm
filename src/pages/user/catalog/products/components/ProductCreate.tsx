@@ -5,7 +5,6 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   Box,
-  Button,
   Card,
   Container,
   Grid,
@@ -16,6 +15,7 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomAccordian from "components/accordian/CustomAccordian";
+import { useAlert } from "components/alert";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import UploadButton from "components/image-upload-button/UploadButton";
@@ -80,6 +80,7 @@ const initialValues: AddProductForm = {
 function ProductCreate() {
   const newtheme = useSelector((state: any) => state.theme);
   const [openVariant, setOpenVariant] = useState(false);
+  const alert = useAlert();
   const [productId, setProductId] = useState("");
   const [tags, setTags] = useState<IMenuItem[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
@@ -168,12 +169,20 @@ function ProductCreate() {
       }),
 
       ...(uploadedFiles.length && {
-        image: uploadedFiles.map((i) => i.value),
+        image: uploadedFiles.map((i) => i.value.split("base64,")[1]),
       }),
     };
     const response = await addProductAction(data);
     if (response) {
       setProductId(response);
+      alert?.show({
+        title: "Add Variant",
+        message: "Do you also want to add Variants?",
+        cancelText: "No",
+        confirmText: "Yes",
+        onConfirm: () => handleVariant(),
+        onClose: () => navigate(-1),
+      });
     }
   }
 
@@ -513,28 +522,6 @@ function ProductCreate() {
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <Button
-              sx={{
-                marginBottom: 2,
-                flex: 1,
-                backgroundColor: palette.warning.dark,
-                color: "#fff",
-                boxShadow: "none",
-                opacity: 0.8,
-                "&:hover": {
-                  backgroundColor: palette.warning.dark,
-                  opacity: 0.6,
-                  boxShadow: "none",
-                },
-              }}
-              variant="contained"
-              onClick={() => {
-                handleVariant();
-              }}
-            >
-              Add Variants
-            </Button>
-
             <CustomAccordian title="Supply">
               <TextField
                 isSelect

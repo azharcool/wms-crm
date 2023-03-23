@@ -41,6 +41,7 @@ interface Props extends InputProps {
   id?: string;
   onClickIcon?: React.MouseEventHandler<HTMLDivElement>;
   nameRef?: any;
+  darkDisable?: boolean;
 }
 
 function TextField(props: Props) {
@@ -72,6 +73,7 @@ function TextField(props: Props) {
     multiline,
     FieldLabel,
     onClickIcon,
+    darkDisable,
   } = props;
 
   return (
@@ -81,7 +83,7 @@ function TextField(props: Props) {
           htmlFor={name}
           sx={{
             // color: "inherit",
-            fontSize: { xs: "1rem", xl: "1.3rem", fontWeight: "500" },
+            fontSize: { xs: "0.6rem", xl: "1rem", fontWeight: "500" },
             marginTop: "5px",
             textTransform: "capitalize",
           }}
@@ -122,6 +124,9 @@ function TextField(props: Props) {
             // backgroundColor: "#fff",
             borderRadius: "8px",
             fontSize: { xs: "1rem", xl: "1.3rem" },
+            "& .MuiInputBase-input.Mui-disabled": {
+              WebkitTextFillColor: darkDisable ? "#000000" : "inherit",
+            },
           }}
           type={type}
           value={value}
