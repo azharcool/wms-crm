@@ -111,9 +111,6 @@ function ZoanForm(props: IAddScreen) {
 
   const onSubmit = async (values: any) => {
     // await trySave(values);
-    // handleClose();
-    // removePermission();
-    // formik.resetForm();
   };
 
   const formik = useForm(onSubmit, initialValues);
@@ -164,7 +161,6 @@ function ZoanForm(props: IAddScreen) {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-
       <PerfectScrollbar>
         <Grid container marginTop={2} spacing={2}>
           <Grid item xs={12}>

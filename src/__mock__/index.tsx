@@ -102,11 +102,11 @@ export const strategys = [
 
 export const warehouseStatus = [
   {
-    id: "Active",
+    id: "1",
     value: "Active",
   },
   {
-    id: "Inactive",
+    id: "2",
     value: "Inactive",
   },
 ];
@@ -173,5 +173,16 @@ export const newWarehouseSwitchs = [
     id: crypto.randomUUID(),
     value: "Allow Partial Picking",
     name: "allowpartialpicking",
-  }
+  },
+];
+
+export const areaStatus = [
+  {
+    id: "1",
+    value: "Active",
+  },
+  {
+    id: "2",
+    value: "InActive",
+  },
 ];

@@ -14,6 +14,7 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
+import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
@@ -423,6 +424,7 @@ function BundleCreate() {
                       </Box>
                     );
                   })}
+                  <UploadButton handleFile={handleFile} />
                 </Stack>
               </CustomCardContent>
             </Card>

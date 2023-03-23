@@ -103,7 +103,7 @@ function LocationListing() {
     <PerfectScrollbar>
       <EnhancedTableToolbar />
 
-      <Box sx={{ minWidth: 1050, minHeight: 500 }}>
+      <Box sx={{ minHeight: 500 }}>
         <TableContainer component={Paper}>
           <PerfectScrollbar>
             <Table

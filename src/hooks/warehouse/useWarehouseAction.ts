@@ -1,22 +1,20 @@
 import { useSnackbar } from "components/snackbar";
-import useDecodedData from "hooks/useDecodedData";
 import { useQueryClient } from "react-query";
-import { addBrandDetail } from "services/brand.services";
-import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
+import { addWarehouse } from "services/warehouse.services";
+import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
-function useBrandDetail() {
+function useWarehouseAction() {
   const snackbar = useSnackbar();
-  const userDecoded = useDecodedData();
   const queryClient = useQueryClient();
 
-  const addBrandDetailFunc = async (
-    data: IAddBrandRequestRoot,
+  const addWarehouseAction = async (
+    data: IAddWarehouseRequestRoot,
   ): Promise<string> => {
     try {
-      const response = await addBrandDetail(data);
+      const response = await addWarehouse(data);
       if (response.statusCode === 200) {
-        queryClient.invalidateQueries([QueryKeys.getAllBrand]);
+        // queryClient.invalidateQueries([QueryKeys.getAllWarehouse]);
         snackbar?.show({
           title: response.message,
           type: "success",
@@ -33,8 +31,8 @@ function useBrandDetail() {
   };
 
   return {
-    addBrandDetailFunc,
+    addWarehouseAction,
   };
 }
 
-export default useBrandDetail;
+export default useWarehouseAction;

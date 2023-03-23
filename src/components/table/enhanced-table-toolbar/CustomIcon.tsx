@@ -4,13 +4,14 @@ import { ReactNode } from "react";
 interface ICustomIcon {
   children?: ReactNode;
   title: string;
+  onClick?: () => void;
 }
 
 function CustomIcon(props: ICustomIcon) {
-  const { title, children } = props;
+  const { title, children, onClick } = props;
   return (
     <Tooltip title={title}>
-      <IconButton>{children}</IconButton>
+      <IconButton onClick={() => onClick && onClick()}>{children}</IconButton>
     </Tooltip>
   );
 }
