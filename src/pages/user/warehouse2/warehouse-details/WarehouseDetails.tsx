@@ -1,3 +1,4 @@
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
@@ -57,6 +58,23 @@ function WarehouseDetails() {
           breadcrumbs={[{ link: "Warehouse", to: "/warehouse" }]}
           buttonText="Edit"
           handleClick={handleOpen}
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "New",
+              onClick: () => {
+                navigate(`/${AppRoutes.warehouse.create}`);
+              },
+              icon: (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
           title="Warehouse Details"
         />
         <Tabs

@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import Warehouse from "__mock__/warhouses.json";
@@ -36,9 +37,17 @@ const tableTitle = [
 ];
 
 function AreasListing() {
+  const [formOpen, setFormOpen] = useState(false);
+
+  const handle = (status: "create" | "filter") => {
+    if (status === "create") {
+      //
+    }
+  };
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar handle={handle} />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>

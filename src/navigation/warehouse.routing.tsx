@@ -19,7 +19,7 @@ const warehouseRouting = (
       path={`${AppRoutes.warehouse.listing}`}
     />
 
-    {/* warehouse tabs */}
+    {/* warehouse details */}
     <Route
       element={<WarehouseLoadable.WarehouseDetailsTab />}
       path={`${AppRoutes.warehouse.details}/:detailsId`}
@@ -28,6 +28,8 @@ const warehouseRouting = (
         element={<WarehouseLoadable.WarehouseGeneralDetails />}
         path={`${AppRoutes.warehouse.generalDetails}`}
       />
+
+      {/* listing  */}
       <Route
         element={<WarehouseLoadable.WarehouseAreasListing />}
         path={`${AppRoutes.warehouse.areas}`}
@@ -44,25 +46,25 @@ const warehouseRouting = (
         element={<WarehouseLoadable.WarehouseContainersListing />}
         path={`${AppRoutes.warehouse.containers}`}
       />
-    </Route>
 
-    {/* warehouse details */}
-    <Route
-      element={<WarehouseLoadable.WarehouseAreasDetails />}
-      path={`${AppRoutes.warehouse.areasDetails}`}
-    />
-    <Route
-      element={<WarehouseLoadable.WarehouseZonesDetails />}
-      path={`${AppRoutes.warehouse.zonesDetails}`}
-    />
-    <Route
-      element={<WarehouseLoadable.WarehouseLocationsDetails />}
-      path={`${AppRoutes.warehouse.locationsDetails}`}
-    />
-    <Route
-      element={<WarehouseLoadable.WarehouseContainersDetails />}
-      path={`${AppRoutes.warehouse.containersDetails}`}
-    />
+      {/*  details */}
+      <Route
+        element={<WarehouseLoadable.WarehouseAreasDetails />}
+        path={`${AppRoutes.warehouse.areasDetails}`}
+      />
+      <Route
+        element={<WarehouseLoadable.WarehouseZonesDetails />}
+        path={`${AppRoutes.warehouse.zonesDetails}`}
+      />
+      <Route
+        element={<WarehouseLoadable.WarehouseLocationsDetails />}
+        path={`${AppRoutes.warehouse.locationsDetails}`}
+      />
+      <Route
+        element={<WarehouseLoadable.WarehouseContainersDetails />}
+        path={`${AppRoutes.warehouse.containersDetails}`}
+      />
+    </Route>
   </Route>
 );
 
