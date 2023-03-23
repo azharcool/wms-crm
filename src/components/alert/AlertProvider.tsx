@@ -12,6 +12,7 @@ export type ShowParams = {
   cancelText?: string;
   confirmText?: string;
   onConfirm?: () => void;
+  onClose?: () => void;
 };
 
 interface ProviderState extends ShowParams {
@@ -45,7 +46,9 @@ const AlertProvider = (props: IAlertProvider) => {
   };
 
   const handleClose = () => {
+    const { onClose } = state;
     setState((v) => ({ ...v, open: false }));
+    onClose?.();
   };
 
   const context = useMemo(() => ({ show }), [show]);
@@ -61,10 +64,10 @@ const AlertProvider = (props: IAlertProvider) => {
       <Alert
         cancelText={state.cancelText || ""}
         confirmText={state.confirmText || ""}
-        handleClose={handleClose}
         message={state.message}
         open={state.open}
         title={state.title}
+        onClose={handleClose}
         onConfirm={handleConfirm}
       />
     </>

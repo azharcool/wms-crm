@@ -13,7 +13,7 @@ import ProductListing from "./components/ProductListing";
 function Products() {
   const navigate = useNavigate();
   const [productPagination, setproductPagination] = useState({
-    pageSize: 10,
+    pageSize: 100,
     page: 1,
   });
   const getSelectedProductIdsState = useSelector(getSelectedProduct);

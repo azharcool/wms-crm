@@ -17,26 +17,19 @@ type IProps = {
   message: string;
   cancelText: string;
   confirmText: string;
-  handleClose: () => void;
+  onClose: () => void;
   onConfirm: () => void;
 };
 
 function Alert(props: IProps) {
-  const {
-    open,
-    title,
-    message,
-    handleClose,
-    onConfirm,
-    cancelText,
-    confirmText,
-  } = props;
+  const { open, title, message, onClose, onConfirm, cancelText, confirmText } =
+    props;
 
   return (
     <Dialog fullWidth maxWidth="sm" open={open}>
       <DialogTitle>{title}</DialogTitle>
       <Box position="absolute" right={0} top={0}>
-        <IconButton onClick={handleClose}>
+        <IconButton onClick={onClose}>
           <Close />
         </IconButton>
       </Box>
@@ -59,7 +52,7 @@ function Alert(props: IProps) {
             },
           }}
           variant="contained"
-          onClick={handleClose}
+          onClick={onClose}
         >
           {cancelText}
         </Button>
