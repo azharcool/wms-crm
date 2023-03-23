@@ -19,7 +19,6 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
-
 function BrandDetails() {
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);

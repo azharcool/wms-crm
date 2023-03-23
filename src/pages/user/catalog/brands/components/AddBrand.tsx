@@ -1,6 +1,7 @@
 import { Box, Card, Stack } from "@mui/material";
 
 import CustomCardContent from "components/card/CustomCardContent";
+import UploadButton from "components/image-upload-button/UploadButton";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
@@ -15,12 +16,13 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import { useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { addBrand } from "services/brand.services";
+import palette from "theme/palette";
 // import { addBrandAction } from "services/brand.services";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
 interface IValue {
-  parentId: string;
   id: string;
   value: string;
 }
@@ -63,6 +65,7 @@ function AddBrand(props: IAddBrands) {
   } = formik;
 
   const { addBrandAction } = useBrandAction();
+  const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
 
   // const handle = () => {
   //   const body: IAddBrandRequestRoot = {
@@ -92,6 +95,10 @@ function AddBrand(props: IAddBrands) {
   }
 
   const istrue = !editable;
+  function handleFile(e: any): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <Slider
       buttonText="save"
@@ -146,45 +153,46 @@ function AddBrand(props: IAddBrands) {
           </Card>
           <Card>
             <CustomCardContent title="Image">
-              {/* <Box
-                sx={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                  alignItems: "flex-end",
-                }}
-              >
-                <Button startIcon={<DeleteIcon />} variant="outlined">
-                  Delete
-                </Button>
-              </Box> */}
-
-              <Box
-                sx={{
-                  padding: "16px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  sx={{
-                    width: "150px",
-                    height: "150px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    borderRadius: "10px",
-                    border: "1px dashed rgb(236, 236, 236)",
-                  }}
-                >
-                  <img
-                    alt="new"
-                    src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-                    style={{ objectFit: "cover" }}
-                    width="100%"
-                  />
-                </Box>
-              </Box>
+              <Stack direction="row" flexWrap="wrap" gap={2}>
+                {uploadedFiles.map((item) => {
+                  return (
+                    <Box
+                      key={item.id}
+                      sx={{
+                        position: "relative",
+                      }}
+                    >
+                      <CancelIcon
+                        sx={{
+                          width: "17px",
+                          height: "17px",
+                          cursor: "pointer",
+                          color: `${palette.error.lightRed}`,
+                          position: "absolute",
+                          right: "-5px",
+                          top: "-5px",
+                          background: "white",
+                        }}
+                        onClick={() => {
+                          const newUploadedFile = uploadedFiles.filter(
+                            (i) => i.id !== item.id,
+                          );
+                          setUploadedFiles(newUploadedFile);
+                        }}
+                      />
+                      <img
+                        alt={item.value}
+                        src={item.value}
+                        style={{
+                          width: "120px",
+                          height: "120px",
+                        }}
+                      />
+                    </Box>
+                  );
+                })}
+                <UploadButton handleFile={handleFile} />
+              </Stack>
             </CustomCardContent>
           </Card>
         </Stack>
