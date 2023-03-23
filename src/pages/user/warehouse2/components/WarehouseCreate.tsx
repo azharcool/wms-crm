@@ -115,6 +115,7 @@ function WarehouseCreate() {
     handleSubmit,
     setFieldValue,
   } = warehouseForm;
+
   async function onSubmit(
     values: AddWarehouseForm,
     helper: FormikHelpers<AddWarehouseForm>,
@@ -129,8 +130,8 @@ function WarehouseCreate() {
       country: values.country,
       city: values.city,
       zipCode: values.zipCode,
-      lat: values.lat,
-      lng: values.lng,
+      lat: Number(values.lat),
+      lng: Number(values.lng),
       firstName: values.firstName,
       lastName: values.lastName,
       primaryEmail: values.primaryEmail,
@@ -141,13 +142,12 @@ function WarehouseCreate() {
       receivingType: values.receivingType,
       defaultWarehouse: values.defaultWarehouse,
       allowPartialPacking: values.allowPartialPacking,
-      status: values.status,
+      status: Number(values.status),
     };
     await addWarehouseAction(data);
   }
   const darkModeTheme = createTheme(getDesignTokens("dark"));
-
-  console.log("timezone", moment().tz("America/Los_Angeles"));
+  // console.log("timezone", moment().tz("America/Los_Angeles"));
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -265,6 +265,7 @@ function WarehouseCreate() {
                       handleChange={(e: any, value: any) =>
                         setFieldValue("country", value?.name)
                       }
+                      helperText={(touched.country && errors && errors.country) || ""}
                       getOptionLabel={(option: any) => option?.name}
                       label="Country"
                     />

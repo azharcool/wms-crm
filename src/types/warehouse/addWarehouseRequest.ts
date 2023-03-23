@@ -1,5 +1,4 @@
 export interface IAddWarehouseRequestRoot {
-  id?: number;
   userId: number;
   warehouseName: string;
   label: string;

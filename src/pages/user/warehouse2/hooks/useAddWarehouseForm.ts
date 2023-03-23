@@ -3,7 +3,6 @@ import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
 export interface AddWarehouseForm {
-  id?: number;
   userId: number;
   warehouseName: string;
   label: string;
@@ -37,34 +36,34 @@ interface IuseAddWarehouseForm {
 }
 
 const validationSchema = Yup.object().shape({
-    warehourName: Yup.string().required(ErrorMessages.add_warehouse.warehouseName),
-    country: Yup.string().required(ErrorMessages.add_warehouse.country),
-    city: Yup.string().required(ErrorMessages.add_warehouse.city),
+  warehouseName: Yup.string().required(ErrorMessages.add_warehouse.warehouseName),
+  country: Yup.string().required(ErrorMessages.add_warehouse.country),
+  city: Yup.string().required(ErrorMessages.add_warehouse.city),
 });
 
 const deafultValues: AddWarehouseForm = {
-    userId: 0,
-    warehouseName: "",
-    label: "",
-    email: "",
-    phoneNumber: "",
-    address: "",
-    country: "",
-    city: "",
-    zipCode: "",
-    lat: 0,
-    lng: 0,
-    firstName: "",
-    lastName: "",
-    primaryEmail: "",
-    primaryPhoneNumber: "",
-    pickingStrategy: "",
-    receivingStrategy: "",
-    timezone: "",
-    receivingType: "",
-    defaultWarehouse: false,
-    allowPartialPacking: false,
-    status: 0,
+  userId: 0,
+  warehouseName: "",
+  label: "",
+  email: "",
+  phoneNumber: "",
+  address: "",
+  country: "",
+  city: "",
+  zipCode: "",
+  lat: 0,
+  lng: 0,
+  firstName: "",
+  lastName: "",
+  primaryEmail: "",
+  primaryPhoneNumber: "",
+  pickingStrategy: "",
+  receivingStrategy: "",
+  timezone: "",
+  receivingType: "",
+  defaultWarehouse: false,
+  allowPartialPacking: false,
+  status: 0,
 };
 
 function useAddWarehouseForm({
