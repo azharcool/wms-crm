@@ -1,5 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useProductAction from "hooks/catalog/product/useProductAction";
 import useGetAllProduct from "hooks/querys/catalog/product/useGetAllProduct";
@@ -25,40 +25,38 @@ function Products() {
 
   return (
     <Container maxWidth={false}>
-      <Card>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <TableToolbar
-            hasBulk
-            buttonText="New"
-            navTitle="CATALOG"
-            rightActions={[
-              {
-                id: crypto.randomUUID(),
-                title: "New",
-                onClick: () => {
-                  navigate(AppRoutes.CATALOG.productCreate);
-                },
-                icon: (
-                  <AddCircleIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 1,
-                    }}
-                  />
-                ),
+      <CardContent sx={{ paddingTop: 0 }}>
+        <TableToolbar
+          hasBulk
+          buttonText="New"
+          navTitle="CATALOG"
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "New",
+              onClick: () => {
+                navigate(AppRoutes.CATALOG.productCreate);
               },
-            ]}
-            title="Products"
-            onBulkHandle={() => {
-              const ids = getSelectedProductIdsState.toString();
-              bulkDeleteProductAsync(ids);
-            }}
-          />
-          <Box sx={{ mt: 3 }}>
-            <ProductListing data={productPaginationResponse} />
-          </Box>
-        </CardContent>
-      </Card>
+              icon: (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
+          title="Products"
+          onBulkHandle={() => {
+            const ids = getSelectedProductIdsState.toString();
+            bulkDeleteProductAsync(ids);
+          }}
+        />
+        <Box sx={{ mt: 3 }}>
+          <ProductListing data={productPaginationResponse} />
+        </Box>
+      </CardContent>
     </Container>
   );
 }

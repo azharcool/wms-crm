@@ -173,5 +173,16 @@ export const newWarehouseSwitchs = [
     id: crypto.randomUUID(),
     value: "Allow Partial Picking",
     name: "allowpartialpicking",
-  }
+  },
+];
+
+export const areaStatus = [
+  {
+    id: "1",
+    value: "Active",
+  },
+  {
+    id: "2",
+    value: "InActive",
+  },
 ];

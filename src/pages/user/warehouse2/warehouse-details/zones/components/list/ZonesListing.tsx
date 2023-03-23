@@ -10,9 +10,11 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import Warehouse from "__mock__/warhouses.json";
+import ZonesCreate from "../ZonesCreate";
 import ZonesListItem from "./ZonesListItem";
 
 const tableTitle = [
@@ -40,9 +42,22 @@ const tableTitle = [
 ];
 
 function ZonesListing() {
+  const [formOpen, setFormOpen] = useState(false);
+
+  const handle = (status: "create" | "filter") => {
+    if (status === "create") {
+      handleClose(true);
+    }
+  };
+
+  const handleClose = (status?: boolean) => {
+    const open = status || false;
+    setFormOpen(open);
+  };
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar handle={handle} />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -97,6 +112,9 @@ function ZonesListing() {
           </PerfectScrollbar>
         </TableContainer>
       </Box>
+      {formOpen ? (
+        <ZonesCreate handleClose={() => handleClose()} open={formOpen} />
+      ) : null}
     </PerfectScrollbar>
   );
 }
