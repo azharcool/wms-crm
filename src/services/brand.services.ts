@@ -18,10 +18,10 @@ export async function getAllBrand(
 }
 
 export async function addBrand(
-  data: IAddBrandRequestRoot,
+  request: IAddBrandRequestRoot,
 ): Promise<IAddProductResponseRoot> {
   const URL = `${API_URLS.ADD_BRAND}`;
-  return client.post(URL, data);
+  return client.post(URL, request);
 }
 
 export async function getByIdBrand(

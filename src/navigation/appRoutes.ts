@@ -19,6 +19,7 @@ const AppRoutes = {
   ROLES: "roles",
   SCREENS: "screens",
   TEAM: "team",
+  BARCODE: "Barcode",
 
   CATALOG: {
     catalog: "catalog",
@@ -41,6 +42,16 @@ const AppRoutes = {
   },
 
   // Purchase
+
+  SETTING: {
+    PERMISSIONS: "permissions",
+    SCREEN_ACCESS: "screen-access",
+    CUSTOM_FIELDS: "custom-fields",
+    ROLES: "roles",
+    SCREENS: "screens",
+    TEAM: "team",
+    BARCODE: "Barcode",
+  },
 
   PURCHASE: {
     purchase: "purchase",

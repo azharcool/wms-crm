@@ -1,6 +1,5 @@
 import {
   Box,
-  Card,
   CardContent,
   Container,
   Tab,
@@ -63,44 +62,44 @@ function WarehouseDetails() {
         }}
       >
         <Container maxWidth={false}>
-          <Card>
-            <CardContent sx={{ paddingTop: 0 }}>
-              <TableToolbar
-                breadcrumbs={[{ link: "Warehouse", to: "/warehouse" }]}
-                buttonText="Edit"
-                handleClick={handleOpen}
-                title="Warehouse Details"
-              />
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <Tabs
-                  aria-label="basic tabs example"
-                  value={value}
-                  onChange={handleChange}
-                >
-                  <Tab label="GENERAL" />
-                  <Tab label="AREAS" />
-                  <Tab label="ZONES" />
-                  <Tab label="LOCATIONS" />
-                  <Tab label="CONTAINERS" />
-                </Tabs>
-              </Box>
-              <TabPanel index={0} value={value}>
-                <General />
-              </TabPanel>
-              <TabPanel index={1} value={value}>
-                <Areas />
-              </TabPanel>
-              <TabPanel index={2} value={value}>
-                <Zones />
-              </TabPanel>
-              <TabPanel index={3} value={value}>
-                <Locations />
-              </TabPanel>
-              <TabPanel index={4} value={value}>
-                <Containers />
-              </TabPanel>
-            </CardContent>
-          </Card>
+          {/* <Card> */}
+          <CardContent sx={{ paddingTop: 0 }}>
+            <TableToolbar
+              breadcrumbs={[{ link: "Warehouse", to: "/warehouse" }]}
+              buttonText="Edit"
+              handleClick={handleOpen}
+              title="Warehouse Details"
+            />
+            <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+              <Tabs
+                aria-label="basic tabs example"
+                value={value}
+                onChange={handleChange}
+              >
+                <Tab label="GENERAL" />
+                <Tab label="AREAS" />
+                <Tab label="ZONES" />
+                <Tab label="LOCATIONS" />
+                <Tab label="CONTAINERS" />
+              </Tabs>
+            </Box>
+            <TabPanel index={0} value={value}>
+              <General />
+            </TabPanel>
+            <TabPanel index={1} value={value}>
+              <Areas />
+            </TabPanel>
+            <TabPanel index={2} value={value}>
+              <Zones />
+            </TabPanel>
+            <TabPanel index={3} value={value}>
+              <Locations />
+            </TabPanel>
+            <TabPanel index={4} value={value}>
+              <Containers />
+            </TabPanel>
+          </CardContent>
+          {/* </Card> */}
         </Container>
       </Box>
       {/* <WarehouseForm handleClose={handleClose} open={open} /> */}
