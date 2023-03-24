@@ -115,13 +115,7 @@ const sideNavMenu: ISideNavMenu[] = [
     icon: <SettingsIcon fontSize="small" />,
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
-    menuItems: [
-      {
-        id: crypto.randomUUID(),
-        title: "Barcode",
-        location: `/${AppRoutes.SETTINGS}/${AppRoutes.BARCODE}`,
-      },
-    ],
+    menuItems: [],
   },
 ];
 

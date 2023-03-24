@@ -1,4 +1,4 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
@@ -38,7 +38,7 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox
@@ -53,7 +53,7 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -85,7 +85,7 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
         onClick={() => {
@@ -99,7 +99,7 @@ function ProductItem(props: IProductItem) {
           width: 150,
           position: "sticky",
           left: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* inventory */}0
@@ -107,7 +107,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* variants count */}
@@ -116,7 +116,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* category */}
@@ -125,7 +125,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* brand */}
@@ -135,7 +135,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* company */}Not Provided
@@ -143,16 +143,36 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* tags */}
-        {item.tags}
+        {item.tags && (
+          <Stack flexDirection="row" flexWrap="wrap">
+            {item.tags.split(",").map((tag) => {
+              return (
+                <Box
+                  key={tag}
+                  sx={{
+                    borderRadius: "16px",
+                    background: "#fbdeba",
+                    color: "#8f391c",
+                    padding: "4px 8px",
+                    margin: "2px",
+                    fontSize: "12px",
+                  }}
+                >
+                  {tag}
+                </Box>
+              );
+            })}
+          </Stack>
+        )}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* track SN */}
@@ -161,7 +181,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* track expiry */}
@@ -171,7 +191,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* last updated  */}
@@ -182,7 +202,7 @@ function ProductItem(props: IProductItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton

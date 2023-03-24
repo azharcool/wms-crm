@@ -12,7 +12,7 @@ function PurchaseItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -93,7 +93,7 @@ function PurchaseItem() {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton />

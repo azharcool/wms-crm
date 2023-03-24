@@ -162,7 +162,7 @@ function LocationsForm(props: IAddScreen) {
               gap: 2,
             }}
           >
-            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+            <DialogContent dividers sx={{ flex: 3 }}>
               <DialogTitle>Area/Zone</DialogTitle>
               <Divider sx={{ my: 1 }} />
               <Box
@@ -244,7 +244,7 @@ function LocationsForm(props: IAddScreen) {
                 {/* <Typography>
                   hi
                 </Typography> */}
-                <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+                <DialogContent dividers sx={{ flex: 3 }}>
                   <DialogTitle>Shelf/Bin</DialogTitle>
                   <Divider sx={{ my: 1 }} />
                   <Box
@@ -325,7 +325,7 @@ function LocationsForm(props: IAddScreen) {
                 </DialogContent>
                 <Box sx={{ backgroundColor: "red" }}>
                   {" "}
-                  <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+                  <DialogContent dividers sx={{ flex: 3 }}>
                     <DialogTitle>Dimension</DialogTitle>
                     <Divider sx={{ my: 1 }} />
                     <Box
@@ -385,7 +385,7 @@ function LocationsForm(props: IAddScreen) {
               </Box>
             </DialogContent>
 
-            <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
+            <DialogContent dividers sx={{ flex: 1 }}>
               <DialogTitle>Setting</DialogTitle>
               <Divider sx={{ my: 1 }} />
 
@@ -472,7 +472,7 @@ function LocationsForm(props: IAddScreen) {
                 />
               </Box>
               <Box sx={{ backgroundColor: "red", width: "100%" }}>
-                <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
+                <DialogContent dividers sx={{ flex: 1 }}>
                   <DialogTitle>Cordinate</DialogTitle>
                   <Divider sx={{ my: 1 }} />
 

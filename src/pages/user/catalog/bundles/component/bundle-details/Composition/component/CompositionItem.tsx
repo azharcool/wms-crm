@@ -1,13 +1,10 @@
-import { Box, TableCell, TableRow } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PercentIcon from "@mui/icons-material/Percent";
+import { Box, TableCell, TableRow } from "@mui/material";
 import TextField from "components/textfield";
-import "react-perfect-scrollbar/dist/css/styles.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
-import useDecodedData from "hooks/useDecodedData";
-import { useDispatch } from "react-redux";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 
 const conditionCode = [
   {
@@ -41,7 +38,7 @@ function CompositionItem(props: ICompositionItem) {
   } = props;
   const { deleteBundlCompeAction } = useBundleCompositionAction();
 
-  const handleDelete = (id:any) => {
+  const handleDelete = (id: any) => {
     deleteBundlCompeAction(id);
   };
 
@@ -53,7 +50,7 @@ function CompositionItem(props: ICompositionItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -76,7 +73,7 @@ function CompositionItem(props: ICompositionItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         {variantData?.variantName || variantData?.productName}
@@ -115,12 +112,12 @@ function CompositionItem(props: ICompositionItem) {
       >
         <TextField
           iconEnd
-          icon={<PercentIcon />}
           disabled={isTrue}
+          icon={<PercentIcon />}
           id="discount"
-          type="number"
           name="discount"
           size="small"
+          type="number"
           value={variantData?.discount || values.discount}
           onChange={handleChange("discount")}
           onClickIcon={() => {
@@ -134,11 +131,11 @@ function CompositionItem(props: ICompositionItem) {
         }}
       >
         <TextField
+          disabled={isTrue}
           id="qty"
           name="qty"
-          type="number"
-          disabled={isTrue}
           size="small"
+          type="number"
           value={variantData?.qty || values.qty}
           onChange={handleChange("qty")}
           onClickIcon={() => {
@@ -159,9 +156,9 @@ function CompositionItem(props: ICompositionItem) {
           sx={{
             position: "sticky",
             right: 0,
-            background: "white",
+            // background: "white",
           }}
-          onClick={()=>handleDelete(variantData?.id)}
+          onClick={() => handleDelete(variantData?.id)}
         >
           <DeleteIcon sx={{ fontSize: "1.2rem" }} />
         </TableCell>

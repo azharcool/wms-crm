@@ -35,7 +35,7 @@ function VariantItem(props: IVariantItem) {
         <TableCell
           sx={{
             width: 50,
-            background: "white",
+            // background: "white",
           }}
           onClick={() => goToDetails("1")}
         >
@@ -56,7 +56,7 @@ function VariantItem(props: IVariantItem) {
         <TableCell
           sx={{
             width: 170,
-            background: "white",
+            // background: "white",
           }}
         >
           {item?.optionName}

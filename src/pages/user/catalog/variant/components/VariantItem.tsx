@@ -11,6 +11,7 @@ import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 // import "react-perfect-scrollbar/dist/css/styles.css";
+import NOImage from "assets/images/no-image.png";
 
 interface IVariantItem {
   item: IGetAllVariantResponseData;
@@ -29,7 +30,7 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -40,7 +41,7 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -51,8 +52,18 @@ function VariantItem(props: IVariantItem) {
         >
           <img
             alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
+            // src={
+            //   item?.picture.length > 0
+            //     ? `${FILE_URL}${item?.picture[0]?.atachment}`
+            //     : NOImage
+            // }
+            src={NOImage}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "5px",
+            }}
           />
         </Box>
       </TableCell>
@@ -63,7 +74,7 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
       >
@@ -85,7 +96,7 @@ function VariantItem(props: IVariantItem) {
           width: 150,
           position: "sticky",
           left: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* Pieces */}-
@@ -208,7 +219,7 @@ function VariantItem(props: IVariantItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton />
