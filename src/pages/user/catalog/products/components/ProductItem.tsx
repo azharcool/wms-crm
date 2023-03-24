@@ -38,7 +38,7 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox
@@ -53,7 +53,7 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -85,7 +85,7 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
         onClick={() => {
@@ -99,7 +99,7 @@ function ProductItem(props: IProductItem) {
           width: 150,
           position: "sticky",
           left: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* inventory */}0
@@ -107,7 +107,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* variants count */}
@@ -116,7 +116,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* category */}
@@ -125,7 +125,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* brand */}
@@ -135,7 +135,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* company */}Not Provided
@@ -143,7 +143,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* tags */}
@@ -172,7 +172,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* track SN */}
@@ -181,7 +181,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* track expiry */}
@@ -191,7 +191,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* last updated  */}
@@ -202,7 +202,7 @@ function ProductItem(props: IProductItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton

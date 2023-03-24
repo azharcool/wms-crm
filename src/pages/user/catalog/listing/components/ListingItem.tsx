@@ -13,7 +13,7 @@ function ListingItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -24,7 +24,7 @@ function ListingItem() {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -47,7 +47,7 @@ function ListingItem() {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         SKU
@@ -55,7 +55,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         chanel
@@ -63,7 +63,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         <CustomSwitch />
@@ -71,7 +71,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Qty
@@ -79,7 +79,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Retail price
@@ -88,7 +88,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         M.R.P
@@ -97,7 +97,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Brand
@@ -106,7 +106,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Category
@@ -115,7 +115,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Tags
@@ -124,7 +124,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Last Updated
@@ -134,7 +134,7 @@ function ListingItem() {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton />

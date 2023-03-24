@@ -39,7 +39,7 @@ function GeneralDetails() {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Box sx={{ display: "flex", flex: 4, gap: 2 }}>
-                    <DialogContent sx={{ background: "#fff", flex: 3 }}>
+                    <DialogContent sx={{ flex: 3 }}>
                       <DialogTitle>Information</DialogTitle>
                       <Divider sx={{ my: 1 }} />
                       <Box
@@ -127,7 +127,7 @@ function GeneralDetails() {
                         </Box>
                       </Box>
                     </DialogContent>
-                    <DialogContent sx={{ background: "#fff", flex: 1 }}>
+                    <DialogContent sx={{ flex: 1 }}>
                       <DialogTitle>Setting</DialogTitle>
                       <Divider sx={{ my: 1 }} />
                       <Box

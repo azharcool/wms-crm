@@ -74,7 +74,7 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox
@@ -89,7 +89,7 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
         onClick={() => goToDetails(id)}
       >
@@ -118,7 +118,7 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         {name || "not provided"}
@@ -126,7 +126,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         INR
@@ -134,7 +134,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {categoryName || "-"}
@@ -142,7 +142,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {brandName || "not provided"}
@@ -150,7 +150,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         not provided
@@ -159,7 +159,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {tag && (
@@ -188,7 +188,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {DateTimeFormat(createdOn)}
@@ -196,7 +196,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {DateTimeFormat(createdOn)}
@@ -205,7 +205,7 @@ function BundleItem(props: IProps) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton onDeleteHandle={handleBundleDelete} />

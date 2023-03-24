@@ -30,7 +30,7 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -41,7 +41,7 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -74,7 +74,7 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
       >
@@ -96,7 +96,7 @@ function VariantItem(props: IVariantItem) {
           width: 150,
           position: "sticky",
           left: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* Pieces */}-
@@ -219,7 +219,7 @@ function VariantItem(props: IVariantItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton />
