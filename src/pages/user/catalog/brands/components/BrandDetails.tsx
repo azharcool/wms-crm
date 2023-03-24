@@ -12,7 +12,7 @@ import useBrandDetail from "hooks/catalog/brand/useBrandDetails";
 import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
-import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";

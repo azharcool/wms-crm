@@ -6,6 +6,7 @@ export interface IGetAllVariantResponseRoot {
 }
 
 export interface IGetAllVariantResponseData {
+  picture: any;
   id?: number;
   userId?: number;
   optionName?: string;
@@ -22,19 +23,19 @@ export interface IGetAllVariantResponseData {
   weight?: number;
   crossDocking?: boolean;
   enable?: boolean;
-  userName?: string
-  productName?: string
-  bundleName?: string
-  productVariantName?: string
-  bundleId?: number
-  productId?: number
-  productVariantId?: number
-  unitPrice?: number
-  conditionCode?: string
-  discount?: number
-  qty?: number
-  total?: number
-  status?: number
-  createdOn?: string
-  updatedOn?: any
+  userName?: string;
+  productName?: string;
+  bundleName?: string;
+  productVariantName?: string;
+  bundleId?: number;
+  productId?: number;
+  productVariantId?: number;
+  unitPrice?: number;
+  conditionCode?: string;
+  discount?: number;
+  qty?: number;
+  total?: number;
+  status?: number;
+  createdOn?: string;
+  updatedOn?: any;
 }

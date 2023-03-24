@@ -1,5 +1,7 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
+import { FILE_URL } from "config";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -27,7 +29,6 @@ function CategoriesItem(props: ICategoriesItem) {
   const select = () => {
     dispatch(setCategoryId(item.id));
   };
-
   return (
     <TableRow>
       <TableCell
@@ -63,8 +64,17 @@ function CategoriesItem(props: ICategoriesItem) {
         >
           <img
             alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
+            src={
+              item?.picture !== null
+                ? `${FILE_URL}${item?.picture?.atachment}`
+                : NOImage
+            }
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "5px",
+            }}
           />
         </Box>
       </TableCell>
