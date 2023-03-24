@@ -15,14 +15,13 @@ function Warehouse() {
         <CardContent sx={{ paddingTop: 0 }}>
           <TableToolbar
             hasBulk
-            buttonText="New"
             navTitle="Warehouses"
             rightActions={[
               {
                 id: crypto.randomUUID(),
                 title: "New",
                 onClick: () => {
-                  navigate(AppRoutes.WAREHOUSE_CREATE);
+                  navigate(`/warehouse/create`);
                 },
                 icon: (
                   <AddCircleIcon

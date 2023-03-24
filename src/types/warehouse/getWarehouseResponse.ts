@@ -1,6 +1,6 @@
 export interface IGetWarehouseResponseRoot {
     statusCode: number
-    data: any[]
+    data: IGetWarehouseResponseData[]
     totalDocs: number
   }
   

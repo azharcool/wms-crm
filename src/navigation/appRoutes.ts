@@ -67,6 +67,8 @@ const AppRoutes = {
     listing: "listing",
     details: "details",
     create: "create",
+    update: "update",
+
 
     // tabs
     generalDetails: "general/details",
@@ -80,6 +82,9 @@ const AppRoutes = {
     zonesDetails: "zones/details",
     locationsDetails: "locations/details",
     containersDetails: "containers/details",
+
+    // create
+    locationCreate: "location/create",
   },
 };
 

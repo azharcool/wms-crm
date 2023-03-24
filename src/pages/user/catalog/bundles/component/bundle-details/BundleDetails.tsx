@@ -13,7 +13,8 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
-import { FormikHelpers } from "formik";
+import { FormikHelpers, useFormik } from "formik";
+import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
@@ -22,6 +23,7 @@ import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { IAddCompositionbundleRootRequest } from "types/catalog/bundleCompo/addBundleCompoRequest";
+import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import Composition from "./Composition";
 import General from "./General";
@@ -57,6 +59,7 @@ function TabPanel(props: TabPanelProps) {
 
 function BundleDetails() {
   const navigate = useNavigate();
+  const { editBundleAction } = useBundleAction();
   const nameRef = useRef<any>(null);
   const newtheme = useSelector((state: any) => state.theme);
   const [value, setValue] = useState(0);
@@ -131,6 +134,38 @@ function BundleDetails() {
     initialValues,
   });
   const { values, handleChange, handleSubmit, setFieldValue } = bundleForm;
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      description: "",
+      sku: "",
+      barcode: "",
+      categoryId: "",
+      brandId: "",
+      tag: "",
+    },
+    onSubmit: async (values) => {
+      const editData: IAddBundleRequestRoot = {
+        id: Number(bundleId),
+        userId: Number(userDecoded.id),
+        name: values.name,
+        description: values.description,
+        sku: values.sku,
+        barcode: values.barcode,
+        categoryId: Number(values.categoryId),
+        brandId: Number(values.brandId),
+        tag: values.tag,
+      };
+      const response = await editBundleAction(editData);
+      if (response) {
+        setEditable(false);
+        formik.resetForm();
+        navigate(-1);
+      }
+    },
+  });
+
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -170,9 +205,7 @@ function BundleDetails() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: (e: any) => {
-        handleSubmit();
-        // setEditable(false);
-        // navigate(-1);
+        formik.handleSubmit();
       },
       icon: (
         <SaveIcon
@@ -235,7 +268,13 @@ function BundleDetails() {
           </Tabs>
         </Stack>
         <TabPanel index={0} value={value}>
-          <General data={bundle?.data} isTrue={istrue} />
+          <General
+            data={bundle?.data}
+            editable={editable}
+            formik={formik}
+            isTrue={istrue}
+            nameRef={nameRef}
+          />
         </TabPanel>
         <TabPanel index={1} value={value}>
           <Composition

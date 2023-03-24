@@ -44,8 +44,6 @@ function NewSupplier() {
           <TableToolbar
             isAdd
             breadcrumbs={[{ link: "Purchase order", to: "/purchase-order" }]}
-            buttonText="Save"
-            handleClick={handleSave}
             title="New Purchase Order"
           />
           <Card>

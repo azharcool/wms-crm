@@ -28,7 +28,6 @@ function Products() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          buttonText="New"
           navTitle="CATALOG"
           rightActions={[
             {
