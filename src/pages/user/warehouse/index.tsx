@@ -15,7 +15,6 @@ function Warehouse() {
         <CardContent sx={{ paddingTop: 0 }}>
           <TableToolbar
             hasBulk
-            buttonText="New"
             navTitle="Warehouses"
             rightActions={[
               {

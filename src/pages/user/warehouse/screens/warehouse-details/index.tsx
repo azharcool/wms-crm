@@ -66,8 +66,6 @@ function WarehouseDetails() {
           <CardContent sx={{ paddingTop: 0 }}>
             <TableToolbar
               breadcrumbs={[{ link: "Warehouse", to: "/warehouse" }]}
-              buttonText="Edit"
-              handleClick={handleOpen}
               title="Warehouse Details"
             />
             <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

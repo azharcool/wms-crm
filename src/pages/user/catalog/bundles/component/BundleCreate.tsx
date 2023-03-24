@@ -9,7 +9,7 @@ import {
   Container,
   Grid,
   PaletteMode,
-  Stack,
+  Stack
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -290,8 +290,8 @@ function BundleCreate() {
                     name="sku"
                     size="small"
                     value={values.sku}
-                    onChange={handleChange("sku")}
                     onBlur={handleBlur("sku")}
+                    onChange={handleChange("sku")}
                     onClickIcon={() => {
                       if (values.name) {
                         const newName = values.name.split(" ");
