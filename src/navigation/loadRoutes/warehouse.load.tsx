@@ -78,6 +78,15 @@ export const WarehouseLocationsDetails = Loadable({
   loading: () => <Spinner />,
 });
 
+// Location Create
+export const WarehouseLocationsCreate = Loadable({
+  loader: () =>
+    import(
+      "pages/user/warehouse2/warehouse-details/locations/components/LocationsCreate"
+    ),
+  loading: () => <Spinner />,
+});
+
 // Containers Listing
 export const WarehouseContainersListing = Loadable({
   loader: () =>
