@@ -84,6 +84,48 @@ export const fullfillmentSwitchs = [
     name: "syncSupplyPrice",
   },
 ];
+export const Loctype = [
+  {
+    id: "Picking",
+    value: "Picking",
+  },
+  {
+    id: "Packing",
+    value: "Packing",
+  },
+  {
+    id: "Shipping",
+    value: "Shipping",
+  },
+  {
+    id: "Overflow",
+    value: "Overflow",
+  },
+  {
+    id: "Staging",
+    value: "Staging",
+  },
+  {
+    id: "Sorting",
+    value: "Sorting",
+  },
+  {
+    id: "Receiving",
+    value: "Receiving",
+  },
+  {
+    id: "Returns",
+    value: "Returns",
+  },
+  {
+    id: "Quarantine",
+    value: "Quarantine",
+  },
+  {
+    id: "Reserve",
+    value: "Reserve",
+  },
+];
 
 export const strategys = [
   {
@@ -108,6 +150,22 @@ export const warehouseStatus = [
   {
     id: "2",
     value: "Inactive",
+  },
+];
+export const area = [
+  {
+    id: "New_area",
+    value: "New_area",
+  },
+];
+export const operation = [
+  {
+    id: "Picking",
+    value: "Picking",
+  },
+  {
+    id: "Putaway",
+    value: "Putaway",
   },
 ];
 
