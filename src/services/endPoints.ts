@@ -240,6 +240,15 @@ const API_URLS = {
   GET_BY_ID_ZONE: `zone/${endPoints.getbyid}`,
   DELETE_ZONE: `zone/${endPoints.delete}`,
   BULK_DELETE_ZONE: `zone/${endPoints.bulkDelete}`,
+
+  // location
+  ADD_LOCATION: `location/${endPoints.add}`,
+  EDIT_LOCATION: `location/${endPoints.edit}`,
+  GET_ALL_LOCATION: `location/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_LOCATION: `location/${endPoints.getAllPagination}`,
+  GET_BY_ID_LOCATION: `location/${endPoints.getbyid}`,
+  DELETE_LOCATION: `location/${endPoints.delete}`,
+  BULK_DELETE_LOCATION: `location/${endPoints.bulkDelete}`,
 };
 
 export default API_URLS;
