@@ -12,11 +12,21 @@ import {
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import useGetByIdWarehouseArea from "hooks/querys/warehouse/area/useGetByIdWarehouseArea";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import AreasCreate from "./AreasCreate";
 
 function AreasDetails() {
   const [formOpen, setFormOpen] = useState(false);
+  const { areaId } = useParams();
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { data: warehouseDetailResponse } = useGetByIdWarehouseArea({
+    warehouseId: getSelectedWarehouse.id,
+    id: Number(areaId),
+  });
 
   const handleClose = (status?: boolean) => {
     const open = status || false;
@@ -69,7 +79,7 @@ function AreasDetails() {
                     id="warehouse"
                     name="warehouse"
                     size="small"
-                    value="Warehouse"
+                    value={getSelectedWarehouse.name}
                   />
                 </Stack>
 
@@ -81,7 +91,7 @@ function AreasDetails() {
                     id="label"
                     name="label"
                     size="small"
-                    value="label"
+                    value={warehouseDetailResponse?.data.label || ""}
                   />
                   <TextField
                     darkDisable
@@ -90,7 +100,7 @@ function AreasDetails() {
                     id="name"
                     name="name"
                     size="small"
-                    value="name"
+                    value={warehouseDetailResponse?.data.name || ""}
                   />
                 </Stack>
               </CustomCardContent>
@@ -116,7 +126,15 @@ function AreasDetails() {
                     sx={{ fontSize: 16, fontWeight: "500" }}
                     variant="h6"
                   >
-                    <Chip color="success" label="Active" variant="outlined" />
+                    <Chip
+                      color="success"
+                      label={
+                        warehouseDetailResponse?.data.status === 1
+                          ? "Active"
+                          : "InActive"
+                      }
+                      variant="outlined"
+                    />
                   </Typography>
                 </Box>
               </CustomCardContent>
@@ -124,8 +142,12 @@ function AreasDetails() {
           </Grid>
         </Grid>
       </CardContent>
-      {formOpen ? (
-        <AreasCreate handleClose={() => handleClose()} open={formOpen} />
+      {formOpen && warehouseDetailResponse ? (
+        <AreasCreate
+          editData={warehouseDetailResponse?.data}
+          handleClose={() => handleClose()}
+          open={formOpen}
+        />
       ) : null}
     </Container>
   );
