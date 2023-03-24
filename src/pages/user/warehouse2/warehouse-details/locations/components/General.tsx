@@ -5,7 +5,7 @@ import { FormikProps } from "formik";
 import useBrand from "hooks/catalog/brand/useBrand";
 import useCategory from "hooks/catalog/categories/useCategory";
 import { useEffect } from "react";
-import { IGetByIdLocationData } from "types/warehouse/location/getByIdLocationResponse";
+import { GetByIdLocationResponseData } from "types/warehouse/location/getByIdLocationResponse";
 import {
   area,
   detailMenu,
@@ -18,7 +18,7 @@ interface IGeneral {
   isTrue?: boolean;
   nameRef?: any;
   editable?: boolean;
-  data?: IGetByIdLocationData;
+  data?: GetByIdLocationResponseData;
   formik: FormikProps<any>;
 }
 
@@ -30,20 +30,20 @@ function General(props: IGeneral) {
 
   useEffect(() => {
     if (data) {
-      formik?.setFieldValue("warehouse", data?.warehouse || "");
-      formik?.setFieldValue("area", data?.area);
-      formik?.setFieldValue("zone", data?.zone || "");
+      formik?.setFieldValue("warehouse", data?.warehouseName || "");
+      formik?.setFieldValue("area", data?.areaName);
+      formik?.setFieldValue("zone", data?.zoneName || "");
       formik?.setFieldValue("aisle", data?.aisle || "");
-      formik?.setFieldValue("bay", data?.bay || "");
-      formik?.setFieldValue("level", data?.level || "");
-      formik?.setFieldValue("bin", data?.bin || "");
+      // formik?.setFieldValue("bay", data?. || "");
+      // formik?.setFieldValue("level", data?. || "");
+      // formik?.setFieldValue("bin", data?.bin || "");
       formik?.setFieldValue("height", data?.height || "");
       formik?.setFieldValue("width", data?.width || "");
       formik?.setFieldValue("length", data?.length || "");
-      formik?.setFieldValue("maxload", data?.maxload || "");
+      // formik?.setFieldValue("maxload", data?.maxload || "");
       formik?.setFieldValue("volume", data?.volume || "");
-      formik?.setFieldValue("location_alias", data?.location_alias || "");
-      formik?.setFieldValue("location_type", data?.location_type || "");
+      // formik?.setFieldValue("location_alias", data?.location_alias || "");
+      // formik?.setFieldValue("location_type", data?.location_type || "");
       formik?.setFieldValue("status", data?.status || "");
       formik?.setFieldValue("x", data?.x || "");
       formik?.setFieldValue("y", data?.y || "");
