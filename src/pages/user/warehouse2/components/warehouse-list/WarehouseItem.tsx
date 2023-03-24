@@ -2,7 +2,9 @@ import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setWarehouse } from "redux/warehouse/warehouseSlice";
 import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
 
 interface IWarehouseItem {
@@ -12,6 +14,7 @@ interface IWarehouseItem {
 function WarehouseItem(props: IWarehouseItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
   return (
     <TableRow>
@@ -38,6 +41,12 @@ function WarehouseItem(props: IWarehouseItem) {
           cursor: "pointer",
         }}
         onClick={() => {
+          dispatch(
+            setWarehouse({
+              id: item?.id || 0,
+              name: item?.warehouseName || "",
+            }),
+          );
           navigate(navigateDetails);
         }}
       >

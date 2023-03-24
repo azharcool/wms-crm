@@ -3,7 +3,13 @@ import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import { FormikHelpers, useFormik } from "formik";
+import useDecodedData from "hooks/useDecodedData";
+import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
+import { AddWarehouseAreaRequestRoot } from "types/warehouse/area/addWarehouseAreaRequest";
+import { GetByIdWarehouseAreaData } from "types/warehouse/area/getByIdWarehouseResponse";
 import * as Yup from "yup";
 import { areaStatus } from "__mock__";
 
@@ -11,6 +17,7 @@ interface IAreasCreate {
   open: boolean;
   handleClose: () => void;
   isEdit?: boolean;
+  editData?: GetByIdWarehouseAreaData;
 }
 
 interface InitialValues {
@@ -50,8 +57,10 @@ const useAreaForm = (props: IuseAreaForm) => {
 };
 
 function AreasCreate(props: IAreasCreate) {
-  const { open, handleClose } = props;
-  const warehouseName = "new";
+  const { open, handleClose, editData } = props;
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { addWarehouseAction, editWarehouseAction } = useWarehouseAreaAction();
+  const userDecoded = useDecodedData();
 
   const {
     values,
@@ -61,6 +70,7 @@ function AreasCreate(props: IAreasCreate) {
     setFieldValue,
     errors,
     handleSubmit,
+    resetForm,
     isSubmitting,
   } = useAreaForm({
     initialValues,
@@ -68,13 +78,39 @@ function AreasCreate(props: IAreasCreate) {
   });
 
   useEffect(() => {
-    if (warehouseName) {
-      setFieldValue("warehouse", warehouseName);
+    if (getSelectedWarehouse) {
+      setFieldValue("warehouse", getSelectedWarehouse.name);
     }
   }, []);
 
-  function onSubmit(values: InitialValues) {
-    console.log(values);
+  useEffect(() => {
+    if (editData) {
+      setFieldValue("name", editData.name);
+      setFieldValue("label", editData.label);
+      setFieldValue("status", editData.status);
+    }
+  }, [editData]);
+
+  async function onSubmit(values: InitialValues) {
+    const data: AddWarehouseAreaRequestRoot = {
+      userId: Number(userDecoded.id),
+      warehouseId: getSelectedWarehouse.id,
+      label: values.label,
+      name: values.name,
+      status: Number(values.status) || 1,
+    };
+    let response = false;
+    if (editData) {
+      data.id = editData.id;
+      response = await editWarehouseAction(data);
+    } else {
+      response = await addWarehouseAction(data);
+    }
+
+    if (response) {
+      resetForm();
+      handleClose();
+    }
   }
 
   return (
@@ -125,7 +161,7 @@ function AreasCreate(props: IAreasCreate) {
                   label="Name"
                   name="name"
                   size="small"
-                  value=""
+                  value={values.name}
                   onBlur={handleBlur("name")}
                   onChange={handleChange("name")}
                 />

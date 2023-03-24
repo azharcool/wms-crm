@@ -1,7 +1,7 @@
 import { Card, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
-import useGetByIdWarehouse from "hooks/querys/catalog/warehouse/useGetByIdWarehouse";
+import useGetByIdWarehouse from "hooks/querys/warehouse/useGetByIdWarehouse";
 import { useParams } from "react-router-dom";
 
 function WarehouseGeneral() {
@@ -21,9 +21,8 @@ function WarehouseGeneral() {
           <CustomCardContent title="Details">
             <Stack direction="row" gap={2}>
               <TextField
+                darkDisable
                 disabled
-                // iconEnd
-                // icon={<Inventory2Icon />}
                 id="name"
                 label="Warehouse Name"
                 name="name"
@@ -31,6 +30,7 @@ function WarehouseGeneral() {
                 value={warehouse?.data.warehouseName}
               />
               <TextField
+                darkDisable
                 disabled
                 id="type"
                 label="Label"
@@ -41,6 +41,7 @@ function WarehouseGeneral() {
             </Stack>
 
             <TextField
+              darkDisable
               disabled
               multiline
               id="adress"
@@ -51,6 +52,7 @@ function WarehouseGeneral() {
 
             <Stack direction="row" gap={2}>
               <TextField
+                darkDisable
                 disabled
                 id="phone"
                 label="Phone Number"
@@ -59,6 +61,7 @@ function WarehouseGeneral() {
                 value={warehouse?.data.phoneNumber}
               />
               <TextField
+                darkDisable
                 disabled
                 id="country"
                 label="Country"
@@ -69,6 +72,7 @@ function WarehouseGeneral() {
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
+                darkDisable
                 disabled
                 id="city"
                 label="City"
@@ -77,6 +81,7 @@ function WarehouseGeneral() {
                 value={warehouse?.data.city}
               />
               <TextField
+                darkDisable
                 disabled
                 id="zipcode"
                 label="Zip Code"
@@ -87,6 +92,7 @@ function WarehouseGeneral() {
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
+                darkDisable
                 disabled
                 id="lng"
                 label="Longitude"
@@ -96,6 +102,7 @@ function WarehouseGeneral() {
               />
 
               <TextField
+                darkDisable
                 disabled
                 id="latitude"
                 label="Latitude"
@@ -109,6 +116,7 @@ function WarehouseGeneral() {
           <CustomCardContent title="Primary Contact">
             <Stack direction="row" gap={2}>
               <TextField
+                darkDisable
                 disabled
                 id="fname"
                 label="First Name"
@@ -117,6 +125,7 @@ function WarehouseGeneral() {
                 value={warehouse?.data.firstName}
               />
               <TextField
+                darkDisable
                 disabled
                 id="lname"
                 label="Last Name"
@@ -127,6 +136,7 @@ function WarehouseGeneral() {
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
+                darkDisable
                 disabled
                 id="email"
                 label="Email"
@@ -135,6 +145,7 @@ function WarehouseGeneral() {
                 value={warehouse?.data.primaryEmail}
               />
               <TextField
+                darkDisable
                 disabled
                 id="phonenumber"
                 label="Phone Number"
@@ -154,6 +165,7 @@ function WarehouseGeneral() {
         >
           <CustomCardContent title="Setting">
             <TextField
+              darkDisable
               disabled
               label="Status"
               name="status"
@@ -162,6 +174,7 @@ function WarehouseGeneral() {
             />
 
             <TextField
+              darkDisable
               disabled
               label="Picking Strategy"
               name="pickingstrategy"
@@ -169,6 +182,7 @@ function WarehouseGeneral() {
               value={warehouse?.data.pickingStrategy}
             />
             <TextField
+              darkDisable
               disabled
               label="Recieving Strategy"
               name="recievingstrategy"
@@ -176,13 +190,15 @@ function WarehouseGeneral() {
               value={warehouse?.data.receivingStrategy}
             />
             <TextField
+              darkDisable
               disabled
               label="Timezone"
-              value={warehouse?.data.timezone}
               name="timezone"
               size="small"
+              value={warehouse?.data.timezone}
             />
             <TextField
+              darkDisable
               disabled
               label="Recieving Type"
               name="type"
