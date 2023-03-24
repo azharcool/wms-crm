@@ -9,11 +9,12 @@ import {
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
 import TextField from "components/textfield";
-import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { FormikProps } from "formik";
+import useBrand from "hooks/catalog/brand/useBrand";
+import useCategory from "hooks/catalog/categories/useCategory";
+import React, { useEffect } from "react";
 import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
-import useGeneralForm, { IGeneralForm } from "../../../hooks/useGeneralForm";
+import { generateRandomNumber } from "utils";
 // eslint-disable-next-line import/no-extraneous-dependencies
 
 interface ICustomCard {
@@ -35,51 +36,30 @@ function CustomCardContent(props: ICustomCard) {
 }
 
 interface IGeneral {
-  isTrue: boolean;
-  data: IBundleDetails | undefined;
+  isTrue?: boolean;
+  data?: IBundleDetails | undefined;
+  nameRef?: any;
+  editable?: boolean;
+  formik: FormikProps<any>;
 }
 
 function General(props: IGeneral) {
-  const { isTrue, data } = props;
-  const [selectedFiles, setSelectedFiles] = useState<any>();
-  const [name, setName] = useState<any>("");
-
-  const { state } = useLocation();
-  const { bundleId } = state;
-  const {
-    data: bundle,
-    refetch,
-    isLoading,
-    isFetching: isFetchingBundle,
-  } = useGetByIdBundle(bundleId);
-
-  const initialValues: IGeneralForm = {
-    name: bundle?.data.name || "",
-    description: bundle?.data.description || "",
-  };
-
-  const onSubmit = async (values: IGeneralForm) => {
-    //
-  };
-
-  const formik = useGeneralForm(onSubmit, initialValues);
-
-  const {
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    values,
-    errors,
-    touched,
-    isValid,
-    dirty,
-    isSubmitting,
-    resetForm,
-  } = formik;
+  const { isTrue, data, nameRef, editable, formik } = props;
+  const { category } = useCategory();
+  const { brand } = useBrand();
 
   useEffect(() => {
-    setName(bundle?.data?.name);
-  }, [bundle]);
+    if (data) {
+      formik?.setFieldValue("name", data?.name || "");
+      formik?.setFieldValue("description", data?.description || "");
+      formik?.setFieldValue("categoryId", data?.categoryId || "");
+      formik?.setFieldValue("tag", data?.tag || "");
+      formik?.setFieldValue("brandId", data?.brandId || "");
+      formik?.setFieldValue("sku", data?.sku || "");
+      formik?.setFieldValue("barcode", data?.barcode || "");
+    }
+  }, [data]);
+
   return (
     <Grid container marginTop={2} spacing={2}>
       <Grid item xs={8}>
@@ -92,29 +72,22 @@ function General(props: IGeneral) {
             <Stack direction="column" gap={3}>
               <TextField
                 disabled={isTrue}
-                error={!!touched.name && !!errors.name}
-                helperText={(touched.name && errors && errors.name) || ""}
-                id="categoryName"
+                id="name"
                 label="Name"
-                name="categoryName"
+                name="name"
+                nameRef={nameRef}
                 size="small"
-                value={values.name}
-                onBlur={handleBlur("name")}
-                onChange={handleChange("name")}
+                value={formik.values.name}
+                onChange={formik.handleChange("name")}
               />
               <TextField
                 multiline
                 disabled={isTrue}
-                error={!!touched.description && !!errors.description}
-                helperText={
-                  (touched.description && errors && errors.description) || ""
-                }
                 id="description"
-                label="Descriptio"
+                label="Description"
                 name="description"
-                value={values.description}
-                onBlur={handleBlur("description")}
-                onChange={handleChange("description")}
+                value={formik.values.description}
+                onChange={formik.handleChange("description")}
               />
             </Stack>
           </CustomCardContent>
@@ -125,12 +98,23 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="sku"
-                // label="sku"
+                label="SKU"
                 name="sku"
                 size="small"
-                value={bundle?.data?.sku}
-                onChange={() => {}}
-                onClickIcon={() => {}}
+                value={formik.values.sku}
+                onChange={formik.handleChange("sku")}
+                onClickIcon={() => {
+                  if (formik.values.name) {
+                    const newName = formik.values.name.split(" ");
+                    const generateSku = newName
+                      .map((i: string) => i.slice(0, 6))
+                      .join("")
+                      .toUpperCase()
+                      .concat("-", generateRandomNumber(4));
+
+                    formik.setFieldValue("sku", generateSku);
+                  }
+                }}
               />
 
               <TextField
@@ -138,52 +122,57 @@ function General(props: IGeneral) {
                 disabled={isTrue}
                 icon={<RefreshIcon />}
                 id="barcode"
-                // label="barcode"
-                // label={!isTrue ? "Barcode" : bundle?.data?.barcode}
+                label="barcode"
                 name="barcode"
                 size="small"
-                value={bundle?.data?.barcode}
-                onChange={() => {}}
-                onClickIcon={() => {}}
+                value={formik.values.barcode}
+                onChange={formik.handleChange("barcode")}
+                onClickIcon={() => {
+                  const newBarcode = generateRandomNumber(13);
+                  formik.setFieldValue("barcode", newBarcode);
+                }}
               />
             </Stack>
           </CustomCardContent>
           <CustomCardContent title="Organization">
             <Stack direction="row" gap={2}>
               <TextField
-                // isSelect
+                isSelect
                 disabled={isTrue}
-                value={bundle?.data?.categoryName}
-                id="categorys"
-                // menuItems={categorys}
-                name="categorys"
+                id="categoryId"
+                label="Category"
+                menuItems={category}
+                name="categoryId"
                 size="small"
-                // value={categorys[0].id}
-                onSelectHandler={() => {}}
+                value={formik.values.categoryId}
+                onSelectHandler={(e) => {
+                  formik.setFieldValue("categoryId", e.target.value);
+                }}
               />
               <TextField
-                // isSelect
+                isSelect
                 disabled={isTrue}
-                id="categorys"
-                name="brand"
-                // label="Brand"
-                // menuItems={brands}
-                value={bundle?.data?.brandName}
+                id="brandId"
+                label="Brand"
+                menuItems={brand}
+                name="brandId"
                 size="small"
-                // value={brands[0].id}
-                onSelectHandler={() => {}}
+                value={formik.values.brandId}
+                onSelectHandler={(e) => {
+                  formik.setFieldValue("brandId", e.target.value);
+                }}
               />
             </Stack>
 
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
                 disabled={isTrue}
-                name="categoyTags"
+                id="tag"
+                label="Tags"
+                name="tag"
                 size="small"
-                onChange={() => {}}
-                id="categoyTags"
-                // label="Tags"
-                value={bundle?.data?.tag}
+                value={formik.values.tag}
+                onChange={formik.handleChange("tag")}
               />
             </Stack>
           </CustomCardContent>

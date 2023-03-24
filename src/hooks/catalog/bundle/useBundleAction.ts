@@ -4,6 +4,7 @@ import {
   addBundle,
   bulkDeleteBundle,
   deleteBundleById,
+  editBundle,
 } from "services/bundle.services";
 import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { QueryKeys } from "utils/QueryKeys";
@@ -33,6 +34,28 @@ function useBundleAction() {
       });
       return "";
     }
+  };
+
+  const editBundleAction = async (
+    data: IAddBundleRequestRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editBundle(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllBundle]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
   };
 
   const deleteBundleAction = async (id: number): Promise<string> => {
@@ -77,6 +100,7 @@ function useBundleAction() {
 
   return {
     addBundleAction,
+    editBundleAction,
     deleteBundleAction,
     bulkDeleteBundleAsync,
   };

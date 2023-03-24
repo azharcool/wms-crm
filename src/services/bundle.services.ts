@@ -23,6 +23,13 @@ export async function addBundle(request: IAddBundleRequestRoot): Promise<any> {
   return client.post(URL, request);
 }
 
+export async function editBundle(
+  request: IAddBundleRequestRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.EDIT_BUDLE}`;
+  return client.put(URL, request);
+}
+
 export async function getBundleById(
   request: string,
 ): Promise<IGetByIdBundleResponseRoot> {

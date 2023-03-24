@@ -1,9 +1,10 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ interface IProps {
 function BundleItem(props: IProps) {
   const { bundle, refetch } = props;
   const navigate = useNavigate();
+  const [tags, setTags] = useState<any>([]);
   const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`, {
@@ -62,6 +64,7 @@ function BundleItem(props: IProps) {
       },
     });
   };
+
   return (
     <TableRow>
       <TableCell
@@ -159,7 +162,27 @@ function BundleItem(props: IProps) {
           background: "white",
         }}
       >
-        {tag}
+        {tag && (
+          <Stack flexDirection="row" flexWrap="wrap">
+            {tag.split(",").map((tag) => {
+              return (
+                <Box
+                  key={tag}
+                  sx={{
+                    borderRadius: "16px",
+                    background: "#fbdeba",
+                    color: "#8f391c",
+                    padding: "4px 8px",
+                    margin: "2px",
+                    fontSize: "12px",
+                  }}
+                >
+                  {tag}
+                </Box>
+              );
+            })}
+          </Stack>
+        )}
       </TableCell>
 
       <TableCell
