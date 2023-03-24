@@ -10,7 +10,7 @@ export interface IGetBrandResponseData {
   userId: number;
   name: string;
   slug: string;
-  fileName: string;
+  fileUrl: string;
   status: number;
   createdOn: string;
   updatedOn: any;

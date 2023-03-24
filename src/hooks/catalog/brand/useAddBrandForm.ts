@@ -27,8 +27,8 @@ const schema = Yup.object().shape({
   // Client Info
   name: Yup.string().required(ErrorMessages.add_brand.name),
   slug: Yup.string().required(ErrorMessages.add_brand.slug),
-  image: Yup.string().required(ErrorMessages.add_brand.image),
-  fileUrl: Yup.string().required(ErrorMessages.add_brand.fileUrl),
+  // image: Yup.string().required(ErrorMessages.add_brand.image),
+  // fileUrl: Yup.string().required(ErrorMessages.add_brand.fileUrl),
 });
 
 const useAddBrandForm = (
