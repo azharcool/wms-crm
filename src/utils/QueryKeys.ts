@@ -46,6 +46,7 @@ const QueryKeys = {
   getByIdZone: "getByIdZone",
   getAllLocation: "getAllLocation",
   getByIdLocation: "getByIdLocation",
+  getAllZonePagination: "getAllZonePagination",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

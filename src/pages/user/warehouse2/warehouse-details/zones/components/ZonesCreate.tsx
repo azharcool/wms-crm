@@ -108,8 +108,8 @@ function ZonesCreate(props: IZoneCreate) {
               <Stack direction="column" gap={2}>
                 <TextField
                   isSelect
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
+                  error={!!touched.area && !!errors.area}
+                  helperText={(touched.area && errors && errors.area) || ""}
                   id="area"
                   label="Area"
                   menuItems={areaMenuItems}
