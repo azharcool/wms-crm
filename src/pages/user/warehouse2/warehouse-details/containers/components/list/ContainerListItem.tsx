@@ -81,6 +81,24 @@ function ContainerListItem(props: any) {
       >
         {/* company */}-
       </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
       <TableCell
         sx={{
           minWidth: 150,

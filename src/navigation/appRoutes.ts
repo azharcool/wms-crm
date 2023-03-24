@@ -82,6 +82,9 @@ const AppRoutes = {
     zonesDetails: "zones/details",
     locationsDetails: "locations/details",
     containersDetails: "containers/details",
+
+    // create
+    locationCreate: "location/create",
   },
 };
 

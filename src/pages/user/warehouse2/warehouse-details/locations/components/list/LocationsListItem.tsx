@@ -3,11 +3,19 @@ import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { GetAllLocationResponseData } from "types/warehouse/location/getAllLocationResponse";
 
-function LocationsListItem(props: any) {
+interface ILocationListItem {
+  item: GetAllLocationResponseData;
+}
+
+function LocationsListItem(props: ILocationListItem) {
   const { item } = props;
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
+  const {
+    warehouse: { warehouseLayout, locationsDetails },
+  } = AppRoutes;
+  const navigateDetails = `/${warehouseLayout}/${locationsDetails}/${item.id}`;
   return (
     <TableRow>
       <TableCell
@@ -36,7 +44,7 @@ function LocationsListItem(props: any) {
           navigate(navigateDetails);
         }}
       >
-        {item.name}azhar
+        {item.areaName}
       </TableCell>
       <TableCell
         sx={{
@@ -46,7 +54,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* inventory */}-
+        {item.areaName}
       </TableCell>
       <TableCell
         sx={{
@@ -54,7 +62,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* variants count */}-
+        {item.zoneName}
       </TableCell>
       <TableCell
         sx={{
@@ -62,7 +70,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item.aisle || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -70,9 +78,65 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* brand */}-
+        {/* bay */}-
       </TableCell>
 
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* level */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* bin */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.status === 1 ? "Active" : "InActive"}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* operation */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.warehouseName}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.locationType}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.locationAlias || "-"}
+      </TableCell>
       <TableCell
         sx={{
           minWidth: 150,
@@ -87,9 +151,56 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* tags */}-
+        {/* container */}0
       </TableCell>
-
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* available */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* use volumn */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* dimensions */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.maxLoad}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* used load */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* utilization */}0
+      </TableCell>
       <TableCell
         sx={{
           minWidth: 150,

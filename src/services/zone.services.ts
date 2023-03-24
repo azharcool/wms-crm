@@ -17,8 +17,13 @@ export async function editZone(
   return client.put(URL, request);
 }
 
-export async function getAllZone() {
-  const URL = `${API_URLS.GET_ALL_ZONE}`;
+export async function getAllZone(
+  restUrl: string,
+): Promise<GetAllZoneResponseRoot> {
+  let URL = `${API_URLS.GET_ALL_ZONE}`;
+  if (restUrl) {
+    URL = `${URL}?${restUrl}`;
+  }
   return client.get(URL);
 }
 

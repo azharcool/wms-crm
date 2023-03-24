@@ -61,6 +61,7 @@ const warehouseRouting = (
       element={<WarehouseLoadable.WarehouseZonesDetails />}
       path={`${AppRoutes.warehouse.zonesDetails}/:zoneId`}
     />
+
     <Route
       element={<WarehouseLoadable.WarehouseLocationsDetails />}
       path={`${AppRoutes.warehouse.locationsDetails}/:locationId`}
@@ -69,7 +70,15 @@ const warehouseRouting = (
       element={<WarehouseLoadable.WarehouseContainersDetails />}
       path={`${AppRoutes.warehouse.containersDetails}/:containerId`}
     />
+
+    {/* create */}
+    <Route
+      element={<WarehouseLoadable.WarehouseLocationsCreate />}
+      path={`${AppRoutes.warehouse.locationCreate}`}
+    />
   </Route>
 );
+
+// /warehouse/locations/details
 
 export default warehouseRouting;
