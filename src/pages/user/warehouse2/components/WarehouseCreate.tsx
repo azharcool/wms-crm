@@ -51,7 +51,7 @@ const initialValues: AddWarehouseForm = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPacking: false,
-  status: 1
+  status: 1,
 };
 function WarehouseCreate() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -185,7 +185,7 @@ function WarehouseCreate() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          navTitle="PRODUCTS"
+          navTitle="WAREHOUSE"
           rightActions={[
             {
               id: crypto.randomUUID(),
@@ -220,7 +220,9 @@ function WarehouseCreate() {
               ),
             },
           ]}
-          title="New Warehouse"
+          title={
+            state?.editData ? state?.editData.warehouseName : "New Warehouse"
+          }
         />
 
         <Grid container marginTop={2} spacing={2}>
