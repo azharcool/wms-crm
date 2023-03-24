@@ -1,13 +1,18 @@
+import EditIcon from "@mui/icons-material/Edit";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 
 function WarehouseDetails() {
   const [value, setValue] = useState(0);
   const navigate = useNavigate();
   const location = useLocation();
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const warehouseId = getSelectedWarehouse.id;
 
   const {
     warehouse: {
@@ -22,11 +27,11 @@ function WarehouseDetails() {
   } = AppRoutes;
 
   const navLinks = new Map([
-    [0, `/${warehouseLayout}/${details}/1/${generalDetails}`],
-    [1, `/${warehouseLayout}/${details}/1/${areas}`],
-    [2, `/${warehouseLayout}/${details}/1/${zones}`],
-    [3, `/${warehouseLayout}/${details}/1/${locations}`],
-    [4, `/${warehouseLayout}/${details}/1/${containers}`],
+    [0, `/${warehouseLayout}/${details}/${warehouseId}/${generalDetails}`],
+    [1, `/${warehouseLayout}/${details}/${warehouseId}/${areas}`],
+    [2, `/${warehouseLayout}/${details}/${warehouseId}/${zones}`],
+    [3, `/${warehouseLayout}/${details}/${warehouseId}/${locations}`],
+    [4, `/${warehouseLayout}/${details}/${warehouseId}/${containers}`],
   ]);
 
   useEffect(() => {
@@ -54,10 +59,27 @@ function WarehouseDetails() {
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
-          breadcrumbs={[{ link: "Warehouse", to: "/warehouse" }]}
+          breadcrumbs={[{ link: "Warehouse", to: "/warehouse/listing" }]}
           buttonText="Edit"
           handleClick={handleOpen}
-          title="Warehouse Details"
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "Edit",
+              onClick: () => {
+                navigate(`/${AppRoutes.warehouse.create}`);
+              },
+              icon: (
+                <EditIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
+          title={getSelectedWarehouse.name}
         />
         <Tabs
           aria-label="basic tabs example"

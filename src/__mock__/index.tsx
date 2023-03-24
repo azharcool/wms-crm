@@ -84,6 +84,48 @@ export const fullfillmentSwitchs = [
     name: "syncSupplyPrice",
   },
 ];
+export const Loctype = [
+  {
+    id: "Picking",
+    value: "Picking",
+  },
+  {
+    id: "Packing",
+    value: "Packing",
+  },
+  {
+    id: "Shipping",
+    value: "Shipping",
+  },
+  {
+    id: "Overflow",
+    value: "Overflow",
+  },
+  {
+    id: "Staging",
+    value: "Staging",
+  },
+  {
+    id: "Sorting",
+    value: "Sorting",
+  },
+  {
+    id: "Receiving",
+    value: "Receiving",
+  },
+  {
+    id: "Returns",
+    value: "Returns",
+  },
+  {
+    id: "Quarantine",
+    value: "Quarantine",
+  },
+  {
+    id: "Reserve",
+    value: "Reserve",
+  },
+];
 
 export const strategys = [
   {
@@ -102,12 +144,28 @@ export const strategys = [
 
 export const warehouseStatus = [
   {
-    id: "Active",
+    id: "1",
     value: "Active",
   },
   {
-    id: "Inactive",
+    id: "2",
     value: "Inactive",
+  },
+];
+export const area = [
+  {
+    id: "New_area",
+    value: "New_area",
+  },
+];
+export const operation = [
+  {
+    id: "Picking",
+    value: "Picking",
+  },
+  {
+    id: "Putaway",
+    value: "Putaway",
   },
 ];
 
@@ -173,5 +231,16 @@ export const newWarehouseSwitchs = [
     id: crypto.randomUUID(),
     value: "Allow Partial Picking",
     name: "allowpartialpicking",
-  }
+  },
+];
+
+export const areaStatus = [
+  {
+    id: "1",
+    value: "Active",
+  },
+  {
+    id: "2",
+    value: "InActive",
+  },
 ];
