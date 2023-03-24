@@ -12,11 +12,21 @@ import {
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import useGetByIdZone from "hooks/querys/warehouse/zone/useGetByIdZone";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import ZonesCreate from "./ZonesCreate";
 
 function ZonesDetails() {
   const [formOpen, setFormOpen] = useState(false);
+  const { zoneId } = useParams();
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { data: zoneDetailResponse } = useGetByIdZone({
+    warehouseId: getSelectedWarehouse.id,
+    id: Number(zoneId),
+  });
 
   const handleClose = (status?: boolean) => {
     const open = status || false;
@@ -41,14 +51,19 @@ function ZonesDetails() {
     },
   ];
 
+  const breadcrumbs = [
+    { link: "Warehouse", to: "/warehouse/listing" },
+    {
+      link: `${getSelectedWarehouse.name}`,
+      to: `/warehouse/details/${getSelectedWarehouse.id}/zones/listing`,
+    },
+  ];
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
-          breadcrumbs={[
-            { link: "Warehouse", to: "/warehouse" },
-            { link: "Warehouse Details", to: "/warehouse-details/1" },
-          ]}
+          breadcrumbs={breadcrumbs}
           buttonText="Edit"
           rightActions={rightActionsData}
           title="Area Details"
@@ -69,7 +84,7 @@ function ZonesDetails() {
                     id="warehouse"
                     name="warehouse"
                     size="small"
-                    value="Warehouse"
+                    value={getSelectedWarehouse.name}
                   />
                   <TextField
                     darkDisable
@@ -78,7 +93,7 @@ function ZonesDetails() {
                     id="area"
                     name="area"
                     size="small"
-                    value="Warehouse"
+                    value={zoneDetailResponse?.data?.areaName}
                   />
                 </Stack>
 
@@ -90,7 +105,7 @@ function ZonesDetails() {
                     id="label"
                     name="label"
                     size="small"
-                    value="Warehouse"
+                    value={zoneDetailResponse?.data.label}
                   />
                   <TextField
                     darkDisable
@@ -99,7 +114,7 @@ function ZonesDetails() {
                     id="name"
                     name="name"
                     size="small"
-                    value="Warehouse"
+                    value={zoneDetailResponse?.data.name}
                   />
                 </Stack>
               </CustomCardContent>
@@ -125,7 +140,15 @@ function ZonesDetails() {
                     sx={{ fontSize: 16, fontWeight: "500" }}
                     variant="h6"
                   >
-                    <Chip color="success" label="Active" variant="outlined" />
+                    <Chip
+                      color="success"
+                      label={
+                        zoneDetailResponse?.data.status === 1
+                          ? "Active"
+                          : "InActive"
+                      }
+                      variant="outlined"
+                    />
                   </Typography>
                 </Box>
               </CustomCardContent>
@@ -133,8 +156,12 @@ function ZonesDetails() {
           </Grid>
         </Grid>
       </CardContent>
-      {formOpen ? (
-        <ZonesCreate handleClose={() => handleClose()} open={formOpen} />
+      {formOpen && zoneDetailResponse ? (
+        <ZonesCreate
+          editData={zoneDetailResponse?.data}
+          handleClose={() => handleClose()}
+          open={formOpen}
+        />
       ) : null}
     </Container>
   );

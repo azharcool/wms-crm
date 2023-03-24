@@ -4,16 +4,19 @@ import {
   Paper,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import useGetAllWarehouseArea from "hooks/querys/warehouse/area/useGetAllWarehouseArea";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import Warehouse from "__mock__/warhouses.json";
+import { useSelector } from "react-redux";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import AreasCreate from "../AreasCreate";
 import AreaListItem from "./AreasListItem";
 
@@ -39,6 +42,15 @@ const tableTitle = [
 
 function AreasListing() {
   const [formOpen, setFormOpen] = useState(false);
+  const [warehousePagination, setWarehousepagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { data: warehousePaginationResponse } = useGetAllWarehouseArea({
+    ...warehousePagination,
+    warehouseId: getSelectedWarehouse.id,
+  });
 
   const handle = (status: "create" | "filter") => {
     if (status === "create") {
@@ -101,9 +113,15 @@ function AreasListing() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {Warehouse?.map((item) => {
+                  {warehousePaginationResponse?.data.map((item) => {
                     return <AreaListItem key={item.id} item={item} />;
                   })}
+
+                  {!warehousePaginationResponse?.data.length ? (
+                    <TableRow>
+                      <TableCell>No Area Found!, create one area</TableCell>
+                    </TableRow>
+                  ) : null}
                 </TableBody>
               </Table>
             </PerfectScrollbar>

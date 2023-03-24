@@ -10,10 +10,12 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import useGetAllZone from "hooks/querys/warehouse/zone/useGetAllZone";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import Warehouse from "__mock__/warhouses.json";
+import { useSelector } from "react-redux";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import ZonesCreate from "../ZonesCreate";
 import ZonesListItem from "./ZonesListItem";
 
@@ -43,6 +45,15 @@ const tableTitle = [
 
 function ZonesListing() {
   const [formOpen, setFormOpen] = useState(false);
+  const [warehousePagination, setWarehousepagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { data: zoneResponse } = useGetAllZone({
+    ...warehousePagination,
+    warehouseId: getSelectedWarehouse.id,
+  });
 
   const handle = (status: "create" | "filter") => {
     if (status === "create") {
@@ -104,7 +115,7 @@ function ZonesListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Warehouse?.map((item) => {
+                {zoneResponse?.data.map((item) => {
                   return <ZonesListItem key={item.id} item={item} />;
                 })}
               </TableBody>

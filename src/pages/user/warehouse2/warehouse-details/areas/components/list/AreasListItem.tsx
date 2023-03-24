@@ -3,15 +3,19 @@ import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { GetAllWarehouseAreaResponseData } from "types/warehouse/area/getAllWarehouseAreaResponse";
 
-function AreaListItem(props: any) {
+interface IAreaListItem {
+  item: GetAllWarehouseAreaResponseData;
+}
+function AreaListItem(props: IAreaListItem) {
   const { item } = props;
   const navigate = useNavigate();
   const {
     warehouse: { warehouseLayout, areasDetails },
   } = AppRoutes;
 
-  const navigateDetails = `/${warehouseLayout}/${areasDetails}/1`;
+  const navigateDetails = `/${warehouseLayout}/${areasDetails}/${item.id}`;
   return (
     <TableRow>
       <TableCell
@@ -40,7 +44,7 @@ function AreaListItem(props: any) {
           navigate(navigateDetails);
         }}
       >
-        {item.name}azhar
+        {item.name}
       </TableCell>
 
       <TableCell
@@ -49,7 +53,7 @@ function AreaListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item.label}
       </TableCell>
       <TableCell
         sx={{
@@ -57,7 +61,7 @@ function AreaListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item.warehouseName}
       </TableCell>
       <TableCell
         sx={{
@@ -65,7 +69,7 @@ function AreaListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item.status === 1 ? "Active" : "InActive"}
       </TableCell>
 
       <TableCell
