@@ -2,12 +2,20 @@ import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setWarehouse } from "redux/warehouse/warehouseSlice";
+import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
 
-function WarehouseItem(props: any) {
+interface IWarehouseItem {
+  item?: IGetWarehouseResponseData;
+}
+
+function WarehouseItem(props: IWarehouseItem) {
   const { item } = props;
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
+  const dispatch = useDispatch();
+  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
   return (
     <TableRow>
       <TableCell
@@ -33,10 +41,16 @@ function WarehouseItem(props: any) {
           cursor: "pointer",
         }}
         onClick={() => {
+          dispatch(
+            setWarehouse({
+              id: item?.id || 0,
+              name: item?.warehouseName || "",
+            }),
+          );
           navigate(navigateDetails);
         }}
       >
-        {item.name}azhar
+        {item?.warehouseName}
       </TableCell>
       <TableCell
         sx={{
@@ -46,7 +60,7 @@ function WarehouseItem(props: any) {
           // background: "white",
         }}
       >
-        {/* inventory */}-
+        {item?.label}
       </TableCell>
       <TableCell
         sx={{
@@ -54,7 +68,7 @@ function WarehouseItem(props: any) {
           // background: "white",
         }}
       >
-        {/* variants count */}-
+        {item?.city}
       </TableCell>
       <TableCell
         sx={{
@@ -62,7 +76,7 @@ function WarehouseItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item?.email}
       </TableCell>
       <TableCell
         sx={{
@@ -70,7 +84,7 @@ function WarehouseItem(props: any) {
           // background: "white",
         }}
       >
-        {/* brand */}-
+        {item?.phoneNumber}
       </TableCell>
 
       <TableCell
@@ -79,7 +93,7 @@ function WarehouseItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {item?.primaryPhoneNumber}
       </TableCell>
       <TableCell
         sx={{
@@ -87,7 +101,7 @@ function WarehouseItem(props: any) {
           // background: "white",
         }}
       >
-        {/* tags */}-
+        {item?.status}
       </TableCell>
 
       <TableCell

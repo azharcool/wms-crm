@@ -12,6 +12,10 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import {
+  IGetWarehouseResponseData,
+  IGetWarehouseResponseRoot,
+} from "types/warehouse/getWarehouseResponse";
 import Warehouse from "__mock__/warhouses.json";
 import WarehouseItem from "./WarehouseItem";
 
@@ -47,7 +51,12 @@ const tableTitle = [
   },
 ];
 
-function WarehouseListing() {
+interface IWarehouselisting {
+  data?: any;
+}
+
+function WarehouseListing(props: IWarehouselisting) {
+  const { data } = props;
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -97,7 +106,7 @@ function WarehouseListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Warehouse?.map((item) => {
+                {data?.data.map((item: IGetWarehouseResponseData) => {
                   return <WarehouseItem key={item.id} item={item} />;
                 })}
               </TableBody>

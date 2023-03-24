@@ -27,7 +27,7 @@ function Brands() {
   const { bulkDeleteBrandAsync } = useBrandAction();
 
   const getSelectedBrandIdsState = useSelector(getSelectedBrand);
-  const handleVariant = () => {
+  const handleBrand = () => {
     setOpenBrand((s) => !s);
   };
 
@@ -47,7 +47,7 @@ function Brands() {
                 id: crypto.randomUUID(),
                 title: "New",
                 onClick: () => {
-                  handleVariant();
+                  handleBrand();
                 },
                 icon: (
                   <AddCircleIcon
@@ -71,7 +71,7 @@ function Brands() {
         </CardContent>
       </Card>
       {openBrand ? (
-        <AddBrand handleClose={handleVariant} open={openBrand} />
+        <AddBrand handleClose={handleBrand} open={openBrand} />
       ) : null}
     </Container>
   );

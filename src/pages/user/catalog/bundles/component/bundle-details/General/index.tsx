@@ -10,7 +10,7 @@ import {
 import { Box, Stack } from "@mui/system";
 import TextField from "components/textfield";
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -40,7 +40,9 @@ interface IGeneral {
 
 function General(props: IGeneral) {
   const { isTrue, data } = props;
-  const [selectedFiles, setSelectedFiles] = useState();
+  const [selectedFiles, setSelectedFiles] = useState<any>();
+  const [name, setName] = useState<any>("");
+
   const { state } = useLocation();
   const { bundleId } = state;
   const {
@@ -50,6 +52,9 @@ function General(props: IGeneral) {
     isFetching: isFetchingBundle,
   } = useGetByIdBundle(bundleId);
 
+  useEffect(() => {
+    setName(bundle?.data?.name);
+  }, [bundle]);
   return (
     <Grid container marginTop={2} spacing={2}>
       <Grid item xs={8}>
@@ -64,8 +69,10 @@ function General(props: IGeneral) {
                 id="categoryName"
                 name="categoryName"
                 size="small"
-                value={bundle?.data?.name}
-                onChange={() => {}}
+                value={name}
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
                 disabled={isTrue}
                 // inputProps={fontColor}
                 label="Name"
@@ -120,10 +127,10 @@ function General(props: IGeneral) {
               <TextField
                 // isSelect
                 disabled={isTrue}
+                value={bundle?.data?.categoryName}
                 id="categorys"
                 // menuItems={categorys}
                 name="categorys"
-                value={bundle?.data?.categoryName}
                 size="small"
                 // value={categorys[0].id}
                 onSelectHandler={() => {}}
@@ -145,12 +152,12 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
                 disabled={isTrue}
-                id="categoyTags"
-                // label="Tags"
-                value={bundle?.data?.tag}
                 name="categoyTags"
                 size="small"
                 onChange={() => {}}
+                id="categoyTags"
+                // label="Tags"
+                value={bundle?.data?.tag}
               />
             </Stack>
           </CustomCardContent>
@@ -182,7 +189,6 @@ function General(props: IGeneral) {
                   border: "1px dashed rgb(236, 236, 236)",
                 }}
               >
-
                 <img
                   alt="new"
                   src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
