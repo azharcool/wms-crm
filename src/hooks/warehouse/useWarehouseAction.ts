@@ -14,7 +14,7 @@ function useWarehouseAction() {
     try {
       const response = await addWarehouse(data);
       if (response.statusCode === 200) {
-        // queryClient.invalidateQueries([QueryKeys.getAllWarehouse]);
+        queryClient.invalidateQueries([QueryKeys.getAllWarehouse]);
         snackbar?.show({
           title: response.message,
           type: "success",

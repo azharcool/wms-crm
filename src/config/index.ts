@@ -1,7 +1,9 @@
 // const { BASE_URL } = process.env;
 const BASE_URL = "http://wmsmanagement-001-site1.dtempurl.com/api"; // "http://ecallcrm-001-site1.atempurl.com/api";
 // http://wmsmanagement-001-site1.dtempurl.com/swagger/index.html
-export const FILE_URL = "http://wmsmanagement-001-site1.dtempurl.com/Attachment/"
+// export const FILE_URL = "http://wmsmanagement-001-site1.dtempurl.com/Attachment/",
+export const FILE_URL = "http://localuser02-001-site2.etempurl.com/Attachment/";
+
 const config = {
   IMAGE_BASE_URL: BASE_URL,
   BASE_URL,
@@ -18,7 +20,7 @@ export const SCREEN_CODES = {
   CONTACT_DETAILS: "contact_details_01",
   SETTINGS: "setting_01",
   PURCHASE: "purchase_01",
-  WAREHOUSE:"warehouse_01",
+  WAREHOUSE: "warehouse_01",
   CALENDAR: "calendar_01",
   INBOX: "inbox_01",
   CARD: "card_01",

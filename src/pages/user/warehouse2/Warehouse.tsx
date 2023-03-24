@@ -1,7 +1,7 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import useGetAllWarehouse from "hooks/querys/catalog/warehouse/useGetAllWarehouse";
+import useGetAllWarehouse from "hooks/querys/warehouse/useGetAllWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

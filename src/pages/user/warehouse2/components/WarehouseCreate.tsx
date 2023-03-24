@@ -2,13 +2,22 @@ import React from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
-import { Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
+import {
+  Card,
+  Container,
+  Grid,
+  PaletteMode,
+  Stack,
+  TextField as InputField,
+} from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import AutoComplete from "components/textfield/AutoComplete";
+import moment from "moment";
 import AppRoutes from "navigation/appRoutes";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +29,7 @@ import {
   timezone,
   warehouseStatus,
 } from "__mock__";
+import Countries from "__mock__/countries.json";
 import { FormikHelpers } from "formik";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
 import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
@@ -105,6 +115,7 @@ function WarehouseCreate() {
     handleSubmit,
     setFieldValue,
   } = warehouseForm;
+
   async function onSubmit(
     values: AddWarehouseForm,
     helper: FormikHelpers<AddWarehouseForm>,
@@ -119,8 +130,8 @@ function WarehouseCreate() {
       country: values.country,
       city: values.city,
       zipCode: values.zipCode,
-      lat: values.lat,
-      lng: values.lng,
+      lat: Number(values.lat),
+      lng: Number(values.lng),
       firstName: values.firstName,
       lastName: values.lastName,
       primaryEmail: values.primaryEmail,
@@ -131,11 +142,12 @@ function WarehouseCreate() {
       receivingType: values.receivingType,
       defaultWarehouse: values.defaultWarehouse,
       allowPartialPacking: values.allowPartialPacking,
-      status: values.status,
+      status: Number(values.status),
     };
     await addWarehouseAction(data);
   }
   const darkModeTheme = createTheme(getDesignTokens("dark"));
+  // console.log("timezone", moment().tz("America/Los_Angeles"));
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -247,23 +259,17 @@ function WarehouseCreate() {
                 />
 
                 <Stack direction="row" gap={2}>
-                  <TextField
-                    isSelect
-                    error={!!touched.country && !!errors.country}
-                    helperText={
-                      (touched.country && errors && errors.country) || ""
-                    }
-                    id="country"
-                    label="Country"
-                    value={values.country}
-                    onBlur={handleBlur("country")}
-                    onSelectHandler={(e) => {
-                      setFieldValue("country", e.target.value);
-                    }}
-                    menuItems={[{ id: "india", value: "india" }]}
-                    name="country"
-                    size="small"
-                  />
+                  <Grid xs={12}>
+                    <AutoComplete
+                      options={Countries || []}
+                      handleChange={(e: any, value: any) =>
+                        setFieldValue("country", value?.name)
+                      }
+                      helperText={(touched.country && errors && errors.country) || ""}
+                      getOptionLabel={(option: any) => option?.name}
+                      label="Country"
+                    />
+                  </Grid>
                   <TextField
                     id="city"
                     label="City"
