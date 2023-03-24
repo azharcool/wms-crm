@@ -54,6 +54,7 @@ interface IuseLocationForm {
 const schema = Yup.object().shape({
   area: Yup.string().required("area is required"),
   locationType: Yup.string().required("location type is required"),
+  status: Yup.string().required("status is required"),
 });
 
 const useLocationForm = (props: IuseLocationForm) => {

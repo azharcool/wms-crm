@@ -13,12 +13,16 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import useBrand from "hooks/catalog/brand/useBrand";
 import useCategory from "hooks/catalog/categories/useCategory";
+import useDecodedData from "hooks/useDecodedData";
+import useArea from "hooks/warehouse/area/useArea";
 import useLocationAction from "hooks/warehouse/location/useZoneLocation";
 import useZone from "hooks/warehouse/zone/useZone";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
-import { area, Loctype, warehouseStatus } from "__mock__";
+import { AddLocationRequestRoot } from "types/warehouse/location/addLocationRequest";
+import { Loctype, warehouseStatus } from "__mock__";
+
 import useLocationForm, {
   LocationInitialValues,
   locationInitialValues,
@@ -28,7 +32,9 @@ function LocationsCreate() {
   const { category } = useCategory();
   const { brand } = useBrand();
   const { zones } = useZone();
+  const { areas } = useArea();
   const navigate = useNavigate();
+  const userDecoded = useDecodedData();
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
   const { addLocationAction } = useLocationAction();
 
@@ -41,7 +47,47 @@ function LocationsCreate() {
   const lastPageLink = `/warehouse/details/${getSelectedWarehouse.id}/locations/listing`;
   async function onSubmit(values: LocationInitialValues) {
     // console.log(values);
-    // const response = await addLocationAction();
+    const data: AddLocationRequestRoot = {
+      userId: Number(userDecoded.id),
+      warehouseId: getSelectedWarehouse.id,
+      areaId: parseFloat(values.area),
+      zoneId: parseFloat(values.zone),
+      aisle: values.aisle,
+      locationType: values.locationType,
+      locationAlias: values.locationAlias,
+      operations: values.operation,
+      position: values.bin,
+      rack: values.bay,
+      shelf: values.level,
+      status: parseInt(values.status, 10),
+
+      ...(!Number.isNaN(parseFloat(values.height)) && {
+        height: parseFloat(values.height),
+      }),
+      ...(!Number.isNaN(parseFloat(values.width)) && {
+        width: parseFloat(values.width),
+      }),
+      ...(!Number.isNaN(parseFloat(values.length)) && {
+        length: parseFloat(values.length),
+      }),
+      ...(!Number.isNaN(parseFloat(values.x)) && {
+        x: parseFloat(values.x),
+      }),
+      ...(!Number.isNaN(parseFloat(values.y)) && {
+        y: parseFloat(values.y),
+      }),
+      ...(!Number.isNaN(parseFloat(values.z)) && {
+        z: parseFloat(values.z),
+      }),
+      ...(!Number.isNaN(parseFloat(values.volumn)) && {
+        volume: parseFloat(values.volumn),
+      }),
+    };
+
+    const response = await addLocationAction(data);
+    if (response) {
+      navigate(lastPageLink);
+    }
   }
 
   const rightActionsData = [
@@ -114,7 +160,7 @@ function LocationsCreate() {
                   helperText={(touched.area && errors && errors.area) || ""}
                   id="area"
                   label="Area"
-                  menuItems={area}
+                  menuItems={areas}
                   name="area"
                   size="small"
                   value={values.area}
@@ -311,6 +357,8 @@ function LocationsCreate() {
               <Stack direction="row" gap={2}>
                 <TextField
                   isSelect
+                  error={!!touched.status && !!errors.status}
+                  helperText={(touched.status && errors && errors.status) || ""}
                   label="Status"
                   menuItems={warehouseStatus}
                   name="status"

@@ -179,8 +179,6 @@ function LocationsDetails() {
     },
   ];
 
-  const istrue = !editable;
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -209,7 +207,7 @@ function LocationsDetails() {
             // data={productItemResponse?.data}
             editable={editable}
             formik={formik}
-            isTrue={istrue}
+            isTrue={false}
             nameRef={nameRef}
           />
         </TabPanel>
