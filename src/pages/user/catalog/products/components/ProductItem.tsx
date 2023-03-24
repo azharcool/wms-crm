@@ -1,4 +1,4 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
@@ -147,7 +147,27 @@ function ProductItem(props: IProductItem) {
         }}
       >
         {/* tags */}
-        {item.tags}
+        {item.tags && (
+          <Stack flexDirection="row" flexWrap="wrap">
+            {item.tags.split(",").map((tag) => {
+              return (
+                <Box
+                  key={tag}
+                  sx={{
+                    borderRadius: "16px",
+                    background: "#fbdeba",
+                    color: "#8f391c",
+                    padding: "4px 8px",
+                    margin: "2px",
+                    fontSize: "12px",
+                  }}
+                >
+                  {tag}
+                </Box>
+              );
+            })}
+          </Stack>
+        )}
       </TableCell>
       <TableCell
         sx={{

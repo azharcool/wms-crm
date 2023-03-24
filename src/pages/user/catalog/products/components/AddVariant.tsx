@@ -258,6 +258,7 @@ function AddVariant(props: IAddVariant) {
   const { addVariantAction } = useVariantAction();
 
   const handleModal = (status?: string) => {
+    navigate(-1);
     if (status) {
       setOpenModal(status);
       return;

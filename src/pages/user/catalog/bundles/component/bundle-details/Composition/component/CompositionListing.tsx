@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
 import {
+  Autocomplete,
   Box,
-  Checkbox,
   DialogTitle,
   Grid,
   Paper,
+  Stack,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   TableRow,
-  Autocomplete,
   TextField,
-  Stack,
   Typography,
 } from "@mui/material";
-import PerfectScrollbar from "react-perfect-scrollbar";
 import CustomTableCell from "components/table/CustomTableCell";
+import NoDataTableRow from "components/table/no-data-table-row";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import CompositionItem from "./CompositionItem";
@@ -109,7 +109,7 @@ function CompositionListing(props: IComposition) {
   //   setVariant(bundleComp?.data);
   // });
   const renderOption = (props: any, option: any) => (
-    <Stack direction="row" sx={{ m: 1 }} >
+    <Stack direction="row" sx={{ m: 1 }}>
       <Box
         sx={{
           width: "40px",
@@ -124,7 +124,9 @@ function CompositionListing(props: IComposition) {
       </Box>
       <Stack direction="column" ml={1}>
         <Typography>{option?.variantName}</Typography>
-        <Typography color="text.secondary" fontSize={13}>{option?.sku}</Typography>
+        <Typography color="text.secondary" fontSize={13}>
+          {option?.sku}
+        </Typography>
       </Stack>
     </Stack>
   );
@@ -140,18 +142,18 @@ function CompositionListing(props: IComposition) {
               disablePortal
               id="combo-box-demo"
               options={variantData || []}
-              onChange={handleVariant}
-              // renderOption={renderOption}
-              getOptionLabel={(option:any) =>
-                option?.variantName || option?.productName
-              }
-              sx={{ m: 2 }}
               renderInput={(params) => (
                 <TextField
                   {...params}
                   label="Search by product name,SKU,barcode"
                 />
               )}
+              sx={{ m: 2 }}
+              onChange={handleVariant}
+              // renderOption={renderOption}
+              getOptionLabel={(option: any) =>
+                option?.variantName || option?.productName
+              }
             />
           </Grid>
         )}
@@ -188,19 +190,26 @@ function CompositionListing(props: IComposition) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {variants?.map((variant) => {
-                return (
-                  <CompositionItem
-                    isTrue={isTrue}
-                    variantData={variant}
-                    bundleComp={bundleComp}
-                    bundleId={bundleId}
-                    values={values}
-                    setFieldValue={setFieldValue}
-                    handleChange={handleChange}
-                  />
-                );
-              })}
+              {!isTrue ? (
+                variants.map((variant) => {
+                  return (
+                    <CompositionItem
+                      bundleComp={bundleComp}
+                      bundleId={bundleId}
+                      handleChange={handleChange}
+                      isTrue={isTrue}
+                      setFieldValue={setFieldValue}
+                      values={values}
+                      variantData={variant}
+                    />
+                  );
+                })
+              ) : (
+                <NoDataTableRow
+                  colSize={7}
+                  title="Please click Edit Buton then search for the Composition Item"
+                />
+              )}
             </TableBody>
           </Table>
         </TableContainer>
