@@ -59,10 +59,8 @@ interface IWarehouselisting {
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
   const { data } = props;
-  console.log("lisData", data);
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
-
   const selectAll = (event: IChangeEvent, checked: boolean) => {
     if (data) {
       dispatch(
