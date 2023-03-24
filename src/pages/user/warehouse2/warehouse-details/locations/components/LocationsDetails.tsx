@@ -186,10 +186,6 @@ function LocationsDetails() {
       <Container maxWidth={false}>
         <TableToolbar
           breadcrumbs={[{ link: "WAREHOUSE", to: "" }]}
-          buttonText="Save"
-          handleClick={() => {
-            // navigate(AppRoutes.CATALOG.ProductDetail);
-          }}
           rightActions={
             editable
               ? rightActionsData.filter((i) => i.title !== "Edit")

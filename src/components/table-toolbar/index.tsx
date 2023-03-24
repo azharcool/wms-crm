@@ -15,8 +15,8 @@ interface IBreadcrumb {
 interface ITableToolbar {
   title: string;
   isAdd?: boolean;
-  buttonText: string | JSX.Element;
-  handleClick?: () => void;
+  buttonText?: any;
+  handleClick?: any;
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;
   rightActions?: IRightActions[];
@@ -73,17 +73,8 @@ function ToolBarButton(props: ITooblarButton) {
 }
 
 function TableToolbar(props: ITableToolbar) {
-  const {
-    title,
-    buttonText,
-    handleClick,
-    breadcrumbs,
-    isAdd,
-    navTitle,
-    rightActions,
-    hasBulk,
-    onBulkHandle,
-  } = props;
+  const { title, breadcrumbs, navTitle, rightActions, hasBulk, onBulkHandle } =
+    props;
   const navigation = useNavigate();
   const handleBread = (link: string) => {
     navigation(link);
