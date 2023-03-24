@@ -257,10 +257,6 @@ function ProductCreate() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          buttonText="Save"
-          handleClick={() => {
-            handleSubmit();
-          }}
           navTitle="PRODUCTS"
           rightActions={[
             {

@@ -3,11 +3,19 @@ import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { GetAllLocationResponseData } from "types/warehouse/location/getAllLocationResponse";
 
-function LocationsListItem(props: any) {
+interface ILocationListItem {
+  item: GetAllLocationResponseData;
+}
+
+function LocationsListItem(props: ILocationListItem) {
   const { item } = props;
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.locationsDetails}`;
+  const {
+    warehouse: { warehouseLayout, locationsDetails },
+  } = AppRoutes;
+  const navigateDetails = `/${warehouseLayout}/${locationsDetails}/${item.id}`;
   return (
     <TableRow>
       <TableCell
@@ -36,7 +44,7 @@ function LocationsListItem(props: any) {
           navigate(navigateDetails);
         }}
       >
-        {item.name}azhar
+        {item.areaName}
       </TableCell>
       <TableCell
         sx={{
@@ -46,7 +54,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* inventory */}-
+        {item.areaName}
       </TableCell>
       <TableCell
         sx={{
@@ -54,7 +62,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* variants count */}-
+        {item.zoneName}
       </TableCell>
       <TableCell
         sx={{
@@ -62,7 +70,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item.aisle || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -70,7 +78,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* brand */}-
+        {/* bay */}-
       </TableCell>
 
       <TableCell
@@ -79,7 +87,55 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* level */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* bin */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.status === 1 ? "Active" : "InActive"}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* operation */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.warehouseName}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.locationType}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {item.locationAlias || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -95,7 +151,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* container */}0
       </TableCell>
       <TableCell
         sx={{
@@ -103,7 +159,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* available */}-
       </TableCell>
       <TableCell
         sx={{
@@ -111,7 +167,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* use volumn */}-
       </TableCell>
       <TableCell
         sx={{
@@ -119,7 +175,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* dimensions */}-
       </TableCell>
       <TableCell
         sx={{
@@ -127,7 +183,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {item.maxLoad}
       </TableCell>
       <TableCell
         sx={{
@@ -135,7 +191,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* used load */}-
       </TableCell>
       <TableCell
         sx={{
@@ -143,55 +199,7 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* company */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}-
+        {/* utilization */}0
       </TableCell>
       <TableCell
         sx={{

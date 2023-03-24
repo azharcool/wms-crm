@@ -9,7 +9,7 @@ import {
   Container,
   Grid,
   PaletteMode,
-  Stack,
+  Stack
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";

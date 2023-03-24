@@ -1,5 +1,3 @@
-import DashboardLayout from "components/dashboard-container";
-import React from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
@@ -8,6 +6,7 @@ import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
+import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import AppRoutes from "navigation/appRoutes";
@@ -68,10 +67,6 @@ function AddWarehouse() {
       <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
         <Container maxWidth={false}>
           <TableToolbar
-            buttonText="Save"
-            // handleClick={() => {
-            //   handleSubmit();
-            // }}
             navTitle="PRODUCTS"
             rightActions={[
               {

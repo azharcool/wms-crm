@@ -34,11 +34,7 @@ function General() {
         <Container maxWidth={false}>
           <Card>
             <CardContent sx={{ paddingTop: 0 }}>
-              <TableToolbar
-                buttonText="Edit"
-                handleClick={handleOpen}
-                title="Location Details"
-              />
+              <TableToolbar title="Location Details" />
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Box sx={{ display: "flex", flex: 4, gap: 2 }}>

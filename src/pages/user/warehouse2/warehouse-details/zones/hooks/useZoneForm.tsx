@@ -28,6 +28,7 @@ interface IuseZoneForm {
 const schema = Yup.object().shape({
   label: Yup.string().required("label is required"),
   name: Yup.string().required("name is required"),
+  area: Yup.string().required("area is required"),
 });
 
 const useZoneForm = (props: IuseZoneForm) => {

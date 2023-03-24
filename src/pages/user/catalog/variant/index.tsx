@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
 import { useState } from "react";
@@ -16,22 +16,20 @@ function Variant() {
 
   return (
     <Container maxWidth={false}>
-      <Card>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <TableToolbar
-            // buttonText="New"
-            // handleClick={() => {
-            //   navigate(AppRoutes.CATALOG.productCreate);
-            // }}
-            buttonText="New"
-            navTitle="CATALOG"
-            title="Variant"
-          />
-          <Box sx={{ mt: 3 }}>
-            <VariantListing data={variantPaginationResponse} />
-          </Box>
-        </CardContent>
-      </Card>
+      <CardContent sx={{ paddingTop: 0 }}>
+        <TableToolbar
+          // buttonText="New"
+          // handleClick={() => {
+          //   navigate(AppRoutes.CATALOG.productCreate);
+          // }}
+          buttonText="New"
+          navTitle="CATALOG"
+          title="Variant"
+        />
+        <Box sx={{ mt: 3 }}>
+          <VariantListing data={variantPaginationResponse} />
+        </Box>
+      </CardContent>
     </Container>
   );
 }

@@ -1,5 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, CardContent, Container } from "@mui/material";
 
 import TableToolbar from "components/table-toolbar";
 import useBrandAction from "hooks/catalog/brand/useBrandAction";
@@ -33,43 +33,42 @@ function Brands() {
 
   return (
     <Container maxWidth={false}>
-      <Card>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <TableToolbar
-            hasBulk
-            buttonText="New"
-            handleClick={() => {
-              // navigate(AppRoutes.CATALOG.productCreate);
-            }}
-            navTitle="CATALOG"
-            rightActions={[
-              {
-                id: crypto.randomUUID(),
-                title: "New",
-                onClick: () => {
-                  handleBrand();
-                },
-                icon: (
-                  <AddCircleIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 1,
-                    }}
-                  />
-                ),
+      <CardContent sx={{ paddingTop: 0 }}>
+        <TableToolbar
+          hasBulk
+          buttonText="New"
+          handleClick={() => {
+            // navigate(AppRoutes.CATALOG.productCreate);
+          }}
+          navTitle="CATALOG"
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "New",
+              onClick: () => {
+                handleBrand();
               },
-            ]}
-            title="Brands"
-            onBulkHandle={() => {
-              const ids = getSelectedBrandIdsState.toString();
-              bulkDeleteBrandAsync(ids);
-            }}
-          />
-          <Box sx={{ mt: 3 }}>
-            <BrandListing data={brandData} />
-          </Box>
-        </CardContent>
-      </Card>
+              icon: (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
+          title="Brands"
+          onBulkHandle={() => {
+            const ids = getSelectedBrandIdsState.toString();
+            bulkDeleteBrandAsync(ids);
+          }}
+        />
+        <Box sx={{ mt: 3 }}>
+          <BrandListing data={brandData} />
+        </Box>
+      </CardContent>
+
       {openBrand ? (
         <AddBrand handleClose={handleBrand} open={openBrand} />
       ) : null}
