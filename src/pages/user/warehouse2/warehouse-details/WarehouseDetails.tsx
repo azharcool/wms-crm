@@ -1,10 +1,11 @@
 import EditIcon from "@mui/icons-material/Edit";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import useGetByIdWarehouse from "hooks/querys/warehouse/useGetByIdWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 
 function WarehouseDetails() {
@@ -13,7 +14,10 @@ function WarehouseDetails() {
   const location = useLocation();
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
   const warehouseId = getSelectedWarehouse.id;
-
+  const { detailsId } = useParams();
+  const { data: warehouseDetailsResponse } = useGetByIdWarehouse({
+    warehouseId: Number(detailsId),
+  });
   const {
     warehouse: {
       warehouseLayout,
@@ -67,7 +71,9 @@ function WarehouseDetails() {
               id: crypto.randomUUID(),
               title: "Edit",
               onClick: () => {
-                navigate(`/${AppRoutes.warehouse.create}`);
+                navigate(`/warehouse/${AppRoutes.warehouse.update}/${detailsId}`, {
+                  state: { editData:warehouseDetailsResponse?.data },
+                });
               },
               icon: (
                 <EditIcon

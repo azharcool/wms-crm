@@ -12,6 +12,10 @@ const warehouseRouting = (
       element={<WarehouseLoadable.WarehouseCreate />}
       path={`${AppRoutes.warehouse.create}`}
     />
+     <Route
+      element={<WarehouseLoadable.WarehouseCreate />}
+      path={`${AppRoutes.warehouse.update}/:detailsId`}
+    />
 
     {/* warehouse listing */}
     <Route
