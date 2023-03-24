@@ -23,11 +23,6 @@ function Permissions() {
   const [barcodes, setBarcodes] = useState<string[]>([]);
 
   const genBarCode = () => {
-    // // eslint-disable-next-line @typescript-eslint/no-unused-expressions, no-plusplus
-    // barcodeValue
-    //   ? setBarcodes(barcodeValue)
-    //   : alert("Plese Enter proper vlaue");
-
     const barcodes: string[] = [];
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < quantity; i++) {
@@ -52,14 +47,7 @@ function Permissions() {
             <TableToolbar
               breadcrumbs={[{ link: "CATAGORIES", to: "/BrandDetails" }]}
               buttonText="Save"
-              handleClick={() => {
-                // navigate(AppRoutes.CATALOG.CategoriesDetail);
-              }}
-              // rightActions={
-              //   editable
-              //     ? rightActionsData.filter((i) => i.title !== "Edit")
-              //     : rightActionsData.filter((i) => i.title === "Edit")
-              // }
+              handleClick={() => {}}
               title="BrandDetails"
             />
             <Grid container>
@@ -69,60 +57,41 @@ function Permissions() {
                     <Stack direction="column" gap={2}>
                       <TextField
                         iconEnd
-                        // error={!!touched.barcode && !!errors.barcode}
-                        // helperText={
-                        //   (touched.barcode && errors && errors.barcode) || ""
-                        // }
                         icon={<RefreshIcon />}
                         id="barcode"
-                        // label="Barcode"
                         name="barcode"
                         size="small"
                         value={barcodeValue}
-                        // onChange={handleChange("barcode")}
                         onClickIcon={() => {
                           const newBarcode = generateRandomNumber(13);
                           setBarcodeValue(newBarcode);
                         }}
                       />
                       <TextField
-                        // disabled={istrue}
-                        // error={!!touched.name && !!errors.name}
-                        // helperText={(touched.name && errors && errors.name) || ""}
                         id="categoryName"
                         label="Quantity"
                         name="categoryName"
-                        // nameRef={nameRef}
                         size="small"
                         value={quantity}
-                        // onBlur={handleBlur("name")}
                         onChange={(e) => setQuantity(e.target.value)}
                       />
                       <TextField
                         isSelect
-                        // disabled={isTrue}
                         id="productType"
                         label="Type"
                         menuItems={detailMenu}
                         name="productType"
                         size="small"
                         value=""
-                        // onSelectHandler={(e) => {
-                        //   formik?.setFieldValue("productType", e.target.value);
-                        // }}
                       />
                       <TextField
                         isSelect
-                        // disabled={isTrue}
                         id="productType"
                         label="Font Size"
                         menuItems={detailMenu}
                         name="productType"
                         size="small"
                         value=""
-                        // onSelectHandler={(e) => {
-                        //   formik?.setFieldValue("productType", e.target.value);
-                        // }}
                       />
                       <Button variant="contained" onClick={genBarCode}>
                         Generate Barcode
