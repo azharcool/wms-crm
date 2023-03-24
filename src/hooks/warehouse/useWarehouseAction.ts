@@ -80,7 +80,6 @@ function useWarehouseAction() {
   const bulkDeleteWarehouseAsync = async (ids: string): Promise<boolean> => {
     try {
       const response = await bulkDeleteWarehouse(ids);
-      console.log("deleteREspinse", response)
       if (response.statusCode === 200) {
         queryClient.invalidateQueries([QueryKeys.getAllWarehouse]);
         snackbar?.show({

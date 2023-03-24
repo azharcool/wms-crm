@@ -17,6 +17,7 @@ import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import { setAllWarehouseIds } from "redux/warehouse/warehouseSlice";
 import {
   IGetWarehouseResponseData,
+  IGetWarehouseResponseRoot,
 } from "types/warehouse/getWarehouseResponse";
 import WarehouseItem from "./WarehouseItem";
 
@@ -53,11 +54,12 @@ const tableTitle = [
 ];
 
 interface IWarehouselisting {
-  data?: any;
+  data?: IGetWarehouseResponseRoot;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
   const { data } = props;
+  console.log("lisData", data);
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
 
@@ -96,7 +98,8 @@ function WarehouseListing(props: IWarehouselisting) {
                   >
                     <Checkbox
                       checked={
-                        data?.data.length === getSelectedWarehouseByIdState?.length
+                        data?.data.length ===
+                        getSelectedWarehouseByIdState?.length
                       }
                       color="primary"
                       onChange={selectAll}

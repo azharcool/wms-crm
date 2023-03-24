@@ -64,8 +64,6 @@ function WarehouseDetails() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Warehouse", to: "/warehouse/listing" }]}
-          buttonText="Edit"
-          handleClick={handleOpen}
           rightActions={[
             {
               id: crypto.randomUUID(),

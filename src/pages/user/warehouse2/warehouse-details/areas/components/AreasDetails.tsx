@@ -64,7 +64,6 @@ function AreasDetails() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={breadcrumbs}
-          buttonText="Edit"
           rightActions={rightActionsData}
           title="Area Details"
         />

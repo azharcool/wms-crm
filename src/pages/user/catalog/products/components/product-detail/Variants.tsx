@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, CardContent, Container } from "@mui/material";
 import VariantListing from "./VariantListing";
 
 interface IGeneral {
@@ -12,13 +12,11 @@ function Variants(props: IGeneral) {
 
   return (
     <Container maxWidth={false}>
-      <Card>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <Box sx={{ mt: 3 }}>
-            <VariantListing isTrue={isTrue} />
-          </Box>
-        </CardContent>
-      </Card>
+      <CardContent sx={{ paddingTop: 0 }}>
+        <Box sx={{ mt: 3 }}>
+          <VariantListing isTrue={isTrue} />
+        </Box>
+      </CardContent>
     </Container>
   );
 }
