@@ -120,6 +120,7 @@ const ErrorMessages = {
     Warehouse: "Please select warehouse",
     area: "Please select area",
     zone: "Please select zone",
+    location_type: "Please select location type",
   },
   add_contact: {
     // Contact Info

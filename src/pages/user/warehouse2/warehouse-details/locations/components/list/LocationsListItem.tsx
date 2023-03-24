@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 function LocationsListItem(props: any) {
   const { item } = props;
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
+  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.locationsDetails}`;
   return (
     <TableRow>
       <TableCell
@@ -87,9 +87,112 @@ function LocationsListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* tags */}-
+        {/* company */}-
       </TableCell>
-
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 150,
+          // background: "white",
+        }}
+      >
+        {/* company */}-
+      </TableCell>
       <TableCell
         sx={{
           minWidth: 150,
