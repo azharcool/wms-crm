@@ -13,6 +13,7 @@ import useBrandDetailsForm, {
   IBrandDetail,
 } from "hooks/catalog/brand/useBrandDetailsForm";
 
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useQueryClient } from "react-query";
@@ -20,8 +21,7 @@ import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
-import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
-
+import { QueryKeys } from "utils/QueryKeys";
 
 function BrandDetails() {
   const navigate = useNavigate();
