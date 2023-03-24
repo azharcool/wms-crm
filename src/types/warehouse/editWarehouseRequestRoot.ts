@@ -1,4 +1,4 @@
-export interface IAddWarehouseRequestRoot {
+export interface EditWarehouseRequestRoot {
   id?: number;
   userId: number;
   warehouseName: string;

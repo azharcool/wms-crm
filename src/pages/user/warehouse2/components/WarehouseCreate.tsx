@@ -1,3 +1,4 @@
+import React, { useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
@@ -13,7 +14,7 @@ import useDecodedData from "hooks/useDecodedData";
 import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import AppRoutes from "navigation/appRoutes";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
 import {
   newWarehouseSwitchs,
@@ -50,11 +51,11 @@ const initialValues: AddWarehouseForm = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPacking: false,
-  status: 0,
+  status: 1
 };
 function WarehouseCreate() {
   const newtheme = useSelector((state: any) => state.theme);
-  const { addWarehouseAction } = useWarehouseAction();
+  const { addWarehouseAction, editWarehouseAction } = useWarehouseAction();
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
   const lightTheme = createTheme({
@@ -62,6 +63,7 @@ function WarehouseCreate() {
       mode: "light",
     },
   });
+  const { state } = useLocation();
 
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -91,6 +93,34 @@ function WarehouseCreate() {
       },
     },
   });
+  useEffect(() => {
+    if (state?.editData) {
+      setFieldValue("warehouseName", state?.editData?.warehouseName);
+      setFieldValue("label", state?.editData?.label);
+      setFieldValue("email", state?.editData?.email);
+      setFieldValue("phoneNumber", state?.editData?.phoneNumber);
+      setFieldValue("address", state?.editData?.address);
+      setFieldValue("country", state?.editData?.country);
+      setFieldValue("city", state?.editData?.city);
+      setFieldValue("zipCode", state?.editData?.zipCode);
+      setFieldValue("lat", state?.editData?.lat);
+      setFieldValue("lng", state?.editData?.lng);
+      setFieldValue("firstName", state?.editData?.firstName);
+      setFieldValue("lastName", state?.editData?.lastName);
+      setFieldValue("primaryEmail", state?.editData?.primaryEmail);
+      setFieldValue("primaryPhoneNumber", state?.editData?.primaryPhoneNumber);
+      setFieldValue("pickingStrategy", state?.editData?.pickingStrategy);
+      setFieldValue("receivingStrategy", state?.editData?.receivingStrategy);
+      setFieldValue("timezone", state?.editData?.timezone);
+      setFieldValue("receivingType", state?.editData?.receivingType);
+      setFieldValue("defaultWarehouse", state?.editData?.defaultWarehouse);
+      setFieldValue(
+        "allowPartialPacking",
+        state?.editData?.allowPartialPacking,
+      );
+      setFieldValue("status", state?.editData?.status);
+    }
+  }, [state?.editData]);
   const warehouseForm = useAddWarehouseForm({
     onSubmit,
     initialValues,
@@ -104,6 +134,7 @@ function WarehouseCreate() {
     handleBlur,
     handleSubmit,
     setFieldValue,
+    resetForm,
   } = warehouseForm;
 
   async function onSubmit(
@@ -134,7 +165,19 @@ function WarehouseCreate() {
       allowPartialPacking: values.allowPartialPacking,
       status: Number(values.status),
     };
-    await addWarehouseAction(data);
+    let response = false;
+    if (state?.editData) {
+      data.id = state?.editData?.id;
+      response = await editWarehouseAction(data);
+    } else {
+      response = await addWarehouseAction(data);
+    }
+    if (response) {
+      resetForm();
+      navigate(
+        `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`,
+      );
+    }
   }
   const darkModeTheme = createTheme(getDesignTokens("dark"));
   // console.log("timezone", moment().tz("America/Los_Angeles"));
@@ -148,7 +191,9 @@ function WarehouseCreate() {
               id: crypto.randomUUID(),
               title: "Cancel",
               onClick: () => {
-                navigate(`/${AppRoutes.warehouse.warehouseLayout}`);
+                navigate(
+                  `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`,
+                );
               },
               icon: (
                 <ArrowBackIosIcon
@@ -247,13 +292,13 @@ function WarehouseCreate() {
                 <Stack direction="row" gap={2}>
                   <Grid xs={12}>
                     <AutoComplete
-                      getOptionLabel={(option: any) => option?.name}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("country", value?.name)
                       }
                       helperText={
                         (touched.country && errors && errors.country) || ""
                       }
+                      getOptionLabel={(option: any) => option?.name}
                       label="Country"
                       options={Countries || []}
                     />
@@ -353,9 +398,9 @@ function WarehouseCreate() {
                   isSelect
                   label="Status"
                   menuItems={warehouseStatus}
+                  value={values.status || warehouseStatus[0].id}
                   name="status"
                   size="small"
-                  value={values.status}
                   onSelectHandler={(e) => {
                     setFieldValue("status", e.target.value);
                   }}

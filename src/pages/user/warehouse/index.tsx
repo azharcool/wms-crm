@@ -21,7 +21,7 @@ function Warehouse() {
                 id: crypto.randomUUID(),
                 title: "New",
                 onClick: () => {
-                  navigate(AppRoutes.WAREHOUSE_CREATE);
+                  navigate(`/warehouse/create`);
                 },
                 icon: (
                   <AddCircleIcon
