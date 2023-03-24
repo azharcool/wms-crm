@@ -3,7 +3,6 @@ import { Card, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import { FormikHelpers, useFormik } from "formik";
 import useDecodedData from "hooks/useDecodedData";
 import useArea from "hooks/warehouse/area/useArea";
 import useZoneAction from "hooks/warehouse/zone/useZoneAction";
@@ -12,52 +11,17 @@ import { useSelector } from "react-redux";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { AddZoneRequestRoot } from "types/warehouse/zone/addZoneRequest";
 import { GetAllZoneResponseData } from "types/warehouse/zone/getAllZoneResponse";
-import * as Yup from "yup";
 import { areaStatus } from "__mock__";
+import useZoneForm, {
+  ZoneInitialValues,
+  zoneInitialValues,
+} from "../hooks/useZoneForm";
 
 interface IZoneCreate {
   open: boolean;
   handleClose: () => void;
   editData?: GetAllZoneResponseData;
 }
-
-interface InitialValues {
-  warehouse: string;
-  label: string;
-  name: string;
-  status: string;
-  area: string;
-}
-
-const initialValues: InitialValues = {
-  warehouse: "",
-  label: "",
-  name: "",
-  area: "",
-  status: "1",
-};
-
-interface IuseZoneForm {
-  initialValues: InitialValues;
-  onSubmit: (
-    values: InitialValues,
-    formikHelpers: FormikHelpers<InitialValues>,
-  ) => void | Promise<unknown>;
-}
-
-const schema = Yup.object().shape({
-  label: Yup.string().required("label is required"),
-  name: Yup.string().required("name is required"),
-});
-
-const useZoneForm = (props: IuseZoneForm) => {
-  const { initialValues, onSubmit } = props;
-  return useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema: schema,
-  });
-};
 
 function ZonesCreate(props: IZoneCreate) {
   const { open, handleClose, editData } = props;
@@ -77,15 +41,9 @@ function ZonesCreate(props: IZoneCreate) {
     isSubmitting,
     resetForm,
   } = useZoneForm({
-    initialValues,
+    initialValues: zoneInitialValues,
     onSubmit,
   });
-
-  // useEffect(() => {
-  //   if (getSelectedWarehouse) {
-  //     setFieldValue("warehouse", getSelectedWarehouse.name);
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (editData) {
@@ -96,7 +54,7 @@ function ZonesCreate(props: IZoneCreate) {
     }
   }, [editData]);
 
-  async function onSubmit(values: InitialValues) {
+  async function onSubmit(values: ZoneInitialValues) {
     const data: AddZoneRequestRoot = {
       userId: Number(userDecoded.id),
       warehouseId: getSelectedWarehouse.id,

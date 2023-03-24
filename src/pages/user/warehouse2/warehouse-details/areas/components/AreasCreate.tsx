@@ -2,7 +2,6 @@ import { Card, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import { FormikHelpers, useFormik } from "formik";
 import useDecodedData from "hooks/useDecodedData";
 import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
 import { useEffect } from "react";
@@ -10,8 +9,11 @@ import { useSelector } from "react-redux";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { AddWarehouseAreaRequestRoot } from "types/warehouse/area/addWarehouseAreaRequest";
 import { GetByIdWarehouseAreaData } from "types/warehouse/area/getByIdWarehouseResponse";
-import * as Yup from "yup";
 import { areaStatus } from "__mock__";
+import useAreaForm, {
+  AreaInitialValues,
+  areaInitialValues,
+} from "../hooks/useAreaForm";
 
 interface IAreasCreate {
   open: boolean;
@@ -19,42 +21,6 @@ interface IAreasCreate {
   isEdit?: boolean;
   editData?: GetByIdWarehouseAreaData;
 }
-
-interface InitialValues {
-  warehouse: string;
-  label: string;
-  name: string;
-  status: string;
-}
-
-const initialValues: InitialValues = {
-  warehouse: "",
-  label: "",
-  name: "",
-  status: "1",
-};
-
-interface IuseAreaForm {
-  initialValues: InitialValues;
-  onSubmit: (
-    values: InitialValues,
-    formikHelpers: FormikHelpers<InitialValues>,
-  ) => void | Promise<unknown>;
-}
-
-const schema = Yup.object().shape({
-  label: Yup.string().required("label is required"),
-  name: Yup.string().required("name is required"),
-});
-
-const useAreaForm = (props: IuseAreaForm) => {
-  const { initialValues, onSubmit } = props;
-  return useFormik({
-    initialValues,
-    onSubmit,
-    validationSchema: schema,
-  });
-};
 
 function AreasCreate(props: IAreasCreate) {
   const { open, handleClose, editData } = props;
@@ -73,15 +39,9 @@ function AreasCreate(props: IAreasCreate) {
     resetForm,
     isSubmitting,
   } = useAreaForm({
-    initialValues,
+    initialValues: areaInitialValues,
     onSubmit,
   });
-
-  useEffect(() => {
-    if (getSelectedWarehouse) {
-      setFieldValue("warehouse", getSelectedWarehouse.name);
-    }
-  }, []);
 
   useEffect(() => {
     if (editData) {
@@ -91,7 +51,7 @@ function AreasCreate(props: IAreasCreate) {
     }
   }, [editData]);
 
-  async function onSubmit(values: InitialValues) {
+  async function onSubmit(values: AreaInitialValues) {
     const data: AddWarehouseAreaRequestRoot = {
       userId: Number(userDecoded.id),
       warehouseId: getSelectedWarehouse.id,
@@ -138,7 +98,7 @@ function AreasCreate(props: IAreasCreate) {
                   label="warehouse"
                   name="warehouse"
                   size="small"
-                  value={values.warehouse}
+                  value={getSelectedWarehouse.name}
                 />
               </Stack>
               <Stack direction="row" gap={2}>
