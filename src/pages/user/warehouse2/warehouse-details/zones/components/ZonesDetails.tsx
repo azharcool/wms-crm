@@ -51,14 +51,19 @@ function ZonesDetails() {
     },
   ];
 
+  const breadcrumbs = [
+    { link: "Warehouse", to: "/warehouse/listing" },
+    {
+      link: `${getSelectedWarehouse.name}`,
+      to: `/warehouse/details/${getSelectedWarehouse.id}/zones/listing`,
+    },
+  ];
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
-          breadcrumbs={[
-            { link: "Warehouse", to: "/warehouse" },
-            { link: "Warehouse Details", to: "/warehouse-details/1" },
-          ]}
+          breadcrumbs={breadcrumbs}
           buttonText="Edit"
           rightActions={rightActionsData}
           title="Area Details"
