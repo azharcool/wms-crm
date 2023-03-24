@@ -5,11 +5,11 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
 function UnitItem() {
-    const navigate = useNavigate()
-    const goToDetails = (id: string) => {
-        navigate(`${AppRoutes.CATALOG.unitHistory}/${id}`);
-      };
-    
+  const navigate = useNavigate();
+  const goToDetails = (id: string) => {
+    navigate(`${AppRoutes.CATALOG.unitHistory}/${id}`);
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -30,11 +30,10 @@ function UnitItem() {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          cursor:"pointer",
+          cursor: "pointer",
           background: "white",
-
         }}
-        onClick={()=>goToDetails("1")}
+        onClick={() => goToDetails("1")}
       >
         <Box
           sx={{
@@ -49,7 +48,6 @@ function UnitItem() {
           />
         </Box>
       </TableCell>
-
       <TableCell
         sx={{
           width: 200,
@@ -97,13 +95,15 @@ function UnitItem() {
         }}
       >
         -
-      </TableCell> <TableCell
+      </TableCell>{" "}
+      <TableCell
         sx={{
           minWidth: 200,
         }}
       >
         -
-      </TableCell> <TableCell
+      </TableCell>{" "}
+      <TableCell
         sx={{
           minWidth: 200,
         }}
@@ -159,7 +159,6 @@ function UnitItem() {
       >
         smart
       </TableCell>
-      
       <TableCell
         sx={{
           minWidth: 200,
@@ -174,7 +173,6 @@ function UnitItem() {
       >
         06:34:00
       </TableCell>
-
       <TableCell
         sx={{
           position: "sticky",
