@@ -16,6 +16,7 @@ import useCategory from "hooks/catalog/categories/useCategory";
 import useLocationAction from "hooks/warehouse/location/useZoneLocation";
 import useZone from "hooks/warehouse/zone/useZone";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { area, Loctype, warehouseStatus } from "__mock__";
 import useLocationForm, {
@@ -27,6 +28,7 @@ function LocationsCreate() {
   const { category } = useCategory();
   const { brand } = useBrand();
   const { zones } = useZone();
+  const navigate = useNavigate();
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
   const { addLocationAction } = useLocationAction();
 
@@ -36,6 +38,7 @@ function LocationsCreate() {
       onSubmit,
     });
 
+  const lastPageLink = `/warehouse/details/${getSelectedWarehouse.id}/locations/listing`;
   async function onSubmit(values: LocationInitialValues) {
     // console.log(values);
     // const response = await addLocationAction();
@@ -72,14 +75,18 @@ function LocationsCreate() {
     },
   ];
 
+  const breadcrumbs = [
+    { link: "Warehouse", to: "/warehouse/listing" },
+    {
+      link: `${getSelectedWarehouse.name}`,
+      to: lastPageLink,
+    },
+  ];
+
   return (
     <Container maxWidth={false}>
       <TableToolbar
-        breadcrumbs={[{ link: "Warehouse", to: "" }]}
-        buttonText="Save"
-        handleClick={() => {
-          // navigate(AppRoutes.CATALOG.ProductDetail);
-        }}
+        breadcrumbs={breadcrumbs}
         rightActions={rightActionsData}
         title="New Location"
       />
