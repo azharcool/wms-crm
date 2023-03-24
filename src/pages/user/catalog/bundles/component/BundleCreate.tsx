@@ -290,8 +290,8 @@ function BundleCreate() {
                     name="sku"
                     size="small"
                     value={values.sku}
-                    onChange={handleChange("sku")}
                     onBlur={handleBlur("sku")}
+                    onChange={handleChange("sku")}
                     onClickIcon={() => {
                       if (values.name) {
                         const newName = values.name.split(" ");

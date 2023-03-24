@@ -37,7 +37,7 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox
@@ -52,7 +52,7 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -75,7 +75,7 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
         onClick={() => {
@@ -87,7 +87,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.position}
@@ -95,7 +95,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.parentCategoryId}
@@ -103,7 +103,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* <CustomSwitch /> */}
@@ -112,7 +112,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.updatedOn}
@@ -121,7 +121,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.tag}
@@ -131,7 +131,7 @@ function CategoriesItem(props: ICategoriesItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton

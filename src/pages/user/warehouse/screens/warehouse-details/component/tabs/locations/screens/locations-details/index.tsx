@@ -44,7 +44,7 @@ function LocationDetails() {
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Box sx={{ display: "flex", flex: 4, gap: 2 }}>
-                    <DialogContent sx={{ background: "#fff", flex: 3 }}>
+                    <DialogContent sx={{ flex: 3 }}>
                       <DialogTitle>Information</DialogTitle>
                       <Divider sx={{ my: 1 }} />
                       <Box

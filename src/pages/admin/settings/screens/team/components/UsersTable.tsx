@@ -174,76 +174,78 @@ function UsersTable(props: IProps) {
             <TableBody>
               {users.map((user: any) => {
                 const { id, fullName, email, status, roleName } = user;
-                return id >10 &&(
-                  <TableRow
-                    key={user.id}
-                    hover
-                    selected={selectedUserIds.indexOf(id) !== -1}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        checked={selectedUserIds.indexOf(id) !== -1}
-                        value="true"
-                        onChange={(event) => {
-                          return handleSelectOne(event, id);
-                        }}
-                      />
-                    </TableCell>
-                    <TeamCell> {fullName}</TeamCell>
+                return (
+                  id > 10 && (
+                    <TableRow
+                      key={user.id}
+                      hover
+                      selected={selectedUserIds.indexOf(id) !== -1}
+                    >
+                      <TableCell padding="checkbox">
+                        <Checkbox
+                          checked={selectedUserIds.indexOf(id) !== -1}
+                          value="true"
+                          onChange={(event) => {
+                            return handleSelectOne(event, id);
+                          }}
+                        />
+                      </TableCell>
+                      <TeamCell> {fullName}</TeamCell>
 
-                    <TeamCell>{email}</TeamCell>
+                      <TeamCell>{email}</TeamCell>
 
-                    <TeamCell>
-                      <ToggleSwitch
-                        checked={
-                          getStatus(status) === "Active" &&
-                          !selectedStatusIds.includes(id)
-                        }
-                        onChange={() => onSwitchChange(id)}
-                      />
-                    </TeamCell>
+                      <TeamCell>
+                        <ToggleSwitch
+                          checked={
+                            getStatus(status) === "Active" &&
+                            !selectedStatusIds.includes(id)
+                          }
+                          onChange={() => onSwitchChange(id)}
+                        />
+                      </TeamCell>
 
-                    <TeamCell>{roleName}</TeamCell>
+                      <TeamCell>{roleName}</TeamCell>
 
-                    <TeamCell>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          gap: 1,
-                          "& svg": {
-                            cursor: "pointer",
-                          },
-                        }}
-                      >
-                        <Box>
-                          <IconButton onClick={() => handleDelete(id)}>
-                            <DeleteIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.error.main,
-                                },
-                              }}
-                            />
-                          </IconButton>
+                      <TeamCell>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: 1,
+                            "& svg": {
+                              cursor: "pointer",
+                            },
+                          }}
+                        >
+                          <Box>
+                            <IconButton onClick={() => handleDelete(id)}>
+                              <DeleteIcon
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  color: palette.secondary.lightGray,
+                                  "&:hover": {
+                                    color: palette.error.main,
+                                  },
+                                }}
+                              />
+                            </IconButton>
+                          </Box>
+                          <Box>
+                            <IconButton onClick={() => handleModalOpen(user)}>
+                              <CreateIcon
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  color: palette.secondary.lightGray,
+                                  "&:hover": {
+                                    color: palette.info.main,
+                                  },
+                                }}
+                              />
+                            </IconButton>
+                          </Box>
                         </Box>
-                        <Box>
-                          <IconButton onClick={() => handleModalOpen(user)}>
-                            <CreateIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.main,
-                                },
-                              }}
-                            />
-                          </IconButton>
-                        </Box>
-                      </Box>
-                    </TeamCell>
-                  </TableRow>
+                      </TeamCell>
+                    </TableRow>
+                  )
                 );
               })}
             </TableBody>

@@ -84,9 +84,11 @@ function Slider(props: ISlider) {
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Box
-        sx={{
-          backgroundColor: "#fdf9f6",
-        }}
+        sx={
+          {
+            // backgroundColor: "#fdf9f6",
+          }
+        }
       >
         <Dialog
           fullWidth
@@ -100,7 +102,7 @@ function Slider(props: ISlider) {
               borderTopRightRadius: 0,
               borderBottomRightRadius: 0,
               height: noHeight ? null : "100vh",
-              backgroundColor: "##fdf9f6",
+              // backgroundColor: "##fdf9f6",
             },
           }}
           sx={{
@@ -131,9 +133,11 @@ function Slider(props: ISlider) {
           </DialogTitle>
 
           <DialogContent
-            sx={{
-              backgroundColor: "#fdf9f6",
-            }}
+            sx={
+              {
+                // backgroundColor: "#fdf9f6",
+              }
+            }
           >
             {children}
           </DialogContent>

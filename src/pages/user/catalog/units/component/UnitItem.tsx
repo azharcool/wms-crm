@@ -5,11 +5,11 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
 function UnitItem() {
-    const navigate = useNavigate()
-    const goToDetails = (id: string) => {
-        navigate(`${AppRoutes.CATALOG.unitHistory}/${id}`);
-      };
-    
+  const navigate = useNavigate();
+  const goToDetails = (id: string) => {
+    navigate(`${AppRoutes.CATALOG.unitHistory}/${id}`);
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -19,7 +19,7 @@ function UnitItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -30,11 +30,10 @@ function UnitItem() {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          cursor:"pointer",
-          background: "white",
-
+          cursor: "pointer",
+          // background: "white",
         }}
-        onClick={()=>goToDetails("1")}
+        onClick={() => goToDetails("1")}
       >
         <Box
           sx={{
@@ -49,14 +48,13 @@ function UnitItem() {
           />
         </Box>
       </TableCell>
-
       <TableCell
         sx={{
           width: 200,
           position: "sticky",
           zIndex: 999,
           left: 130,
-          background: "white",
+          // background: "white",
         }}
       >
         IPHONE XR White
@@ -97,13 +95,15 @@ function UnitItem() {
         }}
       >
         -
-      </TableCell> <TableCell
+      </TableCell>{" "}
+      <TableCell
         sx={{
           minWidth: 200,
         }}
       >
         -
-      </TableCell> <TableCell
+      </TableCell>{" "}
+      <TableCell
         sx={{
           minWidth: 200,
         }}
@@ -159,7 +159,6 @@ function UnitItem() {
       >
         smart
       </TableCell>
-      
       <TableCell
         sx={{
           minWidth: 200,
@@ -174,12 +173,11 @@ function UnitItem() {
       >
         06:34:00
       </TableCell>
-
       <TableCell
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton />
