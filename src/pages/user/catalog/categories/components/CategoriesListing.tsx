@@ -19,21 +19,6 @@ import { useAppDispatch } from "redux/store";
 import { IGetCategoriesResponseRoot } from "types/catalog/catagories/getCategoriesResponse";
 import CategoriesItem from "./CategoriesItem";
 
-const tabs = [
-  {
-    id: crypto.randomUUID(),
-    title: "New",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Pick",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Close",
-  },
-];
-
 const tableTitle = [
   {
     id: crypto.randomUUID(),
@@ -91,7 +76,7 @@ function CategoriesListing(props: ICategoriesListing) {
 
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tabs} />
+      <EnhancedTableToolbar />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
