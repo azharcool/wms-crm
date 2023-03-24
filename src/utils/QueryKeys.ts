@@ -37,6 +37,13 @@ const QueryKeys = {
   getByIdBrand: "getByIdBrand",
   getAllVariantByProductId: "getAllVariantByProductId",
   getByIdVariant: "getByIdVariant",
+  getAllWarehouse: "getAllWarehouse",
+  getByIdWarehouse: "getByIdWarehouse",
+  getAllWarehouseArea: "getAllWarehouseArea",
+  getAllWarehouseAreaWithoutPagination: "getAllWarehouseAreaWithoutPagination",
+  getByIdWarehouesArea: "getByIdWarehouesArea",
+  getAllZone: "getAllZone",
+  getByIdZone: "getByIdZone",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

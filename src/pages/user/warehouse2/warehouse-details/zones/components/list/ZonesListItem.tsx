@@ -3,11 +3,19 @@ import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import { GetAllZoneResponseData } from "types/warehouse/zone/getAllZoneResponse";
 
-function ZonesListItem(props: any) {
+interface IZonesListItem {
+  item: GetAllZoneResponseData;
+}
+function ZonesListItem(props: IZonesListItem) {
   const { item } = props;
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item.id}/${AppRoutes.warehouse.generalDetails}`;
+  const {
+    warehouse: { warehouseLayout, zonesDetails },
+  } = AppRoutes;
+
+  const navigateDetails = `/${warehouseLayout}/${zonesDetails}/${item.id}`;
   return (
     <TableRow>
       <TableCell
@@ -36,7 +44,7 @@ function ZonesListItem(props: any) {
           navigate(navigateDetails);
         }}
       >
-        {item.name}azhar
+        {item.name}
       </TableCell>
 
       <TableCell
@@ -45,7 +53,7 @@ function ZonesListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* variants count */}-
+        {item.label}
       </TableCell>
 
       <TableCell
@@ -54,7 +62,7 @@ function ZonesListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* variants count */}-
+        {item.warehouseName}
       </TableCell>
 
       <TableCell
@@ -63,7 +71,7 @@ function ZonesListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* category */}-
+        {item.areaName}
       </TableCell>
 
       <TableCell
@@ -72,7 +80,7 @@ function ZonesListItem(props: any) {
           // background: "white",
         }}
       >
-        {/* tags */}-
+        {item.status === 1 ? "Active" : "InActive"}
       </TableCell>
 
       <TableCell

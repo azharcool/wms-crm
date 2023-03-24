@@ -1,13 +1,11 @@
 import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from '@mui/icons-material/Search';
-import DeleteIcon from "@mui/icons-material/Delete";
+import SearchIcon from "@mui/icons-material/Search";
 
-import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import FormatAlignCenterIcon from '@mui/icons-material/FormatAlignCenter';
+import AddIcon from "@mui/icons-material/Add";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
-  alpha,
   Box,
   Card,
   Checkbox,
@@ -21,17 +19,14 @@ import {
   Toolbar,
   Tooltip,
   Typography,
-  Button
 } from "@mui/material";
 import { useAlert } from "components/alert";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
-import FilterListIcon from '@mui/icons-material/FilterList';
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useNavigate } from "react-router-dom";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
-import AppRoutes from "navigation/appRoutes";
-import { useNavigate } from "react-router-dom";
-import MoreMenu from "components/common/MoreMenu";
 import AreasForm from "./AreasForm";
 // import { IPermission } from "../query/useFetchPermissions";
 
@@ -44,14 +39,13 @@ interface IProps {
   handleDeletePermission: (id: number) => void;
 }
 
-interface IAreas{
-  id:string,
-  name:string
-  label:string,
-  warehouse:string,
-  status:string  
+interface IAreas {
+  id: string;
+  name: string;
+  label: string;
+  warehouse: string;
+  status: string;
 }
-
 
 function AreasTable(props: IProps) {
   const {
@@ -148,14 +142,14 @@ function AreasTable(props: IProps) {
   const handleClose = () => {
     setOpen(false);
   };
- const handleEdit=()=>{
-  setOpen(true)
- }
+  const handleEdit = () => {
+    setOpen(true);
+  };
   return (
     <Card>
       <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050, overflow: "auto" }}>
-        <EnhancedTableToolbar numSelected={3} handleOpen={handleOpen} />
+        <Box sx={{ overflow: "auto" }}>
+          <EnhancedTableToolbar handleOpen={handleOpen} numSelected={3} />
           <Table>
             <TableHead>
               <TableRow>
@@ -179,14 +173,8 @@ function AreasTable(props: IProps) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {areas.map((area:IAreas) => {
-                const {
-                  id,
-                  name,
-                  label,
-                   warehouse,
-                   status
-                } = area;
+              {areas.map((area: IAreas) => {
+                const { id, name, label, warehouse, status } = area;
                 return (
                   <TableRow
                     key={id}
@@ -202,7 +190,12 @@ function AreasTable(props: IProps) {
                         }}
                       />
                     </TableCell>
-                    <TableCell sx={{ cursor: "pointer" }} onClick={() => gotoDetails(id)}> {name}</TableCell>
+                    <TableCell
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => gotoDetails(id)}
+                    >
+                      {name}
+                    </TableCell>
                     <TableCell>{label}</TableCell>
                     <TableCell>{warehouse}</TableCell>
                     <TableCell>{status}</TableCell>
@@ -217,9 +210,7 @@ function AreasTable(props: IProps) {
                         }}
                       >
                         <Box>
-                          <IconButton
-                            onClick={() => handleEdit()}
-                          >
+                          <IconButton onClick={() => handleEdit()}>
                             <CreateIcon
                               sx={{
                                 fontSize: "1.2rem",
@@ -233,7 +224,7 @@ function AreasTable(props: IProps) {
                         </Box>
                       </Box>
                     </TableCell>
-                                      </TableRow>
+                  </TableRow>
                 );
               })}
             </TableBody>
@@ -249,14 +240,13 @@ function AreasTable(props: IProps) {
         onPageChange={handlePageChange}
         onRowsPerPageChange={handleLimitChange}
       />
-     <AreasForm handleClose={handleClose} open={open} />
-
+      <AreasForm handleClose={handleClose} open={open} />
     </Card>
   );
 }
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  handleOpen:()=>void
+  handleOpen: () => void;
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
@@ -273,16 +263,15 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
         // }),
       }}
     >
-      
-        <Typography
-          sx={{ flex: '1 1 100%' }}
-          variant="h6"
-          id="tableTitle"
-          component="div"
-        >
-          All
-        </Typography>
-        {/* <Tooltip title="Add" onClick={()=>handleOpen()}>
+      <Typography
+        component="div"
+        id="tableTitle"
+        sx={{ flex: "1 1 100%" }}
+        variant="h6"
+      >
+        All
+      </Typography>
+      {/* <Tooltip title="Add" onClick={()=>handleOpen()}>
         <Button
               sx={{
                 backgroundColor: palette.info.dark,
@@ -306,31 +295,31 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
               </Typography>
             </Button>
         </Tooltip> */}
-          <Tooltip title="Add" onClick={() => handleOpen()}>
+      <Tooltip title="Add" onClick={() => handleOpen()}>
         <IconButton>
           <AddIcon />
         </IconButton>
       </Tooltip>
-        <Tooltip title="Search">
-          <IconButton>
-            <SearchIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FormatAlignCenterIcon />
-          </IconButton>
-        </Tooltip> 
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="More">
-          <IconButton>
-            <MoreVertIcon />
-          </IconButton>
-        </Tooltip>
+      <Tooltip title="Search">
+        <IconButton>
+          <SearchIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Filter list">
+        <IconButton>
+          <FormatAlignCenterIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="Filter list">
+        <IconButton>
+          <FilterListIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip title="More">
+        <IconButton>
+          <MoreVertIcon />
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   );
 }

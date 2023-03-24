@@ -1,6 +1,5 @@
-import AccountTreeIcon from "@mui/icons-material/AccountTree";
 import GroupsIcon from "@mui/icons-material/Groups";
-import HistoryEduIcon from "@mui/icons-material/HistoryEdu";
+import HorizontalSplitIcon from "@mui/icons-material/HorizontalSplit";
 import LockIcon from "@mui/icons-material/Lock";
 import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
 import TuneIcon from "@mui/icons-material/Tune";
@@ -13,13 +12,13 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import DashboardLayout from "components/dashboard-container";
 import AppRoutes from "navigation/appRoutes";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { isControlAccessible } from "utils";
-import { useSelector } from "react-redux";
 import { ACCESS_CODES, SCREEN_CODES } from "../../../config";
 import SettingBlock from "./components/SettingBlock";
 
@@ -40,6 +39,10 @@ function Settings() {
 
   const gotoScreenAccess = () => {
     navigate(AppRoutes.SCREEN_ACCESS);
+  };
+
+  const gotoBarcode = () => {
+    navigate(AppRoutes.BARCODE);
   };
 
   // const gotoCustomField = () => {
@@ -166,6 +169,21 @@ function Settings() {
                     handleClick={gotoScreenAccess}
                     icon={<LockIcon fontSize="medium" sx={{ color: "#fff" }} />}
                     title="Screen Access"
+                  />
+                  <SettingBlock
+                    // accessible={isControlAccessible(
+                    //   ACCESS_CODES.SCREEN_ACCESS,
+                    //   SCREEN_CODES.SETTINGS,
+                    // )}
+                    color={palette.success.light}
+                    handleClick={gotoBarcode}
+                    icon={
+                      <HorizontalSplitIcon
+                        fontSize="medium"
+                        sx={{ color: "#fff" }}
+                      />
+                    }
+                    title="Barcode"
                   />
                 </Box>
               </Card>

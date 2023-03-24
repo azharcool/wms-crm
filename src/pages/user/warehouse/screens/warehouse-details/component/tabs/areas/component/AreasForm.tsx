@@ -1,26 +1,15 @@
-import CloseIcon from "@mui/icons-material/Close";
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  IconButton,
-  styled,
-  Switch,
-} from "@mui/material";
-import Button from "@mui/material/Button";
+import { Card, Grid, Stack, styled, Switch } from "@mui/material";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import { formStatus } from "constants/constants";
 import { IDropdown } from "constants/interfaces";
 import { useFetchScreens } from "pages/admin/settings/screens/screens/query/useFetchScreens";
-import { useEffect, useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { usePermissionActions } from "redux/permissions/permissions";
-import palette from "theme/palette";
+import { detailMenu } from "__mock__";
 import useForm from "../hooks/useForm";
 // import useForm from "../hooks/useForm";
 // import { IPermissionRequest, useApiActions } from "../query/useApiAction";
@@ -111,7 +100,8 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
 
 function AreasForm(props: IAddScreen) {
   const { open, handleClose } = props;
-
+  const [editable, setEditable] = useState(false);
+  const nameRef = useRef<any>(null);
   const screenStorage = useSelector((state: any) => state.permissions);
   const { permission } = screenStorage;
   const [screens, setScreens] = useState<IDropdown[]>([]);
@@ -156,10 +146,16 @@ function AreasForm(props: IAddScreen) {
     handleClose();
     removePermission();
   };
-
+  const istrue = !editable;
   return (
-    <Slider open={open}>
-      <DialogTitle>
+    <Slider
+      buttonText="save"
+      handleClose={handleClose}
+      open={open}
+      size="sm"
+      title="New Brand"
+    >
+      {/* <DialogTitle>
         Areas
         <IconButton
           aria-label="close"
@@ -173,136 +169,122 @@ function AreasForm(props: IAddScreen) {
         >
           <CloseIcon />
         </IconButton>
-      </DialogTitle>
+      </DialogTitle> */}
       <DialogActions style={{ justifyContent: "space-between" }}>
         <DialogTitle>New Areas</DialogTitle>
-        <Box>
-          <Button
-            disabled={!(isValid && dirty)}
-            sx={{
-              width: "inherit",
-              backgroundColor: palette.info.main,
-              marginRight: "1rem",
-            }}
-            variant="contained"
-            onClick={() => handleSubmit()}
-          >
-            {isSubmitting ? (
-              <CircularProgress color="warning" size={12} />
-            ) : (
-              "Save"
-            )}
-          </Button>
-
-          <Button autoFocus variant="contained" onClick={onClose}>
-            Discard
-          </Button>
-        </Box>
       </DialogActions>
-      <PerfectScrollbar>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Box sx={{ display: "flex", flex: 4, gap: 2 }}>
-            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Details</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
+      <Grid container marginTop={2} spacing={2}>
+        <Grid item xs={12}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="column" gap={2}>
                 <TextField
-                  error={!!touched.warehouseName && !!errors.warehouseName}
-                  helperText={
-                    (touched.warehouseName && errors && errors.warehouseName) ||
-                    ""
-                  }
-                  id={undefined}
+                  disabled={istrue}
+                  // error={!!touched.name && !!errors.name}
+                  // helperText={
+                  //   (touched.name && errors && errors.name) || ""
+                  // }
+                  id="categoryName"
                   label="Warehouse"
-                  name="warehouse"
-                  placeholder="Warehouse"
-                  style={{ width: "550px" }}
-                  value={values.warehouseName}
-                  onBlur={handleBlur("warehouseName")}
-                  onChange={handleChange("warehouseName")}
+                  name="categoryName"
+                  nameRef={nameRef}
+                  size="small"
+                  value=""
+                  // onBlur={handleBlur("name")}
+                  // onChange={handleChange("name")}
                 />
+              </Stack>
+              <Stack direction="row" gap={2}>
                 <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  id={undefined}
+                  disabled={istrue}
+                  // error={!!touched.name && !!errors.name}
+                  // helperText={
+                  //   (touched.name && errors && errors.name) || ""
+                  // }
+                  id="categoryName"
                   label="Label"
-                  name="label"
-                  placeholder="Label"
-                  style={{ width: "550px" }}
-                  value={values.label}
-                  onBlur={handleBlur("label")}
-                  onChange={handleChange("label")}
+                  name="categoryName"
+                  nameRef={nameRef}
+                  size="small"
+                  value=""
+                  // onBlur={handleBlur("name")}
+                  // onChange={handleChange("name")}
                 />
-              </Box>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
                 <TextField
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  id={undefined}
+                  disabled={istrue}
+                  // error={!!touched.name && !!errors.name}
+                  // helperText={
+                  //   (touched.name && errors && errors.name) || ""
+                  // }
+                  id="categoySlug"
                   label="Name"
-                  name="name"
-                  placeholder="Name"
-                  style={{ width: "550px" }}
-                  type="email"
-                  value={values.email}
-                  onBlur={handleBlur("email")}
-                  onChange={handleChange("email")}
+                  name="categoySlug"
+                  size="small"
+                  value=""
+                  // onBlur={handleBlur("slug")}
+                  // onChange={handleChange("slug")}
                 />
-              </Box>
-            </DialogContent>
-            <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
-              <DialogTitle>Setting</DialogTitle>
-              <Divider sx={{ my: 1 }} />
+              </Stack>
+            </CustomCardContent>
+          </Card>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
+          <Card sx={{ mt: 3 }}>
+            <CustomCardContent title="Setting">
+              <Stack direction="column" gap={4}>
                 <TextField
                   isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  id={undefined}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
+                  disabled={istrue}
+                  id="productType"
+                  label="Type"
+                  menuItems={detailMenu}
+                  name="productType"
+                  size="small"
+                  value=""
+                  // onSelectHandler={(e) => {
+                  //   formik?.setFieldValue(
+                  //     "productType",
+                  //     e.target.value,
+                  //   );
+                  // }}
                 />
-              </Box>
-            </DialogContent>
-          </Box>
-        </Box>
-      </PerfectScrollbar>
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+        {/* <Grid item xs={4}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Setting">
+              <Stack direction="column" gap={4}>
+                <TextField
+                  isSelect
+                  disabled={istrue}
+                  id="productType"
+                  label="Type"
+                  menuItems={detailMenu}
+                  name="productType"
+                  size="small"
+                  value=""
+                  // onSelectHandler={(e) => {
+                  //   formik?.setFieldValue(
+                  //     "productType",
+                  //     e.target.value,
+                  //   );
+                  // }}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid> */}
+      </Grid>
     </Slider>
   );
 }

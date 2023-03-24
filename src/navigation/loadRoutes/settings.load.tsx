@@ -30,3 +30,7 @@ export const Roles = Loadable({
   loader: () => import("pages/admin/settings/screens/roles"),
   loading: () => <Spinner />,
 });
+export const Barcode = Loadable({
+  loader: () => import("pages/admin/settings/screens/barcode/index"),
+  loading: () => <Spinner />,
+});

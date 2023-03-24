@@ -1,26 +1,16 @@
 import CloseIcon from "@mui/icons-material/Close";
-import {
-  Box,
-  CircularProgress,
-  Divider,
-  IconButton,
-  styled,
-  Switch,
-} from "@mui/material";
-import Button from "@mui/material/Button";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
+import { Card, Grid, IconButton, Stack, styled, Switch } from "@mui/material";
 import DialogTitle from "@mui/material/DialogTitle";
+import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import { formStatus } from "constants/constants";
 import { IDropdown } from "constants/interfaces";
 import { useFetchScreens } from "pages/admin/settings/screens/screens/query/useFetchScreens";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { useSelector } from "react-redux";
 import { usePermissionActions } from "redux/permissions/permissions";
-import palette from "theme/palette";
+import { detailMenu } from "__mock__";
 import useForm from "../../hooks/useForm";
 // import useForm from "../hooks/useForm";
 // import { IPermissionRequest, useApiActions } from "../query/useApiAction";
@@ -111,11 +101,11 @@ const CustomSwitch = styled(Switch)(({ theme }) => ({
 
 function ZoanForm(props: IAddScreen) {
   const { open, handleClose } = props;
-
+  const [editable, setEditable] = useState(false);
   const screenStorage = useSelector((state: any) => state.permissions);
   const { permission } = screenStorage;
   const [screens, setScreens] = useState<IDropdown[]>([]);
-  //   const { trySave } = useApiActions();
+  const nameRef = useRef<any>(null);
   const { removePermission } = usePermissionActions();
   const { data: screensData } = useFetchScreens(0, 0, false);
 
@@ -156,9 +146,9 @@ function ZoanForm(props: IAddScreen) {
     handleClose();
     removePermission();
   };
-
+  const istrue = !editable;
   return (
-    <Slider open={open}>
+    <Slider open={open} size="sm" title="New Brand">
       <DialogTitle>
         Zones
         <IconButton
@@ -174,146 +164,91 @@ function ZoanForm(props: IAddScreen) {
           <CloseIcon />
         </IconButton>
       </DialogTitle>
-      <DialogActions style={{ justifyContent: "space-between" }}>
-        <DialogTitle>New Zone</DialogTitle>
-        <Box>
-          <Button
-            disabled={!(isValid && dirty)}
-            sx={{
-              width: "inherit",
-              backgroundColor: palette.info.main,
-              marginRight: "1rem",
-            }}
-            variant="contained"
-            onClick={() => handleSubmit()}
-          >
-            {isSubmitting ? (
-              <CircularProgress color="warning" size={12} />
-            ) : (
-              "Save"
-            )}
-          </Button>
 
-          <Button autoFocus variant="contained" onClick={onClose}>
-            Discard
-          </Button>
-        </Box>
-      </DialogActions>
       <PerfectScrollbar>
-        <Box sx={{ display: "flex", flexDirection: "column" }}>
-          <Box sx={{ display: "flex", flex: 4, gap: 2 }}>
-            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
-              <DialogTitle>Details</DialogTitle>
-              <Divider sx={{ my: 1 }} />
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  error={!!touched.warehouseName && !!errors.warehouseName}
-                  helperText={
-                    (touched.warehouseName && errors && errors.warehouseName) ||
-                    ""
-                  }
-                  id={undefined}
-                  label="Warehouse"
-                  name="warehouse"
-                  placeholder="Warehouse"
-                  style={{ width: "550px" }}
-                  value={values.warehouseName}
-                  onBlur={handleBlur("warehouseName")}
-                  onChange={handleChange("warehouseName")}
-                />
-                <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  id={undefined}
-                  label="Area"
-                  name="label"
-                  placeholder="Area"
-                  style={{ width: "550px" }}
-                  value={values.label}
-                  onBlur={handleBlur("label")}
-                  onChange={handleChange("label")}
-                />
-              </Box>
+        <Grid container marginTop={2} spacing={2}>
+          <Grid item xs={12}>
+            <Card
+              sx={{
+                flex: 1,
+              }}
+            >
+              <CustomCardContent title="Details">
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    isSelect
+                    disabled={istrue}
+                    id="productType"
+                    label="Warehouse"
+                    menuItems={detailMenu}
+                    name="productType"
+                    size="small"
+                    value=""
+                  />
+                  <TextField
+                    isSelect
+                    // disabled={istrue}
+                    id="productType"
+                    label="Area"
+                    menuItems={detailMenu}
+                    name="productType"
+                    size="small"
+                    value=""
+                  />
+                </Stack>
+                <Stack direction="row" gap={2}>
+                  <TextField
+                    // disabled={istrue}
+                    // error={!!touched.name && !!errors.name}
+                    // helperText={
+                    //   (touched.name && errors && errors.name) || ""
+                    // }
+                    id="categoryName"
+                    label="Label"
+                    name="categoryName"
+                    nameRef={nameRef}
+                    size="small"
+                    value=""
+                    // onBlur={handleBlur("name")}
+                    // onChange={handleChange("name")}
+                  />
 
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  error={!!touched.label && !!errors.label}
-                  helperText={(touched.label && errors && errors.label) || ""}
-                  id={undefined}
-                  label="Label"
-                  name="label"
-                  placeholder="Label"
-                  style={{ width: "550px" }}
-                  value={values.label}
-                  onBlur={handleBlur("label")}
-                  onChange={handleChange("label")}
-                />
-                <TextField
-                  error={!!touched.email && !!errors.email}
-                  helperText={(touched.email && errors && errors.email) || ""}
-                  id={undefined}
-                  label="Name"
-                  name="name"
-                  placeholder="Name"
-                  style={{ width: "550px" }}
-                  type="email"
-                  value={values.email}
-                  onBlur={handleBlur("email")}
-                  onChange={handleChange("email")}
-                />
-              </Box>
-            </DialogContent>
-            <DialogContent dividers sx={{ background: "#fff", flex: 1 }}>
-              <DialogTitle>Setting</DialogTitle>
-              <Divider sx={{ my: 1 }} />
+                  <TextField
+                    // disabled={istrue}
+                    // error={!!touched.name && !!errors.name}
+                    // helperText={
+                    //   (touched.name && errors && errors.name) || ""
+                    // }
+                    id="categoySlug"
+                    label="Name"
+                    name="categoySlug"
+                    size="small"
+                    value=""
+                    // onBlur={handleBlur("slug")}
+                    // onChange={handleChange("slug")}
+                  />
+                </Stack>
+              </CustomCardContent>
+            </Card>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 2,
-                  alignItems: "center",
-                  marginBottom: "1rem",
-                }}
-              >
-                <TextField
-                  isSelect
-                  error={!!touched.status && !!errors.status}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  id={undefined}
-                  label="Status"
-                  menuItems={formStatus}
-                  name="status"
-                  placeholder="Status"
-                  style={{ width: "550px" }}
-                  value={values.status}
-                  onBlur={handleBlur("status")}
-                  onChange={handleChange("status")}
-                  onSelectHandler={(event) => {
-                    if (event.target.value) {
-                      setFieldValue("status", event.target.value);
-                    } else {
-                      setFieldValue("status", "");
-                    }
-                  }}
-                />
-              </Box>
-            </DialogContent>
-          </Box>
-        </Box>
+            <Card sx={{ mt: 3 }}>
+              <CustomCardContent title="Setting">
+                <Stack direction="column" gap={4}>
+                  <TextField
+                    isSelect
+                    // disabled={istrue}
+                    id="productType"
+                    label="Type"
+                    menuItems={detailMenu}
+                    name="productType"
+                    size="small"
+                    value=""
+                  />
+                </Stack>
+              </CustomCardContent>
+            </Card>
+          </Grid>
+        </Grid>
       </PerfectScrollbar>
     </Slider>
   );

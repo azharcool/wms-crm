@@ -202,7 +202,7 @@ function Application() {
               />
               <Route
                 element={<SettingsLoadable.Permissions />}
-                path={AppRoutes.PERMISSIONS}
+                path={AppRoutes.SETTINGS}
               />
               <Route
                 element={<SettingsLoadable.ScreenAccess />}
@@ -219,6 +219,10 @@ function Application() {
               <Route
                 element={<SettingsLoadable.Team />}
                 path={AppRoutes.TEAM}
+              />
+              <Route
+                element={<SettingsLoadable.Barcode />}
+                path={AppRoutes.BARCODE}
               />
             </Route>
           </Route>

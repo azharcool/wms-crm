@@ -15,11 +15,13 @@ import useBrandDetailsForm, {
 
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
+import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addBrandDetail } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
-import useGetByIdBrand from "../../../../../hooks/querys/catalog/brands/UseGetByIdBrand";
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+
 
 function BrandDetails() {
   const navigate = useNavigate();
@@ -27,6 +29,8 @@ function BrandDetails() {
   const { brandId } = useParams();
   const [editable, setEditable] = useState(false);
   const userDecoded = useDecodedData();
+  const queryClient = useQueryClient();
+
   const { data: brandItemResponse } = useGetByIdBrand({
     brandId: Number(brandId),
   });
@@ -35,7 +39,7 @@ function BrandDetails() {
 
   const initialValues: IBrandDetail = {
     id: brandItemResponse?.data?.id || 0,
-    userId: 0,
+    userId: Number(userDecoded.id),
     name: brandItemResponse?.data?.name || "",
     slug: brandItemResponse?.data?.slug || "",
     image: "string",
@@ -168,6 +172,11 @@ function BrandDetails() {
       slug: values.slug,
     };
     const response = await addBrandDetail(data);
+    if (response.statusCode === 200) {
+      // setBrandId(response);
+      navigate(-1);
+      queryClient.invalidateQueries([QueryKeys.getAllBrand]);
+    }
   }
 
   const istrue = !editable;
