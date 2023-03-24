@@ -16,6 +16,7 @@ import roles from "./roles/roles";
 import screens from "./screen/screen";
 import team from "./team/team";
 import user from "./user/auth";
+import warehouse from "./warehouse/warehouseSlice";
 
 const persistConfig = {
   key: "root",
@@ -33,7 +34,8 @@ const combinedReducer = combineReducers({
   product,
   bundle,
   category,
-  brand
+  brand,
+  warehouse,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
