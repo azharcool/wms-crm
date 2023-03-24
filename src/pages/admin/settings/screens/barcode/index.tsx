@@ -134,7 +134,11 @@ function Permissions() {
               <Grid xs={6}>
                 <Card sx={{ m: 2 }}>
                   <CustomCardContent title="Details">
-                    <Stack direction="column" gap={2}>
+                    <Stack
+                      direction="column"
+                      gap={2}
+                      sx={{ alignItems: "center", justifyContent: "center" }}
+                    >
                       {barcodes ? (
                         barcodes?.map((item) => {
                           return (
