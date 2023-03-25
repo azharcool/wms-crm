@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { getSelectedBundleById } from "redux/catalog/bundleSelector";
 import { setBundleId } from "redux/catalog/bundleSlice";
 import { RootState, useAppDispatch } from "redux/store";
+import palette from "theme/palette";
 import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
@@ -22,6 +23,7 @@ function BundleItem(props: IProps) {
   const { bundle, refetch } = props;
   const navigate = useNavigate();
   const [tags, setTags] = useState<any>([]);
+  const newtheme = useSelector((state: any) => state.theme);
   const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`, {
@@ -74,7 +76,9 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox
@@ -89,7 +93,9 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
         onClick={() => goToDetails(id)}
       >
@@ -118,7 +124,9 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         {name || "not provided"}
@@ -205,7 +213,9 @@ function BundleItem(props: IProps) {
         sx={{
           position: "sticky",
           right: 0,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton onDeleteHandle={handleBundleDelete} />
