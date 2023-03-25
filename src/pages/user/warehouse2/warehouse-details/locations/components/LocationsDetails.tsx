@@ -13,13 +13,18 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
-import { useFormik } from "formik";
-import useProductAction from "hooks/catalog/product/useProductAction";
-import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
+import useGetByIdLocation from "hooks/querys/warehouse/location/useGetByIdLocation";
 import useDecodedData from "hooks/useDecodedData";
+import useLocationAction from "hooks/warehouse/location/useLocation";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
+import { AddLocationRequestRoot } from "types/warehouse/location/addLocationRequest";
+import useLocationForm, {
+  LocationInitialValues,
+  locationInitialValues,
+} from "../hooks/useLocationForm";
 import Contents from "./Content";
 import General from "./General";
 
@@ -55,18 +60,16 @@ function LocationsDetails() {
   const userDecoded = useDecodedData();
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
-  const [openVariant, setOpenVariant] = useState(false);
 
   const navigate = useNavigate();
-  const { productId } = useParams();
-  const { editProductAction } = useProductAction();
-  const { data: productItemResponse } = useGetByIdProduct({
-    productId: Number(productId),
+  const { locationId } = useParams();
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { data: locationResponse } = useGetByIdLocation({
+    id: Number(locationId),
+    warehouseId: getSelectedWarehouse.id,
   });
-
-  const handleVariant = () => {
-    setOpenVariant((s) => !s);
-  };
+  const { editLocationAction } = useLocationAction();
+  const lastPageLink = `/warehouse/details/${getSelectedWarehouse.id}/locations/listing`;
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -79,29 +82,55 @@ function LocationsDetails() {
     },
   });
 
-  const formik = useFormik({
-    initialValues: {
-      warehouse: "",
-      area: "",
-      zone: "",
-      aisle: "",
-      bay: "",
-      level: "",
-      bin: "",
-      height: "",
-      width: "",
-      length: "",
-      maxload: "",
-      location_alias: "",
-      location_type: "",
-      operations: "",
-      status: "",
-      x: "",
-      y: "",
-      z: "",
-    },
-    onSubmit: async (values) => {},
+  const formik = useLocationForm({
+    initialValues: locationInitialValues,
+    onSubmit,
   });
+
+  async function onSubmit(values: LocationInitialValues) {
+    const data: AddLocationRequestRoot = {
+      id: Number(locationId),
+      userId: Number(userDecoded.id),
+      warehouseId: getSelectedWarehouse.id,
+      areaId: parseFloat(values.area),
+      zoneId: parseFloat(values.zone),
+      aisle: values.aisle,
+      locationType: values.locationType,
+      locationAlias: values.locationAlias,
+      operations: values.operation,
+      position: values.bin,
+      rack: values.bay,
+      shelf: values.level,
+      status: parseInt(values.status, 10),
+
+      ...(!Number.isNaN(parseFloat(values.height)) && {
+        height: parseFloat(values.height),
+      }),
+      ...(!Number.isNaN(parseFloat(values.width)) && {
+        width: parseFloat(values.width),
+      }),
+      ...(!Number.isNaN(parseFloat(values.length)) && {
+        length: parseFloat(values.length),
+      }),
+      ...(!Number.isNaN(parseFloat(values.x)) && {
+        x: parseFloat(values.x),
+      }),
+      ...(!Number.isNaN(parseFloat(values.y)) && {
+        y: parseFloat(values.y),
+      }),
+      ...(!Number.isNaN(parseFloat(values.z)) && {
+        z: parseFloat(values.z),
+      }),
+      ...(!Number.isNaN(parseFloat(values.volumn)) && {
+        volume: parseFloat(values.volumn),
+      }),
+    };
+
+    const response = await editLocationAction(data);
+    if (response) {
+      navigate(lastPageLink);
+    }
+  }
 
   const getDesignTokens = (mode: PaletteMode) => ({
     palette: {
@@ -139,6 +168,7 @@ function LocationsDetails() {
       title: "Cancel",
       onClick: () => {
         setEditable(false);
+        // formik.resetForm();
       },
       icon: (
         <ArrowBackIosIcon
@@ -151,8 +181,10 @@ function LocationsDetails() {
     },
     {
       id: crypto.randomUUID(),
-      title: "Save",
-      onClick: () => {},
+      title: "Edit",
+      onClick: () => {
+        setEditable(true);
+      },
       icon: (
         <EditIcon
           sx={{
@@ -179,8 +211,6 @@ function LocationsDetails() {
     },
   ];
 
-  const istrue = !editable;
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -191,7 +221,7 @@ function LocationsDetails() {
               ? rightActionsData.filter((i) => i.title !== "Edit")
               : rightActionsData.filter((i) => i.title === "Edit")
           }
-          title={productItemResponse?.data.name || ""}
+          title=""
         />
 
         <Stack direction="row">
@@ -206,10 +236,10 @@ function LocationsDetails() {
         </Stack>
         <TabPanel index={0} value={value}>
           <General
-            // data={productItemResponse?.data}
+            data={locationResponse?.data}
             editable={editable}
             formik={formik}
-            isTrue={istrue}
+            isTrue={false}
             nameRef={nameRef}
           />
         </TabPanel>

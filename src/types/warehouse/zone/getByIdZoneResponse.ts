@@ -1,4 +1,4 @@
-export interface GetByIdResponseRoot {
+export interface GetByIdZoneResponseRoot {
   statusCode: number;
   data: GetByIdResponseData;
 }

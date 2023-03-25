@@ -1,7 +1,7 @@
 import { IResponse } from "constants/interfaces";
 import { AddZoneRequestRoot } from "types/warehouse/zone/addZoneRequest";
 import { GetAllZoneResponseRoot } from "types/warehouse/zone/getAllZoneResponse";
-import { GetByIdResponseRoot } from "types/warehouse/zone/getByIdZoneResponse";
+import { GetByIdZoneResponseRoot } from "types/warehouse/zone/getByIdZoneResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -39,7 +39,7 @@ export async function getAllPaginationZone(
 
 export async function getByIdZone(
   restUrl: string,
-): Promise<GetByIdResponseRoot> {
+): Promise<GetByIdZoneResponseRoot> {
   let URL = `${API_URLS.GET_BY_ID_ZONE}`;
   if (restUrl) {
     URL = `${URL}?${restUrl}`;
