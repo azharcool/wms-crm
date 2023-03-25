@@ -1,4 +1,4 @@
-import { Box, TableCell, TableRow } from "@mui/material";
+import TableMessage from "components/table-message";
 
 interface INoDataTableRow {
   title?: string;
@@ -7,20 +7,7 @@ interface INoDataTableRow {
 
 function NoDataTableRow(props: INoDataTableRow) {
   const { title, colSize } = props;
-  return (
-    <TableRow>
-      <TableCell colSpan={colSize}>
-        <Box
-          sx={{
-            color: "#000",
-            textAlign: "center",
-          }}
-        >
-          {title}
-        </Box>
-      </TableCell>
-    </TableRow>
-  );
+  return <TableMessage colspan={colSize} message={title} />;
 }
 
 export default NoDataTableRow;

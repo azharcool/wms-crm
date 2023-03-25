@@ -1,5 +1,6 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +12,7 @@ interface IAreaListItem {
 function AreaListItem(props: IAreaListItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const { deleteAreaActionAsync } = useWarehouseAreaAction();
   const {
     warehouse: { warehouseLayout, areasDetails },
   } = AppRoutes;
@@ -80,7 +82,11 @@ function AreaListItem(props: IAreaListItem) {
           // background: "white",
         }}
       >
-        <TableActionButton onDeleteHandle={() => {}} />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteAreaActionAsync(item.id,item.warehouseId);
+          }}
+        />
       </TableCell>
     </TableRow>
   );
