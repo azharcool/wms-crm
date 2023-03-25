@@ -198,7 +198,6 @@ function LocationsDetails() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        console.log("handlesubmit", formik);
         formik.handleSubmit();
       },
       icon: (
