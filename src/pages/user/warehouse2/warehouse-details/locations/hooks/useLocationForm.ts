@@ -53,7 +53,7 @@ interface IuseLocationForm {
 
 const schema = Yup.object().shape({
   area: Yup.string().required("area is required"),
-  locationType: Yup.string().required("location type is required"),
+  zone: Yup.string().required("zone is required"),
   status: Yup.string().required("status is required"),
 });
 

@@ -15,7 +15,7 @@ import useBrand from "hooks/catalog/brand/useBrand";
 import useCategory from "hooks/catalog/categories/useCategory";
 import useDecodedData from "hooks/useDecodedData";
 import useArea from "hooks/warehouse/area/useArea";
-import useLocationAction from "hooks/warehouse/location/useZoneLocation";
+import useLocationAction from "hooks/warehouse/location/useLocation";
 import useZone from "hooks/warehouse/zone/useZone";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -171,6 +171,8 @@ function LocationsCreate() {
                 <TextField
                   isSelect
                   disabled={Boolean(!values.area)}
+                  error={!!touched.zone && !!errors.zone}
+                  helperText={(touched.zone && errors && errors.zone) || ""}
                   id="zone"
                   label="Zone"
                   menuItems={zones}

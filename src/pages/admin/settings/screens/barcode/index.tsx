@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   Box,
