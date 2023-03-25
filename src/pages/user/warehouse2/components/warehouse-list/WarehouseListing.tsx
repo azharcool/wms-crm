@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -130,6 +131,12 @@ function WarehouseListing(props: IWarehouselisting) {
                 {data?.data.map((item: IGetWarehouseResponseData) => {
                   return <WarehouseItem key={item.id} item={item} />;
                 })}
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Warehouse"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

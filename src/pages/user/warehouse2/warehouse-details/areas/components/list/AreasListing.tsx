@@ -4,13 +4,13 @@ import {
   Paper,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row";
 import useGetAllWarehouseArea from "hooks/querys/warehouse/area/useGetAllWarehouseArea";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -118,9 +118,7 @@ function AreasListing() {
                   })}
 
                   {!warehousePaginationResponse?.data.length ? (
-                    <TableRow>
-                      <TableCell>No Area Found!, create one area</TableCell>
-                    </TableRow>
+                    <NoDataTableRow colSize={4} title="No data found in Area" />
                   ) : null}
                 </TableBody>
               </Table>
