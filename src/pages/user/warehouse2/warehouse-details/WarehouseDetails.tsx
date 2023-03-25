@@ -69,9 +69,12 @@ function WarehouseDetails() {
               id: crypto.randomUUID(),
               title: "Edit",
               onClick: () => {
-                navigate(`/warehouse/${AppRoutes.warehouse.update}/${detailsId}`, {
-                  state: { editData:warehouseDetailsResponse?.data },
-                });
+                navigate(
+                  `/warehouse/${AppRoutes.warehouse.update}/${detailsId}`,
+                  {
+                    state: { editData: warehouseDetailsResponse?.data },
+                  },
+                );
               },
               icon: (
                 <EditIcon
