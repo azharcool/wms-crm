@@ -126,7 +126,6 @@ function LocationsDetails() {
       }),
     };
 
-    console.log(data);
     const response = await editLocationAction(data);
     if (response) {
       navigate(lastPageLink);
