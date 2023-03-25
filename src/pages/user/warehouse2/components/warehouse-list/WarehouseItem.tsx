@@ -122,7 +122,7 @@ function WarehouseItem(props: IWarehouseItem) {
           // background: "white",
         }}
       >
-        {item?.status}
+        {item?.status === 1 ? "Active" : "Inactive"}
       </TableCell>
 
       <TableCell

@@ -2,7 +2,7 @@ import { TableCell, TableRow, Typography } from "@mui/material";
 import palette from "theme/palette";
 
 interface IProps {
-  message: string;
+  message?: string;
   colspan?: number;
 }
 

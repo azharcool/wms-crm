@@ -47,8 +47,8 @@ export async function getByIdZone(
   return client.get(URL);
 }
 
-export async function deleteZone(id: number): Promise<IResponse> {
-  const URL = `${API_URLS.DELETE_ZONE}/${id}`;
+export async function deleteZone(id: number,warehouseId:number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_ZONE}/${id}?warehouseId=${warehouseId}`;
   return client.delete(URL);
 }
 
