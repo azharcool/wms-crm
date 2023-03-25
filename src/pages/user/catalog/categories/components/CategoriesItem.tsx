@@ -116,7 +116,7 @@ function CategoriesItem(props: ICategoriesItem) {
           // background: "white",
         }}
       >
-        {item.parentCategoryId}
+        {item.parentCategoryName}
       </TableCell>
       <TableCell
         sx={{
