@@ -1,5 +1,7 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
+import { FILE_URL } from "config";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -8,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getSelectedCategoryById } from "redux/catalog/categorySelector";
 import { setCategoryId } from "redux/catalog/categorySlice";
 import { RootState, useAppDispatch } from "redux/store";
+import palette from "theme/palette";
 import { IGetCategoriesResponseData } from "types/catalog/catagories/getCategoriesResponse";
 
 interface ICategoriesItem {
@@ -18,6 +21,7 @@ function CategoriesItem(props: ICategoriesItem) {
   const { item } = props;
   const navigate = useNavigate();
   const { deleteCategoryAsync } = useCategoriesAction();
+  const newtheme = useSelector((state: any) => state.theme);
   const getSelectedCategoryByIdState = useSelector((state: RootState) =>
     getSelectedCategoryById(state, item.id),
   );
@@ -27,7 +31,6 @@ function CategoriesItem(props: ICategoriesItem) {
   const select = () => {
     dispatch(setCategoryId(item.id));
   };
-
   return (
     <TableRow>
       <TableCell
@@ -37,7 +40,9 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox
@@ -52,7 +57,9 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Box
@@ -63,8 +70,17 @@ function CategoriesItem(props: ICategoriesItem) {
         >
           <img
             alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
+            src={
+              item?.picture !== null
+                ? `${FILE_URL}${item?.picture?.atachment}`
+                : NOImage
+            }
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "5px",
+            }}
           />
         </Box>
       </TableCell>
@@ -75,7 +91,9 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -87,7 +105,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.position}
@@ -95,7 +113,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.parentCategoryId}
@@ -103,7 +121,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* <CustomSwitch /> */}
@@ -112,7 +130,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.updatedOn}
@@ -121,7 +139,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.tag}
@@ -131,7 +149,9 @@ function CategoriesItem(props: ICategoriesItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton

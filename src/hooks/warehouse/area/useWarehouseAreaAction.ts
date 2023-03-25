@@ -2,6 +2,7 @@ import { useSnackbar } from "components/snackbar";
 import { useQueryClient } from "react-query";
 import {
   addWarehouseArea,
+  deleteWarehouseArea,
   editWarehouseArea,
 } from "services/warehouseArea.services";
 import { AddWarehouseAreaRequestRoot } from "types/warehouse/area/addWarehouseAreaRequest";
@@ -55,9 +56,32 @@ function useWarehouseAreaAction() {
     return false;
   };
 
+  const deleteAreaActionAsync = async (
+    id: number,warehouseId:number
+  ): Promise<boolean> => {
+    try {
+      const response = await deleteWarehouseArea(id,warehouseId);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllWarehouseArea]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
   return {
     addWarehouseAction,
     editWarehouseAction,
+    deleteAreaActionAsync
   };
 }
 

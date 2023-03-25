@@ -1,5 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
@@ -25,40 +25,38 @@ function Categories() {
 
   return (
     <Container maxWidth={false}>
-      <Card>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <TableToolbar
-            hasBulk
-            buttonText="New"
-            navTitle="CATALOG"
-            rightActions={[
-              {
-                id: crypto.randomUUID(),
-                title: "New",
-                onClick: () => {
-                  navigate(AppRoutes.CATALOG.categoryCreate);
-                },
-                icon: (
-                  <AddCircleIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 1,
-                    }}
-                  />
-                ),
+      <CardContent sx={{ paddingTop: 0 }}>
+        <TableToolbar
+          hasBulk
+          buttonText="New"
+          navTitle="CATALOG"
+          rightActions={[
+            {
+              id: crypto.randomUUID(),
+              title: "New",
+              onClick: () => {
+                navigate(AppRoutes.CATALOG.categoryCreate);
               },
-            ]}
-            title="Categories"
-            onBulkHandle={() => {
-              const ids = getSelectedCategoryIdsState.toString();
-              bulkDeleteCategoriesAsync(ids);
-            }}
-          />
-          <Box sx={{ mt: 3 }}>
-            <CategoriesListing data={CategoryPaginationResponse} />
-          </Box>
-        </CardContent>
-      </Card>
+              icon: (
+                <AddCircleIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              ),
+            },
+          ]}
+          title="Categories"
+          onBulkHandle={() => {
+            const ids = getSelectedCategoryIdsState.toString();
+            bulkDeleteCategoriesAsync(ids);
+          }}
+        />
+        <Box sx={{ mt: 3 }}>
+          <CategoriesListing data={CategoryPaginationResponse} />
+        </Box>
+      </CardContent>
     </Container>
   );
 }

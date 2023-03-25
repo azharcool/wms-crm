@@ -63,7 +63,7 @@ const deafultValues: AddWarehouseForm = {
   receivingType: "",
   defaultWarehouse: false,
   allowPartialPacking: false,
-  status: 0,
+  status: 1,
 };
 
 function useAddWarehouseForm({

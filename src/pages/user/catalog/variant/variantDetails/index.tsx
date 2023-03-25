@@ -121,7 +121,7 @@ function VariantDetails() {
               sx={{
                 ml: -2.5,
                 mt: -2,
-                backgroundColor: "#fff",
+                // backgroundColor: "#fff",
                 height: "100%",
                 // overflow: "scroll",
                 position: "fixed",

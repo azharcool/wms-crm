@@ -1,4 +1,4 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getSelectedProductById } from "redux/catalog/productSelector";
 import { setProductId } from "redux/catalog/productSlice";
 import { RootState, useAppDispatch } from "redux/store";
+import palette from "theme/palette";
 import { IGetProductResponseData } from "types/catalog/products/getProductResponse";
 
 interface IProductItem {
@@ -19,6 +20,7 @@ function ProductItem(props: IProductItem) {
   const { item } = props;
   const navigate = useNavigate();
   const { deleteProductAsync } = useProductAction();
+  const newtheme = useSelector((state: any) => state.theme);
   const getSelectedProductByIdState = useSelector((state: RootState) =>
     getSelectedProductById(state, item.id),
   );
@@ -38,7 +40,9 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox
@@ -53,7 +57,9 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Box
@@ -85,7 +91,9 @@ function ProductItem(props: IProductItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -99,7 +107,7 @@ function ProductItem(props: IProductItem) {
           width: 150,
           position: "sticky",
           left: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* inventory */}0
@@ -107,7 +115,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* variants count */}
@@ -116,7 +124,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* category */}
@@ -125,7 +133,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* brand */}
@@ -135,7 +143,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* company */}Not Provided
@@ -143,16 +151,36 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* tags */}
-        {item.tags}
+        {item.tags && (
+          <Stack flexDirection="row" flexWrap="wrap">
+            {item.tags.split(",").map((tag) => {
+              return (
+                <Box
+                  key={tag}
+                  sx={{
+                    borderRadius: "16px",
+                    background: "#fbdeba",
+                    color: "#8f391c",
+                    padding: "4px 8px",
+                    margin: "2px",
+                    fontSize: "12px",
+                  }}
+                >
+                  {tag}
+                </Box>
+              );
+            })}
+          </Stack>
+        )}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* track SN */}
@@ -161,7 +189,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* track expiry */}
@@ -171,7 +199,7 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* last updated  */}
@@ -182,7 +210,9 @@ function ProductItem(props: IProductItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton

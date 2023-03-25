@@ -2,8 +2,11 @@ import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import CustomSwitch from "components/custom-switch";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
+import palette from "theme/palette";
 
 function ListingItem() {
+  const newtheme = useSelector((state: any) => state.theme);
   return (
     <TableRow>
       <TableCell
@@ -13,7 +16,9 @@ function ListingItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -24,7 +29,9 @@ function ListingItem() {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Box
@@ -47,7 +54,9 @@ function ListingItem() {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         SKU
@@ -55,7 +64,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         chanel
@@ -63,7 +72,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         <CustomSwitch />
@@ -71,7 +80,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Qty
@@ -79,7 +88,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Retail price
@@ -88,7 +97,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         M.R.P
@@ -97,7 +106,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Brand
@@ -106,7 +115,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Category
@@ -115,7 +124,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Tags
@@ -124,7 +133,7 @@ function ListingItem() {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         Last Updated
@@ -134,7 +143,9 @@ function ListingItem() {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton />

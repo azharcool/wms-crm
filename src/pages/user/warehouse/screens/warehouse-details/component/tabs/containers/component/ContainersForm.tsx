@@ -200,7 +200,7 @@ function ContainersForm(props: IAddScreen) {
           }}
         >
           <Box sx={{ display: "flex", flex: 3, gap: 2 }}>
-            <DialogContent dividers sx={{ background: "#fff", flex: 3 }}>
+            <DialogContent dividers sx={{ flex: 3 }}>
               <DialogTitle>Informations</DialogTitle>
               <Divider sx={{ my: 1 }} />
               <Box
@@ -297,7 +297,7 @@ function ContainersForm(props: IAddScreen) {
                 />
               </Box>
             </DialogContent>
-            <DialogContent dividers sx={{ background: "#fff", flex: 2 }}>
+            <DialogContent dividers sx={{ flex: 2 }}>
               <DialogTitle>Dimensions</DialogTitle>
               <Divider sx={{ my: 1 }} />
 

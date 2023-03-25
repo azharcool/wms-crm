@@ -1,12 +1,6 @@
+import { makeStyles } from "@material-ui/core/styles";
 import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import {
-  alpha,
   Box,
   Card,
   Checkbox,
@@ -18,23 +12,17 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Toolbar,
-  Tooltip,
-  Typography,
 } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
 import { useAlert } from "components/alert";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useNavigate } from "react-router-dom";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
-import AppRoutes from "navigation/appRoutes";
-import { useNavigate } from "react-router-dom";
-import MoreMenu from "components/common/MoreMenu";
 
 interface IProps {
-    suppliers: ISuppliers[];
+  suppliers: ISuppliers[];
   total: number;
   setCurrentPage?: (page: number) => void;
   setPageLimit?: (limit: number) => void;
@@ -42,22 +30,23 @@ interface IProps {
   handleDeletePermission?: (id: number) => void;
 }
 
-const useStyles= makeStyles({
-  sticky:{
-    position:"sticky", left:0, background:"#f4f4f4"
-  }
-})
+const useStyles = makeStyles({
+  sticky: {
+    position: "sticky",
+    left: 0,
+  },
+});
 
 interface ISuppliers {
   id: string;
-  name:string,
-  shortName:string,
-  supplierId:string,
-  city:string,
-  email:string,
-  phone:number,
-  primaryContact:string,
-  status:string,
+  name: string;
+  shortName: string;
+  supplierId: string;
+  city: string;
+  email: string;
+  phone: number;
+  primaryContact: string;
+  status: string;
 }
 
 function SupplierTable(props: IProps) {
@@ -93,7 +82,7 @@ function SupplierTable(props: IProps) {
 
     setSelectedPermissionIds(newSelectedCustomerIds);
   };
-  const classes = useStyles()
+  const classes = useStyles();
   const handleSelectOne = (event: any, id: any) => {
     const selectedIndex = selectedPermissionIds.indexOf(id);
     let newSelectedCustomerIds: string[] = [];
@@ -162,107 +151,123 @@ function SupplierTable(props: IProps) {
     <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050, overflow: "hidden" }}>
-          <TableContainer style={{ minWidth: 1050, overflow:'auto'}}>
-          <Table sx={{}}>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox" className={classes.sticky}>
-                  <Checkbox
-                    // checked={selectedPermissionIds.length === total}
-                    className={classes.sticky}
-                    checked={false}
-                    color="primary"
-                    indeterminate={
-                      selectedPermissionIds.length > 0 &&
-                      selectedPermissionIds.length < total
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell className={classes.sticky}>Name</TableCell>
-                <TableCell>SHORT NAME</TableCell>
-                <TableCell>SUPPLIER ID</TableCell>
-                <TableCell>CITY</TableCell>
-                <TableCell>EMAIL</TableCell>
-                <TableCell>PHONE</TableCell>
-                <TableCell>PRIMARY CONTACT</TableCell>
-                <TableCell>STATUS</TableCell>
-                <TableCell>ACTION</TableCell>             
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {suppliers.map((supplier: ISuppliers) => {
-                const {
-                  id,
-                  name,
-                  shortName,
-                  supplierId,
-                  city,
-                  email,
-                  phone,
-                  primaryContact,
-                  status,
-                } = supplier;
-                return (
-                  <TableRow
-                    key={id}
-                    selected={selectedPermissionIds.indexOf(id) !== -1}
-                  >
-                    <TableCell padding="checkbox"  sx={{ position:"sticky", left:0, background:'white'}}>
-                      <Checkbox
-                      sx={{ position:"sticky", left:0, background:'white'}}
-                        checked={selectedPermissionIds.indexOf(id) !== -1}
-                        value="true"
-                        onChange={(event) => {
-                          return handleSelectOne(event, id);
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                    scope="row"
-                    component="th"
-                      sx={{ cursor: "pointer", position:"sticky", left:0, background:'white'}}
-                      onClick={() => gotoDetails(id)}
+          <TableContainer style={{ minWidth: 1050, overflow: "auto" }}>
+            <Table sx={{}}>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.sticky} padding="checkbox">
+                    <Checkbox
+                      // checked={selectedPermissionIds.length === total}
+                      checked={false}
+                      className={classes.sticky}
+                      color="primary"
+                      indeterminate={
+                        selectedPermissionIds.length > 0 &&
+                        selectedPermissionIds.length < total
+                      }
+                      onChange={handleSelectAll}
+                    />
+                  </TableCell>
+                  <TableCell className={classes.sticky}>Name</TableCell>
+                  <TableCell>SHORT NAME</TableCell>
+                  <TableCell>SUPPLIER ID</TableCell>
+                  <TableCell>CITY</TableCell>
+                  <TableCell>EMAIL</TableCell>
+                  <TableCell>PHONE</TableCell>
+                  <TableCell>PRIMARY CONTACT</TableCell>
+                  <TableCell>STATUS</TableCell>
+                  <TableCell>ACTION</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {suppliers.map((supplier: ISuppliers) => {
+                  const {
+                    id,
+                    name,
+                    shortName,
+                    supplierId,
+                    city,
+                    email,
+                    phone,
+                    primaryContact,
+                    status,
+                  } = supplier;
+                  return (
+                    <TableRow
+                      key={id}
+                      selected={selectedPermissionIds.indexOf(id) !== -1}
                     >
-                      {name}
-                    </TableCell>
-                    <TableCell>{shortName}</TableCell>
-                    <TableCell>{supplierId}</TableCell>
-                    <TableCell>{city}</TableCell>
-                    <TableCell>{email}</TableCell>
-                    <TableCell>{phone}</TableCell>
-                    <TableCell>{primaryContact}</TableCell>
-                    <TableCell>{status}</TableCell>
-                    <TableCell>
-                      <Box
+                      <TableCell
+                        padding="checkbox"
                         sx={{
-                          display: "flex",
-                          gap: 1,
-                          "& svg": {
-                            cursor: "pointer",
-                          },
+                          position: "sticky",
+                          left: 0,
+                          // background: "white",
                         }}
                       >
-                        <Box>
-                          <IconButton onClick={() => handleEdit()}>
-                            <CreateIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.dark,
-                                },
-                              }}
-                            />
-                          </IconButton>
+                        <Checkbox
+                          checked={selectedPermissionIds.indexOf(id) !== -1}
+                          sx={{
+                            position: "sticky",
+                            left: 0,
+                            // background: "white",
+                          }}
+                          value="true"
+                          onChange={(event) => {
+                            return handleSelectOne(event, id);
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        sx={{
+                          cursor: "pointer",
+                          position: "sticky",
+                          left: 0,
+                          // background: "white",
+                        }}
+                        onClick={() => gotoDetails(id)}
+                      >
+                        {name}
+                      </TableCell>
+                      <TableCell>{shortName}</TableCell>
+                      <TableCell>{supplierId}</TableCell>
+                      <TableCell>{city}</TableCell>
+                      <TableCell>{email}</TableCell>
+                      <TableCell>{phone}</TableCell>
+                      <TableCell>{primaryContact}</TableCell>
+                      <TableCell>{status}</TableCell>
+                      <TableCell>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: 1,
+                            "& svg": {
+                              cursor: "pointer",
+                            },
+                          }}
+                        >
+                          <Box>
+                            <IconButton onClick={() => handleEdit()}>
+                              <CreateIcon
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  color: palette.secondary.lightGray,
+                                  "&:hover": {
+                                    color: palette.info.dark,
+                                  },
+                                }}
+                              />
+                            </IconButton>
+                          </Box>
                         </Box>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </TableContainer>
         </Box>
       </PerfectScrollbar>

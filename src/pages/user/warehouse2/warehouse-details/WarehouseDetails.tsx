@@ -1,10 +1,11 @@
 import EditIcon from "@mui/icons-material/Edit";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import useGetByIdWarehouse from "hooks/querys/warehouse/useGetByIdWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 
 function WarehouseDetails() {
@@ -13,7 +14,10 @@ function WarehouseDetails() {
   const location = useLocation();
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
   const warehouseId = getSelectedWarehouse.id;
-
+  const { detailsId } = useParams();
+  const { data: warehouseDetailsResponse } = useGetByIdWarehouse({
+    warehouseId: Number(detailsId),
+  });
   const {
     warehouse: {
       warehouseLayout,
@@ -60,14 +64,17 @@ function WarehouseDetails() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Warehouse", to: "/warehouse/listing" }]}
-          buttonText="Edit"
-          handleClick={handleOpen}
           rightActions={[
             {
               id: crypto.randomUUID(),
               title: "Edit",
               onClick: () => {
-                navigate(`/${AppRoutes.warehouse.create}`);
+                navigate(
+                  `/warehouse/${AppRoutes.warehouse.update}/${detailsId}`,
+                  {
+                    state: { editData: warehouseDetailsResponse?.data },
+                  },
+                );
               },
               icon: (
                 <EditIcon
@@ -83,6 +90,16 @@ function WarehouseDetails() {
         />
         <Tabs
           aria-label="basic tabs example"
+          sx={{
+            "& .MuiTab-root.Mui-selected": {
+              color: "#c44e13",
+            },
+          }}
+          TabIndicatorProps={{
+            style: {
+              background: "#c44e13",
+            },
+          }}
           value={value}
           onChange={handleChange}
         >
@@ -97,5 +114,4 @@ function WarehouseDetails() {
     </Container>
   );
 }
-
 export default WarehouseDetails;

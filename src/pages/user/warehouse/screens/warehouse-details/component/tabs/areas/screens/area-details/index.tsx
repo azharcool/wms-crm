@@ -104,8 +104,6 @@ function AreaDetails() {
                 { link: "Warehouse", to: "/warehouse" },
                 { link: "Warehouse Details", to: "/warehouse-details/1" },
               ]}
-              buttonText="Edit"
-              handleClick={handleOpen}
               rightActions={
                 editable
                   ? rightActionsData.filter((i) => i.title !== "Edit")

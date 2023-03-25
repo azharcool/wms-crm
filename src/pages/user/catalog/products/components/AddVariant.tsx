@@ -258,6 +258,7 @@ function AddVariant(props: IAddVariant) {
   const { addVariantAction } = useVariantAction();
 
   const handleModal = (status?: string) => {
+    navigate(-1);
     if (status) {
       setOpenModal(status);
       return;
@@ -400,7 +401,7 @@ function AddVariant(props: IAddVariant) {
         <Box
           sx={{
             marginTop: "20px",
-            backgroundColor: "white",
+            // backgroundColor: "white",
             borderRadius: "5px",
           }}
         >
@@ -577,7 +578,7 @@ function AddVariant(props: IAddVariant) {
         <Box
           sx={{
             marginTop: "20px",
-            backgroundColor: "white",
+            // backgroundColor: "white",
             borderRadius: "5px",
           }}
         >
@@ -684,7 +685,7 @@ function AddVariant(props: IAddVariant) {
                           <TableCell
                             sx={{
                               width: 50,
-                              background: "white",
+                              // background: "white",
                             }}
                           >
                             <Box

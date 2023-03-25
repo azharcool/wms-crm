@@ -10,9 +10,15 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
+import useGetAllLocation from "hooks/querys/warehouse/location/useGetAllLocation";
+import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import Warehouse from "__mock__/warhouses.json";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import LocationsListItem from "./LocationsListItem";
 
 const tableTitle = [
@@ -100,9 +106,29 @@ const tableTitle = [
 ];
 
 function LocationsListing() {
+  const [warehousePagination, setWarehousepagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const navigate = useNavigate();
+  const getSelectedWarehouse = useSelector(getWarehouseSelected);
+  const { data: locationResponse } = useGetAllLocation({
+    ...warehousePagination,
+    warehouseId: getSelectedWarehouse.id,
+  });
+  const {
+    warehouse: { warehouseLayout, locationCreate },
+  } = AppRoutes;
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+        handle={(e) => {
+          if (e === "create") {
+            navigate(`/${warehouseLayout}/${locationCreate}`);
+          }
+        }}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -149,9 +175,16 @@ function LocationsListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Warehouse?.map((item) => {
+                {locationResponse?.data.map((item) => {
                   return <LocationsListItem key={item.id} item={item} />;
                 })}
+
+                {!locationResponse?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Location"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

@@ -5,6 +5,9 @@ import useGetAllWarehouse from "hooks/querys/warehouse/useGetAllWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
+import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import WarehouseListing from "./components/warehouse-list/WarehouseListing";
 
 function Warehouse() {
@@ -13,24 +16,23 @@ function Warehouse() {
     pageSize: 10,
     page: 1,
   });
+  const { bulkDeleteWarehouseAsync } = useWarehouseAction();
   const { data: warehousePaginationResponse } =
     useGetAllWarehouse(warehousePagination);
+  const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
 
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          buttonText="New"
           navTitle="Warehouses"
           rightActions={[
             {
               id: crypto.randomUUID(),
               title: "New",
               onClick: () => {
-                navigate(
-                  `${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.create}`,
-                );
+                navigate("/warehouse/create");
               },
               icon: (
                 <AddCircleIcon
@@ -43,7 +45,10 @@ function Warehouse() {
             },
           ]}
           title="Warehouses"
-          onBulkHandle={() => {}}
+          onBulkHandle={() => {
+            const ids = getSelectedWarehouseIdsState.toString();
+            bulkDeleteWarehouseAsync(ids);
+          }}
         />
         <Box sx={{ mt: 3 }}>
           <WarehouseListing data={warehousePaginationResponse} />

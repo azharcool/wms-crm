@@ -5,7 +5,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import BulkActionButton from "components/button/BulkActionButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 
 interface IBreadcrumb {
@@ -15,8 +15,8 @@ interface IBreadcrumb {
 interface ITableToolbar {
   title: string;
   isAdd?: boolean;
-  buttonText: string | JSX.Element;
-  handleClick?: () => void;
+  buttonText?: any;
+  handleClick?: any;
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;
   rightActions?: IRightActions[];
@@ -39,6 +39,7 @@ interface ITooblarButton {
 
 function ToolBarButton(props: ITooblarButton) {
   const { handleClick, title, icon } = props;
+
   return (
     <Box sx={{ m: 1, display: "flex", gap: 5, alignItems: "center" }}>
       <Button
@@ -73,18 +74,13 @@ function ToolBarButton(props: ITooblarButton) {
 }
 
 function TableToolbar(props: ITableToolbar) {
-  const {
-    title,
-    buttonText,
-    handleClick,
-    breadcrumbs,
-    isAdd,
-    navTitle,
-    rightActions,
-    hasBulk,
-    onBulkHandle,
-  } = props;
+  const { title, breadcrumbs, navTitle, rightActions, hasBulk, onBulkHandle } =
+    props;
+  const location = useLocation();
   const navigation = useNavigate();
+
+  const isWarehouse = location.pathname.includes("warehouse");
+
   const handleBread = (link: string) => {
     navigation(link);
   };
@@ -132,90 +128,100 @@ function TableToolbar(props: ITableToolbar) {
             {title}
           </Typography>
 
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 2,
-            }}
-          >
+          {isWarehouse ? (
             <Box
               sx={{
-                padding: "5px 15px",
-                border: "1px dashed #ccc",
-                borderRadius: "8px",
-                width: "115px",
                 display: "flex",
-                flexDirection: "column",
                 alignItems: "center",
+                justifyContent: "center",
+                gap: 2,
               }}
             >
-              <Box sx={{ display: "flex" }}>
-                <ArrowUpwardIcon
-                  // fontSize="small"
-                  sx={{
-                    color: "#50cd89",
-                    marginRight: "2px",
-                    fontSize: "1.0rem",
-                  }}
-                />
-                <Box
-                  sx={{ color: "#000", fontSize: "1.0rem", fontWeight: "700" }}
-                >
-                  5485
-                </Box>
-              </Box>
-              <Typography
+              <Box
                 sx={{
-                  color: "#b5b5c3",
-                  fontSize: "13px",
-                  lineHeight: "1",
-                  textAlign: "center",
+                  padding: "5px 15px",
+                  border: "1px dashed #ccc",
+                  borderRadius: "8px",
+                  width: "115px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                Warehouses
-              </Typography>
-            </Box>
+                <Box sx={{ display: "flex" }}>
+                  <ArrowUpwardIcon
+                    // fontSize="small"
+                    sx={{
+                      color: "#50cd89",
+                      marginRight: "2px",
+                      fontSize: "1.0rem",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      color: "#000",
+                      fontSize: "1.0rem",
+                      fontWeight: "700",
+                    }}
+                  >
+                    5485
+                  </Box>
+                </Box>
+                <Typography
+                  sx={{
+                    color: "#b5b5c3",
+                    fontSize: "13px",
+                    lineHeight: "1",
+                    textAlign: "center",
+                  }}
+                >
+                  Warehouses
+                </Typography>
+              </Box>
 
-            <Box
-              sx={{
-                padding: "5px 15px",
-                border: "1px dashed #ccc",
-                borderRadius: "8px",
-                width: "115px",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Box sx={{ display: "flex" }}>
-                <ArrowUpwardIcon
-                  // fontSize="small"
-                  sx={{
-                    color: "#50cd89",
-                    marginRight: "2px",
-                    fontSize: "1.0rem",
-                  }}
-                />
-                <Box
-                  sx={{ color: "#000", fontSize: "1.0rem", fontWeight: "700" }}
-                >
-                  6564
-                </Box>
-              </Box>
-              <Typography
+              <Box
                 sx={{
-                  color: "#b5b5c3",
-                  fontSize: "13px",
-                  lineHeight: "1",
-                  textAlign: "center",
+                  padding: "5px 15px",
+                  border: "1px dashed #ccc",
+                  borderRadius: "8px",
+                  width: "115px",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
                 }}
               >
-                Locations
-              </Typography>
+                <Box sx={{ display: "flex" }}>
+                  <ArrowUpwardIcon
+                    // fontSize="small"
+                    sx={{
+                      color: "#50cd89",
+                      marginRight: "2px",
+                      fontSize: "1.0rem",
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      color: "#000",
+                      fontSize: "1.0rem",
+                      fontWeight: "700",
+                    }}
+                  >
+                    6564
+                  </Box>
+                </Box>
+                <Typography
+                  sx={{
+                    color: "#b5b5c3",
+                    fontSize: "13px",
+                    lineHeight: "1",
+                    textAlign: "center",
+                  }}
+                >
+                  Locations
+                </Typography>
+              </Box>
             </Box>
-          </Box>
+          ) : null}
 
           <Stack direction="row" gap={1}>
             {hasBulk ? <BulkActionButton onBulkHandle={onBulkHandle} /> : null}

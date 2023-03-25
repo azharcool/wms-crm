@@ -15,7 +15,7 @@ function LocationItem(props: any) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} />
@@ -27,7 +27,7 @@ function LocationItem(props: any) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
         // onClick={() => {
@@ -190,7 +190,7 @@ function LocationItem(props: any) {
           minWidth: 150,
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton onDeleteHandle={() => {}} />

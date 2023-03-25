@@ -10,13 +10,16 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
+import { setAllWarehouseIds } from "redux/warehouse/warehouseSlice";
 import {
   IGetWarehouseResponseData,
   IGetWarehouseResponseRoot,
 } from "types/warehouse/getWarehouseResponse";
-import Warehouse from "__mock__/warhouses.json";
 import WarehouseItem from "./WarehouseItem";
 
 const tableTitle = [
@@ -52,11 +55,23 @@ const tableTitle = [
 ];
 
 interface IWarehouselisting {
-  data?: any;
+  data?: IGetWarehouseResponseRoot;
 }
-
+type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
   const { data } = props;
+  const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
+  const dispatch = useDispatch();
+  const selectAll = (event: IChangeEvent, checked: boolean) => {
+    if (data) {
+      dispatch(
+        setAllWarehouseIds({
+          ids: data?.data.map((i: any) => i.id),
+          checked,
+        }),
+      );
+    }
+  };
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -80,7 +95,14 @@ function WarehouseListing(props: IWarehouselisting) {
                     }}
                     leftValue={0}
                   >
-                    <Checkbox checked={false} />
+                    <Checkbox
+                      checked={
+                        data?.data.length ===
+                        getSelectedWarehouseByIdState?.length
+                      }
+                      color="primary"
+                      onChange={selectAll}
+                    />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isName = item.title.includes("Name");
@@ -91,8 +113,8 @@ function WarehouseListing(props: IWarehouselisting) {
                         key={item.id}
                         isHeader
                         customStyle={{
-                          position: isName && "sticky",
-                          left: isName && "60px",
+                          position: isName ?  "sticky":"static",
+                          left: isName ? 50:0,
                         }}
                         minWt={150}
                       >
@@ -109,6 +131,12 @@ function WarehouseListing(props: IWarehouselisting) {
                 {data?.data.map((item: IGetWarehouseResponseData) => {
                   return <WarehouseItem key={item.id} item={item} />;
                 })}
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Warehouse"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

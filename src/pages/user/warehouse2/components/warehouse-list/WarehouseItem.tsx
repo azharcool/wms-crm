@@ -1,21 +1,34 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setWarehouse } from "redux/warehouse/warehouseSlice";
+import { RootState, useAppDispatch } from "redux/store";
+import { getSelectedWarehouseById } from "redux/warehouse/warehouseSelector";
+import { setWarehouse, setWarehouseId } from "redux/warehouse/warehouseSlice";
+import palette from "theme/palette";
 import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
 
 interface IWarehouseItem {
-  item?: IGetWarehouseResponseData;
+  item: IGetWarehouseResponseData;
 }
 
 function WarehouseItem(props: IWarehouseItem) {
   const { item } = props;
+  const { deleteWarehouseAsync } = useWarehouseAction();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
+  const newtheme = useSelector((state: any) => state.theme);
+  const getSelectedWarehouseByIdState = useSelector((state: RootState) =>
+    getSelectedWarehouseById(state, item.id),
+  );
+  const dispatch = useAppDispatch();
+  const select = () => {
+    dispatch(setWarehouseId(item.id));
+  };
+
   return (
     <TableRow>
       <TableCell
@@ -25,10 +38,16 @@ function WarehouseItem(props: IWarehouseItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
-        <Checkbox checked={false} />
+        <Checkbox
+          checked={getSelectedWarehouseByIdState}
+          color="primary"
+          onChange={select}
+        />
       </TableCell>
 
       <TableCell
@@ -37,7 +56,9 @@ function WarehouseItem(props: IWarehouseItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -101,7 +122,7 @@ function WarehouseItem(props: IWarehouseItem) {
           // background: "white",
         }}
       >
-        {item?.status}
+        {item?.status === 1 ? "Active" : "Inactive"}
       </TableCell>
 
       <TableCell
@@ -109,10 +130,17 @@ function WarehouseItem(props: IWarehouseItem) {
           minWidth: 150,
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
+          cursor: "pointer",
         }}
       >
-        <TableActionButton onDeleteHandle={() => {}} />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteWarehouseAsync(item?.id);
+          }}
+        />
       </TableCell>
     </TableRow>
   );

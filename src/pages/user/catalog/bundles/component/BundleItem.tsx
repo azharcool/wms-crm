@@ -1,15 +1,17 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedBundleById } from "redux/catalog/bundleSelector";
 import { setBundleId } from "redux/catalog/bundleSlice";
 import { RootState, useAppDispatch } from "redux/store";
+import palette from "theme/palette";
 import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
@@ -20,6 +22,8 @@ interface IProps {
 function BundleItem(props: IProps) {
   const { bundle, refetch } = props;
   const navigate = useNavigate();
+  const [tags, setTags] = useState<any>([]);
+  const newtheme = useSelector((state: any) => state.theme);
   const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`, {
@@ -62,6 +66,7 @@ function BundleItem(props: IProps) {
       },
     });
   };
+
   return (
     <TableRow>
       <TableCell
@@ -71,7 +76,9 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox
@@ -86,7 +93,9 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
         onClick={() => goToDetails(id)}
       >
@@ -115,7 +124,9 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         {name || "not provided"}
@@ -123,7 +134,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         INR
@@ -131,7 +142,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {categoryName || "-"}
@@ -139,7 +150,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {brandName || "not provided"}
@@ -147,7 +158,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         not provided
@@ -156,16 +167,36 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
-        {tag}
+        {tag && (
+          <Stack flexDirection="row" flexWrap="wrap">
+            {tag.split(",").map((tag) => {
+              return (
+                <Box
+                  key={tag}
+                  sx={{
+                    borderRadius: "16px",
+                    background: "#fbdeba",
+                    color: "#8f391c",
+                    padding: "4px 8px",
+                    margin: "2px",
+                    fontSize: "12px",
+                  }}
+                >
+                  {tag}
+                </Box>
+              );
+            })}
+          </Stack>
+        )}
       </TableCell>
 
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {DateTimeFormat(createdOn)}
@@ -173,7 +204,7 @@ function BundleItem(props: IProps) {
       <TableCell
         sx={{
           minWidth: 150,
-          background: "white",
+          // background: "white",
         }}
       >
         {DateTimeFormat(createdOn)}
@@ -182,7 +213,9 @@ function BundleItem(props: IProps) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton onDeleteHandle={handleBundleDelete} />
