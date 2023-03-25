@@ -1,6 +1,10 @@
 import { useSnackbar } from "components/snackbar";
 import { useQueryClient } from "react-query";
-import { addLocation, editLocation } from "services/location.services";
+import {
+  addLocation,
+  deleteLocation,
+  editLocation,
+} from "services/location.services";
 import { AddLocationRequestRoot } from "types/warehouse/location/addLocationRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
@@ -53,9 +57,30 @@ function useLocationAction() {
     return false;
   };
 
+  const deleteLocationAction = async (id: number, warehouseId: number):Promise<boolean> => {
+    try {
+      const response = await deleteLocation(id, warehouseId);
+
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllLocation])
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
   return {
     addLocationAction,
     editLocationAction,
+    deleteLocationAction
   };
 }
 

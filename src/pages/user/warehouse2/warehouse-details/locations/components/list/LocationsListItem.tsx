@@ -1,5 +1,6 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useLocationAction from "hooks/warehouse/location/useLocation";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -15,7 +16,7 @@ function LocationsListItem(props: ILocationListItem) {
   const { item } = props;
   const navigate = useNavigate();
   const newtheme = useSelector((state: any) => state.theme);
-
+  const { deleteLocationAction } = useLocationAction();
   const {
     warehouse: { warehouseLayout, locationsDetails },
   } = AppRoutes;
@@ -218,7 +219,11 @@ function LocationsListItem(props: ILocationListItem) {
             : palette.background.default,
         }}
       >
-        <TableActionButton onDeleteHandle={() => {}} />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteLocationAction(item.id, item.warehouseId);
+          }}
+        />
       </TableCell>
     </TableRow>
   );
