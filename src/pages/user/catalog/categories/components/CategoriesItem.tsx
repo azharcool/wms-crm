@@ -1,4 +1,4 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
@@ -125,7 +125,35 @@ function CategoriesItem(props: ICategoriesItem) {
         }}
       >
         {/* <CustomSwitch /> */}
-        {item.status}
+        {item.status === 2 ? (
+          <Box
+            sx={{
+              borderRadius: "5px",
+              background: "#fff5f8",
+              color: "#f1416c",
+              padding: "4px 6.5px",
+              display: "inline-flex",
+              fontSize: "11px",
+              fontWeight: "600",
+            }}
+          >
+            Inactive
+          </Box>
+        ) : (
+          <Box
+            sx={{
+              borderRadius: "5px",
+              background: "#e8fff3",
+              color: "#50cd89",
+              padding: "4px 6.5px",
+              display: "inline-flex",
+              fontSize: "11px",
+              fontWeight: "600",
+            }}
+          >
+            Active
+          </Box>
+        )}
       </TableCell>
       <TableCell
         sx={{
@@ -142,7 +170,30 @@ function CategoriesItem(props: ICategoriesItem) {
           // background: "white",
         }}
       >
-        {item.tag}
+        {item.tag && (
+          <Stack flexDirection="row" flexWrap="wrap">
+            {item.tag.split(",").map((tag) => {
+              return (
+                <Box
+                  key={tag}
+                  sx={{
+                    borderRadius: "16px",
+                    background: "#fbdeba",
+                    color: "#8f391c",
+                    padding: "4px 8px",
+                    margin: "2px",
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    width: "80px",
+                    textAlign: "center",
+                  }}
+                >
+                  {tag}
+                </Box>
+              );
+            })}
+          </Stack>
+        )}
       </TableCell>
 
       <TableCell
