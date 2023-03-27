@@ -20,7 +20,7 @@ function Warehouse() {
   const { data: warehousePaginationResponse } =
     useGetAllWarehouse(warehousePagination);
   const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
-
+  const ids = getSelectedWarehouseIdsState.toString();
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
@@ -45,8 +45,8 @@ function Warehouse() {
             },
           ]}
           title="Warehouses"
+          isBulkDisabled={!!ids}
           onBulkHandle={() => {
-            const ids = getSelectedWarehouseIdsState.toString();
             bulkDeleteWarehouseAsync(ids);
           }}
         />

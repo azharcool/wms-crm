@@ -186,6 +186,7 @@ const API_URLS = {
   DELETE_VARIANT: `variant/${endPoints.delete}`,
   GET_ALL_PAGINATION_VARIANT_BY_PRODUCTID:
     "variant/getall-pagination-by-productId",
+  GET_ALL_BY_OPTIONNAME_VALUE:`variant/getall-by-optionNameValue`,
 
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,

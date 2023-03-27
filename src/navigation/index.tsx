@@ -11,6 +11,7 @@ import * as SettingsLoadable from "./loadRoutes/settings.load";
 import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
+import purchasesRouting from "./purchases.routing";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
 import warehouseRouting from "./warehouse.routing";
 
@@ -62,73 +63,14 @@ function Application() {
               element={<AdminLoadable.Dashboard />}
               path={AppRoutes.DASHBOARD}
             />
-            <Route
-              element={<UserLoadable.Warehouse />}
-              path={AppRoutes.WAREHOUSE}
-            />
-            <Route
-              element={<UserLoadable.WarehouseCreate />}
-              path={AppRoutes.WAREHOUSE_CREATE}
-            />
+
             {warehouseRouting}
-            <Route
-              element={<UserLoadable.WarehouseDetails />}
-              path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
-            />
-            <Route
-              element={<UserLoadable.AreaDetails />}
-              path={`${AppRoutes.AREA_DETAILS}/:areaId`}
-            />
-            <Route
-              element={<UserLoadable.ZoneDetails />}
-              path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
-            />
-            <Route
-              element={<UserLoadable.LocationDetails />}
-              path={`${AppRoutes.LOCATION_DETAILS}/:locationId`}
-            />
-            <Route
-              // eslint-disable-next-line import/namespace
-              element={<UserLoadable.ContainerDetails />}
-              path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
-            />
-            <Route
-              element={<UserLoadable.PurchaseOrder />}
-              path={`${AppRoutes.PURCHASE_ORDER}`}
-            />
-            <Route
-              element={<UserLoadable.AllOrderDetails />}
-              path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
-            />
-            <Route
-              element={<UserLoadable.AddPurchaseOrder />}
-              path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
-            />
-            <Route
-              element={<UserLoadable.AllOrderDetails />}
-              path={`${AppRoutes.PURCHASE.All_ORDER_DETAILS}/:orderId`}
-            />
-            <Route
-              element={<UserLoadable.AddPurchaseOrder />}
-              path={`${AppRoutes.PURCHASE.ADD_PURCHASE_ORDER}`}
-            />
+            {purchasesRouting}
+
             <Route
               element={<UserLoadable.Suppliers />}
               path={`${AppRoutes.PURCHASE.SUPPLIERS}`}
             />
-
-            <Route
-              element={<UserLoadable.Purchase />}
-              path={`${AppRoutes.PURCHASE.purchase}`}
-            >
-              <Route path={`${AppRoutes.PURCHASE.PURCHASE_ORDER}`}>
-                <Route index element={<UserLoadable.PurchaseOrder />} />
-                {/* <Route
-                  element={<UserLoadable.ProductCreate />}
-                  path={`${AppRoutes.CATALOG.productCreate}`}
-                /> */}
-              </Route>
-            </Route>
 
             <Route
               element={<UserLoadable.Catalog />}

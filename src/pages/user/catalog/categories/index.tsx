@@ -22,6 +22,7 @@ function Categories() {
 
   const { data: CategoryPaginationResponse } =
     useGetAllCategories(categoryPagination);
+  const ids = getSelectedCategoryIdsState.toString();
 
   return (
     <Container maxWidth={false}>
@@ -29,6 +30,7 @@ function Categories() {
         <TableToolbar
           hasBulk
           buttonText="New"
+          isBulkDisabled={!!ids}
           navTitle="CATALOG"
           rightActions={[
             {
@@ -49,7 +51,6 @@ function Categories() {
           ]}
           title="Categories"
           onBulkHandle={() => {
-            const ids = getSelectedCategoryIdsState.toString();
             bulkDeleteCategoriesAsync(ids);
           }}
         />

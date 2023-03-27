@@ -79,38 +79,19 @@ export default function General(props: IGeneral) {
               flex: 1,
             }}
           >
-            <CustomCardContent title="Details">
+            <CustomCardContent title="Options">
               <Stack direction="row" gap={2}>
                 <TextField
                   disabled={istrue}
-                  id="categoryName"
-                  label="Laptop"
-                  name="categoryName"
+                  id="value"
+                  label={data?.optionName}
+                  name="value"
                   //   nameRef={nameRef}
                   size="small"
-                  value="ssd"
+                  value={formik?.values.value}
                   onChange={() => {}}
                 />
-
-                <TextField
-                  disabled={istrue}
-                  id="categoySlug"
-                  label="mobile"
-                  name="categoySlug"
-                  size="small"
-                  value="android"
-                  onChange={() => {}}
-                />
-              </Stack>
-              <TextField
-                disabled={istrue}
-                id="categoySlug"
-                label="headphones"
-                name="categoySlug"
-                size="small"
-                value="wireless"
-                onChange={() => {}}
-              />
+            </Stack>
             </CustomCardContent>
           </Card>
 
@@ -124,29 +105,29 @@ export default function General(props: IGeneral) {
               <Stack direction="row" gap={2}>
                 <TextField
                   disabled={istrue}
-                  id="optionName"
+                  id="productName"
                   label="Name"
-                  name="optionName"
+                  name="productName"
                   //   nameRef={nameRef}
                   size="small"
-                  value={formik?.values.optionName}
+                  value={formik?.values.productName}
                   onChange={() => {}}
                 />
 
                 <TextField
                   disabled={istrue}
-                  id="categoySlug"
+                  id="description"
                   label="Description"
-                  name="categoySlug"
+                  name="description"
                   size="small"
-                  value="Not provided"
+                  value={formik?.values.description || "Not provided"}
                   onChange={() => {}}
                 />
               </Stack>
             </CustomCardContent>
           </Card>
           <Card sx={{ flex: 1, mt: 2 }}>
-            <CustomCardContent title="Options">
+            <CustomCardContent title="Images">
               <Grid sx={{ pt: 2 }}>
                 <Box
                   sx={{
