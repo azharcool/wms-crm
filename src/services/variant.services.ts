@@ -1,5 +1,6 @@
 import { IResponse } from "constants/interfaces";
 import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
+import { IGetAllByOptionNameValueResponseRooot } from "types/catalog/variants/getAllByOptionNameValueResponse";
 import { GetAllVariantByProductIdRoot } from "types/catalog/variants/getAllVariantByProductId";
 import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
 import { IGetByIdVariantRoot } from "types/catalog/variants/getByIdVariantResponse";
@@ -18,6 +19,14 @@ export async function getAllPaginationVariant(
 
 export async function getAllVariant(): Promise<IGetAllVariantResponseRoot> {
   const URL = `${API_URLS.GET_ALL_VARIANT}`;
+  return client.get(URL);
+}
+
+export async function getAllByOptionNameValue(restUrl:string): Promise<IGetAllByOptionNameValueResponseRooot> {
+  let URL = `${API_URLS.GET_ALL_BY_OPTIONNAME_VALUE}`;
+  if (restUrl) {
+    URL = `${URL}?${restUrl}`;
+  }
   return client.get(URL);
 }
 
