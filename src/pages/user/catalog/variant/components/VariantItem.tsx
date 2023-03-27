@@ -89,7 +89,9 @@ function VariantItem(props: IVariantItem) {
       >
         <Box
           onClick={() => {
-            navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`);
+            navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`,{
+              "state":{"optionName":item.optionName, "value":item.value}
+            });
           }}
         >
           <Tooltip title="TshirtXXL">

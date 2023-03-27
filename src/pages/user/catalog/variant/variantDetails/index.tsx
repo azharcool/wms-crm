@@ -15,12 +15,14 @@ import {
 } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import { useFormik } from "formik";
+import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import { useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
+import { IGetAllByOptionNameValueResponseData } from "types/catalog/variants/getAllByOptionNameValueResponse";
 import SidebarButton from "./components/SidebarButton";
 
 import Tabs from "./components/Tabs";
@@ -47,14 +49,15 @@ const useStyles = makeStyles({
 function VariantDetails() {
   const navigate = useNavigate();
   const { variantId } = useParams();
+  const { state } = useLocation();
+
   const nameRef = useRef<any>(null);
   const newtheme = useSelector((state: any) => state.theme);
   const [editable, setEditable] = useState(false);
-
+  const [selectedVariantId, setSelectedVariantId] = useState<number>();
   const { data: variantItemResponse } = useGetByIdVariant({
-    variantId: Number(variantId),
+    variantId: Number(selectedVariantId || variantId),
   });
-
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -134,6 +137,12 @@ function VariantDetails() {
 
   const istrue = !editable;
 
+  const data = {
+    optionName: state.optionName,
+    value: state?.value,
+  };
+  const { data: variantOptions, isFetching } = useGetAllByOptionNameValue(data);
+
   return (
     <Container maxWidth={false}>
       <Box
@@ -185,11 +194,20 @@ function VariantDetails() {
                 </Box>
               </Tooltip>
               <Divider sx={{ pb: 1 }} />
-
-              <SidebarButton />
-              <SidebarButton />
-              <SidebarButton />
-              <SidebarButton />
+              <Box>
+                <>
+                  {variantOptions?.data.map(
+                    (item: IGetAllByOptionNameValueResponseData) => {
+                      return (
+                        <SidebarButton
+                          data={item}
+                          setSelectedVariantId={setSelectedVariantId}
+                        />
+                      );
+                    },
+                  )}
+                </>
+              </Box>
             </Box>
           </Grid>
 
