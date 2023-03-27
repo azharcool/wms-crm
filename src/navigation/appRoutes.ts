@@ -69,7 +69,6 @@ const AppRoutes = {
     create: "create",
     update: "update",
 
-
     // tabs
     generalDetails: "general/details",
     areas: "areas/listing",
@@ -85,6 +84,30 @@ const AppRoutes = {
 
     // create
     locationCreate: "location/create",
+  },
+
+  purchases: {
+    layout: "purchase",
+    purchaseOrders: {
+      listing: "purchase-order/listing",
+      create: "purchase-order/create",
+      update: "purchase-order/update",
+      details: "purchase-order/details",
+    },
+
+    supplier: {
+      listing: "supplier/listing",
+      create: "supplier/create",
+      update: "supplier/update",
+      details: "supplier/details",
+    },
+
+    supplierReturns: {
+      listing: "supplier-returns/listing",
+      create: "supplier-returns/create",
+      update: "supplier-returns/update",
+      details: "supplier-returns/details",
+    },
   },
 };
 
