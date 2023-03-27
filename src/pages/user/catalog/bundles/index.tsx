@@ -12,12 +12,14 @@ function Bundles() {
   const navigate = useNavigate();
   const getSelectedBulkIdsState = useSelector(getSelectedBundle);
   const { bulkDeleteBundleAsync } = useBundleAction();
+  const ids = getSelectedBulkIdsState.toString();
 
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
+          isBulkDisabled={!!ids}
           buttonText="New"
           handleClick={() => {
             //   navigate(AppRoutes.CATALOG.productCreate);
@@ -42,7 +44,6 @@ function Bundles() {
           ]}
           title="Bundles"
           onBulkHandle={() => {
-            const ids = getSelectedBulkIdsState.toString();
             if (ids) {
               bulkDeleteBundleAsync(ids);
             }
