@@ -85,16 +85,16 @@ function BundleListing(props: IBundleListing) {
   } = useGetAllBundle(bundleData);
 
   const selectAll = (event: any, checked: boolean) => {
-    if (data) {
+    if (bundles) {
       dispatch(
         setAllBundleIds({
-          ids: data?.data.map((i) => i.id),
+          ids: bundles?.data.map((i) => i.id),
           checked,
         }),
       );
     }
   };
-
+  
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -120,7 +120,7 @@ function BundleListing(props: IBundleListing) {
                   >
                     <Checkbox
                       checked={
-                        data?.data.length === getSelectedBundleIdsState.length
+                        bundles?.data.length === getSelectedBundleIdsState.length
                       }
                       color="primary"
                       onChange={selectAll}

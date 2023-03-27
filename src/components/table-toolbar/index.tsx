@@ -17,6 +17,7 @@ interface ITableToolbar {
   isAdd?: boolean;
   buttonText?: any;
   handleClick?: any;
+  isBulkDisabled?: boolean;
   breadcrumbs?: IBreadcrumb[];
   navTitle?: string;
   rightActions?: IRightActions[];
@@ -74,8 +75,15 @@ function ToolBarButton(props: ITooblarButton) {
 }
 
 function TableToolbar(props: ITableToolbar) {
-  const { title, breadcrumbs, navTitle, rightActions, hasBulk, onBulkHandle } =
-    props;
+  const {
+    title,
+    breadcrumbs,
+    navTitle,
+    rightActions,
+    hasBulk,
+    onBulkHandle,
+    isBulkDisabled,
+  } = props;
   const location = useLocation();
   const navigation = useNavigate();
 
@@ -224,7 +232,12 @@ function TableToolbar(props: ITableToolbar) {
           ) : null}
 
           <Stack direction="row" gap={1}>
-            {hasBulk ? <BulkActionButton onBulkHandle={onBulkHandle} /> : null}
+            {hasBulk ? (
+              <BulkActionButton
+                onBulkHandle={onBulkHandle}
+                isDisabled={isBulkDisabled}
+              />
+            ) : null}
             {rightActions?.map((item) => {
               return (
                 <ToolBarButton
