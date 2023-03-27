@@ -1,15 +1,11 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-import LoopIcon from "@mui/icons-material/Loop";
 import {
   Box,
   Card,
-  CardContent,
   Container,
   DialogContent,
   DialogTitle,
   Divider,
   Grid,
-  IconButton,
   PaletteMode,
   Stack,
   Toolbar,
@@ -17,10 +13,11 @@ import {
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import TextField from "components/textfield";
 import { useSelector } from "react-redux";
 // import Typography from "theme/typography";
+import DashedCard from "components/card/DashedCard";
 import TableToolbar from "components/table-toolbar";
+import TextField from "components/textfield";
 
 interface ICustomCard {
   title: string;
@@ -90,462 +87,290 @@ function UnitHistory() {
           rightActions={[]}
           title="IPHONE XR"
         />
-      </Container>
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          flex: 1,
-        }}
-      >
-        <Toolbar
+        <Box
           sx={{
-            left: {
-              lg: 2,
-              display: "flex",
-              gap: 2,
-              flex: 1,
-            },
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-start",
+            marginTop: "16px",
+            flex: 1,
           }}
         >
-          <Card
-            sx={{ my: 2, display: "flex", flex: 1, justifyContent: "center" }}
-          >
-            <Card
-              sx={{
+          <Toolbar
+            sx={{
+              left: {
+                lg: 2,
                 display: "flex",
-                flexDirection: "column",
+                gap: 2,
                 flex: 1,
-              }}
-            >
-              <CardContent
-              // sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}
-              >
-                <DialogContent sx={{ flex: 1, display: "flex" }}>
-                  <Card
-                    sx={{
-                      padding: 2,
-                      width: 300,
-                    }}
-                  >
+              },
+            }}
+          >
+            <Grid container spacing={2}>
+              <Grid item xs={10}>
+                <Card
+                  sx={{
+                    flex: 1,
+                  }}
+                >
+                  <CustomCardContent title="Unit information">
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="variant"
+                        label="Variant"
+                        name="variant"
+                        size="small"
+                        value="Books non-fiction"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="unitNumber"
+                        label="Unit number"
+                        name="unitNumber"
+                        size="small"
+                        value="6463562295194"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="type"
+                        label="Type"
+                        name="type"
+                        size="small"
+                        value="INCREASE"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="oldQuantity"
+                        label="Old quantity"
+                        name="oldQuantity"
+                        size="small"
+                        value="0"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="newQuantity"
+                        label="New quantity"
+                        name="newQuantity"
+                        size="small"
+                        value="100"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="source"
+                        label="Source"
+                        name="source"
+                        size="small"
+                        value="SA-12912"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="destination"
+                        label="Destination"
+                        name="destination"
+                        size="small"
+                        value="Not provided"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="serialNumber"
+                        label="Serial number"
+                        name="serialNumber"
+                        size="small"
+                        value="Not provided"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="batchNumber"
+                        label="Batch number"
+                        name="batchNumber"
+                        size="small"
+                        value="Not provided"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="expiryDate"
+                        label="Expiry date"
+                        name="expiryDate"
+                        size="small"
+                        value="Not provided"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="price"
+                        label="Price"
+                        name="price"
+                        size="small"
+                        value="0"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="currency"
+                        label="Currency"
+                        name="currency"
+                        size="small"
+                        value="Not provided"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="rejected"
+                        label="Rejected"
+                        name="rejected"
+                        size="small"
+                        value=""
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="company"
+                        label="Company"
+                        name="company"
+                        size="small"
+                        value="Azhar"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="conditionCode"
+                        label="Condition code"
+                        name="conditionCode"
+                        size="small"
+                        value="New"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="container"
+                        label="Container"
+                        name="container"
+                        size="small"
+                        value="Not provided"
+                      />
+                    </Stack>
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="warehouse"
+                        label="Warehouse"
+                        name="warehouse"
+                        size="small"
+                        value="Default warehouse (Demo)"
+                      />
+                      <TextField
+                        darkDisable
+                        disabled
+                        id="locationID"
+                        label="Location ID"
+                        name="locationID"
+                        size="small"
+                        value="STG"
+                      />
+                    </Stack>
+                  </CustomCardContent>
+                </Card>
+              </Grid>
+              <Grid item xs={2}>
+                <Stack direction="column" gap={2}>
+                  <DashedCard title="Reserved for">
                     <Box
                       sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
+                        background: "#dfe3f5",
+                        color: "#2545B8",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
                       }}
                     >
-                      <Box>
-                        <Typography
-                          sx={{ fontSize: 12, fontWeight: "600" }}
-                          color="text.secondary"
-                        >
-                          Reserved for
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                          Not provided
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography
-                          sx={{ fontSize: 12, fontWeight: "600" }}
-                          color="text.secondary"
-                        >
-                          Result Qty
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                          50
-                        </Typography>
-                      </Box>
+                      Not Provided
                     </Box>
+                  </DashedCard>
+                  <DashedCard title="Location">
                     <Box
                       sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
+                        background: "#dfe3f5",
+                        color: "#2545B8",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
                       }}
                     >
-                      <Box>
-                        <Typography
-                          sx={{ fontSize: 12, fontWeight: "600" }}
-                          color="text.secondary"
-                        >
-                          Location
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                          Not provided
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <Typography
-                          sx={{ fontSize: 12, fontWeight: "600" }}
-                          color="text.secondary"
-                        >
-                          Difference
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                          50
-                        </Typography>
-                      </Box>
+                      STG
                     </Box>
+                  </DashedCard>
+                  <DashedCard title="Container">
                     <Box
                       sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        justifyContent: "space-around",
+                        background: "#dfe3f5",
+                        color: "#2545B8",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
                       }}
                     >
-                      <Box>
-                        <Typography
-                          sx={{ fontSize: 12, fontWeight: "600" }}
-                          color="text.secondary"
-                        >
-                          Container
-                        </Typography>
-                        <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                          Not provided
-                        </Typography>
-                      </Box>
+                      Not Provided
                     </Box>
-                  </Card>
-                </DialogContent>
-              </CardContent>
-            </Card>
-          </Card>
-        </Toolbar>
-        <Toolbar
-          sx={{
-            left: {
-              lg: 2,
-              display: "flex",
-              gap: 2,
-              flex: 1,
-            },
-          }}
-        >
-          <Grid container spacing={1}>
-            <Grid item xs={12}>
-              <Card
-                sx={{
-                  flex: 1,
-                }}
-              >
-                <CustomCardContent title="Details">
-                  <Grid container marginTop={1} spacing={2}>
-                    <Grid item xs={12}>
-                      <Stack direction="row" flexWrap="wrap" gap={2}>
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>{" "}
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>{" "}
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>{" "}
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>{" "}
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>
-                        <Stack direction="column" gap={2}>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">Name</Typography>
-                            <Typography>bundl-334</Typography>
-                          </Stack>
-                          <Stack direction="column" gap={1}>
-                            <Typography color="text.secondary">
-                              Description
-                            </Typography>
-                            <Typography>not provided</Typography>
-                          </Stack>
-                        </Stack>
-                      </Stack>
-                    </Grid>
-                  </Grid>
-                </CustomCardContent>
-              </Card>
+                  </DashedCard>
+                  <DashedCard title="Result Qty">
+                    <Box
+                      sx={{
+                        background: "#f1faff",
+                        color: "#009ef7",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      100
+                    </Box>
+                  </DashedCard>
+                  <DashedCard title="Difference">
+                    <Box
+                      sx={{
+                        background: "#e8fff3",
+                        color: "#50cd89",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      100
+                    </Box>
+                  </DashedCard>
+                </Stack>
+              </Grid>
             </Grid>
-          </Grid>
-        </Toolbar>
-        {/* <Toolbar
-          sx={{
-            left: {
-              lg: 2,
-              display: "flex",
-              gap: 2,
-              flex: 1,
-            },
-          }}
-        >
-          <Card
-            sx={{ my: 2, display: "flex", flex: 1, justifyContent: "center" }}
-          >
-            <Card
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                flex: 1,
-              }}
-            >
-              <CardContent
-                sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}
-              >
-                <DialogContent sx={{ flex: 1 }}>
-                  <Typography>Unit Information</Typography>
-                  <Divider sx={{ my: 1 }} />
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                   
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Variant
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        IPHONE XR White
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Unit number
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        894
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Type
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        Increase
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Old quantity
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        0
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: 2,
-                      alignItems: "center",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        New quantity
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        50
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Location Id
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        STG
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Warehouse
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        Default demo
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Source
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        SA- 3433
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      gap: 2,
-                      alignItems: "center",
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      marginBottom: "1rem",
-                    }}
-                  >
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Company
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        Smart
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Condition Code
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        New
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Price
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        0
-                      </Typography>
-                    </Box>
-                    <Box>
-                      <Typography
-                        sx={{ fontSize: 16, fontWeight: "700" }}
-                        variant="h6"
-                      >
-                        Current
-                      </Typography>
-                      <Typography sx={{ fontSize: 16, fontWeight: "500" }}>
-                        Not provided
-                      </Typography>
-                    </Box>
-                  </Box>
-                </DialogContent>
-              </CardContent>
-            </Card>
-          </Card>
-        </Toolbar> */}
-      </Box>
+          </Toolbar>
+        </Box>
+      </Container>
     </ThemeProvider>
   );
 }

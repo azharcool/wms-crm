@@ -1,3 +1,4 @@
+import { makeStyles } from "@material-ui/core/styles";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
@@ -16,15 +17,38 @@ import TableToolbar from "components/table-toolbar";
 import { useFormik } from "formik";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import { useRef, useState } from "react";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import palette from "theme/palette";
 import SidebarButton from "./components/SidebarButton";
 
 import Tabs from "./components/Tabs";
+
+const useStyles = makeStyles({
+  scrollBox: {
+    backgroundColor: "transparent",
+    "&::-webkit-scrollbar": {
+      width: "8px",
+    },
+    "&::-webkit-scrollbar-track": {
+      background: "#f1f1f1",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      background: "#888",
+      borderRadius: "8px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      background: "#555",
+    },
+  },
+});
 
 function VariantDetails() {
   const navigate = useNavigate();
   const { variantId } = useParams();
   const nameRef = useRef<any>(null);
+  const newtheme = useSelector((state: any) => state.theme);
   const [editable, setEditable] = useState(false);
 
   const { data: variantItemResponse } = useGetByIdVariant({
@@ -106,6 +130,8 @@ function VariantDetails() {
     },
   });
 
+  const classes = useStyles();
+
   const istrue = !editable;
 
   return (
@@ -118,12 +144,15 @@ function VariantDetails() {
         <Grid container columns={12} spacing={2}>
           <Grid item xs={3}>
             <Box
+              className={classes.scrollBox}
               sx={{
                 ml: -2.5,
                 mt: -2,
-                // backgroundColor: "#fff",
+                background: newtheme.isDarkMode
+                  ? "#26263D"
+                  : palette.background.default,
                 height: "100%",
-                // overflow: "scroll",
+                overflowY: "scroll",
                 position: "fixed",
               }}
             >
