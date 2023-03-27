@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getSelectedCategoryById } from "redux/catalog/categorySelector";
 import { setCategoryId } from "redux/catalog/categorySlice";
 import { RootState, useAppDispatch } from "redux/store";
+import palette from "theme/palette";
 import { IGetCategoriesResponseData } from "types/catalog/catagories/getCategoriesResponse";
 
 interface ICategoriesItem {
@@ -20,6 +21,7 @@ function CategoriesItem(props: ICategoriesItem) {
   const { item } = props;
   const navigate = useNavigate();
   const { deleteCategoryAsync } = useCategoriesAction();
+  const newtheme = useSelector((state: any) => state.theme);
   const getSelectedCategoryByIdState = useSelector((state: RootState) =>
     getSelectedCategoryById(state, item.id),
   );
@@ -38,7 +40,9 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox
@@ -53,7 +57,9 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Box
@@ -85,7 +91,9 @@ function CategoriesItem(props: ICategoriesItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -97,7 +105,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.position}
@@ -105,15 +113,15 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
-        {item.parentCategoryId}
+        {item.parentCategoryName}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* <CustomSwitch /> */}
@@ -122,7 +130,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.updatedOn}
@@ -131,7 +139,7 @@ function CategoriesItem(props: ICategoriesItem) {
       <TableCell
         sx={{
           minWidth: 200,
-          background: "white",
+          // background: "white",
         }}
       >
         {item.tag}
@@ -141,7 +149,9 @@ function CategoriesItem(props: ICategoriesItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton

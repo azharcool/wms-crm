@@ -10,13 +10,13 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
+import useCategory from "hooks/catalog/categories/useCategory";
 import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
-import { detailMenu } from "__mock__";
 import useAddCategoriesForm, {
   AddCategoriesForm,
 } from "../hooks/useAddCategoriesForm";
@@ -51,6 +51,7 @@ function CategoriesCreate() {
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
   const { addCategoriesAction } = useCategoriesAction();
+  const { category } = useCategory();
   const [categoryId, setCategoryId] = useState("");
   const [editable, setEditable] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
@@ -251,7 +252,7 @@ function CategoriesCreate() {
                     isSelect
                     id="parentCategoryId"
                     label="Parent"
-                    menuItems={detailMenu}
+                    menuItems={category}
                     name="parentCategoryId"
                     size="small"
                     value={values.parentCategoryId}

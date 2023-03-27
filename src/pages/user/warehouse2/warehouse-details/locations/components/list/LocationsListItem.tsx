@@ -1,8 +1,11 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useLocationAction from "hooks/warehouse/location/useLocation";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import palette from "theme/palette";
 import { GetAllLocationResponseData } from "types/warehouse/location/getAllLocationResponse";
 
 interface ILocationListItem {
@@ -12,6 +15,8 @@ interface ILocationListItem {
 function LocationsListItem(props: ILocationListItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const newtheme = useSelector((state: any) => state.theme);
+  const { deleteLocationAction } = useLocationAction();
   const {
     warehouse: { warehouseLayout, locationsDetails },
   } = AppRoutes;
@@ -25,7 +30,9 @@ function LocationsListItem(props: ILocationListItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox checked={false} />
@@ -37,8 +44,9 @@ function LocationsListItem(props: ILocationListItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
-          cursor: "pointer",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
         onClick={() => {
           navigate(navigateDetails);
@@ -206,10 +214,16 @@ function LocationsListItem(props: ILocationListItem) {
           minWidth: 150,
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
-        <TableActionButton onDeleteHandle={() => {}} />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteLocationAction(item.id, item.warehouseId);
+          }}
+        />
       </TableCell>
     </TableRow>
   );

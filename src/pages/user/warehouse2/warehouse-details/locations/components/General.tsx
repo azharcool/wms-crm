@@ -4,52 +4,53 @@ import TextField from "components/textfield";
 import { FormikProps } from "formik";
 import useBrand from "hooks/catalog/brand/useBrand";
 import useCategory from "hooks/catalog/categories/useCategory";
+import useArea from "hooks/warehouse/area/useArea";
+import useZone from "hooks/warehouse/zone/useZone";
 import { useEffect } from "react";
 import { GetByIdLocationResponseData } from "types/warehouse/location/getByIdLocationResponse";
-import {
-  area,
-  detailMenu,
-  Loctype,
-  operation,
-  warehouseStatus,
-} from "__mock__";
+import { Loctype, operation, warehouseStatus } from "__mock__";
+import { LocationInitialValues } from "../hooks/useLocationForm";
 
 interface IGeneral {
   isTrue?: boolean;
   nameRef?: any;
   editable?: boolean;
   data?: GetByIdLocationResponseData;
-  formik: FormikProps<any>;
+  formik: FormikProps<LocationInitialValues>;
 }
 
 function General(props: IGeneral) {
   const { isTrue, nameRef, editable, data, formik } = props;
-
+  const { areas } = useArea();
   const { category } = useCategory();
   const { brand } = useBrand();
+  const { zones } = useZone();
+
+  const { values, setFieldValue, errors, touched } = formik;
 
   useEffect(() => {
     if (data) {
-      formik?.setFieldValue("warehouse", data?.warehouseName || "");
-      formik?.setFieldValue("area", data?.areaName);
-      formik?.setFieldValue("zone", data?.zoneName || "");
-      formik?.setFieldValue("aisle", data?.aisle || "");
-      // formik?.setFieldValue("bay", data?. || "");
-      // formik?.setFieldValue("level", data?. || "");
-      // formik?.setFieldValue("bin", data?.bin || "");
-      formik?.setFieldValue("height", data?.height || "");
-      formik?.setFieldValue("width", data?.width || "");
-      formik?.setFieldValue("length", data?.length || "");
-      // formik?.setFieldValue("maxload", data?.maxload || "");
-      formik?.setFieldValue("volume", data?.volume || "");
-      // formik?.setFieldValue("location_alias", data?.location_alias || "");
-      // formik?.setFieldValue("location_type", data?.location_type || "");
-      formik?.setFieldValue("status", data?.status || "");
-      formik?.setFieldValue("x", data?.x || "");
-      formik?.setFieldValue("y", data?.y || "");
-      formik?.setFieldValue("z", data?.z || "");
+      setFieldValue("warehouse", data?.warehouseName || "");
+      setFieldValue("area", data?.areaId);
+      setFieldValue("zone", data?.zoneId || "");
+      setFieldValue("aisle", data?.aisle || "");
+      setFieldValue("bay", data?.rack || "");
+      setFieldValue("level", data?.shelf || "");
+      setFieldValue("bin", data?.position || "");
+      setFieldValue("height", data?.height || "");
+      setFieldValue("width", data?.width || "");
+      setFieldValue("length", data?.length || "");
+      setFieldValue("maxload", data?.maxLoad || "");
+      setFieldValue("volume", data?.volume || "");
+      setFieldValue("locationType", data?.locationAlias || "");
+      setFieldValue("locationAlias", data?.locationType || "");
+      setFieldValue("operations", data?.operations || "");
+      setFieldValue("status", data?.status || "");
+      setFieldValue("x", data?.x || "");
+      setFieldValue("y", data?.y || "");
+      setFieldValue("z", data?.z || "");
     }
-  }, [data]);
+  }, [data, editable]);
 
   return (
     <Grid container padding={0} spacing={2}>
@@ -62,50 +63,33 @@ function General(props: IGeneral) {
           <CustomCardContent title="Area/Zone">
             <Stack direction="row" gap={3}>
               <TextField
-                isSelect
-                disabled={isTrue}
+                disabled
                 id="warehouse"
                 label="Warehouse"
-                menuItems={detailMenu}
                 name="warehouse"
                 size="small"
-                value={formik?.values.warehouse}
-                onSelectHandler={(e) => {
-                  formik?.setFieldValue("warehouse", e.target.value);
-                }}
+                value={data?.warehouseName || ""}
               />
 
               <TextField
+                disabled
                 isSelect
-                error={!!formik.touched.area && !!formik.errors.area}
-                // helperText={
-                //   (formik.touched.area &&
-                //     formik.errors &&
-                //     formik.errors.area) ||
-                //   ""
-                // }
                 id="area"
                 label="Area"
-                menuItems={area}
+                menuItems={areas}
                 name="area"
                 size="small"
-                value={formik?.values.area}
-                onSelectHandler={(e) => {
-                  formik?.setFieldValue("area", e.target.value);
-                }}
+                value={values.area}
               />
               <TextField
+                disabled
                 isSelect
-                disabled={isTrue}
                 id="zone"
                 label="Zone"
-                menuItems={detailMenu}
+                menuItems={zones}
                 name="zone"
                 size="small"
-                value={formik?.values.zone}
-                onSelectHandler={(e) => {
-                  formik?.setFieldValue("zone", e.target.value);
-                }}
+                value={values.zone}
               />
             </Stack>
           </CustomCardContent>
@@ -113,39 +97,43 @@ function General(props: IGeneral) {
           <CustomCardContent title="Shelf/Bin">
             <Stack direction="row" gap={4}>
               <TextField
+                disabled={!editable}
                 id="aisle"
                 label="Aisle"
                 name="aisle"
                 nameRef={nameRef}
                 size="small"
-                value={formik?.values.aisle}
+                value={values.aisle}
                 onChange={formik.handleChange("aisle")}
               />
               <TextField
+                disabled={!editable}
                 id="bay"
                 label="Bay/Rack"
                 name="bay"
                 nameRef={nameRef}
                 size="small"
-                value={formik?.values.bay}
+                value={values.bay}
                 onChange={formik.handleChange("bay")}
               />
               <TextField
+                disabled={!editable}
                 id="level"
                 label="Level/Shelf"
                 name="level"
                 nameRef={nameRef}
                 size="small"
-                value={formik?.values.level}
+                value={values.level}
                 onChange={formik.handleChange("level")}
               />
               <TextField
+                disabled={!editable}
                 id="bin"
                 label="Bin/Position"
                 name="bin"
                 nameRef={nameRef}
                 size="small"
-                value={formik?.values.bin}
+                value={values.bin}
                 onChange={formik.handleChange("bin")}
               />
             </Stack>
@@ -154,39 +142,39 @@ function General(props: IGeneral) {
           <CustomCardContent title="Demensions">
             <Stack direction="row" gap={3} marginTop={2}>
               <TextField
+                disabled={!editable}
                 id="height"
                 label="Height"
                 name="height"
                 size="small"
-                value={formik?.values.height}
+                value={values.height}
                 onChange={(e) => {
-                  formik?.setFieldValue(
+                  setFieldValue(
                     "height",
                     e.target.value.replace(/[^0-9]/g, ""),
                   );
                 }}
               />
               <TextField
+                disabled={!editable}
                 id="width"
                 label="Width"
                 name="width"
                 size="small"
-                value={formik?.values.width}
+                value={values.width}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "width",
-                    e.target.value.replace(/[^0-9]/g, ""),
-                  );
+                  setFieldValue("width", e.target.value.replace(/[^0-9]/g, ""));
                 }}
               />
               <TextField
+                disabled={!editable}
                 id="length"
                 label="Length"
                 name="length"
                 size="small"
-                value={formik?.values.length}
+                value={values.length}
                 onChange={(e) => {
-                  formik?.setFieldValue(
+                  setFieldValue(
                     "length",
                     e.target.value.replace(/[^0-9]/g, ""),
                   );
@@ -195,28 +183,29 @@ function General(props: IGeneral) {
             </Stack>
             <Stack direction="row" gap={3} marginTop={3}>
               <TextField
+                disabled={!editable}
                 id="maxload"
                 label="Max.Load"
                 name="maxload"
                 size="small"
-                value={formik?.values.maxload}
+                value={values.maxLoad}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "maxload",
+                  setFieldValue(
+                    "maxLoad",
                     e.target.value.replace(/[^0-9]/g, ""),
                   );
                 }}
               />
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="volume"
                 label="Volume"
                 name="volume"
                 size="small"
-                value={formik?.values.volume}
+                value={values.volumn}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "volume",
+                  setFieldValue(
+                    "volumn",
                     e.target.value.replace(/[^0-9]/g, ""),
                   );
                 }}
@@ -235,14 +224,15 @@ function General(props: IGeneral) {
           <CustomCardContent title="Settings">
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                id="location_alias"
+                disabled={!editable}
+                id="locationAlias"
                 label="Location alias"
-                name="location_alias"
+                name="locationAlias"
                 size="small"
-                value={formik?.values.location_alias}
+                value={values.locationAlias}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "location_alias",
+                  setFieldValue(
+                    "locationAlias",
                     e.target.value.replace(/[^0-9]/g, ""),
                   );
                 }}
@@ -251,39 +241,42 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
+                disabled={!editable}
                 label="Location type"
                 menuItems={Loctype}
-                name="location_type"
+                name="locationType"
                 size="small"
-                value={formik?.values.location_type}
+                value={values.locationType}
                 onSelectHandler={(e) => {
-                  formik?.setFieldValue("location_type", e.target.value);
+                  setFieldValue("locationType", e.target.value);
                 }}
               />
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
+                disabled={!editable}
                 label="Operation"
                 menuItems={operation}
                 name="operations"
                 size="small"
-                value={formik?.values.operations}
+                value={values.operation}
                 onSelectHandler={(e) => {
-                  formik?.setFieldValue("operations", e.target.value);
+                  setFieldValue("operations", e.target.value);
                 }}
               />
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
+                disabled={!editable}
                 label="Status"
                 menuItems={warehouseStatus}
                 name="status"
                 size="small"
-                value={formik?.values.status}
+                value={values.status}
                 onSelectHandler={(e) => {
-                  formik?.setFieldValue("status", e.target.value);
+                  setFieldValue("status", e.target.value);
                 }}
               />
             </Stack>
@@ -291,50 +284,41 @@ function General(props: IGeneral) {
           <CustomCardContent title="Coordinates">
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="x"
                 label="X"
                 name="x"
                 size="small"
-                value={formik?.values.x}
+                value={values.x}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "x",
-                    e.target.value.replace(/[^0-9]/g, ""),
-                  );
+                  setFieldValue("x", e.target.value.replace(/[^0-9]/g, ""));
                 }}
               />
             </Stack>
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="yy"
                 label="Y"
                 name="minExpiryDays"
                 size="small"
-                value={formik?.values.y}
+                value={values.y}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "y",
-                    e.target.value.replace(/[^0-9]/g, ""),
-                  );
+                  setFieldValue("y", e.target.value.replace(/[^0-9]/g, ""));
                 }}
               />
             </Stack>
 
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="z"
                 label="Z"
                 name="z"
                 size="small"
-                value={formik?.values.z}
+                value={values.z}
                 onChange={(e) => {
-                  formik?.setFieldValue(
-                    "z",
-                    e.target.value.replace(/[^0-9]/g, ""),
-                  );
+                  setFieldValue("z", e.target.value.replace(/[^0-9]/g, ""));
                 }}
               />
             </Stack>

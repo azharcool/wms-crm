@@ -69,9 +69,12 @@ function WarehouseDetails() {
               id: crypto.randomUUID(),
               title: "Edit",
               onClick: () => {
-                navigate(`/warehouse/${AppRoutes.warehouse.update}/${detailsId}`, {
-                  state: { editData:warehouseDetailsResponse?.data },
-                });
+                navigate(
+                  `/warehouse/${AppRoutes.warehouse.update}/${detailsId}`,
+                  {
+                    state: { editData: warehouseDetailsResponse?.data },
+                  },
+                );
               },
               icon: (
                 <EditIcon
@@ -87,6 +90,16 @@ function WarehouseDetails() {
         />
         <Tabs
           aria-label="basic tabs example"
+          sx={{
+            "& .MuiTab-root.Mui-selected": {
+              color: "#c44e13",
+            },
+          }}
+          TabIndicatorProps={{
+            style: {
+              background: "#c44e13",
+            },
+          }}
           value={value}
           onChange={handleChange}
         >
@@ -101,5 +114,4 @@ function WarehouseDetails() {
     </Container>
   );
 }
-
 export default WarehouseDetails;

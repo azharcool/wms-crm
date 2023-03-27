@@ -8,8 +8,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import TableMessage from "components/table-message";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import useGetAllZone from "hooks/querys/warehouse/zone/useGetAllZone";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -118,6 +120,10 @@ function ZonesListing() {
                 {zoneResponse?.data.map((item) => {
                   return <ZonesListItem key={item.id} item={item} />;
                 })}
+
+                {!zoneResponse?.data.length ? (
+                  <NoDataTableRow colSize={4} title="No data found in Zone" />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

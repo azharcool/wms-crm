@@ -5,7 +5,9 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
 import bundle from "./catalog/bundleSlice";
-
+import area from "./warehouse/areaSlice";
+import location from "./warehouse/locationSlice";
+import zone from "./warehouse/zoneSlice";
 import brand from "./catalog/brandSlice";
 import category from "./catalog/categorySlice";
 import product from "./catalog/productSlice";
@@ -36,6 +38,9 @@ const combinedReducer = combineReducers({
   category,
   brand,
   warehouse,
+  area,
+  location,
+  zone
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

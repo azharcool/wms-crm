@@ -1,5 +1,6 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useZoneAction from "hooks/warehouse/zone/useZoneAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,7 @@ function ZonesListItem(props: IZonesListItem) {
   const {
     warehouse: { warehouseLayout, zonesDetails },
   } = AppRoutes;
-
+  const {deleteZoneAction} = useZoneAction();
   const navigateDetails = `/${warehouseLayout}/${zonesDetails}/${item.id}`;
   return (
     <TableRow>
@@ -25,7 +26,7 @@ function ZonesListItem(props: IZonesListItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} />
@@ -37,7 +38,7 @@ function ZonesListItem(props: IZonesListItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          // background: "white",
           cursor: "pointer",
         }}
         onClick={() => {
@@ -88,10 +89,12 @@ function ZonesListItem(props: IZonesListItem) {
           minWidth: 150,
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
-        <TableActionButton onDeleteHandle={() => {}} />
+        <TableActionButton onDeleteHandle={() => {
+          deleteZoneAction(item.id, item.warehouseId)
+        }} />
       </TableCell>
     </TableRow>
   );

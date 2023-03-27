@@ -19,7 +19,7 @@ function UnitItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -31,7 +31,7 @@ function UnitItem() {
           left: 60,
           zIndex: 999,
           cursor: "pointer",
-          background: "white",
+          // background: "white",
         }}
         onClick={() => goToDetails("1")}
       >
@@ -54,7 +54,7 @@ function UnitItem() {
           position: "sticky",
           zIndex: 999,
           left: 130,
-          background: "white",
+          // background: "white",
         }}
       >
         IPHONE XR White
@@ -177,7 +177,7 @@ function UnitItem() {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton />

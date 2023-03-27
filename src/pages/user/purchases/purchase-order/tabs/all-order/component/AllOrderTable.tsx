@@ -1,12 +1,6 @@
+import { makeStyles } from "@material-ui/core/styles";
 import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import EditIcon from "@mui/icons-material/Edit";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
 import {
-  alpha,
   Box,
   Card,
   Checkbox,
@@ -18,23 +12,17 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Toolbar,
-  Tooltip,
-  Typography,
 } from "@mui/material";
-import { makeStyles } from "@material-ui/core/styles";
 import { useAlert } from "components/alert";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
-import FilterListIcon from "@mui/icons-material/FilterList";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { useNavigate } from "react-router-dom";
 import { usePermissionActions } from "redux/permissions/permissions";
 import palette from "theme/palette";
-import AppRoutes from "navigation/appRoutes";
-import { useNavigate } from "react-router-dom";
-import MoreMenu from "components/common/MoreMenu";
 
 interface IProps {
-    allOrders: IAllOrders[];
+  allOrders: IAllOrders[];
   total: number;
   setCurrentPage?: (page: number) => void;
   setPageLimit?: (limit: number) => void;
@@ -42,27 +30,28 @@ interface IProps {
   handleDeletePermission: (id: number) => void;
 }
 
-const useStyles= makeStyles({
-  sticky:{
-    position:"sticky", left:0, background:"#f4f4f4"
-  }
-})
+const useStyles = makeStyles({
+  sticky: {
+    position: "sticky",
+    left: 0,
+    background: "#f4f4f4",
+  },
+});
 
 interface IAllOrders {
   id: string;
-  po:string,
-  suppliers:string,
-  status:string,
-  products:string,
-  total:string,
-  received:string,
-  receiving:string,
-  expectedDate:string,
-  createdDate:string,
-  lastUpdated:string,
-  suppRefId:string,
-  tags:string
-
+  po: string;
+  suppliers: string;
+  status: string;
+  products: string;
+  total: string;
+  received: string;
+  receiving: string;
+  expectedDate: string;
+  createdDate: string;
+  lastUpdated: string;
+  suppRefId: string;
+  tags: string;
 }
 
 function AllOrderTable(props: IProps) {
@@ -98,7 +87,7 @@ function AllOrderTable(props: IProps) {
 
     setSelectedPermissionIds(newSelectedCustomerIds);
   };
-  const classes = useStyles()
+  const classes = useStyles();
   const handleSelectOne = (event: any, id: any) => {
     const selectedIndex = selectedPermissionIds.indexOf(id);
     let newSelectedCustomerIds: string[] = [];
@@ -167,121 +156,133 @@ function AllOrderTable(props: IProps) {
     <Card>
       <PerfectScrollbar>
         <Box sx={{ minWidth: 1050, overflow: "hidden" }}>
-          <TableContainer style={{ minWidth: 1050, overflow:'auto'}}>
-          <Table sx={{}}>
-            <TableHead>
-              <TableRow>
-                <TableCell padding="checkbox" className={classes.sticky}>
-                  <Checkbox
-                    // checked={selectedPermissionIds.length === total}
-                    className={classes.sticky}
-                    checked={false}
-                    color="primary"
-                    indeterminate={
-                      selectedPermissionIds.length > 0 &&
-                      selectedPermissionIds.length < total
-                    }
-                    onChange={handleSelectAll}
-                  />
-                </TableCell>
-                <TableCell className={classes.sticky}>PO #</TableCell>
-                <TableCell>SUPPLIER</TableCell>
-                <TableCell>STATUS</TableCell>
-                <TableCell>PRODUCTS</TableCell>
-                <TableCell>TOTAL</TableCell>
-                <TableCell>RECEIVED/ORDERED</TableCell>
-                <TableCell>RECEIVING WAREHOUSE</TableCell>
-                <TableCell>EXPECTED DATE</TableCell>
-                <TableCell>CREATED DATE</TableCell>
-                <TableCell>LAST UPDATED</TableCell>
-                <TableCell>SUPPLIER REF ID</TableCell>
-                <TableCell>TAGS</TableCell>
-                <TableCell>NOTES</TableCell>
-                <TableCell>ACTION</TableCell>             
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {allOrders.map((order: IAllOrders) => {
-                const {
-                  id,
-                  po,
-                  suppliers,
-                  status,
-                  products,
-                  total,
-                  received,
-                  receiving,
-                  expectedDate,
-                  createdDate,
-                  lastUpdated,
-                  suppRefId,
-                  tags
-                } = order;
-                return (
-                  <TableRow
-                    key={id}
-                    selected={selectedPermissionIds.indexOf(id) !== -1}
-                  >
-                    <TableCell padding="checkbox"  sx={{ position:"sticky", left:0, background:'white'}}>
-                      <Checkbox
-                      sx={{ position:"sticky", left:0, background:'white'}}
-                        checked={selectedPermissionIds.indexOf(id) !== -1}
-                        value="true"
-                        onChange={(event) => {
-                          return handleSelectOne(event, id);
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                    scope="row"
-                    component="th"
-                      sx={{ cursor: "pointer", position:"sticky", left:0, background:'white'}}
-                      onClick={() => gotoDetails(id)}
+          <TableContainer style={{ minWidth: 1050, overflow: "auto" }}>
+            <Table sx={{}}>
+              <TableHead>
+                <TableRow>
+                  <TableCell className={classes.sticky} padding="checkbox">
+                    <Checkbox
+                      // checked={selectedPermissionIds.length === total}
+                      checked={false}
+                      className={classes.sticky}
+                      color="primary"
+                      indeterminate={
+                        selectedPermissionIds.length > 0 &&
+                        selectedPermissionIds.length < total
+                      }
+                      onChange={handleSelectAll}
+                    />
+                  </TableCell>
+                  <TableCell className={classes.sticky}>PO #</TableCell>
+                  <TableCell>SUPPLIER</TableCell>
+                  <TableCell>STATUS</TableCell>
+                  <TableCell>PRODUCTS</TableCell>
+                  <TableCell>TOTAL</TableCell>
+                  <TableCell>RECEIVED/ORDERED</TableCell>
+                  <TableCell>RECEIVING WAREHOUSE</TableCell>
+                  <TableCell>EXPECTED DATE</TableCell>
+                  <TableCell>CREATED DATE</TableCell>
+                  <TableCell>LAST UPDATED</TableCell>
+                  <TableCell>SUPPLIER REF ID</TableCell>
+                  <TableCell>TAGS</TableCell>
+                  <TableCell>NOTES</TableCell>
+                  <TableCell>ACTION</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {allOrders.map((order: IAllOrders) => {
+                  const {
+                    id,
+                    po,
+                    suppliers,
+                    status,
+                    products,
+                    total,
+                    received,
+                    receiving,
+                    expectedDate,
+                    createdDate,
+                    lastUpdated,
+                    suppRefId,
+                    tags,
+                  } = order;
+                  return (
+                    <TableRow
+                      key={id}
+                      selected={selectedPermissionIds.indexOf(id) !== -1}
                     >
-                      {po}
-                    </TableCell>
-                    <TableCell>{suppliers}</TableCell>
-                    <TableCell>{status}</TableCell>
-                    <TableCell>{products}</TableCell>
-                    <TableCell>{total}</TableCell>
-                    <TableCell>{received}</TableCell>
-                    <TableCell>{receiving}</TableCell>
-                    <TableCell>{expectedDate}</TableCell>
-                    <TableCell>{createdDate}</TableCell>
-                    <TableCell>{lastUpdated}</TableCell>
-                    <TableCell>{suppRefId}</TableCell>
-                    <TableCell>{tags}</TableCell>
-                    <TableCell>notes</TableCell>
-                    <TableCell>
-                      <Box
-                        sx={{
-                          display: "flex",
-                          gap: 1,
-                          "& svg": {
-                            cursor: "pointer",
-                          },
-                        }}
+                      <TableCell
+                        padding="checkbox"
+                        sx={{ position: "sticky", left: 0 }}
                       >
-                        <Box>
-                          <IconButton onClick={() => handleEdit()}>
-                            <CreateIcon
-                              sx={{
-                                fontSize: "1.2rem",
-                                color: palette.secondary.lightGray,
-                                "&:hover": {
-                                  color: palette.info.dark,
-                                },
-                              }}
-                            />
-                          </IconButton>
+                        <Checkbox
+                          checked={selectedPermissionIds.indexOf(id) !== -1}
+                          sx={{
+                            position: "sticky",
+                            left: 0,
+                            // background: "white",
+                          }}
+                          value="true"
+                          onChange={(event) => {
+                            return handleSelectOne(event, id);
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell
+                        component="th"
+                        scope="row"
+                        sx={{
+                          cursor: "pointer",
+                          position: "sticky",
+                          left: 0,
+                          // background: "white",
+                        }}
+                        onClick={() => gotoDetails(id)}
+                      >
+                        {po}
+                      </TableCell>
+                      <TableCell>{suppliers}</TableCell>
+                      <TableCell>{status}</TableCell>
+                      <TableCell>{products}</TableCell>
+                      <TableCell>{total}</TableCell>
+                      <TableCell>{received}</TableCell>
+                      <TableCell>{receiving}</TableCell>
+                      <TableCell>{expectedDate}</TableCell>
+                      <TableCell>{createdDate}</TableCell>
+                      <TableCell>{lastUpdated}</TableCell>
+                      <TableCell>{suppRefId}</TableCell>
+                      <TableCell>{tags}</TableCell>
+                      <TableCell>notes</TableCell>
+                      <TableCell>
+                        <Box
+                          sx={{
+                            display: "flex",
+                            gap: 1,
+                            "& svg": {
+                              cursor: "pointer",
+                            },
+                          }}
+                        >
+                          <Box>
+                            <IconButton onClick={() => handleEdit()}>
+                              <CreateIcon
+                                sx={{
+                                  fontSize: "1.2rem",
+                                  color: palette.secondary.lightGray,
+                                  "&:hover": {
+                                    color: palette.info.dark,
+                                  },
+                                }}
+                              />
+                            </IconButton>
+                          </Box>
                         </Box>
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
           </TableContainer>
         </Box>
       </PerfectScrollbar>

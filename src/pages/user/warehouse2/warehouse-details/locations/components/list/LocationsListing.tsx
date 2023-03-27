@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import useGetAllLocation from "hooks/querys/warehouse/location/useGetAllLocation";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
@@ -177,6 +178,13 @@ function LocationsListing() {
                 {locationResponse?.data.map((item) => {
                   return <LocationsListItem key={item.id} item={item} />;
                 })}
+
+                {!locationResponse?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Location"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

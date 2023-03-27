@@ -60,7 +60,7 @@ function BrandItem(props: IBrandItem) {
           // position: "sticky",
           // left: 0,
           // zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Checkbox
@@ -75,7 +75,7 @@ function BrandItem(props: IBrandItem) {
           // position: "sticky",
           // left: 60,
           // zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
       >
         <Box
@@ -113,7 +113,7 @@ function BrandItem(props: IBrandItem) {
           // position: "sticky",
           // left: 130,
           // zIndex: 999,
-          background: "white",
+          // background: "white",
         }}
         onClick={() => {
           navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
@@ -130,7 +130,7 @@ function BrandItem(props: IBrandItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         <TableActionButton

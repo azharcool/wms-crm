@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 // import "react-perfect-scrollbar/dist/css/styles.css";
 import NOImage from "assets/images/no-image.png";
+import { useSelector } from "react-redux";
+import palette from "theme/palette";
 
 interface IVariantItem {
   item: IGetAllVariantResponseData;
@@ -20,6 +22,7 @@ interface IVariantItem {
 function VariantItem(props: IVariantItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const newtheme = useSelector((state: any) => state.theme);
 
   return (
     <TableRow>
@@ -30,7 +33,9 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -41,7 +46,9 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Box
@@ -74,7 +81,9 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
           cursor: "pointer",
         }}
       >
@@ -96,7 +105,7 @@ function VariantItem(props: IVariantItem) {
           width: 150,
           position: "sticky",
           left: 0,
-          background: "white",
+          // background: "white",
         }}
       >
         {/* Pieces */}-
@@ -219,7 +228,9 @@ function VariantItem(props: IVariantItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <TableActionButton />

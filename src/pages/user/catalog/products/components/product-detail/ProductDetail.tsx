@@ -231,6 +231,16 @@ function ProductDetail() {
         <Stack direction="row">
           <Tabs
             aria-label="basic tabs example"
+            sx={{
+              "& .MuiTab-root.Mui-selected": {
+                color: "#c44e13",
+              },
+            }}
+            TabIndicatorProps={{
+              style: {
+                background: "#c44e13",
+              },
+            }}
             value={value}
             onChange={handleChange}
           >

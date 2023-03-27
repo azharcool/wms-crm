@@ -1,7 +1,7 @@
 import { IResponse } from "constants/interfaces";
 import { AddLocationRequestRoot } from "types/warehouse/location/addLocationRequest";
 import { GetAllLocationResponseRoot } from "types/warehouse/location/getAllLocationResponse";
-import { GetByIdResponseRoot } from "types/warehouse/zone/getByIdZoneResponse";
+import { GetByIdLocationResponseRoot } from "types/warehouse/location/getByIdLocationResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
@@ -36,7 +36,7 @@ export async function getAllPaginationLocation(
 
 export async function getByIdLocation(
   restUrl: string,
-): Promise<GetByIdResponseRoot> {
+): Promise<GetByIdLocationResponseRoot> {
   let URL = `${API_URLS.GET_BY_ID_LOCATION}`;
   if (restUrl) {
     URL = `${URL}?${restUrl}`;
@@ -44,8 +44,8 @@ export async function getByIdLocation(
   return client.get(URL);
 }
 
-export async function deleteLocation(id: number): Promise<IResponse> {
-  const URL = `${API_URLS.DELETE_LOCATION}/${id}`;
+export async function deleteLocation(id: number,warehouseId:number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_LOCATION}/${id}?warehouseId=${warehouseId}`;
   return client.delete(URL);
 }
 

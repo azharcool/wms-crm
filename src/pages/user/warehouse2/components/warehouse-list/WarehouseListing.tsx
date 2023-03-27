@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -59,10 +60,8 @@ interface IWarehouselisting {
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
   const { data } = props;
-  console.log("lisData", data);
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
-
   const selectAll = (event: IChangeEvent, checked: boolean) => {
     if (data) {
       dispatch(
@@ -114,8 +113,8 @@ function WarehouseListing(props: IWarehouselisting) {
                         key={item.id}
                         isHeader
                         customStyle={{
-                          position: isName && "sticky",
-                          left: isName && "60px",
+                          position: isName ?  "sticky":"static",
+                          left: isName ? 50:0,
                         }}
                         minWt={150}
                       >
@@ -132,6 +131,12 @@ function WarehouseListing(props: IWarehouselisting) {
                 {data?.data.map((item: IGetWarehouseResponseData) => {
                   return <WarehouseItem key={item.id} item={item} />;
                 })}
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Warehouse"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>
