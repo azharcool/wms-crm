@@ -62,36 +62,9 @@ function Application() {
               element={<AdminLoadable.Dashboard />}
               path={AppRoutes.DASHBOARD}
             />
-            <Route
-              element={<UserLoadable.Warehouse />}
-              path={AppRoutes.WAREHOUSE}
-            />
-            <Route
-              element={<UserLoadable.WarehouseCreate />}
-              path={AppRoutes.WAREHOUSE_CREATE}
-            />
+
             {warehouseRouting}
-            <Route
-              element={<UserLoadable.WarehouseDetails />}
-              path={`${AppRoutes.WAREHOUSE_DETAILS}/:warehouseId`}
-            />
-            <Route
-              element={<UserLoadable.AreaDetails />}
-              path={`${AppRoutes.AREA_DETAILS}/:areaId`}
-            />
-            <Route
-              element={<UserLoadable.ZoneDetails />}
-              path={`${AppRoutes.ZONE_DETAILS}/:zoneId`}
-            />
-            <Route
-              element={<UserLoadable.LocationDetails />}
-              path={`${AppRoutes.LOCATION_DETAILS}/:locationId`}
-            />
-            <Route
-              // eslint-disable-next-line import/namespace
-              element={<UserLoadable.ContainerDetails />}
-              path={`${AppRoutes.CONTAINER_DETAILS}/:containerId`}
-            />
+
             <Route
               element={<UserLoadable.PurchaseOrder />}
               path={`${AppRoutes.PURCHASE_ORDER}`}
