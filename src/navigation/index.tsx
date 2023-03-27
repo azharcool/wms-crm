@@ -11,6 +11,7 @@ import * as SettingsLoadable from "./loadRoutes/settings.load";
 import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
+import purchasesRouting from "./purchases.routing";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
 import warehouseRouting from "./warehouse.routing";
 
@@ -64,44 +65,12 @@ function Application() {
             />
 
             {warehouseRouting}
+            {purchasesRouting}
 
-            <Route
-              element={<UserLoadable.PurchaseOrder />}
-              path={`${AppRoutes.PURCHASE_ORDER}`}
-            />
-            <Route
-              element={<UserLoadable.AllOrderDetails />}
-              path={`${AppRoutes.All_ORDER_DETAILS}/:orderId`}
-            />
-            <Route
-              element={<UserLoadable.AddPurchaseOrder />}
-              path={`${AppRoutes.ADD_PURCHASE_ORDER}`}
-            />
-            <Route
-              element={<UserLoadable.AllOrderDetails />}
-              path={`${AppRoutes.PURCHASE.All_ORDER_DETAILS}/:orderId`}
-            />
-            <Route
-              element={<UserLoadable.AddPurchaseOrder />}
-              path={`${AppRoutes.PURCHASE.ADD_PURCHASE_ORDER}`}
-            />
             <Route
               element={<UserLoadable.Suppliers />}
               path={`${AppRoutes.PURCHASE.SUPPLIERS}`}
             />
-
-            <Route
-              element={<UserLoadable.Purchase />}
-              path={`${AppRoutes.PURCHASE.purchase}`}
-            >
-              <Route path={`${AppRoutes.PURCHASE.PURCHASE_ORDER}`}>
-                <Route index element={<UserLoadable.PurchaseOrder />} />
-                {/* <Route
-                  element={<UserLoadable.ProductCreate />}
-                  path={`${AppRoutes.CATALOG.productCreate}`}
-                /> */}
-              </Route>
-            </Route>
 
             <Route
               element={<UserLoadable.Catalog />}
