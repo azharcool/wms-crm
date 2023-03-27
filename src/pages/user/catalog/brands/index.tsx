@@ -30,6 +30,7 @@ function Brands() {
   const handleBrand = () => {
     setOpenBrand((s) => !s);
   };
+  const ids = getSelectedBrandIdsState.toString();
 
   return (
     <Container maxWidth={false}>
@@ -37,6 +38,7 @@ function Brands() {
         <TableToolbar
           hasBulk
           buttonText="New"
+          isBulkDisabled={!!ids}
           handleClick={() => {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
@@ -60,7 +62,6 @@ function Brands() {
           ]}
           title="Brands"
           onBulkHandle={() => {
-            const ids = getSelectedBrandIdsState.toString();
             bulkDeleteBrandAsync(ids);
           }}
         />
