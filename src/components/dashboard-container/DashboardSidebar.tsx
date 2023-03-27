@@ -99,7 +99,7 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Suppliers",
-        location: AppRoutes.PURCHASE.SUPPLIERS,
+        location: `/${AppRoutes.PURCHASE.purchase}/${AppRoutes.PURCHASE.SUPPLIERS}`,
       },
       {
         id: crypto.randomUUID(),

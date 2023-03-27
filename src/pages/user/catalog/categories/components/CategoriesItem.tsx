@@ -180,7 +180,7 @@ function CategoriesItem(props: ICategoriesItem) {
                     borderRadius: "16px",
                     background: "#fbdeba",
                     color: "#8f391c",
-                    padding: "4px 8px",
+                    paddingY: "4px",
                     margin: "2px",
                     fontSize: "11px",
                     fontWeight: "600",

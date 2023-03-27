@@ -69,7 +69,6 @@ const AppRoutes = {
     create: "create",
     update: "update",
 
-
     // tabs
     generalDetails: "general/details",
     areas: "areas/listing",

@@ -1,29 +1,25 @@
-import React from "react";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SearchIcon from "@mui/icons-material/Search";
 import {
   Box,
   Card,
   CardContent,
   Container,
-  Typography,
+  IconButton,
   InputAdornment,
   SvgIcon,
-  IconButton,
   TextField,
   Toolbar,
   Tooltip,
-  Tab,
-  Tabs,
+  Typography,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import AppRoutes from "navigation/appRoutes";
 import DashboardLayout from "components/dashboard-container";
 import TableToolbar from "components/table-toolbar";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import CreateIcon from "@mui/icons-material/Create";
-import SearchIcon from "@mui/icons-material/Search";
-import DeleteIcon from "@mui/icons-material/Delete";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import FormatAlignCenterIcon from "@mui/icons-material/FormatAlignCenter";
+import AppRoutes from "navigation/appRoutes";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import SupplierTable from "./component/SupplierTable";
 import suppliers from "./__mock__/supplier.json";
 
@@ -37,10 +33,10 @@ function TabPanel(props: TabPanelProps) {
 
   return (
     <div
-      role="tabpanel"
+      aria-labelledby={`simple-tab-${index}`}
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
+      role="tabpanel"
       {...other}
     >
       {value === index && (
@@ -74,18 +70,15 @@ function Suppliers() {
           <Card>
             <CardContent sx={{ paddingTop: 0 }}>
               <TableToolbar
-                buttonText="New"
                 isAdd
+                buttonText="New"
                 handleClick={handleOpen}
                 title="Suppliers"
               />
               <EnhancedTableToolbar />
 
               <Box sx={{ mt: 3 }}>
-                <SupplierTable
-                  suppliers={suppliers}
-                  total={0}
-                />
+                <SupplierTable suppliers={suppliers} total={0} />
               </Box>
             </CardContent>
           </Card>
@@ -110,10 +103,10 @@ function EnhancedTableToolbar() {
       }}
     >
       <Typography
+        component="div"
+        id="tableTitle"
         sx={{ flex: "1 1 100%" }}
         variant="h6"
-        id="tableTitle"
-        component="div"
       >
         All
       </Typography>
