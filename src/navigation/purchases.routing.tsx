@@ -22,7 +22,7 @@ const purchasesRouting = (
     {/* purchase order update */}
     <Route
       element={<PurchasesLoadable.PurchasesOrderUpdate />}
-      path={`${AppRoutes.purchases.purchaseOrders.update}`}
+      path={`${AppRoutes.purchases.purchaseOrders.update}/:purchaseOrderId`}
     />
 
     {/* purchase order details  */}
@@ -46,7 +46,7 @@ const purchasesRouting = (
     {/* supplier update  */}
     <Route
       element={<PurchasesLoadable.SupplierUpdate />}
-      path={`${AppRoutes.purchases.supplier.update}`}
+      path={`${AppRoutes.purchases.supplier.update}/:supplierId`}
     />
 
     {/* supplier details  */}
@@ -70,7 +70,7 @@ const purchasesRouting = (
     {/* supplier return  update  */}
     <Route
       element={<PurchasesLoadable.SupplierReturnUpdate />}
-      path={`${AppRoutes.purchases.supplierReturns.update}`}
+      path={`${AppRoutes.purchases.supplierReturns.update}/supplierReturnId`}
     />
 
     {/* supplier return  details  */}
