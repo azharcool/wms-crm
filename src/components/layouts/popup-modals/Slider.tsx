@@ -133,11 +133,9 @@ function Slider(props: ISlider) {
           </DialogTitle>
 
           <DialogContent
-            sx={
-              {
-                // backgroundColor: "#fdf9f6",
-              }
-            }
+            sx={{
+              background: newtheme.isDarkMode ? "#26263D" : "#fdf9f6",
+            }}
           >
             {children}
           </DialogContent>
