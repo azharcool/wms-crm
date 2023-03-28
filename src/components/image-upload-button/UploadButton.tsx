@@ -40,8 +40,8 @@ function UploadButton(props: IUploadButton) {
       </Box>
       <input
         hidden
-        multiple={single ? false : true}
         accept="image/*"
+        multiple={!single}
         type="file"
         onChange={handleFile}
       />
