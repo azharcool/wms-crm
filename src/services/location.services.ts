@@ -44,8 +44,8 @@ export async function getByIdLocation(
   return client.get(URL);
 }
 
-export async function deleteLocation(id: number): Promise<IResponse> {
-  const URL = `${API_URLS.DELETE_LOCATION}/${id}`;
+export async function deleteLocation(id: number,warehouseId:number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_LOCATION}/${id}?warehouseId=${warehouseId}`;
   return client.delete(URL);
 }
 

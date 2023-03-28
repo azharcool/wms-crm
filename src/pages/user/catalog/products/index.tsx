@@ -22,13 +22,14 @@ function Products() {
 
   const { data: productPaginationResponse } =
     useGetAllProduct(productPagination);
-
+  const ids = getSelectedProductIdsState.toString();
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
           navTitle="CATALOG"
+          isBulkDisabled={!!ids}
           rightActions={[
             {
               id: crypto.randomUUID(),
@@ -48,7 +49,6 @@ function Products() {
           ]}
           title="Products"
           onBulkHandle={() => {
-            const ids = getSelectedProductIdsState.toString();
             bulkDeleteProductAsync(ids);
           }}
         />

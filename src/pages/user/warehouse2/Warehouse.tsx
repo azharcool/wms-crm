@@ -2,12 +2,11 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetAllWarehouse from "hooks/querys/warehouse/useGetAllWarehouse";
-import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import WarehouseListing from "./components/warehouse-list/WarehouseListing";
 
 function Warehouse() {
@@ -20,12 +19,13 @@ function Warehouse() {
   const { data: warehousePaginationResponse } =
     useGetAllWarehouse(warehousePagination);
   const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
-
+  const ids = getSelectedWarehouseIdsState.toString();
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
+          isBulkDisabled={!!ids}
           navTitle="Warehouses"
           rightActions={[
             {
@@ -46,7 +46,6 @@ function Warehouse() {
           ]}
           title="Warehouses"
           onBulkHandle={() => {
-            const ids = getSelectedWarehouseIdsState.toString();
             bulkDeleteWarehouseAsync(ids);
           }}
         />

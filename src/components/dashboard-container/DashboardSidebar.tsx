@@ -94,17 +94,17 @@ const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Purchase order",
-        location: `/${AppRoutes.PURCHASE.purchase}/${AppRoutes.PURCHASE.PURCHASE_ORDER}`,
+        location: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.purchaseOrders.listing}`,
       },
       {
         id: crypto.randomUUID(),
         title: "Suppliers",
-        location: AppRoutes.PURCHASE.SUPPLIERS,
+        location: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
       },
       {
         id: crypto.randomUUID(),
         title: "Suppliers Return",
-        location: AppRoutes.PURCHASE.SUPPLIERS_RETURN,
+        location: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplierReturns.listing}`,
       },
     ],
     screenCode: SCREEN_CODES.PURCHASE,
