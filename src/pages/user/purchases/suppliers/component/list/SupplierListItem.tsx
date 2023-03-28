@@ -1,24 +1,20 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
+import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
-import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
+import { GetAllSupplierData } from "types/catalog/supplier/getAllSupplierResponse";
 
-function SupplierListItem() {
-  // const { item } = props;
-  const { deleteWarehouseAsync } = useWarehouseAction();
+interface ISupplierListItem {
+  item: GetAllSupplierData;
+}
+
+function SupplierListItem(props: ISupplierListItem) {
+  const { item } = props;
   const navigate = useNavigate();
-  // const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
   const newtheme = useSelector((state: any) => state.theme);
-  // const getSelectedWarehouseByIdState = useSelector((state: RootState) =>
-  //   getSelectedWarehouseById(state, item.id),
-  // );
-  // const dispatch = useAppDispatch();
-  // const select = () => {
-  //   dispatch(setWarehouseId(item.id));
-  // };
 
   return (
     <TableRow>
@@ -34,11 +30,7 @@ function SupplierListItem() {
             : palette.background.default,
         }}
       >
-        <Checkbox
-          // checked={getSelectedWarehouseByIdState}
-          color="primary"
-          // onChange={select}
-        />
+        <Checkbox color="primary" />
       </TableCell>
 
       <TableCell
@@ -52,17 +44,9 @@ function SupplierListItem() {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() => {
-          // dispatch(
-          //   setWarehouse({
-          //     id: item?.id || 0,
-          //     name: item?.warehouseName || "",
-          //   }),
-          // );
-          // navigate(navigateDetails);
-        }}
+        onClick={() => {}}
       >
-        {/* {item?.warehouseName} */} Name
+        {item?.companyName}
       </TableCell>
       <TableCell
         sx={{
@@ -71,7 +55,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.label} */} Short Name
+        {item?.shortName}
       </TableCell>
       <TableCell
         sx={{
@@ -79,7 +63,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.city} */} Supplier ID
+        {item?.id}
       </TableCell>
       <TableCell
         sx={{
@@ -87,7 +71,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.email} */} City
+        {item?.city}
       </TableCell>
       <TableCell
         sx={{
@@ -95,7 +79,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.phoneNumber} */}Email
+        {item?.email}
       </TableCell>
 
       <TableCell
@@ -104,7 +88,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.primaryPhoneNumber} */} Phone
+        {item?.phoneNumber}
       </TableCell>
       <TableCell
         sx={{
@@ -112,7 +96,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.primaryPhoneNumber} */} Primary contact
+        {item?.firstName} {item?.lastName}
       </TableCell>
       <TableCell
         sx={{
@@ -120,7 +104,7 @@ function SupplierListItem() {
           // background: "white",
         }}
       >
-        {/* {item?.status === 1 ? "Active" : "Inactive"} */}Status
+        <StatusTableCell status={item?.status} />
       </TableCell>
 
       <TableCell

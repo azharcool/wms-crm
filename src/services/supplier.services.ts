@@ -5,8 +5,18 @@ import { GetByIdSupplierResponseRoot } from "types/catalog/supplier/getByIdSuppl
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
-export async function getAllSupplier(): Promise<GetAllSupplierRoot> {
-  const URL = `${API_URLS.GET_ALL_SUPPLIER}`;
+export async function getAllSupplierWithoutPagination(): Promise<GetAllSupplierRoot> {
+  const URL = `${API_URLS.GET_ALL_SUPPLIER_WITHOUT_PAGINATION}`;
+  return client.get(URL);
+}
+
+export async function getAllSupplierWithPagination(
+  restUrl: string,
+): Promise<GetAllSupplierRoot> {
+  let URL = `${API_URLS.GET_ALL_SUPPLIER_WITH_PAGINATION}`;
+  if (restUrl) {
+    URL = `${URL}?${restUrl}`;
+  }
   return client.get(URL);
 }
 
