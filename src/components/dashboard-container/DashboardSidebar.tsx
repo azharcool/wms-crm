@@ -1,135 +1,13 @@
-import SettingsIcon from "@mui/icons-material/Settings";
-import WarehouseIcon from "@mui/icons-material/Warehouse";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
-import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
-import { SCREEN_CODES } from "config";
-import AppRoutes from "navigation/appRoutes";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import palette from "theme/palette";
 import { isScreenAccessible, logoURL } from "utils";
 import NavItem from "./NavItem";
-
-export interface IMenuItems {
-  id: string;
-  title: string;
-  location: string;
-}
-export interface ISideNavMenu {
-  id: string;
-  href?: string | undefined;
-  icon: JSX.Element;
-  title: string;
-  screenCode: string;
-  menuItems: IMenuItems[];
-}
-
-const sideNavMenu: ISideNavMenu[] = [
-  {
-    id: crypto.randomUUID(),
-    href: AppRoutes.DASHBOARD,
-    icon: <ChartBarIcon fontSize="small" />,
-    title: "Dashboard",
-    screenCode: SCREEN_CODES.COMMON,
-    menuItems: [],
-  },
-  {
-    id: crypto.randomUUID(),
-    href: `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`,
-    icon: <WarehouseIcon fontSize="small" />,
-    title: "Warehouses",
-    screenCode: SCREEN_CODES.WAREHOUSE,
-    menuItems: [],
-  },
-  {
-    id: crypto.randomUUID(),
-    href: AppRoutes.CATALOG.catalog,
-    icon: <WarehouseIcon fontSize="small" />,
-    title: "Catalog",
-    screenCode: SCREEN_CODES.WAREHOUSE,
-    menuItems: [
-      {
-        id: crypto.randomUUID(),
-        title: "Products",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Variants",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.variants}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Units",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.units}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Bundles",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.bundles}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Categories",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Brands",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.brands}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Listing",
-        location: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.listing}`,
-      },
-    ],
-  },
-  {
-    id: crypto.randomUUID(),
-    href: AppRoutes.PURCHASE.PURCHASE_ORDER,
-    icon: <ChartBarIcon fontSize="small" />,
-    title: "Purchases",
-    menuItems: [
-      {
-        id: crypto.randomUUID(),
-        title: "Purchase order",
-        location: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.purchaseOrders.listing}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Suppliers",
-        location: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
-      },
-      {
-        id: crypto.randomUUID(),
-        title: "Suppliers Return",
-        location: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplierReturns.listing}`,
-      },
-    ],
-    screenCode: SCREEN_CODES.PURCHASE,
-  },
-  {
-    id: crypto.randomUUID(),
-    href: AppRoutes.SETTINGS,
-    icon: <SettingsIcon fontSize="small" />,
-    title: "Settings",
-    screenCode: SCREEN_CODES.SETTINGS,
-    menuItems: [],
-  },
-];
+import { sideNavMenu } from "./sideBarNavMenu";
 
 export function DashboardSidebar(props: any) {
   const { open, onClose } = props;
-  const [screens, serScreens] = useState<any[]>([]);
-  const { common } = useSelector((state: any) => state);
-  const { permissions } = common;
-
-  useEffect(() => {
-    if (permissions) {
-      // serScreens(items);
-    }
-  }, [permissions]);
+  const [expanded, setExpanded] = useState("");
 
   const lgUp = useMediaQuery(
     (theme: any) => {
@@ -148,8 +26,8 @@ export function DashboardSidebar(props: any) {
           display: "flex",
           flexDirection: "column",
           height: "100%",
-
-          background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521)",
+          // background: "linear-gradient(0deg,#eb5c2c 2%,#f39521 52%,#f39521)",
+          backgroundColor: "#4b0808",
           color: "#000",
         }}
       >
@@ -171,7 +49,12 @@ export function DashboardSidebar(props: any) {
         <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
           {sideNavMenu.map((item) => {
             return isScreenAccessible(item.screenCode) ? (
-              <NavItem key={item.id} item={item} />
+              <NavItem
+                key={item.id}
+                expanded={expanded}
+                item={item}
+                setExpanded={setExpanded}
+              />
             ) : null;
           })}
         </Box>
