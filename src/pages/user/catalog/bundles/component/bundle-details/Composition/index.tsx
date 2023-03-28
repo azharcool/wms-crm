@@ -21,18 +21,20 @@ function Composition(props: IComposition) {
   const { data: variantResponse } = useGetAllVariant({});
 
   const {
-    data: bundlesComp,
+    data: bundleCompositionResponse,
     refetch,
     isLoading,
     isFetching: isFetchingBundle,
   } = useGetAllBundleComposition(bundlePagination);
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <Box sx={{ mt: 3 }}>
           <CompositionListing
-            bundleComp={bundlesComp}
+            bundleComp={bundleCompositionResponse}
             bundleId={bundleId}
+            data={bundleCompositionResponse?.data}
             handleChange={handleChange}
             isTrue={isTrue}
             setFieldValue={setFieldValue}

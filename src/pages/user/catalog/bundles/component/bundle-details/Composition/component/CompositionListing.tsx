@@ -17,6 +17,7 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { GetBundleCompositionResponseData } from "types/catalog/bundleComposition/getBundleCompostionResponse";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import CompositionItem from "./CompositionItem";
 // import TableMessage from "components/table-message";
@@ -61,6 +62,7 @@ interface IComposition {
   values?: any;
   setFieldValue: any;
   handleChange: any;
+  data?: GetBundleCompositionResponseData[];
 }
 const data = [
   {
@@ -90,6 +92,18 @@ const data = [
 //   );
 // }
 
+interface IBundleCompositionState {
+  id: number;
+  image: string;
+  name: string;
+  sku: string;
+  unitPrice: number;
+  conditionCode: string;
+  discount: number;
+  qty: number;
+  total: number;
+}
+
 function CompositionListing(props: IComposition) {
   const {
     isTrue,
@@ -99,14 +113,14 @@ function CompositionListing(props: IComposition) {
     values,
     setFieldValue,
     handleChange,
+    data,
   } = props;
   const [variants, setVariant] = useState<IGetAllVariantResponseData[]>([]);
   const handleVariant = (event: any, value: any) => {
     setVariant([...variants, value]);
   };
-  // useEffect(() => {
-  //   setVariant(bundleComp?.data);
-  // });
+
+  const [bundleData, setBundleData] = useState<IBundleCompositionState[]>([]);
 
   const renderOption = (props: any, option: any) => (
     <Stack direction="row" sx={{ m: 1 }}>
