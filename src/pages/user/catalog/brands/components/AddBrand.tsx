@@ -48,8 +48,15 @@ function AddBrand(props: IAddBrands) {
 
   const formik = useAddBrandForm(onSubmit, initialValues);
 
-  const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
-    formik;
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    values,
+    errors,
+    touched,
+  } = formik;
 
   const { addBrandAction } = useBrandAction();
   const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
@@ -119,6 +126,7 @@ function AddBrand(props: IAddBrands) {
       open={open}
       size="sm"
       title="New Brand"
+      isSubmitting={isSubmitting}
     >
       <PerfectScrollbar>
         <Stack

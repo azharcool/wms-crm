@@ -19,13 +19,7 @@ interface IBrandItem {
 
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
-  console.log("brandData", brandData);
-  console.log(
-    "imageData",
-    brandData?.fileUrl?.length > 0
-      ? `${FILE_URL}${brandData?.fileUrl}`
-      : NOImage,
-  );
+
   const navigate = useNavigate();
   const alert = useAlert();
   const { deleteBrandAsync } = useBrandAction();

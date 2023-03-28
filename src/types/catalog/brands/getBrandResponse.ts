@@ -6,6 +6,7 @@ export interface IGetBrandResponseRoot {
 }
 
 export interface IGetBrandResponseData {
+  length: number;
   id: number;
   userId: number;
   name: string;
