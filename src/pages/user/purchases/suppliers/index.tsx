@@ -2,6 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetAllSupplierWithPagination from "hooks/querys/catalog/supplier/useGetAllSupplierWithPagination";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SupplierList from "./component/list/SupplierList";
@@ -27,7 +28,9 @@ function Suppliers() {
               id: crypto.randomUUID(),
               title: "New",
               onClick: () => {
-                navigate("/warehouse/create");
+                navigate(
+                  `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.create}`,
+                );
               },
               icon: (
                 <AddCircleIcon
