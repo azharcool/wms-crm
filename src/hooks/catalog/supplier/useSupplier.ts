@@ -1,4 +1,4 @@
-import useGetAllSupplier from "hooks/querys/catalog/supplier/useGetAllSupplier";
+import useGetAllSupplierWithoutPagination from "hooks/querys/catalog/supplier/useGetAllSupplierWithoutPagination";
 import { useEffect, useState } from "react";
 
 interface IMenuItem {
@@ -7,7 +7,7 @@ interface IMenuItem {
 }
 function useSupplier() {
   const [supplier, setSupplier] = useState<IMenuItem[]>([]);
-  const { data: supplierResponse } = useGetAllSupplier();
+  const { data: supplierResponse } = useGetAllSupplierWithoutPagination();
 
   useEffect(() => {
     if (supplierResponse?.data) {

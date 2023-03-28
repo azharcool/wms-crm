@@ -113,8 +113,8 @@ function WarehouseListing(props: IWarehouselisting) {
                         key={item.id}
                         isHeader
                         customStyle={{
-                          position: isName ?  "sticky":"static",
-                          left: isName ? 50:0,
+                          position: isName ? "sticky" : "static",
+                          left: isName ? 50 : 0,
                         }}
                         minWt={150}
                       >

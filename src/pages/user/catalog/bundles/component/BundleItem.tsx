@@ -180,9 +180,12 @@ function BundleItem(props: IProps) {
                     borderRadius: "16px",
                     background: "#fbdeba",
                     color: "#8f391c",
-                    padding: "4px 8px",
+                    paddingY: "4px",
                     margin: "2px",
-                    fontSize: "12px",
+                    fontSize: "11px",
+                    fontWeight: "600",
+                    width: "80px",
+                    textAlign: "center",
                   }}
                 >
                   {tag}

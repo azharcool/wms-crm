@@ -244,3 +244,29 @@ export const areaStatus = [
     value: "InActive",
   },
 ];
+
+export const paymentType = [
+  {
+    id: "cash",
+    value: "Cash",
+  },
+  {
+    id: "creditcard",
+    value: "Credit Card",
+  },
+  {
+    id: "banktransfer",
+    value: "Bank Transfer",
+  },
+];
+
+export const paymentTerm = [
+  {
+    id: "net30",
+    value: "net 30",
+  },
+  {
+    id: "net45",
+    value: "net 45",
+  }
+];
