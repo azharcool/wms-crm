@@ -1,14 +1,14 @@
 /* eslint-disable import/namespace */
 import CircleIcon from "@mui/icons-material/Circle";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Button, ListItem, Stack, styled, Typography } from "@mui/material";
+import { Stack, styled, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import { orange } from "@mui/material/colors";
-import { Link as RRDLink } from "react-router-dom";
+import { Dispatch, SetStateAction } from "react";
+import { Link as RRDLink, useLocation } from "react-router-dom";
 import palette from "theme/palette";
-import { IMenuItems, ISideNavMenu } from "./DashboardSidebar";
+import { IMenuItems, ISideNavMenu } from "./sideBarNavMenu";
 
 const Link = styled(RRDLink)`
   text-decoration: none;
@@ -56,22 +56,29 @@ function MenuListItem(props: IMenuListItem) {
 
 interface INavItem {
   item: ISideNavMenu;
+  expanded: string;
+  setExpanded: Dispatch<SetStateAction<string>>;
 }
 
 function NavItem(props: INavItem) {
-  const { item } = props;
-
-  const active = window.location.pathname.includes(item?.href || "");
+  const { item, expanded, setExpanded } = props;
+  const location = useLocation();
+  const active = item.href === (expanded || location.pathname);
 
   return item.menuItems?.length > 0 ? (
     <Accordion
       square
+      expanded={active}
       id="panel1-accordian"
       sx={{
         backgroundColor: "transparent",
+        boxShadow: "none",
         "&:before": {
-          // backgroundColor: "red",
+          boxShadow: "none",
         },
+      }}
+      onChange={() => {
+        setExpanded(item.href || "");
       }}
     >
       <AccordionSummary
@@ -79,14 +86,14 @@ function NavItem(props: INavItem) {
         expandIcon={
           <ExpandMoreIcon
             sx={{
-              color: "#fffff",
+              fill: active ? "rgba(255, 166, 0)" : "rgba(255, 166, 0, 0.847)",
             }}
           />
         }
         id="panel1a-header"
         sx={{
           borderRadius: 0,
-          backgroundColor: active ? palette.info.main : "transparent",
+          backgroundColor: active ? "#00000038" : "#4b0808",
           "&::before": {
             backgroundColor: "transparent",
           },
@@ -94,13 +101,13 @@ function NavItem(props: INavItem) {
             color: "white",
           },
           "&:hover": {
-            backgroundColor: orange[300],
+            backgroundColor: "#eacbcb38",
           },
         }}
       >
         <Typography
           sx={{
-            color: "#ffff",
+            color: active ? "rgba(255, 166, 0)" : "rgba(255, 166, 0, 0.847)",
           }}
         >
           {item.title}
@@ -113,95 +120,47 @@ function NavItem(props: INavItem) {
       </AccordionDetails>
     </Accordion>
   ) : (
-    <ListItem
-      disableGutters
+    <Accordion
+      square
+      expanded={active}
+      id="panel1-accordian"
       sx={{
-        display: "flex",
-        mb: 0.5,
-        py: 0,
-        px: 0.5,
+        backgroundColor: "transparent",
+        boxShadow: "none",
+        "&:before": {
+          boxShadow: "none",
+        },
       }}
-      // {...others}
     >
       <Link to={item?.href || ""}>
-        <Button
-          disableRipple
-          component="a"
-          // startIcon={icon}
+        <AccordionSummary
+          aria-controls="panel1a-content"
+          id="panel1a-header"
           sx={{
-            // backgroundColor: active && "rgba(255,255,255, 0.08)",
-            borderRadius: 1,
-            color: palette.text.primary,
-            // color: "#f39521",
-            backgroundColor: active ? palette.info.main : "#f39521",
-            // fontWeight: active && "fontWeightBold",
-            justifyContent: "flex-start",
-            px: 2,
-            textAlign: "left",
-            textTransform: "none",
-            width: "100%",
+            borderRadius: 0,
+            backgroundColor: active ? "#00000038" : "#4b0808",
+            "&::before": {
+              backgroundColor: "transparent",
+            },
             "& .MuiButton-startIcon": {
               color: "white",
             },
             "&:hover": {
-              backgroundColor: orange[300],
+              backgroundColor: "#eacbcb38",
             },
           }}
         >
           <Typography
-            color="white"
-            component="p"
-            sx={{ flexGrow: 1, fontSize: "inherit" }}
+            sx={{
+              color: active ? "rgba(255, 166, 0)" : "rgba(255, 166, 0, 0.847)",
+            }}
           >
             {item.title}
           </Typography>
-        </Button>
+        </AccordionSummary>
       </Link>
-    </ListItem>
+    </Accordion>
   );
-
-  // return (
-  //   <ListItem
-  //     disableGutters
-  //     sx={{
-  //       display: "flex",
-  //       mb: 0.5,
-  //       py: 0,
-  //       px: 0.5,
-  //     }}
-  //     {...others}
-  //   >
-  //     <Link to={href}>
-  //       <Button
-  //         disableRipple
-  //         component="a"
-  //         startIcon={icon}
-  //         sx={{
-  //           // backgroundColor: active && "rgba(255,255,255, 0.08)",
-  //           borderRadius: 1,
-  //           color: palette.text.primary,
-  //           backgroundColor: active ? palette.info.main : "transparent",
-  //           // fontWeight: active && "fontWeightBold",
-  //           justifyContent: "flex-start",
-  //           px: 2,
-  //           textAlign: "left",
-  //           textTransform: "none",
-  //           width: "100%",
-  //           "& .MuiButton-startIcon": {
-  //             color: "white",
-  //           },
-  //           "&:hover": {
-  //             backgroundColor: palette.sidebar.navHover,
-  //           },
-  //         }}
-  //       >
-  //         <Typography component="p" color="white" sx={{ flexGrow: 1, fontSize: "inherit" }}>
-  //           {title}
-  //         </Typography>
-  //       </Button>
-  //     </Link>
-  //   </ListItem>
-  // );
 }
 
 export default NavItem;
