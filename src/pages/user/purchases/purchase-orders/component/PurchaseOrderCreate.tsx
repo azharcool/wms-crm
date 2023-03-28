@@ -28,15 +28,20 @@ import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
+import AppRoutes from "navigation/appRoutes";
 import { useSelector } from "react-redux";
+import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import palette from "theme/palette";
 import { paymentType, paymentTerm } from "__mock__";
 import AutoComplete from "components/textfield/AutoComplete";
+import AddSupplier from "./AddSupplier";
+import BrowsListItem from "./BrowsListItem";
 
 function PurchaseOrderCreate() {
   const newtheme = useSelector((state: any) => state.theme);
+  const [openSupplier, setOpenSupplier] = React.useState(false);
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -109,14 +114,19 @@ function PurchaseOrderCreate() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "PURCHASE ORDER", to: "/DETAILS" }]}
+          breadcrumbs={[
+            {
+              link: "PURCHASE ORDER",
+              to: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.purchaseOrders.listing}`,
+            },
+          ]}
           buttonText="Save"
           handleClick={() => {
-            // navigate(AppRoutes.CATALOG.ProductDetail);
+            // handleSubmit()
           }}
-          navTitle="Puma"
+          navTitle="PO-2223"
           rightActions={rightActionsData}
-          title="Purchase Details"
+          title="New Purchase Data"
         />
         <Grid container direction="row" padding={0} spacing={2}>
           {/* coloumn */}
@@ -157,7 +167,9 @@ function PurchaseOrderCreate() {
                         },
                       }}
                       variant="contained"
-                      onClick={() => {}}
+                      onClick={() => {
+                        setOpenSupplier(true);
+                      }}
                     >
                       <AddIcon
                         sx={{
@@ -329,6 +341,7 @@ function PurchaseOrderCreate() {
                 <Stack marginTop={2}>
                   <TextField
                     id="productHeight"
+                    type="date"
                     label="Order date"
                     name="productHeight"
                     size="small"
@@ -337,6 +350,7 @@ function PurchaseOrderCreate() {
                 <Stack marginTop={2}>
                   <TextField
                     id="productHeight"
+                    type="date"
                     label="Expected date"
                     name="productHeight"
                     size="small"
@@ -476,8 +490,8 @@ function PurchaseOrderCreate() {
                   <Typography component="h6">Supplier notes</Typography>
                 </DialogTitle>
                 <Divider />
-                <DialogContent >
-                <TextField
+                <DialogContent>
+                  <TextField
                     multiline
                     id="notes"
                     rows={6}
@@ -490,6 +504,10 @@ function PurchaseOrderCreate() {
           </Grid>
         </Grid>
       </Container>
+      <AddSupplier
+        open={openSupplier}
+        handleClose={() => setOpenSupplier(!openSupplier)}
+      />
     </ThemeProvider>
   );
 }
@@ -539,7 +557,7 @@ const tableTitle = [
 
 function LineItems() {
   const newtheme = useSelector((state: any) => state.theme);
-
+  const [openBrowsItem, setOpenBrowsItem] = React.useState(false);
   return (
     <PerfectScrollbar>
       <Box sx={{ marginTop: 4 }}>
@@ -573,7 +591,9 @@ function LineItems() {
                 },
               }}
               variant="contained"
-              onClick={() => {}}
+              onClick={() => {
+                setOpenBrowsItem(true);
+              }}
             >
               <AddIcon
                 sx={{
@@ -711,6 +731,10 @@ function LineItems() {
             </Table>
           </PerfectScrollbar>
         </TableContainer>
+        <BrowsListItem
+          open={openBrowsItem}
+          handleClose={() => setOpenBrowsItem(!openBrowsItem)}
+        />
       </Box>
     </PerfectScrollbar>
   );
