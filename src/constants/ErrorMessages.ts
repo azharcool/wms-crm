@@ -253,6 +253,10 @@ const ErrorMessages = {
     name: "please enter name",
     description: "please enter description",
   },
+  add_supplier: {
+    compnayName: "please enter company name",
+    shortName: "please enter short name",
+  },
 };
 
 export default ErrorMessages;
