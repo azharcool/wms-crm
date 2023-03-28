@@ -6,11 +6,12 @@ export interface IGetBrandResponseRoot {
 }
 
 export interface IGetBrandResponseData {
+  length: number;
   id: number;
   userId: number;
   name: string;
   slug: string;
-  fileName: string;
+  fileUrl: string;
   status: number;
   createdOn: string;
   updatedOn: any;
