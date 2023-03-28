@@ -1,25 +1,12 @@
-import React from "react";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  PaletteMode,
-  Typography,
-} from "@mui/material";
-import { Box, Container } from "@mui/system";
-import TextField from "components/textfield";
-import palette from "theme/palette";
-import {
-  createMuiTheme,
-  MuiThemeProvider,
-  withStyles,
-} from "@material-ui/core/styles";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { CssBaseline, PaletteMode, Typography } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { CssBaseline } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { useSelector } from "react-redux";
+import { Box } from "@mui/system";
+import palette from "theme/palette";
+
 import Tooltip from "@material-ui/core/Tooltip";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useSelector } from "react-redux";
 import sections from "../../__mock__/sections.json";
 
 const defaultTheme = createMuiTheme();

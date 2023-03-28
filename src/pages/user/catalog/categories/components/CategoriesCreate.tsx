@@ -56,7 +56,6 @@ function CategoriesCreate() {
   const [editable, setEditable] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const newtheme = useSelector((state: any) => state.theme);
-
   const categoryForm = useAddCategoriesForm({
     onSubmit,
     initialValues,
@@ -85,10 +84,12 @@ function CategoriesCreate() {
       slug: values.slug,
       detail: values.slug,
       status: Number(values.status === "Active" ? "1" : "2"),
+      image: uploadedFiles.map((i) => i.value.split("base64,")[1]).toString(),
     };
     const response = await addCategoriesAction(data);
     if (response) {
       setCategoryId(response);
+      navigate(-1);
     }
   }
 
