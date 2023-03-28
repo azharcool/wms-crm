@@ -1,6 +1,8 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
+import { FILE_URL } from "config";
 import useBrandAction from "hooks/catalog/brand/useBrandAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -17,6 +19,7 @@ interface IBrandItem {
 
 function BrandItem(props: IBrandItem) {
   const { brandData } = props;
+
   const navigate = useNavigate();
   const alert = useAlert();
   const { deleteBrandAsync } = useBrandAction();
@@ -77,10 +80,24 @@ function BrandItem(props: IBrandItem) {
         >
           <img
             alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+            src={
+              brandData?.fileUrl !== ""
+                ? `${FILE_URL}${brandData?.fileUrl}`
+                : NOImage
+            }
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "5px",
+            }}
+          />
+          {/* <img
+            alt="new"
+            src={brandData.fileUrl}
             // src={brandData.fileName}
             width="100%"
-          />
+          /> */}
         </Box>
       </TableCell>
 
