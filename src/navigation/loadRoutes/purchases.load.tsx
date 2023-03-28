@@ -23,7 +23,7 @@ export const PurchasesOrderCreate = Loadable({
 export const PurchasesOrderUpdate = Loadable({
   loader: () =>
     import(
-      "pages/user/purchases/purchase-orders/component/PurchaseOrderUpdate"
+      "pages/user/purchases/purchase-orders/component/PurchaseOrderCreate"
     ),
   loading: () => <Spinner />,
 });

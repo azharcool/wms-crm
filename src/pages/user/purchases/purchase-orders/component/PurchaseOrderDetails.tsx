@@ -1,6 +1,5 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
 import {
   Box,
   Container,
@@ -13,7 +12,8 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
-import { useRef, useState } from "react";
+import AppRoutes from "navigation/appRoutes";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import GatePass from "./GatePass";
@@ -111,14 +111,9 @@ function PurchaseOrderDetails() {
       id: crypto.randomUUID(),
       title: "Edit",
       onClick: () => {
-        // if (value === 0) {
-        //   // setEditable(true);
-        //   setTimeout(() => {
-        //     nameRef.current?.focus();
-        //   }, 500);
-        // } else {
-        //   handleVariant();
-        // }
+        navigate(
+          `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.purchaseOrders.update}/1`,
+        );
       },
       icon: (
         <EditIcon
@@ -128,7 +123,7 @@ function PurchaseOrderDetails() {
           }}
         />
       ),
-    }
+    },
   ];
   const istrue = !true;
 
@@ -136,11 +131,15 @@ function PurchaseOrderDetails() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "PURCHASE ORDER", to: "/DETAILS" }]}
+          breadcrumbs={[
+            {
+              link: "PURCHASE ORDER",
+              to: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.purchaseOrders.listing}`,
+            },
+          ]}
           buttonText="Save"
-          handleClick={() => {
-          }}
-          navTitle="Order"
+          handleClick={() => {}}
+          navTitle="PO-2223"
           rightActions={rightActionsData}
           title="Purchase Details"
         />
