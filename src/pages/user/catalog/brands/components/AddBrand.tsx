@@ -48,11 +48,19 @@ function AddBrand(props: IAddBrands) {
 
   const formik = useAddBrandForm(onSubmit, initialValues);
 
-  const { handleBlur, handleChange, handleSubmit, values, errors, touched } =
-    formik;
+  const {
+    handleBlur,
+    handleChange,
+    handleSubmit,
+    isSubmitting,
+    values,
+    errors,
+    touched,
+  } = formik;
 
   const { addBrandAction } = useBrandAction();
   const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
+  const [image, setImage] = useState<string>("");
 
   // const handle = () => {
   //   const body: IAddBrandRequestRoot = {
@@ -68,7 +76,9 @@ function AddBrand(props: IAddBrands) {
       userId: Number(userDecoded.id),
       name: values.name,
       slug: values.slug,
+      image: uploadedFiles.map((i) => i.value.split("base64,")[1]).toString(),
     };
+
     const response = await addBrand(data);
     if (response.statusCode === 200) {
       // setBrandId(response);
@@ -90,8 +100,9 @@ function AddBrand(props: IAddBrands) {
       value: item,
     }));
 
-    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+    setUploadedFiles((s) => [...newUploadedFiles]);
   };
+
   const convertBase64 = (file: any): Promise<any> => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -115,6 +126,7 @@ function AddBrand(props: IAddBrands) {
       open={open}
       size="sm"
       title="New Brand"
+      isSubmitting={isSubmitting}
     >
       <PerfectScrollbar>
         <Stack
@@ -197,7 +209,7 @@ function AddBrand(props: IAddBrands) {
                     </Box>
                   );
                 })}
-                <UploadButton handleFile={handleFile} />
+                <UploadButton handleFile={handleFile} single />
               </Stack>
             </CustomCardContent>
           </Card>

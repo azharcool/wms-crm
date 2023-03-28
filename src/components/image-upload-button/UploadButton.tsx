@@ -3,10 +3,11 @@ import palette from "theme/palette";
 
 interface IUploadButton {
   handleFile: (e: any) => void;
+  single?: boolean;
 }
 
 function UploadButton(props: IUploadButton) {
-  const { handleFile } = props;
+  const { handleFile, single } = props;
   return (
     <Button
       component="label"
@@ -39,7 +40,7 @@ function UploadButton(props: IUploadButton) {
       </Box>
       <input
         hidden
-        multiple
+        multiple={single ? false : true}
         accept="image/*"
         type="file"
         onChange={handleFile}
