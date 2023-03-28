@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Box, Card, CardContent, Container } from "@mui/material";
+import { Box, CardContent, Container } from "@mui/material";
 import useGetAllBundleComposition from "hooks/querys/catalog/bundleComposition/useGetAllBundleComposition";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import CompositionListing from "./component/CompositionListing";
 
 interface IComposition {
@@ -29,21 +28,19 @@ function Composition(props: IComposition) {
   } = useGetAllBundleComposition(bundlePagination);
   return (
     <Container maxWidth={false}>
-      <Card>
-        <CardContent sx={{ paddingTop: 0 }}>
-          <Box sx={{ mt: 3 }}>
-            <CompositionListing
-              variantData={variantResponse?.data}
-              bundleComp={bundlesComp}
-              bundleId={bundleId}
-              isTrue={isTrue}
-              values={values}
-              setFieldValue={setFieldValue}
-              handleChange={handleChange}
-            />
-          </Box>
-        </CardContent>
-      </Card>
+      <CardContent sx={{ paddingTop: 0 }}>
+        <Box sx={{ mt: 3 }}>
+          <CompositionListing
+            bundleComp={bundlesComp}
+            bundleId={bundleId}
+            handleChange={handleChange}
+            isTrue={isTrue}
+            setFieldValue={setFieldValue}
+            values={values}
+            variantData={variantResponse?.data}
+          />
+        </Box>
+      </CardContent>
     </Container>
   );
 }
