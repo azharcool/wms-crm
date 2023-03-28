@@ -12,10 +12,11 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useDispatch, useSelector } from "react-redux";
-import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
-import { setAllWarehouseIds } from "redux/warehouse/warehouseSlice";
-import { IGetWarehouseResponseRoot } from "types/warehouse/getWarehouseResponse";
+import {
+  GetAllSupplierData,
+  GetAllSupplierRoot,
+} from "types/catalog/supplier/getAllSupplierResponse";
+
 import SupplierListItem from "./SupplierListItem";
 
 const tableTitle = [
@@ -54,24 +55,13 @@ const tableTitle = [
   },
 ];
 
-interface IWarehouselisting {
-  data?: IGetWarehouseResponseRoot;
+interface ISupplierList {
+  data?: GetAllSupplierRoot;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
-function SupplierList(props: IWarehouselisting) {
+function SupplierList(props: ISupplierList) {
   const { data } = props;
-  const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
-  const dispatch = useDispatch();
-  const selectAll = (event: IChangeEvent, checked: boolean) => {
-    if (data) {
-      dispatch(
-        setAllWarehouseIds({
-          ids: data?.data.map((i: any) => i.id),
-          checked,
-        }),
-      );
-    }
-  };
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -95,14 +85,7 @@ function SupplierList(props: IWarehouselisting) {
                     }}
                     leftValue={0}
                   >
-                    <Checkbox
-                      checked={
-                        data?.data.length ===
-                        getSelectedWarehouseByIdState?.length
-                      }
-                      color="primary"
-                      onChange={selectAll}
-                    />
+                    <Checkbox color="primary" />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isName = item.title.includes("Name");
@@ -127,9 +110,9 @@ function SupplierList(props: IWarehouselisting) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <SupplierListItem />
-                <SupplierListItem />
-                <SupplierListItem />
+                {data?.data.map((item: GetAllSupplierData) => {
+                  return <SupplierListItem key={item.id} item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>

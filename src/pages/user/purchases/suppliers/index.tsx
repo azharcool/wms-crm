@@ -1,31 +1,26 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import useGetAllWarehouse from "hooks/querys/warehouse/useGetAllWarehouse";
-import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
+import useGetAllSupplierWithPagination from "hooks/querys/catalog/supplier/useGetAllSupplierWithPagination";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import SupplierList from "./component/list/SupplierList";
 
 function Suppliers() {
   const navigate = useNavigate();
-  const [warehousePagination, setWarehousepagination] = useState({
+  const [suppliersPagination, setSupplierspagination] = useState({
     pageSize: 10,
     page: 1,
   });
-  const { bulkDeleteWarehouseAsync } = useWarehouseAction();
-  const { data: warehousePaginationResponse } =
-    useGetAllWarehouse(warehousePagination);
-  const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
-  const ids = getSelectedWarehouseIdsState.toString();
+  const { data: supplierPaginationResponse } =
+    useGetAllSupplierWithPagination(suppliersPagination);
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          isBulkDisabled={!!ids}
+          // isBulkDisabled={!!ids}
           navTitle="PURCHASES"
           rightActions={[
             {
@@ -45,12 +40,10 @@ function Suppliers() {
             },
           ]}
           title="Suppliers"
-          onBulkHandle={() => {
-            bulkDeleteWarehouseAsync(ids);
-          }}
+          onBulkHandle={() => {}}
         />
         <Box sx={{ mt: 3 }}>
-          <SupplierList />
+          <SupplierList data={supplierPaginationResponse} />
         </Box>
       </CardContent>
     </Container>
