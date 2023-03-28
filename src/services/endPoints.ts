@@ -186,7 +186,7 @@ const API_URLS = {
   DELETE_VARIANT: `variant/${endPoints.delete}`,
   GET_ALL_PAGINATION_VARIANT_BY_PRODUCTID:
     "variant/getall-pagination-by-productId",
-  GET_ALL_BY_OPTIONNAME_VALUE:`variant/getall-by-optionNameValue`,
+  GET_ALL_BY_OPTIONNAME_VALUE: "variant/getall-by-optionNameValue",
 
   // Brand
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
@@ -197,7 +197,8 @@ const API_URLS = {
   BULK_DELETE_BRAND: `brand/${endPoints.bulkDelete}`,
 
   //  Supplier
-  GET_ALL_SUPPLIER: `supplier/${endPoints.getAll}`,
+  GET_ALL_SUPPLIER_WITHOUT_PAGINATION: `supplier/${endPoints.getAll}`,
+  GET_ALL_SUPPLIER_WITH_PAGINATION: `supplier/${endPoints.getAllPagination}`,
   ADD_SUPPLIER: `supplier/${endPoints.add}`,
   EDIT_SUPPLIER: `supplier/${endPoints.edit}`,
   GET_BY_ID_SUPPLIER: `supplier/${endPoints.getbyid}`,
