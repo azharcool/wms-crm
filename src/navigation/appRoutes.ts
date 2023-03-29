@@ -128,7 +128,7 @@ const AppRoutes = {
     },
   },
 
-  settting: {
+  setting: {
     layout: "setting",
     configuration: {
       listing: "configuration/listing",

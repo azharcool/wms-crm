@@ -5,20 +5,20 @@ import * as StockControlLoadable from "./loadRoutes/setting.load";
 const settingRouting = (
   <Route
     element={<StockControlLoadable.SettingLayout />}
-    path={`${AppRoutes.settting.layout}`}
+    path={`${AppRoutes.setting.layout}`}
   >
     <Route
       element={<StockControlLoadable.BarcodeGenerate />}
-      path={`${AppRoutes.settting.barcode.generate}`}
+      path={`${AppRoutes.setting.barcode.generate}`}
     />
 
     <Route
       element={<StockControlLoadable.ConfigurationListing />}
-      path={`${AppRoutes.settting.configuration.listing}`}
+      path={`${AppRoutes.setting.configuration.listing}`}
     />
     <Route
       element={<StockControlLoadable.AdjustmentReasonListing />}
-      path={`${AppRoutes.settting.configuration.adjustmentReasons}`}
+      path={`${AppRoutes.setting.configuration.adjustmentReasons}`}
     />
   </Route>
 );
