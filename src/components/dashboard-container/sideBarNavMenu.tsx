@@ -1,8 +1,11 @@
+import InventoryIcon from "@mui/icons-material/Inventory";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
 import { SCREEN_CODES } from "config";
 import AppRoutes from "navigation/appRoutes";
+
+const { stockControl } = AppRoutes;
 
 export interface IMenuItems {
   id: string;
@@ -103,6 +106,20 @@ export const sideNavMenu: ISideNavMenu[] = [
       },
     ],
     screenCode: SCREEN_CODES.PURCHASE,
+  },
+  {
+    id: crypto.randomUUID(),
+    href: "Stock",
+    icon: <InventoryIcon fontSize="small" />,
+    title: "Stock Control",
+    menuItems: [
+      {
+        id: crypto.randomUUID(),
+        title: "Adjustment",
+        location: `/${stockControl.layout}/${stockControl.adjustment.listing}`,
+      },
+    ],
+    screenCode: "",
   },
   {
     id: crypto.randomUUID(),
