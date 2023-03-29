@@ -1,12 +1,15 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
+import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import { FILE_URL } from "config";
 import { FormikHelpers } from "formik";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import useCategory from "hooks/catalog/categories/useCategory";
@@ -15,10 +18,16 @@ import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
+import palette from "theme/palette";
 import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
 import useEditCategoriesForm, {
   EditCategoriesForm,
 } from "../hooks/useEditCategoriesForm";
+
+interface IMenuItem {
+  id: string;
+  value: string;
+}
 
 const statusMenu = [
   {
@@ -54,6 +63,7 @@ function CategoriesDetail() {
 
   const userDecoded = useDecodedData();
   const { editCategoryAction } = useCategoriesAction();
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
   const categoryForm = useEditCategoriesForm({
     onSubmit,
@@ -199,6 +209,33 @@ function CategoriesDetail() {
 
   const istrue = !editable;
 
+  const handleFile = async (e: any) => {
+    const allFiles = Array.from(e.target.files);
+    const images = await Promise.all(
+      allFiles.map((file) => convertBase64(file)),
+    );
+
+    const newUploadedFiles = images.map((item) => ({
+      id: crypto.randomUUID(),
+      value: item,
+    }));
+
+    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+  };
+
+  const convertBase64 = (file: any): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -323,33 +360,54 @@ function CategoriesDetail() {
               }}
             >
               <CustomCardContent title="Image">
-                <Box
-                  sx={{
-                    padding: "16px",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
+                <Stack
+                  direction="row"
+                  flexWrap="wrap"
+                  gap={2}
+                  justifyContent="center"
                 >
-                  <Box
-                    sx={{
-                      width: "150px",
-                      height: "150px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      borderRadius: "10px",
-                      border: "1px dashed rgb(236, 236, 236)",
-                    }}
-                  >
-                    <img
-                      alt="new"
-                      src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-                      style={{ objectFit: "cover" }}
-                      width="100%"
-                    />
-                  </Box>
-                </Box>
+                  {categoryItemResponse?.data?.picture ? (
+                    <Box
+                      sx={{
+                        position: "relative",
+                      }}
+                    >
+                      {!istrue && (
+                        <CancelIcon
+                          sx={{
+                            width: "17px",
+                            height: "17px",
+                            cursor: "pointer",
+                            color: `${palette.error.lightRed}`,
+                            position: "absolute",
+                            right: "-5px",
+                            top: "-5px",
+                            background: "white",
+                          }}
+                          onClick={() => {
+                            console.log("clicked");
+                          }}
+                        />
+                      )}
+
+                      <img
+                        alt="new"
+                        src={`${FILE_URL}${categoryItemResponse?.data?.picture.atachment}`}
+                        style={{
+                          objectFit: "cover",
+                          width: "120px",
+                          height: "120px",
+                          borderRadius: "5px",
+                          border: "0.5px solid #eee",
+                        }}
+                      />
+                    </Box>
+                  ) : (
+                    <Box>No Image</Box>
+                  )}
+
+                  {!istrue && <UploadButton handleFile={handleFile} />}
+                </Stack>
               </CustomCardContent>
             </Card>
           </Grid>

@@ -341,7 +341,7 @@ function CategoriesCreate() {
                       </Box>
                     );
                   })}
-                  <UploadButton handleFile={handleFile} />
+                  <UploadButton single handleFile={handleFile} />
                 </Stack>
               </CustomCardContent>
             </Card>
