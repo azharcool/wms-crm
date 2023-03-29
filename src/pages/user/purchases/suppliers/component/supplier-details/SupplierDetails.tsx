@@ -14,19 +14,8 @@ function SupplierDetails() {
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
   const warehouseId = getSelectedWarehouse.id;
   const { supplierId } = useParams();
-  // const { data: warehouseDetailsResponse } = useGetByIdWarehouse({
-  //   warehouseId: Number(supplierId),
-  // });
+
   const {
-    // warehouse: {
-    //   warehouseLayout,
-    //   details,
-    //   generalDetails,
-    //   areas,
-    //   zones,
-    //   locations,
-    //   containers,
-    // },
     purchases: {
       layout,
       supplier: {
@@ -78,14 +67,7 @@ function SupplierDetails() {
             {
               id: crypto.randomUUID(),
               title: "Edit",
-              onClick: () => {
-                // navigate(
-                //   `/warehouse/${AppRoutes.warehouse.update}/${detailsId}`,
-                //   {
-                //     state: { editData: warehouseDetailsResponse?.data },
-                //   },
-                // );
-              },
+              onClick: () => {},
               icon: (
                 <EditIcon
                   sx={{
