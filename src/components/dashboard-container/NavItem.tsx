@@ -5,9 +5,10 @@ import { Stack, styled, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
-import { Dispatch, SetStateAction } from "react";
-import { Link as RRDLink, useLocation } from "react-router-dom";
-import palette from "theme/palette";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as RRDLink, useLocation, useNavigate } from "react-router-dom";
+import { getExpandedSelected } from "redux/side-dashboard/sideDashboardSelector";
+import { setExpanded } from "redux/side-dashboard/sideDashboardSlice";
 import { IMenuItems, ISideNavMenu } from "./sideBarNavMenu";
 
 const Link = styled(RRDLink)`
@@ -24,28 +25,58 @@ const Link = styled(RRDLink)`
 
 interface IMenuListItem {
   item: IMenuItems;
+  parent: string;
 }
 
 function MenuListItem(props: IMenuListItem) {
   const { item } = props;
-  const active = window.location.pathname.includes(item?.location || "");
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  const active = pathname.includes(item?.location || "");
 
   return (
-    <Stack alignItems="center" direction="row" gap={1}>
+    <Stack
+      alignItems="center"
+      direction="row"
+      gap={1}
+      sx={{
+        backgroundColor: active ? "#00000038" : "inherit",
+        padding: "5px",
+        borderRadius: "5px",
+        cursor: "pointer",
+
+        "&:hover": {
+          backgroundColor: "#eacbcb38",
+          color: "#fff",
+        },
+        "&:hover a": {
+          color: "#fff",
+        },
+      }}
+      onClick={() => {
+        navigate(item.location);
+      }}
+    >
       <CircleIcon
         sx={{
-          color: active ? palette.info.main : "#ffff",
-          fontSize: "12px",
+          color: active ? "#e65100d3" : "#ffffffb1",
+          fontSize: "8px",
+          "&:hover": {
+            color: "#fff",
+          },
         }}
       />
       <Typography
         component="a"
-        href={item.location}
         sx={{
-          fontSize: "16px",
-          color: active ? palette.info.main : "#ffff",
+          fontSize: "14px",
+          color: active ? "#e65100d3" : "#ffffff91",
           fontWeight: "500",
           textDecoration: "none",
+          "&:hover": {
+            color: "#fff",
+          },
         }}
       >
         {item.title}
@@ -56,19 +87,18 @@ function MenuListItem(props: IMenuListItem) {
 
 interface INavItem {
   item: ISideNavMenu;
-  expanded: string;
-  setExpanded: Dispatch<SetStateAction<string>>;
 }
 
 function NavItem(props: INavItem) {
-  const { item, expanded, setExpanded } = props;
-  const location = useLocation();
-  const active = item.href === (expanded || location.pathname);
+  const { item } = props;
+  const getExpanded = useSelector(getExpandedSelected);
+  const dispatch = useDispatch();
+  const expandedActive = item.href === getExpanded;
 
   return item.menuItems?.length > 0 ? (
     <Accordion
       square
-      expanded={active}
+      expanded={expandedActive}
       id="panel1-accordian"
       sx={{
         backgroundColor: "transparent",
@@ -78,7 +108,7 @@ function NavItem(props: INavItem) {
         },
       }}
       onChange={() => {
-        setExpanded(item.href || "");
+        dispatch(setExpanded(item.href || ""));
       }}
     >
       <AccordionSummary
@@ -86,14 +116,16 @@ function NavItem(props: INavItem) {
         expandIcon={
           <ExpandMoreIcon
             sx={{
-              fill: active ? "rgba(255, 166, 0)" : "rgba(255, 166, 0, 0.847)",
+              fill: expandedActive
+                ? "rgba(255, 166, 0)"
+                : "rgba(255, 166, 0, 0.847)",
             }}
           />
         }
         id="panel1a-header"
         sx={{
           borderRadius: 0,
-          backgroundColor: active ? "#00000038" : "#4b0808",
+          backgroundColor: expandedActive ? "#00000038" : "#4b0808",
           "&::before": {
             backgroundColor: "transparent",
           },
@@ -107,22 +139,26 @@ function NavItem(props: INavItem) {
       >
         <Typography
           sx={{
-            color: active ? "rgba(255, 166, 0)" : "rgba(255, 166, 0, 0.847)",
+            color: expandedActive
+              ? "rgba(255, 166, 0)"
+              : "rgba(255, 166, 0, 0.847)",
           }}
         >
           {item.title}
         </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {item.menuItems.map((item) => {
-          return <MenuListItem key={item.id} item={item} />;
+        {item.menuItems.map((menu) => {
+          return (
+            <MenuListItem key={menu.id} item={menu} parent={item.href || ""} />
+          );
         })}
       </AccordionDetails>
     </Accordion>
   ) : (
     <Accordion
       square
-      expanded={active}
+      expanded={expandedActive}
       id="panel1-accordian"
       sx={{
         backgroundColor: "transparent",
@@ -131,6 +167,9 @@ function NavItem(props: INavItem) {
           boxShadow: "none",
         },
       }}
+      onClick={() => {
+        dispatch(setExpanded(item.href || ""));
+      }}
     >
       <Link to={item?.href || ""}>
         <AccordionSummary
@@ -138,7 +177,7 @@ function NavItem(props: INavItem) {
           id="panel1a-header"
           sx={{
             borderRadius: 0,
-            backgroundColor: active ? "#00000038" : "#4b0808",
+            backgroundColor: expandedActive ? "#00000038" : "#4b0808",
             "&::before": {
               backgroundColor: "transparent",
             },
@@ -152,7 +191,9 @@ function NavItem(props: INavItem) {
         >
           <Typography
             sx={{
-              color: active ? "rgba(255, 166, 0)" : "rgba(255, 166, 0, 0.847)",
+              color: expandedActive
+                ? "rgba(255, 166, 0)"
+                : "rgba(255, 166, 0, 0.847)",
             }}
           >
             {item.title}

@@ -1,5 +1,4 @@
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
-import { useState } from "react";
 import palette from "theme/palette";
 import { isScreenAccessible, logoURL } from "utils";
 import NavItem from "./NavItem";
@@ -7,7 +6,6 @@ import { sideNavMenu } from "./sideBarNavMenu";
 
 export function DashboardSidebar(props: any) {
   const { open, onClose } = props;
-  const [expanded, setExpanded] = useState("");
 
   const lgUp = useMediaQuery(
     (theme: any) => {
@@ -49,12 +47,7 @@ export function DashboardSidebar(props: any) {
         <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
           {sideNavMenu.map((item) => {
             return isScreenAccessible(item.screenCode) ? (
-              <NavItem
-                key={item.id}
-                expanded={expanded}
-                item={item}
-                setExpanded={setExpanded}
-              />
+              <NavItem key={item.id} item={item} />
             ) : null;
           })}
         </Box>
