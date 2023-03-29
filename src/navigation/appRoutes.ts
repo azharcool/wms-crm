@@ -127,6 +127,20 @@ const AppRoutes = {
       historylisting: "history/listing",
     },
   },
+
+  settting: {
+    layout: "setting",
+    configuration: {
+      listing: "configuration/listing",
+      adjustmentReasons: "configuration/adjustment-reason/listing",
+    },
+    barcode: {
+      generate: "barcode/generate",
+    },
+    roles: {
+      roleListing: "role/listing",
+    },
+  },
 };
 
 export default AppRoutes;
