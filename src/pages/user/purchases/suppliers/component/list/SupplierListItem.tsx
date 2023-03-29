@@ -47,7 +47,7 @@ function SupplierListItem(props: ISupplierListItem) {
         }}
         onClick={() => {
           navigate(
-            `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.details}/${item.id}`,
+            `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.details}/${item.id}/${AppRoutes.purchases.supplier.generalDetails}`,
           );
         }}
       >

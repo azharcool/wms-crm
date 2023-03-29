@@ -49,11 +49,35 @@ const purchasesRouting = (
       path={`${AppRoutes.purchases.supplier.update}/:supplierId`}
     />
 
-    {/* supplier details  */}
+    {/* supplier details */}
     <Route
-      element={<PurchasesLoadable.SupplierDetails />}
+      element={<PurchasesLoadable.SupplierDetailsTab />}
       path={`${AppRoutes.purchases.supplier.details}/:supplierId`}
-    />
+    >
+      {/* details  */}
+      <Route
+        element={<PurchasesLoadable.SupplierGeneralDetails />}
+        path={`${AppRoutes.purchases.supplier.generalDetails}`}
+      />
+      <Route
+        element={<PurchasesLoadable.SupplierAddressDetails />}
+        path={`${AppRoutes.purchases.supplier.addressDetails}`}
+      />
+      <Route
+        element={<PurchasesLoadable.SupplierBankAccountDetails />}
+        path={`${AppRoutes.purchases.supplier.bankAccountDetails}`}
+      />
+
+      {/* listing  */}
+      <Route
+        element={<PurchasesLoadable.SupplierPurchasesListing />}
+        path={`${AppRoutes.purchases.supplier.purchases}`}
+      />
+      <Route
+        element={<PurchasesLoadable.SupplierHistoryListing />}
+        path={`${AppRoutes.purchases.supplier.history}`}
+      />
+    </Route>
 
     {/* supplier return  listing  */}
     <Route
