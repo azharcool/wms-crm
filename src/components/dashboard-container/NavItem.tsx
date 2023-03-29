@@ -29,10 +29,10 @@ interface IMenuListItem {
 }
 
 function MenuListItem(props: IMenuListItem) {
-  const { item, parent } = props;
+  const { item } = props;
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const dispatch = useDispatch();
+
   const active = pathname.includes(item?.location || "");
 
   return (
@@ -42,32 +42,41 @@ function MenuListItem(props: IMenuListItem) {
       gap={1}
       sx={{
         backgroundColor: active ? "#00000038" : "inherit",
-        padding: active ? "5px" : "0",
+        padding: "5px",
         borderRadius: "5px",
         cursor: "pointer",
+
         "&:hover": {
           backgroundColor: "#eacbcb38",
-          padding: "5px",
+          color: "#fff",
+        },
+        "&:hover a": {
+          color: "#fff",
         },
       }}
       onClick={() => {
-        dispatch(setExpanded(parent));
         navigate(item.location);
       }}
     >
       <CircleIcon
         sx={{
           color: active ? "#e65100d3" : "#ffffffb1",
-          fontSize: "12px",
+          fontSize: "8px",
+          "&:hover": {
+            color: "#fff",
+          },
         }}
       />
       <Typography
         component="a"
         sx={{
-          fontSize: "16px",
+          fontSize: "14px",
           color: active ? "#e65100d3" : "#ffffff91",
           fontWeight: "500",
           textDecoration: "none",
+          "&:hover": {
+            color: "#fff",
+          },
         }}
       >
         {item.title}
