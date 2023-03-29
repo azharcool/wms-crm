@@ -116,6 +116,17 @@ const AppRoutes = {
       details: "supplier-returns/details",
     },
   },
+
+  stockControl: {
+    layout: "stock-control",
+    adjustment: {
+      listing: "adjustment/listing",
+      create: "adjustment/create",
+      details: "adjustment/details",
+      generalDetails: "general/details",
+      historylisting: "history/listing",
+    },
+  },
 };
 
 export default AppRoutes;

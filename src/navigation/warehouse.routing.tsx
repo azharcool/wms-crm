@@ -79,6 +79,4 @@ const warehouseRouting = (
   </Route>
 );
 
-// /warehouse/locations/details
-
 export default warehouseRouting;
