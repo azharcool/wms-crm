@@ -2,7 +2,6 @@ import {
   Autocomplete,
   Box,
   DialogTitle,
-  Grid,
   Paper,
   Stack,
   Table,
@@ -18,6 +17,7 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { GetBundleCompositionResponseData } from "types/catalog/bundleComposition/getBundleCompostionResponse";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import CompositionItem from "./CompositionItem";
 // import TableMessage from "components/table-message";
@@ -62,6 +62,7 @@ interface IComposition {
   values?: any;
   setFieldValue: any;
   handleChange: any;
+  data?: GetBundleCompositionResponseData[];
 }
 const data = [
   {
@@ -91,6 +92,18 @@ const data = [
 //   );
 // }
 
+interface IBundleCompositionState {
+  id: number;
+  image: string;
+  name: string;
+  sku: string;
+  unitPrice: number;
+  conditionCode: string;
+  discount: number;
+  qty: number;
+  total: number;
+}
+
 function CompositionListing(props: IComposition) {
   const {
     isTrue,
@@ -100,14 +113,15 @@ function CompositionListing(props: IComposition) {
     values,
     setFieldValue,
     handleChange,
+    data,
   } = props;
   const [variants, setVariant] = useState<IGetAllVariantResponseData[]>([]);
   const handleVariant = (event: any, value: any) => {
     setVariant([...variants, value]);
   };
-  // useEffect(() => {
-  //   setVariant(bundleComp?.data);
-  // });
+
+  const [bundleData, setBundleData] = useState<IBundleCompositionState[]>([]);
+
   const renderOption = (props: any, option: any) => (
     <Stack direction="row" sx={{ m: 1 }}>
       <Box
@@ -130,14 +144,15 @@ function CompositionListing(props: IComposition) {
       </Stack>
     </Stack>
   );
+
   return (
     <PerfectScrollbar>
       <Box sx={{ minWidth: 850, minHeight: 500 }}>
         <DialogTitle variant="subtitle1">
           {isTrue ? "Line Items" : "Units"}
         </DialogTitle>
-        {!isTrue && (
-          <Grid xs={12}>
+        {!isTrue ? (
+          <Stack>
             <Autocomplete
               disablePortal
               id="combo-box-demo"
@@ -155,63 +170,65 @@ function CompositionListing(props: IComposition) {
                 option?.variantName || option?.productName
               }
             />
-          </Grid>
-        )}
+          </Stack>
+        ) : null}
         <TableContainer component={Paper}>
-          <Table
-            sx={{
-              height: "100%",
-            }}
-          >
-            <TableHead>
-              <TableRow>
-                {tableTitle.map((item) => {
-                  const isImage = item.title.includes("Image");
-                  const isProduct = item.title.includes("Product");
-                  return (
-                    <CustomTableCell
-                      key={item.id}
-                      isHeader
-                      customStyle={{
-                        minWidth: isImage ? 50 : 200,
-                        position: isImage || isProduct ? "sticky" : "static",
-                        left: isImage || isProduct ? (isProduct ? 60 : 0) : 0,
-                      }}
-                    >
-                      {item.title}
+          <PerfectScrollbar>
+            <Table
+              sx={{
+                height: "100%",
+              }}
+            >
+              <TableHead>
+                <TableRow>
+                  {tableTitle.map((item) => {
+                    const isImage = item.title.includes("Image");
+                    const isProduct = item.title.includes("Product");
+                    return (
+                      <CustomTableCell
+                        key={item.id}
+                        isHeader
+                        customStyle={{
+                          minWidth: isImage ? 50 : 200,
+                          position: isImage || isProduct ? "sticky" : "static",
+                          left: isImage || isProduct ? (isProduct ? 60 : 0) : 0,
+                        }}
+                      >
+                        {item.title}
+                      </CustomTableCell>
+                    );
+                  })}
+                  {!isTrue && (
+                    <CustomTableCell isHeader isSticky rightValue={0}>
+                      Actions
                     </CustomTableCell>
-                  );
-                })}
-                {!isTrue && (
-                  <CustomTableCell isHeader isSticky rightValue={0}>
-                    Actions
-                  </CustomTableCell>
+                  )}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {!isTrue ? (
+                  variants.map((variant) => {
+                    return (
+                      <CompositionItem
+                        bundleComp={bundleComp}
+                        bundleId={bundleId}
+                        handleChange={handleChange}
+                        isTrue={isTrue}
+                        setFieldValue={setFieldValue}
+                        values={values}
+                        variantData={variant}
+                      />
+                    );
+                  })
+                ) : (
+                  <NoDataTableRow
+                    colSize={7}
+                    title="Please click Edit Buton then search for the Composition Item"
+                  />
                 )}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {!isTrue ? (
-                variants.map((variant) => {
-                  return (
-                    <CompositionItem
-                      bundleComp={bundleComp}
-                      bundleId={bundleId}
-                      handleChange={handleChange}
-                      isTrue={isTrue}
-                      setFieldValue={setFieldValue}
-                      values={values}
-                      variantData={variant}
-                    />
-                  );
-                })
-              ) : (
-                <NoDataTableRow
-                  colSize={7}
-                  title="Please click Edit Buton then search for the Composition Item"
-                />
-              )}
-            </TableBody>
-          </Table>
+              </TableBody>
+            </Table>
+          </PerfectScrollbar>
         </TableContainer>
       </Box>
     </PerfectScrollbar>

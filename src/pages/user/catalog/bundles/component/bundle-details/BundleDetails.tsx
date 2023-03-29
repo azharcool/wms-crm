@@ -22,7 +22,7 @@ import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { IAddCompositionbundleRootRequest } from "types/catalog/bundleCompo/addBundleCompoRequest";
+import { AddBundlCompositionRequestRoot } from "types/catalog/bundleComposition/addBundleCompostionRequest";
 import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import Composition from "./Composition";
@@ -221,7 +221,7 @@ function BundleDetails() {
     values: AddBundleCompForm,
     helper: FormikHelpers<AddBundleCompForm>,
   ) {
-    const data: IAddCompositionbundleRootRequest = {
+    const data: AddBundlCompositionRequestRoot = {
       bundleComposition: [
         {
           userId: Number(userDecoded.id),

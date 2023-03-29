@@ -55,11 +55,7 @@ const ZoneSlice = createSlice({
   },
 });
 
-export const {
-  setZone,
-  clearZone,
-  setZoneId,
-  setAllZoneIds,
-} = ZoneSlice.actions;
+export const { setZone, clearZone, setZoneId, setAllZoneIds } =
+  ZoneSlice.actions;
 
 export default ZoneSlice.reducer;

@@ -4,6 +4,8 @@ import { Box, TableCell, TableRow } from "@mui/material";
 import TextField from "components/textfield";
 import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
+import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 
 const conditionCode = [
@@ -37,6 +39,7 @@ function CompositionItem(props: ICompositionItem) {
     handleChange,
   } = props;
   const { deleteBundlCompeAction } = useBundleCompositionAction();
+  const newtheme = useSelector((state: any) => state.theme);
 
   const handleDelete = (id: any) => {
     deleteBundlCompeAction(id);
@@ -50,7 +53,9 @@ function CompositionItem(props: ICompositionItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Box
@@ -156,7 +161,9 @@ function CompositionItem(props: ICompositionItem) {
           sx={{
             position: "sticky",
             right: 0,
-            // background: "white",
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
           onClick={() => handleDelete(variantData?.id)}
         >
