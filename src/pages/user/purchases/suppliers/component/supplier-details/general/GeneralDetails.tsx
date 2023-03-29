@@ -1,5 +1,17 @@
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
+import {
+  Box,
+  Button,
+  Card,
+  Container,
+  Grid,
+  PaletteMode,
+  Stack,
+  Typography,
+} from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
@@ -8,9 +20,8 @@ import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
 import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import useDecodedData from "hooks/useDecodedData";
-import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import palette from "theme/palette";
@@ -37,7 +48,7 @@ const statusMenu = [
 
 const initialValues: AddSupplierForm = {
   userId: 0,
-  companyName: "",
+  companyName: "Company Name",
   shortName: "",
   email: "",
   phoneNumber: "",
@@ -52,10 +63,53 @@ const initialValues: AddSupplierForm = {
   primaryPhoneNumber: "",
   status: "",
 };
+interface ITooblarButton {
+  handleClick: () => void;
+  title: string;
+  icon: React.ReactNode;
+}
+
+function ToolBarButton(props: ITooblarButton) {
+  const { handleClick, title, icon } = props;
+
+  return (
+    <Box sx={{ m: 1, display: "flex", gap: 5, alignItems: "center" }}>
+      <Button
+        sx={{
+          width: "inherit",
+          borderRadius: "5px",
+          padding: "5px 25px",
+          backgroundColor: palette.warning.dark,
+          color: "#fff",
+          boxShadow: "none",
+          "&:hover": {
+            backgroundColor: palette.warning.dark,
+            opacity: 0.6,
+            boxShadow: "none",
+          },
+        }}
+        variant="contained"
+        onClick={() => {
+          handleClick?.();
+        }}
+      >
+        {icon}
+        <Typography
+          component="span"
+          sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
+        >
+          {title}
+        </Typography>
+      </Button>
+    </Box>
+  );
+}
+
 function GeneralDetails() {
   const newtheme = useSelector((state: any) => state.theme);
-  const { addWarehouseAction, editWarehouseAction } = useWarehouseAction();
   const { addSupplierAction } = useSupplierAction();
+  const [editable, setEditable] = useState(false);
+  const nameRef = useRef<any>(null);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
@@ -169,10 +223,88 @@ function GeneralDetails() {
     });
   };
 
+  const rightActionsData = [
+    {
+      id: crypto.randomUUID(),
+      title: "Cancel",
+      onClick: () => {
+        setEditable(false);
+      },
+      icon: (
+        <ArrowBackIosIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Edit",
+      onClick: () => {
+        setEditable(true);
+        setTimeout(() => {
+          nameRef.current?.focus();
+        }, 500);
+      },
+      icon: (
+        <EditIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+    {
+      id: crypto.randomUUID(),
+      title: "Save",
+      onClick: () => {
+        handleSubmit();
+        navigate(-1);
+      },
+      icon: (
+        <SaveIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+  ];
+
+  const istrue = !editable;
+
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
-        <Grid container marginTop={2} spacing={2}>
+        <Stack direction="row" justifyContent="flex-end">
+          {editable
+            ? rightActionsData
+                .filter((i) => i.title !== "Edit")
+                .map((item) => (
+                  <ToolBarButton
+                    key={item.id}
+                    handleClick={item.onClick}
+                    icon={item.icon}
+                    title={item.title}
+                  />
+                ))
+            : rightActionsData
+                .filter((i) => i.title === "Edit")
+                .map((item) => (
+                  <ToolBarButton
+                    key={item.id}
+                    handleClick={item.onClick}
+                    icon={item.icon}
+                    title={item.title}
+                  />
+                ))}
+        </Stack>
+
+        <Grid container spacing={2}>
           <Grid item xs={8}>
             <Card
               sx={{
@@ -183,7 +315,7 @@ function GeneralDetails() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     error={!!touched.companyName && !!errors.companyName}
                     helperText={
                       (touched.companyName && errors && errors.companyName) ||
@@ -192,14 +324,15 @@ function GeneralDetails() {
                     id="companyName"
                     label="Company Name"
                     name="companyName"
+                    nameRef={nameRef}
                     size="small"
-                    value="company Name"
+                    value={values.companyName}
                     onBlur={handleBlur("companyName")}
                     onChange={handleChange("companyName")}
                   />
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     error={!!touched.shortName && !!errors.shortName}
                     helperText={
                       (touched.shortName && errors && errors.shortName) || ""
@@ -216,7 +349,7 @@ function GeneralDetails() {
 
                 <TextField
                   darkDisable
-                  disabled
+                  disabled={istrue}
                   id="email"
                   label="Email"
                   name="email"
@@ -228,7 +361,7 @@ function GeneralDetails() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     id="referenceId"
                     label="Reference id"
                     name="referenceId"
@@ -239,7 +372,7 @@ function GeneralDetails() {
 
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     id="supplierID"
                     label="Supplier ID"
                     name="supplierID"
@@ -254,7 +387,7 @@ function GeneralDetails() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     id="firstName"
                     label="First Name"
                     name="firstName"
@@ -264,7 +397,7 @@ function GeneralDetails() {
                   />
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     id="lastName"
                     label="Last Name"
                     name="lastName"
@@ -276,7 +409,7 @@ function GeneralDetails() {
                 <Stack direction="row" gap={2}>
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     id="primaryEmail"
                     label="Email"
                     name="primaryEmail"
@@ -286,7 +419,7 @@ function GeneralDetails() {
                   />
                   <TextField
                     darkDisable
-                    disabled
+                    disabled={istrue}
                     id="primaryPhoneNumber"
                     label="Phone Number"
                     name="primaryPhoneNumber"
@@ -352,8 +485,8 @@ function GeneralDetails() {
               <CustomCardContent title="Settings">
                 <TextField
                   darkDisable
-                  disabled
                   isSelect
+                  disabled={istrue}
                   helperText={(touched.status && errors && errors.status) || ""}
                   label="Status"
                   menuItems={statusMenu}
