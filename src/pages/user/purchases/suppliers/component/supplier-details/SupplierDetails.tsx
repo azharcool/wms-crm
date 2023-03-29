@@ -1,4 +1,3 @@
-import EditIcon from "@mui/icons-material/Edit";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
@@ -63,21 +62,21 @@ function SupplierDetails() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Supplier", to: "/purchase/supplier/listing" }]}
-          rightActions={[
-            {
-              id: crypto.randomUUID(),
-              title: "Edit",
-              onClick: () => {},
-              icon: (
-                <EditIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
-            },
-          ]}
+          // rightActions={[
+          //   {
+          //     id: crypto.randomUUID(),
+          //     title: "Edit",
+          //     onClick: () => {},
+          //     icon: (
+          //       <EditIcon
+          //         sx={{
+          //           fontSize: 18,
+          //           mr: 1,
+          //         }}
+          //       />
+          //     ),
+          //   },
+          // ]}
           title="Supplier Name"
         />
         <Tabs
