@@ -100,6 +100,13 @@ const AppRoutes = {
       create: "supplier/create",
       update: "supplier/update",
       details: "supplier/details",
+
+      // tabs
+      generalDetails: "general/details",
+      addressDetails: "address/details",
+      bankAccountDetails: "bank/details",
+      purchases: "purchases/listing",
+      history: "history/listing",
     },
 
     supplierReturns: {
