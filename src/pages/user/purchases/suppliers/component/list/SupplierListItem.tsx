@@ -1,6 +1,7 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
+import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -44,7 +45,11 @@ function SupplierListItem(props: ISupplierListItem) {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() => {}}
+        onClick={() => {
+          navigate(
+            `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.details}/${item.id}`,
+          );
+        }}
       >
         {item?.companyName}
       </TableCell>

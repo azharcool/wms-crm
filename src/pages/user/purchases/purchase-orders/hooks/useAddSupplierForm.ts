@@ -41,7 +41,7 @@ const defaultValues: AddSupplierForm = {
 };
 
 const validationSchema = Yup.object().shape({
-  companyName: Yup.string().required(ErrorMessages.add_supplier.compnayName),
+  companyName: Yup.string().required(ErrorMessages.add_supplier.companyName),
   shortName: Yup.string().required(ErrorMessages.add_supplier.shortName),
 });
 
