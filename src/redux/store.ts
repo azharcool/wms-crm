@@ -4,11 +4,8 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/es/storage/session";
-import bundle from "./catalog/bundleSlice";
-import area from "./warehouse/areaSlice";
-import location from "./warehouse/locationSlice";
-import zone from "./warehouse/zoneSlice";
 import brand from "./catalog/brandSlice";
+import bundle from "./catalog/bundleSlice";
 import category from "./catalog/categorySlice";
 import product from "./catalog/productSlice";
 import common from "./common/common";
@@ -16,9 +13,13 @@ import theme from "./darktheme/customtheme";
 import permissions from "./permissions/permissions";
 import roles from "./roles/roles";
 import screens from "./screen/screen";
+import sideDashboard from "./side-dashboard/sideDashboardSlice";
 import team from "./team/team";
 import user from "./user/auth";
+import area from "./warehouse/areaSlice";
+import location from "./warehouse/locationSlice";
 import warehouse from "./warehouse/warehouseSlice";
+import zone from "./warehouse/zoneSlice";
 
 const persistConfig = {
   key: "root",
@@ -40,7 +41,8 @@ const combinedReducer = combineReducers({
   warehouse,
   area,
   location,
-  zone
+  zone,
+  sideDashboard,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
