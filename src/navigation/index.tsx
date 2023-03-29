@@ -13,6 +13,7 @@ import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
 import purchasesRouting from "./purchases.routing";
 import SettingPermissionsLayout from "./SettingPermissionsLayout";
+import stockControlRouting from "./stockControl.routing";
 import warehouseRouting from "./warehouse.routing";
 
 function Application() {
@@ -66,6 +67,7 @@ function Application() {
 
             {warehouseRouting}
             {purchasesRouting}
+            {stockControlRouting}
 
             <Route
               element={<UserLoadable.Suppliers />}
