@@ -15,4 +15,5 @@ export interface AddSupplierRequestRoot {
   primaryEmail?: string;
   primaryPhone?: string;
   image?: string;
+  status?: number;
 }

@@ -244,6 +244,11 @@ const ErrorMessages = {
     country: "Please select country",
     city: "Please enter city name",
   },
+  add_supplier: {
+    companyName: "Please enter company name",
+    shortName: "Please enter short name",
+    status: "Please enter supplier status",
+  },
   general: {
     name: "please enter name",
     description: "please enter description",
