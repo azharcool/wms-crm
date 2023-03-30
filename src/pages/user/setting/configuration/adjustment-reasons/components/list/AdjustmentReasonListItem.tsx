@@ -2,8 +2,14 @@ import { Checkbox, TableCell, TableRow } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
+import { IGetAdjustmentResponseData } from "types/setting/adjustment/getAdjustmentResponse";
 
-function AdjustmentReasonListItem() {
+interface IAdjustmentItem {
+  item: IGetAdjustmentResponseData;
+}
+
+function AdjustmentReasonListItem(props: IAdjustmentItem) {
+  const { item } = props;
   const newtheme = useSelector((state: any) => state.theme);
 
   return (
@@ -36,14 +42,14 @@ function AdjustmentReasonListItem() {
         }}
         onClick={() => {}}
       >
-        {/* name */}
+        {item.name}
       </TableCell>
       <TableCell
         sx={{
-          minWidth: 150
+          minWidth: 150,
         }}
       >
-        {/* operation */}
+        {item.operations}
       </TableCell>
     </TableRow>
   );

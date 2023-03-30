@@ -12,6 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { IGetAdjustmentResponseRoot } from "types/setting/adjustment/getAdjustmentResponse";
 import AdjustmentReasonListItem from "./AdjustmentReasonListItem";
 
 const tableTitle = [
@@ -21,12 +22,17 @@ const tableTitle = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Opration",
-  }
+    title: "Operation",
+  },
 ];
 
-function AdjustmentReasonsList() {
+interface IAdjustmentReasonListing {
+  data?: IGetAdjustmentResponseRoot;
+}
 
+function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
+  const { data } = props;
+  console.log("data-->", data);
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -72,7 +78,9 @@ function AdjustmentReasonsList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                 <AdjustmentReasonListItem/>
+                {data?.data.map((item: any) => {
+                  return <AdjustmentReasonListItem key={item.id} item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>

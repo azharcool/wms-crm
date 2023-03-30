@@ -1,38 +1,36 @@
-import { FormikHelpers,useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
 export interface AddAdjustmentForm {
+  operations: string | undefined;
   name: string;
-  operation: string;
 }
 
-const defaultValues: AddAdjustmentForm = {
+export const adjustmentInitialValues: AddAdjustmentForm = {
   name: "",
-  operation: "",
+  operations: "",
 };
 
 interface IAddAdjustmentForm {
+  initialValues: AddAdjustmentForm;
   onSubmit: (
     values: AddAdjustmentForm,
     formikHelpers: FormikHelpers<AddAdjustmentForm>,
   ) => void | Promise<unknown>;
-  initialValues: AddAdjustmentForm;
 }
 
-const validationSchema = Yup.object().shape({
+const Schema = Yup.object().shape({
   name: Yup.string().required("Please enter name"),
-  opertaions: Yup.string().required("Please enter name"),
+  operations: Yup.string().required("Please enter name"),
 });
 
-function useAddAdjustmentForm({
-  onSubmit,
-  initialValues = defaultValues,
-}: IAddAdjustmentForm) {
-  return useFormik<AddAdjustmentForm>({
+const useAddAdjustmentForm = (props: IAddAdjustmentForm) => {
+  const { initialValues, onSubmit } = props;
+  return useFormik({
     initialValues,
     onSubmit,
-    validationSchema,
+    validationSchema: Schema,
   });
-}
+};
 
 export default useAddAdjustmentForm;

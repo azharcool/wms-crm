@@ -123,10 +123,10 @@ function AddBrand(props: IAddBrands) {
         handleSubmit();
       }}
       handleClose={handleClose}
+      isSubmitting={isSubmitting}
       open={open}
       size="sm"
       title="New Brand"
-      isSubmitting={isSubmitting}
     >
       <PerfectScrollbar>
         <Stack
@@ -209,7 +209,7 @@ function AddBrand(props: IAddBrands) {
                     </Box>
                   );
                 })}
-                <UploadButton handleFile={handleFile} single />
+                <UploadButton single handleFile={handleFile} />
               </Stack>
             </CustomCardContent>
           </Card>
