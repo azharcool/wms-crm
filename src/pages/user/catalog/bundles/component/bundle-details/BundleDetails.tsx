@@ -237,8 +237,6 @@ function BundleDetails() {
       ],
     };
     await addBundleCompositionAction(data);
-    // navigate("/catalog/bundles");
-    // setEditable(false);
   }
   const istrue = !editable;
   return (
@@ -250,11 +248,6 @@ function BundleDetails() {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
           navTitle="BUNDLES"
-          rightActions={
-            editable
-              ? rightActionsData.filter((i) => i.title !== "Edit")
-              : rightActionsData.filter((i) => i.title === "Edit")
-          }
           title="bundles"
         />
         <Stack direction="row">
@@ -277,13 +270,7 @@ function BundleDetails() {
           />
         </TabPanel>
         <TabPanel index={1} value={value}>
-          <Composition
-            bundleId={Number(bundleId)}
-            handleChange={handleChange}
-            isTrue={istrue}
-            setFieldValue={setFieldValue}
-            values={values}
-          />
+          <Composition />
         </TabPanel>
       </Container>
     </ThemeProvider>

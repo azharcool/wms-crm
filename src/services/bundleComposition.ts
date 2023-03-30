@@ -1,9 +1,17 @@
 import { IResponse } from "constants/interfaces";
 import { AddBundlCompositionRequestRoot } from "types/catalog/bundleComposition/addBundleCompostionRequest";
 import { GetBundleCompositionResponseRoot } from "types/catalog/bundleComposition/getBundleCompostionResponse";
+import { GetByBundleIdBundleCompositionRoot } from "types/catalog/bundleComposition/getByBundleIdBundleComposition";
 import { GetByIdBundleComponsitionRoot } from "types/catalog/bundleComposition/getByIdBundleCompositionResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
+
+export async function getAllByBundleIdBundleComposition(
+  id: number,
+): Promise<GetByBundleIdBundleCompositionRoot> {
+  const URL = `${API_URLS.GET_ALL_BY_BUNDLE_ID_BUNDLE_COMPOSITION}?bundleId=${id}`;
+  return client.get(URL);
+}
 
 export async function getAllPaginationBundleComposition(
   restUrl: string,
