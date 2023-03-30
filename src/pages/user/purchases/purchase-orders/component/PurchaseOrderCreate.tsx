@@ -315,7 +315,7 @@ function PurchaseOrderCreate() {
             </Grid>
           </Grid>
           {/* columnEnd */}
-          <Grid item xs={4}>
+          <Grid item marginTop={2} xs={4}>
             <Card
               sx={{
                 flex: 1,
@@ -392,115 +392,85 @@ function PurchaseOrderCreate() {
           </Grid>
           <LineItems />
 
-          <Grid
-            container
-            xs={12}
-            sx={{ display: "flex", justifyContent: "space-around" }}
-            marginTop={4}
-            gap={2}
-          >
-            <Grid item xs={5} sx={{ border: "0.5px #d9d9d9 solid" }}>
-              <Card
-                sx={{
-                  flex: 1,
-                  height: "100%",
-                }}
-              >
-                <DialogTitle>
-                  <Typography component="h6">Invoice Summary</Typography>
-                </DialogTitle>
-                <Divider />
-                <DialogContent>
-                  <Stack direction="row" gap={2} marginTop={2}>
-                    <TextField
-                      name="line"
-                      darkDisable
-                      label="Line Items"
-                      value="1"
-                      size="small"
-                    />
-                    <TextField
-                      darkDisable
-                      name="unit"
-                      label="Unit Ordered"
-                      value="1"
-                      size="small"
-                    />
-                  </Stack>
-                  <Stack direction="row" gap={2} marginTop={2}>
-                    <TextField
-                      darkDisable
-                      name="received"
-                      label="Received items"
-                      value="1"
-                      size="small"
-                    />
-                    <TextField
-                      darkDisable
-                      name="subtotal"
-                      value="INR 10"
-                      label="Subtotal"
-                      size="small"
-                    />
-                  </Stack>
-                  <Stack direction="row" gap={2} marginTop={2}>
-                    <TextField
-                      darkDisable
-                      name="discount"
-                      label="Discount price"
-                      value="INR 1"
-                      size="small"
-                    />
-
-                    <TextField
-                      darkDisable
-                      name="taxes"
-                      label="Taxes"
-                      value="INR 10 "
-                      size="small"
-                    />
-                  </Stack>
-                  <Stack direction="row" gap={2} marginTop={2}>
-                    <TextField
-                      darkDisable
-                      name="shippingcharge"
-                      label="Shipping charges"
-                      value="INR 13"
-                      size="small"
-                    />
-                    <TextField
-                      darkDisable
-                      name="Total"
-                      value="INR 100"
-                      label="Total"
-                      size="small"
-                    />
-                  </Stack>
-                </DialogContent>
-              </Card>
-            </Grid>
-            <Grid item xs={5} sx={{ border: "1px #d9d9d9 solid" }}>
-              <Card
-                sx={{
-                  flex: 1,
-                  height: "100%",
-                }}
-              >
-                <DialogTitle>
-                  <Typography component="h6">Supplier notes</Typography>
-                </DialogTitle>
-                <Divider />
-                <DialogContent>
+          <Grid item xs={12}>
+            <Card>
+              <CustomCardContent title="Supplier notes">
+                <TextField
+                  multiline
+                  id="notes"
+                  label="Notes"
+                  name="notes"
+                  rows={5}
+                />
+              </CustomCardContent>
+              <CustomCardContent title="Invoice Summary">
+                <Stack direction="row" gap={2} marginTop={2}>
                   <TextField
-                    multiline
-                    id="notes"
-                    rows={6}
-                    label="Notes"
-                    name="notes"
+                    darkDisable
+                    label="Line Items"
+                    name="line"
+                    size="small"
+                    value="1"
                   />
-                </DialogContent>
-              </Card>
-            </Grid>
+                  <TextField
+                    darkDisable
+                    label="Unit Ordered"
+                    name="unit"
+                    size="small"
+                    value="1"
+                  />
+                </Stack>
+                <Stack direction="row" gap={2} marginTop={2}>
+                  <TextField
+                    darkDisable
+                    label="Received items"
+                    name="received"
+                    size="small"
+                    value="1"
+                  />
+                  <TextField
+                    darkDisable
+                    label="Subtotal"
+                    name="subtotal"
+                    size="small"
+                    value="INR 10"
+                  />
+                </Stack>
+                <Stack direction="row" gap={2} marginTop={2}>
+                  <TextField
+                    darkDisable
+                    label="Discount price"
+                    name="discount"
+                    size="small"
+                    value="INR 1"
+                  />
+
+                  <TextField
+                    darkDisable
+                    label="Taxes"
+                    name="taxes"
+                    size="small"
+                    value="INR 10 "
+                  />
+                </Stack>
+                <Stack direction="row" gap={2} marginTop={2}>
+                  <TextField
+                    darkDisable
+                    label="Shipping charges"
+                    name="shippingcharge"
+                    size="small"
+                    value="INR 13"
+                  />
+                  <TextField
+                    darkDisable
+                    label="Total"
+                    name="Total"
+                    size="small"
+                    value="INR 100"
+                  />
+                </Stack>
+              </CustomCardContent>
+            </Card>
           </Grid>
         </Grid>
       </Container>
@@ -560,7 +530,7 @@ function LineItems() {
   const [openBrowsItem, setOpenBrowsItem] = React.useState(false);
   return (
     <PerfectScrollbar>
-      <Box sx={{ marginTop: 4 }}>
+      <Box sx={{ marginTop: 4, marginLeft:2 }}>
         <TableContainer component={Paper}>
           <Box sx={{ margin: 3 }}>
             <Typography variant="title1" margin={2}>
