@@ -109,7 +109,10 @@ function SupplierListItem(props: ISupplierListItem) {
           // background: "white",
         }}
       >
-        <StatusTableCell status={item?.status} />
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "InActive" : "Active"}
+        />
       </TableCell>
 
       <TableCell
