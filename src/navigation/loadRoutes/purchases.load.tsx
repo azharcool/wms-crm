@@ -54,9 +54,57 @@ export const SupplierUpdate = Loadable({
   loading: () => <Spinner />,
 });
 
-export const SupplierDetails = Loadable({
+// Supplier Details Tab
+export const SupplierDetailsTab = Loadable({
   loader: () =>
-    import("pages/user/purchases/suppliers/component/SupplierDetails"),
+    import(
+      "pages/user/purchases/suppliers/component/supplier-details/SupplierDetails"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Supplier General Details
+export const SupplierGeneralDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/purchases/suppliers/component/supplier-details/general/GeneralDetails"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Supplier Address Details
+export const SupplierAddressDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/purchases/suppliers/component/supplier-details/address/AddressDetails"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Supplier BankAccount Details
+export const SupplierBankAccountDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/purchases/suppliers/component/supplier-details/bank/BankAccountDetails"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Supplier Purchases Listing
+export const SupplierPurchasesListing = Loadable({
+  loader: () =>
+    import(
+      "pages/user/purchases/suppliers/component/supplier-details/purchases/PurchasesListing"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Supplier History Listing
+export const SupplierHistoryListing = Loadable({
+  loader: () =>
+    import(
+      "pages/user/purchases/suppliers/component/supplier-details/history/HistoryListing"
+    ),
   loading: () => <Spinner />,
 });
 

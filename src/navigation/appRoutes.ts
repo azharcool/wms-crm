@@ -100,6 +100,13 @@ const AppRoutes = {
       create: "supplier/create",
       update: "supplier/update",
       details: "supplier/details",
+
+      // tabs
+      generalDetails: "general/details",
+      addressDetails: "address/details",
+      bankAccountDetails: "bank/details",
+      purchases: "purchases/listing",
+      history: "history/listing",
     },
 
     supplierReturns: {
@@ -107,6 +114,31 @@ const AppRoutes = {
       create: "supplier-returns/create",
       update: "supplier-returns/update",
       details: "supplier-returns/details",
+    },
+  },
+
+  stockControl: {
+    layout: "stock-control",
+    adjustment: {
+      listing: "adjustment/listing",
+      create: "adjustment/create",
+      details: "adjustment/details",
+      generalDetails: "general/details",
+      historylisting: "history/listing",
+    },
+  },
+
+  setting: {
+    layout: "setting",
+    configuration: {
+      listing: "configuration/listing",
+      adjustmentReasons: "configuration/adjustment-reason/listing",
+    },
+    barcode: {
+      generate: "barcode/generate",
+    },
+    roles: {
+      roleListing: "role/listing",
     },
   },
 };
