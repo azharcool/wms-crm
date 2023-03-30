@@ -126,6 +126,12 @@ const AppRoutes = {
       generalDetails: "general/details",
       historylisting: "history/listing",
     },
+    recieve: {
+      listing: "recieve/listing",
+      details: "recieve/details",
+      general: "general/details",
+      history: "history/details",
+    },
   },
 
   setting: {

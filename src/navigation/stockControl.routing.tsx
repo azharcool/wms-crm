@@ -7,7 +7,7 @@ const stockControlRouting = (
     element={<StockControlLoadable.StockControlLayout />}
     path={`${AppRoutes.stockControl.layout}`}
   >
-    {/* warehouse create */}
+    {/* Adjustment Routing */}
     <Route
       element={<StockControlLoadable.AdjustmentCreate />}
       path={`${AppRoutes.stockControl.adjustment.create}`}
@@ -29,6 +29,26 @@ const stockControlRouting = (
       <Route
         element={<StockControlLoadable.AdjustmentHistoryListing />}
         path={`${AppRoutes.stockControl.adjustment.historylisting}`}
+      />
+    </Route>
+
+    {/* Recieve Routing */}
+    <Route
+      element={<StockControlLoadable.RecieveListing />}
+      path={`${AppRoutes.stockControl.recieve.listing}`}
+    />
+
+    <Route
+      element={<StockControlLoadable.RecieveDetials />}
+      path={`${AppRoutes.stockControl.recieve.details}/:recieveId`}
+    >
+      <Route
+        element={<StockControlLoadable.RecieveGeneral />}
+        path={`${AppRoutes.stockControl.recieve.general}`}
+      />
+      <Route
+        element={<StockControlLoadable.RecieveHistory />}
+        path={`${AppRoutes.stockControl.recieve.history}`}
       />
     </Route>
   </Route>
