@@ -126,6 +126,26 @@ const AppRoutes = {
       generalDetails: "general/details",
       historylisting: "history/listing",
     },
+    recieve: {
+      listing: "recieve/listing",
+      details: "recieve/details",
+      general: "general/details",
+      history: "history/details",
+    },
+  },
+
+  setting: {
+    layout: "setting",
+    configuration: {
+      listing: "configuration/listing",
+      adjustmentReasons: "configuration/adjustment-reason/listing",
+    },
+    barcode: {
+      generate: "barcode/generate",
+    },
+    roles: {
+      roleListing: "role/listing",
+    },
   },
 };
 

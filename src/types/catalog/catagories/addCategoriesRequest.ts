@@ -8,5 +8,5 @@ export interface IAddCategoriesRequestRoot {
   slug?: string;
   detail?: string;
   status?: number;
-  image?: string[];
+  image?: string;
 }
