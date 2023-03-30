@@ -115,6 +115,11 @@ export const sideNavMenu: ISideNavMenu[] = [
     menuItems: [
       {
         id: crypto.randomUUID(),
+        title: "Recieve",
+        location: `/${stockControl.layout}/${stockControl.recieve.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Adjustment",
         location: `/${stockControl.layout}/${stockControl.adjustment.listing}`,
       },
