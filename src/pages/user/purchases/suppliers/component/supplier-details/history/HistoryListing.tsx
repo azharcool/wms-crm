@@ -1,5 +1,7 @@
+import HistoryListingItem from "./HistoryListingItem";
+
 function HistoryListing() {
-  return <div>HistoryListing</div>;
+  return <HistoryListingItem />;
 }
 
 export default HistoryListing;
