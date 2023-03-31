@@ -103,7 +103,7 @@ function BrandListing(props: IBrandListing) {
               </TableHead>
               <TableBody>
                 {data?.data.map((item) => {
-                  return <BrandItem brandData={item} />;
+                  return <BrandItem item={item} />;
                 })}
               </TableBody>
             </Table>

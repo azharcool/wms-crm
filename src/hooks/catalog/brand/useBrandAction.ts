@@ -1,22 +1,21 @@
 import { useSnackbar } from "components/snackbar";
-import useDecodedData from "hooks/useDecodedData";
 import { useQueryClient } from "react-query";
 import {
   addBrand,
   bulkDeleteBrand,
   deleteBrand,
+  editBrand,
 } from "services/brand.services";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
 function useBrandAction() {
   const snackbar = useSnackbar();
-  const userDecoded = useDecodedData();
   const queryClient = useQueryClient();
 
   const addBrandAction = async (
     data: IAddBrandRequestRoot,
-  ): Promise<string> => {
+  ): Promise<boolean> => {
     try {
       const response = await addBrand(data);
       if (response.statusCode === 200) {
@@ -25,15 +24,37 @@ function useBrandAction() {
           title: response.message,
           type: "success",
         });
+        return true;
       }
-      return "";
     } catch (error: any) {
       snackbar?.show({
         title: error.message,
         type: "error",
       });
-      return "";
     }
+    return false;
+  };
+
+  const editBrandAction = async (
+    data: IAddBrandRequestRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editBrand(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllBrand]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
   };
 
   const deleteBrandAsync = async (id: number): Promise<boolean> => {
@@ -79,6 +100,7 @@ function useBrandAction() {
   return {
     addBrandAction,
     deleteBrandAsync,
+    editBrandAction,
     bulkDeleteBrandAsync,
   };
 }
