@@ -19,11 +19,12 @@ import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
 import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
+import useGetByIdSupplier from "hooks/querys/catalog/supplier/useGetByIdSupplier";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
 import useAddSupplierForm, {
@@ -106,13 +107,18 @@ function ToolBarButton(props: ITooblarButton) {
 }
 
 function GeneralDetails() {
+  const { supplierId } = useParams();
+  const { data: supplierItemResponse } = useGetByIdSupplier({
+    supplierId: Number(supplierId),
+  });
   const newtheme = useSelector((state: any) => state.theme);
-  const { addSupplierAction } = useSupplierAction();
+  const { editSupplierAction } = useSupplierAction();
   const [editable, setEditable] = useState(false);
   const nameRef = useRef<any>(null);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
+
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -165,11 +171,37 @@ function GeneralDetails() {
     resetForm,
   } = supplierForm;
 
+  useEffect(() => {
+    if (supplierItemResponse?.data) {
+      setFieldValue("companyName", supplierItemResponse.data.companyName || "");
+      setFieldValue("shortName", supplierItemResponse.data.shortName || "");
+      setFieldValue("email", supplierItemResponse.data.email || "");
+      setFieldValue("phoneNumber", supplierItemResponse.data.phoneNumber || "");
+      setFieldValue("address", supplierItemResponse.data.address || "");
+      setFieldValue("region", supplierItemResponse.data.region || "");
+      setFieldValue("city", supplierItemResponse.data.city || "");
+      setFieldValue("zipCode", supplierItemResponse.data.zipCode || "");
+      setFieldValue("countryId", supplierItemResponse.data.countryId || 0);
+      setFieldValue("firstName", supplierItemResponse.data.firstName || "");
+      setFieldValue("lastName", supplierItemResponse.data.lastName || "");
+      setFieldValue(
+        "primaryEmail",
+        supplierItemResponse.data.primaryEmail || "",
+      );
+      setFieldValue(
+        "primaryPhoneNumber",
+        supplierItemResponse.data.primaryPhone || "",
+      );
+      setFieldValue("status", supplierItemResponse.data.status || 0);
+    }
+  }, [supplierItemResponse?.data]);
+
   async function onSubmit(
     values: AddSupplierForm,
     helper: FormikHelpers<AddSupplierForm>,
   ) {
     const data: AddSupplierRequestRoot = {
+      id: Number(supplierId),
       userId: Number(userDecoded.id),
       companyName: values.companyName,
       shortName: values.shortName,
@@ -186,7 +218,7 @@ function GeneralDetails() {
       primaryPhone: values.primaryPhoneNumber,
       status: Number(values.status === "Active" ? "1" : "2"),
     };
-    const response = await addSupplierAction(data);
+    const response = await editSupplierAction(data);
     if (response) {
       resetForm();
       navigate(
@@ -194,6 +226,7 @@ function GeneralDetails() {
       );
     }
   }
+
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const handleFile = async (e: any) => {
@@ -341,7 +374,7 @@ function GeneralDetails() {
                     label="Short Name"
                     name="shortName"
                     size="small"
-                    value="Short Name"
+                    value={values.shortName}
                     onBlur={handleBlur("shortName")}
                     onChange={handleChange("shortName")}
                   />
@@ -354,7 +387,7 @@ function GeneralDetails() {
                   label="Email"
                   name="email"
                   size="small"
-                  value="Email"
+                  value={values.email}
                   onChange={handleChange("email")}
                 />
 
@@ -377,8 +410,7 @@ function GeneralDetails() {
                     label="Supplier ID"
                     name="supplierID"
                     size="small"
-                    value="Supplier ID"
-                    onChange={handleChange("supplierID")}
+                    value={supplierItemResponse?.data.id}
                   />
                 </Stack>
               </CustomCardContent>
@@ -392,7 +424,7 @@ function GeneralDetails() {
                     label="First Name"
                     name="firstName"
                     size="small"
-                    value="First Name"
+                    value={values.firstName}
                     onChange={handleChange("firstName")}
                   />
                   <TextField
@@ -402,7 +434,7 @@ function GeneralDetails() {
                     label="Last Name"
                     name="lastName"
                     size="small"
-                    value="Last Name"
+                    value={values.lastName}
                     onChange={handleChange("lastName")}
                   />
                 </Stack>
@@ -412,9 +444,9 @@ function GeneralDetails() {
                     disabled={istrue}
                     id="primaryEmail"
                     label="Email"
-                    name="primaryEmail"
+                    name="Primary Email"
                     size="small"
-                    value="Primary Email"
+                    value={values.primaryEmail}
                     onChange={handleChange("primaryEmail")}
                   />
                   <TextField
@@ -424,7 +456,7 @@ function GeneralDetails() {
                     label="Phone Number"
                     name="primaryPhoneNumber"
                     size="small"
-                    value="Primary Phone Number"
+                    value={values.primaryPhoneNumber}
                     onChange={handleChange("primaryPhoneNumber")}
                   />
                 </Stack>
@@ -432,7 +464,7 @@ function GeneralDetails() {
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <Card sx={{ flex: 1, marginBottom: "16px" }}>
+            <Card sx={{ flex: 1, marginBottom: "15px" }}>
               <CustomCardContent title="Image">
                 <Stack direction="row" flexWrap="wrap" gap={2}>
                   {uploadedFiles.map((item) => {
