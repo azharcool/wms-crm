@@ -1,5 +1,4 @@
 import {
-  Autocomplete,
   Box,
   DialogTitle,
   Paper,
@@ -9,17 +8,18 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  TextField,
-  Typography,
 } from "@mui/material";
+import CustomAutoComplete, {
+  IAutoCompleteOption,
+} from "components/auto-complete/CustomAutoComplete";
 import CustomTableCell from "components/table/CustomTableCell";
 import NoDataTableRow from "components/table/no-data-table-row";
-import { useState } from "react";
+import { Dispatch, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { GetBundleCompositionResponseData } from "types/catalog/bundleComposition/getBundleCompostionResponse";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
-import CompositionItem from "./CompositionItem";
+import { BundleList } from "..";
+import CompositionItem, { SetBundleItemParam } from "./CompositionItem";
 // import TableMessage from "components/table-message";
 
 const tableTitle = [
@@ -55,124 +55,95 @@ const tableTitle = [
   },
 ];
 interface IComposition {
-  isTrue: boolean;
   variantData?: IGetAllVariantResponseData[];
-  bundleComp: any;
-  bundleId?: number;
-  values?: any;
-  setFieldValue: any;
-  handleChange: any;
-  data?: GetBundleCompositionResponseData[];
-}
-const data = [
-  {
-    id: crypto.randomUUID(),
-    name: "variant1",
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "variant2",
-  },
-  {
-    id: crypto.randomUUID(),
-    name: "variant3",
-  },
-];
-
-// function renderOption(option: any) {
-//   return (
-//    <Stack direction="row">
-//     <Typography>
-//       {option.variantName}
-//     </Typography>
-//     <Typography>
-//       {option.sku}
-//     </Typography>
-//    </Stack>
-//   );
-// }
-
-interface IBundleCompositionState {
-  id: number;
-  image: string;
-  name: string;
-  sku: string;
-  unitPrice: number;
-  conditionCode: string;
-  discount: number;
-  qty: number;
-  total: number;
+  isManage: boolean;
+  bundleCompositionList: BundleList;
+  setBundleCompositionList: Dispatch<React.SetStateAction<BundleList>>;
 }
 
 function CompositionListing(props: IComposition) {
   const {
-    isTrue,
     variantData,
-    bundleComp,
-    bundleId,
-    values,
-    setFieldValue,
-    handleChange,
-    data,
+    bundleCompositionList,
+    setBundleCompositionList,
+    isManage,
   } = props;
-  const [variants, setVariant] = useState<IGetAllVariantResponseData[]>([]);
-  const handleVariant = (event: any, value: any) => {
-    setVariant([...variants, value]);
+
+  const [inputValue, setInputValue] = useState("");
+
+  const setValueHandler = (newValue: IAutoCompleteOption | null): void => {
+    if (!newValue || !variantData) return;
+
+    const findVariant = variantData.find((i) => i.id === Number(newValue.id));
+
+    if (!findVariant) return;
+
+    setBundleCompositionList((s) => [
+      ...s,
+      {
+        id: s.length + 1,
+        conditionCode: "",
+        discount: 0,
+        qty: 1,
+        total: 0,
+        unitPrice: 0,
+        productId: findVariant?.productId || 0,
+        productName: findVariant?.productName || "",
+        productVariantId: findVariant?.id || 0,
+        productVariantName: findVariant?.variantName || "",
+        image: "",
+        sku: findVariant?.sku || "",
+      },
+    ]);
   };
 
-  const [bundleData, setBundleData] = useState<IBundleCompositionState[]>([]);
+  const setBundleItem = (params: SetBundleItemParam) => {
+    const { id, name, value } = params;
+    const newBundleComposition = bundleCompositionList.map((item) => {
+      if (item.id === id) {
+        //
+        return {
+          ...item,
+          [name]: value,
+        };
+      }
+      return item;
+    });
+    setBundleCompositionList(newBundleComposition);
+  };
 
-  const renderOption = (props: any, option: any) => (
-    <Stack direction="row" sx={{ m: 1 }}>
-      <Box
-        sx={{
-          width: "40px",
-          height: "40px",
-        }}
-      >
-        <img
-          alt="new"
-          src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-          width="100%"
-        />
-      </Box>
-      <Stack direction="column" ml={1}>
-        <Typography>{option?.variantName}</Typography>
-        <Typography color="text.secondary" fontSize={13}>
-          {option?.sku}
-        </Typography>
-      </Stack>
-    </Stack>
-  );
+  const variantOptions =
+    variantData?.map((item) => ({
+      id: String(item.id),
+      label: item.productName || item.variantName || "",
+    })) || [];
 
   return (
     <PerfectScrollbar>
       <Box sx={{ minWidth: 850, minHeight: 500 }}>
         <DialogTitle variant="subtitle1">
-          {isTrue ? "Line Items" : "Units"}
+          {isManage ? "Line Items" : "Units"}
         </DialogTitle>
-        {!isTrue ? (
+        {isManage ? (
           <Stack>
-            <Autocomplete
-              disablePortal
-              id="combo-box-demo"
-              options={variantData || []}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Search by product name,SKU,barcode"
-                />
-              )}
-              sx={{ m: 2 }}
-              onChange={handleVariant}
-              // renderOption={renderOption}
-              getOptionLabel={(option: any) =>
-                option?.variantName || option?.productName
-              }
+            <CustomAutoComplete
+              id="variant-options"
+              inputlabel="Search by product name,SKU,barcode"
+              inputValue={inputValue}
+              options={variantOptions}
+              setInputValue={(e) => {
+                setInputValue(e);
+              }}
+              setValue={setValueHandler}
             />
           </Stack>
         ) : null}
-        <TableContainer component={Paper}>
+        <TableContainer
+          component={Paper}
+          sx={{
+            marginTop: "5px",
+          }}
+        >
           <PerfectScrollbar>
             <Table
               sx={{
@@ -198,7 +169,7 @@ function CompositionListing(props: IComposition) {
                       </CustomTableCell>
                     );
                   })}
-                  {!isTrue && (
+                  {isManage && (
                     <CustomTableCell isHeader isSticky rightValue={0}>
                       Actions
                     </CustomTableCell>
@@ -206,17 +177,13 @@ function CompositionListing(props: IComposition) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {!isTrue ? (
-                  variants.map((variant) => {
+                {bundleCompositionList.length > 0 ? (
+                  bundleCompositionList.map((item) => {
                     return (
                       <CompositionItem
-                        bundleComp={bundleComp}
-                        bundleId={bundleId}
-                        handleChange={handleChange}
-                        isTrue={isTrue}
-                        setFieldValue={setFieldValue}
-                        values={values}
-                        variantData={variant}
+                        isManage={isManage}
+                        item={item}
+                        setBundleItem={setBundleItem}
                       />
                     );
                   })

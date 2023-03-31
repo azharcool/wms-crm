@@ -1,25 +1,26 @@
 import { Box } from "@mui/material";
 
 interface IStatusTableCell {
-  status?: number;
+  success?: boolean;
+  title: string;
 }
 
 function StatusTableCell(props: IStatusTableCell) {
-  const { status } = props;
+  const { title, success } = props;
   return (
     <>
       <Box
         sx={{
           borderRadius: "5px",
-          background: status === 2 ? "#fff5f8" : "#e8fff3",
-          color: status === 2 ? "#f1416c" : "#50cd89",
+          background: success ? "#e8fff3" : "#fff5f8",
+          color: success ? "#50cd89" : "#f1416c",
           padding: "4px 6.5px",
           display: "inline-flex",
           fontSize: "11px",
           fontWeight: "600",
         }}
       >
-        {status === 2 ? "Inactive" : "Active"}
+        {title}
       </Box>
     </>
   );
