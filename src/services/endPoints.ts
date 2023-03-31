@@ -192,6 +192,7 @@ const API_URLS = {
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
   GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
+  EDIT_BRAND: `brand/${endPoints.edit}`,
   PUT_BRAND: `brand/${endPoints.edit}`,
   DELETE_BRAND: `brand/${endPoints.delete}`,
   BULK_DELETE_BRAND: `brand/${endPoints.bulkDelete}`,

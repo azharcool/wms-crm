@@ -3,8 +3,9 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { FormikProps } from "formik";
-import * as React from "react";
+import React, { Dispatch } from "react";
 import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
+import { IUploadFile } from "..";
 import General from "./General";
 import History from "./History";
 import International from "./International";
@@ -17,8 +18,8 @@ interface ITabs {
   nameRef?: any;
   editable?: boolean;
   data?: IGetByIdVariantData;
-  setUploadedFiles?: any;
-  uploadedFiles?:any
+  setUploadedFiles: Dispatch<React.SetStateAction<IUploadFile[]>>;
+  uploadedFiles: IUploadFile[];
   formik: FormikProps<any>;
 }
 
@@ -56,7 +57,15 @@ function a11yProps(index: number) {
 }
 
 export default function BasicTabs(props: ITabs) {
-  const { formik, data, editable, isTrue, nameRef, setUploadedFiles,uploadedFiles } = props;
+  const {
+    formik,
+    data,
+    editable,
+    isTrue,
+    nameRef,
+    setUploadedFiles,
+    uploadedFiles,
+  } = props;
 
   const [value, setValue] = React.useState(0);
 

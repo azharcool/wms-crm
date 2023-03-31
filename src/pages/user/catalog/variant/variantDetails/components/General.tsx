@@ -8,17 +8,18 @@ import TextField from "components/textfield";
 import { FormikProps } from "formik";
 import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
 import CustomCardContent from "components/card/CustomCardContent";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import palette from "theme/palette";
 import UploadButton from "components/image-upload-button/UploadButton";
+import { IUploadFile } from "..";
 
 interface IGeneral {
   isTrue?: boolean;
   nameRef?: any;
   editable?: boolean;
   data?: IGetByIdVariantData;
-  setUploadedFiles?: any;
-  uploadedFiles?: any;
+  setUploadedFiles: Dispatch<SetStateAction<IUploadFile[]>>;
+  uploadedFiles: IUploadFile[];
   formik: FormikProps<any>;
 }
 

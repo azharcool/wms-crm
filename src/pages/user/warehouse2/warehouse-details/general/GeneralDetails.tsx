@@ -170,7 +170,7 @@ function WarehouseGeneral() {
               label="Status"
               name="status"
               size="small"
-              value={warehouse?.data.status}
+              value={warehouse?.data.status ===1?"Active":"Inactive"}
             />
 
             <TextField

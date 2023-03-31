@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     },
   },
 });
-interface IMenuItem {
+export interface IUploadFile {
   id: string;
   value: string;
 }
@@ -61,7 +61,7 @@ function VariantDetails() {
   const newtheme = useSelector((state: any) => state.theme);
   const [editable, setEditable] = useState(false);
   const [selectedVariantId, setSelectedVariantId] = useState<number>();
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<IUploadFile[]>([]);
   const { editVariantAction } = useVariantAction();
   const { data: variantItemResponse } = useGetByIdVariant({
     variantId: Number(selectedVariantId || variantId),

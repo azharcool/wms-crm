@@ -2,11 +2,12 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box, Button, MenuItem } from "@mui/material";
 import Menu, { MenuProps } from "@mui/material/Menu";
 import { alpha, styled } from "@mui/material/styles";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 interface ITableActionButton {
   onDeleteHandle?: () => void;
+  children?: ReactNode;
 }
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -59,7 +60,7 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 function TableActionButton(props: ITableActionButton) {
-  const { onDeleteHandle } = props;
+  const { onDeleteHandle, children } = props;
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const opened = Boolean(anchorEl);
@@ -123,6 +124,7 @@ function TableActionButton(props: ITableActionButton) {
           open={opened}
           onClose={handleClosed}
         >
+          {children}
           <MenuItem
             disableRipple
             onClick={() => {

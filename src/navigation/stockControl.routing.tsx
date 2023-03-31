@@ -34,20 +34,20 @@ const stockControlRouting = (
 
     {/* Recieve Routing */}
     <Route
-      element={<StockControlLoadable.RecieveListing />}
+      element={<StockControlLoadable.ReceiveListing />}
       path={`${AppRoutes.stockControl.recieve.listing}`}
     />
 
     <Route
-      element={<StockControlLoadable.RecieveDetials />}
+      element={<StockControlLoadable.ReceiveDetials />}
       path={`${AppRoutes.stockControl.recieve.details}/:recieveId`}
     >
       <Route
-        element={<StockControlLoadable.RecieveGeneral />}
+        element={<StockControlLoadable.ReceiveGeneral />}
         path={`${AppRoutes.stockControl.recieve.general}`}
       />
       <Route
-        element={<StockControlLoadable.RecieveHistory />}
+        element={<StockControlLoadable.ReceiveHistory />}
         path={`${AppRoutes.stockControl.recieve.history}`}
       />
     </Route>

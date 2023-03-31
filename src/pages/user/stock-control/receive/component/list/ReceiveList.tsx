@@ -12,47 +12,71 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
-import BrandItem from "./BrandItem";
-
-// const tabs = [
-//   {
-//     id: crypto.randomUUID(),
-//     title: "New",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Pick",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Close",
-//   },
-// ];
+import ReceiveListItem from "./ReceiveListItem";
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "Image",
+    title: "ID #",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Received/Expected",
+  },
+
+  {
+    id: crypto.randomUUID(),
+    title: "Receiving Warehouse",
   },
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "Client Company",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "From",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Status",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Notes",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Tags",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Expected Date",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Last Update",
+  },
+];
+const tableTabs = [
+  {
+    id: crypto.randomUUID(),
+    title: "NEW",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "COMPLETED",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "IN PROGRESS",
   },
 ];
 
-interface IBrandListing {
-  data?: IGetBrandResponseRoot;
-}
-
-function BrandListing(props: IBrandListing) {
-  const { data } = props;
-
+function ReceiveList() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar
-      // tabs={tabs}
-      />
+      <EnhancedTableToolbar tabs={tableTabs} />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -67,30 +91,31 @@ function BrandListing(props: IBrandListing) {
                   <CustomTableCell
                     isCheck
                     isHeader
-                    // isSticky
-                    // customStyle={{
-                    //   zIndex: 999,
-                    // }}
-                    // leftValue={0}
+                    isSticky
+                    customStyle={{
+                      zIndex: 999,
+                    }}
+                    leftValue={0}
+                    minWt={50}
                   >
                     <Checkbox
-                      checked={false}
+                      // checked={}
                       color="primary"
-                      onChange={() => {}}
+                      // onChange={}
                     />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
-                    const isImage = item.title.includes("Image");
-                    const isName = item.title.includes("Name");
+                    const isSA = item.title.includes("ID #");
+
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          minWidth: isImage ? 50 : 150,
-                          // position: isImage || isName ? "sticky" : "static",
-                          // left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          position: isSA ? "sticky" : "static",
+                          left: isSA ? 50 : 0,
                         }}
+                        minWt={170}
                       >
                         {item.title}
                       </CustomTableCell>
@@ -102,9 +127,7 @@ function BrandListing(props: IBrandListing) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data?.data.map((item) => {
-                  return <BrandItem item={item} />;
-                })}
+                <ReceiveListItem item={undefined} />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -114,4 +137,4 @@ function BrandListing(props: IBrandListing) {
   );
 }
 
-export default BrandListing;
+export default ReceiveList;
