@@ -1,5 +1,6 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import StatusTableCell from "components/table/status-table-cell";
 import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -122,7 +123,10 @@ function WarehouseItem(props: IWarehouseItem) {
           // background: "white",
         }}
       >
-        {item?.status === 1 ? "Active" : "Inactive"}
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "InActive" : "Active"}
+        />
       </TableCell>
 
       <TableCell

@@ -35,14 +35,6 @@ export interface IBundleCompositionList {
 
 export type BundleList = IBundleCompositionList[];
 
-interface IComposition {
-  isTrue: boolean;
-  bundleId?: number;
-  values?: any;
-  setFieldValue: any;
-  handleChange: any;
-}
-
 interface ITooblarButton {
   handleClick: () => void;
   title: string;
@@ -150,8 +142,6 @@ function Composition() {
       setIsManage(false);
     }
   };
-
-  console.log(getAllBundleCompositionResponse?.data);
 
   const rightActionsData = [
     {
