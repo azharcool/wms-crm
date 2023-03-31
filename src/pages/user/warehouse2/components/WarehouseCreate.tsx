@@ -168,7 +168,7 @@ function WarehouseCreate() {
     let response = false;
     if (state?.editData) {
       data.id = state?.editData?.id;
-      response = await editWarehouseAction(data);
+      response = await editWarehouseAction  (data);
     } else {
       response = await addWarehouseAction(data);
     }

@@ -264,6 +264,7 @@ function CategoriesCreate() {
                   <TextField
                     id="position"
                     label="Positon"
+                    type="number"
                     name="position"
                     size="small"
                     value={values.position}

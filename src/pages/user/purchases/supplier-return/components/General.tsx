@@ -23,6 +23,7 @@ import { useSelector } from "react-redux";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import palette from "theme/palette";
+import DashedCard from "components/card/DashedCard";
 
 interface IMenuItem {
   id: string;
@@ -73,7 +74,6 @@ const tableTitle = [
 ];
 
 function General(props: IGeneral) {
-
   let isTrue = true;
 
   return (
@@ -93,22 +93,49 @@ function General(props: IGeneral) {
                 justifyContent="space-around"
               >
                 <Stack direction="column" gap={2}>
-                  <Typography variant="subtitle1" fontSize={12} color="gray">
-                    PURCHASE ORDER
-                  </Typography>
-                  <Typography>PROGRESS</Typography>
+                  <DashedCard title="PURCHASE ORDER">
+                    <Box
+                      sx={{
+                        background: "#dfe3f5",
+                        color: "#2545B8",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      PROGRESS
+                    </Box>
+                  </DashedCard>
                 </Stack>
                 <Stack direction="column" gap={2}>
-                  <Typography variant="subtitle1" fontSize={12} color="gray">
-                    RECEIVE
-                  </Typography>
-                  <Typography>NEW</Typography>
+                  <DashedCard title="RECEIVE">
+                    <Box
+                      sx={{
+                        background: "#dfe3f5",
+                        color: "#50cd89",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      NEW
+                    </Box>
+                  </DashedCard>
                 </Stack>
                 <Stack direction="column" gap={2}>
-                  <Typography variant="subtitle1" fontSize={12} color="gray">
-                    PAYMENT
-                  </Typography>
-                  <Typography>UNPAID</Typography>
+                  <DashedCard title="STATUS">
+                    <Box
+                      sx={{
+                        background: "#dfe3f5",
+                        color: "#009ef7",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      PROGRESS
+                    </Box>
+                  </DashedCard>
                 </Stack>
               </Grid>
             </CustomCardContent>
@@ -127,22 +154,49 @@ function General(props: IGeneral) {
                 justifyContent="space-around"
               >
                 <Stack direction="column" gap={2}>
-                  <Typography variant="subtitle1" fontSize={12} color="gray">
-                    Company Name
-                  </Typography>
-                  <Typography>Smart</Typography>
+                  <DashedCard title="COMPANY NAME">
+                    <Box
+                      sx={{
+                        background: "#dfe3f5",
+                        color: "#2545B8",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Smart
+                    </Box>
+                  </DashedCard>
                 </Stack>
                 <Stack direction="column" gap={2}>
-                  <Typography variant="subtitle1" fontSize={12} color="gray">
-                    Contact person
-                  </Typography>
-                  <Typography>smart</Typography>
+                  <DashedCard title="CONTACT PERSON">
+                    <Box
+                      sx={{
+                        background: "#dfe3f5",
+                        color: "#50cd89",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      Smart
+                    </Box>
+                  </DashedCard>
                 </Stack>
                 <Stack direction="column" gap={2}>
-                  <Typography variant="subtitle1" fontSize={12} color="gray">
-                    Phone number
-                  </Typography>
-                  <Typography>9876555</Typography>
+                  <DashedCard title="PHONE NUMBER">
+                    <Box
+                      sx={{
+                        background: "#dfe3f5",
+                        color: "#009ef7",
+                        padding: "3px 12px",
+                        borderRadius: "5px",
+                        fontSize: "12px",
+                      }}
+                    >
+                      12345
+                    </Box>
+                  </DashedCard>
                 </Stack>
               </Grid>
               <Grid
@@ -328,119 +382,92 @@ function General(props: IGeneral) {
           </CustomCardContent>
         </Card>
       </Grid>
-      <LineItems />
-      <Grid
-        container
-        xs={12}
-        sx={{ display: "flex", justifyContent: "space-around" }}
-        marginTop={4}
-        gap={2}
-      >
-        <Grid item xs={5} sx={{ border: "0.5px #d9d9d9 solid" }}>
-          <Card
-            sx={{
-              flex: 1,
-              height: "100%",
-            }}
-          >
-            <DialogTitle>
-              <Typography component="h6">Invoice Summary</Typography>
-            </DialogTitle>
-            <Divider />
-            <DialogContent>
-              <Stack direction="row" gap={2} marginTop={2}>
-                <TextField
-                  disabled={isTrue}
-                  name="line"
-                  darkDisable
-                  label="Line Items"
-                  value="1"
-                  size="small"
-                />
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="unit"
-                  label="Unit Ordered"
-                  value="1"
-                  size="small"
-                />
-              </Stack>
-              <Stack direction="row" gap={2} marginTop={2}>
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="received"
-                  label="Received items"
-                  value="1"
-                  size="small"
-                />
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="subtotal"
-                  value="INR 10"
-                  label="Subtotal"
-                  size="small"
-                />
-              </Stack>
-              <Stack direction="row" gap={2} marginTop={2}>
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="discount"
-                  label="Discount price"
-                  value="INR 1"
-                  size="small"
-                />
+      <Grid item xs={12}>
+        <LineItems />
+      </Grid>
 
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="taxes"
-                  label="Taxes"
-                  value="INR 10 "
-                  size="small"
-                />
-              </Stack>
-              <Stack direction="row" gap={2} marginTop={2}>
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="shippingcharge"
-                  label="Shipping charges"
-                  value="INR 13"
-                  size="small"
-                />
-                <TextField
-                  disabled={isTrue}
-                  darkDisable
-                  name="Total"
-                  value="INR 100"
-                  label="Total"
-                  size="small"
-                />
-              </Stack>
-            </DialogContent>
-          </Card>
-        </Grid>
+      <Grid item xs={12}>
+        <Card>
+          <CustomCardContent title="Supplier notes">
+            <TextField
+              multiline
+              disabled
+              darkDisable
+              id="notes"
+              label="Notes"
+              value="No Notes Found"
+              name="notes"
+              rows={5}
+            />
+          </CustomCardContent>
+          <CustomCardContent title="Invoice Summary">
+            <Stack direction="row" gap={2} marginTop={2}>
+              <TextField
+                darkDisable
+                label="Line Items"
+                name="line"
+                size="small"
+                value="1"
+              />
+              <TextField
+                darkDisable
+                label="Unit Ordered"
+                name="unit"
+                size="small"
+                value="1"
+              />
+            </Stack>
+            <Stack direction="row" gap={2} marginTop={2}>
+              <TextField
+                darkDisable
+                label="Received items"
+                name="received"
+                size="small"
+                value="1"
+              />
+              <TextField
+                darkDisable
+                label="Subtotal"
+                name="subtotal"
+                size="small"
+                value="INR 10"
+              />
+            </Stack>
+            <Stack direction="row" gap={2} marginTop={2}>
+              <TextField
+                darkDisable
+                label="Discount price"
+                name="discount"
+                size="small"
+                value="INR 1"
+              />
 
-        <Grid item xs={5} sx={{ border: "1px #d9d9d9 solid" }}>
-          <Card
-            sx={{
-              flex: 1,
-              height: "100%",
-            }}
-          >
-            <DialogTitle>
-              <Typography component="h6">Supplier notes</Typography>
-            </DialogTitle>
-            <Divider />
-            <DialogContent>
-              <Typography>Notes not found</Typography>
-            </DialogContent>
-          </Card>
-        </Grid>
+              <TextField
+                darkDisable
+                label="Taxes"
+                name="taxes"
+                size="small"
+                value="INR 10 "
+              />
+            </Stack>
+            <Stack direction="row" gap={2} marginTop={2}>
+              <TextField
+                darkDisable
+                label="Shipping charges"
+                name="shippingcharge"
+                size="small"
+                value="INR 13"
+              />
+              <TextField
+                darkDisable
+                label="Total"
+                name="Total"
+                size="small"
+                value="INR 100"
+              />
+            </Stack>
+          </CustomCardContent>
+        </Card>
       </Grid>
     </Grid>
   );
@@ -452,14 +479,9 @@ function LineItems() {
   const newtheme = useSelector((state: any) => state.theme);
 
   return (
-    <PerfectScrollbar>
-      <Box sx={{ marginTop: 4 }}>
-        <TableContainer component={Paper}>
-          <Box sx={{ margin: 3 }}>
-            <Typography variant="title1" margin={2}>
-              Line Items
-            </Typography>
-          </Box>
+    <Card>
+      <CustomCardContent title="Line Items">
+        <TableContainer>
           <PerfectScrollbar>
             <Table
               sx={{
@@ -581,7 +603,7 @@ function LineItems() {
             </Table>
           </PerfectScrollbar>
         </TableContainer>
-      </Box>
-    </PerfectScrollbar>
+      </CustomCardContent>
+    </Card>
   );
 }

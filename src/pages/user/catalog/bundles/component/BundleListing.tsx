@@ -94,7 +94,7 @@ function BundleListing(props: IBundleListing) {
       );
     }
   };
-  
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -120,7 +120,8 @@ function BundleListing(props: IBundleListing) {
                   >
                     <Checkbox
                       checked={
-                        bundles?.data.length === getSelectedBundleIdsState.length
+                        bundles?.data.length ===
+                        getSelectedBundleIdsState.length
                       }
                       color="primary"
                       onChange={selectAll}
