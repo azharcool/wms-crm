@@ -14,8 +14,8 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
+import CustomSwitch from "components/custom-switch";
 import TextField from "components/textfield";
-import AutoComplete from "components/textfield/AutoComplete";
 import { FormikHelpers } from "formik";
 import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import useDecodedData from "hooks/useDecodedData";
@@ -25,26 +25,9 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
-import Countries from "__mock__/countries.json";
 import useAddSupplierForm, {
   AddSupplierForm,
 } from "../../../hooks/useAddSupplierForm";
-
-interface IMenuItem {
-  id: string;
-  value: string;
-}
-
-const statusMenu = [
-  {
-    id: "1",
-    value: "Active",
-  },
-  {
-    id: "2",
-    value: "Inactive",
-  },
-];
 
 const initialValues: AddSupplierForm = {
   userId: 0,
@@ -57,7 +40,7 @@ const initialValues: AddSupplierForm = {
   city: "",
   zipCode: "",
   countryId: 0,
-  firstName: "",
+  firstName: "Bank Name",
   lastName: "",
   primaryEmail: "",
   primaryPhoneNumber: "",
@@ -67,6 +50,17 @@ interface ITooblarButton {
   handleClick: () => void;
   title: string;
   icon: React.ReactNode;
+}
+
+interface IBankData {
+  id: number;
+  bankName: string;
+  bankBranch: string;
+  bankCode: string;
+  bankSwift: string;
+  accountHolder: string;
+  acccountNumber: string;
+  default: boolean;
 }
 
 function ToolBarButton(props: ITooblarButton) {
@@ -109,8 +103,20 @@ function BankAccountDetails() {
   const newtheme = useSelector((state: any) => state.theme);
   const { addSupplierAction } = useSupplierAction();
   const [editable, setEditable] = useState(false);
+  // const [newArray,]
   const nameRef = useRef<any>(null);
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+  const [bankData, setBankData] = useState<IBankData[]>([
+    {
+      id: 0,
+      bankName: "",
+      bankBranch: "",
+      bankCode: "",
+      bankSwift: "",
+      accountHolder: "",
+      acccountNumber: "",
+      default: true,
+    },
+  ]);
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
   const lightTheme = createTheme({
@@ -196,33 +202,6 @@ function BankAccountDetails() {
   }
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
-  const handleFile = async (e: any) => {
-    const allFiles = Array.from(e.target.files);
-    const images = await Promise.all(
-      allFiles.map((file) => convertBase64(file)),
-    );
-
-    const newUploadedFiles = images.map((item) => ({
-      id: crypto.randomUUID(),
-      value: item,
-    }));
-
-    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
-  };
-
-  const convertBase64 = (file: any): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -277,6 +256,26 @@ function BankAccountDetails() {
 
   const istrue = !editable;
 
+  const handleAddAnother = (id: number) => {
+    const newObj = {
+      id: id + 1,
+      bankName: "",
+      bankBranch: "bankBranch",
+      bankCode: "",
+      bankSwift: "",
+      accountHolder: "",
+      acccountNumber: "",
+      default: false,
+    };
+
+    setBankData((previousObj) => [...previousObj, newObj]);
+  };
+
+  const handleDelete = (id: number) => {
+    const newBankDataArr = bankData.filter((item: any) => item.id !== id);
+    setBankData(newBankDataArr);
+  };
+
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -305,83 +304,126 @@ function BankAccountDetails() {
         </Stack>
 
         <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Bank account">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="firstName"
-                    label="First Name"
-                    name="firstName"
-                    size="small"
-                    value={values.firstName}
-                    onChange={handleChange("firstName")}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    size="small"
-                    value={values.lastName}
-                    onChange={handleChange("lastName")}
-                  />
-                </Stack>
+          {bankData.map(
+            (item: IBankData, index: number, array: IBankData[]) => (
+              <Grid key={item.id} item xs={6}>
+                <Card
+                  sx={{
+                    flex: 1,
+                  }}
+                >
+                  <CustomCardContent title="Bank account">
+                    <TextField
+                      darkDisable
+                      disabled={istrue}
+                      id="firstName"
+                      label="Bank Name"
+                      name="firstName"
+                      nameRef={nameRef}
+                      size="small"
+                      value={item.bankName}
+                      onChange={handleChange("firstName")}
+                    />
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="firstName"
+                        label="Bank branch"
+                        name="firstName"
+                        size="small"
+                        value={item.bankBranch}
+                        onChange={handleChange("firstName")}
+                      />
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="lastName"
+                        label="Bank Code"
+                        name="lastName"
+                        size="small"
+                        value={item.bankCode}
+                        // onChange={handleChange("lastName")}
+                      />
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="lastName"
+                        label="Bank Swift"
+                        name="lastName"
+                        size="small"
+                        value={item.bankSwift}
+                        onChange={handleChange("lastName")}
+                      />
+                    </Stack>
 
-                <TextField
-                  darkDisable
-                  multiline
-                  disabled={istrue}
-                  id="adress"
-                  label="Address"
-                  name="address"
-                  value={values.address}
-                  onChange={handleChange("address")}
-                />
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="city"
+                        label="Account Holder"
+                        name="city"
+                        size="small"
+                        value={item.accountHolder}
+                        onChange={handleChange("city")}
+                      />
 
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="city"
-                    label="City"
-                    name="city"
-                    size="small"
-                    value={values.city}
-                    onChange={handleChange("city")}
-                  />
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="zipCode"
+                        label="Account Number"
+                        name="zipCode"
+                        size="small"
+                        value={item.acccountNumber}
+                        onChange={handleChange("zipCode")}
+                      />
+                    </Stack>
 
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="zipCode"
-                    label="Zip Code"
-                    name="zipCode"
-                    size="small"
-                    value={values.zipCode}
-                    onChange={handleChange("zipCode")}
-                  />
-                </Stack>
-                <Grid marginBottom={2} xs={12}>
-                  <AutoComplete
-                    getOptionLabel={(option: any) => option?.name}
-                    handleChange={(e: any, value: any) =>
-                      setFieldValue("country", value?.name)
-                    }
-                    label="Country"
-                    options={Countries || []}
-                  />
-                </Grid>
-              </CustomCardContent>
-            </Card>
-          </Grid>
+                    {!istrue && (
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        marginTop={2}
+                      >
+                        {array.length > 1 && (
+                          <Box
+                            sx={{
+                              color: "#2e3456",
+                              fontWeight: "500",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            DELETE
+                          </Box>
+                        )}
+
+                        {index === array.length - 1 && (
+                          <Box
+                            sx={{
+                              color: "#2e3456",
+                              fontWeight: "500",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => handleAddAnother(item.id)}
+                          >
+                            ADD ANOTHER ADDRESS
+                          </Box>
+                        )}
+
+                        <CustomSwitch
+                          checked={item.default}
+                          title="Default Address"
+                        />
+                      </Stack>
+                    )}
+                  </CustomCardContent>
+                </Card>
+              </Grid>
+            ),
+          )}
         </Grid>
       </Container>
     </ThemeProvider>
