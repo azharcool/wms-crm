@@ -261,6 +261,8 @@ const API_URLS = {
   // adjustment
   ADD_ADJUSTMENT: `adjustmentReason/${endPoints.add}`,
   GET_ALL_ADJUSTMENT: `adjustmentReason/${endPoints.getAll}`,
+  DELETE_ADJUSTMENT: `adjustmentReason/${endPoints.delete}`,
+  EDIT_ADJUSTMENT: `adjustmentReason/${endPoints.edit}`,
 };
 
 export default API_URLS;

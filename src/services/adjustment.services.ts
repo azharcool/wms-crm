@@ -1,3 +1,4 @@
+import { IResponse } from "constants/interfaces";
 import { IAddAdjustmentRequestRoot } from "types/setting/adjustment/addAdjustmentRequest";
 import { IAddAdjustmentResponseRoot } from "types/setting/adjustment/addAdjustmetRespone";
 import { IGetAdjustmentResponseRoot } from "types/setting/adjustment/getAdjustmentResponse";
@@ -19,4 +20,16 @@ export async function addAdjustment(
 ): Promise<IAddAdjustmentResponseRoot> {
   const URL = `${API_URLS.ADD_ADJUSTMENT}`;
   return client.post(URL, request);
+}
+
+export async function editAdjustment(
+  request: IAddAdjustmentRequestRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.EDIT_ADJUSTMENT}`;
+  return client.put(URL, request);
+}
+
+export async function deleteAdjustment(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_ADJUSTMENT}/${id}`;
+  return client.delete(URL);
 }

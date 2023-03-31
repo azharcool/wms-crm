@@ -9,7 +9,7 @@ import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
 import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";
 
 function AdjustmentReasons() {
-  const [openAdd, setOpenAdd] = useState(false);
+  const [openForm, setOpenForm] = useState(false);
   const navigate = useNavigate();
   const [adjustmentPagination, setAdjustmentPagination] = useState({
     pageSize: 10,
@@ -22,7 +22,7 @@ function AdjustmentReasons() {
   } = useGetAllAdjustment(adjustmentPagination);
 
   const handleAdjustment = () => {
-    setOpenAdd((s) => !s);
+    setOpenForm((s) => !s);
   };
 
   return (
@@ -35,7 +35,7 @@ function AdjustmentReasons() {
           rightActions={[
             {
               id: crypto.randomUUID(),
-              title: "New",
+              title: "Save",
               onClick: () => {
                 handleAdjustment();
               },
@@ -58,10 +58,10 @@ function AdjustmentReasons() {
         </Box>
       </CardContent>
       <>
-        {openAdd ? (
+        {openForm ? (
           <AdjustmentReasonsCreate
             handleClose={handleAdjustment}
-            open={openAdd}
+            open={openForm}
           />
         ) : null}
       </>

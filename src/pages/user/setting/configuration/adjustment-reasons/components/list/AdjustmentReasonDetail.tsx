@@ -14,7 +14,7 @@ import { operations } from "__mock__";
 import useAddAdjustmentForm, {
   AddAdjustmentForm,
   adjustmentInitialValues,
-} from "../hooks/useAddAdjustment";
+} from "../../hooks/useAddAdjustment";
 
 interface IAdjustments {
   open: boolean;
@@ -23,7 +23,7 @@ interface IAdjustments {
   editData?: GetByIdAdjustmentData;
 }
 
-function AdjustmentReasonsCreate(props: IAdjustments) {
+function AdjustmentReasonsDetail(props: IAdjustments) {
   const { open, handleClose, editData, isEdit } = props;
 
   const userDecoded = useDecodedData();
@@ -139,4 +139,4 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
   );
 }
 
-export default AdjustmentReasonsCreate;
+export default AdjustmentReasonsDetail;
