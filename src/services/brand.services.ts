@@ -31,11 +31,11 @@ export async function getByIdBrand(
   return client.get(URL);
 }
 
-export async function addBrandDetail(
-  body: IAddBrandRequestRoot,
+export async function editBrand(
+  data: IAddBrandRequestRoot,
 ): Promise<IGetBrandResponseRoot> {
-  const URL = `${API_URLS.PUT_BRAND}`;
-  return client.put(URL, body);
+  const URL = `${API_URLS.EDIT_BRAND}`;
+  return client.put(URL, data);
 }
 
 export async function deleteBrand(id: number): Promise<IResponse> {

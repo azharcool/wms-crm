@@ -4,13 +4,15 @@ import palette from "theme/palette";
 interface IUploadButton {
   handleFile: (e: any) => void;
   single?: boolean;
+  disabled?: boolean;
 }
 
 function UploadButton(props: IUploadButton) {
-  const { handleFile, single } = props;
+  const { handleFile, single, disabled } = props;
   return (
     <Button
       component="label"
+      disabled={disabled}
       sx={{
         width: "200px",
         border: `1px dashed ${palette.error.dark}`,
