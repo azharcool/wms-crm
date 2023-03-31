@@ -8,6 +8,7 @@ import {
   TableCell,
   TableRow,
 } from "@mui/material";
+import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -110,7 +111,10 @@ function RecieveListItem(props: { item: any }) {
           minWidth: 170,
         }}
       >
-        {item?.status === 1 ? "NEW" : "COMPLETED"}
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "NEW" : "COMPLETED"}
+        />
       </TableCell>
       <TableCell
         sx={{
