@@ -1,10 +1,14 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
+import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getSelectedSupplierById } from "redux/purchase/supplierSelector";
+import { setSupplierId } from "redux/purchase/supplierSlice";
+import { RootState, useAppDispatch } from "redux/store";
 import palette from "theme/palette";
 import { GetAllSupplierData } from "types/catalog/supplier/getAllSupplierResponse";
 
@@ -16,6 +20,14 @@ function SupplierListItem(props: ISupplierListItem) {
   const { item } = props;
   const navigate = useNavigate();
   const newtheme = useSelector((state: any) => state.theme);
+  const { deleteSupplierAsync } = useSupplierAction();
+  const getSelectedSupplierByIdState = useSelector((state: RootState) =>
+    getSelectedSupplierById(state, item.id),
+  );
+  const dispatch = useAppDispatch();
+  const select = () => {
+    dispatch(setSupplierId(item.id));
+  };
 
   return (
     <TableRow>
@@ -31,7 +43,11 @@ function SupplierListItem(props: ISupplierListItem) {
             : palette.background.default,
         }}
       >
-        <Checkbox color="primary" />
+        <Checkbox
+          checked={getSelectedSupplierByIdState}
+          color="primary"
+          onChange={select}
+        />
       </TableCell>
 
       <TableCell
@@ -128,7 +144,7 @@ function SupplierListItem(props: ISupplierListItem) {
       >
         <TableActionButton
           onDeleteHandle={() => {
-            // deleteWarehouseAsync(item?.id);
+            deleteSupplierAsync(item?.id);
           }}
         />
       </TableCell>

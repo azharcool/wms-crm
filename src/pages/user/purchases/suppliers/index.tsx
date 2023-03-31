@@ -1,10 +1,13 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import useGetAllSupplierWithPagination from "hooks/querys/catalog/supplier/useGetAllSupplierWithPagination";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getSelectedSupplier } from "redux/purchase/supplierSelector";
 import SupplierList from "./component/list/SupplierList";
 
 function Suppliers() {
@@ -13,15 +16,18 @@ function Suppliers() {
     pageSize: 10,
     page: 1,
   });
+  const { bulkDeleteSupplierAsync } = useSupplierAction();
   const { data: supplierPaginationResponse } =
     useGetAllSupplierWithPagination(suppliersPagination);
+  const getSelectedSupplierIdsState = useSelector(getSelectedSupplier);
+  const ids = getSelectedSupplierIdsState.toString();
 
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          // isBulkDisabled={!!ids}
+          isBulkDisabled={!!ids}
           navTitle="PURCHASES"
           rightActions={[
             {
@@ -43,7 +49,9 @@ function Suppliers() {
             },
           ]}
           title="Suppliers"
-          onBulkHandle={() => {}}
+          onBulkHandle={() => {
+            bulkDeleteSupplierAsync(ids);
+          }}
         />
         <Box sx={{ mt: 3 }}>
           <SupplierList data={supplierPaginationResponse} />
