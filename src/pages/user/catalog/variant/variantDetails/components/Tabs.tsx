@@ -17,6 +17,8 @@ interface ITabs {
   nameRef?: any;
   editable?: boolean;
   data?: IGetByIdVariantData;
+  setUploadedFiles?: any;
+  uploadedFiles?:any
   formik: FormikProps<any>;
 }
 
@@ -54,7 +56,7 @@ function a11yProps(index: number) {
 }
 
 export default function BasicTabs(props: ITabs) {
-  const { formik, data, editable, isTrue, nameRef } = props;
+  const { formik, data, editable, isTrue, nameRef, setUploadedFiles,uploadedFiles } = props;
 
   const [value, setValue] = React.useState(0);
 
@@ -81,6 +83,8 @@ export default function BasicTabs(props: ITabs) {
       <TabPanel index={0} value={value}>
         <General
           data={data}
+          setUploadedFiles={setUploadedFiles}
+          uploadedFiles={uploadedFiles}
           editable={editable}
           formik={formik}
           isTrue={isTrue}

@@ -23,7 +23,17 @@ export interface IGetByIdVariantData {
   weight: any;
   crossDocking: boolean;
   enable: boolean;
+  option: IOption[];
   status: number;
   createdOn: any;
   updatedOn: any;
+}
+
+export interface IOption {
+  id: number;
+  userId: number;
+  productId: number;
+  variantId: number;
+  optionName: string;
+  value: string;
 }
