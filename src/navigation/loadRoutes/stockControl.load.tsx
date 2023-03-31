@@ -7,6 +7,7 @@ export const StockControlLayout = Loadable({
   loading: () => <Spinner />,
 });
 
+// Adjustment
 export const AdjustmentCreate = Loadable({
   loader: () =>
     import("pages/user/stock-control/adjustment/component/AdjustmentCreate"),
@@ -37,5 +38,29 @@ export const AdjustmentHistoryListing = Loadable({
     import(
       "pages/user/stock-control/adjustment/component/details/history/HistoryListing"
     ),
+  loading: () => <Spinner />,
+});
+
+// Recieve
+export const RecieveListing = Loadable({
+  loader: () => import("pages/user/stock-control/recieve/Recieve"),
+  loading: () => <Spinner />,
+});
+
+export const RecieveDetials = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/recieve/component/detials/RecieveDetails"),
+  loading: () => <Spinner />,
+});
+
+export const RecieveGeneral = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/recieve/component/detials/General"),
+  loading: () => <Spinner />,
+});
+
+export const RecieveHistory = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/recieve/component/detials/History"),
   loading: () => <Spinner />,
 });

@@ -1,12 +1,12 @@
-import DeleteIcon from "@mui/icons-material/Delete";
 import PercentIcon from "@mui/icons-material/Percent";
 import { Box, TableCell, TableRow } from "@mui/material";
+import TableActionButton from "components/table/TableActionButton";
 import TextField from "components/textfield";
 import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
-import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
+import { IBundleCompositionList } from "..";
 
 const conditionCode = [
   {
@@ -19,25 +19,21 @@ const conditionCode = [
   },
 ];
 
+export interface SetBundleItemParam {
+  id: number;
+  value: string;
+  name: string;
+}
+
+type SetBundleItem = (_: SetBundleItemParam) => void;
 interface ICompositionItem {
-  isTrue: boolean;
-  bundleComp: any;
-  variantData: IGetAllVariantResponseData;
-  bundleId?: number;
-  values?: any;
-  setFieldValue: any;
-  handleChange: any;
+  isManage: boolean;
+  item: IBundleCompositionList;
+  setBundleItem: SetBundleItem;
 }
 
 function CompositionItem(props: ICompositionItem) {
-  const {
-    isTrue,
-    bundleComp,
-    variantData,
-    values,
-    setFieldValue,
-    handleChange,
-  } = props;
+  const { isManage, item, setBundleItem } = props;
   const { deleteBundlCompeAction } = useBundleCompositionAction();
   const newtheme = useSelector((state: any) => state.theme);
 
@@ -81,7 +77,7 @@ function CompositionItem(props: ICompositionItem) {
           // background: "white",
         }}
       >
-        {variantData?.variantName || variantData?.productName}
+        {item?.productVariantName}
       </TableCell>
       <TableCell
         sx={{
@@ -90,7 +86,7 @@ function CompositionItem(props: ICompositionItem) {
           left: 0,
         }}
       >
-        {variantData?.unitPrice || "not provided"}
+        {item?.unitPrice || "not provided"}
       </TableCell>
       <TableCell
         sx={{
@@ -99,14 +95,18 @@ function CompositionItem(props: ICompositionItem) {
       >
         <TextField
           isSelect
-          disabled={isTrue}
+          disabled={!isManage}
           id="categorys"
           menuItems={conditionCode}
           name="conditionCode"
           size="small"
-          value={variantData?.conditionCode || values.conditionCode}
+          value={item?.conditionCode}
           onSelectHandler={(e) => {
-            setFieldValue("conditionCode", e.target.value);
+            setBundleItem({
+              id: item.id,
+              name: "conditionCode",
+              value: e.target.value,
+            });
           }}
         />
       </TableCell>
@@ -117,17 +117,21 @@ function CompositionItem(props: ICompositionItem) {
       >
         <TextField
           iconEnd
-          disabled={isTrue}
+          disabled={!isManage}
           icon={<PercentIcon />}
           id="discount"
           name="discount"
           size="small"
           type="number"
-          value={variantData?.discount || values.discount}
-          onChange={handleChange("discount")}
-          onClickIcon={() => {
-            console.log("clicked....");
+          value={item?.discount}
+          onChange={(e) => {
+            setBundleItem({
+              id: item.id,
+              name: "discount",
+              value: e.target.value,
+            });
           }}
+          onClickIcon={() => {}}
         />
       </TableCell>
       <TableCell
@@ -136,16 +140,20 @@ function CompositionItem(props: ICompositionItem) {
         }}
       >
         <TextField
-          disabled={isTrue}
+          disabled={!isManage}
           id="qty"
           name="qty"
           size="small"
           type="number"
-          value={variantData?.qty || values.qty}
-          onChange={handleChange("qty")}
-          onClickIcon={() => {
-            console.log("clicked....");
+          value={item?.qty}
+          onChange={(e) => {
+            setBundleItem({
+              id: item.id,
+              name: "qty",
+              value: e.target.value,
+            });
           }}
+          onClickIcon={() => {}}
         />
       </TableCell>
 
@@ -154,9 +162,9 @@ function CompositionItem(props: ICompositionItem) {
           minWidth: 200,
         }}
       >
-        {variantData?.total || 0}
+        {item?.total || 0}
       </TableCell>
-      {!isTrue && (
+      {isManage && (
         <TableCell
           sx={{
             position: "sticky",
@@ -165,9 +173,12 @@ function CompositionItem(props: ICompositionItem) {
               ? "#26263D"
               : palette.background.default,
           }}
-          onClick={() => handleDelete(variantData?.id)}
         >
-          <DeleteIcon sx={{ fontSize: "1.2rem" }} />
+          <TableActionButton
+            onDeleteHandle={() => {
+              handleDelete(item?.id);
+            }}
+          />
         </TableCell>
       )}
     </TableRow>

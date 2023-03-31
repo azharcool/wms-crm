@@ -5,7 +5,7 @@ import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
 import { SCREEN_CODES } from "config";
 import AppRoutes from "navigation/appRoutes";
 
-const { stockControl, settting, warehouse, purchases } = AppRoutes;
+const { stockControl, setting, warehouse, purchases } = AppRoutes;
 
 export interface IMenuItems {
   id: string;
@@ -115,6 +115,11 @@ export const sideNavMenu: ISideNavMenu[] = [
     menuItems: [
       {
         id: crypto.randomUUID(),
+        title: "Recieve",
+        location: `/${stockControl.layout}/${stockControl.recieve.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Adjustment",
         location: `/${stockControl.layout}/${stockControl.adjustment.listing}`,
       },
@@ -131,7 +136,7 @@ export const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Configuration",
-        location: `/${settting.layout}/${settting.configuration.listing}`,
+        location: `/${setting.layout}/${setting.configuration.listing}`,
       },
       // {
       //   id: crypto.randomUUID(),
@@ -141,7 +146,7 @@ export const sideNavMenu: ISideNavMenu[] = [
       {
         id: crypto.randomUUID(),
         title: "Barcode",
-        location: `/${settting.layout}/${settting.barcode.generate}`,
+        location: `/${setting.layout}/${setting.barcode.generate}`,
       },
     ],
   },

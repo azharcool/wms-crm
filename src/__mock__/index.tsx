@@ -268,5 +268,16 @@ export const paymentTerm = [
   {
     id: "net45",
     value: "net 45",
-  }
+  },
+];
+
+export const operations = [
+  {
+    id: "INCREASE",
+    value: "INCREASE",
+  },
+  {
+    id: "DECREASE",
+    value: "DECREASE",
+  },
 ];

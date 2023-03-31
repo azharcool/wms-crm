@@ -126,7 +126,10 @@ function CategoriesItem(props: ICategoriesItem) {
         }}
       >
         {/* <CustomSwitch /> */}
-        <StatusTableCell status={item.status} />
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "InActive" : "Active"}
+        />
       </TableCell>
       <TableCell
         sx={{
