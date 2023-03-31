@@ -13,11 +13,9 @@ import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import General from "./General";
-import History from "./history";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -52,13 +50,13 @@ function DetailLayout() {
   const navigate = useNavigate();
   const {
     stockControl: {
-      adjustment: { generalDetails, historylisting, details },
       layout,
+      recieve: { general, history, details },
     },
   } = AppRoutes;
   const navLinks = new Map([
-    [0, `/${layout}/${details}/1/${generalDetails}`],
-    [1, `/${layout}/${details}/1/${historylisting}`],
+    [0, `/${layout}/${details}/1/${general}`],
+    [1, `/${layout}/${details}/1/${history}`],
   ]);
 
   useEffect(() => {
@@ -191,7 +189,7 @@ function DetailLayout() {
         <TabPanel index={1} value={value}>
           <History />
         </TabPanel> */}
-        <Outlet/>
+        <Outlet />
       </Container>
     </ThemeProvider>
   );

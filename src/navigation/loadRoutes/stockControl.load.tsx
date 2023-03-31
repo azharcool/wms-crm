@@ -42,25 +42,25 @@ export const AdjustmentHistoryListing = Loadable({
 });
 
 // Recieve
-export const RecieveListing = Loadable({
-  loader: () => import("pages/user/stock-control/recieve/Recieve"),
+export const ReceiveListing = Loadable({
+  loader: () => import("pages/user/stock-control/receive/Receive"),
   loading: () => <Spinner />,
 });
 
-export const RecieveDetials = Loadable({
+export const ReceiveDetials = Loadable({
   loader: () =>
-    import("pages/user/stock-control/recieve/component/detials/RecieveDetails"),
+    import("pages/user/stock-control/receive/component/detials/ReceiveDetails"),
   loading: () => <Spinner />,
 });
 
-export const RecieveGeneral = Loadable({
+export const ReceiveGeneral = Loadable({
   loader: () =>
-    import("pages/user/stock-control/recieve/component/detials/General"),
+    import("pages/user/stock-control/receive/component/detials/General"),
   loading: () => <Spinner />,
 });
 
-export const RecieveHistory = Loadable({
+export const ReceiveHistory = Loadable({
   loader: () =>
-    import("pages/user/stock-control/recieve/component/detials/History"),
+    import("pages/user/stock-control/receive/component/detials/History"),
   loading: () => <Spinner />,
 });

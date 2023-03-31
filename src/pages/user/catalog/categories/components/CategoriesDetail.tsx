@@ -243,7 +243,7 @@ function CategoriesDetail() {
           breadcrumbs={[
             { link: "CATAGORIES", to: categoryItemResponse?.data.name },
           ]}
-          buttonText="Save"
+          buttonText="Save1"
           handleClick={() => {
             // handleSubmit();
           }}
