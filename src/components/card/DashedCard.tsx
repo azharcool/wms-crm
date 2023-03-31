@@ -13,7 +13,7 @@ function DashedCard(props: ICustomCard) {
         padding: "5px 15px",
         border: "1px dashed #ccc",
         borderRadius: "8px",
-        width: "150px",
+        width: "auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",

@@ -19,6 +19,7 @@ import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBun
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
 import useDecodedData from "hooks/useDecodedData";
+import { dropRight } from "lodash";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -64,7 +65,6 @@ function BundleDetails() {
   const newtheme = useSelector((state: any) => state.theme);
   const [value, setValue] = useState(0);
   const [editable, setEditable] = useState(false);
-
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -248,6 +248,13 @@ function BundleDetails() {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
           navTitle="BUNDLES"
+          rightActions={
+            value === 0
+              ? editable
+                ? rightActionsData.filter((i) => i.title !== "Edit")
+                : rightActionsData.filter((i) => i.title === "Edit")
+              : []
+          }
           title="bundles"
         />
         <Stack direction="row">

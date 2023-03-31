@@ -1,4 +1,5 @@
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import CancelIcon from "@mui/icons-material/Cancel";
 import { Box, Card, Grid, Stack, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
@@ -6,15 +7,19 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import TextField from "components/textfield";
 import { FormikProps } from "formik";
 import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
-
 import CustomCardContent from "components/card/CustomCardContent";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import palette from "theme/palette";
+import UploadButton from "components/image-upload-button/UploadButton";
+import { IUploadFile } from "..";
 
 interface IGeneral {
   isTrue?: boolean;
   nameRef?: any;
   editable?: boolean;
   data?: IGetByIdVariantData;
+  setUploadedFiles: Dispatch<SetStateAction<IUploadFile[]>>;
+  uploadedFiles: IUploadFile[];
   formik: FormikProps<any>;
 }
 
@@ -39,7 +44,41 @@ function CustomAccordian(props: ICustomAccordian) {
 }
 
 export default function General(props: IGeneral) {
-  const { isTrue, nameRef, editable, data, formik } = props;
+  const {
+    isTrue,
+    nameRef,
+    editable,
+    data,
+    formik,
+    setUploadedFiles,
+    uploadedFiles,
+  } = props;
+  const handleFile = async (e: any) => {
+    const allFiles = Array.from(e.target.files);
+    const images = await Promise.all(
+      allFiles.map((file) => convertBase64(file)),
+    );
+
+    const newUploadedFiles = images.map((item) => ({
+      id: crypto.randomUUID(),
+      value: item,
+    }));
+
+    setUploadedFiles((s: any) => [...s, ...newUploadedFiles]);
+  };
+
+  const convertBase64 = (file: any): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
   // const [editable, setEditable] = useState(false);
 
   useEffect(() => {
@@ -83,15 +122,15 @@ export default function General(props: IGeneral) {
               <Stack direction="row" gap={2}>
                 <TextField
                   disabled={istrue}
-                  id="value"
+                  id="optionName"
                   label={data?.optionName}
-                  name="value"
+                  name="optionName"
                   //   nameRef={nameRef}
                   size="small"
-                  value={formik?.values.value}
-                  onChange={() => {}}
+                  value={formik?.values.optionName}
+                  onChange={formik.handleChange("optionName")}
                 />
-            </Stack>
+              </Stack>
             </CustomCardContent>
           </Card>
 
@@ -111,7 +150,7 @@ export default function General(props: IGeneral) {
                   //   nameRef={nameRef}
                   size="small"
                   value={formik?.values.productName}
-                  onChange={() => {}}
+                  onChange={formik.handleChange("productName")}
                 />
 
                 <TextField
@@ -121,31 +160,104 @@ export default function General(props: IGeneral) {
                   name="description"
                   size="small"
                   value={formik?.values.description || "Not provided"}
-                  onChange={() => {}}
+                  // onChange={formik.handleChange("description")}
                 />
               </Stack>
             </CustomCardContent>
           </Card>
           <Card sx={{ flex: 1, mt: 2 }}>
-            <CustomCardContent title="Images">
-              <Grid sx={{ pt: 2 }}>
-                <Box
-                  sx={{
-                    ...commonStyles,
-                    borderColor: "grey.500",
-                    width: "450px",
-                    height: "200px",
-                  }}
-                >
-                  <Typography
+            <CustomCardContent title="Image">
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                gap={2}
+                justifyContent="center"
+              >
+                {!isTrue ? (
+                  // uploadedFiles.map((item: any) => {
+                  //   return (
+                  <Box
+                    // key={item.id}
                     sx={{
-                      textAlign: "center",
+                      position: "relative",
                     }}
                   >
-                    No Images
-                  </Typography>
-                </Box>
-              </Grid>
+                    <CancelIcon
+                      sx={{
+                        width: "17px",
+                        height: "17px",
+                        cursor: "pointer",
+                        color: `${palette.error.lightRed}`,
+                        position: "absolute",
+                        right: "-5px",
+                        top: "-5px",
+                        background: "white",
+                      }}
+                      // onClick={() => {
+                      //   const newUploadedFile = uploadedFiles.filter(
+                      //     (i: any) => i.id !== item.id,
+                      //   );
+                      //   setUploadedFiles(newUploadedFile);
+                      // }}
+                    />
+                    <img
+                      // alt={item.value}
+                      // src={item.value}
+                      alt="imag"
+                      src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  //   );
+                  // })
+                  <>
+                    {/* {data?.picture.map((images: any) => {
+                  return ( */}
+                    <Box
+                      // key={images}
+                      sx={{
+                        position: "relative",
+                      }}
+                    >
+                      {!isTrue && (
+                        <CancelIcon
+                          sx={{
+                            width: "17px",
+                            height: "17px",
+                            cursor: "pointer",
+                            color: `${palette.error.lightRed}`,
+                            position: "absolute",
+                            right: "-5px",
+                            top: "-5px",
+                            background: "white",
+                          }}
+                          onClick={() => {
+                            console.log("clicked");
+                          }}
+                        />
+                      )}
+
+                      <img
+                        alt="new"
+                        src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+                        // src={`${FILE_URL}${images.atachment}`}
+                        style={{
+                          objectFit: "cover",
+                          width: "120px",
+                          height: "120px",
+                          borderRadius: "5px",
+                          border: "0.5px solid #eee",
+                        }}
+                      />
+                    </Box>
+                    {!isTrue && <UploadButton handleFile={handleFile} />}
+                  </>
+                )}
+              </Stack>
             </CustomCardContent>
           </Card>
         </Grid>
@@ -161,7 +273,7 @@ export default function General(props: IGeneral) {
                 //   nameRef={nameRef}
                 size="small"
                 value="Not provided"
-                onChange={() => {}}
+                onChange={formik.handleChange("supplier")}
               />
             </Stack>
           </CustomAccordian>
@@ -175,7 +287,7 @@ export default function General(props: IGeneral) {
                 //   nameRef={nameRef}
                 size="small"
                 value={formik?.values.sku}
-                onChange={() => {}}
+                onChange={formik.handleChange("sku")}
               />
 
               <TextField
@@ -185,46 +297,46 @@ export default function General(props: IGeneral) {
                 name="barcode"
                 size="small"
                 value={formik?.values.barcode}
-                onChange={() => {}}
+                onChange={formik.handleChange("barcode")}
               />
               <TextField
                 disabled={istrue}
                 id="categoySlug"
                 label="Unique Barcoding strategy"
-                name="categoySlug"
+                name="categorySlug"
                 size="small"
                 value="Per SKU or Set"
-                onChange={() => {}}
+                onChange={formik.handleChange("categorySlug")}
               />
               <TextField
                 disabled={istrue}
                 id="categoySlug"
                 label="Barcode"
-                name="categoySlug"
+                name="barcode"
                 size="small"
                 value="Per SKU or Set"
-                onChange={() => {}}
+                onChange={formik.handleChange("barcode")}
               />
               <Stack direction="row" gap={2}>
                 <TextField
                   disabled={istrue}
                   id="categoryName"
                   label="Quantity"
-                  name="categoryName"
+                  name="quantity"
                   //   nameRef={nameRef}
                   size="small"
                   value="1"
-                  onChange={() => {}}
+                  onChange={formik.handleChange("quantity")}
                 />
 
                 <TextField
                   disabled={istrue}
-                  id="categoySlug"
+                  id="uom"
                   label="UoM"
-                  name="categoySlug"
+                  name="uom"
                   size="small"
                   value="Not provided"
-                  onChange={() => {}}
+                  onChange={formik.handleChange("uom")}
                 />
               </Stack>
             </Stack>
@@ -240,7 +352,7 @@ export default function General(props: IGeneral) {
                 name="height"
                 size="small"
                 value={formik?.values.height}
-                onChange={() => {}}
+                onChange={formik.handleChange("height")}
               />
 
               <TextField
@@ -252,7 +364,7 @@ export default function General(props: IGeneral) {
                 name="width"
                 size="small"
                 value={formik?.values.width}
-                onChange={() => {}}
+                onChange={formik.handleChange("width")}
               />
             </Stack>
             <Stack direction="row" gap={2}>
@@ -263,7 +375,7 @@ export default function General(props: IGeneral) {
                 id="length"
                 label="Lenght"
                 value={formik?.values.length}
-                onChange={() => {}}
+                onChange={formik.handleChange("length")}
                 name="length"
                 //   nameRef={nameRef}
                 size="small"
@@ -278,7 +390,7 @@ export default function General(props: IGeneral) {
                 name="weight"
                 size="small"
                 value={formik?.values.weight}
-                onChange={() => {}}
+                onChange={formik.handleChange("weight")}
               />
             </Stack>
           </CustomAccordian>
@@ -292,7 +404,7 @@ export default function General(props: IGeneral) {
                 //   nameRef={nameRef}
                 size="small"
                 value="0"
-                onChange={() => {}}
+                // onChange={{}}
               />
 
               <TextField
@@ -302,7 +414,7 @@ export default function General(props: IGeneral) {
                 name="categoySlug"
                 size="small"
                 value="0"
-                onChange={() => {}}
+                // onChange={{}}
               />
               <TextField
                 disabled={istrue}
@@ -311,7 +423,7 @@ export default function General(props: IGeneral) {
                 name="categoySlug"
                 size="small"
                 value="0"
-                onChange={() => {}}
+                // onChange={{}}
               />
               <TextField
                 disabled={istrue}
@@ -320,7 +432,7 @@ export default function General(props: IGeneral) {
                 name="categoySlug"
                 size="small"
                 value="0"
-                onChange={() => {}}
+                // onChange={{}}
               />
             </Stack>
           </CustomAccordian>
@@ -334,7 +446,7 @@ export default function General(props: IGeneral) {
                 //   nameRef={nameRef}
                 size="small"
                 value=""
-                onChange={() => {}}
+                // onChange={{}}
               />
 
               <TextField
@@ -346,7 +458,7 @@ export default function General(props: IGeneral) {
                 name="supplyPrice"
                 size="small"
                 value={formik.values.supplyPrice}
-                onChange={() => {}}
+                onChange={formik.handleChange("supplyPrice")}
               />
             </Stack>
           </CustomAccordian>

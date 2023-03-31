@@ -14,15 +14,18 @@ import {
   Tooltip,
 } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import { useFormik } from "formik";
+import { FormikHelpers, useFormik } from "formik";
+import useVariantAction from "hooks/catalog/variant/useVariantAction";
 import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
+import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
 import { IGetAllByOptionNameValueResponseData } from "types/catalog/variants/getAllByOptionNameValueResponse";
+import { EditVariantForm } from "../hooks/useEditVariantForm";
 import SidebarButton from "./components/SidebarButton";
 
 import Tabs from "./components/Tabs";
@@ -45,7 +48,10 @@ const useStyles = makeStyles({
     },
   },
 });
-
+export interface IUploadFile {
+  id: string;
+  value: string;
+}
 function VariantDetails() {
   const navigate = useNavigate();
   const { variantId } = useParams();
@@ -55,9 +61,34 @@ function VariantDetails() {
   const newtheme = useSelector((state: any) => state.theme);
   const [editable, setEditable] = useState(false);
   const [selectedVariantId, setSelectedVariantId] = useState<number>();
+  const [uploadedFiles, setUploadedFiles] = useState<IUploadFile[]>([]);
+  const { editVariantAction } = useVariantAction();
   const { data: variantItemResponse } = useGetByIdVariant({
     variantId: Number(selectedVariantId || variantId),
   });
+  const formik = useFormik({
+    initialValues: {
+      id: 0,
+      userId: 0,
+      productId: 0,
+      optionName: "",
+      value: "",
+      variantName: "",
+      sku: "",
+      barcode: "",
+      supplyPrice: 0,
+      mrp: 0,
+      retailPrice: 0,
+      height: 0,
+      width: 0,
+      length: 0,
+      weight: 0,
+      crossDocking: true,
+      enable: true
+    },
+    onSubmit,
+  });
+  const { handleSubmit } = formik;
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -97,6 +128,7 @@ function VariantDetails() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
+        handleSubmit();
         setEditable(false);
         navigate(-1);
       },
@@ -111,28 +143,6 @@ function VariantDetails() {
     },
   ];
 
-  const formik = useFormik({
-    initialValues: {
-      variantName: "",
-      productName: "",
-      optionName: "",
-      height: "",
-      weight: "",
-      width: "",
-      length: "",
-      mrp: "",
-      retailPrice: "",
-      supplyPrice: "",
-      sku: "",
-      barcode: "",
-      value: "",
-      crossDocking: "",
-    },
-    onSubmit: () => {
-      console.log("submit");
-    },
-  });
-
   const classes = useStyles();
 
   const istrue = !editable;
@@ -142,6 +152,34 @@ function VariantDetails() {
     value: state?.value,
   };
   const { data: variantOptions, isFetching } = useGetAllByOptionNameValue(data);
+  const userId = useDecodedData();
+  async function onSubmit(
+    values: EditVariantForm,
+    formikHelpers: FormikHelpers<EditVariantForm>,
+  ) {
+    const data: EditVariantForm = {
+      id: Number(variantItemResponse?.data.id),
+      userId: Number(userId.id),
+      productId: Number(variantItemResponse?.data.productId),
+      optionName: values.optionName,
+      value: values.value,
+      variantName: values.variantName,
+      sku: values.sku,
+      barcode: values.barcode,
+      supplyPrice: Number(values.supplyPrice),
+      mrp: Number(values.mrp),
+      retailPrice: Number(values.retailPrice),
+      height: Number(values.height),
+      width: Number(values.width),
+      length: Number(values.length),
+      weight: Number(values.width),
+      crossDocking: true,
+      enable: true,
+      image: uploadedFiles.map((i) => i.value.split("base64,")[1]),
+      oldImage: [],
+    };
+    await editVariantAction(data);
+  }
 
   return (
     <Container maxWidth={false}>
@@ -228,6 +266,8 @@ function VariantDetails() {
 
             <Tabs
               data={variantItemResponse?.data}
+              setUploadedFiles={setUploadedFiles}
+              uploadedFiles={uploadedFiles}
               editable={editable}
               formik={formik}
               isTrue={istrue}
