@@ -16,6 +16,7 @@ interface IAdjustmentItem {
 function AdjustmentReasonListItem(props: IAdjustmentItem) {
   const { item } = props;
   const [manageOpen, setManageOpen] = useState(false);
+  console.log("item--->", item.name);
 
   const newtheme = useSelector((state: any) => state.theme);
   const alert = useAlert();
