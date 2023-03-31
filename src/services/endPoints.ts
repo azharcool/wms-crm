@@ -215,6 +215,8 @@ const API_URLS = {
   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
 
   // bundle Composition
+  GET_ALL_BY_BUNDLE_ID_BUNDLE_COMPOSITION:
+    "bundleComposition/getall-by-bundleId",
   GET_ALL_PAGINATION_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getAllPagination}`,
   ADD_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.add}`,
   EDIT_BUDLE_COMPOSITION: `bundleComposition/${endPoints.edit}`,
