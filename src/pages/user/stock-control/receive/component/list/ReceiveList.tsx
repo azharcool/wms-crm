@@ -12,7 +12,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import ReceiveListItem from "./RecieveListItem";
+import ReceiveListItem from "./ReceiveListItem";
 
 const tableTitle = [
   {
@@ -73,7 +73,7 @@ const tableTabs = [
   },
 ];
 
-function RecieveList() {
+function ReceiveList() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tableTabs} />
@@ -137,4 +137,4 @@ function RecieveList() {
   );
 }
 
-export default RecieveList;
+export default ReceiveList;

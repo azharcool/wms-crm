@@ -30,14 +30,14 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-function RecieveListItem(props: { item: any }) {
+function ReceiveListItem(props: { item: any }) {
   const { item } = props;
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const {
     stockControl: {
       layout,
-      adjustment: { details, generalDetails },
+      recieve: { details, general },
     },
   } = AppRoutes;
 
@@ -72,7 +72,7 @@ function RecieveListItem(props: { item: any }) {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() => navigate(`/${layout}/${details}/1/${generalDetails}`)}
+        onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
         PO-13817
       </TableCell>
@@ -163,4 +163,4 @@ function RecieveListItem(props: { item: any }) {
   );
 }
 
-export default RecieveListItem;
+export default ReceiveListItem;
