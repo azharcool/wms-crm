@@ -192,6 +192,7 @@ const API_URLS = {
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
   GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
+  EDIT_BRAND: `brand/${endPoints.edit}`,
   PUT_BRAND: `brand/${endPoints.edit}`,
   DELETE_BRAND: `brand/${endPoints.delete}`,
   BULK_DELETE_BRAND: `brand/${endPoints.bulkDelete}`,
@@ -215,6 +216,8 @@ const API_URLS = {
   DELETE_BUNDLE: `bundle/${endPoints.delete}`,
 
   // bundle Composition
+  GET_ALL_BY_BUNDLE_ID_BUNDLE_COMPOSITION:
+    "bundleComposition/getall-by-bundleId",
   GET_ALL_PAGINATION_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.getAllPagination}`,
   ADD_BUNDLE_COMPOSITION: `bundleComposition/${endPoints.add}`,
   EDIT_BUDLE_COMPOSITION: `bundleComposition/${endPoints.edit}`,
@@ -263,6 +266,7 @@ const API_URLS = {
   GET_ALL_ADJUSTMENT: `adjustmentReason/${endPoints.getAll}`,
   DELETE_ADJUSTMENT: `adjustmentReason/${endPoints.delete}`,
   EDIT_ADJUSTMENT: `adjustmentReason/${endPoints.edit}`,
+  GET_BY_ID_ADJUSTMENT: `adjustmentReason/${endPoints.getbyid}`,
 };
 
 export default API_URLS;

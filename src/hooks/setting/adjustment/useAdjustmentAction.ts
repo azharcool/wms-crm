@@ -16,7 +16,7 @@ function useAdjustmentAction() {
 
   const addAdjustmentAction = async (
     data: IAddAdjustmentRequestRoot,
-  ): Promise<string> => {
+  ): Promise<boolean> => {
     try {
       const response = await addAdjustment(data);
       if (response.statusCode === 200) {
@@ -26,13 +26,13 @@ function useAdjustmentAction() {
           type: "success",
         });
       }
-      return "";
+      return true;
     } catch (error: any) {
       snackbar?.show({
         title: error.message,
         type: "error",
       });
-      return "";
+      return false;
     }
   };
 

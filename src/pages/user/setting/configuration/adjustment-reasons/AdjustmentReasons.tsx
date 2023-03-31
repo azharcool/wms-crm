@@ -35,7 +35,7 @@ function AdjustmentReasons() {
           rightActions={[
             {
               id: crypto.randomUUID(),
-              title: "Save",
+              title: "New",
               onClick: () => {
                 handleAdjustment();
               },

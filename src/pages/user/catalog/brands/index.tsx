@@ -5,31 +5,27 @@ import TableToolbar from "components/table-toolbar";
 import useBrandAction from "hooks/catalog/brand/useBrandAction";
 import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
 import { useState } from "react";
-import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { getSelectedBrand } from "redux/catalog/brandSelector";
-import AddBrand from "./components/AddBrand";
 import BrandListing from "./components/BrandListing";
+import ManageBrand from "./components/ManageBrand";
 
 function Brands() {
-  const queryClient = useQueryClient();
-  const [openBrand, setOpenBrand] = useState(false);
+  const [manageOpen, setManageOpen] = useState(false);
 
   const [brandPagination, setBrandPagination] = useState({
     pageSize: 10,
     page: 1,
   });
-  const {
-    data: brandData,
-    refetch,
-    isLoading,
-  } = useGetAllBrand(brandPagination);
+  const { data: brandData } = useGetAllBrand(brandPagination);
   const { bulkDeleteBrandAsync } = useBrandAction();
 
   const getSelectedBrandIdsState = useSelector(getSelectedBrand);
-  const handleBrand = () => {
-    setOpenBrand((s) => !s);
+
+  const handleMange = () => {
+    setManageOpen((s) => !s);
   };
+
   const ids = getSelectedBrandIdsState.toString();
 
   return (
@@ -38,17 +34,17 @@ function Brands() {
         <TableToolbar
           hasBulk
           buttonText="New"
-          isBulkDisabled={!!ids}
           handleClick={() => {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
+          isBulkDisabled={!!ids}
           navTitle="CATALOG"
           rightActions={[
             {
               id: crypto.randomUUID(),
               title: "New",
               onClick: () => {
-                handleBrand();
+                handleMange();
               },
               icon: (
                 <AddCircleIcon
@@ -70,8 +66,8 @@ function Brands() {
         </Box>
       </CardContent>
 
-      {openBrand ? (
-        <AddBrand handleClose={handleBrand} open={openBrand} />
+      {manageOpen ? (
+        <ManageBrand handleClose={handleMange} open={manageOpen} />
       ) : null}
     </Container>
   );

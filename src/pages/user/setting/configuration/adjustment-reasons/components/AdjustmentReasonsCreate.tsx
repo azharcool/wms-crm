@@ -1,10 +1,12 @@
-import { Card } from "@mui/material";
-import { Stack } from "@mui/system";
+import { Button, Card } from "@mui/material";
+import { Box, Stack } from "@mui/system";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
+import useGetByIdAdjustment from "hooks/querys/setting/adjustment/useGetByIdAdjustment";
 import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
+import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -19,16 +21,26 @@ import useAddAdjustmentForm, {
 interface IAdjustments {
   open: boolean;
   handleClose: () => void;
-  isEdit?: boolean;
+  view?: boolean;
+  adjustmentId?: number;
   editData?: GetByIdAdjustmentData;
 }
 
 function AdjustmentReasonsCreate(props: IAdjustments) {
-  const { open, handleClose, editData, isEdit } = props;
-
+  const { open, handleClose, view, adjustmentId } = props;
+  const [editable, setEditable] = useState(false);
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
   const { addAdjustmentAction, editAdjustmentAction } = useAdjustmentAction();
+
+  const { data: adjustmentItemResponse } = useGetByIdAdjustment({
+    adjustmentId,
+  });
+
+  const manageFormik = useAddAdjustmentForm({
+    initialValues: adjustmentInitialValues,
+    onSubmit,
+  });
 
   const {
     values,
@@ -40,38 +52,37 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
     handleSubmit,
     resetForm,
     isSubmitting,
-  } = useAddAdjustmentForm({
-    initialValues: adjustmentInitialValues,
-    onSubmit,
-  });
+  } = manageFormik;
 
-  // useEffect(() => {
-  //   if (editData) {
-  //     setFieldValue("name", editData.name);
-  //     setFieldValue("operations", editData.operations);
-  //   }
-  // }, [editData]);
+  useEffect(() => {
+    if (adjustmentItemResponse) {
+      const AdjustmentItem = adjustmentItemResponse.data;
+      setFieldValue("name", AdjustmentItem.name);
+      setFieldValue("operations", AdjustmentItem.operations);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [adjustmentItemResponse]);
 
   async function onSubmit(values: AddAdjustmentForm) {
+    let response = false;
     const data: IAddAdjustmentRequestRoot = {
       userId: Number(userDecoded.id),
       name: values.name,
       operations: values.operations,
     };
-
-    const response = await addAdjustmentAction(data);
-    // if (editData) {
-    //   data.id = editData.id;
-    //   response = await editAdjustmentAction(data);
-    // } else {
-    //   response = await addAdjustmentAction(data);
-    // }
+    if (editable) {
+      response = await addAdjustmentAction(data);
+    } else {
+      data.id = adjustmentId;
+      response = await addAdjustmentAction(data);
+    }
 
     if (response) {
       resetForm();
       handleClose();
     }
   }
+  const isDisabled = Boolean(editable ? false : view);
   return (
     <>
       <Slider
@@ -83,7 +94,7 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
         isSubmitting={isSubmitting}
         open={open}
         size="sm"
-        title="Create Adjustment"
+        title="New Adjustment"
       >
         <PerfectScrollbar>
           <Stack
@@ -93,6 +104,31 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
               borderRadius: "5px",
             }}
           >
+            {view ? (
+              <Box>
+                <Button
+                  color="error"
+                  size="small"
+                  style={{ padding: "0.5rem 1rem", backgroundColor: "#8B0000" }}
+                  sx={{
+                    boxShadow: "none",
+                    display: "inline-block",
+                    "&:hover": {
+                      backgroundColor: "#8B0000",
+                      opacity: 0.6,
+                      boxShadow: "none",
+                    },
+                  }}
+                  variant="contained"
+                  onClick={() => {
+                    setEditable(true);
+                  }}
+                >
+                  Edit
+                </Button>
+              </Box>
+            ) : null}
+
             <Card
               sx={{
                 flex: 1,
@@ -101,6 +137,7 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
               <CustomCardContent title="GENERAL">
                 <Stack direction="row" gap={2}>
                   <TextField
+                    disabled={isDisabled}
                     id="name"
                     label="Name"
                     name="name"
@@ -112,6 +149,7 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
 
                   <TextField
                     isSelect
+                    disabled={isDisabled}
                     id="operations"
                     label="Operation"
                     menuItems={operations}

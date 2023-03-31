@@ -1,13 +1,13 @@
 export interface GetByIdAdjustmentRoot {
   statusCode: number;
-  data: GetByIdAdjustmentData[];
+  data: GetByIdAdjustmentData;
   message: string;
-  adjustmentReasonId: number;
+  // adjustmentReasonId: number;
 }
 
 export interface GetByIdAdjustmentData {
   id?: number;
   userId?: number;
-  name?: string;
-  operations?: string;
+  name: string;
+  operations: string;
 }
