@@ -52,6 +52,17 @@ interface ITooblarButton {
   icon: React.ReactNode;
 }
 
+interface IBankData {
+  id: number;
+  bankName: string;
+  bankBranch: string;
+  bankCode: string;
+  bankSwift: string;
+  accountHolder: string;
+  acccountNumber: string;
+  default: boolean;
+}
+
 function ToolBarButton(props: ITooblarButton) {
   const { handleClick, title, icon } = props;
 
@@ -94,17 +105,15 @@ function BankAccountDetails() {
   const [editable, setEditable] = useState(false);
   // const [newArray,]
   const nameRef = useRef<any>(null);
-  const [bankData, setBankData] = useState<any>([
+  const [bankData, setBankData] = useState<IBankData[]>([
     {
       id: 0,
-      bankName: "Bank Name",
-      bankBranch: "bankBranch",
-      bankCode: "0",
-      bankSwift: "bankSwift",
-      accountHolder: "accountHolder",
-      acccountNumber: "acccountNumber",
-      showDelete: false,
-      showAdd: true,
+      bankName: "",
+      bankBranch: "",
+      bankCode: "",
+      bankSwift: "",
+      accountHolder: "",
+      acccountNumber: "",
       default: true,
     },
   ]);
@@ -248,44 +257,23 @@ function BankAccountDetails() {
   const istrue = !editable;
 
   const handleAddAnother = (id: number) => {
-    let newArray = [];
-    newArray = bankData;
-
-    newArray[id].showAdd = false;
-    newArray[id].showDelete = true;
-
-    setBankData(newArray);
-
-    const obj = {
+    const newObj = {
       id: id + 1,
-      bankName: "Bank Name",
+      bankName: "",
       bankBranch: "bankBranch",
-      bankCode: (id + 1).toString(),
-      bankSwift: "bankSwift",
-      accountHolder: "accountHolder",
-      acccountNumber: "acccountNumber",
-      showDelete: true,
-      showAdd: true,
-      default: true,
+      bankCode: "",
+      bankSwift: "",
+      accountHolder: "",
+      acccountNumber: "",
+      default: false,
     };
 
-    setBankData((old: any) => [...old, obj]);
+    setBankData((previousObj) => [...previousObj, newObj]);
   };
 
   const handleDelete = (id: number) => {
-    if (bankData.length - 1 === id) {
-      let newArray = [];
-      newArray = bankData;
-
-      newArray[id - 1].showAdd = true;
-      newArray[id - 1].showDelete = true;
-
-      const newBankDataArr = bankData.filter((item: any) => item.id !== id);
-      setBankData(newBankDataArr);
-    } else {
-      const newBankDataArr = bankData.filter((item: any) => item.id !== id);
-      setBankData(newBankDataArr);
-    }
+    const newBankDataArr = bankData.filter((item: any) => item.id !== id);
+    setBankData(newBankDataArr);
   };
 
   return (
@@ -316,124 +304,126 @@ function BankAccountDetails() {
         </Stack>
 
         <Grid container spacing={2}>
-          {bankData.map((item: any) => (
-            <Grid item xs={6}>
-              <Card
-                sx={{
-                  flex: 1,
-                }}
-              >
-                <CustomCardContent title="Bank account">
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="firstName"
-                    label="Bank Name"
-                    name="firstName"
-                    nameRef={nameRef}
-                    size="small"
-                    value={item.bankName}
-                    onChange={handleChange("firstName")}
-                  />
-                  <Stack direction="row" gap={2}>
+          {bankData.map(
+            (item: IBankData, index: number, array: IBankData[]) => (
+              <Grid key={item.id} item xs={6}>
+                <Card
+                  sx={{
+                    flex: 1,
+                  }}
+                >
+                  <CustomCardContent title="Bank account">
                     <TextField
                       darkDisable
                       disabled={istrue}
                       id="firstName"
-                      label="Bank branch"
+                      label="Bank Name"
                       name="firstName"
+                      nameRef={nameRef}
                       size="small"
-                      value={item.bankBranch}
+                      value={item.bankName}
                       onChange={handleChange("firstName")}
                     />
-                    <TextField
-                      darkDisable
-                      disabled={istrue}
-                      id="lastName"
-                      label="Bank Code"
-                      name="lastName"
-                      size="small"
-                      value={item.bankCode}
-                      // onChange={handleChange("lastName")}
-                    />
-                    <TextField
-                      darkDisable
-                      disabled={istrue}
-                      id="lastName"
-                      label="Bank Swift"
-                      name="lastName"
-                      size="small"
-                      value={item.bankSwift}
-                      onChange={handleChange("lastName")}
-                    />
-                  </Stack>
-
-                  <Stack direction="row" gap={2}>
-                    <TextField
-                      darkDisable
-                      disabled={istrue}
-                      id="city"
-                      label="Account Holder"
-                      name="city"
-                      size="small"
-                      value={item.accountHolder}
-                      onChange={handleChange("city")}
-                    />
-
-                    <TextField
-                      darkDisable
-                      disabled={istrue}
-                      id="zipCode"
-                      label="Account Number"
-                      name="zipCode"
-                      size="small"
-                      value={item.acccountNumber}
-                      onChange={handleChange("zipCode")}
-                    />
-                  </Stack>
-
-                  {!istrue && (
-                    <Stack
-                      direction="row"
-                      justifyContent="space-between"
-                      marginTop={2}
-                    >
-                      {item.showDelete && (
-                        <Box
-                          sx={{
-                            color: "#2e3456",
-                            fontWeight: "500",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handleDelete(item.id)}
-                        >
-                          DELETE
-                        </Box>
-                      )}
-
-                      {item.showAdd && (
-                        <Box
-                          sx={{
-                            color: "#2e3456",
-                            fontWeight: "500",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handleAddAnother(item.id)}
-                        >
-                          ADD ANOTHER ADDRESS
-                        </Box>
-                      )}
-
-                      <CustomSwitch
-                        checked={item.default}
-                        title="Default Address"
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="firstName"
+                        label="Bank branch"
+                        name="firstName"
+                        size="small"
+                        value={item.bankBranch}
+                        onChange={handleChange("firstName")}
+                      />
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="lastName"
+                        label="Bank Code"
+                        name="lastName"
+                        size="small"
+                        value={item.bankCode}
+                        // onChange={handleChange("lastName")}
+                      />
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="lastName"
+                        label="Bank Swift"
+                        name="lastName"
+                        size="small"
+                        value={item.bankSwift}
+                        onChange={handleChange("lastName")}
                       />
                     </Stack>
-                  )}
-                </CustomCardContent>
-              </Card>
-            </Grid>
-          ))}
+
+                    <Stack direction="row" gap={2}>
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="city"
+                        label="Account Holder"
+                        name="city"
+                        size="small"
+                        value={item.accountHolder}
+                        onChange={handleChange("city")}
+                      />
+
+                      <TextField
+                        darkDisable
+                        disabled={istrue}
+                        id="zipCode"
+                        label="Account Number"
+                        name="zipCode"
+                        size="small"
+                        value={item.acccountNumber}
+                        onChange={handleChange("zipCode")}
+                      />
+                    </Stack>
+
+                    {!istrue && (
+                      <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        marginTop={2}
+                      >
+                        {array.length > 1 && (
+                          <Box
+                            sx={{
+                              color: "#2e3456",
+                              fontWeight: "500",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => handleDelete(item.id)}
+                          >
+                            DELETE
+                          </Box>
+                        )}
+
+                        {index === array.length - 1 && (
+                          <Box
+                            sx={{
+                              color: "#2e3456",
+                              fontWeight: "500",
+                              cursor: "pointer",
+                            }}
+                            onClick={() => handleAddAnother(item.id)}
+                          >
+                            ADD ANOTHER ADDRESS
+                          </Box>
+                        )}
+
+                        <CustomSwitch
+                          checked={item.default}
+                          title="Default Address"
+                        />
+                      </Stack>
+                    )}
+                  </CustomCardContent>
+                </Card>
+              </Grid>
+            ),
+          )}
         </Grid>
       </Container>
     </ThemeProvider>

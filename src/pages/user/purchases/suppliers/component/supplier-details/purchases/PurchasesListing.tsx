@@ -1,6 +1,5 @@
 import {
   Box,
-  Checkbox,
   Paper,
   Table,
   TableBody,
@@ -78,42 +77,23 @@ function PurchasesListing() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
-                      zIndex: 999,
-                    }}
-                    leftValue={0}
-                    minWt={50}
-                  >
-                    <Checkbox
-                      // checked={}
-                      color="primary"
-                      // onChange={}
-                    />
-                  </CustomTableCell>
                   {tableTitle.map((item) => {
-                    const isPO = item.title.includes("PO#");
-
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
-                        customStyle={{
-                          position: isPO ? "sticky" : "static",
-                          left: isPO ? 50 : 0,
-                        }}
+                        customStyle={
+                          {
+                            // position: isPO ? "sticky" : "static",
+                            // left: isPO ? 50 : 0,
+                          }
+                        }
                         minWt={170}
                       >
                         {item.title}
                       </CustomTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
-                    Actions
-                  </CustomTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

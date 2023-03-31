@@ -1,10 +1,8 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
-import TableActionButton from "components/table/TableActionButton";
+import { TableCell, TableRow } from "@mui/material";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
 function PurchasesListingItem() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -12,33 +10,9 @@ function PurchasesListingItem() {
   return (
     <TableRow>
       <TableCell
-        padding="checkbox"
         sx={{
-          width: 60,
-          position: "sticky",
-          left: 0,
-          zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
-        }}
-      >
-        <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
-          position: "sticky",
-          left: 40,
-          zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
-          cursor: "pointer",
+          minWidth: 170,
+          // background: "white",
         }}
         onClick={() =>
           navigate(
@@ -135,21 +109,6 @@ function PurchasesListingItem() {
         }}
       >
         -
-      </TableCell>
-      <TableCell
-        sx={{
-          position: "sticky",
-          right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
-        }}
-      >
-        <TableActionButton
-          onDeleteHandle={() => {
-            // deleteProductAsync(item.id);
-          }}
-        />
       </TableCell>
     </TableRow>
   );
