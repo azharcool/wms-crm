@@ -464,7 +464,7 @@ function GeneralDetails() {
             </Card>
           </Grid>
           <Grid item xs={4}>
-            <Card sx={{ flex: 1, marginBottom: "16px" }}>
+            <Card sx={{ flex: 1, marginBottom: "15px" }}>
               <CustomCardContent title="Image">
                 <Stack direction="row" flexWrap="wrap" gap={2}>
                   {uploadedFiles.map((item) => {
