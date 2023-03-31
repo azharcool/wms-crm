@@ -1,14 +1,19 @@
-import { Card, CardContent, CssBaseline, PaletteMode } from "@mui/material";
+import {
+  CardContent,
+  Container,
+  CssBaseline,
+  Grid,
+  PaletteMode,
+} from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { Box } from "@mui/system";
 import DashboardLayout from "components/dashboard-container";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import DeleveryTabs from "./component/delevery-tabs";
-import Section from "./component/section";
-import SectionList from "./component/section-list";
-import UsedSection from "./component/used-section";
+import DeliveryStatusList from "./component/delivery-status-list/DeliveryStatusList";
+import ListSection from "./component/list-sections/ListSection";
+import SectionUsages from "./component/warehouse-logistics/SectionUsages";
+import WarehouseLogistics from "./component/warehouse-logistics/WarehouseLogistics";
 
 function Dashboard() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -53,55 +58,32 @@ function Dashboard() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <CssBaseline />
       <DashboardLayout>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 8,
-            ml: 4,
-            mr: 4,
-          }}
-        >
-          <Card>
-            <CardContent
-              sx={{ paddingTop: 0, paddingLeft: 0, paddingBottom: 0 }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  // px: 10,
-                  flex: 4,
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  flexGrow: 1,
-                  // py: 8,
-                }}
-              >
-                <Box sx={{ flex: 3, borderRadius: 5, p: 5 }}>
-                  <Box>
-                    <Section />
-                  </Box>
+        <Container>
+          <CardContent>
+            <WarehouseLogistics />
 
-                  <Box>
-                    <SectionList />
-                  </Box>
-                </Box>
-                <Box
-                  sx={{
-                    height: "100vh",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                  }}
-                >
-                  <UsedSection />
-                  <DeleveryTabs />
-                </Box>
-              </Box>
-            </CardContent>
-          </Card>
-        </Box>
+            <Grid container marginTop="10px" spacing={2}>
+              <Grid item xs={8}>
+                <ListSection />
+              </Grid>
+              <Grid
+                container
+                item
+                alignItems="end"
+                direction="column"
+                rowSpacing={2}
+                xs={4}
+              >
+                <Grid item xs={4}>
+                  <SectionUsages />
+                </Grid>
+                <Grid item xs={4}>
+                  <DeliveryStatusList />
+                </Grid>
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Container>
       </DashboardLayout>
     </ThemeProvider>
   );
