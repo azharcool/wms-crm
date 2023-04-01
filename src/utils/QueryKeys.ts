@@ -50,6 +50,8 @@ const QueryKeys = {
   getByIdLocation: "getByIdLocation",
   getAllZonePagination: "getAllZonePagination",
   getAllByBundleIdBundleComposition: "getAllByBundleIdBundleComposition",
+  getAllAdjustment: "getAllAdjustment",
+  getByIdAdjustment: "getByIdAdjustment",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

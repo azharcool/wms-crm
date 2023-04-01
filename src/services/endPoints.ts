@@ -260,6 +260,13 @@ const API_URLS = {
   GET_BY_ID_LOCATION: `location/${endPoints.getbyid}`,
   DELETE_LOCATION: `location/${endPoints.delete}`,
   BULK_DELETE_LOCATION: `location/${endPoints.bulkDelete}`,
+
+  // adjustment
+  ADD_ADJUSTMENT: `adjustmentReason/${endPoints.add}`,
+  GET_ALL_ADJUSTMENT: `adjustmentReason/${endPoints.getAll}`,
+  DELETE_ADJUSTMENT: `adjustmentReason/${endPoints.delete}`,
+  EDIT_ADJUSTMENT: `adjustmentReason/${endPoints.edit}`,
+  GET_BY_ID_ADJUSTMENT: `adjustmentReason/${endPoints.getbyid}`,
 };
 
 export default API_URLS;

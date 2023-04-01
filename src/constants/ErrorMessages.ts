@@ -253,6 +253,10 @@ const ErrorMessages = {
     name: "please enter name",
     description: "please enter description",
   },
+  add_adjustment: {
+    name: "Please enter name",
+    operations: " Please enter operations",
+  },
 };
 
 export default ErrorMessages;

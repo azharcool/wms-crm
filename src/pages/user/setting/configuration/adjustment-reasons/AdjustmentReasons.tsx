@@ -1,28 +1,45 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { CardContent } from "@mui/material";
-import { Container, Box } from "@mui/system";
+import { Box, Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
+import useGetAllAdjustment from "hooks/querys/setting/adjustment/useGetAllAdjustment";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
 import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";
 
 function AdjustmentReasons() {
+  const [openForm, setOpenForm] = useState(false);
   const navigate = useNavigate();
+  const [adjustmentPagination, setAdjustmentPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const {
+    data: item,
+    refetch,
+    isLoading,
+  } = useGetAllAdjustment(adjustmentPagination);
+
+  const handleAdjustment = () => {
+    setOpenForm((s) => !s);
+  };
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          navTitle="CONFIGURATION"
           isBulkDisabled={false}
+          navTitle="CONFIGURATION"
           rightActions={[
             {
               id: crypto.randomUUID(),
               title: "New",
-              onClick: () =>
-                navigate(
-                  `/${AppRoutes.purchases.layout}/${AppRoutes.setting.configuration}`,
-                ),
+              onClick: () => {
+                handleAdjustment();
+              },
+
               icon: (
                 <AddCircleIcon
                   sx={{
@@ -37,9 +54,17 @@ function AdjustmentReasons() {
           onBulkHandle={() => {}}
         />
         <Box sx={{ mt: 3 }}>
-          <AdjustmentReasonsList />
+          <AdjustmentReasonsList data={item} />
         </Box>
       </CardContent>
+      <>
+        {openForm ? (
+          <AdjustmentReasonsCreate
+            handleClose={handleAdjustment}
+            open={openForm}
+          />
+        ) : null}
+      </>
     </Container>
   );
 }

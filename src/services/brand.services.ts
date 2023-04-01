@@ -1,4 +1,3 @@
-// import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { IResponse } from "constants/interfaces";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
