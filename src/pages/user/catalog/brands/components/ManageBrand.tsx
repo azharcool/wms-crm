@@ -11,8 +11,8 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import palette from "theme/palette";
 // import { addBrandAction } from "services/brand.services";
 import CancelIcon from "@mui/icons-material/Cancel";
-// import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
-import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+// import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import useManageBrandForm, {
   ManageBrandInitialValues,
