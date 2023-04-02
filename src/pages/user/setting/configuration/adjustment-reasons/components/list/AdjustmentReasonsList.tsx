@@ -10,7 +10,6 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
-import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { IGetAdjustmentResponseRoot } from "types/setting/adjustment/getAdjustmentResponse";
@@ -32,13 +31,7 @@ interface IAdjustmentReasonListing {
 }
 
 function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
-  const [formOpen, setFormOpen] = useState(false);
   const { data } = props;
-
-  const handleClose = (status?: boolean) => {
-    const open = status || false;
-    setFormOpen(open);
-  };
 
   return (
     <>
@@ -89,7 +82,7 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data?.data.map((item: any) => {
+                  {data?.data.map((item) => {
                     return (
                       <AdjustmentReasonListItem key={item.id} item={item} />
                     );

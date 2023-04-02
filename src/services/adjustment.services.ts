@@ -19,7 +19,7 @@ export async function getAllAdjustment(
 export async function getByIdAdjustment(
   id: number,
 ): Promise<GetByIdAdjustmentRoot> {
-  const URL = `${API_URLS.GET_BY_ID_BRAND}?id=${id}`;
+  const URL = `${API_URLS.GET_BY_ID_ADJUSTMENT}?id=${id}`;
   return client.get(URL);
 }
 

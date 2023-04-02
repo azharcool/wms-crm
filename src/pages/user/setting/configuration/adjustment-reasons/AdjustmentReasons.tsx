@@ -15,11 +15,8 @@ function AdjustmentReasons() {
     pageSize: 10,
     page: 1,
   });
-  const {
-    data: item,
-    refetch,
-    isLoading,
-  } = useGetAllAdjustment(adjustmentPagination);
+  const { data: adjustmentResponse } =
+    useGetAllAdjustment(adjustmentPagination);
 
   const handleAdjustment = () => {
     setOpenForm((s) => !s);
@@ -54,7 +51,7 @@ function AdjustmentReasons() {
           onBulkHandle={() => {}}
         />
         <Box sx={{ mt: 3 }}>
-          <AdjustmentReasonsList data={item} />
+          <AdjustmentReasonsList data={adjustmentResponse} />
         </Box>
       </CardContent>
       <>
