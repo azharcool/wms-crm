@@ -2,7 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { CardContent } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
-import useGetAllAdjustment from "hooks/querys/setting/adjustment/useGetAllAdjustment";
+import useGetAllAdjustmentReason from "hooks/querys/setting/adjustmentReason/useGetAllAdjustmentReason";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
@@ -16,7 +16,7 @@ function AdjustmentReasons() {
     page: 1,
   });
   const { data: adjustmentResponse } =
-    useGetAllAdjustment(adjustmentPagination);
+    useGetAllAdjustmentReason(adjustmentPagination);
 
   const handleAdjustment = () => {
     setOpenForm((s) => !s);

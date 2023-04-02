@@ -6,7 +6,7 @@ import { GetByIdAdjustmentRoot } from "types/setting/adjustment/getByIdAdjustmen
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
-export async function getAllAdjustment(
+export async function getAllAdjustmentReason(
   restUrl: string,
 ): Promise<IGetAdjustmentResponseRoot> {
   let URL = `${API_URLS.GET_ALL_ADJUSTMENT}`;
@@ -16,28 +16,28 @@ export async function getAllAdjustment(
   return client.get(URL);
 }
 
-export async function getByIdAdjustment(
+export async function getByIdAdjustmentReason(
   id: number,
 ): Promise<GetByIdAdjustmentRoot> {
   const URL = `${API_URLS.GET_BY_ID_ADJUSTMENT}?id=${id}`;
   return client.get(URL);
 }
 
-export async function addAdjustment(
+export async function addAdjustmentReason(
   request: IAddAdjustmentRequestRoot,
 ): Promise<IAddAdjustmentResponseRoot> {
   const URL = `${API_URLS.ADD_ADJUSTMENT}`;
   return client.post(URL, request);
 }
 
-export async function editAdjustment(
+export async function editAdjustmentReason(
   request: IAddAdjustmentRequestRoot,
 ): Promise<IResponse> {
   const URL = `${API_URLS.EDIT_ADJUSTMENT}`;
   return client.put(URL, request);
 }
 
-export async function deleteAdjustment(id: number): Promise<IResponse> {
+export async function deleteAdjustmentReason(id: number): Promise<IResponse> {
   const URL = `${API_URLS.DELETE_ADJUSTMENT}/${id}`;
   return client.delete(URL);
 }
