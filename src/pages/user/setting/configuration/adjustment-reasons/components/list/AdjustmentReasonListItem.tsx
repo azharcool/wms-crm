@@ -1,4 +1,4 @@
-import { Checkbox, MenuItem, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
@@ -15,9 +15,8 @@ interface IAdjustmentItem {
 
 function AdjustmentReasonListItem(props: IAdjustmentItem) {
   const { item } = props;
+  console.log("first----->", item.id);
   const [manageOpen, setManageOpen] = useState(false);
-  console.log("item--->", item.name);
-
   const newtheme = useSelector((state: any) => state.theme);
   const alert = useAlert();
   const { deleteAdjustmentAsync } = useAdjustmentAction();
@@ -26,16 +25,16 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
     setManageOpen((s) => !s);
   };
 
-  const handleAdjustmentDelete = async () => {
+  const handleAdjustmentDelete = async (id: any) => {
     alert?.show({
       title: "Confirmation",
       message: "Do you really want to delete Brand",
       cancelText: "No",
       confirmText: "Yes",
-      // onConfirm: async () => {
-      //   await deleteAdjustmentAsync(item?.id);
-      //   // refetch();
-      // },
+      onConfirm: async () => {
+        await deleteAdjustmentAsync(id);
+        // refetch();
+      },
     });
   };
 
@@ -70,7 +69,6 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
           }}
           onClick={() => {
             handleManage();
-            // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
           {item.name}
@@ -90,17 +88,17 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
         >
           <TableActionButton
             onDeleteHandle={() => {
-              // deleteProductAsync(brandData.id);
+              handleAdjustmentDelete(item.id);
             }}
           >
-            <MenuItem
+            {/* <MenuItem
               disableRipple
               onClick={() => {
                 handleManage();
               }}
             >
               Edit
-            </MenuItem>
+            </MenuItem> */}
           </TableActionButton>
         </TableCell>
       </TableRow>

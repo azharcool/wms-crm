@@ -3,12 +3,12 @@ import TableActionButton from "components/table/TableActionButton";
 import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { RootState, useAppDispatch } from "redux/store";
-import { GetAllWarehouseAreaResponseData } from "types/warehouse/area/getAllWarehouseAreaResponse";
 import { getSelectedAreaById } from "redux/warehouse/areaSelector";
 import { setAreaId } from "redux/warehouse/areaSlice";
+import { GetAllWarehouseAreaResponseData } from "types/warehouse/area/getAllWarehouseAreaResponse";
 
 interface IAreaListItem {
   item: GetAllWarehouseAreaResponseData;
