@@ -133,6 +133,9 @@ const AppRoutes = {
       general: "general/details",
       history: "history/details",
     },
+    putaway_v1: {
+      listing: "putaway-v1/listing",
+    },
   },
 
   setting: {

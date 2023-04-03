@@ -64,3 +64,9 @@ export const ReceiveHistory = Loadable({
     import("pages/user/stock-control/receive/component/detials/History"),
   loading: () => <Spinner />,
 });
+
+// Putaway-v1
+export const PutAwayV1Listing = Loadable({
+  loader: () => import("pages/user/stock-control/putaway-v1/PutAwayV1"),
+  loading: () => <Spinner />,
+});

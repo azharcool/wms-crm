@@ -47,7 +47,6 @@ const statusMenu = [
 ];
 
 const initialValues: AddSupplierForm = {
-  userId: 0,
   companyName: "Company Name",
   shortName: "",
   email: "",
