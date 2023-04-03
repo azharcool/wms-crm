@@ -18,6 +18,8 @@ import { useSelector } from "react-redux";
 import DashedCard from "components/card/DashedCard";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
+import useGetByUnitNumberUnit from "hooks/querys/catalog/unit/useGetByUnitNumberUnit";
+import { useParams } from "react-router-dom";
 
 interface ICustomCard {
   title: string;
@@ -37,7 +39,11 @@ function CustomCardContent(props: ICustomCard) {
 }
 
 function UnitHistory() {
+  const { unitId } = useParams();
   const newtheme = useSelector((state: any) => state.theme);
+  const { data: unitNumberItemResponse } = useGetByUnitNumberUnit({
+    unitNumber: Number(unitId),
+  });
 
   const lightTheme = createTheme({
     palette: {
@@ -85,7 +91,7 @@ function UnitHistory() {
           }}
           navTitle="CATELOG"
           rightActions={[]}
-          title="IPHONE XR"
+          title={unitNumberItemResponse?.data.variantName || ""}
         />
 
         <Box
@@ -123,7 +129,7 @@ function UnitHistory() {
                         label="Variant"
                         name="variant"
                         size="small"
-                        value="Books non-fiction"
+                        value={unitNumberItemResponse?.data.variantName}
                       />
                       <TextField
                         darkDisable
@@ -132,7 +138,7 @@ function UnitHistory() {
                         label="Unit number"
                         name="unitNumber"
                         size="small"
-                        value="6463562295194"
+                        value={unitNumberItemResponse?.data.unitNumber}
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -143,7 +149,7 @@ function UnitHistory() {
                         label="Type"
                         name="type"
                         size="small"
-                        value="INCREASE"
+                        value={unitNumberItemResponse?.data.status}
                       />
                       <TextField
                         darkDisable
@@ -152,7 +158,7 @@ function UnitHistory() {
                         label="Old quantity"
                         name="oldQuantity"
                         size="small"
-                        value="0"
+                        value={unitNumberItemResponse?.data.oldQuantity}
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -163,7 +169,10 @@ function UnitHistory() {
                         label="New quantity"
                         name="newQuantity"
                         size="small"
-                        value="100"
+                        value={
+                          unitNumberItemResponse?.data.newQuantity ||
+                          "Not Provided"
+                        }
                       />
                       <TextField
                         darkDisable
@@ -172,7 +181,7 @@ function UnitHistory() {
                         label="Source"
                         name="source"
                         size="small"
-                        value="SA-12912"
+                        value="Not Provided"
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -183,7 +192,10 @@ function UnitHistory() {
                         label="Destination"
                         name="destination"
                         size="small"
-                        value="Not provided"
+                        value={
+                          unitNumberItemResponse?.data.destination ||
+                          "Not Provided"
+                        }
                       />
                       <TextField
                         darkDisable
@@ -192,7 +204,10 @@ function UnitHistory() {
                         label="Serial number"
                         name="serialNumber"
                         size="small"
-                        value="Not provided"
+                        value={
+                          unitNumberItemResponse?.data.serialNo ||
+                          "Not Provided"
+                        }
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -203,7 +218,10 @@ function UnitHistory() {
                         label="Batch number"
                         name="batchNumber"
                         size="small"
-                        value="Not provided"
+                        value={
+                          unitNumberItemResponse?.data.batchNumber ||
+                          "Not Provided"
+                        }
                       />
                       <TextField
                         darkDisable
@@ -212,7 +230,10 @@ function UnitHistory() {
                         label="Expiry date"
                         name="expiryDate"
                         size="small"
-                        value="Not provided"
+                        value={
+                          unitNumberItemResponse?.data.expiryDate ||
+                          "Not Provided"
+                        }
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -223,7 +244,9 @@ function UnitHistory() {
                         label="Price"
                         name="price"
                         size="small"
-                        value="0"
+                        value={
+                          unitNumberItemResponse?.data.price || "Not Provided"
+                        }
                       />
                       <TextField
                         darkDisable
@@ -232,7 +255,10 @@ function UnitHistory() {
                         label="Currency"
                         name="currency"
                         size="small"
-                        value="Not provided"
+                        value={
+                          unitNumberItemResponse?.data.currency ||
+                          "Not Provided"
+                        }
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -243,7 +269,7 @@ function UnitHistory() {
                         label="Rejected"
                         name="rejected"
                         size="small"
-                        value=""
+                        value="Not Provided"
                       />
                       <TextField
                         darkDisable
@@ -252,7 +278,7 @@ function UnitHistory() {
                         label="Company"
                         name="company"
                         size="small"
-                        value="Azhar"
+                        value="Not Provided"
                       />
                     </Stack>
                     <Stack direction="row" gap={2}>
@@ -263,7 +289,10 @@ function UnitHistory() {
                         label="Condition code"
                         name="conditionCode"
                         size="small"
-                        value="New"
+                        value={
+                          unitNumberItemResponse?.data.conditionName ||
+                          "Not Provided"
+                        }
                       />
                       <TextField
                         darkDisable
@@ -283,7 +312,10 @@ function UnitHistory() {
                         label="Warehouse"
                         name="warehouse"
                         size="small"
-                        value="Default warehouse (Demo)"
+                        value={
+                          unitNumberItemResponse?.data.warehouseName ||
+                          "Not Provided"
+                        }
                       />
                       <TextField
                         darkDisable
@@ -292,7 +324,10 @@ function UnitHistory() {
                         label="Location ID"
                         name="locationID"
                         size="small"
-                        value="STG"
+                        value={
+                          unitNumberItemResponse?.data.locationName ||
+                          "Not Provided"
+                        }
                       />
                     </Stack>
                   </CustomCardContent>
@@ -323,7 +358,7 @@ function UnitHistory() {
                         fontSize: "12px",
                       }}
                     >
-                      STG
+                      {unitNumberItemResponse?.data.locationName}
                     </Box>
                   </DashedCard>
                   <DashedCard title="Container">
@@ -349,7 +384,7 @@ function UnitHistory() {
                         fontSize: "12px",
                       }}
                     >
-                      100
+                      -
                     </Box>
                   </DashedCard>
                   <DashedCard title="Difference">
@@ -362,7 +397,7 @@ function UnitHistory() {
                         fontSize: "12px",
                       }}
                     >
-                      100
+                      -
                     </Box>
                   </DashedCard>
                 </Stack>

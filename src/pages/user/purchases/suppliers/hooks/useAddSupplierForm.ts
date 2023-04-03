@@ -3,7 +3,6 @@ import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
 export interface AddSupplierForm {
-  userId: number;
   companyName: string;
   shortName: string;
   email: string;
@@ -35,7 +34,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const deafultValues: AddSupplierForm = {
-  userId: 0,
   companyName: "",
   shortName: "",
   email: "",

@@ -93,12 +93,6 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
           </TableContainer>
         </Box>
       </PerfectScrollbar>
-      {/* {formOpen ? (
-        <AdjustmentReasonsCreate
-          handleClose={() => handleClose()}
-          open={formOpen}
-        />
-      ) : null} */}
     </>
   );
 }

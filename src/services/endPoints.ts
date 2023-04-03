@@ -276,6 +276,22 @@ const API_URLS = {
   GET_BY_ID_ADJUSTMENT: `adjustment/${endPoints.getbyid}`,
   DELETE_ADJUSTMENT: `adjustment/${endPoints.delete}`,
   BULK_DELETE_ADJUSTMENT: `adjustment/${endPoints.bulkDelete}`,
+
+  // Product condition
+  ADD_PRODUCT_CONDITION: `productCondition/${endPoints.add}`,
+  EDIT_PRODUCT_CONDITION: `productCondition/${endPoints.edit}`,
+  GET_ALL_PRODUCT_CONDITION: `productCondition/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_PRODUCT_CONDITION: `productCondition/${endPoints.getAllPagination}`,
+  GET_BY_ID_PRODUCT_CONDITION: `productCondition/${endPoints.getbyid}`,
+  DELETE_PRODUCT_CONDITION: `productCondition/${endPoints.delete}`,
+  BULK_DELETE_PRODUCT_CONDITION: `productCondition/${endPoints.bulkDelete}`,
+
+  // Unit
+  GET_ALL_UNIT: `unit/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_UNIT: `unit/${endPoints.getAllPagination}`,
+  GET_BY_UNITNUMBER_UNIT: "unit/getby-unitNumber",
+  DELETE_UNIT: `unit/${endPoints.delete}`,
+  BULK_DELETE_UNIT: `unit/${endPoints.bulkDelete}`,
 };
 
 export default API_URLS;

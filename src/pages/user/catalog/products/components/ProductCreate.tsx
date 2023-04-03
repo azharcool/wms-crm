@@ -405,13 +405,9 @@ function ProductCreate() {
                     label="Quantity"
                     name="quantity"
                     size="small"
+                    type="number"
                     value={values.quantity}
-                    onChange={(e) => {
-                      setFieldValue(
-                        "quantity",
-                        e.target.value.replace(/[^0-9]/g, ""),
-                      );
-                    }}
+                    onChange={handleChange("quantity")}
                   />
 
                   <TextField
@@ -436,26 +432,18 @@ function ProductCreate() {
                     label="Supply price"
                     name="supplyPrice"
                     size="small"
+                    type="number"
                     value={values.supplyPrice}
-                    onChange={(e) => {
-                      setFieldValue(
-                        "supplyPrice",
-                        e.target.value.replace(/[^0-9]/g, ""),
-                      );
-                    }}
+                    onChange={handleChange("supplyPrice")}
                   />
                   <TextField
                     id="MaximumRetailPrice"
                     label="Maximum Retail price"
                     name="MaximumRetailPrice"
                     size="small"
+                    type="number"
                     value={values.maximumRetailPrice}
-                    onChange={(e) => {
-                      setFieldValue(
-                        "maximumRetailPrice",
-                        e.target.value.replace(/[^0-9]/g, ""),
-                      );
-                    }}
+                    onChange={handleChange("maximumRetailPrice")}
                   />
                 </Stack>
                 <TextField
@@ -463,13 +451,9 @@ function ProductCreate() {
                   label="Retail price"
                   name="retailPrice"
                   size="small"
+                  type="number"
                   value={values.retailPrice}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "retailPrice",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("retailPrice")}
                 />
               </CustomCardContent>
 
@@ -592,13 +576,9 @@ function ProductCreate() {
                   label="Height"
                   name="height"
                   size="small"
+                  type="number"
                   value={values.height}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "height",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("height")}
                 />
 
                 <TextField
@@ -608,13 +588,9 @@ function ProductCreate() {
                   label="Width"
                   name="width"
                   size="small"
+                  type="number"
                   value={values.width}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "width",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("width")}
                 />
               </Stack>
 
@@ -626,13 +602,9 @@ function ProductCreate() {
                   label="length"
                   name="length"
                   size="small"
+                  type="number"
                   value={values.length}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "length",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("length")}
                 />
 
                 <TextField
@@ -642,13 +614,9 @@ function ProductCreate() {
                   label="Weight"
                   name="weight"
                   size="small"
+                  type="number"
                   value={values.weight}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "weight",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("weight")}
                 />
               </Stack>
             </CustomAccordian>
@@ -672,13 +640,9 @@ function ProductCreate() {
                 label="Min Expiry Days"
                 name="minExpiryDays"
                 size="small"
+                type="number"
                 value={values.minExpiryDays}
-                onChange={(e) => {
-                  setFieldValue(
-                    "minExpiryDays",
-                    e.target.value.replace(/[^0-9]/g, ""),
-                  );
-                }}
+                onChange={handleChange("minExpiryDays")}
               />
 
               {fullfillmentSwitchs?.map((item) => {

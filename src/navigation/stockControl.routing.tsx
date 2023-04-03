@@ -51,6 +51,32 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.recieve.history}`}
       />
     </Route>
+
+    {/* Putaway-v1 Routing */}
+    <Route
+      element={<StockControlLoadable.PutAwayV1Listing />}
+      path={`${AppRoutes.stockControl.putaway_v1.listing}`}
+    />
+
+    {/* Putaway-v2 Routing */}
+    <Route
+      element={<StockControlLoadable.PutAwayV2Listing />}
+      path={`${AppRoutes.stockControl.putaway_v2.listing}`}
+    />
+
+    <Route
+      element={<StockControlLoadable.PutAwayV2Detials />}
+      path={`${AppRoutes.stockControl.putaway_v2.details}/:putawayId`}
+    >
+      <Route
+        element={<StockControlLoadable.PutAwayV2General />}
+        path={`${AppRoutes.stockControl.putaway_v2.general}`}
+      />
+      <Route
+        element={<StockControlLoadable.PutAwayV2History />}
+        path={`${AppRoutes.stockControl.putaway_v2.history}`}
+      />
+    </Route>
   </Route>
 );
 
