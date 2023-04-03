@@ -32,7 +32,7 @@ const configurationList = [
     title: "Product Condition",
     desc: "Define product conditions and grades",
     icon: <ShoppingBasketIcon />,
-    href: "",
+    href: `/${setting.layout}/${setting.configuration.productCondition}`,
   },
   {
     id: crypto.randomUUID(),

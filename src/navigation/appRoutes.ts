@@ -144,6 +144,7 @@ const AppRoutes = {
       listing: "configuration/listing",
       adjustmentReasons: "configuration/adjustment-reason/listing",
       adjustmentDetail: "configuration/adjustment-reason/detail",
+      productCondition: "configuration/product-condition/listing",
     },
     barcode: {
       generate: "barcode/generate",
