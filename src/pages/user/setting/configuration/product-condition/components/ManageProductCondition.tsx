@@ -4,12 +4,15 @@ import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
+import useGetByIdProductCondition from "hooks/querys/setting/product-condition/useGetByIdProductCondition";
+import useProductConditionAction from "hooks/setting/product-condition/useProductConditionAction";
 import useDecodedData from "hooks/useDecodedData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
+import { IAddProductConditionRequestRoot } from "types/setting/product-condition/addProductConditionRequest";
 import useManageProductCondition, {
   ManageProductConditionForm,
   productConditionInitialValues,
@@ -25,7 +28,6 @@ interface IManageProductCondition {
   handleClose: () => void;
   view?: boolean;
   productConditionId?: number;
-  editData?: any;
 }
 
 function ManageProductCondition(props: IManageProductCondition) {
@@ -34,12 +36,12 @@ function ManageProductCondition(props: IManageProductCondition) {
   const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
-  // const { addAdjustmentReasonAction, editAdjustmentReasonAction } =
-  //   useAdjustmentReasonAction();
+  const { addProductConditionAction, editProductConditionAction } =
+    useProductConditionAction();
 
-  // const { data: adjustmentItemResponse } = useGetByIdAdjustmentReason({
-  //   adjustmentId: productConditionId,
-  // });
+  const { data: productConditionResponse } = useGetByIdProductCondition({
+    productConditionId,
+  });
 
   const manageFormik = useManageProductCondition({
     initialValues: productConditionInitialValues,
@@ -58,32 +60,45 @@ function ManageProductCondition(props: IManageProductCondition) {
     isSubmitting,
   } = manageFormik;
 
-  // useEffect(() => {
-  //   if (adjustmentItemResponse) {
-  //     const AdjustmentItem = adjustmentItemResponse.data;
-  //     setFieldValue("name", AdjustmentItem.name);
-  //     setFieldValue("operations", AdjustmentItem.operations);
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [adjustmentItemResponse]);
+  useEffect(() => {
+    if (productConditionResponse) {
+      const productCondition = productConditionResponse.data;
+      setFieldValue("code", productCondition.code);
+      setFieldValue("color", productCondition.color);
+      setFieldValue("condition", productCondition.condition);
+      setFieldValue("description", productCondition.description);
+      setFieldValue("image", productCondition.image);
+      setFieldValue("grade", productCondition.grade);
+      setFieldValue("warranty", productCondition.warranty);
+      setFieldValue("isDefault", productCondition.isDefault);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [productConditionResponse]);
 
   async function onSubmit(values: ManageProductConditionForm) {
-    // let response = false;
-    // const data: IAddAdjustmentRequestRoot = {
-    //   userId: Number(userDecoded.id),
-    //   name: values.name,
-    //   operations: values.operations,
-    // };
-    // if (editable) {
-    //   response = await addAdjustmentReasonAction(data);
-    // } else {
-    //   data.id = productConditionId;
-    //   response = await editAdjustmentReasonAction(data);
-    // }
-    // if (response) {
-    //   resetForm();
-    //   handleClose();
-    // }
+    let response = false;
+    const data: IAddProductConditionRequestRoot = {
+      userId: Number(userDecoded.id),
+      code: values.code,
+      color: values.color,
+      condition: values.condition,
+      description: values.description,
+      image: uploadedFiles.map((i) => i.value.split("base64,")[1]).toString(),
+      grade: values.grade,
+      isDefault: values.default,
+      warranty: Number(values.warranty),
+    };
+
+    if (editable) {
+      data.id = productConditionId;
+      response = await editProductConditionAction(data);
+    } else {
+      response = await addProductConditionAction(data);
+    }
+
+    if (response) {
+      handleClose();
+    }
   }
 
   const handleFile = async (e: any) => {
@@ -112,7 +127,9 @@ function ManageProductCondition(props: IManageProductCondition) {
       };
     });
   };
+
   const isDisabled = Boolean(editable ? false : view);
+
   return (
     <>
       <Slider
@@ -243,6 +260,7 @@ function ManageProductCondition(props: IManageProductCondition) {
                 <Stack direction="row" gap={2}>
                   <TextField
                     multiline
+                    disabled={isDisabled}
                     id="description"
                     label="Description"
                     name="description"
@@ -295,7 +313,11 @@ function ManageProductCondition(props: IManageProductCondition) {
                       </Box>
                     );
                   })}
-                  <UploadButton single handleFile={handleFile} />
+                  <UploadButton
+                    single
+                    disabled={isDisabled}
+                    handleFile={handleFile}
+                  />
                 </Stack>
               </CustomCardContent>
             </Card>
