@@ -87,12 +87,16 @@ export const PutAwayV2Detials = Loadable({
 
 export const PutAwayV2General = Loadable({
   loader: () =>
-    import("pages/user/stock-control/putaway-v2/component/details/General"),
+    import(
+      "pages/user/stock-control/putaway-v2/component/details/general/General"
+    ),
   loading: () => <Spinner />,
 });
 
 export const PutAwayV2History = Loadable({
   loader: () =>
-    import("pages/user/stock-control/putaway-v2/component/details/History"),
+    import(
+      "pages/user/stock-control/putaway-v2/component/details/history/History"
+    ),
   loading: () => <Spinner />,
 });
