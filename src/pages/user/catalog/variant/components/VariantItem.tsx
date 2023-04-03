@@ -89,8 +89,8 @@ function VariantItem(props: IVariantItem) {
       >
         <Box
           onClick={() => {
-            navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`,{
-              "state":{"optionName":item.optionName, "value":item.value}
+            navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`, {
+              state: { optionName: item.optionName, value: item.value },
             });
           }}
         >
@@ -100,7 +100,13 @@ function VariantItem(props: IVariantItem) {
             </Typography>
           </Tooltip>
         </Box>
-        <Typography>{item.sku}</Typography>
+        <Typography
+          sx={{
+            fontSize: "10px",
+          }}
+        >
+          {item.sku}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{
