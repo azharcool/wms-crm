@@ -1,6 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
-// import { Container, Box } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
 import ReceiveList from "./component/list/ReceiveList";
 

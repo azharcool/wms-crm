@@ -1,25 +1,25 @@
 import {
   Box,
   Checkbox,
+  Divider,
   Paper,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
-import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import ReceiveListItem from "./ReceiveListItem";
+import HistoryListItem from "./HistoryListItem";
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "ID #",
+    title: "Status",
   },
-
   {
     id: crypto.randomUUID(),
     title: "Received/Expected",
@@ -27,63 +27,28 @@ const tableTitle = [
 
   {
     id: crypto.randomUUID(),
-    title: "Receiving Warehouse",
+    title: "Expected date",
   },
   {
     id: crypto.randomUUID(),
-    title: "Client Company",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "From",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Status",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Notes",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Tags",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Expected Date",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Last Update",
+    title: "Last update",
   },
 ];
-// const tableTabs = [
-//   {
-//     id: crypto.randomUUID(),
-//     title: "NEW",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "COMPLETED",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "IN PROGRESS",
-//   },
-// ];
 
-function ReceiveList() {
+function HistoryList() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
-
-      <Box sx={{ minWidth: 1050, minHeight: 500 }}>
+      <Box sx={{ minWidth: 1050, minHeight: 500, pt: "25px" }}>
         <TableContainer component={Paper}>
+          <Typography sx={{ margin: "16px" }} variant="h6">
+            Receiving information
+          </Typography>
+          <Divider />
           <PerfectScrollbar>
             <Table
               sx={{
                 height: "100%",
+                mt: "20px",
               }}
             >
               <TableHead>
@@ -121,13 +86,10 @@ function ReceiveList() {
                       </CustomTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
-                    Actions
-                  </CustomTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                <ReceiveListItem item={undefined} />
+                <HistoryListItem item={undefined} />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -137,4 +99,4 @@ function ReceiveList() {
   );
 }
 
-export default ReceiveList;
+export default HistoryList;

@@ -55,12 +55,16 @@ export const ReceiveDetials = Loadable({
 
 export const ReceiveGeneral = Loadable({
   loader: () =>
-    import("pages/user/stock-control/receive/component/detials/General"),
+    import(
+      "pages/user/stock-control/receive/component/detials/general/General"
+    ),
   loading: () => <Spinner />,
 });
 
 export const ReceiveHistory = Loadable({
   loader: () =>
-    import("pages/user/stock-control/receive/component/detials/History"),
+    import(
+      "pages/user/stock-control/receive/component/detials/history/History"
+    ),
   loading: () => <Spinner />,
 });
