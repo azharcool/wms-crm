@@ -276,6 +276,15 @@ const API_URLS = {
   GET_BY_ID_ADJUSTMENT: `adjustment/${endPoints.getbyid}`,
   DELETE_ADJUSTMENT: `adjustment/${endPoints.delete}`,
   BULK_DELETE_ADJUSTMENT: `adjustment/${endPoints.bulkDelete}`,
+
+  // Product condition
+  ADD_PRODUCT_CONDITION: `productCondition/${endPoints.add}`,
+  EDIT_PRODUCT_CONDITION: `productCondition/${endPoints.edit}`,
+  GET_ALL_PRODUCT_CONDITION: `productCondition/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_PRODUCT_CONDITION: `productCondition/${endPoints.getAllPagination}`,
+  GET_BY_ID_PRODUCT_CONDITION: `productCondition/${endPoints.getbyid}`,
+  DELETE_PRODUCT_CONDITION: `productCondition/${endPoints.delete}`,
+  BULK_DELETE_PRODUCT_CONDITION: `productCondition/${endPoints.bulkDelete}`,
 };
 
 export default API_URLS;
