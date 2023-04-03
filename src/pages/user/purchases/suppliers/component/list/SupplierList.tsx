@@ -10,8 +10,12 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getSelectedSupplier } from "redux/purchase/supplierSelector";
+import { setAllSupplierIds } from "redux/purchase/supplierSlice";
 import {
   GetAllSupplierData,
   GetAllSupplierRoot,
@@ -61,6 +65,18 @@ interface ISupplierList {
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function SupplierList(props: ISupplierList) {
   const { data } = props;
+  const getSelectedSupplierByIdState = useSelector(getSelectedSupplier);
+  const dispatch = useDispatch();
+  const selectAll = (event: IChangeEvent, checked: boolean) => {
+    if (data) {
+      dispatch(
+        setAllSupplierIds({
+          ids: data?.data.map((i: any) => i.id),
+          checked,
+        }),
+      );
+    }
+  };
 
   return (
     <PerfectScrollbar>
@@ -85,7 +101,14 @@ function SupplierList(props: ISupplierList) {
                     }}
                     leftValue={0}
                   >
-                    <Checkbox color="primary" />
+                    <Checkbox
+                      checked={
+                        data?.data.length ===
+                        getSelectedSupplierByIdState?.length
+                      }
+                      color="primary"
+                      onChange={selectAll}
+                    />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
                     const isName = item.title.includes("Name");
@@ -113,6 +136,12 @@ function SupplierList(props: ISupplierList) {
                 {data?.data.map((item: GetAllSupplierData) => {
                   return <SupplierListItem key={item.id} item={item} />;
                 })}
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Supplier"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

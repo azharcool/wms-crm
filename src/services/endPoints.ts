@@ -192,6 +192,7 @@ const API_URLS = {
   GET_ALL_BRAND: `brand/${endPoints.getAll}`,
   ADD_BRAND: `brand/${endPoints.add}`,
   GET_BY_ID_BRAND: `brand/${endPoints.getbyid}`,
+  EDIT_BRAND: `brand/${endPoints.edit}`,
   PUT_BRAND: `brand/${endPoints.edit}`,
   DELETE_BRAND: `brand/${endPoints.delete}`,
   BULK_DELETE_BRAND: `brand/${endPoints.bulkDelete}`,
@@ -259,6 +260,22 @@ const API_URLS = {
   GET_BY_ID_LOCATION: `location/${endPoints.getbyid}`,
   DELETE_LOCATION: `location/${endPoints.delete}`,
   BULK_DELETE_LOCATION: `location/${endPoints.bulkDelete}`,
+
+  // adjustment Reason
+  ADD_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.add}`,
+  GET_ALL_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.getAll}`,
+  DELETE_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.delete}`,
+  EDIT_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.edit}`,
+  GET_BY_ID_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.getbyid}`,
+
+  // Adjustment
+  ADD_ADJUSTMENT: `adjustment/${endPoints.add}`,
+  EDIT_ADJUSTMENT: `adjustment/${endPoints.edit}`,
+  GET_ALL_ADJUSTMENT: `adjustment/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_ADJUSTMENT: `adjustment/${endPoints.getAllPagination}`,
+  GET_BY_ID_ADJUSTMENT: `adjustment/${endPoints.getbyid}`,
+  DELETE_ADJUSTMENT: `adjustment/${endPoints.delete}`,
+  BULK_DELETE_ADJUSTMENT: `adjustment/${endPoints.bulkDelete}`,
 };
 
 export default API_URLS;

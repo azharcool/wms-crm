@@ -11,6 +11,7 @@ import product from "./catalog/productSlice";
 import common from "./common/common";
 import theme from "./darktheme/customtheme";
 import permissions from "./permissions/permissions";
+import supplier from "./purchase/supplierSlice";
 import roles from "./roles/roles";
 import screens from "./screen/screen";
 import sideDashboard from "./side-dashboard/sideDashboardSlice";
@@ -43,6 +44,7 @@ const combinedReducer = combineReducers({
   location,
   zone,
   sideDashboard,
+  supplier,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

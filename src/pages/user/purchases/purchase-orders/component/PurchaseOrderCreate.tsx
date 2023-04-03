@@ -390,7 +390,9 @@ function PurchaseOrderCreate() {
               </CustomCardContent>
             </Card>
           </Grid>
-          <LineItems />
+          <Grid item xs={12}>
+            <LineItems />
+          </Grid>
 
           <Grid item xs={12}>
             <Card>
@@ -529,57 +531,48 @@ function LineItems() {
   const newtheme = useSelector((state: any) => state.theme);
   const [openBrowsItem, setOpenBrowsItem] = React.useState(false);
   return (
-    <PerfectScrollbar>
-      <Box sx={{ marginTop: 4, marginLeft:2 }}>
-        <TableContainer component={Paper}>
-          <Box sx={{ margin: 3 }}>
-            <Typography variant="title1" margin={2}>
-              Line Items
-            </Typography>
-          </Box>
-          <Stack
-            direction="row"
-            display="flex"
-            justifyContent="space-around"
-            alignItems="center"
-          >
-            <Stack width="70%">
-              <TextField name="Search" label="Search" value="" size="small" />
-            </Stack>
-            <Button
-              sx={{
-                width: "inherit",
-                borderRadius: "5px",
-                // padding: "5px 25px",
-                backgroundColor: palette.warning.dark,
-                color: "#fff",
-                boxShadow: "none",
-                "&:hover": {
-                  backgroundColor: palette.warning.dark,
-                  opacity: 0.6,
-                  boxShadow: "none",
-                },
-              }}
-              variant="contained"
-              onClick={() => {
-                setOpenBrowsItem(true);
-              }}
-            >
+    <Card>
+      <CustomCardContent title="Line Items">
+        <Stack
+          alignItems="start"
+          direction="row"
+          gap={5}
+          justifyContent="space-between"
+        >
+          <TextField label="Search" name="Search" size="small" value="" />
+
+          <Button
+            startIcon={
               <AddIcon
                 sx={{
-                  fontSize: 18,
-                  mr: 1,
+                  fontSize: 12,
                 }}
               />
-              <Typography
-                component="span"
-                sx={{ fontSize: { xs: "1rem", xl: "1.1rem" } }}
-              >
-                Brows
-              </Typography>
-            </Button>
-          </Stack>
-          <Divider sx={{ my: 2 }} />
+            }
+            sx={{
+              width: "inherit",
+              borderRadius: "5px",
+              // display: "block",
+              // padding: "5px 25px",
+              backgroundColor: palette.warning.dark,
+              color: "#fff",
+              boxShadow: "none",
+              "&:hover": {
+                backgroundColor: palette.warning.dark,
+                opacity: 0.6,
+                boxShadow: "none",
+              },
+            }}
+            variant="contained"
+            onClick={() => {
+              setOpenBrowsItem(true);
+            }}
+          >
+            Browse
+          </Button>
+        </Stack>
+
+        <TableContainer>
           <PerfectScrollbar>
             <Table
               sx={{
@@ -701,11 +694,7 @@ function LineItems() {
             </Table>
           </PerfectScrollbar>
         </TableContainer>
-        <BrowsListItem
-          open={openBrowsItem}
-          handleClose={() => setOpenBrowsItem(!openBrowsItem)}
-        />
-      </Box>
-    </PerfectScrollbar>
+      </CustomCardContent>
+    </Card>
   );
 }

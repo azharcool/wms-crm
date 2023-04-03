@@ -1,4 +1,3 @@
-// import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { IResponse } from "constants/interfaces";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
 import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
@@ -31,11 +30,11 @@ export async function getByIdBrand(
   return client.get(URL);
 }
 
-export async function addBrandDetail(
-  body: IAddBrandRequestRoot,
+export async function editBrand(
+  data: IAddBrandRequestRoot,
 ): Promise<IGetBrandResponseRoot> {
-  const URL = `${API_URLS.PUT_BRAND}`;
-  return client.put(URL, body);
+  const URL = `${API_URLS.EDIT_BRAND}`;
+  return client.put(URL, data);
 }
 
 export async function deleteBrand(id: number): Promise<IResponse> {

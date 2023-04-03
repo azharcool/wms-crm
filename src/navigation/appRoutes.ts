@@ -81,6 +81,7 @@ const AppRoutes = {
     zonesDetails: "zones/details",
     locationsDetails: "locations/details",
     containersDetails: "containers/details",
+    adjustmentDetails: "adjustment/details",
 
     // create
     locationCreate: "location/create",
@@ -139,6 +140,7 @@ const AppRoutes = {
     configuration: {
       listing: "configuration/listing",
       adjustmentReasons: "configuration/adjustment-reason/listing",
+      adjustmentDetail: "configuration/adjustment-reason/detail",
     },
     barcode: {
       generate: "barcode/generate",

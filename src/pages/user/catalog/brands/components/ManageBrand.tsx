@@ -1,52 +1,51 @@
-import { Box, Card, Stack } from "@mui/material";
+import { Box, Button, Card, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import { FormikHelpers } from "formik";
-import useAddBrandForm, {
-  IAddBrand,
-} from "hooks/catalog/brand/useAddBrandForm";
 import useBrandAction from "hooks/catalog/brand/useBrandAction";
 import useDecodedData from "hooks/useDecodedData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
-import { addBrand } from "services/brand.services";
 import palette from "theme/palette";
 // import { addBrandAction } from "services/brand.services";
 import CancelIcon from "@mui/icons-material/Cancel";
+import useGetByIdBrand from "hooks/querys/catalog/brands/useGetByIdBrand";
+// import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
 import { IAddBrandRequestRoot } from "types/catalog/brands/addBrandRequest";
-import { QueryKeys } from "utils/QueryKeys";
+import useManageBrandForm, {
+  ManageBrandInitialValues,
+  manageBrandInitialValues,
+} from "../hooks/useManageBrandForm";
 
 interface IValue {
   id: string;
   value: string;
 }
 
-interface IAddBrands {
+interface IManageBrand {
   open: boolean;
   handleClose: () => void;
+  view?: boolean;
+  brandId?: number;
 }
-function AddBrand(props: IAddBrands) {
-  const { open, handleClose } = props;
-  const [editable, setEditable] = useState(false);
-  // const [brandId, setBrandId] = useState("")
-  const userDecoded = useDecodedData();
-  const navigate = useNavigate();
-  const queryClient = useQueryClient();
-  const initialValues: IAddBrand = {
-    id: 0,
-    userId: 0,
-    name: "",
-    slug: "",
-    image: "",
-    fileUrl: "",
-  };
 
-  const formik = useAddBrandForm(onSubmit, initialValues);
+function ManageBrand(props: IManageBrand) {
+  const { open, handleClose, brandId, view } = props;
+  const [editable, setEditable] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
+  const userDecoded = useDecodedData();
+  const { addBrandAction } = useBrandAction();
+
+  const { data: brandItemResponse } = useGetByIdBrand({
+    brandId,
+  });
+
+  const manageFormik = useManageBrandForm({
+    initialValues: manageBrandInitialValues,
+    onSubmit,
+  });
 
   const {
     handleBlur,
@@ -56,22 +55,20 @@ function AddBrand(props: IAddBrands) {
     values,
     errors,
     touched,
-  } = formik;
+    setFieldValue,
+  } = manageFormik;
 
-  const { addBrandAction } = useBrandAction();
-  const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
-  const [image, setImage] = useState<string>("");
+  useEffect(() => {
+    if (brandItemResponse) {
+      const brandItem = brandItemResponse.data;
+      setFieldValue("name", brandItem.name);
+      setFieldValue("slug", brandItem.slug);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brandItemResponse]);
 
-  // const handle = () => {
-  //   const body: IAddBrandRequestRoot = {
-  //     userId: userDecoded?.id,
-  //     name: values.name,
-  //     slug: values.slug,
-  //   };
-  //   addBrandAction(body);
-  // };
-
-  async function onSubmit(values: IAddBrand, _: FormikHelpers<IAddBrand>) {
+  async function onSubmit(values: ManageBrandInitialValues) {
+    let response = false;
     const data: IAddBrandRequestRoot = {
       userId: Number(userDecoded.id),
       name: values.name,
@@ -79,15 +76,17 @@ function AddBrand(props: IAddBrands) {
       image: uploadedFiles.map((i) => i.value.split("base64,")[1]).toString(),
     };
 
-    const response = await addBrand(data);
-    if (response.statusCode === 200) {
-      // setBrandId(response);
+    if (editable) {
+      response = await addBrandAction(data);
+    } else {
+      data.id = brandId;
+      response = await addBrandAction(data);
+    }
+
+    if (response) {
       handleClose();
-      queryClient.invalidateQueries([QueryKeys.getAllBrand]);
     }
   }
-
-  const istrue = !editable;
 
   const handleFile = async (e: any) => {
     const allFiles = Array.from(e.target.files);
@@ -100,7 +99,7 @@ function AddBrand(props: IAddBrands) {
       value: item,
     }));
 
-    setUploadedFiles((s) => [...newUploadedFiles]);
+    setUploadedFiles([...newUploadedFiles]);
   };
 
   const convertBase64 = (file: any): Promise<any> => {
@@ -116,6 +115,8 @@ function AddBrand(props: IAddBrands) {
     });
   };
 
+  const isDisabled = Boolean(editable ? false : view);
+
   return (
     <Slider
       buttonText="save"
@@ -123,10 +124,10 @@ function AddBrand(props: IAddBrands) {
         handleSubmit();
       }}
       handleClose={handleClose}
+      isSubmitting={isSubmitting}
       open={open}
       size="sm"
       title="New Brand"
-      isSubmitting={isSubmitting}
     >
       <PerfectScrollbar>
         <Stack
@@ -136,6 +137,31 @@ function AddBrand(props: IAddBrands) {
             borderRadius: "5px",
           }}
         >
+          {view ? (
+            <Box>
+              <Button
+                color="error"
+                size="small"
+                style={{ padding: "0.5rem 1rem", backgroundColor: "#8B0000" }}
+                sx={{
+                  boxShadow: "none",
+                  display: "inline-block",
+                  "&:hover": {
+                    backgroundColor: "#8B0000",
+                    opacity: 0.6,
+                    boxShadow: "none",
+                  },
+                }}
+                variant="contained"
+                onClick={() => {
+                  setEditable(true);
+                }}
+              >
+                Edit
+              </Button>
+            </Box>
+          ) : null}
+
           <Card
             sx={{
               flex: 1,
@@ -144,6 +170,7 @@ function AddBrand(props: IAddBrands) {
             <CustomCardContent title="Details">
               <Stack direction="column" gap={2}>
                 <TextField
+                  disabled={isDisabled}
                   error={!!touched.name && !!errors.name}
                   helperText={(touched.name && errors && errors.name) || ""}
                   id="categoryName"
@@ -156,6 +183,7 @@ function AddBrand(props: IAddBrands) {
                 />
 
                 <TextField
+                  disabled={isDisabled}
                   error={!!touched.slug && !!errors.slug}
                   helperText={(touched.slug && errors && errors.slug) || ""}
                   id="categoySlug"
@@ -209,7 +237,7 @@ function AddBrand(props: IAddBrands) {
                     </Box>
                   );
                 })}
-                <UploadButton handleFile={handleFile} single />
+                <UploadButton single handleFile={handleFile} />
               </Stack>
             </CustomCardContent>
           </Card>
@@ -219,4 +247,4 @@ function AddBrand(props: IAddBrands) {
   );
 }
 
-export default AddBrand;
+export default ManageBrand;

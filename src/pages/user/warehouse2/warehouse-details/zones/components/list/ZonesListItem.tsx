@@ -1,4 +1,5 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
+import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
 import useZoneAction from "hooks/warehouse/zone/useZoneAction";
 import AppRoutes from "navigation/appRoutes";
@@ -15,7 +16,7 @@ function ZonesListItem(props: IZonesListItem) {
   const {
     warehouse: { warehouseLayout, zonesDetails },
   } = AppRoutes;
-  const {deleteZoneAction} = useZoneAction();
+  const { deleteZoneAction } = useZoneAction();
   const navigateDetails = `/${warehouseLayout}/${zonesDetails}/${item.id}`;
   return (
     <TableRow>
@@ -81,7 +82,10 @@ function ZonesListItem(props: IZonesListItem) {
           // background: "white",
         }}
       >
-        {item.status === 1 ? "Active" : "InActive"}
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "InActive" : "Active"}
+        />
       </TableCell>
 
       <TableCell
@@ -92,9 +96,11 @@ function ZonesListItem(props: IZonesListItem) {
           // background: "white",
         }}
       >
-        <TableActionButton onDeleteHandle={() => {
-          deleteZoneAction(item.id, item.warehouseId)
-        }} />
+        <TableActionButton
+          onDeleteHandle={() => {
+            deleteZoneAction(item.id, item.warehouseId);
+          }}
+        />
       </TableCell>
     </TableRow>
   );

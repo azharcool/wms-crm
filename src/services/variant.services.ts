@@ -1,5 +1,6 @@
 import { IResponse } from "constants/interfaces";
 import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
+import { IEditVariantRequestRoot } from "types/catalog/variants/editVariantRequest";
 import { IGetAllByOptionNameValueResponseRooot } from "types/catalog/variants/getAllByOptionNameValueResponse";
 import { GetAllVariantByProductIdRoot } from "types/catalog/variants/getAllVariantByProductId";
 import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
@@ -40,6 +41,13 @@ export async function addVariant(
 ): Promise<any> {
   const URL = `${API_URLS.ADD_VARIANT}`;
   return client.post(URL, request);
+}
+
+export async function editVariant(
+  request: IEditVariantRequestRoot,
+): Promise<any> {
+  const URL = `${API_URLS.EDIT_VARIANT}`;
+  return client.put(URL, request);
 }
 
 export async function getAllVariantByProductId(
