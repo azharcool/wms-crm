@@ -12,14 +12,9 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import PutAwayV1ListItem from "./PutAwayV1ListItem";
+import PutAwayV2ListItem from "./PutAwayV2ListItem";
 
 const tableTitle = [
-  {
-    id: crypto.randomUUID(),
-    title: "Image",
-  },
-
   {
     id: crypto.randomUUID(),
     title: "ID",
@@ -27,12 +22,12 @@ const tableTitle = [
 
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "From numbers",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "Status",
+    title: "Line items",
   },
   {
     id: crypto.randomUUID(),
@@ -40,15 +35,15 @@ const tableTitle = [
   },
   {
     id: crypto.randomUUID(),
-    title: "Putaway location",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Assigned to",
+    title: "Status",
   },
   {
     id: crypto.randomUUID(),
     title: "From location",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Assigned to",
   },
   {
     id: crypto.randomUUID(),
@@ -86,7 +81,7 @@ const tableTabs = [
   },
 ];
 
-function PutAwayV1List() {
+function PutAwayV2List() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tableTabs} />
@@ -118,17 +113,17 @@ function PutAwayV1List() {
                     />
                   </CustomTableCell>
                   {tableTitle.map((item) => {
-                    const isImage = item.title.includes("Image");
+                    const isID = item.title.includes("ID");
 
                     return (
                       <CustomTableCell
                         key={item.id}
                         isHeader
                         customStyle={{
-                          position: isImage ? "sticky" : "static",
-                          left: isImage ? 50 : 0,
+                          position: isID ? "sticky" : "static",
+                          left: isID ? 50 : 0,
                         }}
-                        minWt={isImage ? 60 : 170}
+                        minWt={170}
                       >
                         {item.title}
                       </CustomTableCell>
@@ -137,7 +132,7 @@ function PutAwayV1List() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <PutAwayV1ListItem item={undefined} />
+                <PutAwayV2ListItem item={undefined} />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -147,4 +142,4 @@ function PutAwayV1List() {
   );
 }
 
-export default PutAwayV1List;
+export default PutAwayV2List;

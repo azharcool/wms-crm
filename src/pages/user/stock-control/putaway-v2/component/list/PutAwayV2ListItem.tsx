@@ -1,36 +1,19 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
-import NOImage from "assets/images/no-image.png";
+import { Checkbox, TableCell, TableRow } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
-import TextField from "components/textfield";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 
-const conditionCode = [
-  {
-    id: "STG",
-    value: "STG",
-  },
-  {
-    id: "STG-DST-A-1-1-1",
-    value: "STG-DST-A-1-1-1",
-  },
-  {
-    id: "STG-DST",
-    value: "STG-DST",
-  },
-];
-
-function PutAwayV1ListItem(props: { item: any }) {
+function PutAwayV2ListItem(props: { item: any }) {
   const { item } = props;
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const {
     stockControl: {
       layout,
-      recieve: { details, general },
+      putaway_v2: { details, general },
     },
   } = AppRoutes;
 
@@ -56,7 +39,7 @@ function PutAwayV1ListItem(props: { item: any }) {
       </TableCell>
       <TableCell
         sx={{
-          width: 60,
+          width: 170,
           position: "sticky",
           left: 50,
           zIndex: 999,
@@ -65,29 +48,7 @@ function PutAwayV1ListItem(props: { item: any }) {
             : palette.background.default,
           cursor: "pointer",
         }}
-      >
-        <Box
-          sx={{
-            width: "40px",
-            height: "40px",
-          }}
-        >
-          <img
-            alt="new"
-            src={NOImage}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "5px",
-            }}
-          />
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
+        onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
         PT-82061
       </TableCell>
@@ -96,7 +57,21 @@ function PutAwayV1ListItem(props: { item: any }) {
           minWidth: 170,
         }}
       >
-        Protein Powder PROTEIPOWDER-899
+        PO-13786
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 170,
+        }}
+      >
+        1
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 170,
+        }}
+      >
+        50
       </TableCell>
       <TableCell
         sx={{
@@ -113,55 +88,22 @@ function PutAwayV1ListItem(props: { item: any }) {
           minWidth: 170,
         }}
       >
-        50
+        RCV
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        <TextField
-          disabled
-          isSelect
-          id="categorys"
-          menuItems={conditionCode}
-          name="conditionCode"
-          size="small"
-          value={conditionCode[0].value}
-          onSelectHandler={(e) => {}}
-        />
+        Not Assigned
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        <TextField
-          disabled
-          isSelect
-          id="categorys"
-          menuItems={conditionCode}
-          name="conditionCode"
-          size="small"
-          value={conditionCode[1].value}
-          onSelectHandler={(e) => {}}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        from location
+        00:00:00
         {/* lastupdt */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        duration
-        {/* notes */}
       </TableCell>
       <TableCell
         sx={{
@@ -183,4 +125,4 @@ function PutAwayV1ListItem(props: { item: any }) {
   );
 }
 
-export default PutAwayV1ListItem;
+export default PutAwayV2ListItem;
