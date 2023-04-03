@@ -1,18 +1,16 @@
+import HistoryIcon from "@mui/icons-material/History";
 import {
-  Box,
-  Checkbox,
+  IconButton,
   LinearProgress,
   linearProgressClasses,
   styled,
   TableCell,
   TableRow,
 } from "@mui/material";
-import StatusTableCell from "components/table/status-table-cell";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -40,57 +38,42 @@ function HistoryListItem(props: { item: any }) {
   } = AppRoutes;
 
   return (
-    <TableRow>
+    <TableRow hover>
       <TableCell
-        padding="checkbox"
         sx={{
-          width: 60,
-          position: "sticky",
-          left: 0,
-          zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
+          minWidth: 170,
+          // background: "white",
         }}
       >
-        <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
-        />
+        29/02/2023 03:12:33
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 170,
+          // background: "white",
+        }}
+      >
+        description
+      </TableCell>
+
+      <TableCell
+        sx={{
+          minWidth: 170,
+          // background: "white",
+        }}
+      >
+        Aasif sheikh
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
+          // background: "white",
         }}
       >
-        <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "NEW" : "COMPLETED"}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <Box>
-          <BorderLinearProgress value={100} variant="determinate" />
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Default Warehouse(Demo)
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Mar 29
+        <IconButton>
+          <HistoryIcon sx={{ fontSize: 25, color: "#333" }} />
+        </IconButton>
       </TableCell>
     </TableRow>
   );

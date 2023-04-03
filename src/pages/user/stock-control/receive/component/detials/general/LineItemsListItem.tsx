@@ -6,6 +6,7 @@ import {
   styled,
   TableCell,
   TableRow,
+  Typography,
 } from "@mui/material";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -39,7 +40,7 @@ function LineItemsListItem(props: { item: any }) {
   } = AppRoutes;
 
   return (
-    <TableRow>
+    <TableRow hover>
       <TableCell
         padding="checkbox"
         sx={{
@@ -88,7 +89,8 @@ function LineItemsListItem(props: { item: any }) {
         }}
       >
         <Box>
-          <BorderLinearProgress value={100} variant="determinate" />
+          <Typography variant="h6">Speaker</Typography>
+          <Typography>SPEAKER-796</Typography>
         </Box>
       </TableCell>
       <TableCell

@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import HistoryList from "pages/user/purchases/purchase-orders/component/list/HistoryList";
+import HistoryList from "./HistoryList";
 
 function History() {
   return (
