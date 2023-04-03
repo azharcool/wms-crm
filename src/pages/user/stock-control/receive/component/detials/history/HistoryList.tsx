@@ -36,7 +36,7 @@ const tableTitle = [
 function HistoryList() {
   return (
     <PerfectScrollbar>
-      <Box sx={{ minWidth: 1030, minHeight: 500 }}>
+      <Box sx={{ minWidth: 1030, minHeight: 500, my: 2 }}>
         <TableContainer component={Paper}>
           <PerfectScrollbar>
             <Table
@@ -64,7 +64,7 @@ function HistoryList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <HistoryListItem />
+                <HistoryListItem item={undefined} />
               </TableBody>
             </Table>
           </PerfectScrollbar>

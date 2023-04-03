@@ -1,4 +1,3 @@
-import CommentIcon from "@mui/icons-material/Comment";
 import {
   Box,
   Checkbox,
@@ -9,8 +8,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import StatusTableCell from "components/table/status-table-cell";
-import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -31,7 +28,7 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-function ReceiveListItem(props: { item: any }) {
+function LineItemsListItem(props: { item: any }) {
   const { item } = props;
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
@@ -43,7 +40,7 @@ function ReceiveListItem(props: { item: any }) {
   } = AppRoutes;
 
   return (
-    <TableRow>
+    <TableRow hover>
       <TableCell
         padding="checkbox"
         sx={{
@@ -66,25 +63,34 @@ function ReceiveListItem(props: { item: any }) {
         sx={{
           width: 50,
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
+          // background: "white",
         }}
-        onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
+        // onClick={() => goToDetails("1")}
       >
-        PO-13817
-      </TableCell>
-      <TableCell sx={{ minWidth: 170 }}>
-        <Box>
-          <BorderLinearProgress
-            sx={{ width: "70%" }}
-            value={100}
-            variant="determinate"
+        <Box
+          sx={{
+            width: "40px",
+            height: "40px",
+          }}
+        >
+          <img
+            alt="new"
+            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
+            width="100%"
           />
-          <Typography>10/10</Typography>
+        </Box>
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 170,
+        }}
+      >
+        <Box>
+          <Typography variant="h6">Speaker</Typography>
+          <Typography>SPEAKER-796</Typography>
         </Box>
       </TableCell>
       <TableCell
@@ -99,70 +105,10 @@ function ReceiveListItem(props: { item: any }) {
           minWidth: 170,
         }}
       >
-        Jarvis
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Logan
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "NEW" : "COMPLETED"}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <CommentIcon color="disabled" />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* lastupdt */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          position: "sticky",
-          right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
-        }}
-      >
-        <TableActionButton
-          onDeleteHandle={() => {
-            // deleteProductAsync(item.id);
-          }}
-        />
+        Mar 29
       </TableCell>
     </TableRow>
   );
 }
 
-export default ReceiveListItem;
+export default LineItemsListItem;
