@@ -110,6 +110,7 @@ function TextField(props: Props) {
                 {icon}
               </InputAdornment>
             ) : null,
+
             // min: minDate,
           }}
           inputRef={nameRef}

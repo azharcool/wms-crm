@@ -55,6 +55,8 @@ const QueryKeys = {
 
   getAllAdjustment: "getAllAdjustment",
   getByIdAdjustment: "getByIdAdjustment",
+
+  getAllProductCondition: "getAllProductCondition",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;

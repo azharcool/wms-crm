@@ -163,13 +163,6 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
                 </Stack>
               </CustomCardContent>
             </Card>
-            {/* <Card
-          sx={{
-            flex: 1,
-          }}
-        >
-         
-        </Card> */}
           </Stack>
         </PerfectScrollbar>
       </Slider>

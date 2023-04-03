@@ -12,25 +12,48 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { IGetAdjustmentResponseRoot } from "types/setting/adjustment/getAdjustmentResponse";
-import AdjustmentReasonListItem from "./AdjustmentReasonListItem";
+import ProductConditionListItem from "./ProductConditionListItem";
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "Name",
+    title: "Image",
   },
   {
     id: crypto.randomUUID(),
-    title: "Operation",
+    title: "Code",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Grade",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Condition",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Status",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Details",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Color",
+  },
+  {
+    id: crypto.randomUUID(),
+    title: "Warranty",
   },
 ];
 
-interface IAdjustmentReasonListing {
-  data?: IGetAdjustmentResponseRoot;
+interface IProductConditionListItem {
+  data?: any;
 }
 
-function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
+function ProductConditionList(props: IProductConditionListItem) {
   const { data } = props;
 
   return (
@@ -82,11 +105,12 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data?.data.map((item) => {
+                  {data?.data.map((item: any) => {
                     return (
-                      <AdjustmentReasonListItem key={item.id} item={item} />
+                      <ProductConditionListItem key={item.id} item={item} />
                     );
                   })}
+                  <ProductConditionListItem />
                 </TableBody>
               </Table>
             </PerfectScrollbar>
@@ -97,4 +121,4 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
   );
 }
 
-export default AdjustmentReasonsList;
+export default ProductConditionList;

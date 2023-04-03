@@ -22,7 +22,7 @@ import palette from "theme/palette";
 interface ISlider {
   open: boolean;
   children?: React.ReactNode;
-  size?: "lg" | "sm";
+  size?: "lg" | "sm" | "md";
   noHeight?: boolean;
   title?: string;
   handleClose?: () => void;
