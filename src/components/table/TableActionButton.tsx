@@ -77,6 +77,7 @@ function TableActionButton(props: ITableActionButton) {
     <Box
       sx={{
         display: "flex",
+        justifyContent: "center",
         gap: 1,
         "& svg": {
           cursor: "pointer",

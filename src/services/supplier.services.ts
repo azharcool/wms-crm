@@ -42,11 +42,11 @@ export async function getByIdSupplier(
 }
 
 export async function deleteSupplier(id: number): Promise<IResponse> {
-  const URL = `${API_URLS.DELETE_PRODUCT}/${id}`;
+  const URL = `${API_URLS.DELETE_SUPPLIER}/${id}`;
   return client.delete(URL);
 }
 
 export async function buldDeleteSupplier(ids: string): Promise<IResponse> {
-  const URL = `${API_URLS.BULK_DELETE_PRODUCT}/${ids}`;
+  const URL = `${API_URLS.BULK_DELETE_SUPPLIER}/${ids}`;
   return client.delete(URL);
 }

@@ -30,7 +30,6 @@ import useAddSupplierForm, {
 } from "../../../hooks/useAddSupplierForm";
 
 const initialValues: AddSupplierForm = {
-  userId: 0,
   companyName: "Company Name",
   shortName: "",
   email: "",

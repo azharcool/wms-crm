@@ -83,7 +83,7 @@ function CategoriesCreate() {
       name: values.name,
       slug: values.slug,
       detail: values.slug,
-      status: Number(values.status === "Active" ? "1" : "2"),
+      status: Number(values.status),
       image: uploadedFiles.map((i) => i.value.split("base64,")[1]).toString(),
     };
     const response = await addCategoriesAction(data);
@@ -264,9 +264,9 @@ function CategoriesCreate() {
                   <TextField
                     id="position"
                     label="Positon"
-                    type="number"
                     name="position"
                     size="small"
+                    type="number"
                     value={values.position}
                     onChange={handleChange("position")}
                   />
