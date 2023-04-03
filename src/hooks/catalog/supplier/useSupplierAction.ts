@@ -20,7 +20,7 @@ function useSupplierAction() {
     try {
       const response = await editSupplier(data);
       if (response.statusCode === 200) {
-queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
+        queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
         snackbar?.show({
           title: response.message,
           type: "success",
@@ -42,6 +42,7 @@ queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
     try {
       const response = await addSupplier(data);
       if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
         snackbar?.show({
           title: response.message,
           type: "success",
@@ -61,7 +62,7 @@ queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
     try {
       const response = await deleteSupplier(id);
       if (response.statusCode === 200) {
- queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
+        queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
         snackbar?.show({
           title: response.message,
           type: "success",
@@ -81,7 +82,7 @@ queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
     try {
       const response = await buldDeleteSupplier(ids);
       if (response.statusCode === 200) {
-queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
+        queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
         snackbar?.show({
           title: response.message,
           type: "success",

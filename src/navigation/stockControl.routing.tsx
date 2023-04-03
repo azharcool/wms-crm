@@ -51,6 +51,12 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.recieve.history}`}
       />
     </Route>
+
+    {/* Putaway-v1 Routing */}
+    <Route
+      element={<StockControlLoadable.PutAwayV1Listing />}
+      path={`${AppRoutes.stockControl.putaway_v1.listing}`}
+    />
   </Route>
 );
 

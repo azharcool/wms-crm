@@ -41,7 +41,6 @@ const statusMenu = [
 ];
 
 const initialValues: AddSupplierForm = {
-  userId: 0,
   companyName: "",
   shortName: "",
   email: "",
@@ -135,7 +134,8 @@ function SupplierCreate() {
       lastName: values.lastName,
       primaryEmail: values.primaryEmail,
       primaryPhone: values.primaryPhoneNumber,
-      status: Number(values.status === "Active" ? "1" : "2"),
+      status: Number(values.status),
+      image: "",
     };
     const response = await addSupplierAction(data);
     if (response) {
@@ -431,6 +431,7 @@ function SupplierCreate() {
                 <TextField
                   isSelect
                   helperText={(touched.status && errors && errors.status) || ""}
+                  id="status"
                   label="Status"
                   menuItems={statusMenu}
                   name="status"

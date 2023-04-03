@@ -48,7 +48,6 @@ const statusMenu = [
 ];
 
 const initialValues: AddSupplierForm = {
-  userId: 0,
   companyName: "Company Name",
   shortName: "",
   email: "",
@@ -216,7 +215,8 @@ function GeneralDetails() {
       lastName: values.lastName,
       primaryEmail: values.primaryEmail,
       primaryPhone: values.primaryPhoneNumber,
-      status: Number(values.status === "Active" ? "1" : "2"),
+      image: "",
+      status: Number(values.status),
     };
     const response = await editSupplierAction(data);
     if (response) {
