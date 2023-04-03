@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import useGetAllPaginationUnit from "hooks/querys/catalog/unit/useGetAllPaginationUnit";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import UnitItem from "./UnitItem";
@@ -92,6 +93,10 @@ const tableTitle = [
 ];
 
 function UnitListing() {
+  const { data: unitResponse } = useGetAllPaginationUnit({
+    pageSize: 10,
+    page: 1,
+  });
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -131,7 +136,8 @@ function UnitListing() {
                         customStyle={{
                           minWidth: isImage ? 50 : 200,
                           position: isImage || isVariant ? "sticky" : "static",
-                          left: isImage || isVariant ? (isVariant ? 125 : 60) : 0,
+                          left:
+                            isImage || isVariant ? (isVariant ? 125 : 60) : 0,
                         }}
                       >
                         {item.title}
@@ -144,10 +150,9 @@ function UnitListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <UnitItem />
-                <UnitItem />
-                <UnitItem />
-                <UnitItem />
+                {unitResponse?.data.map((item) => {
+                  return <UnitItem key={item.id} item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>

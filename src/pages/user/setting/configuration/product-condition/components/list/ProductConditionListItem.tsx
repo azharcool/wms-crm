@@ -1,22 +1,30 @@
-import { Checkbox, MenuItem, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, MenuItem, TableCell, TableRow } from "@mui/material";
+import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
+import useProductConditionAction from "hooks/setting/product-condition/useProductConditionAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
+import { GetAllProductConditionPaginationResponseData } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
 import ManageProductCondition from "../ManageProductCondition";
 
 interface IProductConditionListItem {
-  item?: any;
+  item: GetAllProductConditionPaginationResponseData;
 }
 
 function ProductConditionListItem(props: IProductConditionListItem) {
   const { item } = props;
   const [manageOpen, setManageOpen] = useState(false);
   const newtheme = useSelector((state: any) => state.theme);
+  const { deleteProductConditionAction } = useProductConditionAction();
 
   const handleManage = () => {
     setManageOpen((s) => !s);
+  };
+
+  const deleteHandle = async () => {
+    await deleteProductConditionAction(item.id);
   };
 
   return (
@@ -53,19 +61,40 @@ function ProductConditionListItem(props: IProductConditionListItem) {
             // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
-          {item?.name}
+          <Box
+            sx={{
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            <img
+              alt="new"
+              // src={
+              //   item?.image !== "" && item.image !== "string"
+              //     ? `${FILE_URL}${item?.image}`
+              //     : NOImage
+              // }
+              src={NOImage}
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: "5px",
+              }}
+            />
+          </Box>
         </TableCell>
 
         <TableCell
           sx={{
             minWidth: 150,
-            position: "sticky",
-            left: 60,
-            zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
-            cursor: "pointer",
+            // position: "sticky",
+            // left: 60,
+            // zIndex: 999,
+            // background: newtheme.isDarkMode
+            //   ? "#26263D"
+            //   : palette.background.default,
+            // cursor: "pointer",
           }}
           onClick={() => {
             handleManage();
@@ -104,7 +133,7 @@ function ProductConditionListItem(props: IProductConditionListItem) {
             minWidth: 150,
           }}
         >
-          {item?.details}
+          {item?.description}
         </TableCell>
 
         <TableCell
@@ -131,7 +160,7 @@ function ProductConditionListItem(props: IProductConditionListItem) {
         >
           <TableActionButton
             onDeleteHandle={() => {
-              // deleteProductAsync(brandData.id);
+              deleteHandle();
             }}
           >
             <MenuItem

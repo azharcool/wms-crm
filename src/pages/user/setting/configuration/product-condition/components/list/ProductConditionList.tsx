@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import useGetAllPaginationProductCondition from "hooks/querys/setting/product-condition/useGetAllPaginationProductCondition";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import ProductConditionListItem from "./ProductConditionListItem";
@@ -49,12 +50,12 @@ const tableTitle = [
   },
 ];
 
-interface IProductConditionListItem {
-  data?: any;
-}
-
-function ProductConditionList(props: IProductConditionListItem) {
-  const { data } = props;
+function ProductConditionList() {
+  const { data: productconditionResponse } =
+    useGetAllPaginationProductCondition({
+      page: 1,
+      pageSize: 10,
+    });
 
   return (
     <>
@@ -83,7 +84,7 @@ function ProductConditionList(props: IProductConditionListItem) {
                       <Checkbox color="primary" />
                     </CustomTableCell>
                     {tableTitle.map((item) => {
-                      const isName = item.title.includes("Name");
+                      const isName = item.title.includes("Image");
 
                       return (
                         <CustomTableCell
@@ -105,12 +106,11 @@ function ProductConditionList(props: IProductConditionListItem) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {data?.data.map((item: any) => {
+                  {productconditionResponse?.data.map((item) => {
                     return (
                       <ProductConditionListItem key={item.id} item={item} />
                     );
                   })}
-                  <ProductConditionListItem />
                 </TableBody>
               </Table>
             </PerfectScrollbar>

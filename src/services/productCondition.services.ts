@@ -1,14 +1,21 @@
 import { IResponse } from "constants/interfaces";
-import { IAddAdjustmentRequestRoot } from "types/setting/adjustment/addAdjustmentRequest";
 import { IAddAdjustmentResponseRoot } from "types/setting/adjustment/addAdjustmetRespone";
-import { GetByIdAdjustmentRoot } from "types/setting/adjustment/getByIdAdjustmentResponse";
-import { IAddProductConditionRequestRoot } from "types/setting/product-condition/addProductCondition";
+import { IAddProductConditionRequestRoot } from "types/setting/product-condition/addProductConditionRequest";
+import { AddProductConditionResponseRoot } from "types/setting/product-condition/addProductConditionResponse";
+import { GetAllProductConditionPaginationResponseRoot } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
+import { GetAllProductConditionRoot } from "types/setting/product-condition/getAllProductConditionResponse";
+import { GetByIdProductConditionResponseRoot } from "types/setting/product-condition/getByIdProductConditionResponse";
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
-export async function getAllProductCondition(
+export async function getAllProductCondition(): Promise<GetAllProductConditionRoot> {
+  const URL = `${API_URLS.GET_ALL_PRODUCT_CONDITION}`;
+  return client.get(URL);
+}
+
+export async function getAllPaginationProductCondition(
   restUrl: string,
-): Promise<IAddProductConditionRequestRoot> {
+): Promise<GetAllProductConditionPaginationResponseRoot> {
   let URL = `${API_URLS.GET_ALL_PRODUCT_CONDITION}`;
   if (restUrl) {
     URL = `${URL}?${restUrl}`;
@@ -18,7 +25,7 @@ export async function getAllProductCondition(
 
 export async function getByIdProductCondition(
   id: number,
-): Promise<GetByIdAdjustmentRoot> {
+): Promise<GetByIdProductConditionResponseRoot> {
   const URL = `${API_URLS.GET_BY_ID_PRODUCT_CONDITION}?id=${id}`;
   return client.get(URL);
 }
@@ -31,8 +38,8 @@ export async function addProductCondition(
 }
 
 export async function editProductCondition(
-  request: IAddAdjustmentRequestRoot,
-): Promise<IResponse> {
+  request: IAddProductConditionRequestRoot,
+): Promise<AddProductConditionResponseRoot> {
   const URL = `${API_URLS.EDIT_PRODUCT_CONDITION}`;
   return client.put(URL, request);
 }

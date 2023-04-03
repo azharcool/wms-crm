@@ -35,7 +35,7 @@ function ManageBrand(props: IManageBrand) {
   const [editable, setEditable] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
   const userDecoded = useDecodedData();
-  const { addBrandAction } = useBrandAction();
+  const { addBrandAction, editBrandAction } = useBrandAction();
 
   const { data: brandItemResponse } = useGetByIdBrand({
     brandId,
@@ -76,9 +76,9 @@ function ManageBrand(props: IManageBrand) {
     };
 
     if (editable) {
-      response = await addBrandAction(data);
-    } else {
       data.id = brandId;
+      response = await editBrandAction(data);
+    } else {
       response = await addBrandAction(data);
     }
 

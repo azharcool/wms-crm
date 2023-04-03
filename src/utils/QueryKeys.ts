@@ -57,6 +57,11 @@ const QueryKeys = {
   getByIdAdjustment: "getByIdAdjustment",
 
   getAllProductCondition: "getAllProductCondition",
+  getByIdProductCondition: "getByIdProductCondition",
+
+  getAllPaginationUnit: "getAllPaginationUnit",
+  getAllUnit: "getAllUnit",
+  getByUnitNumberUnit: "getByUnitNumberUnit",
 };
 
 export type QueryKeysType = keyof typeof QueryKeys;
