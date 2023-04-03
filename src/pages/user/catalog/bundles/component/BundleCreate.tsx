@@ -9,7 +9,7 @@ import {
   Container,
   Grid,
   PaletteMode,
-  Stack
+  Stack,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -19,11 +19,11 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
+import useBrand from "hooks/catalog/brand/useBrand";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
-import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
-import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
+import useCategory from "hooks/catalog/categories/useCategory";
 import useDecodedData from "hooks/useDecodedData";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
@@ -49,44 +49,14 @@ const initialValues: AddBundleForm = {
 function BundleCreate() {
   const navigate = useNavigate();
   const [editable, setEditable] = useState(false);
-  const [brand, setBrand] = useState<IMenuItem[]>([]);
-  const [supplier, setSupplier] = useState<IMenuItem[]>([]);
-  const [category, setSetCategory] = useState<IMenuItem[]>([]);
+
   const [tags, setTags] = useState<IMenuItem[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const userDecoded = useDecodedData();
   const { addBundleAction } = useBundleAction();
 
-  const { data: brandResponse } = useGetAllBrand({
-    pageSize: 10,
-    page: 1,
-  });
-
-  const { data: getAllCategoryResponse } = useGetAllCategories({});
-
-  useEffect(() => {
-    if (getAllCategoryResponse?.data) {
-      const response = getAllCategoryResponse.data.map((item) => {
-        return {
-          id: String(item.id),
-          value: item.name,
-        };
-      });
-      setSetCategory(response);
-    }
-  }, [getAllCategoryResponse]);
-
-  useEffect(() => {
-    if (brandResponse?.data) {
-      const response = brandResponse.data.map((item) => {
-        return {
-          id: String(item.id),
-          value: item.name,
-        };
-      });
-      setBrand(response);
-    }
-  }, [brandResponse]);
+  const { brand } = useBrand();
+  const { category } = useCategory();
 
   const bundleForm = useAddBundleForm({
     onSubmit,
