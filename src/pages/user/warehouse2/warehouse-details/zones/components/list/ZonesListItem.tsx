@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
 import useZoneAction from "hooks/warehouse/zone/useZoneAction";
@@ -46,7 +46,14 @@ function ZonesListItem(props: IZonesListItem) {
           navigate(navigateDetails);
         }}
       >
-        {item.name}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          {item.name}
+        </Typography>
       </TableCell>
 
       <TableCell

@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
 import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
@@ -64,7 +64,14 @@ function AreaListItem(props: IAreaListItem) {
           navigate(navigateDetails);
         }}
       >
-        {item.name}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          {item.name}
+        </Typography>
       </TableCell>
 
       <TableCell

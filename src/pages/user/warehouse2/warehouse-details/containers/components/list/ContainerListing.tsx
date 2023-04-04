@@ -10,11 +10,10 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import Warehouse from "__mock__/warhouses.json";
-import ContainerListItem from "./ContainerListItem";
-
+// import ContainerListItem from "./ContainerListItem";
 const tableTitle = [
   {
     id: crypto.randomUUID(),
@@ -105,9 +104,13 @@ function ContainerListing() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {Warehouse?.map((item) => {
+                {/* {Warehouse?.map((item) => {
                   return <ContainerListItem key={item.id} item={item} />;
-                })}
+                })} */}
+                <NoDataTableRow
+                  colSize={4}
+                  title="No data found in Container"
+                />
               </TableBody>
             </Table>
           </PerfectScrollbar>

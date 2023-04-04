@@ -20,7 +20,7 @@ export async function editWarehouse(
   return client.put(URL, request);
 }
 
-export async function getAllWarehouse() {
+export async function getAllWarehouse(): Promise<IGetWarehouseResponseRoot> {
   const URL = `${API_URLS.GET_ALL_WAREHOUSE}`;
   return client.get(URL);
 }

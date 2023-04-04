@@ -1,4 +1,4 @@
-import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import useUnitActions from "hooks/catalog/useUnitActions";
 import AppRoutes from "navigation/appRoutes";
@@ -74,7 +74,14 @@ function UnitItem(props: IUnitItem) {
             : palette.background.default,
         }}
       >
-        {item.variantName}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item.variantName}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{

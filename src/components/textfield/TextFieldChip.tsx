@@ -26,10 +26,12 @@ function TextFieldChip(props: ITextFieldChip) {
     onChange,
     handleKeyDown,
     value,
+    disabled,
   } = props;
   return (
     <FormControl>
       <TextField
+        disabled={disabled}
         id="chip"
         InputProps={{
           startAdornment: chips.map((item) => {
@@ -40,7 +42,7 @@ function TextFieldChip(props: ITextFieldChip) {
                 sx={{
                   marginX: 1,
                 }}
-                onDelete={() => handleDelete && handleDelete(item)}
+                onDelete={handleDelete ? () => handleDelete(item) : undefined}
               />
             );
           }),

@@ -1,4 +1,11 @@
-import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Stack,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
@@ -87,7 +94,7 @@ function ProductItem(props: IProductItem) {
 
       <TableCell
         sx={{
-          width: 150,
+          minWidth: 150,
           position: "sticky",
           left: 130,
           zIndex: 999,
@@ -100,7 +107,14 @@ function ProductItem(props: IProductItem) {
           navigate(`${AppRoutes.CATALOG.productDetail}/${item.id}`);
         }}
       >
-        {item.name}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {item.name}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{

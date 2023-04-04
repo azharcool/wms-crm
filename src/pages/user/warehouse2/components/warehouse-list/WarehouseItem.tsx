@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
 import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
@@ -72,7 +72,14 @@ function WarehouseItem(props: IWarehouseItem) {
           navigate(navigateDetails);
         }}
       >
-        {item?.warehouseName}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          {item?.warehouseName}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{

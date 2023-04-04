@@ -1,16 +1,42 @@
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 // import { Container, Box } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
+import { useState } from "react";
 import PutAwayV2List from "./component/list/PutAwayV2List";
+import OpenPutawayWarehouses from "./component/OpenPutawayWarehouses";
 
 function PutAwayV2() {
+  const [manageOpen, setManageOpen] = useState(false);
+
+  const handleMange = () => {
+    setManageOpen((s) => !s);
+  };
+
+  const rightActionsData = [
+    {
+      id: crypto.randomUUID(),
+      title: "New",
+      onClick: () => {
+        handleMange();
+      },
+      icon: (
+        <AddCircleIcon
+          sx={{
+            fontSize: 18,
+            mr: 1,
+          }}
+        />
+      ),
+    },
+  ];
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
-          hasBulk
-          isBulkDisabled={false}
           navTitle="Stock Control"
+          rightActions={rightActionsData}
           title="Putaway"
           onBulkHandle={() => {}}
         />
@@ -18,6 +44,9 @@ function PutAwayV2() {
           <PutAwayV2List />
         </Box>
       </CardContent>
+      {manageOpen ? (
+        <OpenPutawayWarehouses handleClose={handleMange} open={manageOpen} />
+      ) : null}
     </Container>
   );
 }
