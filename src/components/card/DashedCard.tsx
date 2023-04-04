@@ -24,7 +24,7 @@ function DashedCard(props: ICustomCard) {
         <Box
           sx={{
             color: "#41434a",
-            fontSize: "1.0rem",
+            fontSize: "0.8rem",
             fontWeight: "700",
           }}
         >
