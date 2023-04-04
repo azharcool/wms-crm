@@ -1,4 +1,11 @@
-import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Stack,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
@@ -101,7 +108,14 @@ function CategoriesItem(props: ICategoriesItem) {
           navigate(`${AppRoutes.CATALOG.categoryDetail}/${item.id}`);
         }}
       >
-        {item?.name}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          {item?.name}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{
