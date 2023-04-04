@@ -94,6 +94,7 @@ function LineItems() {
                     customStyle={{
                       position: isImage ? "sticky" : "static",
                       left: isImage ? 0 : 50,
+                      padding: "10px",
                     }}
                     minWt={120}
                   >
