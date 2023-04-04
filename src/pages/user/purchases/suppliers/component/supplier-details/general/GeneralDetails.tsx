@@ -1,7 +1,5 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
 import {
   Box,
   Button,
@@ -256,22 +254,7 @@ function GeneralDetails() {
     });
   };
 
-  const rightActionsData = [
-    {
-      id: crypto.randomUUID(),
-      title: "Cancel",
-      onClick: () => {
-        setEditable(false);
-      },
-      icon: (
-        <ArrowBackIosIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
+  const editActionsButton = [
     {
       id: crypto.randomUUID(),
       title: "Edit",
@@ -290,22 +273,6 @@ function GeneralDetails() {
         />
       ),
     },
-    {
-      id: crypto.randomUUID(),
-      title: "Save",
-      onClick: () => {
-        handleSubmit();
-        navigate(-1);
-      },
-      icon: (
-        <SaveIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
   ];
 
   const istrue = !editable;
@@ -314,27 +281,52 @@ function GeneralDetails() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <Stack direction="row" justifyContent="flex-end">
-          {editable
-            ? rightActionsData
-                .filter((i) => i.title !== "Edit")
-                .map((item) => (
-                  <ToolBarButton
-                    key={item.id}
-                    handleClick={item.onClick}
-                    icon={item.icon}
-                    title={item.title}
+          {editable ? (
+            <>
+              <ToolBarButton
+                handleClick={() => {
+                  setEditable(false);
+                }}
+                icon={
+                  <EditIcon
+                    sx={{
+                      fontSize: 18,
+                      mr: 1,
+                    }}
                   />
-                ))
-            : rightActionsData
-                .filter((i) => i.title === "Edit")
-                .map((item) => (
-                  <ToolBarButton
-                    key={item.id}
-                    handleClick={item.onClick}
-                    icon={item.icon}
-                    title={item.title}
+                }
+                title="Cancel"
+              />
+              <ToolBarButton
+                handleClick={() => {
+                  handleSubmit();
+                  navigate(-1);
+                }}
+                icon={
+                  <EditIcon
+                    sx={{
+                      fontSize: 18,
+                      mr: 1,
+                    }}
                   />
-                ))}
+                }
+                title="Save"
+              />
+            </>
+          ) : null}
+
+          {!editable
+            ? editActionsButton.map((item) => (
+                <ToolBarButton
+                  key={item.id}
+                  handleClick={() => {
+                    item.onClick();
+                  }}
+                  icon={item.icon}
+                  title={item.title}
+                />
+              ))
+            : null}
         </Stack>
 
         <Grid container spacing={2}>
