@@ -1,4 +1,4 @@
-import { Checkbox, MenuItem, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import useAdjustmentReasonAction from "hooks/setting/adjustment/useAdjustmentAction";
@@ -15,8 +15,8 @@ interface IAdjustmentItem {
 
 function AdjustmentReasonListItem(props: IAdjustmentItem) {
   const { item } = props;
-  const [manageOpen, setManageOpen] = useState(false);
 
+  const [manageOpen, setManageOpen] = useState(false);
   const newtheme = useSelector((state: any) => state.theme);
   const alert = useAlert();
   const { deleteAdjustmentReasonAction } = useAdjustmentReasonAction();
@@ -31,10 +31,10 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
       message: "Do you really want to delete Brand",
       cancelText: "No",
       confirmText: "Yes",
-      // onConfirm: async () => {
-      //   await deleteAdjustmentAsync(item?.id);
-      //   // refetch();
-      // },
+      onConfirm: async () => {
+        await deleteAdjustmentReasonAction(Number(item.id));
+        // refetch();
+      },
     });
   };
 
@@ -69,7 +69,6 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
           }}
           onClick={() => {
             handleManage();
-            // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
           {item.name}
@@ -89,17 +88,10 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
         >
           <TableActionButton
             onDeleteHandle={() => {
-              // deleteProductAsync(brandData.id);
+              handleAdjustmentDelete();
             }}
           >
-            <MenuItem
-              disableRipple
-              onClick={() => {
-                handleManage();
-              }}
-            >
-              Edit
-            </MenuItem>
+            {/* Action bu */}
           </TableActionButton>
         </TableCell>
       </TableRow>
