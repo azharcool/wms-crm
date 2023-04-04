@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import useLocationAction from "hooks/warehouse/location/useLocation";
 import AppRoutes from "navigation/appRoutes";
@@ -52,7 +52,14 @@ function LocationsListItem(props: ILocationListItem) {
           navigate(navigateDetails);
         }}
       >
-        {item.areaName}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          {item.areaName}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{
