@@ -1,4 +1,4 @@
-import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -9,7 +9,12 @@ import palette from "theme/palette";
 function AdjustmentListItem() {
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
-  const {stockControl:{layout,adjustment:{details,generalDetails}}}= AppRoutes
+  const {
+    stockControl: {
+      layout,
+      adjustment: { details, generalDetails },
+    },
+  } = AppRoutes;
   return (
     <TableRow>
       <TableCell
@@ -41,13 +46,16 @@ function AdjustmentListItem() {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() =>
-          navigate(
-            `/${layout}/${details}/1/${generalDetails}`,
-          )
-        }
+        onClick={() => navigate(`/${layout}/${details}/1/${generalDetails}`)}
       >
-        SA-1233
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          SA-1233
+        </Typography>
       </TableCell>
       <TableCell
         sx={{
@@ -75,35 +83,35 @@ function AdjustmentListItem() {
           minWidth: 170,
         }}
       >
-         {/* reasion */}
+        {/* reasion */}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-         {/* refId */}
+        {/* refId */}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-         {/* status */}
+        {/* status */}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-         {/* lastupdt */}
+        {/* lastupdt */}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-         {/* notes */}
+        {/* notes */}
       </TableCell>
       <TableCell
         sx={{

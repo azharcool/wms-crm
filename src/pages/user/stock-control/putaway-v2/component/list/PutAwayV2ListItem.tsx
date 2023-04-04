@@ -1,4 +1,4 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -50,7 +50,14 @@ function PutAwayV2ListItem(props: { item: any }) {
         }}
         onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
-        PT-82061
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          PT-82061
+        </Typography>
       </TableCell>
       <TableCell
         sx={{
