@@ -1,8 +1,9 @@
+import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SaveIcon from "@mui/icons-material/Save";
-import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
+  Button,
   Card,
   Container,
   DialogContent,
@@ -10,34 +11,31 @@ import {
   Divider,
   Grid,
   PaletteMode,
-  Paper,
   Stack,
-  Tab,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Button,
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
+import DashedCard from "components/card/DashedCard";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
+import AutoComplete from "components/textfield/AutoComplete";
 import AppRoutes from "navigation/appRoutes";
-import { useSelector } from "react-redux";
 import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import palette from "theme/palette";
-import { paymentType, paymentTerm } from "__mock__";
-import AutoComplete from "components/textfield/AutoComplete";
+import { paymentTerm, paymentType } from "__mock__";
 import AddSupplier from "./AddSupplier";
-import BrowsListItem from "./BrowsListItem";
 
 function PurchaseOrderCreate() {
   const newtheme = useSelector((state: any) => state.theme);
@@ -108,7 +106,7 @@ function PurchaseOrderCreate() {
       ),
     },
   ];
-  let isTrue = true;
+  const isTrue = true;
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
@@ -130,7 +128,7 @@ function PurchaseOrderCreate() {
         />
         <Grid container direction="row" padding={0} spacing={2}>
           {/* coloumn */}
-          <Grid direction="column" item xs={8} spacing={2}>
+          <Grid item direction="column" spacing={2} xs={8}>
             <Grid marginTop={2}>
               <Card
                 sx={{
@@ -145,11 +143,11 @@ function PurchaseOrderCreate() {
                   >
                     <Stack width="70%">
                       <AutoComplete
+                        getOptionLabel={(item: any) => item.warehouse}
+                        label="Search by supplier name, email, phone number"
                         options={[
                           { id: crypto.randomUUID(), warehouse: "warehouse1" },
                         ]}
-                        label="Search by supplier name, email, phone number"
-                        getOptionLabel={(item: any) => item.warehouse}
                       />
                     </Stack>
                     <Button
@@ -187,15 +185,29 @@ function PurchaseOrderCreate() {
                   </Stack>
                   <Divider sx={{ my: 2 }} />
                   <Grid
-                    display="flex"
                     direction="row"
+                    display="flex"
                     justifyContent="space-around"
                   >
                     <Stack direction="column" gap={2}>
+                      <DashedCard title=" Company Name">
+                        <Box
+                          sx={{
+                            background: "#dfe3f5",
+                            color: "#2545B8",
+                            padding: "3px 12px",
+                            borderRadius: "5px",
+                            fontSize: "11px",
+                          }}
+                        >
+                          PROGRESS
+                        </Box>
+                      </DashedCard>
+
                       <Typography
-                        variant="subtitle1"
-                        fontSize={12}
                         color="gray"
+                        fontSize={12}
+                        variant="subtitle1"
                       >
                         Company Name
                       </Typography>
@@ -203,9 +215,9 @@ function PurchaseOrderCreate() {
                     </Stack>
                     <Stack direction="column" gap={2}>
                       <Typography
-                        variant="subtitle1"
-                        fontSize={12}
                         color="gray"
+                        fontSize={12}
+                        variant="subtitle1"
                       >
                         Contact person
                       </Typography>
@@ -213,9 +225,9 @@ function PurchaseOrderCreate() {
                     </Stack>
                     <Stack direction="column" gap={2}>
                       <Typography
-                        variant="subtitle1"
-                        fontSize={12}
                         color="gray"
+                        fontSize={12}
+                        variant="subtitle1"
                       >
                         Phone number
                       </Typography>
@@ -224,12 +236,12 @@ function PurchaseOrderCreate() {
                   </Grid>
                   <Grid
                     container
-                    xs={12}
-                    sx={{ display: "flex", justifyContent: "space-around" }}
-                    marginTop={2}
                     gap={2}
+                    marginTop={2}
+                    sx={{ display: "flex", justifyContent: "space-around" }}
+                    xs={12}
                   >
-                    <Grid item xs={5} sx={{ border: "0.5px #d9d9d9 solid" }}>
+                    <Grid item sx={{ border: "0.5px #d9d9d9 solid" }} xs={5}>
                       <DialogTitle>
                         <Typography component="h6">Supplier Address</Typography>
                       </DialogTitle>
@@ -237,39 +249,39 @@ function PurchaseOrderCreate() {
                       <DialogContent>
                         <Stack marginTop={2}>
                           <TextField
-                            name="address"
+                            darkDisable
                             label="Address"
-                            darkDisable
+                            name="address"
                             size="small"
                           />
                         </Stack>
                         <Stack marginTop={2}>
                           <TextField
-                            name="city"
+                            darkDisable
                             label="City"
-                            darkDisable
+                            name="city"
                             size="small"
                           />
                         </Stack>
                         <Stack marginTop={2}>
                           <TextField
-                            name="zipcode"
                             darkDisable
                             label="Zip Code"
+                            name="zipcode"
                             size="small"
                           />
                         </Stack>
                         <Stack marginTop={2}>
                           <TextField
                             darkDisable
-                            name="Country"
                             label="Country"
+                            name="Country"
                             size="small"
                           />
                         </Stack>
                       </DialogContent>
                     </Grid>
-                    <Grid item xs={5} sx={{ border: "1px #d9d9d9 solid" }}>
+                    <Grid item sx={{ border: "1px #d9d9d9 solid" }} xs={5}>
                       <DialogTitle>
                         <Typography component="h6">Billing Address</Typography>
                       </DialogTitle>
@@ -278,32 +290,32 @@ function PurchaseOrderCreate() {
                         <Stack marginTop={2}>
                           <TextField
                             darkDisable
-                            name="address"
                             label="Address"
+                            name="address"
                             size="small"
                           />
                         </Stack>
                         <Stack marginTop={2}>
                           <TextField
                             darkDisable
-                            name="city"
                             label="City"
+                            name="city"
                             size="small"
                           />
                         </Stack>
                         <Stack marginTop={2}>
                           <TextField
                             darkDisable
-                            name="zipcode"
                             label="Zip Code"
+                            name="zipcode"
                             size="small"
                           />
                         </Stack>
                         <Stack marginTop={2}>
                           <TextField
                             darkDisable
-                            name="Country"
                             label="Country"
+                            name="Country"
                             size="small"
                           />
                         </Stack>
@@ -324,44 +336,44 @@ function PurchaseOrderCreate() {
               <CustomCardContent title="Details">
                 <Stack gap={2}>
                   <AutoComplete
+                    getOptionLabel={(item: any) => item.warehouse}
+                    label="Ship to warehouse*"
                     options={[
                       { id: crypto.randomUUID(), warehouse: "warehouse1" },
                     ]}
-                    label="Ship to warehouse*"
-                    getOptionLabel={(item: any) => item.warehouse}
                   />
                 </Stack>
                 <Stack marginTop={2}>
                   <AutoComplete
-                    options={[{ id: crypto.randomUUID(), company: "company1" }]}
-                    label="Company*"
                     getOptionLabel={(item: any) => item.company}
+                    label="Company*"
+                    options={[{ id: crypto.randomUUID(), company: "company1" }]}
                   />
                 </Stack>
                 <Stack marginTop={2}>
                   <TextField
                     id="productHeight"
-                    type="date"
                     label="Order date"
                     name="productHeight"
                     size="small"
+                    type="date"
                   />
                 </Stack>
                 <Stack marginTop={2}>
                   <TextField
                     id="productHeight"
-                    type="date"
                     label="Expected date"
                     name="productHeight"
                     size="small"
+                    type="date"
                   />
                 </Stack>
                 <Stack marginTop={2}>
                   <TextField
                     isSelect
                     id="paymenttype"
-                    menuItems={paymentType}
                     label="Payment Type"
+                    menuItems={paymentType}
                     name="paymenttype"
                     size="small"
                   />
@@ -370,8 +382,8 @@ function PurchaseOrderCreate() {
                   <TextField
                     isSelect
                     id="paymentterm"
-                    menuItems={paymentTerm}
                     label="Payment Term"
+                    menuItems={paymentTerm}
                     name="paymentterm"
                     size="small"
                   />
@@ -477,8 +489,8 @@ function PurchaseOrderCreate() {
         </Grid>
       </Container>
       <AddSupplier
-        open={openSupplier}
         handleClose={() => setOpenSupplier(!openSupplier)}
+        open={openSupplier}
       />
     </ThemeProvider>
   );
