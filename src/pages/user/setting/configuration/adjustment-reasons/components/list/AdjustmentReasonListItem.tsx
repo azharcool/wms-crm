@@ -25,14 +25,14 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
     setManageOpen((s) => !s);
   };
 
-  const handleAdjustmentDelete = async (id: any) => {
+  const handleAdjustmentDelete = async () => {
     alert?.show({
       title: "Confirmation",
       message: "Do you really want to delete Brand",
       cancelText: "No",
       confirmText: "Yes",
       onConfirm: async () => {
-        await deleteAdjustmentReasonAction(id);
+        await deleteAdjustmentReasonAction(Number(item.id));
         // refetch();
       },
     });
@@ -88,10 +88,10 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
         >
           <TableActionButton
             onDeleteHandle={() => {
-              handleAdjustmentDelete(item.id);
+              handleAdjustmentDelete();
             }}
           >
-            {/* Action button */}
+            {/* Action bu */}
           </TableActionButton>
         </TableCell>
       </TableRow>
