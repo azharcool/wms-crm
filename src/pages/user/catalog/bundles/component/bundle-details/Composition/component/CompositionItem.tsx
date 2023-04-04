@@ -77,7 +77,7 @@ function CompositionItem(props: ICompositionItem) {
           // background: "white",
         }}
       >
-        {item?.productVariantName}
+        {item?.productName}
       </TableCell>
       <TableCell
         sx={{

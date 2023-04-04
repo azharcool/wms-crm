@@ -15,6 +15,7 @@ import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import useCategory from "hooks/catalog/categories/useCategory";
 import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
 import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -194,7 +195,9 @@ function CategoriesDetail() {
       title: "Save",
       onClick: () => {
         handleSubmit();
-        navigate(-1);
+        navigate(
+          `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
+        );
       },
       icon: (
         <SaveIcon
@@ -241,12 +244,11 @@ function CategoriesDetail() {
       <Container maxWidth={false}>
         <TableToolbar
           breadcrumbs={[
-            { link: "CATAGORIES", to: categoryItemResponse?.data.name },
+            {
+              link: "CATAGORIES",
+              to: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
+            },
           ]}
-          buttonText="Save1"
-          handleClick={() => {
-            // handleSubmit();
-          }}
           rightActions={
             editable
               ? rightActionsData.filter((i) => i.title !== "Edit")
