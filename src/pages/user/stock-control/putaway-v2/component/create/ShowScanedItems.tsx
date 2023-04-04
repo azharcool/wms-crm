@@ -6,12 +6,12 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 
-interface IOpenPutawayWarehouses {
+interface IShowScanedItems {
   open: boolean;
   handleClose: () => void;
 }
 
-function OpenPutawayWarehouses(props: IOpenPutawayWarehouses) {
+function ShowScanedItems(props: IShowScanedItems) {
   const { open, handleClose } = props;
   const { warehouse } = useWarehouse();
   const navigate = useNavigate();
@@ -25,8 +25,8 @@ function OpenPutawayWarehouses(props: IOpenPutawayWarehouses) {
       handleClose={handleClose}
       //   isSubmitting={isSubmitting}
       open={open}
-      size="sm"
-      title="Choose Warehouse"
+      size="md"
+      title="Scanned Items"
     >
       <PerfectScrollbar>
         <Stack
@@ -69,4 +69,4 @@ function OpenPutawayWarehouses(props: IOpenPutawayWarehouses) {
   );
 }
 
-export default OpenPutawayWarehouses;
+export default ShowScanedItems;
