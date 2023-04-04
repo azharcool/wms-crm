@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
-import LineItemsList from "./LineItemsList";
 import ReceivingInformationList from "./ReceivingInformationList";
+import LineItemsList from "./line-items/LineItemsList";
 
 function General() {
   return (
