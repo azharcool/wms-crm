@@ -8,6 +8,7 @@ import brand from "./catalog/brandSlice";
 import bundle from "./catalog/bundleSlice";
 import category from "./catalog/categorySlice";
 import product from "./catalog/productSlice";
+import variants from "./catalog/variants/variantsSlice";
 import common from "./common/common";
 import theme from "./darktheme/customtheme";
 import permissions from "./permissions/permissions";
@@ -45,6 +46,7 @@ const combinedReducer = combineReducers({
   zone,
   sideDashboard,
   supplier,
+  variants,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

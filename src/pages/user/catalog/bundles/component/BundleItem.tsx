@@ -1,4 +1,11 @@
-import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  Stack,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useAlert } from "components/alert";
 import DateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
@@ -129,7 +136,14 @@ function BundleItem(props: IProps) {
             : palette.background.default,
         }}
       >
-        {name || "not provided"}
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap",
+          }}
+        >
+          {name || "not provided"}
+        </Typography>
       </TableCell>
       <TableCell
         sx={{

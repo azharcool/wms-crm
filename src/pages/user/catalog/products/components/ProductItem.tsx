@@ -94,7 +94,7 @@ function ProductItem(props: IProductItem) {
 
       <TableCell
         sx={{
-          width: 150,
+          minWidth: 150,
           position: "sticky",
           left: 130,
           zIndex: 999,
@@ -110,7 +110,7 @@ function ProductItem(props: IProductItem) {
         <Typography
           sx={{
             textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
+            whiteSpace: "nowrap",
           }}
         >
           {item.name}
