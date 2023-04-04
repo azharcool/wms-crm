@@ -19,6 +19,7 @@ import useVariantAction from "hooks/catalog/variant/useVariantAction";
 import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -259,7 +260,12 @@ function VariantDetails() {
 
           <Grid item xs={9}>
             <TableToolbar
-              breadcrumbs={[{ link: "CATAGORIES", to: "/Watches" }]}
+              breadcrumbs={[
+                {
+                  link: "Variants",
+                  to: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.variants}`,
+                },
+              ]}
               buttonText="Save"
               handleClick={() => {
                 // navigate(AppRoutes.CATALOG.CategoriesDetail);
@@ -269,7 +275,7 @@ function VariantDetails() {
                   ? rightActionsData.filter((i) => i.title !== "Edit")
                   : rightActionsData.filter((i) => i.title === "Edit")
               }
-              title="lenovo ssd, adroid, WIRELESS"
+              title={variantItemResponse?.data.variantName || ""}
             />
 
             <Tabs

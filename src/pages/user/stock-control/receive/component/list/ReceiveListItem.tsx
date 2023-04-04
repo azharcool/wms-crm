@@ -75,7 +75,14 @@ function ReceiveListItem(props: { item: any }) {
         }}
         onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
-        PO-13817
+        <Typography
+          sx={{
+            textDecoration: "underline",
+            whiteSpace: "nowrap", //! Dont remove
+          }}
+        >
+          PO-13817
+        </Typography>
       </TableCell>
       <TableCell sx={{ minWidth: 170 }}>
         <Box>

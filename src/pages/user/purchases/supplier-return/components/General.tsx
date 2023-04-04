@@ -1,4 +1,3 @@
-import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Box,
   Card,
@@ -7,23 +6,22 @@ import {
   Divider,
   Grid,
   Stack,
-  Paper,
   Table,
-  TableCell,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Typography,
 } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
+import DashedCard from "components/card/DashedCard";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import palette from "theme/palette";
-import DashedCard from "components/card/DashedCard";
 
 interface IMenuItem {
   id: string;
@@ -74,12 +72,12 @@ const tableTitle = [
 ];
 
 function General(props: IGeneral) {
-  let isTrue = true;
+  const isTrue = true;
 
   return (
     <Grid container direction="row" padding={0} spacing={2}>
       {/* coloumn */}
-      <Grid direction="column" item xs={8} spacing={2}>
+      <Grid item direction="column" spacing={2} xs={8}>
         <Grid>
           <Card
             sx={{
@@ -88,8 +86,8 @@ function General(props: IGeneral) {
           >
             <CustomCardContent title="Status">
               <Grid
-                display="flex"
                 direction="row"
+                display="flex"
                 justifyContent="space-around"
               >
                 <Stack direction="column" gap={2}>
@@ -100,7 +98,7 @@ function General(props: IGeneral) {
                         color: "#2545B8",
                         padding: "3px 12px",
                         borderRadius: "5px",
-                        fontSize: "12px",
+                        fontSize: "11px",
                       }}
                     >
                       PROGRESS
@@ -149,8 +147,8 @@ function General(props: IGeneral) {
           >
             <CustomCardContent title="Supplier">
               <Grid
-                display="flex"
                 direction="row"
+                display="flex"
                 justifyContent="space-around"
               >
                 <Stack direction="column" gap={2}>
@@ -201,12 +199,12 @@ function General(props: IGeneral) {
               </Grid>
               <Grid
                 container
-                xs={12}
-                sx={{ display: "flex", justifyContent: "space-around" }}
-                marginTop={2}
                 gap={2}
+                marginTop={2}
+                sx={{ display: "flex", justifyContent: "space-around" }}
+                xs={12}
               >
-                <Grid item xs={5} sx={{ border: "0.5px #d9d9d9 solid" }}>
+                <Grid item sx={{ border: "0.5px #d9d9d9 solid" }} xs={5}>
                   <DialogTitle>
                     <Typography component="h6">Supplier Address</Typography>
                   </DialogTitle>
@@ -214,43 +212,43 @@ function General(props: IGeneral) {
                   <DialogContent>
                     <Stack marginTop={2}>
                       <TextField
+                        darkDisable
                         disabled={isTrue}
-                        name="address"
                         label="Address"
-                        darkDisable
+                        name="address"
                         size="small"
                       />
                     </Stack>
                     <Stack marginTop={2}>
                       <TextField
+                        darkDisable
                         disabled={isTrue}
-                        name="city"
                         label="City"
-                        darkDisable
+                        name="city"
                         size="small"
                       />
                     </Stack>
                     <Stack marginTop={2}>
                       <TextField
-                        disabled={isTrue}
-                        name="zipcode"
                         darkDisable
+                        disabled={isTrue}
                         label="Zip Code"
+                        name="zipcode"
                         size="small"
                       />
                     </Stack>
                     <Stack marginTop={2}>
                       <TextField
-                        disabled={isTrue}
                         darkDisable
-                        name="Country"
+                        disabled={isTrue}
                         label="Country"
+                        name="Country"
                         size="small"
                       />
                     </Stack>
                   </DialogContent>
                 </Grid>
-                <Grid item xs={5} sx={{ border: "1px #d9d9d9 solid" }}>
+                <Grid item sx={{ border: "1px #d9d9d9 solid" }} xs={5}>
                   <DialogTitle>
                     <Typography component="h6">Billing Address</Typography>
                   </DialogTitle>
@@ -258,37 +256,37 @@ function General(props: IGeneral) {
                   <DialogContent>
                     <Stack marginTop={2}>
                       <TextField
-                        disabled={isTrue}
                         darkDisable
-                        name="address"
+                        disabled={isTrue}
                         label="Address"
+                        name="address"
                         size="small"
                       />
                     </Stack>
                     <Stack marginTop={2}>
                       <TextField
-                        disabled={isTrue}
                         darkDisable
-                        name="city"
+                        disabled={isTrue}
                         label="City"
+                        name="city"
                         size="small"
                       />
                     </Stack>
                     <Stack marginTop={2}>
                       <TextField
-                        disabled={isTrue}
                         darkDisable
-                        name="zipcode"
+                        disabled={isTrue}
                         label="Zip Code"
+                        name="zipcode"
                         size="small"
                       />
                     </Stack>
                     <Stack marginTop={2}>
                       <TextField
-                        disabled={isTrue}
                         darkDisable
-                        name="Country"
+                        disabled={isTrue}
                         label="Country"
+                        name="Country"
                         size="small"
                       />
                     </Stack>
@@ -390,14 +388,14 @@ function General(props: IGeneral) {
         <Card>
           <CustomCardContent title="Supplier notes">
             <TextField
-              multiline
-              disabled
               darkDisable
+              disabled
+              multiline
               id="notes"
               label="Notes"
-              value="No Notes Found"
               name="notes"
               rows={5}
+              value="No Notes Found"
             />
           </CustomCardContent>
           <CustomCardContent title="Invoice Summary">

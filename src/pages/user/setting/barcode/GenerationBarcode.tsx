@@ -14,6 +14,9 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import { useState } from "react";
 import Barcode from "react-barcode";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import palette from "theme/palette";
 import { generateRandomNumber } from "utils";
 import { detailMenu } from "__mock__";
 
@@ -87,9 +90,12 @@ function GenerationBarcode() {
                   />
                   <Button
                     sx={{
+                      backgroundColor: palette.warning.dark,
                       boxShadow: "none",
                       "&:hover": {
+                        backgroundColor: palette.warning.dark,
                         boxShadow: "none",
+                        opacity: 0.8,
                       },
                     }}
                     variant="contained"
@@ -102,24 +108,36 @@ function GenerationBarcode() {
             </Card>
           </Grid>
           <Grid xs={6}>
-            <Card sx={{ m: 2, minHeight: "300px" }}>
+            <Card
+              sx={{
+                m: 2,
+                minHeight: "300px",
+              }}
+            >
               <CustomCardContent title="Details">
                 <Stack
                   direction="column"
                   gap={2}
-                  sx={{ alignItems: "center", justifyContent: "center" }}
+                  sx={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    maxHeight: "400px",
+                  }}
                 >
-                  {barcodes
-                    ? barcodes?.map((item) => {
-                        return (
-                          <Barcode
-                            background="#FFFFFF"
-                            lineColor="#000"
-                            value={item}
-                          />
-                        );
-                      })
-                    : null}
+                  <PerfectScrollbar>
+                    {barcodes
+                      ? barcodes?.map((item) => {
+                          return (
+                            <Barcode
+                              key={item}
+                              background="#FFFFFF"
+                              lineColor="#000"
+                              value={item}
+                            />
+                          );
+                        })
+                      : null}
+                  </PerfectScrollbar>
                   {barcodes.length === 0 ? (
                     <Typography>Please Generate Barcode</Typography>
                   ) : null}
