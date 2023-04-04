@@ -22,7 +22,8 @@ import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getSelectedOptions } from "redux/catalog/variants/variantsSelector";
 import palette from "theme/palette";
 import { IGetAllByOptionNameValueResponseData } from "types/catalog/variants/getAllByOptionNameValueResponse";
 import { EditVariantForm } from "../hooks/useEditVariantForm";
@@ -55,9 +56,10 @@ export interface IUploadFile {
 function VariantDetails() {
   const navigate = useNavigate();
   const { variantId } = useParams();
-  const { state } = useLocation();
+  // const { state } = useLocation();
 
   const nameRef = useRef<any>(null);
+  const getOptions = useSelector(getSelectedOptions);
   const newtheme = useSelector((state: any) => state.theme);
   const [editable, setEditable] = useState(false);
   const [selectedVariantId, setSelectedVariantId] = useState<number>();
@@ -66,6 +68,7 @@ function VariantDetails() {
   const { data: variantItemResponse } = useGetByIdVariant({
     variantId: Number(selectedVariantId || variantId),
   });
+
   const formik = useFormik({
     initialValues: {
       id: 0,
@@ -84,7 +87,7 @@ function VariantDetails() {
       length: 0,
       weight: 0,
       crossDocking: true,
-      enable: true
+      enable: true,
     },
     onSubmit,
   });
@@ -142,17 +145,17 @@ function VariantDetails() {
       ),
     },
   ];
+  const userId = useDecodedData();
 
   const classes = useStyles();
 
   const istrue = !editable;
 
-  const data = {
-    optionName: state.optionName,
-    value: state?.value,
-  };
-  const { data: variantOptions, isFetching } = useGetAllByOptionNameValue(data);
-  const userId = useDecodedData();
+  const { data: variantOptions } = useGetAllByOptionNameValue({
+    optionName: getOptions.optionName,
+    value: getOptions.optionValue,
+  });
+
   async function onSubmit(
     values: EditVariantForm,
     formikHelpers: FormikHelpers<EditVariantForm>,
@@ -205,7 +208,7 @@ function VariantDetails() {
             >
               <Tooltip title="Search">
                 <Box sx={{ p: 1 }}>
-                  <Box sx={{ maxWidth: 300 }}>
+                  <Box sx={{ width: 280 }}>
                     <TextField
                       fullWidth
                       InputProps={{
@@ -232,12 +235,17 @@ function VariantDetails() {
                 </Box>
               </Tooltip>
               <Divider sx={{ pb: 1 }} />
-              <Box>
+              <Box
+                sx={{
+                  width: 280,
+                }}
+              >
                 <>
                   {variantOptions?.data.map(
                     (item: IGetAllByOptionNameValueResponseData) => {
                       return (
                         <SidebarButton
+                          key={item.id}
                           data={item}
                           setSelectedVariantId={setSelectedVariantId}
                         />
@@ -266,12 +274,12 @@ function VariantDetails() {
 
             <Tabs
               data={variantItemResponse?.data}
-              setUploadedFiles={setUploadedFiles}
-              uploadedFiles={uploadedFiles}
               editable={editable}
               formik={formik}
               isTrue={istrue}
               nameRef={nameRef}
+              setUploadedFiles={setUploadedFiles}
+              uploadedFiles={uploadedFiles}
             />
           </Grid>
         </Grid>

@@ -92,12 +92,12 @@ export default function BasicTabs(props: ITabs) {
       <TabPanel index={0} value={value}>
         <General
           data={data}
-          setUploadedFiles={setUploadedFiles}
-          uploadedFiles={uploadedFiles}
           editable={editable}
           formik={formik}
           isTrue={isTrue}
           nameRef={nameRef}
+          setUploadedFiles={setUploadedFiles}
+          uploadedFiles={uploadedFiles}
         />
       </TabPanel>
       <TabPanel index={1} value={value}>

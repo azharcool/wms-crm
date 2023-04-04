@@ -1,16 +1,16 @@
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Box, Card, Grid, Stack, Typography } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Box, Card, Chip, Grid, Stack, Typography } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
+import CustomCardContent from "components/card/CustomCardContent";
+import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
 import { FormikProps } from "formik";
-import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
-import CustomCardContent from "components/card/CustomCardContent";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import palette from "theme/palette";
-import UploadButton from "components/image-upload-button/UploadButton";
+import { IGetByIdVariantData } from "types/catalog/variants/getByIdVariantResponse";
 import { IUploadFile } from "..";
 
 interface IGeneral {
@@ -53,6 +53,7 @@ export default function General(props: IGeneral) {
     setUploadedFiles,
     uploadedFiles,
   } = props;
+
   const handleFile = async (e: any) => {
     const allFiles = Array.from(e.target.files);
     const images = await Promise.all(
@@ -100,14 +101,19 @@ export default function General(props: IGeneral) {
     }
   }, [data]);
 
-  const commonStyles = {
-    bgcolor: "background.paper",
-    m: 1,
-    border: 1,
-    width: "5rem",
-    height: "5rem",
-  };
   const istrue = !editable;
+
+  const optionsName = data?.optionName.split(",") || [];
+  const optionsValue = data?.variantName.split(",") || [];
+
+  const newOptionCombination = optionsName.map((item, idx) => {
+    const findOptionValue = optionsValue.at(idx);
+
+    return {
+      label: item,
+      value: idx === 0 ? findOptionValue?.split(" ")[1] : findOptionValue || "",
+    };
+  });
 
   return (
     <Box>
@@ -119,17 +125,26 @@ export default function General(props: IGeneral) {
             }}
           >
             <CustomCardContent title="Options">
-              <Stack direction="row" gap={2}>
-                <TextField
-                  disabled={istrue}
-                  id="optionName"
-                  label={data?.optionName}
-                  name="optionName"
-                  //   nameRef={nameRef}
-                  size="small"
-                  value={formik?.values.optionName}
-                  onChange={formik.handleChange("optionName")}
-                />
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                gap={2}
+                justifyContent="space-evenly"
+              >
+                {newOptionCombination.map((item) => {
+                  return (
+                    <Stack key={item.label} gap={1}>
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                        }}
+                      >
+                        {item.label}
+                      </Typography>
+                      <Chip label={item.value} />
+                    </Stack>
+                  );
+                })}
               </Stack>
             </CustomCardContent>
           </Card>
@@ -147,7 +162,6 @@ export default function General(props: IGeneral) {
                   id="productName"
                   label="Name"
                   name="productName"
-                  //   nameRef={nameRef}
                   size="small"
                   value={formik?.values.productName}
                   onChange={formik.handleChange("productName")}
@@ -160,7 +174,6 @@ export default function General(props: IGeneral) {
                   name="description"
                   size="small"
                   value={formik?.values.description || "Not provided"}
-                  // onChange={formik.handleChange("description")}
                 />
               </Stack>
             </CustomCardContent>
@@ -201,8 +214,6 @@ export default function General(props: IGeneral) {
                       // }}
                     />
                     <img
-                      // alt={item.value}
-                      // src={item.value}
                       alt="imag"
                       src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
                       style={{
@@ -212,13 +223,8 @@ export default function General(props: IGeneral) {
                     />
                   </Box>
                 ) : (
-                  //   );
-                  // })
                   <>
-                    {/* {data?.picture.map((images: any) => {
-                  return ( */}
                     <Box
-                      // key={images}
                       sx={{
                         position: "relative",
                       }}
@@ -235,9 +241,7 @@ export default function General(props: IGeneral) {
                             top: "-5px",
                             background: "white",
                           }}
-                          onClick={() => {
-                            console.log("clicked");
-                          }}
+                          onClick={() => {}}
                         />
                       )}
 
@@ -262,7 +266,6 @@ export default function General(props: IGeneral) {
           </Card>
         </Grid>
         <Grid item md={4} xs={6}>
-          {/* <Card> */}
           <CustomAccordian title="Supply">
             <Stack direction="column" gap={2}>
               <TextField
