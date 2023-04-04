@@ -23,7 +23,6 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
-import DashedCard from "components/card/DashedCard";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
@@ -190,20 +189,6 @@ function PurchaseOrderCreate() {
                     justifyContent="space-around"
                   >
                     <Stack direction="column" gap={2}>
-                      <DashedCard title=" Company Name">
-                        <Box
-                          sx={{
-                            background: "#dfe3f5",
-                            color: "#2545B8",
-                            padding: "3px 12px",
-                            borderRadius: "5px",
-                            fontSize: "11px",
-                          }}
-                        >
-                          PROGRESS
-                        </Box>
-                      </DashedCard>
-
                       <Typography
                         color="gray"
                         fontSize={12}
