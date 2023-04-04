@@ -23,7 +23,9 @@ export async function getAllVariant(): Promise<IGetAllVariantResponseRoot> {
   return client.get(URL);
 }
 
-export async function getAllByOptionNameValue(restUrl:string): Promise<IGetAllByOptionNameValueResponseRooot> {
+export async function getAllByOptionNameValue(
+  restUrl: string,
+): Promise<IGetAllByOptionNameValueResponseRooot> {
   let URL = `${API_URLS.GET_ALL_BY_OPTIONNAME_VALUE}`;
   if (restUrl) {
     URL = `${URL}?${restUrl}`;

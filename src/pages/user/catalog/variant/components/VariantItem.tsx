@@ -77,7 +77,7 @@ function VariantItem(props: IVariantItem) {
 
       <TableCell
         sx={{
-          width: 150,
+          minWidth: 150,
           position: "sticky",
           left: 130,
           zIndex: 999,
@@ -86,20 +86,17 @@ function VariantItem(props: IVariantItem) {
             : palette.background.default,
           cursor: "pointer",
         }}
+        onClick={() => {
+          navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`);
+        }}
       >
-        <Box
-          onClick={() => {
-            navigate(`${AppRoutes.CATALOG.variantsDetails}/${item.id}`, {
-              state: { optionName: item.optionName, value: item.value },
-            });
-          }}
-        >
-          <Tooltip title="TshirtXXL">
-            <Typography sx={{ textDecoration: "underline" }}>
-              {item.optionName}
-            </Typography>
-          </Tooltip>
-        </Box>
+        <Tooltip title="TshirtXXL">
+          <Typography
+            sx={{ textDecoration: "underline", whiteSpace: "nowrap" }}
+          >
+            {item.variantName}
+          </Typography>
+        </Tooltip>
         <Typography
           sx={{
             fontSize: "10px",
