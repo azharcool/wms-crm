@@ -1,4 +1,10 @@
-import { Checkbox, MenuItem, TableCell, TableRow } from "@mui/material";
+import {
+  Checkbox,
+  MenuItem,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import useAdjustmentReasonAction from "hooks/setting/adjustment/useAdjustmentAction";
@@ -72,7 +78,14 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
             // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
-          {item.name}
+          <Typography
+            sx={{
+              textDecoration: "underline",
+              whiteSpace: "nowrap", //! Dont remove
+            }}
+          >
+            {item.name}
+          </Typography>
         </TableCell>
         <TableCell
           sx={{

@@ -1,4 +1,11 @@
-import { Box, Checkbox, MenuItem, TableCell, TableRow } from "@mui/material";
+import {
+  Box,
+  Checkbox,
+  MenuItem,
+  TableCell,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import useProductConditionAction from "hooks/setting/product-condition/useProductConditionAction";
@@ -94,14 +101,21 @@ function ProductConditionListItem(props: IProductConditionListItem) {
             // background: newtheme.isDarkMode
             //   ? "#26263D"
             //   : palette.background.default,
-            // cursor: "pointer",
+            cursor: "pointer",
           }}
           onClick={() => {
             handleManage();
             // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
-          {item?.code}
+          <Typography
+            sx={{
+              textDecoration: "underline",
+              whiteSpace: "nowrap", //! Dont remove
+            }}
+          >
+            {item?.code}
+          </Typography>
         </TableCell>
 
         <TableCell
