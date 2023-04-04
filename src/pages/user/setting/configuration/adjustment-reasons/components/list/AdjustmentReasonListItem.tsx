@@ -1,7 +1,7 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
-import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
+import useAdjustmentReasonAction from "hooks/setting/adjustment/useAdjustmentAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -15,11 +15,11 @@ interface IAdjustmentItem {
 
 function AdjustmentReasonListItem(props: IAdjustmentItem) {
   const { item } = props;
-  console.log("first----->", item.id);
+
   const [manageOpen, setManageOpen] = useState(false);
   const newtheme = useSelector((state: any) => state.theme);
   const alert = useAlert();
-  const { deleteAdjustmentAsync } = useAdjustmentAction();
+  const { deleteAdjustmentReasonAction } = useAdjustmentReasonAction();
 
   const handleManage = () => {
     setManageOpen((s) => !s);
@@ -32,7 +32,7 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
       cancelText: "No",
       confirmText: "Yes",
       onConfirm: async () => {
-        await deleteAdjustmentAsync(id);
+        await deleteAdjustmentReasonAction(id);
         // refetch();
       },
     });

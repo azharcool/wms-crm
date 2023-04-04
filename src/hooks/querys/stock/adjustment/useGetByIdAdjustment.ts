@@ -3,7 +3,7 @@ import { getByIdAdjustment } from "services/adjustment.services";
 import { QueryKeys } from "utils/QueryKeys";
 
 interface IuseGetByIdAdjustment {
-  adjustmentId?: number;
+  adjustmentId: number;
 }
 
 function useGetByIdAdjustment(props: IuseGetByIdAdjustment) {

@@ -1,4 +1,5 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
+import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
 import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
 import AppRoutes from "navigation/appRoutes";
@@ -88,7 +89,10 @@ function AreaListItem(props: IAreaListItem) {
           // background: "white",
         }}
       >
-        {item.status === 1 ? "Active" : "InActive"}
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "InActive" : "Active"}
+        />
       </TableCell>
 
       <TableCell

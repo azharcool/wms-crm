@@ -50,6 +50,9 @@ const QueryKeys = {
   getByIdLocation: "getByIdLocation",
   getAllZonePagination: "getAllZonePagination",
   getAllByBundleIdBundleComposition: "getAllByBundleIdBundleComposition",
+  getAllAdjustmentReason: "getAllAdjustment",
+  getByIdAdjustmentReason: "getByIdAdjustment",
+
   getAllAdjustment: "getAllAdjustment",
   getByIdAdjustment: "getByIdAdjustment",
 };

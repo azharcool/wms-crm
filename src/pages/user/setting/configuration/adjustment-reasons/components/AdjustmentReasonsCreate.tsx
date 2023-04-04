@@ -1,9 +1,9 @@
-import { Button, Card,Box, Stack } from "@mui/material";
+import { Box, Button, Card, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import useGetByIdAdjustment from "hooks/querys/setting/adjustment/useGetByIdAdjustment";
-import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
+import useGetByIdAdjustmentReason from "hooks/querys/setting/adjustmentReason/useGetByIdAdjustmentReason";
+import useAdjustmentReasonAction from "hooks/setting/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -30,9 +30,10 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
   const [editable, setEditable] = useState(false);
   const userDecoded = useDecodedData();
   const navigate = useNavigate();
-  const { addAdjustmentAction, editAdjustmentAction } = useAdjustmentAction();
+  const { addAdjustmentReasonAction, editAdjustmentReasonAction } =
+    useAdjustmentReasonAction();
 
-  const { data: adjustmentItemResponse } = useGetByIdAdjustment({
+  const { data: adjustmentItemResponse } = useGetByIdAdjustmentReason({
     adjustmentId,
   });
 
@@ -70,10 +71,10 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
       operations: values.operations,
     };
     if (editable) {
-      response = await addAdjustmentAction(data);
+      response = await addAdjustmentReasonAction(data);
     } else {
       data.id = adjustmentId;
-      response = await addAdjustmentAction(data);
+      response = await editAdjustmentReasonAction(data);
     }
 
     if (response) {

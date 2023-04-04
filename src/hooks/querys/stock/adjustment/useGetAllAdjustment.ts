@@ -1,16 +1,16 @@
 import { useQuery } from "react-query";
-import { getAllAdjustment } from "services/adjustment.services";
+import { getAllPaginationAdjustment } from "services/adjustment.services";
 import { QueryKeys } from "utils/QueryKeys";
 
-interface IuseGetAllAdjustment {
+interface IuseGetAllAdjustmentReason {
   pageSize: number;
   page: number;
 }
 
-function useGetAllAdjustment(props: IuseGetAllAdjustment) {
+function useGetAllAdjustment(props: IuseGetAllAdjustmentReason) {
   const cachedKey = [QueryKeys.getAllAdjustment];
   const url = `PageSize=${props.pageSize}&Page=${props.page}`;
-  return useQuery(cachedKey, () => getAllAdjustment(url));
+  return useQuery(cachedKey, () => getAllPaginationAdjustment(url));
 }
 
 export default useGetAllAdjustment;
