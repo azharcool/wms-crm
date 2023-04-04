@@ -7,6 +7,7 @@ import {
   styled,
   TableCell,
   TableRow,
+  Typography,
 } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
@@ -76,13 +77,14 @@ function ReceiveListItem(props: { item: any }) {
       >
         PO-13817
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
+      <TableCell sx={{ minWidth: 170 }}>
         <Box>
-          <BorderLinearProgress value={100} variant="determinate" />
+          <BorderLinearProgress
+            sx={{ width: "70%" }}
+            value={100}
+            variant="determinate"
+          />
+          <Typography>10/10</Typography>
         </Box>
       </TableCell>
       <TableCell

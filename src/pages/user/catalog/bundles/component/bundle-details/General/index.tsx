@@ -1,3 +1,4 @@
+import CancelIcon from "@mui/icons-material/Cancel";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import {
   Card,
@@ -8,11 +9,13 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
+
+import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
 import { FormikProps } from "formik";
 import useBrand from "hooks/catalog/brand/useBrand";
 import useCategory from "hooks/catalog/categories/useCategory";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
 import { generateRandomNumber } from "utils";
 // eslint-disable-next-line import/no-extraneous-dependencies
@@ -35,6 +38,10 @@ function CustomCardContent(props: ICustomCard) {
   );
 }
 
+interface IMenuItem {
+  id: string;
+  value: string;
+}
 interface IGeneral {
   isTrue?: boolean;
   data?: IBundleDetails | undefined;
@@ -47,6 +54,7 @@ function General(props: IGeneral) {
   const { isTrue, data, nameRef, editable, formik } = props;
   const { category } = useCategory();
   const { brand } = useBrand();
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -59,6 +67,32 @@ function General(props: IGeneral) {
       formik?.setFieldValue("barcode", data?.barcode || "");
     }
   }, [data]);
+
+  const handleFile = async (e: any) => {
+    const allFiles = Array.from(e.target.files);
+    const images = await Promise.all(
+      allFiles.map((file) => convertBase64(file)),
+    );
+
+    const newUploadedFiles = images.map((item) => ({
+      id: crypto.randomUUID(),
+      value: item,
+    }));
+
+    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+  };
+  const convertBase64 = (file: any): Promise<any> => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
 
   return (
     <Grid container marginTop={2} spacing={2}>
@@ -185,33 +219,45 @@ function General(props: IGeneral) {
           }}
         >
           <CustomCardContent title="Image">
-            <Box
-              sx={{
-                padding: "16px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <Box
-                sx={{
-                  width: "350px",
-                  height: "200px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  borderRadius: "10px",
-                  border: "1px dashed rgb(236, 236, 236)",
-                }}
-              >
-                <img
-                  alt="new"
-                  src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-                  style={{ objectFit: "cover" }}
-                  width="100%"
-                />
-              </Box>
-            </Box>
+            <Stack direction="row" flexWrap="wrap" gap={2}>
+              {uploadedFiles.map((item) => {
+                return (
+                  <Box
+                    key={item.id}
+                    sx={{
+                      position: "relative",
+                    }}
+                  >
+                    <CancelIcon
+                      sx={{
+                        width: "17px",
+                        height: "17px",
+                        cursor: "pointer",
+                        position: "absolute",
+                        right: "-5px",
+                        top: "-5px",
+                        background: "white",
+                      }}
+                      onClick={() => {
+                        const newUploadedFile = uploadedFiles.filter(
+                          (i) => i.id !== item.id,
+                        );
+                        setUploadedFiles(newUploadedFile);
+                      }}
+                    />
+                    <img
+                      alt={item.value}
+                      src={item.value}
+                      style={{
+                        width: "120px",
+                        height: "120px",
+                      }}
+                    />
+                  </Box>
+                );
+              })}
+              <UploadButton handleFile={handleFile} />
+            </Stack>
           </CustomCardContent>
         </Card>
       </Grid>

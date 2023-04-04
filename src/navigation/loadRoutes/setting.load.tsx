@@ -23,3 +23,11 @@ export const AdjustmentReasonListing = Loadable({
     ),
   loading: () => <Spinner />,
 });
+
+export const ProductConditionListing = Loadable({
+  loader: () =>
+    import(
+      "pages/user/setting/configuration/product-condition/ProductCondition"
+    ),
+  loading: () => <Spinner />,
+});

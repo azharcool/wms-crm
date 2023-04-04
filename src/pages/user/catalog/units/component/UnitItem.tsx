@@ -1,13 +1,24 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useUnitActions from "hooks/catalog/useUnitActions";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import palette from "theme/palette";
+import { GetAllPaginationUnitResponseData } from "types/catalog/unit/getAllPaginationUnitResponse";
 
-function UnitItem() {
+interface IUnitItem {
+  item: GetAllPaginationUnitResponseData;
+}
+function UnitItem(props: IUnitItem) {
+  const { item } = props;
   const navigate = useNavigate();
-  const goToDetails = (id: string) => {
-    navigate(`${AppRoutes.CATALOG.unitHistory}/${id}`);
+  const newtheme = useSelector((state: any) => state.theme);
+  const { deleteUnitAction } = useUnitActions();
+
+  const goToDetails = () => {
+    navigate(`${AppRoutes.CATALOG.unitHistory}/${item.unitNumber}`);
   };
 
   return (
@@ -19,7 +30,9 @@ function UnitItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -31,9 +44,11 @@ function UnitItem() {
           left: 60,
           zIndex: 999,
           cursor: "pointer",
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
-        onClick={() => goToDetails("1")}
+        onClick={() => goToDetails()}
       >
         <Box
           sx={{
@@ -54,10 +69,12 @@ function UnitItem() {
           position: "sticky",
           zIndex: 999,
           left: 130,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
-        IPHONE XR White
+        {item.variantName}
       </TableCell>
       <TableCell
         sx={{
@@ -66,28 +83,28 @@ function UnitItem() {
           left: 0,
         }}
       >
-        9734973947
+        {item.unitNumber}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        YES
+        {item.available}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        50
+        {item.newQuantity}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        image
+        {/* UOM */}
       </TableCell>
       <TableCell
         sx={{
@@ -136,6 +153,27 @@ function UnitItem() {
           minWidth: 200,
         }}
       >
+        {item.price} -
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        {item.warehouseName}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
+        {item.locationName}
+      </TableCell>
+      <TableCell
+        sx={{
+          minWidth: 200,
+        }}
+      >
         -
       </TableCell>
       <TableCell
@@ -143,44 +181,29 @@ function UnitItem() {
           minWidth: 200,
         }}
       >
-        demo
+        {item.createdOn}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 200,
         }}
       >
-        STG
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        smart
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        March 14, 2023
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        06:34:00
+        {item.updatedOn}
       </TableCell>
       <TableCell
         sx={{
           position: "sticky",
           right: 0,
-          // background: "white",
+          background: newtheme.isDarkMode
+            ? "#26263D"
+            : palette.background.default,
         }}
       >
-        <TableActionButton />
+        <TableActionButton
+        // onDeleteHandle={() => {
+        //   deleteUnitAction(item.id);
+        // }}
+        />
       </TableCell>
     </TableRow>
   );

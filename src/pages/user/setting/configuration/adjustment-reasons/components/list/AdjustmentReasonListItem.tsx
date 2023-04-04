@@ -91,14 +91,7 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
               handleAdjustmentDelete(item.id);
             }}
           >
-            {/* <MenuItem
-              disableRipple
-              onClick={() => {
-                handleManage();
-              }}
-            >
-              Edit
-            </MenuItem> */}
+            {/* Action button */}
           </TableActionButton>
         </TableCell>
       </TableRow>

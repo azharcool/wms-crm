@@ -55,12 +55,52 @@ export const ReceiveDetials = Loadable({
 
 export const ReceiveGeneral = Loadable({
   loader: () =>
-    import("pages/user/stock-control/receive/component/detials/General"),
+    import(
+      "pages/user/stock-control/receive/component/detials/general/General"
+    ),
   loading: () => <Spinner />,
 });
 
 export const ReceiveHistory = Loadable({
   loader: () =>
-    import("pages/user/stock-control/receive/component/detials/History"),
+    import(
+      "pages/user/stock-control/receive/component/detials/history/History"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Putaway-v1
+export const PutAwayV1Listing = Loadable({
+  loader: () => import("pages/user/stock-control/putaway-v1/PutAwayV1"),
+  loading: () => <Spinner />,
+});
+
+// Putaway-v2
+export const PutAwayV2Listing = Loadable({
+  loader: () => import("pages/user/stock-control/putaway-v2/PutAwayV2"),
+  loading: () => <Spinner />,
+});
+
+export const PutAwayV2Detials = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/putaway-v2/component/details/PutAwayV2Details"
+    ),
+  loading: () => <Spinner />,
+});
+
+export const PutAwayV2General = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/putaway-v2/component/details/general/General"
+    ),
+  loading: () => <Spinner />,
+});
+
+export const PutAwayV2History = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/putaway-v2/component/details/history/History"
+    ),
   loading: () => <Spinner />,
 });

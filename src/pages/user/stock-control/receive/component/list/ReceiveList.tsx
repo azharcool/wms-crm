@@ -58,25 +58,25 @@ const tableTitle = [
     title: "Last Update",
   },
 ];
-const tableTabs = [
-  {
-    id: crypto.randomUUID(),
-    title: "NEW",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "COMPLETED",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "IN PROGRESS",
-  },
-];
+// const tableTabs = [
+//   {
+//     id: crypto.randomUUID(),
+//     title: "NEW",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: "COMPLETED",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     title: "IN PROGRESS",
+//   },
+// ];
 
 function ReceiveList() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tableTabs} />
+      <EnhancedTableToolbar />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>

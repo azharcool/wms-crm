@@ -20,6 +20,11 @@ const settingRouting = (
       element={<StockControlLoadable.AdjustmentReasonListing />}
       path={`${AppRoutes.setting.configuration.adjustmentReasons}`}
     />
+
+    <Route
+      element={<StockControlLoadable.ProductConditionListing />}
+      path={`${AppRoutes.setting.configuration.productCondition}`}
+    />
   </Route>
 );
 

@@ -133,6 +133,15 @@ const AppRoutes = {
       general: "general/details",
       history: "history/details",
     },
+    putaway_v1: {
+      listing: "putaway-v1/listing",
+    },
+    putaway_v2: {
+      listing: "putaway-v2/listing",
+      details: "putaway-v2/details",
+      general: "general/details",
+      history: "history/details",
+    },
   },
 
   setting: {
@@ -141,6 +150,7 @@ const AppRoutes = {
       listing: "configuration/listing",
       adjustmentReasons: "configuration/adjustment-reason/listing",
       adjustmentDetail: "configuration/adjustment-reason/detail",
+      productCondition: "configuration/product-condition/listing",
     },
     barcode: {
       generate: "barcode/generate",

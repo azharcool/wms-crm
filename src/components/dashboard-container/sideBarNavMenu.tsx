@@ -120,6 +120,16 @@ export const sideNavMenu: ISideNavMenu[] = [
       },
       {
         id: crypto.randomUUID(),
+        title: "Putaway v1",
+        location: `/${stockControl.layout}/${stockControl.putaway_v1.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Putaway v2",
+        location: `/${stockControl.layout}/${stockControl.putaway_v2.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Adjustment",
         location: `/${stockControl.layout}/${stockControl.adjustment.listing}`,
       },
