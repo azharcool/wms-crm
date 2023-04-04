@@ -1,5 +1,8 @@
 import { useQuery } from "react-query";
-import { getAllPaginationWarehouse } from "services/warehouse.services";
+import {
+  getAllPaginationWarehouse,
+  getAllWarehouse,
+} from "services/warehouse.services";
 import { QueryKeys } from "utils/QueryKeys";
 
 interface IuseGetAllWarehouse {
@@ -10,7 +13,9 @@ interface IuseGetAllWarehouse {
 function useGetAllWarehouse(props: IuseGetAllWarehouse) {
   const cachedKey = [QueryKeys.getAllWarehouse];
   const url = `PageSize=${props.pageSize}&Page=${props.page}`;
-  return useQuery(cachedKey, () => getAllPaginationWarehouse(url));
+  return useQuery(cachedKey, () =>
+    props.pageSize !== 0 ? getAllPaginationWarehouse(url) : getAllWarehouse(),
+  );
 }
 
 export default useGetAllWarehouse;
