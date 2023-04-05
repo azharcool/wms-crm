@@ -218,6 +218,7 @@ function AdjustmentCreate() {
     resetForm();
     navigate(`/${layout}/${listing}`);
   }
+  const totalValue = Number(units.quantity) * Number(values.stock[0].unitCost) || 0;
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -360,10 +361,8 @@ function AdjustmentCreate() {
                     darkDisable
                     name="totalValue"
                     size="small"
-                    value={
-                      Number(units.quantity) *
-                        Number(values.stock[0].unitCost) || 0
-                    }
+                    label="Total adjusted value"
+                    value={`INR ${totalValue}.00`}
                     onChange={() =>
                       setFieldValue(
                         "totalValue",
