@@ -65,6 +65,11 @@ const stockControlRouting = (
     />
 
     <Route
+      element={<StockControlLoadable.PutAwayV2Create />}
+      path={`${AppRoutes.stockControl.putaway_v2.create}`}
+    />
+
+    <Route
       element={<StockControlLoadable.PutAwayV2Detials />}
       path={`${AppRoutes.stockControl.putaway_v2.details}/:putawayId`}
     >
