@@ -2,11 +2,18 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { CardContent } from "@mui/material";
 import { Container, Box } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
+import useGetAllAdjustment from "hooks/querys/stock/adjustment/useGetAllAdjustment";
 import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import AdjustmentList from "./component/list/AdjustmentList";
 
 function Adjustment() {
+  const [adjustmentPagination, setAdjustmentPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
+  const {data:adjustmentPaginationResponse} = useGetAllAdjustment(adjustmentPagination);
   const navigate = useNavigate();
   return (
     <Container maxWidth={false}>
@@ -37,7 +44,7 @@ function Adjustment() {
           onBulkHandle={() => {}}
         />
         <Box sx={{ mt: 3 }}>
-          <AdjustmentList />
+        <AdjustmentList data={adjustmentPaginationResponse} />
         </Box>
       </CardContent>
     </Container>

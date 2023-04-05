@@ -42,6 +42,7 @@ function useAdjustmentAction() {
     try {
       const response = await addAdjustment(data);
       if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllAdjustment]);
         snackbar?.show({
           title: response.message,
           type: "success",

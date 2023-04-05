@@ -16,6 +16,8 @@ import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
+
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -48,15 +50,17 @@ function DetailLayout() {
   const [value, setValue] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
+  const selectedAdjustment = useSelector(getAdjustmentSelected);
+
   const {
     stockControl: {
       layout,
-      recieve: { general, history, details },
+      adjustment: { generalDetails, historylisting, details },
     },
   } = AppRoutes;
   const navLinks = new Map([
-    [0, `/${layout}/${details}/1/${general}`],
-    [1, `/${layout}/${details}/1/${history}`],
+    [0, `/${layout}/${details}/${selectedAdjustment.id}/${generalDetails}`],
+    [1, `/${layout}/${details}/${selectedAdjustment.id}/${historylisting}`],
   ]);
 
   useEffect(() => {
@@ -130,11 +134,10 @@ function DetailLayout() {
     {
       id: crypto.randomUUID(),
       title: "Edit",
-      onClick: () => {
+      onClick: () =>
         navigate(
-          `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.adjustment.create}/1`,
-        );
-      },
+          `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.adjustment.create}`,
+        ),
       icon: (
         <EditIcon
           sx={{
@@ -153,15 +156,15 @@ function DetailLayout() {
         <TableToolbar
           breadcrumbs={[
             {
-              link: "SUPPLY RETURN",
-              to: `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplierReturns.listing}`,
+              link: "ADJUSTMENT",
+              to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.adjustment.listing}`,
             },
           ]}
           buttonText="Save"
           handleClick={() => {}}
-          navTitle="PO-2223"
+          navTitle={`Stock Adjustment ${selectedAdjustment.name}`}
           rightActions={rightActionsData}
-          title="Supply Return Details"
+          title={`Stock Adjustment ${selectedAdjustment.name}`}
         />
         <Stack direction="row">
           <Tabs
@@ -183,12 +186,7 @@ function DetailLayout() {
             <Tab label="HISTORY" />
           </Tabs>
         </Stack>
-        {/* <TabPanel index={0} value={value}>
-          <General />
-        </TabPanel>
-        <TabPanel index={1} value={value}>
-          <History />
-        </TabPanel> */}
+
         <Outlet />
       </Container>
     </ThemeProvider>

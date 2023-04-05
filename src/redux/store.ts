@@ -22,6 +22,7 @@ import area from "./warehouse/areaSlice";
 import location from "./warehouse/locationSlice";
 import warehouse from "./warehouse/warehouseSlice";
 import zone from "./warehouse/zoneSlice";
+import adjustment from "./stock-control/adjustmentSlice"
 
 const persistConfig = {
   key: "root",
@@ -47,6 +48,7 @@ const combinedReducer = combineReducers({
   sideDashboard,
   supplier,
   variants,
+  adjustment
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

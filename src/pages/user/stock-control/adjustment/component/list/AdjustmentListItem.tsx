@@ -1,13 +1,22 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setAdjustment } from "redux/stock-control/adjustmentSlice";
+import { useAppDispatch } from "redux/store";
 import palette from "theme/palette";
+import { GetAllAdjustmentResponseData } from "types/stock/adjustment/getAllAdjustmentResponse";
 
-function AdjustmentListItem() {
+interface IAdjustmentListItem {
+  item: GetAllAdjustmentResponseData;
+}
+
+function AdjustmentListItem(props: IAdjustmentListItem) {
   const newtheme = useSelector((state: any) => state.theme);
+  const { deleteAdjustmentAsync } = useAdjustmentAction();
   const navigate = useNavigate();
   const {
     stockControl: {
@@ -15,6 +24,9 @@ function AdjustmentListItem() {
       adjustment: { details, generalDetails },
     },
   } = AppRoutes;
+  const { item } = props;
+
+  const dispatch = useAppDispatch();
   return (
     <TableRow>
       <TableCell
@@ -46,7 +58,15 @@ function AdjustmentListItem() {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() => navigate(`/${layout}/${details}/1/${generalDetails}`)}
+        onClick={() => {
+          dispatch(
+            setAdjustment({
+              id: item.id,
+              name: item.sa,
+            }),
+          );
+          navigate(`/${layout}/${details}/${item.id}/${generalDetails}`);
+        }}
       >
         <Typography
           sx={{
@@ -54,7 +74,7 @@ function AdjustmentListItem() {
             whiteSpace: "nowrap", //! Dont remove
           }}
         >
-          SA-1233
+          {item.sa || "-"}
         </Typography>
       </TableCell>
       <TableCell
@@ -62,56 +82,56 @@ function AdjustmentListItem() {
           minWidth: 170,
         }}
       >
-        {/* lineitems */}0
+        {item.lineItem || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* qtychnage */}
+        {item.qtyChange || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* total */}
+        {item.totalQuantity || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* reasion */}
+        {item.reason || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* refId */}
+        {item.referenceId || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* status */}
+        {item.status || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* lastupdt */}
+        {item.updatedOn || "-"}
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
         }}
       >
-        {/* notes */}
+        {item.notes || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -124,7 +144,7 @@ function AdjustmentListItem() {
       >
         <TableActionButton
           onDeleteHandle={() => {
-            // deleteProductAsync(item.id);
+            deleteAdjustmentAsync(item.id);
           }}
         />
       </TableCell>

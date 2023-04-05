@@ -31,7 +31,7 @@ interface Props extends InputProps {
   selectValue?: string | number;
   menuItems?: IMenuOption[];
   className?: string;
-
+  onKeyDown?: React.KeyboardEventHandler<any>;
   name: string;
   minDate?: any;
   size?: "small" | "medium";
@@ -120,6 +120,7 @@ function TextField(props: Props) {
           name={name}
           placeholder={placeholder}
           required={required}
+          onKeyDown={onKeyDown}
           rows={rows}
           size={size}
           sx={{
