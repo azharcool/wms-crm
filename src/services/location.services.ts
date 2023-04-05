@@ -19,8 +19,11 @@ export async function editLocation(
   return client.put(URL, request);
 }
 
-export async function getAllLocation() {
-  const URL = `${API_URLS.GET_ALL_LOCATION}`;
+export async function getAllLocation(restUrl:number):Promise<GetAllLocationResponseRoot> {
+  let URL = `${API_URLS.GET_ALL_LOCATION}`;
+  if (restUrl) {
+    URL = `${URL}?warehouseId=${restUrl}`;
+  }
   return client.get(URL);
 }
 

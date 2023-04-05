@@ -24,7 +24,7 @@ interface ISlider {
   children?: React.ReactNode;
   size?: "lg" | "sm" | "md";
   noHeight?: boolean;
-  title?: string;
+  title?: string | React.ReactNode;
   handleClose?: () => void;
   handleChange?: () => void;
   isSubmitting?: boolean;

@@ -3,7 +3,7 @@ import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import useGetByIdAdjustmentReason from "hooks/querys/setting/adjustmentReason/useGetByIdAdjustmentReason";
-import useAdjustmentReasonAction from "hooks/setting/adjustment/useAdjustmentAction";
+import useAdjustmentReasonAction from "hooks/setting/adjustment-reason/useAdjustmentReasonAction";
 import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
