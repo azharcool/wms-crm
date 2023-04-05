@@ -238,7 +238,7 @@ function General(props: IGeneral) {
                       darkDisable
                       name="unit"
                       label="Total adjusted value"
-                      value={adjustmentDetails?.data.totalValue || "-"}
+                      value={adjustmentDetails?.data.totalValue ? `INR ${adjustmentDetails?.data.totalValue}.00` :"-"}
                       size="small"
                     />
                   </Stack>
