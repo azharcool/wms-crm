@@ -17,6 +17,7 @@ import roles from "./roles/roles";
 import screens from "./screen/screen";
 import adjustmentReason from "./settings/configuration/adjustmentReasonSlice";
 import sideDashboard from "./side-dashboard/sideDashboardSlice";
+import adjustment from "./stock-control/adjustmentSlice";
 import team from "./team/team";
 import user from "./user/auth";
 import area from "./warehouse/areaSlice";
@@ -49,6 +50,7 @@ const combinedReducer = combineReducers({
   supplier,
   variants,
   adjustmentReason,
+  adjustment,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

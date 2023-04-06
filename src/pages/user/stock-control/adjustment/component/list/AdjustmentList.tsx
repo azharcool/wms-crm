@@ -12,6 +12,11 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import {
+  GetAllAdjustmentResponseRoot,
+  GetAllAdjustmentResponseData,
+} from "types/stock/adjustment/getAllAdjustmentResponse";
+
 import AdjustmentListItem from "./AdjustmentListItem";
 
 const tableTitle = [
@@ -68,7 +73,13 @@ const tableTabs = [
     title: "CANCELLED",
   },
 ];
-function AdjustmentList() {
+
+interface IAdjustmentList {
+  data?: GetAllAdjustmentResponseRoot;
+}
+
+function AdjustmentList(props: IAdjustmentList) {
+  const { data } = props;
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar tabs={tableTabs} />
@@ -122,7 +133,9 @@ function AdjustmentList() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <AdjustmentListItem />
+                {data?.data.map((item: GetAllAdjustmentResponseData) => {
+                  return <AdjustmentListItem item={item} />;
+                })}
               </TableBody>
             </Table>
           </PerfectScrollbar>

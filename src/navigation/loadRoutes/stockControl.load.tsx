@@ -81,6 +81,14 @@ export const PutAwayV2Listing = Loadable({
   loading: () => <Spinner />,
 });
 
+export const PutAwayV2Create = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/putaway-v2/component/create/PutAwayV2Create"
+    ),
+  loading: () => <Spinner />,
+});
+
 export const PutAwayV2Detials = Loadable({
   loader: () =>
     import(

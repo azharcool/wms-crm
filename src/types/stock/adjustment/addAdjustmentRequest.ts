@@ -33,6 +33,6 @@ export interface Stock {
   quantity?: number;
   conditionCodeId?: number;
   containerNumber?: string;
-  expiryDate?: string;
+  expiryDate?: string | null;
   locationId?: number;
 }

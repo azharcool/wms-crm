@@ -3,10 +3,11 @@ import { CardContent } from "@mui/material";
 import { Box, Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
 import useGetAllAdjustmentReason from "hooks/querys/setting/adjustmentReason/useGetAllAdjustmentReason";
-import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
+// import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import useAdjustmentReasonAction from "hooks/setting/adjustment-reason/useAdjustmentReasonAction";
 import { getSelectedAdjustmentReason } from "redux/settings/configuration/adjustmentReasonSelector";
 import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
 import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";
@@ -21,7 +22,7 @@ function AdjustmentReasons() {
     getSelectedAdjustmentReason,
   );
 
-  const { bulkDeleteAdjustmentReasonAsync } = useAdjustmentAction();
+  const { bulkDeleteAdjustmentReasonAsync } = useAdjustmentReasonAction();
 
   const { data: adjustmentResponse } =
     useGetAllAdjustmentReason(adjustmentPagination);

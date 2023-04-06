@@ -27,6 +27,12 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import palette from "theme/palette";
 import { grey, purple } from "@mui/material/colors";
+import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
+import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
+import DashedCard from "components/card/DashedCard";
+import { StockDetail } from "types/stock/adjustment/getAllAdjustmentResponse";
+import DateTimeFormat from "components/dateTime-format";
+import NoDataTableRow from "components/table/no-data-table-row";
 
 interface IMenuItem {
   id: string;
@@ -108,6 +114,11 @@ function General(props: IGeneral) {
     },
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
+  const selectedAdjustment = useSelector(getAdjustmentSelected);
+  const adjustmentData = {
+    adjustmentId: selectedAdjustment.id,
+  };
+  const { data: adjustmentDetails } = useGetByIdAdjustment(adjustmentData);
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
@@ -127,51 +138,73 @@ function General(props: IGeneral) {
                     justifyContent="space-around"
                   >
                     <Stack direction="column" gap={2}>
-                      <Typography
-                        variant="subtitle1"
-                        fontSize={12}
-                        color="gray"
-                      >
-                        WAREHOUSE
-                      </Typography>
-                      <Typography>DEFAULT WAREHOSE(demo)</Typography>
+                      <DashedCard title="WAREHOUSE">
+                        <Box
+                          sx={{
+                            background: "#dfe3f5",
+                            color: "#2545B8",
+                            padding: "3px 12px",
+                            borderRadius: "5px",
+                            fontSize: "12px",
+                          }}
+                        >
+                          {adjustmentDetails?.data.warehouseName || "-"}
+                        </Box>
+                      </DashedCard>
                     </Stack>
                     <Stack direction="column" gap={2}>
-                      <Typography
-                        variant="subtitle1"
-                        fontSize={12}
-                        color="gray"
-                      >
-                        REASON
-                      </Typography>
-                      <Typography>NEW</Typography>
+                      <DashedCard title="REASON">
+                        <Box
+                          sx={{
+                            background: "#dfe3f5",
+                            color: "#50cd89",
+                            padding: "3px 12px",
+                            borderRadius: "5px",
+                            fontSize: "12px",
+                          }}
+                        >
+                          {adjustmentDetails?.data.reason || "-"}
+                        </Box>
+                      </DashedCard>
                     </Stack>
                     <Stack direction="column" gap={2}>
-                      <Typography
-                        variant="subtitle1"
-                        fontSize={12}
-                        color="gray"
-                      >
-                        REFERENCE ID
-                      </Typography>
-                      <Typography>12345</Typography>
+                      <DashedCard title="REFERENCE ID">
+                        <Box
+                          sx={{
+                            background: "#dfe3f5",
+                            color: "#009ef7",
+                            padding: "3px 12px",
+                            borderRadius: "5px",
+                            fontSize: "12px",
+                          }}
+                        >
+                          {adjustmentDetails?.data.referenceId || "-"}
+                        </Box>
+                      </DashedCard>
                     </Stack>
                     <Stack direction="column" gap={2}>
-                      <Typography
-                        variant="subtitle1"
-                        fontSize={12}
-                        color="gray"
-                      >
-                        OWNER
-                      </Typography>
-                      <Typography>Aasif</Typography>
+                      <DashedCard title="OWNER">
+                        <Box
+                          sx={{
+                            background: "#dfe3f5",
+                            color: "#009ef7",
+                            padding: "3px 12px",
+                            borderRadius: "5px",
+                            fontSize: "12px",
+                          }}
+                        >
+                          {/* {adjustmentDetails?.data.owner} */} -
+                        </Box>
+                      </DashedCard>
                     </Stack>
                   </Grid>
                 </CustomCardContent>
               </Card>
             </Grid>
           </Grid>
-          <StockTable />
+          <Grid xs={12}>
+            <StockTable data={adjustmentDetails?.data.stockDetails} />
+          </Grid>
           <Grid
             container
             xs={12}
@@ -197,7 +230,7 @@ function General(props: IGeneral) {
                       name="qty"
                       darkDisable
                       label="Total adjusted quantity"
-                      value="10"
+                      value={adjustmentDetails?.data.totalQuantity || "-"}
                       size="small"
                     />
                     <TextField
@@ -205,7 +238,7 @@ function General(props: IGeneral) {
                       darkDisable
                       name="unit"
                       label="Total adjusted value"
-                      value="INR 100.00"
+                      value={adjustmentDetails?.data.totalValue ? `INR ${adjustmentDetails?.data.totalValue}.00` :"-"}
                       size="small"
                     />
                   </Stack>
@@ -225,7 +258,9 @@ function General(props: IGeneral) {
                 </DialogTitle>
                 <Divider />
                 <DialogContent>
-                  <Typography>Notes not found</Typography>
+                  <Typography>
+                    {adjustmentDetails?.data.notes || "-"}
+                  </Typography>
                 </DialogContent>
               </Card>
             </Grid>
@@ -238,8 +273,12 @@ function General(props: IGeneral) {
 
 export default General;
 
-function StockTable() {
+interface IStockTable {
+  data?: StockDetail[];
+}
+function StockTable(props: IStockTable) {
   const newtheme = useSelector((state: any) => state.theme);
+  const { data } = props;
 
   return (
     <PerfectScrollbar>
@@ -278,87 +317,95 @@ function StockTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                <TableRow>
-                  <TableCell
-                    sx={{
-                      width: 50,
-                      position: "sticky",
-                      left: 0,
-                      zIndex: 999,
-                      background: newtheme.isDarkMode
-                        ? "#26263D"
-                        : palette.background.default,
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        width: "40px",
-                        height: "40px",
-                      }}
-                    >
-                      <img
-                        alt="new"
-                        src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-                        width="100%"
-                      />
-                    </Box>
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                    }}
-                  >
-                    product
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                      // background: "white",
-                    }}
-                  >
-                    {/* inventory */}0
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                      // background: "white",
-                    }}
-                  >
-                    -
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                      // background: "white",
-                    }}
-                  >
-                    -
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                      // background: "white",
-                    }}
-                  >
-                    -
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                      // background: "white",
-                    }}
-                  >
-                    Not Provided
-                  </TableCell>
-                  <TableCell
-                    sx={{
-                      minWidth: 170,
-                      // background: "white",
-                    }}
-                  >
-                    -
-                  </TableCell>
-                </TableRow>
+                {data?.length !== 0 ? (
+                  data?.map((item: StockDetail) => {
+                    return (
+                      <TableRow>
+                        <TableCell
+                          sx={{
+                            width: 50,
+                            position: "sticky",
+                            left: 0,
+                            zIndex: 999,
+                            background: newtheme.isDarkMode
+                              ? "#26263D"
+                              : palette.background.default,
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              width: "40px",
+                              height: "40px",
+                            }}
+                          >
+                            <img
+                              alt="stockImg"
+                              src={item.image || ""}
+                              width="100%"
+                            />
+                          </Box>
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                          }}
+                        >
+                          {/* {item.productName || "-"} */}-
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                            // background: "white",
+                          }}
+                        >
+                          {item.barcodeStrategy || "-"}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                            // background: "white",
+                          }}
+                        >
+                          {item.unitCost || "-"}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                            // background: "white",
+                          }}
+                        >
+                          {item.quantity || "-"}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                            // background: "white",
+                          }}
+                        >
+                          {item.containerNumber || "-"}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                            // background: "white",
+                          }}
+                        >
+                          {DateTimeFormat(item.expiryDate) || "-"}
+                        </TableCell>
+                        <TableCell
+                          sx={{
+                            minWidth: 170,
+                            // background: "white",
+                          }}
+                        >
+                          {item.locationId || "-"}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
+                  <NoDataTableRow colSize={7} title="No Stock details found" />
+                )}
               </TableBody>
             </Table>
           </PerfectScrollbar>

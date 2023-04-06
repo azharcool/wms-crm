@@ -15,6 +15,10 @@ export async function getAllAdjustmentReason(
   }
   return client.get(URL);
 }
+export async function getAllAdjustmentReasonWithoutPagination(): Promise<IGetAdjustmentResponseRoot> {
+  const URL = `${API_URLS.GET_ALL_ADJUSTMENT_REASON}`;
+  return client.get(URL);
+}
 
 export async function getByIdAdjustmentReason(
   id: number,

@@ -168,7 +168,7 @@ function WarehouseCreate() {
     let response = false;
     if (state?.editData) {
       data.id = state?.editData?.id;
-      response = await editWarehouseAction  (data);
+      response = await editWarehouseAction(data);
     } else {
       response = await addWarehouseAction(data);
     }
@@ -181,6 +181,9 @@ function WarehouseCreate() {
   }
   const darkModeTheme = createTheme(getDesignTokens("dark"));
   // console.log("timezone", moment().tz("America/Los_Angeles"));
+  const navigateDetails = state?.editData?.id
+    ? `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${state?.editData?.id}/${AppRoutes.warehouse.generalDetails}`
+    : `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`;
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -191,9 +194,7 @@ function WarehouseCreate() {
               id: crypto.randomUUID(),
               title: "Cancel",
               onClick: () => {
-                navigate(
-                  `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`,
-                );
+                navigate(navigateDetails);
               },
               icon: (
                 <ArrowBackIosIcon

@@ -141,6 +141,7 @@ const AppRoutes = {
       details: "putaway-v2/details",
       general: "general/details",
       history: "history/details",
+      create: "putaway-v2/create",
     },
   },
 

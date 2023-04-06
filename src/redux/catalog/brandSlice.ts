@@ -33,9 +33,14 @@ const brandSlice = createSlice({
         state.brandIds = [];
       }
     },
+
+    removeAllBrandIds: (state) => {
+      state.brandIds = [];
+    },
   },
 });
 
-export const { setBrandId, setAllBrandIds } = brandSlice.actions;
+export const { setBrandId, setAllBrandIds, removeAllBrandIds } =
+  brandSlice.actions;
 
 export default brandSlice.reducer;

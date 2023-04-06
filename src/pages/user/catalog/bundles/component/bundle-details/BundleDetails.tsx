@@ -247,7 +247,8 @@ function BundleDetails() {
           handleClick={() => {
             // navigate(AppRoutes.CATALOG.productCreate);
           }}
-          navTitle="BUNDLES"
+          breadcrumbs={[{ link: "BUNDLES", to: "/catalog/bundles" }]}
+          navTitle="bundles"
           rightActions={
             value === 0
               ? editable
