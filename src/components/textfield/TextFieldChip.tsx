@@ -1,5 +1,6 @@
 import { FormControl, InputProps, TextField } from "@mui/material";
 import Chip from "@mui/material/Chip";
+import { SxProps, Theme } from "@mui/material/styles";
 
 interface IChip {
   id: string;
@@ -10,10 +11,9 @@ interface ITextFieldChip extends InputProps {
   id: string;
   chips: IChip[];
   label?: string;
-  size?: "small" | "medium";
   handleDelete?: (_: IChip) => void;
-  style?: any;
   handleKeyDown?: (_: string) => void;
+  sxForm?: SxProps<Theme>;
 }
 
 function TextFieldChip(props: ITextFieldChip) {
@@ -27,31 +27,41 @@ function TextFieldChip(props: ITextFieldChip) {
     handleKeyDown,
     value,
     disabled,
+    id,
+    name,
+    sx,
+    sxForm,
   } = props;
   return (
-    <FormControl>
+    <FormControl sx={sxForm}>
       <TextField
         disabled={disabled}
-        id="chip"
+        id={id}
+        InputLabelProps={{ focused: false }}
         InputProps={{
-          startAdornment: chips.map((item) => {
-            return (
-              <Chip
-                key={item.id}
-                label={item.value}
-                sx={{
-                  marginX: 1,
-                }}
-                onDelete={handleDelete ? () => handleDelete(item) : undefined}
-              />
-            );
-          }),
+          startAdornment:
+            chips.length > 0 &&
+            chips.map((item) => {
+              return (
+                <Chip
+                  key={item.id}
+                  label={item.value}
+                  size={size}
+                  sx={{
+                    marginX: 1,
+                  }}
+                  onDelete={handleDelete ? () => handleDelete(item) : undefined}
+                />
+              );
+            }),
         }}
         label={label}
-        name="chip"
+        name={name}
         size={size}
         style={style}
+        sx={sx}
         value={value}
+        variant="outlined"
         onChange={onChange}
         onKeyDown={(e) => handleKeyDown && handleKeyDown(e.key)}
       />

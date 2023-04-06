@@ -28,8 +28,8 @@ function Products() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          navTitle="CATALOG"
           isBulkDisabled={!!ids}
+          navTitle="CATALOG"
           rightActions={[
             {
               id: crypto.randomUUID(),

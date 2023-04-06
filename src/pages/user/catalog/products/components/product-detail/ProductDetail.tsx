@@ -266,6 +266,7 @@ function ProductDetail() {
           handleClose={handleVariant}
           open={openVariant}
           productId={productId}
+          productName={productItemResponse?.data.name || ""}
         />
       ) : null}
     </ThemeProvider>

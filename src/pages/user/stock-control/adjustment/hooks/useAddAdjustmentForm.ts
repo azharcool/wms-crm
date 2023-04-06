@@ -14,11 +14,11 @@ export interface IStock {
   optionName?: "";
   value?: "";
   barcodeStrategy?: "";
-  unitCost?: 0;
+  unitCost: 0;
   unitNumber?: "";
   serialNumber?: "";
   batchNumber?: "";
-  quantity?: 0;
+  quantity: 0;
   conditionCodeId?: 0;
   containerNumber?: "";
   expiryDate?: "";
@@ -49,11 +49,11 @@ interface IAddAdjustmentForm {
 }
 const validationSchema = Yup.object().shape({
   warehosuseId: Yup.number()
-    .required("Please selected warehouse")
-    .min(1, "Please selected warehouse"),
+    .required("Please select warehouse")
+    .min(1, "Please select warehouse"),
   adjustmentReasonId: Yup.number()
-    .required("Please selected adjustment reason")
-    .min(1, "Please selected adjustment reason"),
+    .required("Please select adjustment reason")
+    .min(1, "Please select adjustment reason"),
 });
 
 export const deafultValues: AddAdjustmentForm = {
@@ -69,30 +69,7 @@ export const deafultValues: AddAdjustmentForm = {
   notes: "",
   totalQuantity: 0,
   totalValue: 0,
-  stock: [
-    {
-      id: 0,
-      userId: 0,
-      adjustmentId: 0,
-      productId: 0,
-      variantId: 0,
-      image: "",
-      sku: "",
-      barcode: "",
-      optionName: "",
-      value: "",
-      barcodeStrategy: "",
-      unitCost: 0,
-      unitNumber: "",
-      serialNumber: "",
-      batchNumber: "",
-      quantity: 0,
-      conditionCodeId: 0,
-      containerNumber: "",
-      expiryDate: "",
-      locationId: 0,
-    },
-  ],
+  stock: [],
 };
 
 function useAddAdjustmentForm({

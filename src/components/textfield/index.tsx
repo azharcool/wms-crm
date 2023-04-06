@@ -42,6 +42,8 @@ interface Props extends InputProps {
   onClickIcon?: React.MouseEventHandler<HTMLDivElement>;
   nameRef?: any;
   darkDisable?: boolean;
+  autoComplete?:string,
+  maxInputLength?: number;
 }
 
 function TextField(props: Props) {
@@ -75,6 +77,9 @@ function TextField(props: Props) {
     onClickIcon,
     darkDisable,
     onKeyDown,
+    autoComplete,
+    maxInputLength,
+
   } = props;
 
   return (
@@ -99,20 +104,19 @@ function TextField(props: Props) {
           disabled={disabled}
           error={error}
           id={id}
+          autoComplete={autoComplete}
           InputProps={{
-            // maxLength: length,
-            startAdornment: iconEnd ? null : (
+            startAdornment: !iconEnd && icon && (
               <InputAdornment position="start" onClick={onClickIcon}>
                 {icon}
               </InputAdornment>
             ),
-            endAdornment: iconEnd ? (
+
+            endAdornment: iconEnd && icon && (
               <InputAdornment position="end" onClick={onClickIcon}>
                 {icon}
               </InputAdornment>
-            ) : null,
-
-            // min: minDate,
+            ),
           }}
           inputRef={nameRef}
           label={label}
@@ -120,7 +124,6 @@ function TextField(props: Props) {
           name={name}
           placeholder={placeholder}
           required={required}
-          onKeyDown={onKeyDown}
           rows={rows}
           size={size}
           sx={{
@@ -136,6 +139,7 @@ function TextField(props: Props) {
           variant="outlined"
           onBlur={onBlur}
           onChange={onChange}
+          onKeyDown={onKeyDown}
           aria-describedby="my-helper-text"
           // autoComplete="current-password"
           className={className}
