@@ -15,14 +15,15 @@ import permissions from "./permissions/permissions";
 import supplier from "./purchase/supplierSlice";
 import roles from "./roles/roles";
 import screens from "./screen/screen";
+import adjustmentReason from "./settings/configuration/adjustmentReasonSlice";
 import sideDashboard from "./side-dashboard/sideDashboardSlice";
+import adjustment from "./stock-control/adjustmentSlice";
 import team from "./team/team";
 import user from "./user/auth";
 import area from "./warehouse/areaSlice";
 import location from "./warehouse/locationSlice";
 import warehouse from "./warehouse/warehouseSlice";
 import zone from "./warehouse/zoneSlice";
-import adjustment from "./stock-control/adjustmentSlice"
 
 const persistConfig = {
   key: "root",
@@ -48,7 +49,8 @@ const combinedReducer = combineReducers({
   sideDashboard,
   supplier,
   variants,
-  adjustment
+  adjustmentReason,
+  adjustment,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

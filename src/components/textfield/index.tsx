@@ -103,19 +103,17 @@ function TextField(props: Props) {
           id={id}
           autoComplete={autoComplete}
           InputProps={{
-            // maxLength: length,
-            startAdornment: iconEnd ? null : (
+            startAdornment: !iconEnd && icon && (
               <InputAdornment position="start" onClick={onClickIcon}>
                 {icon}
               </InputAdornment>
             ),
-            endAdornment: iconEnd ? (
+
+            endAdornment: iconEnd && icon && (
               <InputAdornment position="end" onClick={onClickIcon}>
                 {icon}
               </InputAdornment>
-            ) : null,
-
-            // min: minDate,
+            ),
           }}
           inputRef={nameRef}
           label={label}

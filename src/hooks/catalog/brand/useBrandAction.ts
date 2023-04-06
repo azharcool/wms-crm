@@ -1,5 +1,7 @@
 import { useSnackbar } from "components/snackbar";
 import { useQueryClient } from "react-query";
+import { useDispatch } from "react-redux";
+import { removeAllBrandIds } from "redux/catalog/brandSlice";
 import {
   addBrand,
   bulkDeleteBrand,
@@ -12,7 +14,7 @@ import { QueryKeys } from "utils/QueryKeys";
 function useBrandAction() {
   const snackbar = useSnackbar();
   const queryClient = useQueryClient();
-
+  const dispatch = useDispatch();
   const addBrandAction = async (
     data: IAddBrandRequestRoot,
   ): Promise<boolean> => {
@@ -62,6 +64,7 @@ function useBrandAction() {
       const response = await deleteBrand(id);
       if (response.statusCode === 200) {
         queryClient.invalidateQueries([QueryKeys.getAllBrand]);
+        dispatch(removeAllBrandIds());
         snackbar?.show({
           title: response.message,
           type: "success",

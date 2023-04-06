@@ -45,3 +45,10 @@ export async function deleteAdjustmentReason(id: number): Promise<IResponse> {
   const URL = `${API_URLS.DELETE_ADJUSTMENT_REASON}/${id}`;
   return client.delete(URL);
 }
+
+export async function bulkDeleteAdjustmentReason(
+  ids: string,
+): Promise<IResponse> {
+  const URL = `${API_URLS.BULK_DELETE_ADJUSTMENT_REASON}/${ids}`;
+  return client.delete(URL);
+}

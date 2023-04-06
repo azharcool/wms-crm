@@ -1,4 +1,5 @@
 import {
+  Paper,
   Table,
   TableBody,
   TableContainer,
@@ -72,7 +73,7 @@ function VariantListing(props: IVariantLIsting) {
   });
 
   return (
-    <TableContainer>
+    <TableContainer component={Paper}>
       <PerfectScrollbar>
         <Table
           sx={{

@@ -7,8 +7,9 @@ import {
   Typography,
 } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
-import StatusTableCell from "components/table/status-table-cell";
+import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
+import StatusTableCell from "components/table/status-table-cell";
 import { FILE_URL } from "config";
 import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
 import AppRoutes from "navigation/appRoutes";
@@ -28,6 +29,7 @@ interface ICategoriesItem {
 function CategoriesItem(props: ICategoriesItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const alert = useAlert();
   const { deleteCategoryAsync } = useCategoriesAction();
   const newtheme = useSelector((state: any) => state.theme);
   const getSelectedCategoryByIdState = useSelector((state: RootState) =>
@@ -38,6 +40,19 @@ function CategoriesItem(props: ICategoriesItem) {
 
   const select = () => {
     dispatch(setCategoryId(item.id));
+  };
+
+  const handleCategoriesDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete Categories",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteCategoryAsync(item.id);
+        // refetch();
+      },
+    });
   };
   return (
     <TableRow>
@@ -197,7 +212,7 @@ function CategoriesItem(props: ICategoriesItem) {
       >
         <TableActionButton
           onDeleteHandle={() => {
-            deleteCategoryAsync(item.id);
+            handleCategoriesDelete();
           }}
         />
       </TableCell>
@@ -206,3 +221,6 @@ function CategoriesItem(props: ICategoriesItem) {
 }
 
 export default CategoriesItem;
+function deleteAdjustmentReasonAction(arg0: number) {
+  throw new Error("Function not implemented.");
+}

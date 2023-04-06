@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
+import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
 import useProductAction from "hooks/catalog/product/useProductAction";
@@ -25,6 +26,7 @@ interface IProductItem {
 }
 function ProductItem(props: IProductItem) {
   const { item } = props;
+  const alert = useAlert();
   const navigate = useNavigate();
   const { deleteProductAsync } = useProductAction();
   const newtheme = useSelector((state: any) => state.theme);
@@ -36,6 +38,19 @@ function ProductItem(props: IProductItem) {
 
   const select = () => {
     dispatch(setProductId(item.id));
+  };
+
+  const handleProductDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete Product",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteProductAsync(item.id);
+        // refetch();
+      },
+    });
   };
 
   return (
@@ -234,7 +249,7 @@ function ProductItem(props: IProductItem) {
       >
         <TableActionButton
           onDeleteHandle={() => {
-            deleteProductAsync(item.id);
+            handleProductDelete();
           }}
         />
       </TableCell>
