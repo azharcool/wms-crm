@@ -1,4 +1,5 @@
 import { TableCell } from "@mui/material";
+import { SxProps, Theme } from "@mui/material/styles";
 import { ReactNode } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
@@ -11,6 +12,7 @@ interface ICustomTableCell {
   rightValue?: number;
   minWt?: number;
   isHeader?: boolean;
+  sxTableCell?: SxProps<Theme>;
 }
 function CustomTableCell(props: ICustomTableCell) {
   const {
@@ -22,6 +24,7 @@ function CustomTableCell(props: ICustomTableCell) {
     rightValue,
     isHeader,
     minWt,
+    sxTableCell,
   } = props;
   return (
     <TableCell
@@ -29,6 +32,7 @@ function CustomTableCell(props: ICustomTableCell) {
       style={customStyle}
       sx={{
         minWidth: minWt || 60,
+        ...sxTableCell,
         ...(isSticky
           ? {
               position: "sticky",

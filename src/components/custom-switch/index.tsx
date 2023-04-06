@@ -1,6 +1,6 @@
 import { Stack, Typography } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
+import { styled, SxProps, Theme } from "@mui/material/styles";
 import Switch from "@mui/material/Switch";
 
 const AntSwitch = styled(Switch)(({ theme }) => ({
@@ -54,15 +54,20 @@ interface ICustomSwitch {
     event: React.ChangeEvent<HTMLInputElement>,
     checked: boolean,
   ) => void;
+  name?: string;
+  id?: string;
+  sxStack?: SxProps<Theme>;
 }
 function CustomSwitch(props: ICustomSwitch) {
-  const { title, checked, onChange } = props;
+  const { title, checked, onChange, id, name, sxStack } = props;
 
   return (
-    <Stack alignItems="center" direction="row" gap={2}>
+    <Stack alignItems="center" direction="row" gap={2} sx={sxStack}>
       <AntSwitch
         checked={checked}
+        id={id}
         inputProps={{ "aria-label": "ant design" }}
+        name={name}
         onChange={onChange}
       />
       {title ? <Typography>{title}</Typography> : null}

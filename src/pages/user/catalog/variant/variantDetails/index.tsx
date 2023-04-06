@@ -14,13 +14,13 @@ import {
   Tooltip,
 } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import { FormikHelpers, useFormik } from "formik";
+import { useFormik } from "formik";
 import useVariantAction from "hooks/catalog/variant/useVariantAction";
 import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -54,17 +54,22 @@ export interface IUploadFile {
   id: string;
   value: string;
 }
+
+type VariantListItem = IGetAllByOptionNameValueResponseData;
 function VariantDetails() {
+  const [editable, setEditable] = useState(false);
+  const [selectedVariantId, setSelectedVariantId] = useState<number>();
+  const [uploadedFiles, setUploadedFiles] = useState<IUploadFile[]>([]);
+  const [variantList, setVariantList] = useState<VariantListItem[]>([]);
+  const [search, setSearch] = useState("");
+
   const navigate = useNavigate();
   const { variantId } = useParams();
-  // const { state } = useLocation();
 
   const nameRef = useRef<any>(null);
   const getOptions = useSelector(getSelectedOptions);
   const newtheme = useSelector((state: any) => state.theme);
-  const [editable, setEditable] = useState(false);
-  const [selectedVariantId, setSelectedVariantId] = useState<number>();
-  const [uploadedFiles, setUploadedFiles] = useState<IUploadFile[]>([]);
+
   const { editVariantAction } = useVariantAction();
   const { data: variantItemResponse } = useGetByIdVariant({
     variantId: Number(selectedVariantId || variantId),
@@ -157,10 +162,13 @@ function VariantDetails() {
     value: getOptions.optionValue,
   });
 
-  async function onSubmit(
-    values: EditVariantForm,
-    formikHelpers: FormikHelpers<EditVariantForm>,
-  ) {
+  useEffect(() => {
+    if (variantOptions) {
+      setVariantList(variantOptions.data);
+    }
+  }, [variantOptions]);
+
+  async function onSubmit(values: EditVariantForm) {
     const data: EditVariantForm = {
       id: Number(variantItemResponse?.data.id),
       userId: Number(userId.id),
@@ -229,8 +237,10 @@ function VariantDetails() {
                           </InputAdornment>
                         ),
                       }}
-                      placeholder="Search..."
+                      placeholder="Search by name, SKU, barcode"
+                      value={search}
                       variant="outlined"
+                      onChange={(e) => setSearch(e.target.value)}
                     />
                   </Box>
                 </Box>
@@ -242,17 +252,16 @@ function VariantDetails() {
                 }}
               >
                 <>
-                  {variantOptions?.data.map(
-                    (item: IGetAllByOptionNameValueResponseData) => {
-                      return (
-                        <SidebarButton
-                          key={item.id}
-                          data={item}
-                          setSelectedVariantId={setSelectedVariantId}
-                        />
-                      );
-                    },
-                  )}
+                  {/* barcode, sku, variantName */}
+                  {variantList.map((item) => {
+                    return (
+                      <SidebarButton
+                        key={item.barcode}
+                        data={item}
+                        setSelectedVariantId={setSelectedVariantId}
+                      />
+                    );
+                  })}
                 </>
               </Box>
             </Box>

@@ -29,6 +29,7 @@ interface ISlider {
   handleChange?: () => void;
   isSubmitting?: boolean;
   buttonText?: string;
+  isDisabled?: boolean;
 }
 
 function Slider(props: ISlider) {
@@ -42,6 +43,7 @@ function Slider(props: ISlider) {
     handleClose,
     isSubmitting,
     buttonText,
+    isDisabled,
   } = props;
   const newtheme = useSelector((state: any) => state.theme);
 
@@ -154,6 +156,7 @@ function Slider(props: ISlider) {
             >
               <Button
                 autoFocus
+                disabled={isDisabled}
                 style={{ padding: "0.5rem 1rem", minWidth: 150 }}
                 sx={{
                   backgroundColor: palette.warning.dark,
