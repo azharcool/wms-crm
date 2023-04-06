@@ -17,6 +17,7 @@ import useDecodedData from "hooks/useDecodedData";
 import useArea from "hooks/warehouse/area/useArea";
 import useLocationAction from "hooks/warehouse/location/useLocation";
 import useZone from "hooks/warehouse/zone/useZone";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
@@ -129,6 +130,8 @@ function LocationsCreate() {
     },
   ];
 
+  const [areaLabel, setAreaLabel] = useState<string>("");
+
   return (
     <Container maxWidth={false}>
       <TableToolbar
@@ -136,6 +139,13 @@ function LocationsCreate() {
         rightActions={rightActionsData}
         title="New Location"
       />
+      <Typography>
+        {`${areaLabel}${values.aisle.length > 0 ? "-" : ""}${values.aisle}${
+          values.bay.length > 0 ? "-" : ""
+        }${values.bay}${values.level.length > 0 ? "-" : ""}${values.level}${
+          values.bin.length > 0 ? "-" : ""
+        }${values.bin}`}
+      </Typography>
       <Grid container marginTop="10px" padding={0} spacing={2}>
         <Grid item xs={8}>
           <Card
@@ -166,6 +176,9 @@ function LocationsCreate() {
                   value={values.area}
                   onSelectHandler={(e) => {
                     setFieldValue("area", e.target.value);
+                    const tempId = e.target.value;
+                    const tempArr = areas.filter((item) => item.id === tempId);
+                    setAreaLabel(tempArr[0].label);
                   }}
                 />
                 <TextField
