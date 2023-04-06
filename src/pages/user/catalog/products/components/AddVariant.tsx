@@ -4,11 +4,11 @@ import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import {
   Box,
   Button,
+  Card,
   Grid,
   Stack,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -18,13 +18,15 @@ import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import CustomModal from "components/layouts/popup-modals/CustomModal";
 import Slider from "components/layouts/popup-modals/Slider";
+import CustomTableCell from "components/table/CustomTableCell";
+import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { useFormik } from "formik";
 import useVariantAction from "hooks/catalog/variant/useVariantAction";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
-import { SyntheticEvent, useState } from "react";
+import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -80,18 +82,6 @@ const itemsLabel = [
   },
 ];
 
-interface IValue {
-  parentId: string;
-  id: string;
-  value: string;
-}
-interface IVariant {
-  id: string;
-  optionName: string;
-  values: IValue[];
-  value: string;
-}
-
 interface IWeightAndDimensions {
   weight: string;
   width: string;
@@ -116,20 +106,48 @@ interface IAddVariant {
   open: boolean;
   handleClose: (_?: "open") => void;
   productId: string;
+  productName: string;
 }
 
 interface IDimension {
-  weight: string;
-  width: string;
-  height: string;
-  length: string;
+  weight: number;
+  width: number;
+  height: number;
+  length: number;
 }
 
-type HandleEvent = {
-  e: SyntheticEvent;
+interface Value {
   id: string;
-  status: "number" | "";
-};
+  value: string;
+  name: string;
+  parentId?: string;
+}
+
+interface Option {
+  id: string;
+  name: string;
+  values: Value[];
+  value: string;
+}
+
+interface IVariant {
+  id: string;
+  image: string;
+  name: string;
+  options: Value[];
+  sku: string;
+  barcode: string;
+  supplyPrice: number;
+  MRP: number;
+  retailPrice: number;
+  weightAndDimensions: IDimension;
+  crossDocking: boolean;
+  enable: boolean;
+}
+
+type Variants = IVariant[];
+
+type HandleOnChange = React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
 interface IDimensionModal {
   open: boolean;
@@ -140,10 +158,10 @@ function DimensionModal(props: IDimensionModal) {
   const { open, handleClose, handleSubmit } = props;
   const formik = useFormik({
     initialValues: {
-      weight: "",
-      width: "",
-      height: "",
-      length: "",
+      weight: 0,
+      width: 0,
+      height: 0,
+      length: 0,
     },
     onSubmit: (values) => {
       handleSubmit(values);
@@ -157,25 +175,19 @@ function DimensionModal(props: IDimensionModal) {
             id="weight"
             label="Weight"
             name="weight"
+            size="small"
+            type="number"
             value={formik.values.weight}
-            onChange={(e) => {
-              formik.setFieldValue(
-                "weight",
-                e.target.value.replace(/[^0-9]/g, ""),
-              );
-            }}
+            onChange={formik.handleChange}
           />
           <TextField
             id="width"
             label="Width"
             name="width"
+            size="small"
+            type="number"
             value={formik.values.width}
-            onChange={(e) => {
-              formik.setFieldValue(
-                "width",
-                e.target.value.replace(/[^0-9]/g, ""),
-              );
-            }}
+            onChange={formik.handleChange}
           />
         </Stack>
         <Stack direction="row" gap={2}>
@@ -183,25 +195,19 @@ function DimensionModal(props: IDimensionModal) {
             id="height"
             label="Height"
             name="height"
+            size="small"
+            type="number"
             value={formik.values.height}
-            onChange={(e) => {
-              formik.setFieldValue(
-                "height",
-                e.target.value.replace(/[^0-9]/g, ""),
-              );
-            }}
+            onChange={formik.handleChange}
           />
           <TextField
             id="length"
             label="Length"
             name="length"
+            size="small"
+            type="number"
             value={formik.values.length}
-            onChange={(e) => {
-              formik.setFieldValue(
-                "length",
-                e.target.value.replace(/[^0-9]/g, ""),
-              );
-            }}
+            onChange={formik.handleChange}
           />
         </Stack>
         <Stack direction="row" gap={2}>
@@ -247,9 +253,11 @@ function DimensionModal(props: IDimensionModal) {
 }
 
 function AddVariant(props: IAddVariant) {
-  const { open, handleClose, productId } = props;
-  const [variants, setVariants] = useState<IVariant[]>([]);
-  const [items, setItems] = useState<IVariantItem[]>([]);
+  const { open, handleClose, productId, productName } = props;
+  const [variants, setVariants] = useState<Variants>([]);
+
+  const [options, setOptions] = useState<Option[]>([]);
+
   const [openModal, setOpenModal] = useState("");
 
   const userDecoded = useDecodedData();
@@ -257,8 +265,147 @@ function AddVariant(props: IAddVariant) {
 
   const { addVariantAction } = useVariantAction();
 
+  //* Options
+  const createNewOption = () => {
+    const newOption: Option = {
+      id: crypto.randomUUID(),
+      name: "",
+      values: [],
+      value: "",
+    };
+    setOptions((s) => [...s, newOption]);
+  };
+
+  const removeNewOption = (id: string) => {
+    const filterOptions = options.filter((i) => i.id !== id);
+    generateCombination(filterOptions);
+    setOptions(filterOptions);
+  };
+
+  const handleOptionNameChange = (e: HandleOnChange) => {
+    const { id, name, value } = e.target;
+    const newOptions = options.map((option) => {
+      if (option.id === id) {
+        return {
+          ...option,
+          [name]: value,
+        };
+      }
+      return option;
+    });
+    setOptions(newOptions);
+  };
+
+  const handleValueChange = (e: HandleOnChange) => {
+    const { id, value } = e.target;
+    const newOptions = options.map((option) => {
+      if (option.id === id) {
+        return {
+          ...option,
+          value,
+        };
+      }
+      return option;
+    });
+    setOptions(newOptions);
+  };
+
+  const handleKeyDown = (args: { keyCode: string; id: string }) => {
+    const { keyCode, id } = args;
+    if (keyCode === "Enter") {
+      const newOptions = options.map((option) => {
+        if (option.id === id) {
+          return {
+            ...option,
+            values: [
+              ...option.values,
+              {
+                id: crypto.randomUUID(),
+                value: option.value,
+                parentId: option.id,
+                name: option.name,
+              },
+            ],
+            value: "",
+          };
+        }
+        return option;
+      });
+      setOptions(newOptions);
+
+      generateCombination(newOptions);
+    }
+  };
+
+  const handleRemoveOptionValue = ({
+    id,
+    itemId,
+  }: {
+    id: string;
+    itemId: string;
+  }) => {
+    const newOptions = options.map((i) => {
+      if (i.id === id) {
+        return {
+          ...i,
+          value: "",
+          values: i.values.filter((i) => i.id !== itemId),
+        };
+      }
+      return i;
+    });
+
+    setOptions(newOptions);
+    generateCombination(newOptions);
+  };
+  //* End Options
+
+  //* Combination Generator
+  const generateCombination = (options: Option[]) => {
+    const optionValues = options.map((item) => item.values);
+    const newGenerateOptionsVariant = generateOptionVariants(optionValues);
+    const generateVariant: Variants = newGenerateOptionsVariant.map((i) => {
+      return {
+        id: crypto.randomUUID(),
+        image: "https://app.storfox.com/d9f5ac726db86ff29f7b.png",
+        name: `${productName} ${i.map((i) => i.value).join(",")}`,
+        options: i.map((item) => ({
+          name: item.name,
+          value: item.value,
+          id: item.id,
+        })),
+        sku: "",
+        barcode: "",
+        supplyPrice: 0,
+        MRP: 0,
+        retailPrice: 0,
+        weightAndDimensions: {
+          weight: 0,
+          width: 0,
+          height: 0,
+          length: 0,
+        },
+        crossDocking: false,
+        enable: true,
+      };
+    });
+
+    setVariants(generateVariant);
+  };
+
+  const generateOptionVariants = (arr: Value[][]): Value[][] => {
+    const result = arr.reduce<Value[][]>(
+      (acc, curr) => {
+        return acc.flatMap((x) => curr.map((y) => [...x, y]));
+      },
+      [[]],
+    );
+    return result;
+  };
+  //* End Combination Generator
+
   const handleModal = (status?: string) => {
-    navigate(-1);
+    // navigate(-1);
     if (status) {
       setOpenModal(status);
       return;
@@ -267,22 +414,21 @@ function AddVariant(props: IAddVariant) {
   };
 
   async function onSubmit() {
-    const options = variants.map((item) => {
+    const newOptions = options.map((item) => {
       return {
         userId: Number(userDecoded.id),
         productId: Number(productId),
-        optionName: item.optionName,
+        optionName: item.name,
         value: item.values.map((i) => i.value).toString(),
       };
     });
-
-    const variantt = items.map((i) => {
+    const variantt = variants.map((i) => {
       return {
         productId: Number(productId),
         userId: Number(userDecoded.id),
-        optionName: variants.map((i) => i.optionName).toString(),
-        value: "string",
-        variantName: i.variant,
+        optionName: options.map((i) => i.name).toString(),
+        value: i.name.split(" ").slice(1).toString(),
+        variantName: i.name,
         sku: i.sku,
         barcode: i.barcode,
         supplyPrice: Number(i.supplyPrice),
@@ -290,102 +436,114 @@ function AddVariant(props: IAddVariant) {
         retailPrice: Number(i.retailPrice),
         height: Number(i.weightAndDimensions.height),
         width: Number(i.weightAndDimensions.width),
-        length: Number(i.weightAndDimensions.lenght),
+        length: Number(i.weightAndDimensions.length),
         weight: Number(i.weightAndDimensions.weight),
         crossDocking: true,
         enable: true,
       };
     });
-
     const data: IAddVariantRequestRoot = {
       productId: Number(productId),
       variantt,
-      option: options,
+      option: newOptions,
     };
 
     const response = await addVariantAction(data);
-
     if (response) {
       navigate(`/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`);
     }
   }
 
-  const handleDeleteVariantById = (id: string) => {
-    const filterVariants = variants.filter((i) => i.id !== id);
-    setVariants(filterVariants);
-  };
-
   const handleSubmit = (values: IDimension) => {
-    const newItems = items.map((i) => {
+    const newVariants = variants.map((i) => {
       if (i.id === openModal) {
         return {
           ...i,
           weightAndDimensions: {
             height: values.height,
             width: values.width,
-            lenght: values.length,
+            length: values.length,
             weight: values.weight,
           },
         };
       }
       return i;
     });
-    setItems(newItems);
+    setVariants(newVariants);
     handleModal();
   };
 
-  const handleAddVariants = () => {
-    const newVariants = [
-      ...variants,
-      {
-        id: crypto.randomUUID(),
-        optionName: "",
-        value: "",
-        values: [],
-      },
-    ];
-
-    setVariants(newVariants);
+  const handleVariantItem = (event: HandleOnChange) => {
+    const target = event.target as HTMLInputElement;
+    changeVariants({
+      id: target.id,
+      name: target.name,
+      value: target.value,
+    });
   };
 
-  function generateVariants(
-    array: IValue[][],
-    idx = 0,
-    currentCombination: string[] = [],
-  ): string[][] {
-    if (idx === array.length) {
-      return [currentCombination];
-    }
-
-    const currentArr = array[idx];
-    const output: string[][] = [];
-
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < currentArr.length; i++) {
-      const newCombination = [...currentCombination, currentArr[i].value];
-      const newIdx = idx + 1;
-      const subCombination = generateVariants(array, newIdx, newCombination);
-      output.push(...subCombination);
-    }
-
-    return output;
-  }
-
-  const handleItem = ({ e, id, status }: HandleEvent) => {
-    const target = e.target as HTMLInputElement;
-    const value =
-      status === "number" ? target.value.replace(/[^0-9]/g, "") : target.value;
-    const newItems = items.map((item) => {
-      if (item.id === id) {
+  const changeVariants = (args: {
+    value: string | boolean | number;
+    name: string;
+    id: string;
+  }) => {
+    const target = args;
+    const newVariants = variants.map((item) => {
+      if (item.id === target.id) {
         return {
           ...item,
-          [target.name]: value,
+          [target.name]: target.value,
         };
       }
       return item;
     });
-    setItems(newItems);
+    setVariants(newVariants);
   };
+
+  const handleGenerateSkuOrBarcode = (subTitle: string) => {
+    if (subTitle.includes("Generate Sku")) {
+      const newRandom = generateRandomNumber(4);
+
+      const newItems = variants.map((i, idx) => {
+        if (i.sku) {
+          return i;
+        }
+
+        const position = String(idx + 1);
+        const newName: string[] = i.name.split(" ");
+        const generateSku: string = newName
+          .map((i) => i.slice(0, 2))
+          .join("")
+          .toUpperCase()
+          .concat("-", newRandom, "-")
+          .concat(position);
+
+        return {
+          ...i,
+          sku: generateSku,
+        };
+      });
+
+      setVariants(newItems);
+    } else if (subTitle.includes("Generate barcode")) {
+      const newItems = variants.map((i) => {
+        if (i.barcode) {
+          return i;
+        }
+
+        return {
+          ...i,
+          barcode: generateRandomNumber(13),
+        };
+      });
+
+      setVariants(newItems);
+    }
+  };
+
+  const isSku = variants.map((i) => i.sku).some((i) => i === "");
+  const isBarcode = variants.map((i) => i.barcode).some((i) => i === "");
+  const isDisabled = Boolean(variants.length === 0 || isSku || isBarcode);
 
   return (
     <Slider
@@ -394,6 +552,7 @@ function AddVariant(props: IAddVariant) {
         onSubmit();
       }}
       handleClose={handleClose}
+      isDisabled={isDisabled}
       open={open}
       title="Add Variants"
     >
@@ -401,185 +560,102 @@ function AddVariant(props: IAddVariant) {
         <Box
           sx={{
             marginTop: "20px",
-            // backgroundColor: "white",
             borderRadius: "5px",
           }}
         >
-          <CustomCardContent title="Variant Options">
-            <Button
-              sx={{
-                marginBottom: 2,
-                flex: 1,
-                backgroundColor: palette.warning.dark,
-                color: "#fff",
-                boxShadow: "none",
-                opacity: 0.5,
-                "&:hover": {
+          <Card
+            sx={{
+              boxShadow: "none",
+            }}
+          >
+            <CustomCardContent title="Variant Options">
+              <Button
+                sx={{
+                  marginBottom: 2,
+                  flex: 1,
                   backgroundColor: palette.warning.dark,
-                  opacity: 0.7,
+                  color: "#fff",
                   boxShadow: "none",
-                },
-              }}
-              variant="contained"
-              onClick={() => {
-                handleAddVariants();
-              }}
-            >
-              Add Another Option
-            </Button>
+                  opacity: 0.5,
+                  "&:hover": {
+                    backgroundColor: palette.warning.dark,
+                    opacity: 0.7,
+                    boxShadow: "none",
+                  },
+                }}
+                variant="contained"
+                onClick={() => createNewOption()}
+              >
+                Add Another Option
+              </Button>
 
-            {variants.map((item) => {
-              return (
-                <Grid key={item.id} container marginTop="5px" spacing={2}>
-                  <Grid item xs={3}>
-                    <TextField
-                      id={`optionName-${item.id}`}
-                      label="Option name"
-                      name="optionName"
-                      size="small"
-                      value={item.optionName}
-                      onChange={(e) => {
-                        const newVariant = variants.map((i) => {
-                          if (i.id === item.id) {
-                            return {
-                              ...i,
-                              optionName: e.target.value,
-                            };
-                          }
-                          return i;
-                        });
-                        setVariants(newVariant);
-                      }}
-                    />
-                  </Grid>
+              {options.map((option) => {
+                return (
+                  <Grid key={option.id} container marginTop="5px" spacing={2}>
+                    <Grid item xs={3}>
+                      <TextField
+                        id={option.id}
+                        label="Option name"
+                        name="name"
+                        size="small"
+                        value={option.name}
+                        onChange={handleOptionNameChange}
+                      />
+                    </Grid>
 
-                  <Grid item xs={9}>
-                    <TextFieldChip
-                      chips={item.values}
-                      handleDelete={(deleteItem) => {
-                        const newVariant = variants.map((i) => {
-                          if (i.id === item.id) {
-                            return {
-                              ...i,
-                              value: "",
-                              values: i.values.filter(
-                                (i) => i.id !== deleteItem.id,
-                              ),
-                            };
-                          }
-                          return i;
-                        });
-
-                        setVariants(newVariant);
-                      }}
-                      handleKeyDown={(keyCode: string) => {
-                        if (keyCode === "Enter") {
-                          const findVariant = variants.find(
-                            (i) => i.id === item.id,
-                          );
-                          if (findVariant) {
-                            if (findVariant.value) {
-                              const newVariant = variants.map((i) => {
-                                if (i.id === item.id) {
-                                  return {
-                                    ...i,
-                                    value: "",
-                                    values: [
-                                      ...i.values,
-                                      {
-                                        parentId: i.id,
-                                        id: crypto.randomUUID(),
-                                        value: i.value,
-                                      },
-                                    ],
-                                  };
-                                }
-                                return i;
-                              });
-
-                              const newOptions: IValue[][] = newVariant.map(
-                                (i) => i.values,
-                              );
-
-                              const generatedVariantItems: string[][] =
-                                generateVariants(newOptions);
-
-                              const newItems: IVariantItem[] =
-                                generatedVariantItems.map((i) => {
-                                  return {
-                                    id: crypto.randomUUID(),
-                                    image:
-                                      "https://app.storfox.com/d9f5ac726db86ff29f7b.png",
-                                    variant: `puma ${i.join(",")}`,
-                                    variantLabel: `puma ${i.join(" ")}`,
-                                    sku: "",
-                                    barcode: "",
-                                    supplyPrice: "",
-                                    MRP: "",
-                                    retailPrice: "",
-                                    weightAndDimensions: {
-                                      weight: "",
-                                      width: "",
-                                      height: "",
-                                      lenght: "",
-                                    },
-                                  };
-                                });
-
-                              setItems(newItems);
-
-                              setVariants(newVariant);
-                            }
-                          }
+                    <Grid item xs={9}>
+                      <TextFieldChip
+                        chips={option.values}
+                        handleDelete={(deleteItem) => {
+                          handleRemoveOptionValue({
+                            itemId: deleteItem.id,
+                            id: option.id,
+                          });
+                        }}
+                        handleKeyDown={(e) =>
+                          handleKeyDown({
+                            keyCode: e,
+                            id: option.id,
+                          })
                         }
-                      }}
-                      id={`chip-${item.id}`}
-                      label="Values"
-                      size="small"
-                      style={{
-                        width: "100%",
-                      }}
-                      value={item.value}
-                      onChange={(e) => {
-                        const newVariant = variants.map((i) => {
-                          if (i.id === item.id) {
-                            return {
-                              ...i,
-                              value: e.target.value,
-                            };
-                          }
-                          return i;
-                        });
-                        setVariants(newVariant);
-                      }}
-                    />
-                    <Button
-                      disableFocusRipple
-                      disableRipple
-                      sx={{
-                        ":hover": {
-                          background: "transparent",
-                        },
-                        color: "red",
-                      }}
-                      onClick={() => {
-                        handleDeleteVariantById(item.id);
-                      }}
-                    >
-                      <DeleteIcon />
-                    </Button>
+                        id={option.id}
+                        label="Values"
+                        name="value"
+                        size="small"
+                        sxForm={{
+                          width: "90%",
+                        }}
+                        value={option.value}
+                        onChange={handleValueChange}
+                      />
+                      <Button
+                        disableFocusRipple
+                        disableRipple
+                        sx={{
+                          ":hover": {
+                            background: "transparent",
+                          },
+                          color: "red",
+                        }}
+                        onClick={() => removeNewOption(option.id)}
+                      >
+                        <DeleteIcon />
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
-              );
-            })}
-          </CustomCardContent>
+                );
+              })}
+            </CustomCardContent>
+          </Card>
         </Box>
 
-        <Box
+        <Card
           sx={{
             marginTop: "20px",
-            // backgroundColor: "white",
+
             borderRadius: "5px",
+            boxShadow: "none",
+            minWidth: 1050,
           }}
         >
           <CustomCardContent title="Items">
@@ -588,6 +664,7 @@ function AddVariant(props: IAddVariant) {
                 border: "1px solid #ccc",
                 borderRadius: "5px",
               }}
+              // component={Paper}
             >
               <PerfectScrollbar>
                 <Table
@@ -596,19 +673,23 @@ function AddVariant(props: IAddVariant) {
                   }}
                 >
                   <TableHead>
-                    <TableRow>
+                    <TableRow sx={{}}>
                       {itemsLabel.map((item) => {
                         return (
-                          <TableCell
+                          <CustomTableCell
                             key={item.id}
-                            sx={{
-                              textAlign: "center",
-                              padding: "5px",
+                            isHeader
+                            // minWt={100}
+                            sxTableCell={{
+                              padding: "8px",
+                              minWidth: 150,
                             }}
                           >
                             <Typography
                               sx={{
                                 fontSize: "15px",
+                                whiteSpace: "nowrap",
+                                textAlign: "center",
                               }}
                             >
                               {item.value}
@@ -619,73 +700,37 @@ function AddVariant(props: IAddVariant) {
                                   textDecoration: "underline",
                                   fontSize: "12px",
                                   cursor: "pointer",
+                                  whiteSpace: "nowrap",
+                                  textAlign: "center",
                                 }}
-                                onClick={() => {
-                                  if (item.subTitle.includes("Generate Sku")) {
-                                    const newRandom = generateRandomNumber(4);
-
-                                    const newItems = items.map((i, idx) => {
-                                      const position = String(idx + 1);
-                                      const newName: string[] =
-                                        i.variantLabel.split(" ");
-                                      const generateSku: string = newName
-                                        .map((i) => i.slice(0, 2))
-                                        .join("")
-                                        .toUpperCase()
-                                        .concat("-", newRandom, "-")
-                                        .concat(position);
-
-                                      return {
-                                        ...i,
-                                        sku: generateSku,
-                                      };
-                                    });
-
-                                    setItems(newItems);
-                                  } else if (
-                                    item.subTitle.includes("Generate barcode")
-                                  ) {
-                                    const newItems = items.map((i) => {
-                                      return {
-                                        ...i,
-                                        barcode: generateRandomNumber(13),
-                                      };
-                                    });
-
-                                    setItems(newItems);
-                                  }
-                                }}
+                                onClick={() =>
+                                  handleGenerateSkuOrBarcode(item.subTitle)
+                                }
                               >
                                 {item.subTitle}
                               </Typography>
                             ) : null}
-                          </TableCell>
+                          </CustomTableCell>
                         );
                       })}
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {!items.length ? (
-                      <TableRow>
-                        <TableCell
-                          colSpan={10}
-                          sx={{
-                            textAlign: "center",
-                          }}
-                        >
-                          <Typography>
-                            No Variants Found! create variant Options
-                          </Typography>
-                        </TableCell>
-                      </TableRow>
+                    {!variants.length ? (
+                      <NoDataTableRow
+                        colSize={9}
+                        title="  No Variants Found! create variant Options"
+                      />
                     ) : null}
-                    {items.map((item) => {
+                    {variants.map((item) => {
                       return (
                         <TableRow key={item.id}>
-                          <TableCell
-                            sx={{
-                              width: 50,
-                              // background: "white",
+                          <CustomTableCell
+                            sxTableCell={{
+                              // minWidth: "50px",
+                              padding: "10px",
+                              display: "flex",
+                              justifyContent: "center",
                             }}
                           >
                             <Box
@@ -696,22 +741,33 @@ function AddVariant(props: IAddVariant) {
                             >
                               <img alt="new" src={item.image} width="100%" />
                             </Box>
-                          </TableCell>
+                          </CustomTableCell>
 
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
+                              minWidth: "150px",
                             }}
                           >
-                            <Stack direction="row" gap={1}>
+                            <Stack
+                              direction="row"
+                              justifyContent="space-around"
+                            >
                               <Box>
-                                <Typography>{item.variant}</Typography>
+                                <Typography
+                                  sx={{
+                                    whiteSpace: "nowrap",
+                                  }}
+                                >
+                                  {item.name}
+                                </Typography>
                                 <Typography
                                   sx={{
                                     fontSize: "12px",
+                                    whiteSpace: "nowrap",
                                   }}
                                 >
-                                  {item.variant.split(" ").slice(1).join()}
+                                  {item.name.split(" ").slice(1).join()}
                                 </Typography>
                               </Box>
                               <Box>
@@ -728,45 +784,45 @@ function AddVariant(props: IAddVariant) {
                                 </Typography>
                               </Box>
                             </Stack>
-                          </TableCell>
+                          </CustomTableCell>
 
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
+                              minWidth: "150px",
                             }}
                           >
                             <TextField
-                              id="sku"
+                              id={item.id}
                               label="sku"
                               name="sku"
                               size="small"
+                              type="text"
                               value={item.sku}
-                              onChange={(e) =>
-                                handleItem({ e, id: item.id, status: "" })
-                              }
+                              onChange={handleVariantItem}
                             />
-                          </TableCell>
+                          </CustomTableCell>
 
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
+                              minWidth: "180px",
                             }}
                           >
                             <TextField
-                              id="barcode"
+                              id={item.id}
                               label="barcode"
                               name="barcode"
                               size="small"
+                              type="text"
                               value={item.barcode}
-                              onChange={(e) =>
-                                handleItem({ e, id: item.id, status: "" })
-                              }
+                              onChange={handleVariantItem}
                             />
-                          </TableCell>
+                          </CustomTableCell>
 
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
                             }}
                           >
                             <TextField
@@ -779,18 +835,17 @@ function AddVariant(props: IAddVariant) {
                                   INR
                                 </Typography>
                               }
-                              id="supplyPrice"
+                              id={item.id}
                               name="supplyPrice"
                               size="small"
+                              type="number"
                               value={item.supplyPrice}
-                              onChange={(e) =>
-                                handleItem({ e, id: item.id, status: "number" })
-                              }
+                              onChange={handleVariantItem}
                             />
-                          </TableCell>
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          </CustomTableCell>
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
                             }}
                           >
                             <TextField
@@ -803,34 +858,34 @@ function AddVariant(props: IAddVariant) {
                                   INR
                                 </Typography>
                               }
-                              id="mrp"
-                              name="mrp"
+                              id={item.id}
+                              name="MRP"
                               size="small"
-                              onChange={(e) =>
-                                handleItem({ e, id: item.id, status: "number" })
-                              }
+                              type="number"
+                              value={item.MRP}
+                              onChange={handleVariantItem}
                             />
-                          </TableCell>
+                          </CustomTableCell>
 
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
                             }}
                           >
                             <TextField
                               icon={<Typography>INR</Typography>}
-                              id="retailPrice"
+                              id={item.id}
                               name="retailPrice"
                               size="small"
-                              onChange={(e) =>
-                                handleItem({ e, id: item.id, status: "number" })
-                              }
+                              type="number"
+                              value={item.retailPrice}
+                              onChange={handleVariantItem}
                             />
-                          </TableCell>
+                          </CustomTableCell>
 
-                          <TableCell
-                            sx={{
-                              minWidth: "200px",
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
                               textAlign: "center",
                             }}
                           >
@@ -841,16 +896,44 @@ function AddVariant(props: IAddVariant) {
                             >
                               <ModeEditIcon />
                             </Button>
-                          </TableCell>
-                          <TableCell>
-                            <Button>
-                              <ModeEditIcon />
-                            </Button>
-                          </TableCell>
+                          </CustomTableCell>
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
+                            }}
+                          >
+                            <CustomSwitch
+                              checked={item.crossDocking}
+                              id={item.id}
+                              name="crossDocking"
+                              onChange={(_, checked) => {
+                                changeVariants({
+                                  id: item.id,
+                                  name: "crossDocking",
+                                  value: checked,
+                                });
+                              }}
+                            />
+                          </CustomTableCell>
 
-                          <TableCell>
-                            <CustomSwitch checked={false} onChange={() => {}} />
-                          </TableCell>
+                          <CustomTableCell
+                            sxTableCell={{
+                              padding: "10px",
+                            }}
+                          >
+                            <CustomSwitch
+                              checked={item.enable}
+                              id={item.id}
+                              name="enable"
+                              onChange={(_, checked) => {
+                                changeVariants({
+                                  id: item.id,
+                                  name: "enable",
+                                  value: checked,
+                                });
+                              }}
+                            />
+                          </CustomTableCell>
                         </TableRow>
                       );
                     })}
@@ -859,7 +942,7 @@ function AddVariant(props: IAddVariant) {
               </PerfectScrollbar>
             </TableContainer>
           </CustomCardContent>
-        </Box>
+        </Card>
       </PerfectScrollbar>
       {openModal ? (
         <DimensionModal

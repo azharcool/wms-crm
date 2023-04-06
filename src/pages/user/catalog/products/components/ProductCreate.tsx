@@ -541,6 +541,7 @@ function ProductCreate() {
                   setFieldValue("brand", e.target.value);
                 }}
               />
+
               <TextFieldChip
                 chips={tags}
                 handleDelete={(item) => {
@@ -549,6 +550,9 @@ function ProductCreate() {
                 }}
                 handleKeyDown={(keyCode: string) => {
                   if (keyCode === "Enter") {
+                    if (tags.length === 2) {
+                      return;
+                    }
                     setTags((s) => [
                       ...s,
                       {
@@ -563,6 +567,9 @@ function ProductCreate() {
                 label="Tags"
                 name="tags"
                 size="small"
+                sxForm={{
+                  width: "100%",
+                }}
                 value={values.tags}
                 onChange={handleChange("tags")}
               />
@@ -666,6 +673,7 @@ function ProductCreate() {
           handleClose={handleVariant}
           open={openVariant}
           productId={productId}
+          productName={values.name}
         />
       ) : null}
     </ThemeProvider>
