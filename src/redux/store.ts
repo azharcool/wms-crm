@@ -15,6 +15,7 @@ import permissions from "./permissions/permissions";
 import supplier from "./purchase/supplierSlice";
 import roles from "./roles/roles";
 import screens from "./screen/screen";
+import adjustmentReason from "./settings/configuration/adjustmentReasonSlice";
 import sideDashboard from "./side-dashboard/sideDashboardSlice";
 import team from "./team/team";
 import user from "./user/auth";
@@ -47,6 +48,7 @@ const combinedReducer = combineReducers({
   sideDashboard,
   supplier,
   variants,
+  adjustmentReason,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

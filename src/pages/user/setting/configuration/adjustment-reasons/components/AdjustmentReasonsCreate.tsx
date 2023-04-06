@@ -1,4 +1,5 @@
 import { Box, Button, Card, Stack } from "@mui/material";
+import { operations } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
@@ -8,10 +9,9 @@ import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useNavigate } from "react-router-dom";
+
 import { IAddAdjustmentRequestRoot } from "types/setting/adjustment/addAdjustmentRequest";
 import { GetByIdAdjustmentData } from "types/setting/adjustment/getByIdAdjustmentResponse";
-import { operations } from "__mock__";
 import useAddAdjustmentForm, {
   AddAdjustmentForm,
   adjustmentInitialValues,
@@ -29,7 +29,7 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
   const { open, handleClose, view, adjustmentId } = props;
   const [editable, setEditable] = useState(false);
   const userDecoded = useDecodedData();
-  const navigate = useNavigate();
+
   const { addAdjustmentReasonAction, editAdjustmentReasonAction } =
     useAdjustmentReasonAction();
 
@@ -46,9 +46,7 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
     values,
     handleBlur,
     handleChange,
-    touched,
     setFieldValue,
-    errors,
     handleSubmit,
     resetForm,
     isSubmitting,
@@ -71,10 +69,10 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
       operations: values.operations,
     };
     if (editable) {
-      response = await addAdjustmentReasonAction(data);
-    } else {
       data.id = adjustmentId;
       response = await editAdjustmentReasonAction(data);
+    } else {
+      response = await addAdjustmentReasonAction(data);
     }
 
     if (response) {
@@ -82,7 +80,21 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
       handleClose();
     }
   }
+  const handleClick = () => {
+    if (editable) {
+      if (adjustmentItemResponse) {
+        const AdjustmentItem = adjustmentItemResponse.data;
+        setFieldValue("name", AdjustmentItem.name);
+        setFieldValue("operations", AdjustmentItem.operations);
+        setEditable(false);
+      }
+    } else {
+      setEditable(true);
+    }
+  };
+
   const isDisabled = Boolean(editable ? false : view);
+
   return (
     <>
       <Slider
@@ -120,11 +132,9 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
                     },
                   }}
                   variant="contained"
-                  onClick={() => {
-                    setEditable(true);
-                  }}
+                  onClick={handleClick}
                 >
-                  Edit
+                  {editable ? "Clear" : "Edit"}
                 </Button>
               </Box>
             ) : null}

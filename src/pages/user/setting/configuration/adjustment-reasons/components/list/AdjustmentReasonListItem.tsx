@@ -1,10 +1,13 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { Checkbox, TableCell, TableRow } from "@mui/material";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import useAdjustmentReasonAction from "hooks/setting/adjustment/useAdjustmentAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import { getSelectedAdjustmentReasonById } from "redux/settings/configuration/adjustmentReasonSelector";
+import { setAdjustmentReasonId } from "redux/settings/configuration/adjustmentReasonSlice";
+import { RootState, useAppDispatch } from "redux/store";
 import palette from "theme/palette";
 import { IGetAdjustmentResponseData } from "types/setting/adjustment/getAdjustmentResponse";
 import AdjustmentReasonsCreate from "../AdjustmentReasonsCreate";
@@ -18,6 +21,16 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
 
   const [manageOpen, setManageOpen] = useState(false);
   const newtheme = useSelector((state: any) => state.theme);
+  const getSelectedAdjustmentReasonByIdState = useSelector((state: RootState) =>
+    getSelectedAdjustmentReasonById(state, Number(item.id)),
+  );
+
+  const dispatch = useAppDispatch();
+
+  const select = () => {
+    dispatch(setAdjustmentReasonId(Number(item.id)));
+  };
+
   const alert = useAlert();
   const { deleteAdjustmentReasonAction } = useAdjustmentReasonAction();
 
@@ -28,7 +41,7 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
   const handleAdjustmentDelete = async () => {
     alert?.show({
       title: "Confirmation",
-      message: "Do you really want to delete Brand",
+      message: "Do you really want to delete Adjustment Reason",
       cancelText: "No",
       confirmText: "Yes",
       onConfirm: async () => {
@@ -53,7 +66,11 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
               : palette.background.default,
           }}
         >
-          <Checkbox color="primary" />
+          <Checkbox
+            checked={getSelectedAdjustmentReasonByIdState}
+            color="primary"
+            onChange={select}
+          />
         </TableCell>
 
         <TableCell
@@ -69,17 +86,9 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
           }}
           onClick={() => {
             handleManage();
-            // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
-          <Typography
-            sx={{
-              textDecoration: "underline",
-              whiteSpace: "nowrap", //! Dont remove
-            }}
-          >
-            {item.name}
-          </Typography>
+          {item.name}
         </TableCell>
         <TableCell
           sx={{
@@ -99,7 +108,7 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
               handleAdjustmentDelete();
             }}
           >
-            {/* Action bu */}
+            {/* Action button */}
           </TableActionButton>
         </TableCell>
       </TableRow>

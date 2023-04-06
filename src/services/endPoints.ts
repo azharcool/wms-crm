@@ -267,6 +267,7 @@ const API_URLS = {
   DELETE_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.delete}`,
   EDIT_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.edit}`,
   GET_BY_ID_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.getbyid}`,
+  BULK_DELETE_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.bulkDelete}`,
 
   // Adjustment
   ADD_ADJUSTMENT: `adjustment/${endPoints.add}`,
