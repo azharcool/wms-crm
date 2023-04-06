@@ -34,7 +34,7 @@ import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
 import useWarehouse from "hooks/warehouse/useWarehouse";
 import AppRoutes from "navigation/appRoutes";
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -145,9 +145,9 @@ function AdjustmentCreate() {
   const { addAdjustmentAction } = useAdjustmentAction();
   const { warehouse: warehouseMenuItem } = useWarehouse();
   const decodeData = useDecodedData();
-  const [unitCost, setUnitCost] = React.useState();
-  const [stockRowData, setStockRowData] =
-    React.useState<IGetAllVariantResponseData>();
+  const [totalValue, setTotalValue] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
   const formik = useAddAdjustmentForm({
     initialValues: deafultValues,
     onSubmit,
@@ -159,12 +159,13 @@ function AdjustmentCreate() {
     },
   } = AppRoutes;
   const navigate = useNavigate();
-  const [units, setUnits] = React.useState<IUnits>({
+  const [units, setUnits] = useState<IUnits>({
     unitNumber: 0,
     batchNumber: 0,
     serialNumber: "",
     conditionCode: "",
   });
+
   const {
     values,
     handleBlur,
@@ -187,38 +188,50 @@ function AdjustmentCreate() {
       qtyChange: Number(values.qtyChange),
       notes: values.notes,
       totalQuantity: Number(units.quantity),
-      totalValue: Number(units.quantity) * Number(values.stock[0].unitCost),
-      stock: [
-        {
-          userId: Number(decodeData.id),
-          productId: Number(stockRowData?.productId),
-          variantId: Number(stockRowData?.id),
-          sku: stockRowData?.sku,
-          barcode: stockRowData?.barcode,
-          conditionCodeId: Number(units.conditionCode),
-          locationId: 10,
-          unitNumber: String(units.unitNumber),
-          unitCost: Number(values.stock[0].unitCost),
-          barcodeStrategy: "",
-          batchNumber: "",
-          containerNumber: String(values.stock[0].containerNumber),
-          expiryDate: values.stock[0].expiryDate
-            ? new Date(values.stock[0].expiryDate).toJSON() || ""
-            : null,
-          optionName: "",
-          image: "",
-          quantity: Number(units.quantity),
-          serialNumber: "",
-          value: "",
-        },
-      ],
+      totalValue: Number(units.quantity) * Number(values.stock[0]?.unitCost),
+      stock: values.stock.map((item) => ({
+        userId: Number(decodeData.id),
+        productId: Number(item.productId),
+        variantId: Number(item?.id),
+        sku: item?.sku,
+        barcode: item?.barcode,
+        conditionCodeId: Number(item?.conditionCodeId),
+        locationId: Number(item?.locationId),
+        unitNumber: String(item?.unitNumber),
+        unitCost: Number(item?.unitCost),
+        barcodeStrategy: item?.barcodeStrategy || "",
+        batchNumber: item?.batchNumber,
+        containerNumber: String(item.containerNumber),
+        expiryDate: item.expiryDate
+          ? new Date(item?.expiryDate).toJSON() || ""
+          : null,
+        optionName: item.optionName,
+        image: item.image || "",
+        quantity: Number(item.quantity),
+        serialNumber: item.serialNumber || "",
+        value: item.value,
+      })),
     };
 
     await addAdjustmentAction(data);
     resetForm();
     navigate(`/${layout}/${listing}`);
   }
-  const totalValue = Number(units.quantity) * Number(values.stock[0].unitCost) || 0;
+  useEffect(() => {
+    const quantity = values.stock.reduce((accumulator, item) => {
+      return Number(accumulator) + (item.quantity);
+    }, 0);
+    setTotalQuantity(quantity);
+
+    const total = values.stock.reduce((accumulator, item) => {
+      return (
+        Number(accumulator) + Number(item.quantity) * Number(item.unitCost)
+      );
+    }, 0);
+    setTotalValue(total);
+  }, [values]);
+
+  
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -327,8 +340,6 @@ function AdjustmentCreate() {
               adjustmentReasonId={values.adjustmentReasonId}
               setUnits={setUnits}
               units={units}
-              setUnitCost={setUnitCost}
-              setStockRowData={setStockRowData}
             />
           </Grid>
 
@@ -352,7 +363,7 @@ function AdjustmentCreate() {
                     label="Total adjusted Quantity"
                     size="small"
                     name="totalQuantity"
-                    value={units.quantity || 0}
+                    value={Number(totalQuantity) || 0}
                     onChange={() =>
                       setFieldValue("totalQuantity", units.quantity)
                     }
@@ -367,7 +378,7 @@ function AdjustmentCreate() {
                       setFieldValue(
                         "totalValue",
                         Number(units.quantity) *
-                          Number(values.stock[0].unitCost) || 0,
+                          Number(values.stock[0]?.unitCost) || 0,
                       )
                     }
                   />
@@ -377,10 +388,7 @@ function AdjustmentCreate() {
           </Grid>
         </Grid>
       </Container>
-      {/* <AddSupplier
-        handleClose={() => setOpenSupplier(!openSupplier)}
-        open={openSupplier}
-      /> */}
+
     </ThemeProvider>
   );
 }
@@ -430,8 +438,6 @@ interface IStockTable {
   formik: FormikProps<any>;
   setUnits: Dispatch<SetStateAction<IUnits>>;
   units: IUnits;
-  setUnitCost: Dispatch<SetStateAction<any>>;
-  setStockRowData: Dispatch<SetStateAction<any>>;
 }
 
 function StocksTable(props: IStockTable) {
@@ -439,25 +445,21 @@ function StocksTable(props: IStockTable) {
     warehouseId,
     adjustmentReasonId,
     formik,
-    units,
     setUnits,
-    setUnitCost,
-    setStockRowData,
+
   } = props;
 
   const newtheme = useSelector((state: any) => state.theme);
-  const [openBrows, setOpenBrows] = React.useState(false);
+  const [openBrows, setOpenBrows] = useState(false);
 
-  const [selectedVariants, setSelectedVariants] = React.useState<
+  const [selectedVariants, setSelectedVariants] = useState<
     IGetAllVariantResponseData[]
   >([]);
-  const [variants, setVariants] = React.useState<IGetAllVariantResponseData[]>(
-    [],
-  );
+  const [variants, setVariants] = useState<IGetAllVariantResponseData[]>([]);
 
   const [selectedItem, setSelectedItem] =
-    React.useState<IGetAllVariantResponseData>();
-  const [unitSliderOpen, setUnitSliderOpen] = React.useState(false);
+    useState<IGetAllVariantResponseData>();
+  const [unitSliderOpen, setUnitSliderOpen] = useState(false);
   const handleClose = () => {
     setOpenBrows(!openBrows);
   };
@@ -467,6 +469,7 @@ function StocksTable(props: IStockTable) {
   const { location: locationMenuItem } = useLocation(warehouseId);
   const { setFieldValue, handleChange, values } = formik;
   const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
+
   return (
     <>
       <Card>
@@ -491,8 +494,6 @@ function StocksTable(props: IStockTable) {
               sx={{
                 width: "inherit",
                 borderRadius: "5px",
-                // display: "block",
-                // padding: "5px 25px",
                 backgroundColor: palette.warning.dark,
                 color: "#fff",
                 boxShadow: "none",
@@ -540,10 +541,8 @@ function StocksTable(props: IStockTable) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {variants.length !== 0 ? (
-                    variants.map((item: IGetAllVariantResponseData, index) => {
-                      setStockRowData(item);
-
+                  {values.stock?.length !== 0 ? (
+                    values.stock.map((item: any, index: number) => {
                       return (
                         <TableRow>
                           <TableCell
@@ -579,35 +578,32 @@ function StocksTable(props: IStockTable) {
                               <Typography
                                 style={{ fontSize: 12, color: "#000" }}
                               >
-                                {item.productName}
+                                {item?.productName}
                               </Typography>
                               <Typography
                                 style={{ fontSize: 11, color: "#333" }}
                               >
-                                {item.sku}
+                                {item?.sku}
                               </Typography>
                             </Stack>
                           </TableCell>
                           <TableCell
                             sx={{
                               minWidth: 170,
-                              // background: "white",
                             }}
                           >
-                            {item.barcode || "-"}
+                            {item?.barcode || "-"}
                           </TableCell>
                           <TableCell
                             sx={{
                               minWidth: 170,
-                              // background: "white",
                             }}
                           >
                             <TextField
                               id="unitCost"
                               label="Unit Cost"
-                              // type="number"
                               name={`stock[${index}].unitCost`}
-                              value={values.stock[0].unitCost}
+                              value={values?.stock[index]?.unitCost}
                               onChange={handleChange}
                               size="small"
                             />
@@ -615,24 +611,26 @@ function StocksTable(props: IStockTable) {
                           <TableCell
                             sx={{
                               minWidth: 170,
-                              // background: "white",
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            onClick={() => {
+                              setSelectedItem({ ...item, index });
+                              setUnitSliderOpen(!unitSliderOpen);
                             }}
                           >
-                            <Button
-                              onClick={() => {
-                                setSelectedItem(item);
-                                setUnitSliderOpen(!unitSliderOpen);
+                            <QrCode2Icon
+                              sx={{
+                                fontSize: 20,
+                                mr: 1,
+                                color: "#000",
                               }}
-                            >
-                              <QrCode2Icon
-                                sx={{
-                                  fontSize: 18,
-                                  mr: 1,
-                                }}
-                              />
-                              {units.quantity}
-                            </Button>
-                            {/* - unitNumber */}
+                            />
+                            <Typography sx={{ mb: 3 }}>
+                              {item?.quantity}
+                            </Typography>
                           </TableCell>
                           <TableCell
                             sx={{
@@ -645,7 +643,7 @@ function StocksTable(props: IStockTable) {
                               label="Container Number"
                               size="small"
                               name={`stock[${index}].containerNumber`}
-                              value={values.stock[0].containerNumber}
+                              value={values.stock[index]?.containerNumber}
                               onChange={handleChange}
                             />
                           </TableCell>
@@ -661,8 +659,7 @@ function StocksTable(props: IStockTable) {
                               label="Expiry Date"
                               size="small"
                               name={`stock[${index}].expiryDate`}
-                              value={values.stock[0].expiryDate}
-                              // value={values.stock[index].expiryDate}
+                              value={values.stock[index]?.expiryDate}
                               onChange={handleChange}
                             />
                           </TableCell>
@@ -703,49 +700,20 @@ function StocksTable(props: IStockTable) {
         handleClose={handleClose}
         open={openBrows}
         setVariants={setSelectedVariants}
+        formik={formik}
         variants={selectedVariants}
         handleAdd={() => {
           setVariants(selectedVariants);
           setOpenBrows(!openBrows);
-          // handleChange({
-          //   target: {
-          //     name: "stock",
-          //     value: [
-          //       ...values.stock,
-          //       {
-          //         id: 0,
-          //         userId: 0,
-          //         adjustmentId: 0,
-          //         productId: 0,
-          //         variantId: 0,
-          //         image: "",
-          //         sku: "",
-          //         barcode: "",
-          //         optionName: "",
-          //         value: "",
-          //         barcodeStrategy: "",
-          //         unitCost: 0,
-          //         unitNumber: "",
-          //         serialNumber: "",
-          //         batchNumber: "",
-          //         quantity: 0,
-          //         conditionCodeId: 0,
-          //         containerNumber: "",
-          //         expiryDate: "",
-          //         locationId: 0,
-          //       },
-          //     ],
-          //   },
-          // });
         }}
       />
       <UnitSlider
         handleClose={handleUnitClose}
         open={unitSliderOpen}
+        formik={formik}
         handleAdd={() => setUnitSliderOpen(!unitSliderOpen)}
         data={selectedItem}
         setUnits={setUnits}
-        formik={formik}
       />
     </>
   );
