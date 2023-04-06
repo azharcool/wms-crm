@@ -42,6 +42,7 @@ interface Props extends InputProps {
   onClickIcon?: React.MouseEventHandler<HTMLDivElement>;
   nameRef?: any;
   darkDisable?: boolean;
+  autoComplete?:string
 }
 
 function TextField(props: Props) {
@@ -75,6 +76,7 @@ function TextField(props: Props) {
     onClickIcon,
     darkDisable,
     onKeyDown,
+    autoComplete
   } = props;
 
   return (
@@ -99,6 +101,7 @@ function TextField(props: Props) {
           disabled={disabled}
           error={error}
           id={id}
+          autoComplete={autoComplete}
           InputProps={{
             // maxLength: length,
             startAdornment: iconEnd ? null : (

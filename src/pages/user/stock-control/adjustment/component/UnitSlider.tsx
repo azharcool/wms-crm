@@ -19,7 +19,6 @@ import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "redux/store";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import palette from "theme/palette";
@@ -34,7 +33,7 @@ interface IListItem {
   open: boolean;
   handleClose: () => void;
   handleAdd: () => void;
-  data?: IGetAllVariantResponseData;
+  data?: any;
   formik: FormikProps<any>;
   setUnits: Dispatch<SetStateAction<IUnits>>;
 }
@@ -78,7 +77,7 @@ function UnitSlider(props: IListItem) {
         },
       ]);
       setSearchValue("");
-
+      formik.setFieldValue(`stock[${data?.index}].unitNumber`, searchValue);
       setUnits((previousState: any) => {
         return { ...previousState, unitNumber: searchValue };
       });
@@ -116,7 +115,6 @@ function UnitSlider(props: IListItem) {
           </Stack>
         </Stack>
       }
-      //   isSubmitting={isSubmitting}
     >
       <PerfectScrollbar>
         <Stack
@@ -136,6 +134,7 @@ function UnitSlider(props: IListItem) {
                 <TextField
                   label="Search"
                   iconEnd
+                  autoComplete="off"
                   name="search"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
@@ -176,12 +175,13 @@ function UnitSlider(props: IListItem) {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {unitList.map((item) => {
+                          {unitList.map((item, index) => {
                             return (
                               <UnitItem
                                 item={item}
                                 formik={formik}
                                 setUnit={setUnits}
+                                index={index}
                               />
                             );
                           })}
@@ -204,10 +204,10 @@ interface IStockItem {
   item?: IMenuItem;
   formik: FormikProps<any>;
   setUnit: Dispatch<SetStateAction<IUnits>>;
+  index: number;
 }
 function UnitItem(props: IStockItem) {
-  const newtheme = useSelector((state: any) => state.theme);
-  const { item, formik, setUnit } = props;
+  const { item, formik, setUnit, index } = props;
   const { productCondition: productConditionMenuItem } = useProductCondition();
 
   return (
@@ -238,13 +238,17 @@ function UnitItem(props: IStockItem) {
           darkDisable
           disabled
           label="Serial number"
-          name="serialNumber"
+          name={`stock[${index}].serialNumber`}
+          value={formik.values.stock[index]?.serialNumber}
           size="small"
-          // value={values.totalQuantity}
           onChange={(e) => {
             setUnit((previousState: any) => {
               return { ...previousState, serialNumber: e.target.value };
             });
+            formik.setFieldValue(
+              `stock[${index}].serialNumber`,
+              e.target.value,
+            );
           }}
         />
       </TableCell>
@@ -259,15 +263,15 @@ function UnitItem(props: IStockItem) {
           darkDisable
           label="Batch number"
           type="number"
-          name="batchNumber"
+          name={`stock[${index}].batchNumber`}
+          value={formik.values.stock[index]?.batchNumber}
           size="small"
           onChange={(e) => {
             setUnit((previousState: any) => {
               return { ...previousState, batchNumber: e.target.value };
             });
+            formik.setFieldValue(`stock[${index}].batchNumber`, e.target.value);
           }}
-          // value={values.totalQuantity}
-          // onChange={handleChange("totalQuantity")}
         />
       </TableCell>
       <TableCell
@@ -281,7 +285,8 @@ function UnitItem(props: IStockItem) {
           type="number"
           darkDisable
           label="Quantity"
-          name="quantity"
+          name={`stock[${index}].quantity`}
+          value={formik.values.stock[index]?.quantity}
           size="small"
           onChange={(e) => {
             setUnit((previousState: IUnits) => {
@@ -290,16 +295,14 @@ function UnitItem(props: IStockItem) {
                 quantity: Number(e.target.value),
               };
             });
+            formik.setFieldValue(`stock[${index}].quantity`, e.target.value);
           }}
-          // value={values.totalQuantity}
-          // onChange={handleChange("totalQuantity")}
         />
       </TableCell>
       <TableCell
         sx={{
           minWidth: 60,
           width: 100,
-          // background: "white",
         }}
       >
         <Box mb={1}>
@@ -307,11 +310,12 @@ function UnitItem(props: IStockItem) {
             getOptionLabel={(item: any) => item.value}
             label="Condition code"
             options={productConditionMenuItem}
-            handleChange={(e: any, value: any) =>
+            handleChange={(e: any, value: any) => {
               setUnit((previousState: any) => {
                 return { ...previousState, conditionCode: value.id };
-              })
-            }
+              });
+              formik.setFieldValue(`stock[${index}].conditionCodeId`, value.id);
+            }}
           />
         </Box>
       </TableCell>

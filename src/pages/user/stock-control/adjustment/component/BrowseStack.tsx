@@ -23,10 +23,12 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import useVariant from "hooks/querys/catalog/variants/useVariant";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { Dispatch, SetStateAction } from "react";
+import { FormikProps } from "formik";
 
 interface IListItem {
   open: boolean;
   handleClose: () => void;
+  formik: FormikProps<any>;
   handleAdd: () => void;
   setVariants: Dispatch<SetStateAction<IGetAllVariantResponseData[]>>;
   variants: IGetAllVariantResponseData[];
@@ -47,12 +49,20 @@ const tableTitle = [
 ];
 
 function BrowseStock(props: IListItem) {
-  const { open, handleClose, handleAdd, setVariants, variants } = props;
+  const { open, handleClose, handleAdd, setVariants, variants, formik } = props;
   const { variant } = useVariant();
   return (
     <Slider
       buttonText="Add"
-      handleChange={handleAdd}
+      handleChange={() => {
+        formik.handleChange({
+          target: {
+            name: "stock",
+            value: variants,
+          },
+        });
+        handleAdd();
+      }}
       handleClose={handleClose}
       open={open}
       size="md"

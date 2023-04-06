@@ -14,7 +14,7 @@ function useLocation(warehouseId: number) {
       const response = LocationResponse.data.map((item) => {
         return {
           id: String(item.id),
-          value: item.locationAlias,
+          value: item.warehouseName,
         };
       });
       setLocation(response);
