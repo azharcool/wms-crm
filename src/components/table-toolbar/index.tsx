@@ -38,7 +38,7 @@ interface ITooblarButton {
   icon: React.ReactNode;
 }
 
-function ToolBarButton(props: ITooblarButton) {
+export function ToolBarButton(props: ITooblarButton) {
   const { handleClick, title, icon } = props;
 
   return (
@@ -234,8 +234,8 @@ function TableToolbar(props: ITableToolbar) {
           <Stack direction="row" gap={1}>
             {hasBulk ? (
               <BulkActionButton
-                onBulkHandle={onBulkHandle}
                 isDisabled={isBulkDisabled}
+                onBulkHandle={onBulkHandle}
               />
             ) : null}
             {rightActions?.map((item) => {

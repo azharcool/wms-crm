@@ -36,5 +36,17 @@ export interface IGetByIdProductData {
   status: number;
   createdOn: string;
   updatedOn: any;
-  picture: any;
+  picture: Picture[];
+}
+
+export interface Picture {
+  id: number;
+  userId: number;
+  userName: string;
+  productId: number;
+  atachment: string;
+  variantId: any;
+  bundleId: any;
+  categoryId: any;
+  createdOn: string;
 }

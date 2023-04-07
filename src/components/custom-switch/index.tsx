@@ -57,14 +57,16 @@ interface ICustomSwitch {
   name?: string;
   id?: string;
   sxStack?: SxProps<Theme>;
+  disabled?: boolean;
 }
 function CustomSwitch(props: ICustomSwitch) {
-  const { title, checked, onChange, id, name, sxStack } = props;
+  const { title, checked, onChange, id, name, sxStack, disabled } = props;
 
   return (
     <Stack alignItems="center" direction="row" gap={2} sx={sxStack}>
       <AntSwitch
         checked={checked}
+        disabled={disabled}
         id={id}
         inputProps={{ "aria-label": "ant design" }}
         name={name}
