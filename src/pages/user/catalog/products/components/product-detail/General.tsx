@@ -1,8 +1,12 @@
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
+import EditIcon from "@mui/icons-material/Edit";
+import SaveIcon from "@mui/icons-material/Save";
 import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import UploadButton from "components/image-upload-button/UploadButton";
+import { ToolBarButton } from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FILE_URL } from "config";
 import { FormikProps } from "formik";
@@ -26,8 +30,9 @@ interface IGeneral {
 }
 
 function General(props: IGeneral) {
-  const { isTrue, nameRef, editable, data, formik } = props;
+  const { nameRef, data, formik } = props;
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+  const [editable, setEditable] = useState(false);
 
   const { category } = useCategory();
   const { brand } = useBrand();
@@ -77,9 +82,76 @@ function General(props: IGeneral) {
     });
   };
 
+  const toggleEditable = () => {
+    setEditable((s) => !s);
+  };
+
   return (
     <Grid container padding={0} spacing={2}>
-      <Grid item xs={8}>
+      <Grid item display="flex" justifyContent="end" xs={12}>
+        {!editable ? (
+          <ToolBarButton
+            handleClick={() => {
+              toggleEditable();
+            }}
+            icon={
+              <EditIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            }
+            title="Edit"
+          />
+        ) : null}
+
+        {editable ? (
+          <>
+            <ToolBarButton
+              handleClick={() => {
+                toggleEditable();
+                setTimeout(() => {
+                  nameRef.current?.focus();
+                }, 500);
+              }}
+              icon={
+                <ArrowBackIosIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Cancel"
+            />
+            <ToolBarButton
+              handleClick={() => {
+                formik.handleSubmit();
+                toggleEditable();
+              }}
+              icon={
+                <SaveIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Save"
+            />
+          </>
+        ) : null}
+      </Grid>
+      <Grid
+        item
+        sx={{
+          "&.MuiGrid-item": {
+            paddingTop: "0px",
+          },
+        }}
+        xs={8}
+      >
         <Card
           sx={{
             flex: 1,
@@ -88,7 +160,7 @@ function General(props: IGeneral) {
           <CustomCardContent title="Details">
             <Stack direction="row" gap={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="productName"
                 label="Name"
                 name="productName"
@@ -100,7 +172,7 @@ function General(props: IGeneral) {
 
               <TextField
                 isSelect
-                disabled={isTrue}
+                disabled={!editable}
                 id="productType"
                 label="Type"
                 menuItems={detailMenu}
@@ -115,7 +187,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
                 multiline
-                disabled={isTrue}
+                disabled={!editable}
                 id="productDescription"
                 label="Description"
                 name="productDescription"
@@ -131,7 +203,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
-                disabled={isTrue}
+                disabled={!editable}
                 id="productCategory"
                 label="Category"
                 menuItems={category}
@@ -144,7 +216,7 @@ function General(props: IGeneral) {
               />
               <TextField
                 isSelect
-                disabled={isTrue}
+                disabled={!editable}
                 id="productBrand"
                 label="Brand"
                 menuItems={brand}
@@ -159,7 +231,7 @@ function General(props: IGeneral) {
 
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="productTags"
                 label="Tags"
                 name="productTags"
@@ -173,7 +245,7 @@ function General(props: IGeneral) {
           <CustomCardContent title="Supply">
             <TextField
               isSelect
-              disabled={isTrue}
+              disabled={!editable}
               menuItems={UoM}
               name="UoM"
               size="small"
@@ -185,7 +257,15 @@ function General(props: IGeneral) {
           </CustomCardContent>
         </Card>
       </Grid>
-      <Grid item xs={4}>
+      <Grid
+        item
+        sx={{
+          "&.MuiGrid-item": {
+            paddingTop: "0px",
+          },
+        }}
+        xs={4}
+      >
         <Card
           sx={{
             flex: 1,
@@ -198,15 +278,15 @@ function General(props: IGeneral) {
               gap={2}
               justifyContent="center"
             >
-              {data?.picture.map((images: any) => {
+              {data?.picture.map((images) => {
                 return (
                   <Box
-                    key={images}
+                    key={images.id}
                     sx={{
                       position: "relative",
                     }}
                   >
-                    {!isTrue && (
+                    {editable && (
                       <CancelIcon
                         sx={{
                           width: "17px",
@@ -238,14 +318,14 @@ function General(props: IGeneral) {
                   </Box>
                 );
               })}
-              {!isTrue && <UploadButton handleFile={handleFile} />}
+              {editable && <UploadButton handleFile={handleFile} />}
             </Stack>
           </CustomCardContent>
           <Divider />
           <CustomCardContent title="Dimensions">
             <Stack direction="row" gap={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="productHeight"
                 label="Height"
                 name="productHeight"
@@ -259,7 +339,7 @@ function General(props: IGeneral) {
                 }}
               />
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="productWidth"
                 label="Width"
                 name="productWidth"
@@ -276,7 +356,7 @@ function General(props: IGeneral) {
 
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="productLength"
                 label="Length"
                 name="productLength"
@@ -290,7 +370,7 @@ function General(props: IGeneral) {
                 }}
               />
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="productWeight"
                 label="Weight"
                 name="productWeight"
@@ -310,7 +390,7 @@ function General(props: IGeneral) {
               <TextField
                 isSelect
                 // disabled={isTrue}
-                disabled={isTrue}
+                disabled={!editable}
                 label="Strategy"
                 menuItems={strategys}
                 name="strategy"
@@ -323,7 +403,7 @@ function General(props: IGeneral) {
             </Stack>
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="minExpiryDays"
                 label="Min Expiry Days"
                 name="minExpiryDays"

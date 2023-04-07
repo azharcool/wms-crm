@@ -121,8 +121,8 @@ function LocationsDetails() {
       ...(!Number.isNaN(parseFloat(values.z)) && {
         z: parseFloat(values.z),
       }),
-      ...(!Number.isNaN(parseFloat(values.volumn)) && {
-        volume: parseFloat(values.volumn),
+      ...(!Number.isNaN(parseFloat(values.volume)) && {
+        volume: parseFloat(values.volume),
       }),
     };
 

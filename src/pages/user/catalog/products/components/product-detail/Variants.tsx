@@ -1,24 +1,11 @@
-import { Box, CardContent, Container } from "@mui/material";
 import VariantListing from "./VariantListing";
 
-interface IGeneral {
-  isTrue?: boolean;
-  nameRef?: any;
-  editable?: boolean;
+interface IVariants {
+  productName: string;
 }
-
-function Variants(props: IGeneral) {
-  const { isTrue, nameRef, editable } = props;
-
-  return (
-    <Container maxWidth={false}>
-      <CardContent sx={{ paddingTop: 0 }}>
-        <Box sx={{ mt: 3 }}>
-          <VariantListing isTrue={isTrue} />
-        </Box>
-      </CardContent>
-    </Container>
-  );
+function Variants(props: IVariants) {
+  const { productName } = props;
+  return <VariantListing productName={productName} />;
 }
 
 export default Variants;

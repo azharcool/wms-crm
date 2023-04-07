@@ -727,10 +727,7 @@ function AddVariant(props: IAddVariant) {
                         <TableRow key={item.id}>
                           <CustomTableCell
                             sxTableCell={{
-                              // minWidth: "50px",
                               padding: "10px",
-                              display: "flex",
-                              justifyContent: "center",
                             }}
                           >
                             <Box

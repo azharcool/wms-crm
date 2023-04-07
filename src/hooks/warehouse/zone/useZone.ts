@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 interface IMenuItem {
   id: string;
   value: string;
+  label: string;
 }
 function useZone() {
   const [zones, setZones] = useState<IMenuItem[]>([]);
@@ -15,6 +16,7 @@ function useZone() {
         return {
           id: String(item.id),
           value: item.name,
+          label: item.label,
         };
       });
       setZones(response);

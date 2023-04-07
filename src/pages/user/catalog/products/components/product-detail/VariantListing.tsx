@@ -1,17 +1,22 @@
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Paper,
+  Stack,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
+import { ToolBarButton } from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import useGetAllVariantByProductId from "hooks/querys/catalog/variants/useGetAllVariantByProductId";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useParams } from "react-router-dom";
+import AddVariant from "../AddVariant";
 import VariantItem from "./VariantItem";
 
 const tableTitle = [
@@ -54,13 +59,14 @@ const tableTitle = [
     title: "Enabled",
   },
 ];
-
-interface IVariantLIsting {
-  isTrue?: boolean;
+interface IVariantListing {
+  productName: string;
 }
 
-function VariantListing(props: IVariantLIsting) {
-  const { isTrue } = props;
+function VariantListing(props: IVariantListing) {
+  const { productName } = props;
+
+  const [openVariant, setOpenVariant] = useState(false);
   const [variantPagination, setVariantPagination] = useState({
     pageSize: 10,
     page: 1,
@@ -72,41 +78,85 @@ function VariantListing(props: IVariantLIsting) {
     productId: Number(productId),
   });
 
+  const handleVariant = () => {
+    setOpenVariant((s) => !s);
+  };
+
   return (
-    <TableContainer component={Paper}>
-      <PerfectScrollbar>
-        <Table
-          sx={{
-            height: "100%",
-          }}
-        >
-          <TableHead>
-            <TableRow>
-              {tableTitle.map((item) => {
-                const isImage = item.title.includes("Image");
-                return (
-                  <CustomTableCell
-                    key={item.id}
-                    isHeader
-                    customStyle={{
-                      minWidth: isImage ? 50 : 200,
-                    }}
-                  >
-                    {item.title}
-                  </CustomTableCell>
-                );
+    <>
+      {variantResponse?.data.length === 0 ? (
+        <Stack flexDirection="row" justifyContent="end">
+          <ToolBarButton
+            handleClick={() => {}}
+            icon={
+              <EditIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            }
+            title="Add variants"
+          />
+        </Stack>
+      ) : null}
+
+      <TableContainer component={Paper}>
+        <PerfectScrollbar>
+          <Table
+            sx={{
+              height: "100%",
+            }}
+          >
+            <TableHead>
+              <TableRow>
+                {tableTitle.map((item) => {
+                  const isImage = item.title.includes("Image");
+                  const isEnabled = item.title.includes("Enabled");
+
+                  return (
+                    <CustomTableCell
+                      key={item.id}
+                      isHeader
+                      sxTableCell={{
+                        minWidth: isImage
+                          ? "50px"
+                          : isEnabled
+                          ? "100px"
+                          : "150px",
+                        position: isImage || isEnabled ? "sticky" : "static",
+                        left: 0,
+                        right: 0,
+                      }}
+                    >
+                      {item.title}
+                    </CustomTableCell>
+                  );
+                })}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {variantResponse?.data.map((item) => {
+                return <VariantItem key={item.id} item={item} />;
               })}
-              {/* {!isTrue && <CustomTableCell isHeader>Actions</CustomTableCell>} */}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {variantResponse?.data.map((item) => {
-              return <VariantItem key={item.id} isTrue={isTrue} item={item} />;
-            })}
-          </TableBody>
-        </Table>
-      </PerfectScrollbar>
-    </TableContainer>
+
+              {!variantResponse?.data.length ? (
+                <NoDataTableRow colSize={4} title="No data found in Variant" />
+              ) : null}
+            </TableBody>
+          </Table>
+        </PerfectScrollbar>
+      </TableContainer>
+
+      {openVariant && productId && variantResponse?.data.length === 0 ? (
+        <AddVariant
+          handleClose={handleVariant}
+          open={openVariant}
+          productId={productId}
+          productName={productName}
+        />
+      ) : null}
+    </>
   );
 }
 
