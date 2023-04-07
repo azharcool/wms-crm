@@ -33,7 +33,7 @@ const validationSchema = Yup.object().shape({
   status: Yup.string().required(ErrorMessages.add_supplier.status),
 });
 
-const deafultValues: AddSupplierForm = {
+const defaultValues: AddSupplierForm = {
   companyName: "",
   shortName: "",
   email: "",
@@ -52,7 +52,7 @@ const deafultValues: AddSupplierForm = {
 
 function useAddSupplierForm({
   onSubmit,
-  initialValues = deafultValues,
+  initialValues = defaultValues,
 }: IuseAddSupplierForm) {
   return useFormik<AddSupplierForm>({
     initialValues,
