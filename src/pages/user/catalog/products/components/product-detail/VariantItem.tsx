@@ -1,156 +1,157 @@
-import { Box, TableCell, TableRow } from "@mui/material";
+import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import CustomSwitch from "components/custom-switch";
-import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import palette from "theme/palette";
 import { GetAllVariantByProductIdData } from "types/catalog/variants/getAllVariantByProductId";
 
-const conditionCode = [
-  {
-    id: crypto.randomUUID(),
-    value: "New",
-  },
-  {
-    id: crypto.randomUUID(),
-    value: "Old",
-  },
-];
-
 interface IVariantItem {
-  isTrue?: boolean;
   item: GetAllVariantByProductIdData;
 }
 function VariantItem(props: IVariantItem) {
-  const { isTrue, item } = props;
+  const { item } = props;
 
-  const navigate = useNavigate();
-  const goToDetails = (id: string) => {
-    navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`);
-  };
+  const newtheme = useSelector((state: any) => state.theme);
 
   return (
     <>
       <TableRow>
         <TableCell
           sx={{
-            width: 50,
-            // background: "white",
+            minWidth: 50,
+
+            padding: "10px",
+            position: "sticky",
+            left: 0,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
-          onClick={() => goToDetails("1")}
         >
           <Box
             sx={{
-              width: "40px",
+              minWidth: "40px",
               height: "40px",
             }}
           >
             <img
               alt="new"
               src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-              width="100%"
+              style={{
+                objectFit: "contain",
+                width: "100%",
+                height: "100%",
+              }}
             />
           </Box>
         </TableCell>
 
         <TableCell
           sx={{
-            width: 170,
-            // background: "white",
+            padding: "10px",
+            minWidth: 170,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          {item?.optionName}
+          <Typography
+            sx={{
+              whiteSpace: "nowrap",
+            }}
+          >
+            {item.variantName}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "12px",
+              whiteSpace: "nowrap",
+            }}
+          >
+            {item?.value}
+          </Typography>
         </TableCell>
 
         <TableCell
           sx={{
-            width: 120,
+            padding: "10px",
+            minWidth: 120,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          <TextField
-            disabled={isTrue}
-            id="SKU"
-            label="SKU"
-            name="SKU"
-            size="small"
-            value={item.sku}
-            onChange={() => {}}
-          />
+          <Typography>{item?.sku}</Typography>
         </TableCell>
 
         <TableCell
           sx={{
-            width: 120,
+            padding: "10px",
+            minWidth: 120,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          <TextField
-            disabled={isTrue}
-            id="barcoe"
-            label="Barcode"
-            name="barcode"
-            size="small"
-            value={item.barcode}
-            onChange={() => {}}
-          />
+          <Typography>{item?.barcode}</Typography>
         </TableCell>
         <TableCell
           sx={{
-            width: 80,
+            padding: "10px",
+            minWidth: 80,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          <TextField
-            disabled={isTrue}
-            id="supplyPrice"
-            label="INR"
-            name="supplyPrice"
-            size="small"
-            value={item.supplyPrice}
-            onChange={() => {}}
-          />
+          <Typography>{item?.supplyPrice?.toFixed(2)}</Typography>
         </TableCell>
         <TableCell
           sx={{
-            width: 80,
+            padding: "10px",
+            minWidth: 80,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          <TextField
-            disabled={isTrue}
-            id="MRP"
-            label="M.R.P"
-            name="MRP"
-            size="small"
-            value={item.mrp}
-            onChange={() => {}}
-          />
+          <Typography>{item?.mrp?.toFixed(2)}</Typography>
         </TableCell>
         <TableCell
           sx={{
-            width: 80,
+            padding: "10px",
+            minWidth: 80,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          <TextField
-            disabled={isTrue}
-            id="RetailPrice"
-            label="Retail Price"
-            name="RetailPrice"
-            size="small"
-            value={item.retailPrice}
-            onChange={() => {}}
-          />
+          <Typography>{item?.retailPrice?.toFixed(2)}</Typography>
         </TableCell>
         <TableCell
           sx={{
-            width: 80,
+            padding: "10px",
+            minWidth: 80,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
           <CustomSwitch checked={item.crossDocking} />
         </TableCell>
         <TableCell
           sx={{
-            width: 80,
+            padding: "10px",
+            minWidth: "100px",
+            position: "sticky",
+            right: 0,
+
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
           }}
         >
-          <CustomSwitch />
+          <CustomSwitch checked={item.enable} />
         </TableCell>
       </TableRow>
     </>

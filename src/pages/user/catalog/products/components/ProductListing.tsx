@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row/index";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -148,6 +149,13 @@ function ProductListing(props: IProductListing) {
                 {data?.data?.map((item) => {
                   return <ProductItem key={item.id} item={item} />;
                 })}
+
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Variant"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

@@ -1,6 +1,3 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
 import {
   Box,
   Container,
@@ -17,11 +14,11 @@ import { useFormik } from "formik";
 import useProductAction from "hooks/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
-import AddVariant from "../AddVariant";
 import General from "./General";
 import Variants from "./Variants";
 
@@ -57,7 +54,6 @@ function ProductDetail() {
   const userDecoded = useDecodedData();
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
-  const [openVariant, setOpenVariant] = useState(false);
 
   const navigate = useNavigate();
   const { productId } = useParams();
@@ -65,10 +61,6 @@ function ProductDetail() {
   const { data: productItemResponse } = useGetByIdProduct({
     productId: Number(productId),
   });
-
-  const handleVariant = () => {
-    setOpenVariant((s) => !s);
-  };
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -153,78 +145,19 @@ function ProductDetail() {
   });
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
-  const rightActionsData = [
-    {
-      id: crypto.randomUUID(),
-      title: "Cancel",
-      onClick: () => {
-        setEditable(false);
-      },
-      icon: (
-        <ArrowBackIosIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Edit",
-      onClick: () => {
-        if (value === 0) {
-          setEditable(true);
-          setTimeout(() => {
-            nameRef.current?.focus();
-          }, 500);
-        } else {
-          handleVariant();
-        }
-      },
-      icon: (
-        <EditIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Save",
-      onClick: () => {
-        formik.handleSubmit();
-      },
-      icon: (
-        <SaveIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-  ];
-
   const istrue = !editable;
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          breadcrumbs={[{ link: "PRODUCTS", to: "/puma" }]}
-          buttonText="Save"
-          handleClick={() => {
-            // navigate(AppRoutes.CATALOG.ProductDetail);
-          }}
-          navTitle="Puma"
-          rightActions={
-            editable
-              ? rightActionsData.filter((i) => i.title !== "Edit")
-              : rightActionsData.filter((i) => i.title === "Edit")
-          }
+          breadcrumbs={[
+            {
+              link: "PRODUCTS",
+              to: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
+            },
+          ]}
+          navTitle={productItemResponse?.data.name || ""}
           title={productItemResponse?.data.name || ""}
         />
 
@@ -258,17 +191,9 @@ function ProductDetail() {
           />
         </TabPanel>
         <TabPanel index={1} value={value}>
-          <Variants isTrue={istrue} />
+          <Variants productName={productItemResponse?.data.name || ""} />
         </TabPanel>
       </Container>
-      {openVariant && productId ? (
-        <AddVariant
-          handleClose={handleVariant}
-          open={openVariant}
-          productId={productId}
-          productName={productItemResponse?.data.name || ""}
-        />
-      ) : null}
     </ThemeProvider>
   );
 }
