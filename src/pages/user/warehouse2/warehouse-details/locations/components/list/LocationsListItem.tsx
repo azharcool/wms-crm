@@ -58,7 +58,7 @@ function LocationsListItem(props: ILocationListItem) {
             whiteSpace: "nowrap", //! Dont remove
           }}
         >
-          {item.areaName}
+          {item.locationLabel}
         </Typography>
       </TableCell>
       <TableCell

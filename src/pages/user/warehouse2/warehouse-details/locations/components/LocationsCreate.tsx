@@ -17,7 +17,7 @@ import useDecodedData from "hooks/useDecodedData";
 import useArea from "hooks/warehouse/area/useArea";
 import useLocationAction from "hooks/warehouse/location/useLocation";
 import useZone from "hooks/warehouse/zone/useZone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
@@ -51,6 +51,7 @@ function LocationsCreate() {
     const data: AddLocationRequestRoot = {
       userId: Number(userDecoded.id),
       warehouseId: getSelectedWarehouse.id,
+      locationLabel: values.locationLabel,
       areaId: parseFloat(values.area),
       zoneId: parseFloat(values.zone),
       aisle: values.aisle,
@@ -132,6 +133,24 @@ function LocationsCreate() {
 
   const [areaLabel, setAreaLabel] = useState<string>("");
 
+  useEffect(() => {
+    setFieldValue(
+      "locationLabel",
+      `${areaLabel}${values.aisle.length > 0 ? "-" : ""}${values.aisle}${
+        values.bay.length > 0 ? "-" : ""
+      }${values.bay}${values.level.length > 0 ? "-" : ""}${values.level}${
+        values.bin.length > 0 ? "-" : ""
+      }${values.bin}`,
+    );
+  }, [
+    areaLabel,
+    setFieldValue,
+    values.aisle,
+    values.bay,
+    values.bin,
+    values.level,
+  ]);
+
   return (
     <Container maxWidth={false}>
       <TableToolbar
@@ -139,13 +158,7 @@ function LocationsCreate() {
         rightActions={rightActionsData}
         title="New Location"
       />
-      <Typography>
-        {`${areaLabel}${values.aisle.length > 0 ? "-" : ""}${values.aisle}${
-          values.bay.length > 0 ? "-" : ""
-        }${values.bay}${values.level.length > 0 ? "-" : ""}${values.level}${
-          values.bin.length > 0 ? "-" : ""
-        }${values.bin}`}
-      </Typography>
+      <Typography>{values.locationLabel}</Typography>
       <Grid container marginTop="10px" padding={0} spacing={2}>
         <Grid item xs={8}>
           <Card

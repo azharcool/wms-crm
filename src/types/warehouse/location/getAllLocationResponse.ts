@@ -13,6 +13,7 @@ export interface GetAllLocationResponseData {
   areaName: string;
   zoneId: number;
   zoneName: string;
+  locationLabel: string;
   aisle: string;
   rack: string;
   shelf: string;
