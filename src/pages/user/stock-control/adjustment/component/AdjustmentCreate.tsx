@@ -22,33 +22,33 @@ import {
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
-import NoDataTableRow from "components/table/no-data-table-row";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
+import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
-import { FieldArray, FormikProps } from "formik";
-import useAdjustmentReason from "hooks/setting/adjustment-reason/useAdjustmentReason";
+import { FormikProps } from "formik";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
+import useAdjustmentReason from "hooks/setting/adjustment-reason/useAdjustmentReason";
 import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
 import useWarehouse from "hooks/warehouse/useWarehouse";
 import AppRoutes from "navigation/appRoutes";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
 import useAddAdjustmentForm, {
   AddAdjustmentForm,
   deafultValues,
-  IStock,
 } from "../hooks/useAddAdjustmentForm";
-import BrowsStock from "./BrowseStack";
-import UnitSlider from "./UnitSlider";
+import AdjustmentBarcode from "./slider/AdjustmentBarcode";
+import BrowsStock from "./slider/BrowseStack";
+import UnitSlider from "./slider/UnitSlider";
 
 export interface IUnits {
   unitNumber?: string | number;
@@ -60,6 +60,7 @@ export interface IUnits {
 
 function AdjustmentCreate() {
   const newtheme = useSelector((state: any) => state.theme);
+  const [barcodeSliderOpen, setBarcodeSliderOpen] = useState(false);
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -114,7 +115,7 @@ function AdjustmentCreate() {
       id: crypto.randomUUID(),
       title: "Barcode",
       onClick: () => {
-        // setEditable(false);
+        setBarcodeSliderOpen(!barcodeSliderOpen);
       },
       icon: (
         <PrintIcon
@@ -219,7 +220,7 @@ function AdjustmentCreate() {
   }
   useEffect(() => {
     const quantity = values.stock.reduce((accumulator, item) => {
-      return Number(accumulator) + (item.quantity);
+      return Number(accumulator) + item.quantity;
     }, 0);
     setTotalQuantity(quantity);
 
@@ -230,8 +231,6 @@ function AdjustmentCreate() {
     }, 0);
     setTotalValue(total);
   }, [values]);
-
-  
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -388,7 +387,10 @@ function AdjustmentCreate() {
           </Grid>
         </Grid>
       </Container>
-
+      <AdjustmentBarcode
+        handleClose={() => setBarcodeSliderOpen(false)}
+        open={barcodeSliderOpen}
+      />
     </ThemeProvider>
   );
 }
@@ -441,13 +443,7 @@ interface IStockTable {
 }
 
 function StocksTable(props: IStockTable) {
-  const {
-    warehouseId,
-    adjustmentReasonId,
-    formik,
-    setUnits,
-
-  } = props;
+  const { warehouseId, adjustmentReasonId, formik, setUnits } = props;
 
   const newtheme = useSelector((state: any) => state.theme);
   const [openBrows, setOpenBrows] = useState(false);
