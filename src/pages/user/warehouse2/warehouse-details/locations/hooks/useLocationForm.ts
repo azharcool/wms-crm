@@ -12,7 +12,7 @@ export interface LocationInitialValues {
   width: string;
   length: string;
   maxLoad: string;
-  volumn: string;
+  volume: string;
   locationAlias: string;
   locationType: string;
   operation: string;
@@ -34,7 +34,7 @@ export const locationInitialValues: LocationInitialValues = {
   width: "",
   length: "",
   maxLoad: "",
-  volumn: "",
+  volume: "",
   locationAlias: "",
   locationType: "",
   operation: "",

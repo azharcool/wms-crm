@@ -27,6 +27,8 @@ function General(props: IGeneral) {
   const { zones } = useZone();
 
   const { values, setFieldValue, errors, touched } = formik;
+  const [areaLabel, setAreaLabel] = useState<string>("");
+  const [zoneLabel, setZoneLabel] = useState<string>("");
 
   useEffect(() => {
     if (data) {
@@ -41,28 +43,27 @@ function General(props: IGeneral) {
       setFieldValue("height", data?.height || "");
       setFieldValue("width", data?.width || "");
       setFieldValue("length", data?.length || "");
-      setFieldValue("maxload", data?.maxLoad || "");
+      setFieldValue("maxLoad", data?.maxLoad || "");
       setFieldValue("volume", data?.volume || "");
-      setFieldValue("locationType", data?.locationAlias || "");
-      setFieldValue("locationAlias", data?.locationType || "");
+      setFieldValue("locationType", data?.locationType || "");
+      setFieldValue("locationAlias", data?.locationAlias || "");
       setFieldValue("operations", data?.operations || "");
       setFieldValue("status", data?.status || "");
       setFieldValue("x", data?.x || "");
       setFieldValue("y", data?.y || "");
       setFieldValue("z", data?.z || "");
+      // setAreaLabel(values.locationLabel)
     }
   }, [data, editable]);
-
-  const [areaLabel, setAreaLabel] = useState<string>("");
 
   useEffect(() => {
     setFieldValue(
       "locationLabel",
-      `${areaLabel}${values.aisle.length > 0 ? "-" : ""}${values.aisle}${
-        values.bay.length > 0 ? "-" : ""
-      }${values.bay}${values.level.length > 0 ? "-" : ""}${values.level}${
-        values.bin.length > 0 ? "-" : ""
-      }${values.bin}`,
+      `${areaLabel}${zoneLabel.length > 0 ? "-" : ""}${zoneLabel}${
+        values.aisle.length > 0 ? "-" : ""
+      }${values.aisle}${values.bay.length > 0 ? "-" : ""}${values.bay}${
+        values.level.length > 0 ? "-" : ""
+      }${values.level}${values.bin.length > 0 ? "-" : ""}${values.bin}`,
     );
   }, [
     areaLabel,
@@ -71,7 +72,19 @@ function General(props: IGeneral) {
     values.bay,
     values.bin,
     values.level,
+    zoneLabel,
   ]);
+
+  useEffect(() => {
+    let length: number;
+    let breadth: number;
+    let height: number;
+    length = Number(values.length);
+    breadth = Number(values.width);
+    height = Number(values.height);
+
+    setFieldValue("volume", length * breadth * height);
+  }, [setFieldValue, values.height, values.length, values.width]);
 
   return (
     <>
@@ -107,12 +120,6 @@ function General(props: IGeneral) {
                   name="area"
                   size="small"
                   value={values.area}
-                  onSelectHandler={(e) => {
-                    setFieldValue("area", e.target.value);
-                    const tempId = e.target.value;
-                    const tempArr = areas.filter((item) => item.id === tempId);
-                    setAreaLabel(tempArr[0].label);
-                  }}
                 />
                 <TextField
                   disabled
@@ -238,10 +245,10 @@ function General(props: IGeneral) {
                   label="Volume"
                   name="volume"
                   size="small"
-                  value={values.volumn}
+                  value={values.volume}
                   onChange={(e) => {
                     setFieldValue(
-                      "volumn",
+                      "volume",
                       e.target.value.replace(/[^0-9]/g, ""),
                     );
                   }}
