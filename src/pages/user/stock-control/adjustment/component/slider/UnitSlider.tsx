@@ -1,33 +1,29 @@
-import { Stack } from "@mui/system";
 import {
-  Card,
   Box,
-  Checkbox,
+  Card,
   Paper,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
   Typography,
 } from "@mui/material";
+import { Stack } from "@mui/system";
 
 import SearchIcon from "@mui/icons-material/Search";
-import CustomTableCell from "components/table/CustomTableCell";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
+import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import palette from "theme/palette";
-import "react-perfect-scrollbar/dist/css/styles.css";
 import AutoComplete from "components/textfield/AutoComplete";
-import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
-import useProductCondition from "hooks/setting/product-condition/useProductCondition";
 import { FormikProps } from "formik";
-import { IUnits } from "./AdjustmentCreate";
+import useProductCondition from "hooks/setting/product-condition/useProductCondition";
+import { Dispatch, SetStateAction, useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { IUnits } from "../AdjustmentCreate";
 
 interface IListItem {
   open: boolean;
