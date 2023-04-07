@@ -1,6 +1,7 @@
 export interface AddLocationRequestRoot {
   id?: number;
   userId: number;
+  locationLabel?: string;
   warehouseId: number;
   areaId: number;
   zoneId: number;
