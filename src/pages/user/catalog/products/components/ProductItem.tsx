@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
+import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
 import useProductAction from "hooks/catalog/product/useProductAction";
@@ -231,11 +232,11 @@ function ProductItem(props: IProductItem) {
       <TableCell
         sx={{
           minWidth: 150,
+          whiteSpace: "nowrap",
           // background: "white",
         }}
       >
-        {/* last updated  */}
-        {item.updatedOn || "-"}
+        {dateTimeFormat(item.updatedOn)}
       </TableCell>
 
       <TableCell
