@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
@@ -13,6 +12,7 @@ import { FormikHelpers } from "formik";
 import useDecodedData from "hooks/useDecodedData";
 import useWarehouseAction from "hooks/warehouse/useWarehouseAction";
 import AppRoutes from "navigation/appRoutes";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
@@ -295,13 +295,13 @@ function WarehouseCreate() {
                 <Stack direction="row" gap={2}>
                   <Grid xs={12}>
                     <AutoComplete
+                      getOptionLabel={(option: any) => option?.name}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("country", value?.name)
                       }
                       helperText={
                         (touched.country && errors && errors.country) || ""
                       }
-                      getOptionLabel={(option: any) => option?.name}
                       label="Country"
                       options={Countries || []}
                     />
@@ -383,6 +383,7 @@ function WarehouseCreate() {
                     label="Phone Number"
                     name="primaryPhoneNumber"
                     size="small"
+                    type="number"
                     value={values.primaryPhoneNumber}
                     onChange={handleChange("primaryPhoneNumber")}
                   />
@@ -401,9 +402,9 @@ function WarehouseCreate() {
                   isSelect
                   label="Status"
                   menuItems={warehouseStatus}
-                  value={values.status || warehouseStatus[0].id}
                   name="status"
                   size="small"
+                  value={values.status || warehouseStatus[0].id}
                   onSelectHandler={(e) => {
                     setFieldValue("status", e.target.value);
                   }}

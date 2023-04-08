@@ -1,29 +1,29 @@
-import { Stack } from "@mui/system";
+import SearchIcon from "@mui/icons-material/Search";
 import {
-  Card,
   Box,
+  Card,
   Checkbox,
   Paper,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
 } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
-import CustomTableCell from "components/table/CustomTableCell";
+import { Stack } from "@mui/system";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
+import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import palette from "theme/palette";
-import "react-perfect-scrollbar/dist/css/styles.css";
-import useVariant from "hooks/querys/catalog/variants/useVariant";
-import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
-import { Dispatch, SetStateAction } from "react";
 import { FormikProps } from "formik";
+import useVariant from "hooks/querys/catalog/variants/useVariant";
+import { Dispatch, SetStateAction, useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { useSelector } from "react-redux";
+import palette from "theme/palette";
+import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 
 interface IListItem {
   open: boolean;
@@ -50,7 +50,11 @@ const tableTitle = [
 
 function BrowseStock(props: IListItem) {
   const { open, handleClose, handleAdd, setVariants, variants, formik } = props;
+
+  const [search, setSearch] = useState("");
+
   const { variant } = useVariant();
+
   return (
     <Slider
       buttonText="Add"
@@ -82,18 +86,22 @@ function BrowseStock(props: IListItem) {
               flex: 1,
             }}
           >
-            <CustomCardContent title="">
+            <CustomCardContent title="Search Variants">
               <Stack direction="row" gap={2}>
                 <TextField
-                  label="Search"
                   iconEnd
-                  name="search"
                   icon={<SearchIcon />}
+                  label="Search"
+                  name="search"
                   size="small"
+                  value={search}
+                  onChange={(e) => {
+                    setSearch(e.target.value.toLowerCase());
+                  }}
                 />
               </Stack>
             </CustomCardContent>
-            <CustomCardContent title="">
+            <CustomCardContent title="Variant List">
               <PerfectScrollbar>
                 <Box sx={{ minWidth: "100%", minHeight: 500 }}>
                   <TableContainer component={Paper}>
@@ -134,15 +142,19 @@ function BrowseStock(props: IListItem) {
                           </TableRow>
                         </TableHead>
                         <TableBody>
-                          {variant.map((item: IGetAllVariantResponseData) => {
-                            return (
-                              <StockItem
-                                item={item}
-                                setVariants={setVariants}
-                                variants={variants}
-                              />
-                            );
-                          })}
+                          {variant
+                            .filter((i) =>
+                              i.variantName?.toLowerCase().includes(search),
+                            )
+                            .map((item: IGetAllVariantResponseData) => {
+                              return (
+                                <StockItem
+                                  item={item}
+                                  setVariants={setVariants}
+                                  variants={variants}
+                                />
+                              );
+                            })}
                         </TableBody>
                       </Table>
                     </PerfectScrollbar>
