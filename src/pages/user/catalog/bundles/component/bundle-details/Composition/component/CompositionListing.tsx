@@ -115,7 +115,7 @@ function CompositionListing(props: IComposition) {
   const variantOptions =
     variantData?.map((item) => ({
       id: String(item.id),
-      label: item.productName || item.variantName || "",
+      label: item.variantName || "",
     })) || [];
 
   return (
