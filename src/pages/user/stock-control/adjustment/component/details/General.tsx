@@ -1,38 +1,37 @@
-import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Box,
   Card,
+  Container,
   DialogContent,
   DialogTitle,
   Divider,
   Grid,
-  Stack,
+  PaletteMode,
   Paper,
+  Stack,
   Table,
-  TableCell,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
-  Container,
   TableRow,
   Typography,
-  PaletteMode,
 } from "@mui/material";
+import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
+import DashedCard from "components/card/DashedCard";
+import dateTimeFormat from "components/dateTime-format";
 import CustomTableCell from "components/table/CustomTableCell";
+import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
+import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import palette from "theme/palette";
-import { grey, purple } from "@mui/material/colors";
+import { useSelector } from "react-redux";
 import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
-import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
-import DashedCard from "components/card/DashedCard";
+import palette from "theme/palette";
 import { StockDetail } from "types/stock/adjustment/getAllAdjustmentResponse";
-import DateTimeFormat from "components/dateTime-format";
-import NoDataTableRow from "components/table/no-data-table-row";
 
 interface IMenuItem {
   id: string;
@@ -238,7 +237,11 @@ function General(props: IGeneral) {
                       darkDisable
                       name="unit"
                       label="Total adjusted value"
-                      value={adjustmentDetails?.data.totalValue ? `INR ${adjustmentDetails?.data.totalValue}.00` :"-"}
+                      value={
+                        adjustmentDetails?.data.totalValue
+                          ? `INR ${adjustmentDetails?.data.totalValue}.00`
+                          : "-"
+                      }
                       size="small"
                     />
                   </Stack>
@@ -390,7 +393,7 @@ function StockTable(props: IStockTable) {
                             // background: "white",
                           }}
                         >
-                          {DateTimeFormat(item.expiryDate) || "-"}
+                          {dateTimeFormat(item.expiryDate) || "-"}
                         </TableCell>
                         <TableCell
                           sx={{
