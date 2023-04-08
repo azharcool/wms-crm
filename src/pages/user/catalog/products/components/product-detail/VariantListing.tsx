@@ -87,7 +87,9 @@ function VariantListing(props: IVariantListing) {
       {variantResponse?.data.length === 0 ? (
         <Stack flexDirection="row" justifyContent="end">
           <ToolBarButton
-            handleClick={() => {}}
+            handleClick={() => {
+              handleVariant();
+            }}
             icon={
               <EditIcon
                 sx={{
