@@ -132,90 +132,71 @@ function Composition() {
         total: Number(item.total),
       })),
     };
-    if (getAllBundleCompositionResponse?.data.length === 0) {
-      response = await addBundleCompositionAction(data);
-    } else {
-      response = await editBundleCompositionAction(data);
-    }
 
-    if (response) {
-      setIsManage(false);
+    if (data.bundleComposition?.length) {
+      if (getAllBundleCompositionResponse?.data.length === 0) {
+        response = await addBundleCompositionAction(data);
+      } else {
+        response = await editBundleCompositionAction(data);
+      }
+
+      if (response) {
+        setIsManage(false);
+      }
     }
   };
-
-  const rightActionsData = [
-    {
-      id: crypto.randomUUID(),
-      title: "Cancel",
-      onClick: () => {
-        // setEditable(false);
-        setIsManage(false);
-      },
-      icon: (
-        <ArrowBackIosIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Edit",
-      onClick: () => {
-        setIsManage(true);
-      },
-      icon: (
-        <EditIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Save",
-      onClick: () => {
-        handleSubmit();
-      },
-      icon: (
-        <SaveIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-  ];
 
   return (
     <>
       <Stack direction="row" justifyContent="flex-end">
-        {getAllBundleCompositionResponse?.data.length === 0 || isManage
-          ? rightActionsData
-              .filter((i) => i.title !== "Edit")
-              .map((item) => (
-                <ToolBarButton
-                  key={item.id}
-                  handleClick={item.onClick}
-                  icon={item.icon}
-                  title={item.title}
+        {getAllBundleCompositionResponse?.data.length === 0 || isManage ? (
+          <>
+            <ToolBarButton
+              handleClick={() => {
+                setIsManage(false);
+              }}
+              icon={
+                <ArrowBackIosIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
                 />
-              ))
-          : rightActionsData
-              .filter((i) => i.title === "Edit")
-              .map((item) => (
-                <ToolBarButton
-                  key={item.id}
-                  handleClick={item.onClick}
-                  icon={item.icon}
-                  title={item.title}
+              }
+              title="Cancel"
+            />
+
+            <ToolBarButton
+              handleClick={() => {
+                handleSubmit();
+              }}
+              icon={
+                <SaveIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
                 />
-              ))}
+              }
+              title="Save"
+            />
+          </>
+        ) : (
+          <ToolBarButton
+            handleClick={() => {
+              setIsManage(true);
+            }}
+            icon={
+              <EditIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            }
+            title="Edit"
+          />
+        )}
       </Stack>
 
       <CardContent sx={{ paddingTop: 0 }}>

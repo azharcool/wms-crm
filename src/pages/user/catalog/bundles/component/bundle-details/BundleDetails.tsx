@@ -19,7 +19,6 @@ import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBun
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
 import useDecodedData from "hooks/useDecodedData";
-import { dropRight } from "lodash";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -243,19 +242,8 @@ function BundleDetails() {
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
         <TableToolbar
-          buttonText="Edit"
-          handleClick={() => {
-            // navigate(AppRoutes.CATALOG.productCreate);
-          }}
           breadcrumbs={[{ link: "BUNDLES", to: "/catalog/bundles" }]}
           navTitle="bundles"
-          rightActions={
-            value === 0
-              ? editable
-                ? rightActionsData.filter((i) => i.title !== "Edit")
-                : rightActionsData.filter((i) => i.title === "Edit")
-              : []
-          }
           title="bundles"
         />
         <Stack direction="row">

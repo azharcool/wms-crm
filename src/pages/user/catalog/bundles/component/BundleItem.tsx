@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useAlert } from "components/alert";
-import DateTimeFormat from "components/dateTime-format";
+import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import useBundleAction from "hooks/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
@@ -100,11 +100,11 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 60,
           zIndex: 999,
+
           background: newtheme.isDarkMode
             ? "#26263D"
             : palette.background.default,
         }}
-        onClick={() => goToDetails(id)}
       >
         <Box
           sx={{
@@ -131,6 +131,7 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 130,
           zIndex: 999,
+          cursor: "pointer",
           background: newtheme.isDarkMode
             ? "#26263D"
             : palette.background.default,
@@ -141,6 +142,7 @@ function BundleItem(props: IProps) {
             textDecoration: "underline",
             whiteSpace: "nowrap",
           }}
+          onClick={() => goToDetails(id)}
         >
           {name || "not provided"}
         </Typography>
@@ -216,7 +218,7 @@ function BundleItem(props: IProps) {
           // background: "white",
         }}
       >
-        {DateTimeFormat(createdOn)}
+        {dateTimeFormat(createdOn)}
       </TableCell>
       <TableCell
         sx={{
@@ -224,7 +226,7 @@ function BundleItem(props: IProps) {
           // background: "white",
         }}
       >
-        {DateTimeFormat(createdOn)}
+        {dateTimeFormat(createdOn)}
       </TableCell>
       <TableCell
         sx={{
