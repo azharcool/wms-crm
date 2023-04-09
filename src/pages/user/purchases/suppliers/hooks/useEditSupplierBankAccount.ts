@@ -12,6 +12,7 @@ export interface EditSupplierBankAccount {
   bankSwift: string;
   accountHolder: string;
   accountNumber: string;
+  default: boolean;
 }
 
 interface IuseEditSupplierBankAccount {
@@ -38,6 +39,7 @@ const defaultValues: EditSupplierBankAccount = {
   bankSwift: "",
   accountHolder: "",
   accountNumber: "",
+  default: false,
 };
 
 function useEditSupplierBankAccount({

@@ -16,11 +16,8 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TextField from "components/textfield";
-import { FormikHelpers } from "formik";
-import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import useGetByIdSupplier from "hooks/querys/catalog/supplier/useGetByIdSupplier";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -39,6 +36,7 @@ const initialValues: EditSupplierBankAccount = {
   bankSwift: "",
   accountHolder: "",
   accountNumber: "",
+  default: false,
 };
 interface ITooblarButton {
   handleClick: () => void;
@@ -102,7 +100,7 @@ function BankAccountDetails() {
   });
   const userDecoded = useDecodedData();
   const newtheme = useSelector((state: any) => state.theme);
-  const { addSupplierAction } = useSupplierAction();
+  // const { addSupplierAction } = useSupplierAction();
   const [editable, setEditable] = useState(false);
   // const [newArray,]
   const nameRef = useRef<any>(null);
@@ -157,45 +155,44 @@ function BankAccountDetails() {
     },
   });
 
+  // async function onSubmit(
+  //   values: EditSupplierBankAccount,
+  //   helper: FormikHelpers<EditSupplierBankAccount>,
+  // ) {
+  //   const data: EditSupplierBankAccount = {
+  //     userId: Number(userDecoded.id),
+  //     id: 0,
+  //     supplierId: 0,
+  //     bankName: values.bankName,
+  //     bankBranch: values.bankBranch,
+  //     bankCode: values.bankCode,
+  //     bankSwift: values.bankSwift,
+  //     accountHolder: values.accountHolder,
+  //     accountNumber: values.accountNumber,
+  //   };
+  //   const response = await addSupplierAction(data);
+  //   if (response) {
+  //     // resetForm();
+  //     navigate(
+  //       `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
+  //     );
+  //   }
+  // }
+  const onSubmit = async (values: EditSupplierBankAccount) => {};
+
   const supplierBankAccount = useEditSupplierBankAccount({
     onSubmit,
     initialValues,
   });
 
   const {
-    touched,
-    errors,
-    values,
     handleChange,
     handleBlur,
     handleSubmit,
     setFieldValue,
     resetForm,
+    values,
   } = supplierBankAccount;
-
-  async function onSubmit(
-    values: EditSupplierBankAccount,
-    helper: FormikHelpers<EditSupplierBankAccount>,
-  ) {
-    const data: EditSupplierBankAccount = {
-      userId: Number(userDecoded.id),
-      id: 0,
-      supplierId: 0,
-      bankName: values.bankName,
-      bankBranch: values.bankBranch,
-      bankCode: values.bankCode,
-      bankSwift: values.bankSwift,
-      accountHolder: values.accountHolder,
-      accountNumber: values.accountNumber,
-    };
-    const response = await addSupplierAction(data);
-    if (response) {
-      // resetForm();
-      navigate(
-        `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
-      );
-    }
-  }
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const rightActionsData = [
@@ -312,25 +309,25 @@ function BankAccountDetails() {
                 >
                   <CustomCardContent title="Bank account">
                     <TextField
-                      // darkDisable
-                      // disabled={istrue}
+                      darkDisable
+                      disabled={istrue}
                       id="bankName"
                       label="Bank Name"
                       name="bankName"
                       nameRef={nameRef}
                       size="small"
-                      value={item.bankName}
+                      value={values.bankName}
                       onChange={handleChange("bankName")}
                     />
                     <Stack direction="row" gap={2}>
                       <TextField
-                        // darkDisable
-                        // disabled={istrue}
+                        darkDisable
+                        disabled={istrue}
                         id="bankBranch"
                         label="Bank branch"
                         name="bankBranch"
                         size="small"
-                        value={item.bankBranch}
+                        value={values.bankBranch}
                         onChange={handleChange("bankBranch")}
                       />
                       <TextField
@@ -340,7 +337,7 @@ function BankAccountDetails() {
                         label="Bank Code"
                         name="bankCode"
                         size="small"
-                        value={item.bankCode}
+                        value={values.bankCode}
                         onChange={handleChange("bankCode")}
                       />
                       <TextField
@@ -350,7 +347,7 @@ function BankAccountDetails() {
                         label="Bank Swift"
                         name="bankSwift"
                         size="small"
-                        value={item.bankSwift}
+                        value={values.bankSwift}
                         onChange={handleChange("bankSwift")}
                       />
                     </Stack>
@@ -359,23 +356,23 @@ function BankAccountDetails() {
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="city"
+                        id="accountHolder"
                         label="Account Holder"
                         name="city"
                         size="small"
-                        value={item.accountHolder}
-                        onChange={handleChange("city")}
+                        value={values.accountHolder}
+                        onChange={handleChange("accountHolder")}
                       />
 
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="zipCode"
+                        id="accountNumber"
                         label="Account Number"
                         name="zipCode"
                         size="small"
-                        value={item.accountNumber}
-                        onChange={handleChange("zipCode")}
+                        value={values.accountNumber}
+                        onChange={handleChange("accountNumber")}
                       />
                     </Stack>
 
@@ -405,14 +402,14 @@ function BankAccountDetails() {
                               fontWeight: "500",
                               cursor: "pointer",
                             }}
-                            onClick={() => handleAddAnother(item.id)}
+                            onClick={() => handleAddAnother(values.id)}
                           >
                             ADD ANOTHER ADDRESS
                           </Box>
                         )}
 
                         <CustomSwitch
-                          checked={item.default}
+                          checked={values.default}
                           title="Default Address"
                         />
                       </Stack>
