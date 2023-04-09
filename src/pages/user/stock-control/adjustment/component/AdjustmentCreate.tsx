@@ -153,12 +153,14 @@ function AdjustmentCreate() {
     initialValues: deafultValues,
     onSubmit,
   });
+
   const {
     stockControl: {
       layout,
       adjustment: { listing },
     },
   } = AppRoutes;
+
   const navigate = useNavigate();
   const [units, setUnits] = useState<IUnits>({
     unitNumber: 0,
@@ -177,6 +179,7 @@ function AdjustmentCreate() {
     handleSubmit,
     resetForm,
   } = formik;
+
   async function onSubmit(values: AddAdjustmentForm) {
     const data: AddAdjustmentRequestRoot = {
       userId: Number(decodeData.id),
@@ -218,19 +221,26 @@ function AdjustmentCreate() {
     resetForm();
     navigate(`/${layout}/${listing}`);
   }
+
   useEffect(() => {
-    const quantity = values.stock.reduce((accumulator, item) => {
-      return Number(accumulator) + item.quantity;
-    }, 0);
+    const quantity = values.stock
+      .filter((i) => i.quantity && i.unitCost)
+      .reduce((accumulator, item) => {
+        return Number(accumulator) + item.quantity;
+      }, 0);
     setTotalQuantity(quantity);
 
-    const total = values.stock.reduce((accumulator, item) => {
-      return (
-        Number(accumulator) + Number(item.quantity) * Number(item.unitCost)
-      );
-    }, 0);
+    const total = values.stock
+      .filter((i) => i.quantity && i.unitCost)
+      .reduce((accumulator, item) => {
+        return (
+          Number(accumulator) + Number(item.quantity) * Number(item.unitCost)
+        );
+      }, 0);
+
     setTotalValue(total);
   }, [values]);
+
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -266,24 +276,24 @@ function AdjustmentCreate() {
             >
               <CustomCardContent title="Details">
                 <Grid
-                  display="flex"
                   direction="row"
+                  display="flex"
                   justifyContent="space-around"
                 >
                   <Stack direction="column" gap={2} sx={{ width: "100%" }}>
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
-                      label="Warehouse*"
+                      handleChange={(e: any, value: any) =>
+                        setFieldValue("warehosuseId", value?.id)
+                      }
                       helperText={
                         (touched.warehosuseId &&
                           errors &&
                           errors.warehosuseId) ||
                         ""
                       }
+                      label="Warehouse*"
                       options={warehouseMenuItem}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("warehosuseId", value?.id)
-                      }
                     />
                   </Stack>
                   <Stack
@@ -294,6 +304,9 @@ function AdjustmentCreate() {
                   >
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
+                      handleChange={(e: any, value: any) =>
+                        setFieldValue("adjustmentReasonId", value?.id)
+                      }
                       helperText={
                         (touched.adjustmentReasonId &&
                           errors &&
@@ -302,9 +315,6 @@ function AdjustmentCreate() {
                       }
                       label="Adjustment Reason*"
                       options={adjustmentMenuItem}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("adjustmentReasonId", value?.id)
-                      }
                     />
                   </Stack>
                   <Stack direction="column" mr={2} sx={{ width: "100%" }}>
@@ -320,11 +330,11 @@ function AdjustmentCreate() {
                   <Stack direction="column" sx={{ width: "100%" }}>
                     <AutoComplete
                       getOptionLabel={(item: any) => item.company}
-                      label="Company"
-                      options={[{ id: "1", company: "smart" }]}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("companyId", value?.id)
                       }
+                      label="Company"
+                      options={[{ id: "1", company: "smart" }]}
                     />
                   </Stack>
                 </Grid>
@@ -334,11 +344,11 @@ function AdjustmentCreate() {
 
           <Grid item xs={12}>
             <StocksTable
-              formik={formik}
-              warehouseId={values.warehosuseId}
               adjustmentReasonId={values.adjustmentReasonId}
+              formik={formik}
               setUnits={setUnits}
               units={units}
+              warehouseId={values.warehosuseId}
             />
           </Grid>
 
@@ -350,9 +360,9 @@ function AdjustmentCreate() {
                   id="notes"
                   label="Notes"
                   name="notes"
+                  rows={5}
                   value={values.notes}
                   onChange={handleChange("notes")}
-                  rows={5}
                 />
               </CustomCardContent>
               <CustomCardContent title="Adjustment Summary">
@@ -360,8 +370,8 @@ function AdjustmentCreate() {
                   <TextField
                     darkDisable
                     label="Total adjusted Quantity"
-                    size="small"
                     name="totalQuantity"
+                    size="small"
                     value={Number(totalQuantity) || 0}
                     onChange={() =>
                       setFieldValue("totalQuantity", units.quantity)
@@ -369,9 +379,9 @@ function AdjustmentCreate() {
                   />
                   <TextField
                     darkDisable
+                    label="Total adjusted value"
                     name="totalValue"
                     size="small"
-                    label="Total adjusted value"
                     value={`INR ${totalValue}.00`}
                     onChange={() =>
                       setFieldValue(
@@ -445,26 +455,28 @@ interface IStockTable {
 function StocksTable(props: IStockTable) {
   const { warehouseId, adjustmentReasonId, formik, setUnits } = props;
 
-  const newtheme = useSelector((state: any) => state.theme);
   const [openBrows, setOpenBrows] = useState(false);
-
+  const [variants, setVariants] = useState<IGetAllVariantResponseData[]>([]);
   const [selectedVariants, setSelectedVariants] = useState<
     IGetAllVariantResponseData[]
   >([]);
-  const [variants, setVariants] = useState<IGetAllVariantResponseData[]>([]);
-
   const [selectedItem, setSelectedItem] =
     useState<IGetAllVariantResponseData>();
   const [unitSliderOpen, setUnitSliderOpen] = useState(false);
+
+  const newtheme = useSelector((state: any) => state.theme);
+  const { location: locationMenuItem } = useLocation(warehouseId);
+
+  const { setFieldValue, handleChange, values } = formik;
+
+  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
+
   const handleClose = () => {
     setOpenBrows(!openBrows);
   };
   const handleUnitClose = () => {
     setUnitSliderOpen(!unitSliderOpen);
   };
-  const { location: locationMenuItem } = useLocation(warehouseId);
-  const { setFieldValue, handleChange, values } = formik;
-  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
 
   return (
     <>
@@ -599,34 +611,43 @@ function StocksTable(props: IStockTable) {
                               id="unitCost"
                               label="Unit Cost"
                               name={`stock[${index}].unitCost`}
+                              size="small"
                               value={values?.stock[index]?.unitCost}
                               onChange={handleChange}
-                              size="small"
                             />
                           </TableCell>
                           <TableCell
+                            align="center"
                             sx={{
                               minWidth: 170,
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "center",
-                              alignItems: "center",
                             }}
                             onClick={() => {
                               setSelectedItem({ ...item, index });
                               setUnitSliderOpen(!unitSliderOpen);
                             }}
                           >
-                            <QrCode2Icon
-                              sx={{
-                                fontSize: 20,
-                                mr: 1,
-                                color: "#000",
-                              }}
-                            />
-                            <Typography sx={{ mb: 3 }}>
-                              {item?.quantity}
-                            </Typography>
+                            <Box>
+                              <Typography variant="subtitle2">
+                                <span>
+                                  <QrCode2Icon
+                                    sx={{
+                                      fontSize: 20,
+                                      ml: 1,
+                                      color: "#000",
+                                      verticalAlign: "middle",
+                                    }}
+                                  />
+                                </span>
+
+                                <sup
+                                  style={{
+                                    verticalAlign: "supper",
+                                  }}
+                                >
+                                  {item?.quantity}
+                                </sup>
+                              </Typography>
+                            </Box>
                           </TableCell>
                           <TableCell
                             sx={{
@@ -637,8 +658,8 @@ function StocksTable(props: IStockTable) {
                             <TextField
                               darkDisable
                               label="Container Number"
-                              size="small"
                               name={`stock[${index}].containerNumber`}
+                              size="small"
                               value={values.stock[index]?.containerNumber}
                               onChange={handleChange}
                             />
@@ -651,10 +672,10 @@ function StocksTable(props: IStockTable) {
                           >
                             <TextField
                               darkDisable
-                              type="date"
                               label="Expiry Date"
-                              size="small"
                               name={`stock[${index}].expiryDate`}
+                              size="small"
+                              type="date"
                               value={values.stock[index]?.expiryDate}
                               onChange={handleChange}
                             />
@@ -668,14 +689,14 @@ function StocksTable(props: IStockTable) {
                             <Box sx={{ mb: 2 }}>
                               <AutoComplete
                                 getOptionLabel={(item: any) => item.value}
-                                label="Location*"
-                                options={locationMenuItem}
                                 handleChange={(e: any, value: any) =>
                                   setFieldValue(
                                     `stock[${index}].locationId`,
                                     value?.id,
                                   )
                                 }
+                                label="Location*"
+                                options={locationMenuItem}
                               />
                             </Box>
                           </TableCell>
@@ -693,22 +714,22 @@ function StocksTable(props: IStockTable) {
       </Card>
 
       <BrowsStock
-        handleClose={handleClose}
-        open={openBrows}
-        setVariants={setSelectedVariants}
         formik={formik}
-        variants={selectedVariants}
         handleAdd={() => {
           setVariants(selectedVariants);
           setOpenBrows(!openBrows);
         }}
+        handleClose={handleClose}
+        open={openBrows}
+        setVariants={setSelectedVariants}
+        variants={selectedVariants}
       />
       <UnitSlider
-        handleClose={handleUnitClose}
-        open={unitSliderOpen}
+        data={selectedItem}
         formik={formik}
         handleAdd={() => setUnitSliderOpen(!unitSliderOpen)}
-        data={selectedItem}
+        handleClose={handleUnitClose}
+        open={unitSliderOpen}
         setUnits={setUnits}
       />
     </>

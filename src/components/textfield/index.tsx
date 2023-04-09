@@ -68,8 +68,6 @@ function TextField(props: Props) {
     id,
     menuItems,
     className,
-    minDate,
-    length,
     size,
     rows,
     multiline,
@@ -78,8 +76,10 @@ function TextField(props: Props) {
     darkDisable,
     onKeyDown,
     autoComplete,
-    maxInputLength,
   } = props;
+
+  const inputLabelProps =
+    value && (disabled || darkDisable) ? { shrink: true, position: "top" } : {};
 
   return (
     <FormControl sx={style}>
@@ -104,9 +104,7 @@ function TextField(props: Props) {
           disabled={disabled}
           error={error}
           id={id}
-          InputLabelProps={{
-            shrink: true,
-          }}
+          InputLabelProps={inputLabelProps}
           InputProps={{
             startAdornment: !iconEnd && icon && (
               <InputAdornment position="start" onClick={onClickIcon}>
