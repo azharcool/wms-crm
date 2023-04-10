@@ -75,6 +75,7 @@ function ProductConditionListItem(props: IProductConditionListItem) {
               height: "40px",
             }}
           >
+            {/* image */}
             <img
               alt="new"
               src={

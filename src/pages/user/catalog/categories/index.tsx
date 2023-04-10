@@ -20,9 +20,22 @@ function Categories() {
 
   const { bulkDeleteCategoriesAsync } = useCategoriesAction();
 
-  const { data: CategoryPaginationResponse } =
+  const { data: CategoryPaginationResponse, refetch } =
     useGetAllCategories(categoryPagination);
   const ids = getSelectedCategoryIdsState.toString();
+
+  const handlePageChange = (pageNo: number) => {
+    setCategoryPagination((prevState) => ({ ...prevState, page: pageNo }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+  const handlePageLimitChange = (limit: number) => {
+    setCategoryPagination((prevState) => ({ ...prevState, pageSize: limit }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
 
   return (
     <Container maxWidth={false}>
@@ -55,7 +68,13 @@ function Categories() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <CategoriesListing data={CategoryPaginationResponse} />
+          <CategoriesListing
+            data={CategoryPaginationResponse}
+            paginationData={categoryPagination}
+            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+            total={0}
+          />
         </Box>
       </CardContent>
     </Container>
