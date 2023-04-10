@@ -1,6 +1,5 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { CardContent } from "@mui/material";
-import { Box, Container } from "@mui/system";
+import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetAllAdjustment from "hooks/querys/stock/adjustment/useGetAllAdjustment";
 import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";

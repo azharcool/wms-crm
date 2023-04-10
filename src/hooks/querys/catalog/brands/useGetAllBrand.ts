@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { getAllBrand } from "services/brand.services";
+import { getAllPaginationBrand } from "services/brand.services";
 import { QueryKeys } from "utils/QueryKeys";
 
 interface IuseGetAllBrand {
@@ -10,7 +10,7 @@ interface IuseGetAllBrand {
 function useGetAllBrand(props: IuseGetAllBrand) {
   const cachedKey = [QueryKeys.getAllBrand];
   const url = `PageSize=${props.pageSize}&Page=${props.page}`;
-  return useQuery(cachedKey, () => getAllBrand(url));
+  return useQuery(cachedKey, () => getAllPaginationBrand(url));
 }
 
 export default useGetAllBrand;
