@@ -2,6 +2,7 @@ import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
 export interface LocationInitialValues {
+  locationLabel: string;
   area: string;
   aisle: string;
   bay: string;
@@ -11,7 +12,7 @@ export interface LocationInitialValues {
   width: string;
   length: string;
   maxLoad: string;
-  volumn: string;
+  volume: string;
   locationAlias: string;
   locationType: string;
   operation: string;
@@ -23,6 +24,7 @@ export interface LocationInitialValues {
 }
 
 export const locationInitialValues: LocationInitialValues = {
+  locationLabel: "",
   area: "",
   aisle: "",
   bay: "",
@@ -32,7 +34,7 @@ export const locationInitialValues: LocationInitialValues = {
   width: "",
   length: "",
   maxLoad: "",
-  volumn: "",
+  volume: "",
   locationAlias: "",
   locationType: "",
   operation: "",

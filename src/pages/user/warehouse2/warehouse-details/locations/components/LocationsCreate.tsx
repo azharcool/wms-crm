@@ -17,12 +17,12 @@ import useDecodedData from "hooks/useDecodedData";
 import useArea from "hooks/warehouse/area/useArea";
 import useLocationAction from "hooks/warehouse/location/useLocation";
 import useZone from "hooks/warehouse/zone/useZone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { AddLocationRequestRoot } from "types/warehouse/location/addLocationRequest";
-import { Loctype, warehouseStatus } from "__mock__";
+import { Loctype, operation, warehouseStatus } from "__mock__";
 
 import useLocationForm, {
   LocationInitialValues,
@@ -51,6 +51,7 @@ function LocationsCreate() {
     const data: AddLocationRequestRoot = {
       userId: Number(userDecoded.id),
       warehouseId: getSelectedWarehouse.id,
+      locationLabel: values.locationLabel,
       areaId: parseFloat(values.area),
       zoneId: parseFloat(values.zone),
       aisle: values.aisle,
@@ -80,8 +81,11 @@ function LocationsCreate() {
       ...(!Number.isNaN(parseFloat(values.z)) && {
         z: parseFloat(values.z),
       }),
-      ...(!Number.isNaN(parseFloat(values.volumn)) && {
-        volume: parseFloat(values.volumn),
+      ...(!Number.isNaN(parseFloat(values.volume)) && {
+        volume: parseFloat(values.volume),
+      }),
+      ...(!Number.isNaN(parseFloat(values.maxLoad)) && {
+        maxLoad: parseFloat(values.maxLoad),
       }),
     };
 
@@ -131,6 +135,37 @@ function LocationsCreate() {
   ];
 
   const [areaLabel, setAreaLabel] = useState<string>("");
+  const [zoneLabel, setZoneLabel] = useState<string>("");
+
+  useEffect(() => {
+    setFieldValue(
+      "locationLabel",
+      `${areaLabel}${zoneLabel.length > 0 ? "-" : ""}${zoneLabel}${
+        values.aisle.length > 0 ? "-" : ""
+      }${values.aisle}${values.bay.length > 0 ? "-" : ""}${values.bay}${
+        values.level.length > 0 ? "-" : ""
+      }${values.level}${values.bin.length > 0 ? "-" : ""}${values.bin}`,
+    );
+  }, [
+    areaLabel,
+    setFieldValue,
+    values.aisle,
+    values.bay,
+    values.bin,
+    values.level,
+    zoneLabel,
+  ]);
+
+  useEffect(() => {
+    let length: number;
+    let breadth: number;
+    let height: number;
+    length = Number(values.length);
+    breadth = Number(values.width);
+    height = Number(values.height);
+
+    setFieldValue("volume", length * breadth * height);
+  }, [setFieldValue, values.height, values.length, values.width]);
 
   return (
     <Container maxWidth={false}>
@@ -139,13 +174,7 @@ function LocationsCreate() {
         rightActions={rightActionsData}
         title="New Location"
       />
-      <Typography>
-        {`${areaLabel}${values.aisle.length > 0 ? "-" : ""}${values.aisle}${
-          values.bay.length > 0 ? "-" : ""
-        }${values.bay}${values.level.length > 0 ? "-" : ""}${values.level}${
-          values.bin.length > 0 ? "-" : ""
-        }${values.bin}`}
-      </Typography>
+      <Typography>{values.locationLabel}</Typography>
       <Grid container marginTop="10px" padding={0} spacing={2}>
         <Grid item xs={8}>
           <Card
@@ -194,6 +223,9 @@ function LocationsCreate() {
                   value={values.zone}
                   onSelectHandler={(e) => {
                     setFieldValue("zone", e.target.value);
+                    const tempId = e.target.value;
+                    const tempArr = zones.filter((item) => item.id === tempId);
+                    setZoneLabel(tempArr[0].label);
                   }}
                 />
               </Stack>
@@ -304,11 +336,11 @@ function LocationsCreate() {
                   disabled
                   iconEnd
                   icon={<Typography>cm</Typography>}
-                  id="volumn"
+                  id="volume"
                   label="Volume"
-                  name="volumn"
+                  name="volume"
                   size="small"
-                  value={values.volumn}
+                  value={values.volume}
                 />
               </Stack>
             </CustomCardContent>
@@ -356,7 +388,7 @@ function LocationsCreate() {
                   }}
                 />
               </Stack>
-              {/* <Stack direction="row" gap={2}>
+              <Stack direction="row" gap={2}>
                 <TextField
                   isSelect
                   label="Operation"
@@ -368,7 +400,7 @@ function LocationsCreate() {
                     setFieldValue("operation", e.target.value);
                   }}
                 />
-              </Stack> */}
+              </Stack>
               <Stack direction="row" gap={2}>
                 <TextField
                   isSelect

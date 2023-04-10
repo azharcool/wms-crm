@@ -15,7 +15,7 @@ import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
-import TableToolbar from "components/table-toolbar";
+import TableToolbar, { ToolBarButton } from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
@@ -29,6 +29,7 @@ import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { generateRandomNumber } from "utils";
+
 import useAddBundleForm, { AddBundleForm } from "../hooks/useAddBundleForm";
 
 interface IMenuItem {
@@ -47,11 +48,11 @@ const initialValues: AddBundleForm = {
   image: [],
 };
 function BundleCreate() {
-  const navigate = useNavigate();
   const [editable, setEditable] = useState(false);
-
   const [tags, setTags] = useState<IMenuItem[]>([]);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+
+  const navigate = useNavigate();
   const userDecoded = useDecodedData();
   const { addBundleAction } = useBundleAction();
 
@@ -196,6 +197,10 @@ function BundleCreate() {
     },
   ];
 
+  const toggleEditable = () => {
+    setEditable((s) => !s);
+  };
+
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false}>
@@ -212,11 +217,27 @@ function BundleCreate() {
             handleSubmit();
             // navigate(AppRoutes.CATALOG.CategoriesCreate);
           }}
-          rightActions={rightActionsData}
           title="New Bundle"
         />
 
         <Grid container marginTop={2} spacing={2}>
+          <Grid item display="flex" justifyContent="end" xs={12}>
+            <ToolBarButton
+              handleClick={() => {
+                handleSubmit();
+                toggleEditable();
+              }}
+              icon={
+                <SaveIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Save"
+            />
+          </Grid>
           <Grid item xs={8}>
             <Card
               sx={{
@@ -342,6 +363,9 @@ function BundleCreate() {
                     label="Tags"
                     name="tags"
                     size="small"
+                    sxForm={{
+                      width: "100%",
+                    }}
                     value={values.tags}
                     onChange={handleChange("tags")}
                   />

@@ -10,12 +10,14 @@ export default function SidebarButton(props: IVariantSidebar) {
 
   return (
     <Button
+      disableRipple
       sx={{
         all: "unset",
         display: "block",
         width: "100%",
         borderBottom: "1px solid #ccc",
         padding: "5px",
+        cursor: "pointer",
       }}
       onClick={() => {
         setSelectedVariantId(data.id);

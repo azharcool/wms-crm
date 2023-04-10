@@ -1,5 +1,8 @@
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
+import EditIcon from "@mui/icons-material/Edit";
 import RefreshIcon from "@mui/icons-material/Refresh";
+import SaveIcon from "@mui/icons-material/Save";
 import {
   Card,
   DialogContent,
@@ -19,6 +22,7 @@ import React, { useEffect, useState } from "react";
 import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
 import { generateRandomNumber } from "utils";
 // eslint-disable-next-line import/no-extraneous-dependencies
+import { ToolBarButton } from "components/table-toolbar";
 
 interface ICustomCard {
   title: string;
@@ -51,10 +55,13 @@ interface IGeneral {
 }
 
 function General(props: IGeneral) {
-  const { isTrue, data, nameRef, editable, formik } = props;
+  const { data, nameRef, formik } = props;
+
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+  const [editable, setEditable] = useState(false);
+
   const { category } = useCategory();
   const { brand } = useBrand();
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
   useEffect(() => {
     if (data) {
@@ -94,9 +101,86 @@ function General(props: IGeneral) {
     });
   };
 
+  const toggleEditable = () => {
+    setEditable((s) => !s);
+  };
+
   return (
     <Grid container marginTop={2} spacing={2}>
-      <Grid item xs={8}>
+      <Grid
+        item
+        display="flex"
+        justifyContent="end"
+        sx={{
+          "&.MuiGrid-item": {
+            paddingTop: "0px",
+          },
+        }}
+        xs={12}
+      >
+        {!editable ? (
+          <ToolBarButton
+            handleClick={() => {
+              toggleEditable();
+            }}
+            icon={
+              <EditIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            }
+            title="Edit"
+          />
+        ) : null}
+
+        {editable ? (
+          <>
+            <ToolBarButton
+              handleClick={() => {
+                toggleEditable();
+                setTimeout(() => {
+                  nameRef.current?.focus();
+                }, 500);
+              }}
+              icon={
+                <ArrowBackIosIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Cancel"
+            />
+            <ToolBarButton
+              handleClick={() => {
+                formik.handleSubmit();
+                toggleEditable();
+              }}
+              icon={
+                <SaveIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Save"
+            />
+          </>
+        ) : null}
+      </Grid>
+      <Grid
+        item
+        sx={{
+          "&.MuiGrid-item": {
+            paddingTop: "0px",
+          },
+        }}
+        xs={8}
+      >
         <Card
           sx={{
             flex: 1,
@@ -105,7 +189,7 @@ function General(props: IGeneral) {
           <CustomCardContent title="Details">
             <Stack direction="column" gap={3}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="name"
                 label="Name"
                 name="name"
@@ -116,7 +200,7 @@ function General(props: IGeneral) {
               />
               <TextField
                 multiline
-                disabled={isTrue}
+                disabled={!editable}
                 id="description"
                 label="Description"
                 name="description"
@@ -129,7 +213,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 iconEnd
-                disabled={isTrue}
+                disabled={!editable}
                 icon={<RefreshIcon />}
                 id="sku"
                 label="SKU"
@@ -153,7 +237,7 @@ function General(props: IGeneral) {
 
               <TextField
                 iconEnd
-                disabled={isTrue}
+                disabled={!editable}
                 icon={<RefreshIcon />}
                 id="barcode"
                 label="barcode"
@@ -172,7 +256,7 @@ function General(props: IGeneral) {
             <Stack direction="row" gap={2}>
               <TextField
                 isSelect
-                disabled={isTrue}
+                disabled={!editable}
                 id="categoryId"
                 label="Category"
                 menuItems={category}
@@ -185,7 +269,7 @@ function General(props: IGeneral) {
               />
               <TextField
                 isSelect
-                disabled={isTrue}
+                disabled={!editable}
                 id="brandId"
                 label="Brand"
                 menuItems={brand}
@@ -200,7 +284,7 @@ function General(props: IGeneral) {
 
             <Stack direction="row" gap={2} marginTop={2}>
               <TextField
-                disabled={isTrue}
+                disabled={!editable}
                 id="tag"
                 label="Tags"
                 name="tag"
@@ -212,7 +296,15 @@ function General(props: IGeneral) {
           </CustomCardContent>
         </Card>
       </Grid>
-      <Grid item xs={4}>
+      <Grid
+        item
+        sx={{
+          "&.MuiGrid-item": {
+            paddingTop: "0px",
+          },
+        }}
+        xs={4}
+      >
         <Card
           sx={{
             flex: 1,
@@ -256,7 +348,7 @@ function General(props: IGeneral) {
                   </Box>
                 );
               })}
-              <UploadButton handleFile={handleFile} />
+              <UploadButton disabled={!editable} handleFile={handleFile} />
             </Stack>
           </CustomCardContent>
         </Card>

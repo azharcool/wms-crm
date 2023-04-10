@@ -253,15 +253,24 @@ function VariantDetails() {
               >
                 <>
                   {/* barcode, sku, variantName */}
-                  {variantList.map((item) => {
-                    return (
-                      <SidebarButton
-                        key={item.barcode}
-                        data={item}
-                        setSelectedVariantId={setSelectedVariantId}
-                      />
-                    );
-                  })}
+                  {variantList
+                    .filter(
+                      (i) =>
+                        i.variantName
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) ||
+                        i.sku.toLowerCase().includes(search.toLowerCase()) ||
+                        i.barcode.includes(search),
+                    )
+                    .map((item) => {
+                      return (
+                        <SidebarButton
+                          key={item.barcode}
+                          data={item}
+                          setSelectedVariantId={setSelectedVariantId}
+                        />
+                      );
+                    })}
                 </>
               </Box>
             </Box>
@@ -275,10 +284,6 @@ function VariantDetails() {
                   to: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.variants}`,
                 },
               ]}
-              buttonText="Save"
-              handleClick={() => {
-                // navigate(AppRoutes.CATALOG.CategoriesDetail);
-              }}
               rightActions={
                 editable
                   ? rightActionsData.filter((i) => i.title !== "Edit")

@@ -1,33 +1,29 @@
-import { Stack } from "@mui/system";
 import {
-  Card,
   Box,
-  Checkbox,
+  Card,
   Paper,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
   Typography,
 } from "@mui/material";
+import { Stack } from "@mui/system";
 
 import SearchIcon from "@mui/icons-material/Search";
-import CustomTableCell from "components/table/CustomTableCell";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
+import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
-import React, { Dispatch, SetStateAction, useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import palette from "theme/palette";
-import "react-perfect-scrollbar/dist/css/styles.css";
 import AutoComplete from "components/textfield/AutoComplete";
-import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
-import useProductCondition from "hooks/setting/product-condition/useProductCondition";
 import { FormikProps } from "formik";
-import { IUnits } from "./AdjustmentCreate";
+import useProductCondition from "hooks/setting/product-condition/useProductCondition";
+import { Dispatch, SetStateAction, useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import { IUnits } from "../AdjustmentCreate";
 
 interface IListItem {
   open: boolean;
@@ -110,7 +106,7 @@ function UnitSlider(props: IListItem) {
               {data?.productName}
             </Typography>
             <Typography style={{ fontSize: 13, color: "#333" }}>
-              {data?.sku}/{data?.barcode}
+              {data?.sku} / {data?.barcode}
             </Typography>
           </Stack>
         </Stack>
@@ -129,22 +125,22 @@ function UnitSlider(props: IListItem) {
               flex: 1,
             }}
           >
-            <CustomCardContent title="">
+            <CustomCardContent title="Search Barcode">
               <Stack direction="row" gap={2}>
                 <TextField
-                  label="Search"
                   iconEnd
                   autoComplete="off"
+                  icon={<SearchIcon />}
+                  label="Search"
                   name="search"
+                  size="small"
                   value={searchValue}
                   onChange={(e) => setSearchValue(e.target.value)}
-                  icon={<SearchIcon />}
-                  size="small"
                   onKeyDown={handleKeyDown}
                 />
               </Stack>
             </CustomCardContent>
-            <CustomCardContent title="">
+            <CustomCardContent title="Unit List">
               <PerfectScrollbar>
                 <Box sx={{ minWidth: "100%", minHeight: 500 }}>
                   <TableContainer component={Paper}>
@@ -178,10 +174,10 @@ function UnitSlider(props: IListItem) {
                           {unitList.map((item, index) => {
                             return (
                               <UnitItem
-                                item={item}
                                 formik={formik}
-                                setUnit={setUnits}
                                 index={index}
+                                item={item}
+                                setUnit={setUnits}
                               />
                             );
                           })}
@@ -239,8 +235,8 @@ function UnitItem(props: IStockItem) {
           disabled
           label="Serial number"
           name={`stock[${index}].serialNumber`}
-          value={formik.values.stock[index]?.serialNumber}
           size="small"
+          value={formik.values.stock[index]?.serialNumber}
           onChange={(e) => {
             setUnit((previousState: any) => {
               return { ...previousState, serialNumber: e.target.value };
@@ -262,10 +258,10 @@ function UnitItem(props: IStockItem) {
         <TextField
           darkDisable
           label="Batch number"
-          type="number"
           name={`stock[${index}].batchNumber`}
-          value={formik.values.stock[index]?.batchNumber}
           size="small"
+          type="number"
+          value={formik.values.stock[index]?.batchNumber}
           onChange={(e) => {
             setUnit((previousState: any) => {
               return { ...previousState, batchNumber: e.target.value };
@@ -282,12 +278,12 @@ function UnitItem(props: IStockItem) {
         }}
       >
         <TextField
-          type="number"
           darkDisable
           label="Quantity"
           name={`stock[${index}].quantity`}
-          value={formik.values.stock[index]?.quantity}
           size="small"
+          type="number"
+          value={formik.values.stock[index]?.quantity}
           onChange={(e) => {
             setUnit((previousState: IUnits) => {
               return {
@@ -308,14 +304,14 @@ function UnitItem(props: IStockItem) {
         <Box mb={1}>
           <AutoComplete
             getOptionLabel={(item: any) => item.value}
-            label="Condition code"
-            options={productConditionMenuItem}
             handleChange={(e: any, value: any) => {
               setUnit((previousState: any) => {
                 return { ...previousState, conditionCode: value.id };
               });
               formik.setFieldValue(`stock[${index}].conditionCodeId`, value.id);
             }}
+            label="Condition code"
+            options={productConditionMenuItem}
           />
         </Box>
       </TableCell>

@@ -58,7 +58,7 @@ function LocationsListItem(props: ILocationListItem) {
             whiteSpace: "nowrap", //! Dont remove
           }}
         >
-          {item.areaName}
+          {item.locationAlias || item.locationLabel || "-"}
         </Typography>
       </TableCell>
       <TableCell
@@ -69,7 +69,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {item.areaName}
+        {item.areaName || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -93,7 +93,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* bay */}-
+        {item.rack || "-"}
       </TableCell>
 
       <TableCell
@@ -102,7 +102,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* level */}-
+        {item.shelf || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -110,7 +110,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* bin */}-
+        {item.position || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -126,7 +126,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* operation */}-
+        {item.operations || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -142,7 +142,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {item.locationType}
+        {item.locationType || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -158,7 +158,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* company */}-
+        {/* container */}-
       </TableCell>
       <TableCell
         sx={{
@@ -166,7 +166,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* container */}0
+        {/* Available */}0
       </TableCell>
       <TableCell
         sx={{
@@ -174,7 +174,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* available */}-
+        {`${item.volume}` || "-"}
       </TableCell>
       <TableCell
         sx={{
@@ -182,7 +182,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* use volumn */}-
+        {/* used volumn */}-
       </TableCell>
       <TableCell
         sx={{
@@ -190,7 +190,7 @@ function LocationsListItem(props: ILocationListItem) {
           // background: "white",
         }}
       >
-        {/* dimensions */}-
+        {`${item.length}x${item.width}x${item.height} cm` || "-"}
       </TableCell>
       <TableCell
         sx={{
