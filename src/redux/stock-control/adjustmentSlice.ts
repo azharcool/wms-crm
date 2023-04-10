@@ -7,6 +7,7 @@ export interface IAdjustment {
 
 export interface IAdjustmentInitialState {
   adjustment: IAdjustment;
+  adjustmentIds: number[];
 }
 
 const initialState: IAdjustmentInitialState = {
@@ -14,6 +15,7 @@ const initialState: IAdjustmentInitialState = {
     id: 0,
     name: "",
   },
+  adjustmentIds: [],
 };
 
 const adjustmentSlice = createSlice({
@@ -23,9 +25,32 @@ const adjustmentSlice = createSlice({
     setAdjustment: (state, action: PayloadAction<IAdjustment>) => {
       state.adjustment = action.payload;
     },
+    setAdjustmentId: (state, action: PayloadAction<number>) => {
+      const { adjustmentIds } = state;
+      const { payload } = action;
+      const findContact = adjustmentIds?.find((i) => i === payload);
+      if (findContact) {
+        state.adjustmentIds = adjustmentIds?.filter((i) => i !== payload) || [];
+      } else {
+        state.adjustmentIds?.push(payload);
+      }
+    },
+    setAllAdjustmentIds: (
+      state,
+      action: PayloadAction<{ checked: boolean; ids: number[] }>,
+    ) => {
+      const { payload } = action;
+      if (payload.checked) {
+        state.adjustmentIds = payload.ids;
+      } else {
+        state.adjustmentIds = [];
+      }
+    },
   },
 });
 
-export const { setAdjustment } = adjustmentSlice.actions;
+export const { setAdjustment, setAdjustmentId, setAllAdjustmentIds } =
+  adjustmentSlice.actions;
+// export const { setAdjustment } = adjustmentSlice.actions;
 
-export default adjustmentSlice.reducer
+export default adjustmentSlice.reducer;
