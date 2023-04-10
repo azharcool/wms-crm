@@ -16,11 +16,27 @@ function Suppliers() {
     pageSize: 10,
     page: 1,
   });
-  const { bulkDeleteSupplierAsync } = useSupplierAction();
-  const { data: supplierPaginationResponse } =
-    useGetAllSupplierWithPagination(suppliersPagination);
+
   const getSelectedSupplierIdsState = useSelector(getSelectedSupplier);
+
+  const { bulkDeleteSupplierAsync } = useSupplierAction();
+
+  const { data: supplierPaginationResponse, refetch } =
+    useGetAllSupplierWithPagination(suppliersPagination);
   const ids = getSelectedSupplierIdsState.toString();
+
+  const handlePageChange = (pageNo: number) => {
+    setSupplierspagination((prevState) => ({ ...prevState, page: pageNo }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+  const handlePageLimitChange = (limit: number) => {
+    setSupplierspagination((prevState) => ({ ...prevState, pageSize: limit }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
 
   return (
     <Container maxWidth={false}>
@@ -54,7 +70,13 @@ function Suppliers() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <SupplierList data={supplierPaginationResponse} />
+          <SupplierList
+            data={supplierPaginationResponse}
+            paginationData={suppliersPagination}
+            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+            total={supplierPaginationResponse?.totalDocs || 0}
+          />
         </Box>
       </CardContent>
     </Container>

@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import TableMessage from "components/table-message";
@@ -65,12 +66,20 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
 interface IBundleListing {
   data?: IGetBundleResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 
 function BundleListing(props: IBundleListing) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
   const getSelectedBundleIdsState = useSelector(getSelectedBundle);
   const dispatch = useAppDispatch();
   const bundleData = {
@@ -95,6 +104,13 @@ function BundleListing(props: IBundleListing) {
     }
   };
 
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
+  };
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -172,6 +188,15 @@ function BundleListing(props: IBundleListing) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>

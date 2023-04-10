@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -26,12 +27,27 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
 interface IAdjustmentReasonListing {
   data?: IGetAdjustmentResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 
 function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <>
@@ -90,6 +106,15 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
                 </TableBody>
               </Table>
             </PerfectScrollbar>
+            <TablePagination
+              component="div"
+              count={total}
+              page={paginationData.page}
+              rowsPerPage={paginationData.pageSize}
+              rowsPerPageOptions={[5, 10, 25]}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleLimitChange}
+            />
           </TableContainer>
         </Box>
       </PerfectScrollbar>

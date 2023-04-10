@@ -16,7 +16,7 @@ export async function getAllProductCondition(): Promise<GetAllProductConditionRo
 export async function getAllPaginationProductCondition(
   restUrl: string,
 ): Promise<GetAllProductConditionPaginationResponseRoot> {
-  let URL = `${API_URLS.GET_ALL_PRODUCT_CONDITION}`;
+  let URL = `${API_URLS.GET_ALL_PAGINATION_PRODUCT_CONDITION}`;
   if (restUrl) {
     URL = `${URL}?${restUrl}`;
   }

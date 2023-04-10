@@ -20,6 +20,16 @@ export async function getAllAdjustmentReasonWithoutPagination(): Promise<IGetAdj
   return client.get(URL);
 }
 
+export async function getAllPaginationAdjustmentReason(
+  restUrl: string,
+): Promise<IGetAdjustmentResponseRoot> {
+  let URL = `${API_URLS.GET_ALL_PAGINATION_ADJUSTMENT_REASON}`;
+  if (restUrl) {
+    URL = `${URL}?${restUrl}`;
+  }
+  return client.get(URL);
+}
+
 export async function getByIdAdjustmentReason(
   id: number,
 ): Promise<GetByIdAdjustmentRoot> {

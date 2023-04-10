@@ -1,9 +1,7 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { CardContent } from "@mui/material";
-import { Box, Container } from "@mui/system";
+import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetAllAdjustmentReason from "hooks/querys/setting/adjustmentReason/useGetAllAdjustmentReason";
-// import useAdjustmentAction from "hooks/setting/adjustment/useAdjustmentAction";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -14,7 +12,7 @@ import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";
 
 function AdjustmentReasons() {
   const [openForm, setOpenForm] = useState(false);
-  const [adjustmentPagination, setAdjustmentPagination] = useState({
+  const [adjustmentPagination, setadjustmentPagination] = useState({
     pageSize: 10,
     page: 1,
   });
@@ -24,11 +22,24 @@ function AdjustmentReasons() {
 
   const { bulkDeleteAdjustmentReasonAsync } = useAdjustmentReasonAction();
 
-  const { data: adjustmentResponse } =
+  const { data: adjustmentResponse, refetch } =
     useGetAllAdjustmentReason(adjustmentPagination);
   const ids = getSelectedAdjustmentReasonIdsState.toString();
+
   const handleAdjustment = () => {
     setOpenForm((s) => !s);
+  };
+  const handlePageChange = (pageNo: number) => {
+    setadjustmentPagination((prevState) => ({ ...prevState, page: pageNo }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+  const handlePageLimitChange = (limit: number) => {
+    setadjustmentPagination((prevState) => ({ ...prevState, pageSize: limit }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
   };
 
   return (
@@ -62,7 +73,13 @@ function AdjustmentReasons() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <AdjustmentReasonsList data={adjustmentResponse} />
+          <AdjustmentReasonsList
+            data={adjustmentResponse}
+            paginationData={adjustmentPagination}
+            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+            total={adjustmentResponse?.totalDocs || 0}
+          />
         </Box>
       </CardContent>
       <>
