@@ -12,38 +12,31 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TextField from "components/textfield";
-import { FormikHelpers } from "formik";
-import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
+import useGetByIdSupplier from "hooks/querys/catalog/supplier/useGetByIdSupplier";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
-import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
-import useAddSupplierForm, {
-  AddSupplierForm,
-} from "../../../hooks/useAddSupplierForm";
+import useEditSupplierBankAccount, {
+  EditSupplierBankAccount,
+} from "../../../hooks/useEditSupplierBankAccount";
 
-const initialValues: AddSupplierForm = {
-  companyName: "Company Name",
-  shortName: "",
-  email: "",
-  phoneNumber: "",
-  address: "",
-  region: "",
-  city: "",
-  zipCode: "",
-  countryId: 0,
-  firstName: "Bank Name",
-  lastName: "",
-  primaryEmail: "",
-  primaryPhoneNumber: "",
-  status: "",
+const initialValues: EditSupplierBankAccount = {
+  id: 0,
+  userId: 0,
+  supplierId: 0,
+  bankName: "",
+  bankBranch: "",
+  bankCode: "",
+  bankSwift: "",
+  accountHolder: "",
+  accountNumber: "",
+  default: false,
 };
 interface ITooblarButton {
   handleClick: () => void;
@@ -52,14 +45,16 @@ interface ITooblarButton {
 }
 
 interface IBankData {
+  default: boolean | undefined;
   id: number;
+  userId: number;
+  supplierId: number;
   bankName: string;
   bankBranch: string;
   bankCode: string;
   bankSwift: string;
   accountHolder: string;
-  acccountNumber: string;
-  default: boolean;
+  accountNumber: string;
 }
 
 function ToolBarButton(props: ITooblarButton) {
@@ -99,25 +94,31 @@ function ToolBarButton(props: ITooblarButton) {
 }
 
 function BankAccountDetails() {
+  const { supplierId } = useParams();
+  const { data: supplierItemResponse } = useGetByIdSupplier({
+    supplierId: Number(supplierId),
+  });
+  const userDecoded = useDecodedData();
   const newtheme = useSelector((state: any) => state.theme);
-  const { addSupplierAction } = useSupplierAction();
+  // const { addSupplierAction } = useSupplierAction();
   const [editable, setEditable] = useState(false);
   // const [newArray,]
   const nameRef = useRef<any>(null);
   const [bankData, setBankData] = useState<IBankData[]>([
     {
       id: 0,
+      userId: Number(userDecoded.id),
+      supplierId: Number(supplierId),
       bankName: "",
       bankBranch: "",
       bankCode: "",
       bankSwift: "",
       accountHolder: "",
-      acccountNumber: "",
-      default: true,
+      accountNumber: "",
+      default: false,
     },
   ]);
   const navigate = useNavigate();
-  const userDecoded = useDecodedData();
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -154,51 +155,44 @@ function BankAccountDetails() {
     },
   });
 
-  const supplierForm = useAddSupplierForm({
+  // async function onSubmit(
+  //   values: EditSupplierBankAccount,
+  //   helper: FormikHelpers<EditSupplierBankAccount>,
+  // ) {
+  //   const data: EditSupplierBankAccount = {
+  //     userId: Number(userDecoded.id),
+  //     id: 0,
+  //     supplierId: 0,
+  //     bankName: values.bankName,
+  //     bankBranch: values.bankBranch,
+  //     bankCode: values.bankCode,
+  //     bankSwift: values.bankSwift,
+  //     accountHolder: values.accountHolder,
+  //     accountNumber: values.accountNumber,
+  //   };
+  //   const response = await addSupplierAction(data);
+  //   if (response) {
+  //     // resetForm();
+  //     navigate(
+  //       `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
+  //     );
+  //   }
+  // }
+  const onSubmit = async (values: EditSupplierBankAccount) => {};
+
+  const supplierBankAccount = useEditSupplierBankAccount({
     onSubmit,
     initialValues,
   });
 
   const {
-    touched,
-    errors,
-    values,
     handleChange,
     handleBlur,
     handleSubmit,
     setFieldValue,
     resetForm,
-  } = supplierForm;
-
-  async function onSubmit(
-    values: AddSupplierForm,
-    helper: FormikHelpers<AddSupplierForm>,
-  ) {
-    const data: AddSupplierRequestRoot = {
-      userId: Number(userDecoded.id),
-      companyName: values.companyName,
-      shortName: values.shortName,
-      email: values.email,
-      phoneNumber: values.phoneNumber,
-      address: values.address,
-      region: values.region,
-      city: values.city,
-      zipCode: values.zipCode,
-      countryId: values.countryId,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      primaryEmail: values.primaryEmail,
-      primaryPhone: values.primaryPhoneNumber,
-      status: Number(values.status === "Active" ? "1" : "2"),
-    };
-    const response = await addSupplierAction(data);
-    if (response) {
-      resetForm();
-      navigate(
-        `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
-      );
-    }
-  }
+    values,
+  } = supplierBankAccount;
   const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const rightActionsData = [
@@ -256,14 +250,16 @@ function BankAccountDetails() {
   const istrue = !editable;
 
   const handleAddAnother = (id: number) => {
-    const newObj = {
+    const newObj: IBankData = {
       id: id + 1,
+      userId: Number(userDecoded.id),
+      supplierId: Number(supplierId),
       bankName: "",
       bankBranch: "bankBranch",
       bankCode: "",
       bankSwift: "",
       accountHolder: "",
-      acccountNumber: "",
+      accountNumber: "",
       default: false,
     };
 
@@ -315,44 +311,44 @@ function BankAccountDetails() {
                     <TextField
                       darkDisable
                       disabled={istrue}
-                      id="firstName"
+                      id="bankName"
                       label="Bank Name"
-                      name="firstName"
+                      name="bankName"
                       nameRef={nameRef}
                       size="small"
-                      value={item.bankName}
-                      onChange={handleChange("firstName")}
+                      value={values.bankName}
+                      onChange={handleChange("bankName")}
                     />
                     <Stack direction="row" gap={2}>
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="firstName"
+                        id="bankBranch"
                         label="Bank branch"
-                        name="firstName"
+                        name="bankBranch"
                         size="small"
-                        value={item.bankBranch}
-                        onChange={handleChange("firstName")}
+                        value={values.bankBranch}
+                        onChange={handleChange("bankBranch")}
                       />
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="lastName"
+                        id="bankCode"
                         label="Bank Code"
-                        name="lastName"
+                        name="bankCode"
                         size="small"
-                        value={item.bankCode}
-                        // onChange={handleChange("lastName")}
+                        value={values.bankCode}
+                        onChange={handleChange("bankCode")}
                       />
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="lastName"
+                        id="bankSwift"
                         label="Bank Swift"
-                        name="lastName"
+                        name="bankSwift"
                         size="small"
-                        value={item.bankSwift}
-                        onChange={handleChange("lastName")}
+                        value={values.bankSwift}
+                        onChange={handleChange("bankSwift")}
                       />
                     </Stack>
 
@@ -360,23 +356,23 @@ function BankAccountDetails() {
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="city"
+                        id="accountHolder"
                         label="Account Holder"
                         name="city"
                         size="small"
-                        value={item.accountHolder}
-                        onChange={handleChange("city")}
+                        value={values.accountHolder}
+                        onChange={handleChange("accountHolder")}
                       />
 
                       <TextField
                         darkDisable
                         disabled={istrue}
-                        id="zipCode"
+                        id="accountNumber"
                         label="Account Number"
                         name="zipCode"
                         size="small"
-                        value={item.acccountNumber}
-                        onChange={handleChange("zipCode")}
+                        value={values.accountNumber}
+                        onChange={handleChange("accountNumber")}
                       />
                     </Stack>
 
@@ -406,14 +402,14 @@ function BankAccountDetails() {
                               fontWeight: "500",
                               cursor: "pointer",
                             }}
-                            onClick={() => handleAddAnother(item.id)}
+                            onClick={() => handleAddAnother(values.id)}
                           >
                             ADD ANOTHER ADDRESS
                           </Box>
                         )}
 
                         <CustomSwitch
-                          checked={item.default}
+                          checked={values.default}
                           title="Default Address"
                         />
                       </Stack>

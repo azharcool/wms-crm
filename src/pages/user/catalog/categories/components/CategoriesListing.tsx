@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -52,14 +53,23 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
+
 interface ICategoriesListing {
   data?: IGetCategoriesResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 function CategoriesListing(props: ICategoriesListing) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
   const getSelectedCategoryIdsState = useSelector(getSelectedCategory);
   const dispatch = useAppDispatch();
 
@@ -72,6 +82,14 @@ function CategoriesListing(props: ICategoriesListing) {
         }),
       );
     }
+  };
+
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
   };
 
   return (
@@ -134,6 +152,15 @@ function CategoriesListing(props: ICategoriesListing) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>
