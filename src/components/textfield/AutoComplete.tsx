@@ -4,7 +4,7 @@ import {
   FormHelperText,
   TextField,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import palette from "theme/palette";
 
 interface IAutoComplete {
@@ -13,14 +13,25 @@ interface IAutoComplete {
   handleChange?: any;
   getOptionLabel?: any;
   helperText?: string;
+  defaultValue?: String | Number | Object;
 }
 
 function AutoComplete(props: IAutoComplete) {
-  const { options, handleChange, helperText, label, getOptionLabel } = props;
+  const {
+    options,
+    handleChange,
+    helperText,
+    label,
+    getOptionLabel,
+    defaultValue,
+  } = props;
+
   return (
     <FormControl sx={{ width: "100%" }}>
       <Autocomplete
         options={options}
+        // value={value}
+        defaultValue={defaultValue && defaultValue}
         size="small"
         sx={{
           borderRadius: "8px",

@@ -123,6 +123,7 @@ const AppRoutes = {
     adjustment: {
       listing: "adjustment/listing",
       create: "adjustment/create",
+      update: "adjustment/update",
       details: "adjustment/details",
       generalDetails: "general/details",
       historylisting: "history/listing",

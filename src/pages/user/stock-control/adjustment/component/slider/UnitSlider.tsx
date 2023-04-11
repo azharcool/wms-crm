@@ -20,7 +20,7 @@ import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikProps } from "formik";
 import useProductCondition from "hooks/setting/product-condition/useProductCondition";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { IUnits } from "../AdjustmentCreate";
@@ -79,6 +79,15 @@ function UnitSlider(props: IListItem) {
       });
     }
   };
+  useEffect(() => {
+    const find = unitList.filter((item) => item.unitNumber === data?.barcode);
+    if (find.length ===0 && data?.isEdit)
+      setUnitList([
+        {
+          unitNumber: data?.barcode,
+        },
+      ]);
+  }, [data]);
 
   return (
     <Slider
