@@ -1,5 +1,7 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
+import StatusTableCell from "components/table/status-table-cell";
 import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -131,14 +133,18 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
           minWidth: 170,
         }}
       >
-        {item.status || "-"}
+        <StatusTableCell
+          success={item?.status !== 2}
+          title={item?.status === 2 ? "InActive" : "Active"}
+        />
       </TableCell>
       <TableCell
         sx={{
           minWidth: 170,
+          whiteSpace:"nowrap"
         }}
       >
-        {item.updatedOn || "-"}
+        {dateTimeFormat(item.updatedOn) || "_"}
       </TableCell>
       <TableCell
         sx={{
