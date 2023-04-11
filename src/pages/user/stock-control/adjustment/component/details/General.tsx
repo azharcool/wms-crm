@@ -17,11 +17,14 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { grey, purple } from "@mui/material/colors";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import NOImage from "assets/images/no-image.png";
 import CustomCardContent from "components/card/CustomCardContent";
 import DashedCard from "components/card/DashedCard";
 import dateTimeFormat from "components/dateTime-format";
+import { ToolBarButton } from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
@@ -32,6 +35,9 @@ import { useSelector } from "react-redux";
 import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
 import palette from "theme/palette";
 import { StockDetail } from "types/stock/adjustment/getAllAdjustmentResponse";
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "navigation/appRoutes";
+import { FILE_URL } from "config";
 
 interface IMenuItem {
   id: string;
@@ -112,16 +118,41 @@ function General(props: IGeneral) {
       mode: "light",
     },
   });
+  const navigate = useNavigate();
+  const {
+    stockControl: {
+      layout,
+      adjustment: { update },
+    },
+  } = AppRoutes;
   const darkModeTheme = createTheme(getDesignTokens("dark"));
   const selectedAdjustment = useSelector(getAdjustmentSelected);
   const adjustmentData = {
     adjustmentId: selectedAdjustment.id,
   };
   const { data: adjustmentDetails } = useGetByIdAdjustment(adjustmentData);
-
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
       <Container maxWidth={false} sx={{ my: 2 }}>
+        <Grid
+          sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
+        >
+          <ToolBarButton
+            handleClick={() => {
+              // toggleEditable();
+              navigate(`/${layout}/${update}/${adjustmentDetails?.data.id}`);
+            }}
+            icon={
+              <EditIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            }
+            title="Edit"
+          />
+        </Grid>
         <Grid container direction="row">
           <Grid item xs={12}>
             <Grid>
@@ -342,8 +373,12 @@ function StockTable(props: IStockTable) {
                             }}
                           >
                             <img
-                              alt="stockImg"
-                              src={item.image || ""}
+                              alt="stock"
+                              src={
+                                item?.image
+                                  ? `${FILE_URL}${item?.image}`
+                                  : NOImage
+                              }
                               width="100%"
                             />
                           </Box>
@@ -358,7 +393,6 @@ function StockTable(props: IStockTable) {
                         <TableCell
                           sx={{
                             minWidth: 170,
-                            // background: "white",
                           }}
                         >
                           {item.barcodeStrategy || "-"}
@@ -366,7 +400,6 @@ function StockTable(props: IStockTable) {
                         <TableCell
                           sx={{
                             minWidth: 170,
-                            // background: "white",
                           }}
                         >
                           {item.unitCost || "-"}
@@ -374,7 +407,6 @@ function StockTable(props: IStockTable) {
                         <TableCell
                           sx={{
                             minWidth: 170,
-                            // background: "white",
                           }}
                         >
                           {item.quantity || "-"}
@@ -382,7 +414,6 @@ function StockTable(props: IStockTable) {
                         <TableCell
                           sx={{
                             minWidth: 170,
-                            // background: "white",
                           }}
                         >
                           {item.containerNumber || "-"}
@@ -390,7 +421,7 @@ function StockTable(props: IStockTable) {
                         <TableCell
                           sx={{
                             minWidth: 170,
-                            // background: "white",
+                            whiteSpace: "nowrap",
                           }}
                         >
                           {dateTimeFormat(item.expiryDate) || "-"}
@@ -398,7 +429,6 @@ function StockTable(props: IStockTable) {
                         <TableCell
                           sx={{
                             minWidth: 170,
-                            // background: "white",
                           }}
                         >
                           {item.locationId || "-"}

@@ -163,7 +163,7 @@ function DetailLayout() {
           buttonText="Save"
           handleClick={() => {}}
           navTitle={`Stock Adjustment ${selectedAdjustment.name}`}
-          rightActions={rightActionsData}
+          // rightActions={rightActionsData}
           title={`Stock Adjustment ${selectedAdjustment.name}`}
         />
         <Stack direction="row">

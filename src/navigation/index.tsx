@@ -5,10 +5,10 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import AppRoutes from "./appRoutes";
+import catalogRouting from "./catalog.routing";
 import * as AdminLoadable from "./loadRoutes/admin.load";
 import * as AuthLoadable from "./loadRoutes/auth.load";
 import * as SettingsLoadable from "./loadRoutes/settings.load";
-import * as UserLoadable from "./loadRoutes/user.load";
 import PermissionsLayout from "./PermissionProtect";
 import ProtectedRoute from "./ProtectedRoute";
 import purchasesRouting from "./purchases.routing";
@@ -66,73 +66,11 @@ function Application() {
               path={AppRoutes.DASHBOARD}
             />
 
+            {catalogRouting}
             {warehouseRouting}
             {purchasesRouting}
             {stockControlRouting}
             {settingRouting}
-
-            <Route
-              element={<UserLoadable.Suppliers />}
-              path={`${AppRoutes.PURCHASE.SUPPLIERS}`}
-            />
-
-            <Route
-              element={<UserLoadable.Catalog />}
-              path={`${AppRoutes.CATALOG.catalog}`}
-            >
-              <Route path={`${AppRoutes.CATALOG.products}`}>
-                <Route index element={<UserLoadable.Products />} />
-                <Route
-                  element={<UserLoadable.ProductCreate />}
-                  path={`${AppRoutes.CATALOG.productCreate}`}
-                />
-                <Route
-                  element={<UserLoadable.ProductDetail />}
-                  path={`${AppRoutes.CATALOG.productDetail}/:productId`}
-                />
-              </Route>
-              <Route path={`${AppRoutes.CATALOG.units}`}>
-                <Route index element={<UserLoadable.Units />} />
-                <Route
-                  element={<UserLoadable.UnitsHistory />}
-                  path={`${AppRoutes.CATALOG.unitHistory}/:unitId`}
-                />
-              </Route>
-              <Route path={`${AppRoutes.CATALOG.categories}`}>
-                <Route index element={<UserLoadable.Categories />} />
-                <Route
-                  element={<UserLoadable.CategoryDetail />}
-                  path={`${AppRoutes.CATALOG.categoryDetail}/:categoryId`}
-                />
-                <Route
-                  element={<UserLoadable.CategoryCreate />}
-                  path={`${AppRoutes.CATALOG.categoryCreate}`}
-                />
-              </Route>
-              <Route path={`${AppRoutes.CATALOG.brands}`}>
-                <Route index element={<UserLoadable.Brands />} />
-              </Route>
-              <Route path={`${AppRoutes.CATALOG.bundles}`}>
-                <Route index element={<UserLoadable.Bundles />} />
-                <Route
-                  element={<UserLoadable.BundlesDetail />}
-                  path={`${AppRoutes.CATALOG.bundleDetails}/:bundleId`}
-                />
-                <Route
-                  element={<UserLoadable.CreateBundles />}
-                  path={`${AppRoutes.CATALOG.bundleCreate}/:bundleId`}
-                />
-              </Route>
-              <Route path={`${AppRoutes.CATALOG.listing}`}>
-                <Route index element={<UserLoadable.Listing />} />
-              </Route>
-              <Route path={`${AppRoutes.CATALOG.variants}`}>
-                <Route index element={<UserLoadable.Variant />} />
-                <Route path={`${AppRoutes.CATALOG.variantsDetails}/:variantId`}>
-                  <Route index element={<UserLoadable.VariantDetails />} />
-                </Route>
-              </Route>
-            </Route>
 
             <Route
               element={<SettingPermissionsLayout />}

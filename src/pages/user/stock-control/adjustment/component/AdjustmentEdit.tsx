@@ -1,6 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import PrintIcon from "@mui/icons-material/Print";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import SaveIcon from "@mui/icons-material/Save";
 import {
@@ -28,6 +27,7 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikProps } from "formik";
+import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
 import useAdjustmentReason from "hooks/setting/adjustment-reason/useAdjustmentReason";
 import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
@@ -39,6 +39,7 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
 import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
@@ -46,7 +47,6 @@ import useManageAdjustmentForm, {
   ManageAdjustmentForm,
   deafultValues,
 } from "../hooks/useManageAdjustmentForm";
-import AdjustmentBarcode from "./slider/AdjustmentBarcode";
 import BrowsStock from "./slider/BrowseStack";
 import UnitSlider from "./slider/UnitSlider";
 
@@ -58,9 +58,18 @@ export interface IUnits {
   conditionCode?: string;
 }
 
-function AdjustmentCreate() {
+function AdjustmentEdit() {
+  const [totalValue, setTotalValue] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+  const [units, setUnits] = useState<IUnits>({
+    unitNumber: 0,
+    batchNumber: 0,
+    serialNumber: "",
+    conditionCode: "",
+  });
+
+  const navigate = useNavigate();
   const newtheme = useSelector((state: any) => state.theme);
-  const [barcodeSliderOpen, setBarcodeSliderOpen] = useState(false);
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -113,21 +122,6 @@ function AdjustmentCreate() {
     },
     {
       id: crypto.randomUUID(),
-      title: "Barcode",
-      onClick: () => {
-        setBarcodeSliderOpen(!barcodeSliderOpen);
-      },
-      icon: (
-        <PrintIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
       title: "Save & Complete",
       onClick: () => {
         handleSubmit();
@@ -143,17 +137,14 @@ function AdjustmentCreate() {
     },
   ];
   const { adjustmentReason: adjustmentMenuItem } = useAdjustmentReason();
-  const { addAdjustmentAction } = useAdjustmentAction();
+  const { editAdjustmentAction } = useAdjustmentAction();
   const { warehouse: warehouseMenuItem } = useWarehouse();
   const decodeData = useDecodedData();
-  const [totalValue, setTotalValue] = useState(0);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-
-  const formik = useManageAdjustmentForm({
-    initialValues: deafultValues,
-    onSubmit,
-  });
-
+  const selectedAdjustment = useSelector(getAdjustmentSelected);
+  const adjustmentData = {
+    adjustmentId: selectedAdjustment.id,
+  };
+  const { data: adjustmentEditData } = useGetByIdAdjustment(adjustmentData);
   const {
     stockControl: {
       layout,
@@ -161,17 +152,12 @@ function AdjustmentCreate() {
     },
   } = AppRoutes;
 
-  const navigate = useNavigate();
-  const [units, setUnits] = useState<IUnits>({
-    unitNumber: 0,
-    batchNumber: 0,
-    serialNumber: "",
-    conditionCode: "",
+  const formik = useManageAdjustmentForm({
+    initialValues: deafultValues,
+    onSubmit,
   });
-
   const {
     values,
-    handleBlur,
     handleChange,
     touched,
     setFieldValue,
@@ -181,6 +167,7 @@ function AdjustmentCreate() {
   } = formik;
   async function onSubmit(values: ManageAdjustmentForm) {
     const data: AddAdjustmentRequestRoot = {
+      id: Number(adjustmentEditData?.data.id),
       userId: Number(decodeData.id),
       warehosuseId: Number(values.warehosuseId),
       adjustmentReasonId: Number(values.adjustmentReasonId),
@@ -190,8 +177,8 @@ function AdjustmentCreate() {
       lineItem: 0,
       qtyChange: Number(values.qtyChange),
       notes: values.notes,
-      totalQuantity: Number(units.quantity),
-      totalValue: Number(units.quantity) * Number(values.stock[0]?.unitCost),
+      totalQuantity: Number(totalQuantity),
+      totalValue: Number(totalValue),
       stock: values.stock.map((item) => ({
         userId: Number(decodeData.id),
         productId: Number(item.productId),
@@ -216,17 +203,37 @@ function AdjustmentCreate() {
       })),
     };
 
-    await addAdjustmentAction(data);
+    await editAdjustmentAction(data);
     resetForm();
     navigate(`/${layout}/${listing}`);
   }
-  console.log("values", JSON.stringify(values, null, 2));
+  useEffect(() => {
+    if (adjustmentEditData?.data) {
+      setFieldValue("warehosuseId", adjustmentEditData?.data.warehouseId);
+      setFieldValue(
+        "adjustmentReasonId",
+        adjustmentEditData?.data.adjustmentReasonId,
+      );
+      setFieldValue("referenceId", adjustmentEditData?.data.referenceId);
+      setFieldValue("companyId", adjustmentEditData?.data.companyId);
+      setFieldValue("sa", adjustmentEditData?.data.sa);
+      setFieldValue("lineItem", adjustmentEditData?.data.lineItem);
+      setFieldValue("qtyChange", adjustmentEditData?.data.qtyChange);
+      setFieldValue("notes", adjustmentEditData?.data.notes);
+      setFieldValue(
+        "barcodeStrattotalQuantityegy",
+        adjustmentEditData?.data.totalQuantity,
+      );
+      setFieldValue("totalValue", adjustmentEditData?.data.totalValue);
+      setFieldValue("stock", adjustmentEditData?.data.stockDetails);
+    }
+  }, [adjustmentEditData?.data]);
 
   useEffect(() => {
     const quantity = values.stock
       .filter((i) => i.quantity && i.unitCost)
       .reduce((accumulator, item) => {
-        return Number(accumulator) + Number(item.quantity);
+        return Number(accumulator) + item.quantity;
       }, 0);
     setTotalQuantity(quantity);
 
@@ -240,6 +247,13 @@ function AdjustmentCreate() {
 
     setTotalValue(total);
   }, [values]);
+
+  const index = warehouseMenuItem.findIndex(
+    (item) => item.id === String(adjustmentEditData?.data.warehouseId),
+  );
+  console.log("adjustemntEdit", JSON.stringify(adjustmentEditData, null, 2));
+
+  console.log("checkValues", JSON.stringify(values, null, 2));
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
@@ -255,9 +269,9 @@ function AdjustmentCreate() {
           handleClick={() => {
             // handleSubmit()
           }}
-          navTitle="New"
+          navTitle={`Stock Adjustment ${selectedAdjustment.name} > Edit`}
           rightActions={rightActionsData}
-          title="New Adjustment"
+          title={`Stock Adjustment ${selectedAdjustment.name}`}
         />
         <Grid
           container
@@ -276,24 +290,31 @@ function AdjustmentCreate() {
             >
               <CustomCardContent title="Details">
                 <Grid
-                  direction="row"
                   display="flex"
+                  direction="row"
                   justifyContent="space-around"
                 >
                   <Stack direction="column" gap={2} sx={{ width: "100%" }}>
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("warehosuseId", value?.id)
-                      }
+                      label="Warehouse*"
+                      // defaultValue={warehouseMenuItem.filter((item) => {
+                      //   if(item.id === String(adjustmentEditData?.data.warehouseId)){
+                      //     return item
+                      //   }
+                      // })}
+                      defaultValue={{ value: warehouseMenuItem[0]?.value }}
+                      // defaultValue={index !== -1  && {id:String(values.warehosuseId), value:warehouseMenuItem[index].value}}
                       helperText={
                         (touched.warehosuseId &&
                           errors &&
                           errors.warehosuseId) ||
                         ""
                       }
-                      label="Warehouse*"
                       options={warehouseMenuItem}
+                      handleChange={(e: any, value: any) => {
+                        setFieldValue("warehosuseId", value?.id);
+                      }}
                     />
                   </Stack>
                   <Stack
@@ -304,9 +325,6 @@ function AdjustmentCreate() {
                   >
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("adjustmentReasonId", value?.id)
-                      }
                       helperText={
                         (touched.adjustmentReasonId &&
                           errors &&
@@ -315,6 +333,9 @@ function AdjustmentCreate() {
                       }
                       label="Adjustment Reason*"
                       options={adjustmentMenuItem}
+                      handleChange={(e: any, value: any) =>
+                        setFieldValue("adjustmentReasonId", value?.id)
+                      }
                     />
                   </Stack>
                   <Stack direction="column" mr={2} sx={{ width: "100%" }}>
@@ -330,11 +351,11 @@ function AdjustmentCreate() {
                   <Stack direction="column" sx={{ width: "100%" }}>
                     <AutoComplete
                       getOptionLabel={(item: any) => item.company}
+                      label="Company"
+                      options={[{ id: "1", company: "smart" }]}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("companyId", value?.id)
                       }
-                      label="Company"
-                      options={[{ id: "1", company: "smart" }]}
                     />
                   </Stack>
                 </Grid>
@@ -344,11 +365,11 @@ function AdjustmentCreate() {
 
           <Grid item xs={12}>
             <StocksTable
-              adjustmentReasonId={values.adjustmentReasonId}
               formik={formik}
+              warehouseId={values.warehosuseId}
+              adjustmentReasonId={values.adjustmentReasonId}
               setUnits={setUnits}
               units={units}
-              warehouseId={values.warehosuseId}
             />
           </Grid>
 
@@ -360,9 +381,9 @@ function AdjustmentCreate() {
                   id="notes"
                   label="Notes"
                   name="notes"
-                  rows={5}
                   value={values.notes}
                   onChange={handleChange("notes")}
+                  rows={5}
                 />
               </CustomCardContent>
               <CustomCardContent title="Adjustment Summary">
@@ -370,8 +391,8 @@ function AdjustmentCreate() {
                   <TextField
                     darkDisable
                     label="Total adjusted Quantity"
-                    name="totalQuantity"
                     size="small"
+                    name="totalQuantity"
                     value={Number(totalQuantity) || 0}
                     onChange={() =>
                       setFieldValue("totalQuantity", totalQuantity)
@@ -379,9 +400,9 @@ function AdjustmentCreate() {
                   />
                   <TextField
                     darkDisable
-                    label="Total adjusted value"
                     name="totalValue"
                     size="small"
+                    label="Total adjusted value"
                     value={`INR ${totalValue}.00`}
                     onChange={() => setFieldValue("totalValue", totalValue)}
                   />
@@ -391,15 +412,11 @@ function AdjustmentCreate() {
           </Grid>
         </Grid>
       </Container>
-      <AdjustmentBarcode
-        handleClose={() => setBarcodeSliderOpen(false)}
-        open={barcodeSliderOpen}
-      />
     </ThemeProvider>
   );
 }
 
-export default AdjustmentCreate;
+export default AdjustmentEdit;
 
 const tableTitle = [
   {
@@ -449,28 +466,26 @@ interface IStockTable {
 function StocksTable(props: IStockTable) {
   const { warehouseId, adjustmentReasonId, formik, setUnits } = props;
 
+  const newtheme = useSelector((state: any) => state.theme);
   const [openBrows, setOpenBrows] = useState(false);
-  const [variants, setVariants] = useState<IGetAllVariantResponseData[]>([]);
+
   const [selectedVariants, setSelectedVariants] = useState<
     IGetAllVariantResponseData[]
   >([]);
+  const [variants, setVariants] = useState<IGetAllVariantResponseData[]>([]);
+
   const [selectedItem, setSelectedItem] =
     useState<IGetAllVariantResponseData>();
   const [unitSliderOpen, setUnitSliderOpen] = useState(false);
-
-  const newtheme = useSelector((state: any) => state.theme);
-  const { location: locationMenuItem } = useLocation(warehouseId);
-
-  const { setFieldValue, handleChange, values } = formik;
-
-  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
-
   const handleClose = () => {
     setOpenBrows(!openBrows);
   };
   const handleUnitClose = () => {
     setUnitSliderOpen(!unitSliderOpen);
   };
+  const { location: locationMenuItem } = useLocation(warehouseId);
+  const { setFieldValue, handleChange, values } = formik;
+  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
 
   return (
     <>
@@ -605,43 +620,34 @@ function StocksTable(props: IStockTable) {
                               id="unitCost"
                               label="Unit Cost"
                               name={`stock[${index}].unitCost`}
-                              size="small"
                               value={values?.stock[index]?.unitCost}
                               onChange={handleChange}
+                              size="small"
                             />
                           </TableCell>
                           <TableCell
-                            align="center"
                             sx={{
                               minWidth: 170,
+                              display: "flex",
+                              flexDirection: "row",
+                              justifyContent: "center",
+                              alignItems: "center",
                             }}
                             onClick={() => {
-                              setSelectedItem({ ...item, index });
+                              setSelectedItem({ ...item, index, isEdit: true });
                               setUnitSliderOpen(!unitSliderOpen);
                             }}
                           >
-                            <Box>
-                              <Typography variant="subtitle2">
-                                <span>
-                                  <QrCode2Icon
-                                    sx={{
-                                      fontSize: 20,
-                                      ml: 1,
-                                      color: "#000",
-                                      verticalAlign: "middle",
-                                    }}
-                                  />
-                                </span>
-
-                                <sup
-                                  style={{
-                                    verticalAlign: "supper",
-                                  }}
-                                >
-                                  {item?.quantity}
-                                </sup>
-                              </Typography>
-                            </Box>
+                            <QrCode2Icon
+                              sx={{
+                                fontSize: 20,
+                                mr: 1,
+                                color: "#000",
+                              }}
+                            />
+                            <Typography sx={{ mb: 3 }}>
+                              {item?.quantity}
+                            </Typography>
                           </TableCell>
                           <TableCell
                             sx={{
@@ -652,8 +658,8 @@ function StocksTable(props: IStockTable) {
                             <TextField
                               darkDisable
                               label="Container Number"
-                              name={`stock[${index}].containerNumber`}
                               size="small"
+                              name={`stock[${index}].containerNumber`}
                               value={values.stock[index]?.containerNumber}
                               onChange={handleChange}
                             />
@@ -666,11 +672,10 @@ function StocksTable(props: IStockTable) {
                           >
                             <TextField
                               darkDisable
-                              iconEnd
-                              // label="Expiry Date"
-                              name={`stock[${index}].expiryDate`}
-                              size="small"
                               type="date"
+                              label="Expiry Date"
+                              size="small"
+                              name={`stock[${index}].expiryDate`}
                               value={values.stock[index]?.expiryDate}
                               onChange={handleChange}
                             />
@@ -684,14 +689,14 @@ function StocksTable(props: IStockTable) {
                             <Box sx={{ mb: 2 }}>
                               <AutoComplete
                                 getOptionLabel={(item: any) => item.value}
+                                label="Location*"
+                                options={locationMenuItem}
                                 handleChange={(e: any, value: any) =>
                                   setFieldValue(
                                     `stock[${index}].locationId`,
                                     value?.id,
                                   )
                                 }
-                                label="Location*"
-                                options={locationMenuItem}
                               />
                             </Box>
                           </TableCell>
@@ -709,22 +714,22 @@ function StocksTable(props: IStockTable) {
       </Card>
 
       <BrowsStock
+        handleClose={handleClose}
+        open={openBrows}
+        setVariants={setSelectedVariants}
         formik={formik}
+        variants={selectedVariants}
         handleAdd={() => {
           setVariants(selectedVariants);
           setOpenBrows(!openBrows);
         }}
-        handleClose={handleClose}
-        open={openBrows}
-        setVariants={setSelectedVariants}
-        variants={selectedVariants}
       />
       <UnitSlider
-        data={selectedItem}
-        formik={formik}
-        handleAdd={() => setUnitSliderOpen(!unitSliderOpen)}
         handleClose={handleUnitClose}
         open={unitSliderOpen}
+        formik={formik}
+        handleAdd={() => setUnitSliderOpen(!unitSliderOpen)}
+        data={selectedItem}
         setUnits={setUnits}
       />
     </>

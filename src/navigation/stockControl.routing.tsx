@@ -12,6 +12,10 @@ const stockControlRouting = (
       element={<StockControlLoadable.AdjustmentCreate />}
       path={`${AppRoutes.stockControl.adjustment.create}`}
     />
+     <Route
+      element={<StockControlLoadable.AdjustmentUpdate />}
+      path={`${AppRoutes.stockControl.adjustment.update}/:adjustmentId`}
+    />
     <Route
       element={<StockControlLoadable.AdjustmentListing />}
       path={`${AppRoutes.stockControl.adjustment.listing}`}
