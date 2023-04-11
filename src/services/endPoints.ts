@@ -196,6 +196,7 @@ const API_URLS = {
   PUT_BRAND: `brand/${endPoints.edit}`,
   DELETE_BRAND: `brand/${endPoints.delete}`,
   BULK_DELETE_BRAND: `brand/${endPoints.bulkDelete}`,
+  GET_ALL_PAGINATION_BRAND: `brand/${endPoints.getAllPagination}`,
 
   //  Supplier
   GET_ALL_SUPPLIER_WITHOUT_PAGINATION: `supplier/${endPoints.getAll}`,
@@ -264,6 +265,7 @@ const API_URLS = {
   // adjustment Reason
   ADD_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.add}`,
   GET_ALL_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.getAll}`,
+  GET_ALL_PAGINATION_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.getAllPagination}`,
   DELETE_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.delete}`,
   EDIT_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.edit}`,
   GET_BY_ID_ADJUSTMENT_REASON: `adjustmentReason/${endPoints.getbyid}`,

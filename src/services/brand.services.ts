@@ -6,6 +6,16 @@ import { IAddProductResponseRoot } from "types/catalog/products/addProductRespon
 import client from "utils/ApiClient";
 import API_URLS from "./endPoints";
 
+export async function getAllPaginationBrand(
+  restUrl: string,
+): Promise<IGetBrandResponseRoot> {
+  let URL = `${API_URLS.GET_ALL_PAGINATION_BRAND}`;
+  if (restUrl) {
+    URL = `${URL}?${restUrl}`;
+  }
+  return client.get(URL);
+}
+
 export async function getAllBrand(
   restUrl: string,
 ): Promise<IGetBrandResponseRoot> {

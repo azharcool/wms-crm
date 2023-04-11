@@ -2,13 +2,39 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent } from "@mui/material";
 import { Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
+import useGetAllPaginationProductCondition from "hooks/querys/setting/product-condition/useGetAllPaginationProductCondition";
 import { useState } from "react";
-import ProductConditionList from "./components/list/ProductConditionList";
 import ManageProductCondition from "./components/ManageProductCondition";
+import ProductConditionList from "./components/list/ProductConditionList";
 
 function ProductCondition() {
   const [manageOpen, setManageOpen] = useState(false);
+  const [productconditionPagination, setproductconditionPagination] = useState({
+    pageSize: 10,
+    page: 1,
+  });
 
+  const { data: productconditionResponse, refetch } =
+    useGetAllPaginationProductCondition(productconditionPagination);
+
+  const handlePageChange = (pageNo: number) => {
+    setproductconditionPagination((prevState) => ({
+      ...prevState,
+      page: pageNo,
+    }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+  const handlePageLimitChange = (limit: number) => {
+    setproductconditionPagination((prevState) => ({
+      ...prevState,
+      pageSize: limit,
+    }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
   const handleManage = () => {
     setManageOpen((s) => !s);
   };
@@ -39,7 +65,13 @@ function ProductCondition() {
           title="Product Condition"
         />
         <Box sx={{ mt: 3 }}>
-          <ProductConditionList />
+          <ProductConditionList
+            data={productconditionResponse}
+            paginationData={productconditionPagination}
+            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+            total={productconditionResponse?.totalDocs || 0}
+          />
         </Box>
       </CardContent>
 

@@ -5,8 +5,12 @@ import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setAdjustment } from "redux/stock-control/adjustmentSlice";
-import { useAppDispatch } from "redux/store";
+import { getSelectedAdjustmentById } from "redux/stock-control/adjustmentSelector";
+import {
+  setAdjustment,
+  setAdjustmentId,
+} from "redux/stock-control/adjustmentSlice";
+import { RootState, useAppDispatch } from "redux/store";
 import palette from "theme/palette";
 import { GetAllAdjustmentResponseData } from "types/stock/adjustment/getAllAdjustmentResponse";
 
@@ -15,18 +19,28 @@ interface IAdjustmentListItem {
 }
 
 function AdjustmentListItem(props: IAdjustmentListItem) {
+  const { item } = props;
+
   const newtheme = useSelector((state: any) => state.theme);
-  const { deleteAdjustmentAsync } = useAdjustmentAction();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const getSelectedAdjustmentByIdState = useSelector((state: RootState) =>
+    getSelectedAdjustmentById(state, Number(item.id)),
+  );
+
+  const select = () => {
+    dispatch(setAdjustmentId(item.id));
+  };
+  const { deleteAdjustmentAsync } = useAdjustmentAction();
+
   const {
     stockControl: {
       layout,
       adjustment: { details, generalDetails },
     },
   } = AppRoutes;
-  const { item } = props;
 
-  const dispatch = useAppDispatch();
   return (
     <TableRow>
       <TableCell
@@ -42,9 +56,9 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
         }}
       >
         <Checkbox
-          // checked={}
+          checked={getSelectedAdjustmentByIdState}
           color="primary"
-          // onChange={}
+          onChange={select}
         />
       </TableCell>
       <TableCell

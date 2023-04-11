@@ -6,13 +6,14 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
-import useGetAllPaginationProductCondition from "hooks/querys/setting/product-condition/useGetAllPaginationProductCondition";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import { GetAllProductConditionPaginationResponseRoot } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
 import ProductConditionListItem from "./ProductConditionListItem";
 
 const tableTitle = [
@@ -50,12 +51,29 @@ const tableTitle = [
   },
 ];
 
-function ProductConditionList() {
-  const { data: productconditionResponse } =
-    useGetAllPaginationProductCondition({
-      page: 1,
-      pageSize: 10,
-    });
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
+
+interface IProductConditionListing {
+  data?: GetAllProductConditionPaginationResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
+}
+
+function ProductConditionList(props: IProductConditionListing) {
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <>
@@ -106,7 +124,7 @@ function ProductConditionList() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {productconditionResponse?.data.map((item) => {
+                  {data?.data.map((item) => {
                     return (
                       <ProductConditionListItem key={item.id} item={item} />
                     );
@@ -114,6 +132,15 @@ function ProductConditionList() {
                 </TableBody>
               </Table>
             </PerfectScrollbar>
+            <TablePagination
+              component="div"
+              count={total}
+              page={paginationData.page}
+              rowsPerPage={paginationData.pageSize}
+              rowsPerPageOptions={[5, 10, 25]}
+              onPageChange={handlePageChange}
+              onRowsPerPageChange={handleLimitChange}
+            />
           </TableContainer>
         </Box>
       </PerfectScrollbar>
