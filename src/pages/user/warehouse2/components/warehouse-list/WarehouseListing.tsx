@@ -55,22 +55,21 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
 interface IWarehouselisting {
   data?: IGetWarehouseResponseRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  warehousePagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+  const { data, warehousePagination, handlePagination } = props;
+
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
+
   const selectAll = (event: IChangeEvent, checked: boolean) => {
     if (data) {
       dispatch(
@@ -80,14 +79,6 @@ function WarehouseListing(props: IWarehouselisting) {
         }),
       );
     }
-  };
-
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
-
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
   };
 
   return (
@@ -160,12 +151,16 @@ function WarehouseListing(props: IWarehouselisting) {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={total}
-            page={paginationData.page}
-            rowsPerPage={paginationData.pageSize}
+            count={data?.totalDocs || 0}
+            page={warehousePagination.page}
+            rowsPerPage={warehousePagination.pageSize}
             rowsPerPageOptions={[5, 10, 25]}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleLimitChange}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
           />
         </TableContainer>
       </Box>

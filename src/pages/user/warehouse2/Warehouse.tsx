@@ -10,28 +10,24 @@ import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import WarehouseListing from "./components/warehouse-list/WarehouseListing";
 
 function Warehouse() {
-  const navigate = useNavigate();
   const [warehousePagination, setWarehousepagination] = useState({
     pageSize: 10,
     page: 1,
   });
+
+  const navigate = useNavigate();
   const { bulkDeleteWarehouseAsync } = useWarehouseAction();
-  const { data: warehousePaginationResponse, refetch } =
+  const { data: warehousePaginationResponse } =
     useGetAllWarehouse(warehousePagination);
   const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
+
   const ids = getSelectedWarehouseIdsState.toString();
 
-  const handlePageChange = (pageNo: number) => {
-    setWarehousepagination((prevState) => ({ ...prevState, page: pageNo }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setWarehousepagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+  const handlePagination = (name: string, value: number) => {
+    setWarehousepagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
   };
 
   return (
@@ -66,10 +62,8 @@ function Warehouse() {
         <Box sx={{ mt: 3 }}>
           <WarehouseListing
             data={warehousePaginationResponse}
-            paginationData={warehousePagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={warehousePaginationResponse?.totalDocs || 0}
+            handlePagination={handlePagination}
+            warehousePagination={warehousePagination}
           />
         </Box>
       </CardContent>
