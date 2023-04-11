@@ -10,16 +10,26 @@ import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import WarehouseListing from "./components/warehouse-list/WarehouseListing";
 
 function Warehouse() {
-  const navigate = useNavigate();
   const [warehousePagination, setWarehousepagination] = useState({
     pageSize: 10,
     page: 1,
   });
+
+  const navigate = useNavigate();
   const { bulkDeleteWarehouseAsync } = useWarehouseAction();
   const { data: warehousePaginationResponse } =
     useGetAllWarehouse(warehousePagination);
   const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
+
   const ids = getSelectedWarehouseIdsState.toString();
+
+  const handlePagination = (name: string, value: number) => {
+    setWarehousepagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+  };
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
@@ -50,7 +60,11 @@ function Warehouse() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <WarehouseListing data={warehousePaginationResponse} />
+          <WarehouseListing
+            data={warehousePaginationResponse}
+            handlePagination={handlePagination}
+            warehousePagination={warehousePagination}
+          />
         </Box>
       </CardContent>
     </Container>

@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -56,12 +57,19 @@ const tableTitle = [
 
 interface IWarehouselisting {
   data?: IGetWarehouseResponseRoot;
+  warehousePagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
-  const { data } = props;
+  const { data, warehousePagination, handlePagination } = props;
+
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
+
   const selectAll = (event: IChangeEvent, checked: boolean) => {
     if (data) {
       dispatch(
@@ -72,6 +80,7 @@ function WarehouseListing(props: IWarehouselisting) {
       );
     }
   };
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -140,6 +149,19 @@ function WarehouseListing(props: IWarehouselisting) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={data?.totalDocs || 0}
+            page={warehousePagination.page}
+            rowsPerPage={warehousePagination.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>
