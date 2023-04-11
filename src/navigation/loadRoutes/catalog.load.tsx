@@ -91,7 +91,14 @@ export const VariantDetails = Loadable({
   loader: () => import("pages/user/catalog/variant/variantDetails"),
   loading: () => <Spinner />,
 });
+
 export const Listing = Loadable({
   loader: () => import("pages/user/catalog/listing"),
+  loading: () => <Spinner />,
+});
+
+export const BulkUpload = Loadable({
+  loader: () =>
+    import("pages/user/catalog/products/components/Bulk-upload/BulkUpload"),
   loading: () => <Spinner />,
 });

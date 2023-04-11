@@ -11,9 +11,11 @@ import {
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
+import AppRoutes from "navigation/appRoutes";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getSelectedProduct } from "redux/catalog/productSelector";
 import { setAllProductIds } from "redux/catalog/productSlice";
 import { useAppDispatch } from "redux/store";
@@ -77,8 +79,12 @@ type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 function ProductListing(props: IProductListing) {
   const { data } = props;
+
   const getSelectedProductIdsState = useSelector(getSelectedProduct);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { catalog, bulkUpload, products } = AppRoutes.CATALOG;
 
   const selectAll = (event: IChangeEvent, checked: boolean) => {
     if (data) {
@@ -91,9 +97,24 @@ function ProductListing(props: IProductListing) {
     }
   };
 
+  const bulkUploadHandler = () => {
+    const url = `/${catalog}/${products}/${bulkUpload}`;
+    navigate(url);
+  };
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Bulk Upload",
+            onClick: bulkUploadHandler,
+          },
+          { id: crypto.randomUUID(), title: "Bulk Update", onClick: () => {} },
+          { id: crypto.randomUUID(), title: "Export", onClick: () => {} },
+        ]}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
