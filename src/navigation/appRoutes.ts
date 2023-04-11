@@ -39,6 +39,7 @@ const AppRoutes = {
     productCreate: "create",
     variantsDetails: "detail",
     brandDetails: "brandDetails",
+    bulkUpload: "bulk-upload",
   },
 
   // Purchase
