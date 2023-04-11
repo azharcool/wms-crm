@@ -16,10 +16,24 @@ function Warehouse() {
     page: 1,
   });
   const { bulkDeleteWarehouseAsync } = useWarehouseAction();
-  const { data: warehousePaginationResponse } =
+  const { data: warehousePaginationResponse, refetch } =
     useGetAllWarehouse(warehousePagination);
   const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
   const ids = getSelectedWarehouseIdsState.toString();
+
+  const handlePageChange = (pageNo: number) => {
+    setWarehousepagination((prevState) => ({ ...prevState, page: pageNo }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+  const handlePageLimitChange = (limit: number) => {
+    setWarehousepagination((prevState) => ({ ...prevState, pageSize: limit }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
@@ -50,7 +64,13 @@ function Warehouse() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <WarehouseListing data={warehousePaginationResponse} />
+          <WarehouseListing
+            data={warehousePaginationResponse}
+            paginationData={warehousePagination}
+            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+            total={warehousePaginationResponse?.totalDocs || 0}
+          />
         </Box>
       </CardContent>
     </Container>

@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -54,12 +55,20 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
 interface IWarehouselisting {
   data?: IGetWarehouseResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function WarehouseListing(props: IWarehouselisting) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
   const selectAll = (event: IChangeEvent, checked: boolean) => {
@@ -72,6 +81,15 @@ function WarehouseListing(props: IWarehouselisting) {
       );
     }
   };
+
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
+  };
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -140,6 +158,15 @@ function WarehouseListing(props: IWarehouselisting) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>
