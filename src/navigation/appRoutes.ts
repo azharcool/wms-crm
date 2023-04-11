@@ -143,6 +143,10 @@ const AppRoutes = {
       history: "history/details",
       create: "putaway-v2/create",
     },
+    stock_count: {
+      listing: "stock-count/listing",
+      details: "stock-count/details",
+    },
   },
 
   setting: {

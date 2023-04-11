@@ -82,6 +82,16 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.putaway_v2.history}`}
       />
     </Route>
+    {/* {Stock-Count} */}
+    <Route
+      element={<StockControlLoadable.StockCountListing />}
+      path={`${AppRoutes.stockControl.stock_count.listing}`}
+    />
+
+    {/* <Route
+      element={<StockControlLoadable.ReceiveDetials />}
+      path={`${AppRoutes.stockControl.recieve.details}/:recieveId`}
+    /> */}
   </Route>
 );
 

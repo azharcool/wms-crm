@@ -112,3 +112,30 @@ export const PutAwayV2History = Loadable({
     ),
   loading: () => <Spinner />,
 });
+// StockCount
+export const StockCountListing = Loadable({
+  loader: () => import("pages/user/stock-control/stock-count/StockCount"),
+  loading: () => <Spinner />,
+});
+
+// export const ReceiveDetials = Loadable({
+//   loader: () =>
+//     import("pages/user/stock-control/receive/component/detials/ReceiveDetails"),
+//   loading: () => <Spinner />,
+// });
+
+// export const ReceiveGeneral = Loadable({
+//   loader: () =>
+//     import(
+//       "pages/user/stock-control/receive/component/detials/general/General"
+//     ),
+//   loading: () => <Spinner />,
+// });
+
+// export const ReceiveHistory = Loadable({
+//   loader: () =>
+//     import(
+//       "pages/user/stock-control/receive/component/detials/history/History"
+//     ),
+//   loading: () => <Spinner />,
+// });
