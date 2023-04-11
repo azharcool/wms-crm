@@ -31,6 +31,31 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.adjustment.historylisting}`}
       />
     </Route>
+    {/* Adjustment Routing */}
+
+    <Route
+      element={<StockControlLoadable.MovementCreate />}
+      path={`${AppRoutes.stockControl.movement.create}`}
+    />
+    <Route
+      element={<StockControlLoadable.MovementListing />}
+      path={`${AppRoutes.stockControl.movement.listing}`}
+    />
+
+    <Route
+      element={<StockControlLoadable.MovementDetails />}
+      path={`${AppRoutes.stockControl.movement.details}/:movementId`}
+    >
+      {/* <Route
+        element={<StockControlLoadable.AdjustmentGeneralDetails />}
+        path={`${AppRoutes.stockControl.adjustment.generalDetails}`}
+      />
+
+      <Route
+        element={<StockControlLoadable.AdjustmentHistoryListing />}
+        path={`${AppRoutes.stockControl.adjustment.historylisting}`}
+      /> */}
+    </Route>
 
     {/* Recieve Routing */}
     <Route

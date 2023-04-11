@@ -41,6 +41,19 @@ export const AdjustmentHistoryListing = Loadable({
   loading: () => <Spinner />,
 });
 
+// export const AdjustmentGeneralDetails = Loadable({
+//   loader: () =>
+//     import("pages/user/stock-control/adjustment/component/details/General"),
+//   loading: () => <Spinner />,
+// });
+
+// export const AdjustmentHistoryListing = Loadable({
+//   loader: () =>
+//     import(
+//       "pages/user/stock-control/adjustment/component/details/history/HistoryListing"
+//     ),
+//   loading: () => <Spinner />,
+
 // Recieve
 export const ReceiveListing = Loadable({
   loader: () => import("pages/user/stock-control/receive/Receive"),
@@ -109,6 +122,26 @@ export const PutAwayV2History = Loadable({
   loader: () =>
     import(
       "pages/user/stock-control/putaway-v2/component/details/history/History"
+    ),
+  loading: () => <Spinner />,
+});
+
+// Movement
+export const MovementCreate = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/movement/component/MovementCreate"),
+  loading: () => <Spinner />,
+});
+
+export const MovementListing = Loadable({
+  loader: () => import("pages/user/stock-control/movement/Movement"),
+  loading: () => <Spinner />,
+});
+
+export const MovementDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/movement/component/details/MovementDetails"
     ),
   loading: () => <Spinner />,
 });
