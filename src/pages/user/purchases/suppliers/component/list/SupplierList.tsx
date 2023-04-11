@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -59,12 +60,20 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
 interface ISupplierList {
   data?: GetAllSupplierRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function SupplierList(props: ISupplierList) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
   const getSelectedSupplierByIdState = useSelector(getSelectedSupplier);
   const dispatch = useDispatch();
   const selectAll = (event: IChangeEvent, checked: boolean) => {
@@ -78,6 +87,13 @@ function SupplierList(props: ISupplierList) {
     }
   };
 
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
+  };
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar />
@@ -145,6 +161,15 @@ function SupplierList(props: ISupplierList) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>

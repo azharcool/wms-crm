@@ -49,6 +49,6 @@ export async function deleteAdjustment(id: number): Promise<IResponse> {
 }
 
 export async function bulkDeleteAdjustment(ids: string): Promise<IResponse> {
-  const URL = `${API_URLS.BULK_DELETE_ADJUSTMENT}?id=${ids}`;
+  const URL = `${API_URLS.BULK_DELETE_ADJUSTMENT}/${ids}`;
   return client.delete(URL);
 }

@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import {
@@ -136,6 +137,12 @@ function AdjustmentList(props: IAdjustmentList) {
                 {data?.data.map((item: GetAllAdjustmentResponseData) => {
                   return <AdjustmentListItem item={item} />;
                 })}
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Adjustment"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

@@ -14,6 +14,12 @@ export const AdjustmentCreate = Loadable({
   loading: () => <Spinner />,
 });
 
+export const AdjustmentUpdate = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/adjustment/component/AdjustmentEdit"),
+  loading: () => <Spinner />,
+});
+
 export const AdjustmentListing = Loadable({
   loader: () => import("pages/user/stock-control/adjustment/Adjustment"),
   loading: () => <Spinner />,

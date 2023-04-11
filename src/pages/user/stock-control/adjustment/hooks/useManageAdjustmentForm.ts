@@ -24,7 +24,7 @@ export interface IStock {
   expiryDate?: "";
   locationId?: 0;
 }
-export interface AddAdjustmentForm {
+export interface ManageAdjustmentForm {
   id: 0;
   userId: 0;
   warehosuseId: 0;
@@ -40,12 +40,12 @@ export interface AddAdjustmentForm {
   stock: IStock[];
 }
 
-interface IAddAdjustmentForm {
+interface IManageAdjustmentForm {
   onSubmit: (
-    values: AddAdjustmentForm,
-    FormikHelpers: FormikHelpers<AddAdjustmentForm>,
+    values: ManageAdjustmentForm,
+    FormikHelpers: FormikHelpers<ManageAdjustmentForm>,
   ) => void | Promise<unknown>;
-  initialValues: AddAdjustmentForm;
+  initialValues: ManageAdjustmentForm;
 }
 const validationSchema = Yup.object().shape({
   warehosuseId: Yup.number()
@@ -56,7 +56,7 @@ const validationSchema = Yup.object().shape({
     .min(1, "Please select adjustment reason"),
 });
 
-export const deafultValues: AddAdjustmentForm = {
+export const deafultValues: ManageAdjustmentForm = {
   id: 0,
   userId: 0,
   warehosuseId: 0,
@@ -72,15 +72,15 @@ export const deafultValues: AddAdjustmentForm = {
   stock: [],
 };
 
-function useAddAdjustmentForm({
+function useManageAdjustmentForm({
   onSubmit,
   initialValues = deafultValues,
-}: IAddAdjustmentForm) {
-  return useFormik<AddAdjustmentForm>({
+}: IManageAdjustmentForm) {
+  return useFormik<ManageAdjustmentForm>({
     initialValues,
     onSubmit,
     validationSchema,
   });
 }
 
-export default useAddAdjustmentForm;
+export default useManageAdjustmentForm;

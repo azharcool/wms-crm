@@ -5,5 +5,15 @@ export const getAdjustment = (state: RootState) => state.adjustment;
 
 export const getAdjustmentSelected = createSelector(
   getAdjustment,
-  (data) => data.adjustment
+  (data) => data.adjustment,
+);
+
+export const getSelectedAdjustment = createSelector(
+  getAdjustment,
+  (adjustment) => adjustment.adjustmentIds,
+);
+
+export const getSelectedAdjustmentById = createSelector(
+  [getAdjustment, (_, id: number) => id],
+  (adjustment, id: number) => adjustment.adjustmentIds.includes(id) || false,
 );

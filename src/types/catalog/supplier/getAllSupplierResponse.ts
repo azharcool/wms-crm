@@ -1,6 +1,8 @@
 export interface GetAllSupplierRoot {
   statusCode: number;
   data: GetAllSupplierData[];
+  totalDocs: number;
+  limit: number;
 }
 
 export interface GetAllSupplierData {

@@ -17,16 +17,27 @@ function Brands() {
     pageSize: 10,
     page: 1,
   });
-  const { data: brandData } = useGetAllBrand(brandPagination);
-  const { bulkDeleteBrandAsync } = useBrandAction();
-
   const getSelectedBrandIdsState = useSelector(getSelectedBrand);
+
+  const { data: brandData, refetch } = useGetAllBrand(brandPagination);
+  const { bulkDeleteBrandAsync } = useBrandAction();
+  const ids = getSelectedBrandIdsState.toString();
 
   const handleMange = () => {
     setManageOpen((s) => !s);
   };
-
-  const ids = getSelectedBrandIdsState.toString();
+  const handlePageChange = (pageNo: number) => {
+    setBrandPagination((prevState) => ({ ...prevState, page: pageNo }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
+  const handlePageLimitChange = (limit: number) => {
+    setBrandPagination((prevState) => ({ ...prevState, pageSize: limit }));
+    setTimeout(() => {
+      refetch();
+    }, 500);
+  };
 
   return (
     <Container maxWidth={false}>
@@ -62,7 +73,13 @@ function Brands() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <BrandListing data={brandData} />
+          <BrandListing
+            data={brandData}
+            paginationData={brandPagination}
+            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
+            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
+            total={brandData?.totalDocs || 0}
+          />
         </Box>
       </CardContent>
 

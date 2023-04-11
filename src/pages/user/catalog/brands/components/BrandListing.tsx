@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -41,12 +42,27 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
 interface IBrandListing {
   data?: IGetBrandResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 
 function BrandListing(props: IBrandListing) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
+  };
 
   return (
     <PerfectScrollbar>
@@ -108,6 +124,15 @@ function BrandListing(props: IBrandListing) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>

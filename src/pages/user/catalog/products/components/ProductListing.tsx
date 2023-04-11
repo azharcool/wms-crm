@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -71,14 +72,23 @@ const tableTitle = [
   },
 ];
 
+interface IPaginationData {
+  pageSize: number;
+  page: number;
+}
+
 interface IProductListing {
   data?: IGetProductResponseRoot;
+  total: number;
+  paginationData: IPaginationData;
+  setCurrentPage: (page: number) => void;
+  setPageLimit: (limit: number) => void;
 }
 
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 function ProductListing(props: IProductListing) {
-  const { data } = props;
+  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
 
   const getSelectedProductIdsState = useSelector(getSelectedProduct);
   const dispatch = useAppDispatch();
@@ -100,6 +110,14 @@ function ProductListing(props: IProductListing) {
   const bulkUploadHandler = () => {
     const url = `/${catalog}/${products}/${bulkUpload}`;
     navigate(url);
+  };
+
+  const handleLimitChange = (event: any) => {
+    setPageLimit(event.target.value);
+  };
+
+  const handlePageChange = (event: any, newPage: any) => {
+    setCurrentPage(newPage);
   };
 
   return (
@@ -180,6 +198,15 @@ function ProductListing(props: IProductListing) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>
