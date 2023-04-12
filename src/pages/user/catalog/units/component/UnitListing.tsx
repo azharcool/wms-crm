@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import NoDataTableRow from "components/table/no-data-table-row";
 import useGetAllPaginationUnit from "hooks/querys/catalog/unit/useGetAllPaginationUnit";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -97,9 +98,46 @@ function UnitListing() {
     pageSize: 10,
     page: 1,
   });
+
+  const csvData = unitResponse?.data.map((item) => ({
+    image: "",
+    variant: item.variantName,
+    unitnumber: item.unitNumber,
+    available: item.available,
+    quantity: item.newQuantity,
+    uom: item.updatedOn,
+    reservedfor: "",
+    serialnumber: item.serialNo,
+    batchnumber: item.batchNumber,
+    condition: item.conditionCodeId,
+    container: item.containerNumber,
+    expirydate: item.expiryDate,
+    warehouse: item.warehouseName,
+    location: item.locationName,
+    company: item.companyId,
+    createddate: item.createdOn,
+    lastupdated: item.updatedOn,
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+      csvData={csvData}
+      csvHeader={csvHeaders}
+      csvTitle="Units"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          }
+        ]}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -153,6 +191,12 @@ function UnitListing() {
                 {unitResponse?.data.map((item) => {
                   return <UnitItem key={item.id} item={item} />;
                 })}
+                 {!unitResponse?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in unit"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

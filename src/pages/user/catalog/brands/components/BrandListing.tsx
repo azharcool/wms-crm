@@ -64,10 +64,29 @@ function BrandListing(props: IBrandListing) {
     setCurrentPage(newPage);
   };
 
+  const csvData = data?.data.map((item) => ({
+    image: "",
+    name: item.name
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
-      // tabs={tabs}
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Brands"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          },
+        ]}
       />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
