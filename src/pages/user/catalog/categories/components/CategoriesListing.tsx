@@ -91,11 +91,35 @@ function CategoriesListing(props: ICategoriesListing) {
   const handlePageChange = (event: any, newPage: any) => {
     setCurrentPage(newPage);
   };
+  const csvData = data?.data.map((item) => ({
+    image: "",
+    name: item.name,
+    position: "",
+    parentcategory: item.categoryName,
+    status: item.brandName,
+    lastcreated: item.createdOn,
+    tags: "",
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
 
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
-
+      <EnhancedTableToolbar
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Categories"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          },
+        ]}
+      />
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
           <PerfectScrollbar>
