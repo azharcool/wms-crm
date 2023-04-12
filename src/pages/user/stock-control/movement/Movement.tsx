@@ -1,6 +1,7 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import {
   Box,
+  Card,
   CardContent,
   Container,
   ListItem,
@@ -11,16 +12,10 @@ import TableToolbar from "components/table-toolbar";
 import CustomPopover, {
   ICustomPopoverRef,
 } from "components/utilities-popup/CustomPopover";
-import useGetAllAdjustment from "hooks/querys/stock/adjustment/useGetAllAdjustment";
-import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import AppRoutes from "navigation/appRoutes";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { getSelectedAdjustment } from "redux/stock-control/adjustmentSelector";
 import MovementList from "./component/list/MovementList";
-
-// import AdjustmentList from "./component/list/AdjustmentList";
 
 function Movement() {
   const navigate = useNavigate();
@@ -28,13 +23,7 @@ function Movement() {
     pageSize: 10,
     page: 1,
   });
-  const { data: adjustmentPaginationResponse } =
-    useGetAllAdjustment(adjustmentPagination);
-  const getSelectedAdjustmentIdsState = useSelector(getSelectedAdjustment);
 
-  const { bulkDeleteAdjustmentAsync } = useAdjustmentAction();
-
-  const ids = getSelectedAdjustmentIdsState.toString();
   const customPopoverRef = React.useRef<ICustomPopoverRef>(null);
 
   return (
@@ -42,7 +31,7 @@ function Movement() {
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
-          isBulkDisabled={!!ids}
+          isBulkDisabled={false}
           navTitle="Stock Control"
           rightActions={[
             {
@@ -54,9 +43,6 @@ function Movement() {
                 }
               },
 
-              //   navigate(
-              //     `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.movement.create}`,
-              //   ),
               icon: (
                 <AddCircleIcon
                   sx={{
@@ -67,10 +53,8 @@ function Movement() {
               ),
             },
           ]}
-          title="Adjustment"
-          onBulkHandle={() => {
-            bulkDeleteAdjustmentAsync(ids);
-          }}
+          title="Movement"
+          onBulkHandle={() => {}}
         />
         <Box sx={{ mt: 3 }}>
           <MovementList />
@@ -78,25 +62,28 @@ function Movement() {
       </CardContent>
       <CustomPopover ref={customPopoverRef} title="Choose mode">
         <ListItem>
-          <ListItemButton
-            onClick={() =>
-              navigate(
-                `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.movement.create}`,
-              )
-            }
-          >
-            <ListItemText primary=" Browser" />
-          </ListItemButton>
-
-          <ListItemButton
-            onClick={() =>
-              navigate(
-                `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.movement.create}`,
-              )
-            }
-          >
-            <ListItemText primary=" Scan" />
-          </ListItemButton>
+          <Card sx={{ mt: 3 }}>
+            <ListItemButton
+              onClick={() =>
+                navigate(
+                  `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.movement.create}`,
+                )
+              }
+            >
+              <ListItemText primary=" Browser" />
+            </ListItemButton>
+          </Card>
+          <Card sx={{ mt: 3, ml: 2 }}>
+            <ListItemButton
+              onClick={() =>
+                navigate(
+                  `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.movement.create}`,
+                )
+              }
+            >
+              <ListItemText primary=" Scan" />
+            </ListItemButton>
+          </Card>
         </ListItem>
       </CustomPopover>
     </Container>

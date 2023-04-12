@@ -2,7 +2,16 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  newWarehouseSwitchs,
+  pickingStrategy,
+  receivingStrategy,
+  receivingType,
+  timezone,
+  warehouseStatus,
+} from "__mock__";
+import Countries from "__mock__/countries.json";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import TableToolbar from "components/table-toolbar";
@@ -16,15 +25,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
-import {
-  newWarehouseSwitchs,
-  pickingStrategy,
-  receivingStrategy,
-  receivingType,
-  timezone,
-  warehouseStatus,
-} from "__mock__";
-import Countries from "__mock__/countries.json";
 import useAddWarehouseForm, {
   AddWarehouseForm,
 } from "../hooks/useAddWarehouseForm";
