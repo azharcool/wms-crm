@@ -198,16 +198,16 @@ function ProductListing(props: IProductListing) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={total}
+            page={paginationData.page}
+            rowsPerPage={paginationData.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={handlePageChange}
+            onRowsPerPageChange={handleLimitChange}
+          />
         </TableContainer>
-        <TablePagination
-          component="div"
-          count={total}
-          page={paginationData.page}
-          rowsPerPage={paginationData.pageSize}
-          rowsPerPageOptions={[5, 10, 25]}
-          onPageChange={handlePageChange}
-          onRowsPerPageChange={handleLimitChange}
-        />
       </Box>
     </PerfectScrollbar>
   );
