@@ -12,6 +12,7 @@ import {
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
+import dateTimeFormat from "components/dateTime-format";
 import AppRoutes from "navigation/appRoutes";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -120,9 +121,28 @@ function ProductListing(props: IProductListing) {
     setCurrentPage(newPage);
   };
 
+  const csvData = data?.data.map((item) => ({
+    image: item.picture[0]?.atachment,
+    name: item.name,
+    variant: item.variantCount,
+    category: item.categoryName,
+    brand: item.brandName,
+    company: "Smart",
+    tags: item.tags,
+    tracksn: item.trackSerialNumbers,
+    trackexpiry: item.trackExpiryDates,
+    lastupdate: dateTimeFormat(item.updatedOn),
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
+       csvData={csvData} csvHeader={csvHeaders} csvTitle="Product"
         moreList={[
           {
             id: crypto.randomUUID(),
@@ -130,7 +150,7 @@ function ProductListing(props: IProductListing) {
             onClick: bulkUploadHandler,
           },
           { id: crypto.randomUUID(), title: "Bulk Update", onClick: () => {} },
-          { id: crypto.randomUUID(), title: "Export", onClick: () => {} },
+          { id: crypto.randomUUID(), title: "Export", onClick: () => {} }
         ]}
       />
 
