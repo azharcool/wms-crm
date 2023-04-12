@@ -12,7 +12,7 @@ const stockControlRouting = (
       element={<StockControlLoadable.AdjustmentCreate />}
       path={`${AppRoutes.stockControl.adjustment.create}`}
     />
-     <Route
+    <Route
       element={<StockControlLoadable.AdjustmentUpdate />}
       path={`${AppRoutes.stockControl.adjustment.update}/:adjustmentId`}
     />
@@ -92,10 +92,10 @@ const stockControlRouting = (
       path={`${AppRoutes.stockControl.stock_count.listing}`}
     />
 
-    {/* <Route
-      element={<StockControlLoadable.ReceiveDetials />}
-      path={`${AppRoutes.stockControl.recieve.details}/:recieveId`}
-    /> */}
+    <Route
+      element={<StockControlLoadable.StockCountDetails />}
+      path={`${AppRoutes.stockControl.stock_count.details}/:stock_count`}
+    />
   </Route>
 );
 

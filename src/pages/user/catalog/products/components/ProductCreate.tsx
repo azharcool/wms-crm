@@ -13,7 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  UoM,
+  detailMenu,
+  fullfillmentSwitchs,
+  strategys,
+  uniqueBarcodingStrategy,
+} from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import { useAlert } from "components/alert";
 import CustomCardContent from "components/card/CustomCardContent";
@@ -35,13 +42,6 @@ import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { generateRandomNumber } from "utils";
-import {
-  detailMenu,
-  fullfillmentSwitchs,
-  strategys,
-  uniqueBarcodingStrategy,
-  UoM,
-} from "__mock__";
 import useAddProductForm, { AddProductForm } from "../hooks/useAddProductForm";
 import AddVariant from "./AddVariant";
 

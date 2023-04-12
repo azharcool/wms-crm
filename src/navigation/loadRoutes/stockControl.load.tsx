@@ -124,11 +124,13 @@ export const StockCountListing = Loadable({
   loading: () => <Spinner />,
 });
 
-// export const ReceiveDetials = Loadable({
-//   loader: () =>
-//     import("pages/user/stock-control/receive/component/detials/ReceiveDetails"),
-//   loading: () => <Spinner />,
-// });
+export const StockCountDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/stock-count/component/details/StockCountDetails"
+    ),
+  loading: () => <Spinner />,
+});
 
 // export const ReceiveGeneral = Loadable({
 //   loader: () =>

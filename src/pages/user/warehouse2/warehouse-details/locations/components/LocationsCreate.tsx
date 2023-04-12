@@ -8,6 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { Loctype, operation, warehouseStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
@@ -22,7 +23,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { AddLocationRequestRoot } from "types/warehouse/location/addLocationRequest";
-import { Loctype, operation, warehouseStatus } from "__mock__";
 
 import useLocationForm, {
   LocationInitialValues,

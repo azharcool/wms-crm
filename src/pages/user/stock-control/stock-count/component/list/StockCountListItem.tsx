@@ -48,7 +48,7 @@ function StockCountListItem(props: { item: any }) {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() => navigate(`/${layout}/${details}/1/$`)}
+        onClick={() => navigate(`/${layout}/${details}/1`)}
       >
         <Typography
           sx={{
