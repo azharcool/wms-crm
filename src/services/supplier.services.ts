@@ -1,4 +1,5 @@
 import { IResponse } from "constants/interfaces";
+import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
 import { GetAllSupplierRoot } from "types/catalog/supplier/getAllSupplierResponse";
 import { GetByIdSupplierResponseRoot } from "types/catalog/supplier/getByIdSupplierResponse";
@@ -49,4 +50,11 @@ export async function deleteSupplier(id: number): Promise<IResponse> {
 export async function buldDeleteSupplier(ids: string): Promise<IResponse> {
   const URL = `${API_URLS.BULK_DELETE_SUPPLIER}/${ids}`;
   return client.delete(URL);
+}
+
+export async function addShippingAddress(
+  request: AddShippingAddressRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.ADD_SHIPPING_ADDRESS}`;
+  return client.post(URL, request);
 }

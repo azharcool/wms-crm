@@ -11,8 +11,6 @@ import {
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
-import useBrand from "hooks/catalog/brand/useBrand";
-import useCategory from "hooks/catalog/categories/useCategory";
 import useDecodedData from "hooks/useDecodedData";
 import useArea from "hooks/warehouse/area/useArea";
 import useLocationAction from "hooks/warehouse/location/useLocation";
@@ -30,8 +28,9 @@ import useLocationForm, {
 } from "../hooks/useLocationForm";
 
 function LocationsCreate() {
-  const { category } = useCategory();
-  const { brand } = useBrand();
+  const [areaLabel, setAreaLabel] = useState<string>("");
+  const [zoneLabel, setZoneLabel] = useState<string>("");
+
   const { zones } = useZone();
   const { areas } = useArea();
   const navigate = useNavigate();
@@ -46,8 +45,8 @@ function LocationsCreate() {
     });
 
   const lastPageLink = `/warehouse/details/${getSelectedWarehouse.id}/locations/listing`;
+
   async function onSubmit(values: LocationInitialValues) {
-    // console.log(values);
     const data: AddLocationRequestRoot = {
       userId: Number(userDecoded.id),
       warehouseId: getSelectedWarehouse.id,
@@ -133,9 +132,6 @@ function LocationsCreate() {
       to: lastPageLink,
     },
   ];
-
-  const [areaLabel, setAreaLabel] = useState<string>("");
-  const [zoneLabel, setZoneLabel] = useState<string>("");
 
   useEffect(() => {
     setFieldValue(
@@ -277,13 +273,9 @@ function LocationsCreate() {
                   label="Height"
                   name="height"
                   size="small"
+                  type="number"
                   value={values.height}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "height",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("height")}
                 />
                 <TextField
                   iconEnd
@@ -292,13 +284,9 @@ function LocationsCreate() {
                   label="Width"
                   name="width"
                   size="small"
+                  type="number"
                   value={values.width}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "width",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("width")}
                 />
                 <TextField
                   iconEnd
@@ -307,13 +295,9 @@ function LocationsCreate() {
                   label="Length"
                   name="length"
                   size="small"
+                  type="number"
                   value={values.length}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "length",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("length")}
                 />
               </Stack>
               <Stack direction="row" gap={3} marginTop={3}>
@@ -324,13 +308,9 @@ function LocationsCreate() {
                   label="Max.Load"
                   name="maxload"
                   size="small"
+                  type="number"
                   value={values.maxLoad}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "maxLoad",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("maxLoad")}
                 />
                 <TextField
                   disabled
@@ -360,13 +340,9 @@ function LocationsCreate() {
                   label="Location alias"
                   name="locationAlias"
                   size="small"
+                  type="number"
                   value={values.locationAlias}
-                  onChange={(e) => {
-                    setFieldValue(
-                      "locationAlias",
-                      e.target.value.replace(/[^0-9]/g, ""),
-                    );
-                  }}
+                  onChange={handleChange("locationAlias")}
                 />
               </Stack>
               <Stack direction="row" gap={2}>
@@ -424,10 +400,9 @@ function LocationsCreate() {
                   label="X"
                   name="x"
                   size="small"
+                  type="number"
                   value={values.x}
-                  onChange={(e) => {
-                    setFieldValue("x", e.target.value.replace(/[^0-9]/g, ""));
-                  }}
+                  onChange={handleChange("x")}
                 />
               </Stack>
               <Stack direction="row" gap={2} marginTop={2}>
@@ -436,10 +411,9 @@ function LocationsCreate() {
                   label="Y"
                   name="minExpiryDays"
                   size="small"
+                  type="number"
                   value={values.y}
-                  onChange={(e) => {
-                    setFieldValue("y", e.target.value.replace(/[^0-9]/g, ""));
-                  }}
+                  onChange={handleChange("y")}
                 />
               </Stack>
 
@@ -449,10 +423,9 @@ function LocationsCreate() {
                   label="Z"
                   name="z"
                   size="small"
+                  type="number"
                   value={values.z}
-                  onChange={(e) => {
-                    setFieldValue("z", e.target.value.replace(/[^0-9]/g, ""));
-                  }}
+                  onChange={handleChange("z")}
                 />
               </Stack>
             </CustomCardContent>
