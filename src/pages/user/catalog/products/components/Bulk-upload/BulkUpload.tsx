@@ -1,23 +1,14 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import CancelIcon from "@mui/icons-material/Cancel";
-import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
+import { Card, Container, Grid, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar, { ToolBarButton } from "components/table-toolbar";
 import AppRoutes from "navigation/appRoutes";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 
-interface IMenuItem {
-  id: string;
-  value: string;
-}
-
 function BulkUpload() {
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
-
   const navigate = useNavigate();
 
   const handleFile = async (e: any) => {
@@ -36,9 +27,9 @@ function BulkUpload() {
             id: crypto.randomUUID(),
             title: "Cancel",
             onClick: () => {
-              // navigate(
-              //   `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
-              // );
+              navigate(
+                `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
+              );
             },
             icon: (
               <ArrowBackIosIcon
@@ -85,43 +76,6 @@ function BulkUpload() {
           >
             <CustomCardContent title="Upload">
               <Stack direction="row" flexWrap="wrap" gap={2}>
-                {uploadedFiles.map((item) => {
-                  return (
-                    <Box
-                      key={item.id}
-                      sx={{
-                        position: "relative",
-                      }}
-                    >
-                      <CancelIcon
-                        sx={{
-                          width: "17px",
-                          height: "17px",
-                          cursor: "pointer",
-                          color: `${palette.error.lightRed}`,
-                          position: "absolute",
-                          right: "-5px",
-                          top: "-5px",
-                          background: "white",
-                        }}
-                        onClick={() => {
-                          const newUploadedFile = uploadedFiles.filter(
-                            (i) => i.id !== item.id,
-                          );
-                          setUploadedFiles(newUploadedFile);
-                        }}
-                      />
-                      <img
-                        alt={item.value}
-                        src={item.value}
-                        style={{
-                          width: "120px",
-                          height: "120px",
-                        }}
-                      />
-                    </Box>
-                  );
-                })}
                 <UploadButton
                   single
                   accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"

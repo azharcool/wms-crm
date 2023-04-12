@@ -123,7 +123,6 @@ function AddressDetails() {
     const response = await addShippingAddressAction(data);
     if (response) {
       resetForm();
-      // console.log("response>>>", response);
       navigate(
         `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
       );
