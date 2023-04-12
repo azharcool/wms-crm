@@ -20,7 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -43,8 +43,8 @@ import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
 import useManageAdjustmentForm, {
-  ManageAdjustmentForm,
   deafultValues,
+  ManageAdjustmentForm,
 } from "../hooks/useManageAdjustmentForm";
 import AdjustmentBarcode from "./slider/AdjustmentBarcode";
 import BrowsStock from "./slider/BrowseStack";

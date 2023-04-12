@@ -207,7 +207,8 @@ const API_URLS = {
   PUT_SUPPLIER: `supplier/${endPoints.edit}`,
   DELETE_SUPPLIER: `supplier/${endPoints.delete}`,
   BULK_DELETE_SUPPLIER: `supplier/${endPoints.bulkDelete}`,
-  ADD_SHIPPING_ADDRESS: `supplier/add-ShippingAddress/${endPoints.add}`,
+  ADD_SHIPPING_ADDRESS: "supplier/add-ShippingAddress",
+  ADD_BILLING_ADDRESS: "supplier/add-BillingAddress",
 
   // bundle
   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,
