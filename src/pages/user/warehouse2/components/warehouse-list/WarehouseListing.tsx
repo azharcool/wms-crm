@@ -81,9 +81,35 @@ function WarehouseListing(props: IWarehouselisting) {
     }
   };
 
+  const csvData = data?.data.map((item) => ({
+    name: item.warehouseName,
+    label: item.label,
+    city: item.city,
+    email: item.email,
+    phone: item.phoneNumber,
+    primary: item.primaryPhoneNumber,
+    status: item.status,
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Warehouses"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          }
+        ]}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>

@@ -81,9 +81,42 @@ interface IAdjustmentList {
 
 function AdjustmentList(props: IAdjustmentList) {
   const { data } = props;
+
+  const csvData = data?.data.map((item) => ({
+    sa: item.sa,
+    lineitems: item.lineItem,
+    qtychange: item.qtyChange,
+    total: item.totalValue,
+    reasion:item.reason,
+    referenceid:item.referenceId,
+    status:item.status,
+    lastupdated:item.updatedOn,
+    notes:item.notes
+
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tableTabs} />
+      <EnhancedTableToolbar tabs={tableTabs}  csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Adjustments"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Import",
+            onClick: () => {},
+          },
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          },
+        ]} />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
