@@ -7,60 +7,34 @@ import {
   Card,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
-import { FormikHelpers } from "formik";
 import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
-import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import Countries from "__mock__/countries.json";
-import useAddSupplierForm, {
-  AddSupplierForm,
-} from "../../../hooks/useAddSupplierForm";
+import useAddShippingAddressForm, {
+  AddShippingAddressForm,
+} from "../../../hooks/useAddShippingAddressForm";
 
-interface IMenuItem {
-  id: string;
-  value: string;
-}
-
-const statusMenu = [
-  {
-    id: "1",
-    value: "Active",
-  },
-  {
-    id: "2",
-    value: "Inactive",
-  },
-];
-
-const initialValues: AddSupplierForm = {
-  companyName: "Company Name",
-  shortName: "",
-  email: "",
-  phoneNumber: "",
-  address: "",
-  region: "",
-  city: "",
-  zipCode: "",
-  countryId: 0,
+const initialValues: AddShippingAddressForm = {
+  userId: 0,
+  supplierId: 0,
   firstName: "",
   lastName: "",
-  primaryEmail: "",
-  primaryPhoneNumber: "",
-  status: "",
+  address: "",
+  city: "",
+  zipCode: "",
+  country: "",
 };
 interface ITooblarButton {
   handleClick: () => void;
@@ -105,11 +79,10 @@ function ToolBarButton(props: ITooblarButton) {
 }
 
 function AddressDetails() {
-  const newtheme = useSelector((state: any) => state.theme);
-  const { addSupplierAction } = useSupplierAction();
+  const { supplierId } = useParams();
+  const { addShippingAddressAction } = useSupplierAction();
   const [editable, setEditable] = useState(false);
   const nameRef = useRef<any>(null);
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
   const lightTheme = createTheme({
@@ -117,38 +90,8 @@ function AddressDetails() {
       mode: "light",
     },
   });
-  const { state } = useLocation();
 
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-
-  const supplierForm = useAddSupplierForm({
+  const shippingAddressForm = useAddShippingAddressForm({
     onSubmit,
     initialValues,
   });
@@ -162,30 +105,22 @@ function AddressDetails() {
     handleSubmit,
     setFieldValue,
     resetForm,
-  } = supplierForm;
+  } = shippingAddressForm;
 
-  async function onSubmit(
-    values: AddSupplierForm,
-    helper: FormikHelpers<AddSupplierForm>,
-  ) {
-    const data: AddSupplierRequestRoot = {
-      userId: Number(userDecoded.id),
-      companyName: values.companyName,
-      shortName: values.shortName,
-      email: values.email,
-      phoneNumber: values.phoneNumber,
-      address: values.address,
-      region: values.region,
-      city: values.city,
-      zipCode: values.zipCode,
-      countryId: values.countryId,
-      firstName: values.firstName,
-      lastName: values.lastName,
-      primaryEmail: values.primaryEmail,
-      primaryPhone: values.primaryPhoneNumber,
-      status: Number(values.status === "Active" ? "1" : "2"),
-    };
-    const response = await addSupplierAction(data);
+  async function onSubmit(values: AddShippingAddressForm) {
+    const data: AddShippingAddressRoot = [
+      {
+        userId: Number(userDecoded.id),
+        supplierId: Number(supplierId),
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address: values.address,
+        city: values.city,
+        zipCode: values.zipCode,
+        country: Number(values.country),
+      },
+    ];
+    const response = await addShippingAddressAction(data);
     if (response) {
       resetForm();
       navigate(
@@ -193,34 +128,6 @@ function AddressDetails() {
       );
     }
   }
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
-
-  const handleFile = async (e: any) => {
-    const allFiles = Array.from(e.target.files);
-    const images = await Promise.all(
-      allFiles.map((file) => convertBase64(file)),
-    );
-
-    const newUploadedFiles = images.map((item) => ({
-      id: crypto.randomUUID(),
-      value: item,
-    }));
-
-    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
-  };
-
-  const convertBase64 = (file: any): Promise<any> => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
 
   const rightActionsData = [
     {
@@ -261,7 +168,7 @@ function AddressDetails() {
       title: "Save",
       onClick: () => {
         handleSubmit();
-        navigate(-1);
+        // navigate(-1);
       },
       icon: (
         <SaveIcon
@@ -277,186 +184,184 @@ function AddressDetails() {
   const istrue = !editable;
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <Stack direction="row" justifyContent="flex-end">
-          {editable
-            ? rightActionsData
-                .filter((i) => i.title !== "Edit")
-                .map((item) => (
-                  <ToolBarButton
-                    key={item.id}
-                    handleClick={item.onClick}
-                    icon={item.icon}
-                    title={item.title}
-                  />
-                ))
-            : rightActionsData
-                .filter((i) => i.title === "Edit")
-                .map((item) => (
-                  <ToolBarButton
-                    key={item.id}
-                    handleClick={item.onClick}
-                    icon={item.icon}
-                    title={item.title}
-                  />
-                ))}
-        </Stack>
+    <Container maxWidth={false}>
+      <Stack direction="row" justifyContent="flex-end">
+        {editable
+          ? rightActionsData
+              .filter((i) => i.title !== "Edit")
+              .map((item) => (
+                <ToolBarButton
+                  key={item.id}
+                  handleClick={item.onClick}
+                  icon={item.icon}
+                  title={item.title}
+                />
+              ))
+          : rightActionsData
+              .filter((i) => i.title === "Edit")
+              .map((item) => (
+                <ToolBarButton
+                  key={item.id}
+                  handleClick={item.onClick}
+                  icon={item.icon}
+                  title={item.title}
+                />
+              ))}
+      </Stack>
 
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Shipping Address">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="firstName"
-                    label="First Name"
-                    name="firstName"
-                    size="small"
-                    value={values.firstName}
-                    onChange={handleChange("firstName")}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    size="small"
-                    value={values.lastName}
-                    onChange={handleChange("lastName")}
-                  />
-                </Stack>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Shipping Address">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  size="small"
+                  value={values.firstName}
+                  onChange={handleChange("firstName")}
+                />
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  size="small"
+                  value={values.lastName}
+                  onChange={handleChange("lastName")}
+                />
+              </Stack>
+
+              <TextField
+                darkDisable
+                multiline
+                disabled={istrue}
+                id="adress"
+                label="Address"
+                name="address"
+                value={values.address}
+                onChange={handleChange("address")}
+              />
+
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="city"
+                  label="City"
+                  name="city"
+                  size="small"
+                  value={values.city}
+                  onChange={handleChange("city")}
+                />
 
                 <TextField
                   darkDisable
-                  multiline
                   disabled={istrue}
-                  id="adress"
-                  label="Address"
-                  name="address"
-                  value={values.address}
-                  onChange={handleChange("address")}
+                  id="zipCode"
+                  label="Zip Code"
+                  name="zipCode"
+                  size="small"
+                  value={values.zipCode}
+                  onChange={handleChange("zipCode")}
                 />
-
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="city"
-                    label="City"
-                    name="city"
-                    size="small"
-                    value={values.city}
-                    onChange={handleChange("city")}
-                  />
-
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="zipCode"
-                    label="Zip Code"
-                    name="zipCode"
-                    size="small"
-                    value={values.zipCode}
-                    onChange={handleChange("zipCode")}
-                  />
-                </Stack>
-                <Grid marginBottom={2} xs={12}>
-                  <AutoComplete
-                    getOptionLabel={(option: any) => option?.name}
-                    handleChange={(e: any, value: any) =>
-                      setFieldValue("country", value?.name)
-                    }
-                    label="Country"
-                    options={Countries || []}
-                  />
-                </Grid>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={6}>
-            <Card sx={{ flex: 1 }}>
-              <CustomCardContent title="Billing address">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="firstName"
-                    label="First Name"
-                    name="firstName"
-                    size="small"
-                    value={values.firstName}
-                    onChange={handleChange("firstName")}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    size="small"
-                    value={values.lastName}
-                    onChange={handleChange("lastName")}
-                  />
-                </Stack>
-
-                <TextField
-                  darkDisable
-                  multiline
-                  disabled={istrue}
-                  id="adress"
-                  label="Address"
-                  name="address"
-                  value={values.address}
-                  onChange={handleChange("address")}
+              </Stack>
+              <Grid marginBottom={2} xs={12}>
+                <AutoComplete
+                  getOptionLabel={(option: any) => option?.name}
+                  handleChange={(e: any, value: any) =>
+                    setFieldValue("country", value?.name)
+                  }
+                  label="Country"
+                  options={Countries || []}
                 />
-
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="city"
-                    label="City"
-                    name="city"
-                    size="small"
-                    value={values.city}
-                    onChange={handleChange("city")}
-                  />
-
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="zipCode"
-                    label="Zip Code"
-                    name="zipCode"
-                    size="small"
-                    value={values.zipCode}
-                    onChange={handleChange("zipCode")}
-                  />
-                </Stack>
-                <Grid marginBottom={2} xs={12}>
-                  <AutoComplete
-                    getOptionLabel={(option: any) => option?.name}
-                    handleChange={(e: any, value: any) =>
-                      setFieldValue("country", value?.name)
-                    }
-                    label="Country"
-                    options={Countries || []}
-                  />
-                </Grid>
-              </CustomCardContent>
-            </Card>
-          </Grid>
+              </Grid>
+            </CustomCardContent>
+          </Card>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        <Grid item xs={6}>
+          <Card sx={{ flex: 1 }}>
+            <CustomCardContent title="Billing address">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  size="small"
+                  value={values.firstName}
+                  onChange={handleChange("firstName")}
+                />
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  size="small"
+                  value={values.lastName}
+                  onChange={handleChange("lastName")}
+                />
+              </Stack>
+
+              <TextField
+                darkDisable
+                multiline
+                disabled={istrue}
+                id="adress"
+                label="Address"
+                name="address"
+                value={values.address}
+                onChange={handleChange("address")}
+              />
+
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="city"
+                  label="City"
+                  name="city"
+                  size="small"
+                  value={values.city}
+                  onChange={handleChange("city")}
+                />
+
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="zipCode"
+                  label="Zip Code"
+                  name="zipCode"
+                  size="small"
+                  value={values.zipCode}
+                  onChange={handleChange("zipCode")}
+                />
+              </Stack>
+              <Grid marginBottom={2} xs={12}>
+                <AutoComplete
+                  getOptionLabel={(option: any) => option?.name}
+                  handleChange={(e: any, value: any) =>
+                    setFieldValue("country", value?.name)
+                  }
+                  label="Country"
+                  options={Countries || []}
+                />
+              </Grid>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

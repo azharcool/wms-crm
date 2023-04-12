@@ -5,10 +5,12 @@ interface IUploadButton {
   handleFile: (e: any) => void;
   single?: boolean;
   disabled?: boolean;
+  title?: string;
+  accept?: string;
 }
 
 function UploadButton(props: IUploadButton) {
-  const { handleFile, single, disabled } = props;
+  const { handleFile, single, disabled, title, accept } = props;
   return (
     <Button
       component="label"
@@ -28,7 +30,7 @@ function UploadButton(props: IUploadButton) {
             textAlign: "center",
           }}
         >
-          Drop your image here, or select
+          {title || "Drop your image here, or select"}
         </Typography>
         <Typography
           sx={{
@@ -42,7 +44,7 @@ function UploadButton(props: IUploadButton) {
       </Box>
       <input
         hidden
-        accept="image/*"
+        accept={accept || "image/*"}
         multiple={!single}
         type="file"
         onChange={handleFile}
