@@ -64,10 +64,34 @@ function AreasListing() {
     setFormOpen(open);
   };
 
+  const csvData = warehousePaginationResponse?.data.map((item) => ({
+    name: item.name,
+    label: item.label,
+    warehouse: item.warehouseName,
+    status: item.status,
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <>
       <PerfectScrollbar>
-        <EnhancedTableToolbar handle={handle} />
+        <EnhancedTableToolbar
+          handle={handle}
+          csvData={csvData}
+          csvHeader={csvHeaders}
+          csvTitle="Areas"
+          moreList={[
+            {
+              id: crypto.randomUUID(),
+              title: "Density",
+              onClick: () => {},
+            },
+          ]}
+        />
 
         <Box sx={{ minWidth: 1050, minHeight: 500 }}>
           <TableContainer component={Paper}>
