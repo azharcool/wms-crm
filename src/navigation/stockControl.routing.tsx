@@ -12,7 +12,7 @@ const stockControlRouting = (
       element={<StockControlLoadable.AdjustmentCreate />}
       path={`${AppRoutes.stockControl.adjustment.create}`}
     />
-     <Route
+    <Route
       element={<StockControlLoadable.AdjustmentUpdate />}
       path={`${AppRoutes.stockControl.adjustment.update}/:adjustmentId`}
     />
@@ -109,6 +109,33 @@ const stockControlRouting = (
       <Route
         element={<StockControlLoadable.PutAwayV2History />}
         path={`${AppRoutes.stockControl.putaway_v2.history}`}
+      />
+    </Route>
+
+    {/* Transfer Routing */}
+    <Route
+      element={<StockControlLoadable.TransferListing />}
+      path={`${AppRoutes.stockControl.transfer.listing}`}
+    />
+    <Route
+      element={<StockControlLoadable.TransferCreate />}
+      path={`${AppRoutes.stockControl.transfer.create}`}
+    />
+     <Route
+      element={<StockControlLoadable.TransferUpdate />}
+      path={`${AppRoutes.stockControl.transfer.update}/:transferId`}
+    />
+    <Route
+      element={<StockControlLoadable.TransferDetails />}
+      path={`${AppRoutes.stockControl.transfer.details}/:transferId`}
+    >
+      <Route
+        element={<StockControlLoadable.TransferDetailsGeneral />}
+        path={`${AppRoutes.stockControl.transfer.general}`}
+      />
+      <Route
+        element={<StockControlLoadable.TransferDetailsHistory />}
+        path={`${AppRoutes.stockControl.transfer.history}`}
       />
     </Route>
   </Route>
