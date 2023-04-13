@@ -150,6 +150,14 @@ const AppRoutes = {
       history: "history/details",
       create: "putaway-v2/create",
     },
+    transfer: {
+      listing: "transfer/listing",
+      details: "transfer/details",
+      general: "general/details",
+      history: "history/details",
+      create: "transfer/create",
+      update: "transfer/update",
+    },
   },
 
   setting: {
