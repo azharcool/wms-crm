@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
+import CustomSwitch from "components/custom-switch";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
@@ -21,14 +22,14 @@ import palette from "theme/palette";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import Countries from "__mock__/countries.json";
-import useAddShippingAddressForm, {
-  AddShippingAddressForm,
-  addShippingAddressForm,
-} from "../../../hooks/useAddShippingAddressForm";
 import useAddBillingAddressForm, {
   AddBillingAddressForm,
   addBillingAddressForm,
 } from "../../../hooks/useBillingAddressForm";
+import useManageShippingAddressForm, {
+  ManageShippingAddressForm,
+  manageShippingAddressForm,
+} from "../../../hooks/useManageShippingAddressForm";
 
 interface ITooblarButton {
   handleClick: () => void;
@@ -81,43 +82,38 @@ function AddressDetails() {
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
 
-  const shippingAddressForm = useAddShippingAddressForm({
+  const shippingAddressForm = useManageShippingAddressForm({
     onSubmit: onSubmitShippingAddress,
-    initialValues: addShippingAddressForm,
+    initialValues: manageShippingAddressForm,
   });
-
-  const billingAddressForm = useAddBillingAddressForm({
-    onSubmit: onSubmitBillingAddress,
-    initialValues: addBillingAddressForm,
-  });
-
-  const { values, handleChange, setFieldValue, resetForm } =
-    shippingAddressForm;
-
-  async function onSubmitShippingAddress(values: AddShippingAddressForm) {
-    const data: AddShippingAddressRoot = [
-      {
+  async function onSubmitShippingAddress(values: ManageShippingAddressForm) {
+    const data: AddShippingAddressRoot = values.manageShippingAddressData.map(
+      (item) => ({
         userId: Number(userDecoded.id),
         supplierId: Number(supplierId),
-        firstName: values.firstName,
-        lastName: values.lastName,
-        address: values.address,
-        city: values.city,
-        zipCode: values.zipCode,
-        country: Number(values.country),
+        firstName: item.firstName,
+        lastName: item.lastName,
+        address: item.address,
+        city: item.city,
+        zipCode: item.zipCode,
+        country: Number(item.country),
         createdOn: "2023-04-12T06:31:22.085Z",
         updatedOn: "2023-04-12T06:31:22.085Z",
-      },
-    ];
+      }),
+    );
     const response = await addShippingAddressAction(data);
     if (response) {
-      // resetForm();
+      shippingAddressForm.resetForm();
       // navigate(
       //   `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
       // );
     }
   }
 
+  const billingAddressForm = useAddBillingAddressForm({
+    onSubmit: onSubmitBillingAddress,
+    initialValues: addBillingAddressForm,
+  });
   async function onSubmitBillingAddress(values: AddBillingAddressForm) {
     const data: AddBillingAddressRoot = [
       {
@@ -133,7 +129,7 @@ function AddressDetails() {
     ];
     const response = await addBillingAddressAction(data);
     if (response) {
-      // resetForm();
+      billingAddressForm.resetForm();
       // navigate(
       //   `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
       // );
@@ -180,7 +176,6 @@ function AddressDetails() {
       onClick: () => {
         shippingAddressForm.handleSubmit();
         billingAddressForm.handleSubmit();
-        // navigate(-1);
       },
       icon: (
         <SaveIcon
@@ -194,6 +189,29 @@ function AddressDetails() {
   ];
 
   const istrue = !editable;
+
+  const handleAddAnother = () => {
+    shippingAddressForm.setFieldValue("manageShippingAddressData", [
+      ...shippingAddressForm.values.manageShippingAddressData,
+      {
+        firstName: "",
+        lastName: "",
+        address: "",
+        city: "",
+        zipCode: "",
+        country: "",
+      },
+    ]);
+  };
+
+  const handleDelete = (index: number) => {
+    shippingAddressForm.setFieldValue(
+      "manageShippingAddressData",
+      shippingAddressForm.values.manageShippingAddressData.filter(
+        (_, i) => i !== index,
+      ),
+    );
+  };
 
   return (
     <Container maxWidth={false}>
@@ -223,81 +241,149 @@ function AddressDetails() {
 
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Card
-            sx={{
-              flex: 1,
-            }}
-          >
-            <CustomCardContent title="Shipping Address">
-              <Stack direction="row" gap={2}>
-                <TextField
-                  darkDisable
-                  disabled={istrue}
-                  id="firstName"
-                  label="First Name"
-                  name="firstName"
-                  size="small"
-                  value={values.firstName}
-                  onChange={handleChange("firstName")}
-                />
-                <TextField
-                  darkDisable
-                  disabled={istrue}
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  size="small"
-                  value={values.lastName}
-                  onChange={handleChange("lastName")}
-                />
-              </Stack>
+          {shippingAddressForm.values.manageShippingAddressData.length !== 0 ? (
+            shippingAddressForm.values.manageShippingAddressData.map(
+              (item, index: number, array) => {
+                return (
+                  <Card
+                    sx={{
+                      flex: 1,
+                      marginBottom: "16px",
+                    }}
+                  >
+                    <CustomCardContent title="Shipping Address">
+                      <Stack direction="row" gap={2}>
+                        <TextField
+                          darkDisable
+                          disabled={istrue}
+                          id="firstName"
+                          label="First Name"
+                          name={`manageShippingAddressData[${index}].firstName`}
+                          size="small"
+                          value={
+                            shippingAddressForm.values
+                              .manageShippingAddressData[index].firstName
+                          }
+                          onChange={shippingAddressForm.handleChange}
+                        />
+                        <TextField
+                          darkDisable
+                          disabled={istrue}
+                          id="lastName"
+                          label="Last Name"
+                          name={`manageShippingAddressData[${index}].lastName`}
+                          size="small"
+                          value={
+                            shippingAddressForm.values
+                              .manageShippingAddressData[index].lastName
+                          }
+                          onChange={shippingAddressForm.handleChange}
+                        />
+                      </Stack>
 
-              <TextField
-                darkDisable
-                multiline
-                disabled={istrue}
-                id="adress"
-                label="Address"
-                name="address"
-                value={values.address}
-                onChange={handleChange("address")}
-              />
+                      <TextField
+                        darkDisable
+                        multiline
+                        disabled={istrue}
+                        id="adress"
+                        label="Address"
+                        name={`manageShippingAddressData[${index}].address`}
+                        value={
+                          shippingAddressForm.values.manageShippingAddressData[
+                            index
+                          ].address
+                        }
+                        onChange={shippingAddressForm.handleChange}
+                      />
 
-              <Stack direction="row" gap={2}>
-                <TextField
-                  darkDisable
-                  disabled={istrue}
-                  id="city"
-                  label="City"
-                  name="city"
-                  size="small"
-                  value={values.city}
-                  onChange={handleChange("city")}
-                />
+                      <Stack direction="row" gap={2}>
+                        <TextField
+                          darkDisable
+                          disabled={istrue}
+                          id="city"
+                          label="City"
+                          name={`manageShippingAddressData[${index}].city`}
+                          size="small"
+                          value={
+                            shippingAddressForm.values
+                              .manageShippingAddressData[index].city
+                          }
+                          onChange={shippingAddressForm.handleChange}
+                        />
 
-                <TextField
-                  darkDisable
-                  disabled={istrue}
-                  id="zipCode"
-                  label="Zip Code"
-                  name="zipCode"
-                  size="small"
-                  value={values.zipCode}
-                  onChange={handleChange("zipCode")}
-                />
-              </Stack>
-              <Grid marginBottom={2} xs={12}>
-                <AutoComplete
-                  getOptionLabel={(option: any) => option?.name}
-                  handleChange={(e: any, value: any) =>
-                    setFieldValue("country", value?.name)
-                  }
-                  label="Country"
-                  options={Countries || []}
-                />
-              </Grid>
-            </CustomCardContent>
-          </Card>
+                        <TextField
+                          darkDisable
+                          disabled={istrue}
+                          id="zipCode"
+                          label="Zip Code"
+                          name={`manageShippingAddressData[${index}].zipCode`}
+                          size="small"
+                          value={
+                            shippingAddressForm.values
+                              .manageShippingAddressData[index].zipCode
+                          }
+                          onChange={shippingAddressForm.handleChange}
+                        />
+                      </Stack>
+                      <Grid marginBottom={2} xs={12}>
+                        <AutoComplete
+                          getOptionLabel={(option: any) => option?.name}
+                          handleChange={(e: any, value: any) =>
+                            shippingAddressForm.setFieldValue(
+                              `stock[${index}].country`,
+                              value?.name,
+                            )
+                          }
+                          label="Country"
+                          options={Countries || []}
+                        />
+                      </Grid>
+                      {!istrue && (
+                        <Stack
+                          direction="row"
+                          justifyContent="space-between"
+                          marginTop={2}
+                        >
+                          {array.length > 1 && (
+                            <Box
+                              sx={{
+                                color: "#2e3456",
+                                fontWeight: "500",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => handleDelete(index)}
+                            >
+                              DELETE
+                            </Box>
+                          )}
+
+                          {index === array.length - 1 && (
+                            <Box
+                              sx={{
+                                color: "#2e3456",
+                                fontWeight: "500",
+                                cursor: "pointer",
+                              }}
+                              onClick={() => handleAddAnother()}
+                            >
+                              ADD ANOTHER ADDRESS
+                            </Box>
+                          )}
+
+                          <CustomSwitch
+                            // checked={values.default}
+                            title="Default Address"
+                          />
+                        </Stack>
+                      )}
+                    </CustomCardContent>
+                  </Card>
+                );
+              },
+            )
+          ) : (
+            <Typography>No data</Typography>
+          )}
         </Grid>
         <Grid item xs={6}>
           <Card sx={{ flex: 1 }}>
