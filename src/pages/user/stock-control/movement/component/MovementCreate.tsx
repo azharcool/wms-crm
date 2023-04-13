@@ -141,7 +141,9 @@ function MovementCreate() {
 
   const { warehouse: warehouseMenuItem } = useWarehouse();
   const { zones } = useZone();
+  console.log(" zoes---->", zones);
   const { areas } = useArea();
+  console.log("area-->", areas);
   const decodeData = useDecodedData();
   const [totalValue, setTotalValue] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -261,7 +263,7 @@ function MovementCreate() {
                   </Stack>
                   <Stack direction="column" sx={{ width: "100%" }}>
                     <AutoComplete
-                      disabled={!values.zone}
+                      disabled={!values.area}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("location", value.value)
                       }
@@ -306,6 +308,7 @@ function MovementCreate() {
 
                 <TextField
                   isSelect
+                  disabled={!values.warehouse}
                   label="Area"
                   menuItems={areas}
                   name="area"
@@ -313,6 +316,7 @@ function MovementCreate() {
                 />
                 <TextField
                   isSelect
+                  disabled={!values.area}
                   label="Zone"
                   menuItems={areas}
                   name="zone"
@@ -320,6 +324,7 @@ function MovementCreate() {
                 />
                 <TextField
                   isSelect
+                  disabled={!values.area}
                   label="Location"
                   menuItems={timezone}
                   name="location"
