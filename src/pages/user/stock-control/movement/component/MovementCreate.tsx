@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { receivingType, timezone, warehouseStatus } from "__mock__";
+import { timezone, warehouseStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -141,9 +141,7 @@ function MovementCreate() {
 
   const { warehouse: warehouseMenuItem } = useWarehouse();
   const { zones } = useZone();
-  console.log(" zoes---->", zones);
   const { areas } = useArea();
-  console.log("area-->", areas);
   const decodeData = useDecodedData();
   const [totalValue, setTotalValue] = useState(0);
   const [totalQuantity, setTotalQuantity] = useState(0);
@@ -299,10 +297,11 @@ function MovementCreate() {
             >
               <CustomCardContent title="Move to">
                 <TextField
+                  disabled
                   isSelect
                   label="Warehouse test1"
                   menuItems={warehouseStatus}
-                  name="status"
+                  name="warehouse"
                   size="small"
                 />
 
@@ -311,16 +310,20 @@ function MovementCreate() {
                   disabled={!values.warehouse}
                   label="Area"
                   menuItems={areas}
-                  name="area"
+                  name="areas"
                   size="small"
+                  value={values.area}
+                  onChange={handleChange("area")}
                 />
                 <TextField
                   isSelect
                   disabled={!values.area}
                   label="Zone"
-                  menuItems={areas}
+                  menuItems={zones}
                   name="zone"
                   size="small"
+                  value={values.zone}
+                  onChange={handleChange("zone")}
                 />
                 <TextField
                   isSelect
@@ -329,11 +332,13 @@ function MovementCreate() {
                   menuItems={timezone}
                   name="location"
                   size="small"
+                  value={values.location}
+                  onChange={handleChange("location")}
                 />
                 <TextField
                   isSelect
+                  disabled={!values.location}
                   label="To container"
-                  menuItems={receivingType}
                   name="tocontainer"
                   size="small"
                 />
