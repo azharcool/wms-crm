@@ -178,6 +178,9 @@ const AppRoutes = {
     roles: {
       roleListing: "role/listing",
     },
+    account:{
+      account:"account"
+    }
   },
 };
 

@@ -281,3 +281,79 @@ export const operations = [
     value: "DECREASE",
   },
 ];
+
+// Setting
+export const companyType = [
+  {
+    id: "Retailer",
+    value: "Retailer",
+  },
+  {
+    id: "Marketplace",
+    value: "Marketplace",
+  },
+  {
+    id: "3PLCompany",
+    value: "3PL Company",
+  },
+];
+
+export const defaultLanguage = [
+  {
+    id: "English",
+    value: "English",
+  },
+  {
+    id: "Russian",
+    value: "русский",
+  },
+  {
+    id: "Uzbek",
+    value: "O'zbekcha",
+  },
+  {
+    id: "Arabic",
+    value: "عربى",
+  },
+];
+
+export const defaultTimezone = [
+  {
+    id: "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+    value: "(GMT +5:30) Bombay, Calcutta, Madras, New Delhi",
+  },
+];
+
+export const defaultWeight = [
+  {
+    id: "Gram(g)",
+    value: "Gram(g)",
+  },
+  {
+    id: "Gram(kg)",
+    value: "Gram(kg)",
+  },
+  {
+    id: "Ounce(oz)",
+    value: "Ounce(oz)",
+  },
+  {
+    id: "Pound(lb)",
+    value: "Pound(lb)",
+  },
+];
+
+export const defaultUnit = [
+  {
+    id: "Centimeter(cm)",
+    value: "Centimeter(cm)",
+  },
+  {
+    id: "Foot(ft)",
+    value: "Foot(ft)",
+  },
+  {
+    id: "Inch(in)",
+    value: "Inch(in)",
+  },
+];

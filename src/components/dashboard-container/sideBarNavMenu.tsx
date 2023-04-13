@@ -161,6 +161,11 @@ export const sideNavMenu: ISideNavMenu[] = [
     menuItems: [
       {
         id: crypto.randomUUID(),
+        title: "Account",
+        location: `/${setting.layout}/${setting.account.account}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Configuration",
         location: `/${setting.layout}/${setting.configuration.listing}`,
       },
