@@ -129,6 +129,11 @@ const AppRoutes = {
       generalDetails: "general/details",
       historylisting: "history/listing",
     },
+    movement: {
+      listing: "movement/listing",
+      create: "movement/create",
+      details: "movement/details",
+    },
     recieve: {
       listing: "recieve/listing",
       details: "recieve/details",
@@ -144,6 +149,14 @@ const AppRoutes = {
       general: "general/details",
       history: "history/details",
       create: "putaway-v2/create",
+    },
+    transfer: {
+      listing: "transfer/listing",
+      details: "transfer/details",
+      general: "general/details",
+      history: "history/details",
+      create: "transfer/create",
+      update: "transfer/update",
     },
   },
 

@@ -8,6 +8,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
@@ -140,9 +141,49 @@ function VariantListing(props: IVariantListing) {
   const handlePageChange = (event: any, newPage: any) => {
     setCurrentPage(newPage);
   };
+
+  const csvData = data?.data.map((item) => ({
+    image: "",
+    variant: item.variantName,
+    pieces: "",
+    uom: "",
+    barcode: item.barcode,
+    listedon: item.updatedOn,
+    available: "",
+    unavailable: "",
+    onhand: "",
+    allocated:"",
+    awaiting:"",
+    intransfer:"",
+    supplyprice:item.supplyPrice,
+    retailprice:item.retailPrice,
+    mrp:item.mrp,
+    category:"",
+    brand:"",
+    company:"",
+    tags:"",
+    lastupdated:item.updatedOn,
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+         csvData={csvData}
+         csvHeader={csvHeaders}
+         csvTitle="Variants"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          }
+        ]}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>

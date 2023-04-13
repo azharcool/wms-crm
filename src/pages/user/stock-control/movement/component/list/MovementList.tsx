@@ -10,20 +10,14 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
-import NoDataTableRow from "components/table/no-data-table-row";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import {
-  GetAllAdjustmentResponseRoot,
-  GetAllAdjustmentResponseData,
-} from "types/stock/adjustment/getAllAdjustmentResponse";
-
-import AdjustmentListItem from "./AdjustmentListItem";
+import MovementListItem from "./MovementListItem";
 
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "SA#",
+    title: "#",
   },
 
   {
@@ -33,19 +27,15 @@ const tableTitle = [
 
   {
     id: crypto.randomUUID(),
-    title: "Qty change",
+    title: "Qty ",
   },
   {
     id: crypto.randomUUID(),
-    title: "Total",
+    title: "From location",
   },
   {
     id: crypto.randomUUID(),
-    title: "Reasion",
-  },
-  {
-    id: crypto.randomUUID(),
-    title: "Referece ID",
+    title: "To location",
   },
   {
     id: crypto.randomUUID(),
@@ -75,49 +65,10 @@ const tableTabs = [
   },
 ];
 
-interface IAdjustmentList {
-  data?: GetAllAdjustmentResponseRoot;
-}
-
-function AdjustmentList(props: IAdjustmentList) {
-  const { data } = props;
-
-  const csvData = data?.data.map((item) => ({
-    sa: item.sa,
-    lineitems: item.lineItem,
-    qtychange: item.qtyChange,
-    total: item.totalValue,
-    reasion:item.reason,
-    referenceid:item.referenceId,
-    status:item.status,
-    lastupdated:item.updatedOn,
-    notes:item.notes
-
-  }));
-
-  const csvHeaders = tableTitle.map((item) => ({
-    label: item.title,
-    key: item.title.replace(" ", "").toLowerCase(),
-  }));
-
+function MovementList() {
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tableTabs}  csvData={csvData}
-        csvHeader={csvHeaders}
-        csvTitle="Adjustments"
-        moreList={[
-          {
-            id: crypto.randomUUID(),
-            title: "Import",
-            onClick: () => {},
-          },
-          {
-            id: crypto.randomUUID(),
-            title: "Density",
-            onClick: () => {},
-          },
-        ]} />
-
+      <EnhancedTableToolbar tabs={tableTabs} />
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
           <PerfectScrollbar>
@@ -167,15 +118,7 @@ function AdjustmentList(props: IAdjustmentList) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {data?.data.map((item: GetAllAdjustmentResponseData) => {
-                  return <AdjustmentListItem item={item} />;
-                })}
-                {!data?.data.length ? (
-                  <NoDataTableRow
-                    colSize={4}
-                    title="No data found in Adjustment"
-                  />
-                ) : null}
+                <MovementListItem />
               </TableBody>
             </Table>
           </PerfectScrollbar>
@@ -185,4 +128,4 @@ function AdjustmentList(props: IAdjustmentList) {
   );
 }
 
-export default AdjustmentList;
+export default MovementList;

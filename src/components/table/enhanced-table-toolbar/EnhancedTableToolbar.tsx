@@ -11,6 +11,7 @@ import {
   Tab,
   Tabs,
   TextField,
+  Typography,
 } from "@mui/material";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -20,7 +21,9 @@ import Toolbar from "@mui/material/Toolbar";
 import CustomPopover, {
   ICustomPopoverRef,
 } from "components/utilities-popup/CustomPopover";
-import React from "react";
+import React, { ReactElement } from "react";
+// @ts-ignore
+import { CSVLink } from "react-csv";
 import CustomIcon from "./CustomIcon";
 
 interface ITab {
@@ -30,7 +33,7 @@ interface ITab {
 
 interface MoreListItem {
   id: string;
-  title: string;
+  title: string | ReactElement;
   onClick: () => void;
 }
 interface IEnhancedTableToolbar {
@@ -42,10 +45,13 @@ interface IEnhancedTableToolbar {
 
   handle?: (_: "create" | "filter") => void;
   moreList?: MoreListItem[];
+  csvData?: object[];
+  csvHeader?: object[];
+  csvTitle?: string;
 }
 
 function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
-  const { tabs, handle, moreList } = props;
+  const { tabs, handle, moreList, csvData, csvHeader, csvTitle } = props;
 
   const customPopoverRef = React.useRef<ICustomPopoverRef>(null);
 
@@ -135,6 +141,15 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
                 </ListItem>
               );
             })}
+            <CSVLink
+              data={csvData}
+              headers={csvHeader}
+              filename={`${csvTitle}.csv`}
+            >
+              <Typography sx={{ color: "#333", textDecoration: "none" }}>
+                Download CSV
+              </Typography>
+            </CSVLink>
           </List>
         </CustomPopover>
       ) : null}

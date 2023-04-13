@@ -17,7 +17,7 @@ function Warehouse() {
 
   const navigate = useNavigate();
   const { bulkDeleteWarehouseAsync } = useWarehouseAction();
-  const { data: warehousePaginationResponse } =
+  const { data: warehousePaginationResponse, refetch } =
     useGetAllWarehouse(warehousePagination);
   const getSelectedWarehouseIdsState = useSelector(getSelectedWarehouse);
 
@@ -28,6 +28,10 @@ function Warehouse() {
       ...s,
       [name]: value,
     }));
+
+    setTimeout(() => {
+      refetch();
+    });
   };
 
   return (
