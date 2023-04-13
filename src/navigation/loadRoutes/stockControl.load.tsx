@@ -179,3 +179,41 @@ export const MovementDetails = Loadable({
 //     ),
 //   loading: () => <Spinner />,
 // });
+
+// tranfer
+export const TransferListing = Loadable({
+  loader: () => import("pages/user/stock-control/transfer/StockTransfer"),
+  loading: () => <Spinner />,
+});
+
+export const TransferCreate = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/transfer/component/TransferCreate"),
+  loading: () => <Spinner />,
+});
+
+export const TransferUpdate = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/transfer/component/TransferUpdate"),
+  loading: () => <Spinner />,
+});
+
+export const TransferDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/transfer/component/details/TransferLayout"
+    ),
+  loading: () => <Spinner />,
+});
+
+export const TransferDetailsGeneral = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/transfer/component/details/General"),
+  loading: () => <Spinner />,
+});
+
+export const TransferDetailsHistory = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/transfer/component/details/History"),
+  loading: () => <Spinner />,
+});

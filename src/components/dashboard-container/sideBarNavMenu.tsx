@@ -143,6 +143,11 @@ export const sideNavMenu: ISideNavMenu[] = [
         title: "Movement",
         location: `/${stockControl.layout}/${stockControl.movement.listing}`,
       },
+      {
+        id: crypto.randomUUID(),
+        title: "Transfer",
+        location: `/${stockControl.layout}/${stockControl.transfer.listing}`,
+      },
     ],
     screenCode: "",
   },

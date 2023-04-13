@@ -154,6 +154,14 @@ const AppRoutes = {
       listing: "stock-count/listing",
       details: "stock-count/details",
     },
+    transfer: {
+      listing: "transfer/listing",
+      details: "transfer/details",
+      general: "general/details",
+      history: "history/details",
+      create: "transfer/create",
+      update: "transfer/update",
+    },
   },
 
   setting: {
