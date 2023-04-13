@@ -10,32 +10,26 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
+import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import Countries from "__mock__/countries.json";
 import useAddShippingAddressForm, {
   AddShippingAddressForm,
+  addShippingAddressForm,
 } from "../../../hooks/useAddShippingAddressForm";
+import useAddBillingAddressForm, {
+  AddBillingAddressForm,
+  addBillingAddressForm,
+} from "../../../hooks/useBillingAddressForm";
 
-const initialValues: AddShippingAddressForm = {
-  userId: 0,
-  supplierId: 0,
-  firstName: "",
-  lastName: "",
-  address: "",
-  city: "",
-  zipCode: "",
-  country: "",
-};
 interface ITooblarButton {
   handleClick: () => void;
   title: string;
@@ -80,34 +74,27 @@ function ToolBarButton(props: ITooblarButton) {
 
 function AddressDetails() {
   const { supplierId } = useParams();
-  const { addShippingAddressAction } = useSupplierAction();
+  const { addShippingAddressAction, addBillingAddressAction } =
+    useSupplierAction();
   const [editable, setEditable] = useState(false);
   const nameRef = useRef<any>(null);
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
 
   const shippingAddressForm = useAddShippingAddressForm({
-    onSubmit,
-    initialValues,
+    onSubmit: onSubmitShippingAddress,
+    initialValues: addShippingAddressForm,
   });
 
-  const {
-    touched,
-    errors,
-    values,
-    handleChange,
-    handleBlur,
-    handleSubmit,
-    setFieldValue,
-    resetForm,
-  } = shippingAddressForm;
+  const billingAddressForm = useAddBillingAddressForm({
+    onSubmit: onSubmitBillingAddress,
+    initialValues: addBillingAddressForm,
+  });
 
-  async function onSubmit(values: AddShippingAddressForm) {
+  const { values, handleChange, setFieldValue, resetForm } =
+    shippingAddressForm;
+
+  async function onSubmitShippingAddress(values: AddShippingAddressForm) {
     const data: AddShippingAddressRoot = [
       {
         userId: Number(userDecoded.id),
@@ -118,14 +105,38 @@ function AddressDetails() {
         city: values.city,
         zipCode: values.zipCode,
         country: Number(values.country),
+        createdOn: "2023-04-12T06:31:22.085Z",
+        updatedOn: "2023-04-12T06:31:22.085Z",
       },
     ];
     const response = await addShippingAddressAction(data);
     if (response) {
-      resetForm();
-      navigate(
-        `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
-      );
+      // resetForm();
+      // navigate(
+      //   `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
+      // );
+    }
+  }
+
+  async function onSubmitBillingAddress(values: AddBillingAddressForm) {
+    const data: AddBillingAddressRoot = [
+      {
+        userId: Number(userDecoded.id),
+        supplierId: Number(supplierId),
+        firstName: values.billingFirstName,
+        lastName: values.billingLastName,
+        address: values.billingAddress,
+        city: values.billingCity,
+        zipCode: values.billingZipCode,
+        country: Number(values.billingCountry),
+      },
+    ];
+    const response = await addBillingAddressAction(data);
+    if (response) {
+      // resetForm();
+      // navigate(
+      //   `/${AppRoutes.purchases.layout}/${AppRoutes.purchases.supplier.listing}`,
+      // );
     }
   }
 
@@ -167,7 +178,8 @@ function AddressDetails() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        handleSubmit();
+        shippingAddressForm.handleSubmit();
+        billingAddressForm.handleSubmit();
         // navigate(-1);
       },
       icon: (
@@ -294,22 +306,22 @@ function AddressDetails() {
                 <TextField
                   darkDisable
                   disabled={istrue}
-                  id="firstName"
+                  id="billingFirstName"
                   label="First Name"
-                  name="firstName"
+                  name="billingFirstName"
                   size="small"
-                  value={values.firstName}
-                  onChange={handleChange("firstName")}
+                  value={billingAddressForm.values.billingFirstName}
+                  onChange={billingAddressForm.handleChange("billingFirstName")}
                 />
                 <TextField
                   darkDisable
                   disabled={istrue}
-                  id="lastName"
+                  id="billingLastName"
                   label="Last Name"
-                  name="lastName"
+                  name="billingLastName"
                   size="small"
-                  value={values.lastName}
-                  onChange={handleChange("lastName")}
+                  value={billingAddressForm.values.billingLastName}
+                  onChange={billingAddressForm.handleChange("billingLastName")}
                 />
               </Stack>
 
@@ -317,41 +329,44 @@ function AddressDetails() {
                 darkDisable
                 multiline
                 disabled={istrue}
-                id="adress"
+                id="billingAddress"
                 label="Address"
-                name="address"
-                value={values.address}
-                onChange={handleChange("address")}
+                name="billingAddress"
+                value={billingAddressForm.values.billingAddress}
+                onChange={billingAddressForm.handleChange("billingAddress")}
               />
 
               <Stack direction="row" gap={2}>
                 <TextField
                   darkDisable
                   disabled={istrue}
-                  id="city"
+                  id="billingCity"
                   label="City"
-                  name="city"
+                  name="billingCity"
                   size="small"
-                  value={values.city}
-                  onChange={handleChange("city")}
+                  value={billingAddressForm.values.billingCity}
+                  onChange={billingAddressForm.handleChange("billingCity")}
                 />
 
                 <TextField
                   darkDisable
                   disabled={istrue}
-                  id="zipCode"
+                  id="billingZipCode"
                   label="Zip Code"
-                  name="zipCode"
+                  name="billingZipCode"
                   size="small"
-                  value={values.zipCode}
-                  onChange={handleChange("zipCode")}
+                  value={billingAddressForm.values.billingZipCode}
+                  onChange={billingAddressForm.handleChange("billingZipCode")}
                 />
               </Stack>
               <Grid marginBottom={2} xs={12}>
                 <AutoComplete
                   getOptionLabel={(option: any) => option?.name}
                   handleChange={(e: any, value: any) =>
-                    setFieldValue("country", value?.name)
+                    billingAddressForm.setFieldValue(
+                      "billingCountry",
+                      value?.name,
+                    )
                   }
                   label="Country"
                   options={Countries || []}

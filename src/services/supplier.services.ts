@@ -1,4 +1,5 @@
 import { IResponse } from "constants/interfaces";
+import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
 import { GetAllSupplierRoot } from "types/catalog/supplier/getAllSupplierResponse";
@@ -56,5 +57,12 @@ export async function addShippingAddress(
   request: AddShippingAddressRoot,
 ): Promise<IResponse> {
   const URL = `${API_URLS.ADD_SHIPPING_ADDRESS}`;
+  return client.post(URL, request);
+}
+
+export async function addBillingAddress(
+  request: AddBillingAddressRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.ADD_BILLING_ADDRESS}`;
   return client.post(URL, request);
 }
