@@ -154,8 +154,7 @@ export const MovementDetails = Loadable({
 
 // tranfer
 export const TransferListing = Loadable({
-  loader: () =>
-    import("pages/user/stock-control/transfer/StockTransfer"),
+  loader: () => import("pages/user/stock-control/transfer/StockTransfer"),
   loading: () => <Spinner />,
 });
 
@@ -173,7 +172,9 @@ export const TransferUpdate = Loadable({
 
 export const TransferDetails = Loadable({
   loader: () =>
-    import("pages/user/stock-control/transfer/component/details/TransferLayout"),
+    import(
+      "pages/user/stock-control/transfer/component/details/TransferLayout"
+    ),
   loading: () => <Spinner />,
 });
 
@@ -186,5 +187,17 @@ export const TransferDetailsGeneral = Loadable({
 export const TransferDetailsHistory = Loadable({
   loader: () =>
     import("pages/user/stock-control/transfer/component/details/History"),
+  loading: () => <Spinner />,
+});
+
+// reorder
+export const ReorderListing = Loadable({
+  loader: () => import("pages/user/stock-control/reorder/Reorder"),
+  loading: () => <Spinner />,
+});
+
+export const ReorderDetails = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/reorder/component/details/ReorderDetails"),
   loading: () => <Spinner />,
 });
