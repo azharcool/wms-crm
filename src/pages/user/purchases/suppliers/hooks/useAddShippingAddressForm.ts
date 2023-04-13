@@ -1,8 +1,6 @@
 import { FormikHelpers, useFormik } from "formik";
 
 export interface AddShippingAddressForm {
-  userId: number;
-  supplierId: number;
   firstName: string;
   lastName: string;
   address: string;
@@ -10,6 +8,15 @@ export interface AddShippingAddressForm {
   zipCode: string;
   country: string;
 }
+
+export const addShippingAddressForm: AddShippingAddressForm = {
+  firstName: "",
+  lastName: "",
+  address: "",
+  city: "",
+  zipCode: "",
+  country: "",
+};
 
 interface IuseAddShippingAddressForm {
   onSubmit: (
@@ -19,25 +26,12 @@ interface IuseAddShippingAddressForm {
   initialValues: AddShippingAddressForm;
 }
 
-const deafultValues: AddShippingAddressForm = {
-  userId: 0,
-  supplierId: 0,
-  firstName: "",
-  lastName: "",
-  address: "",
-  city: "",
-  zipCode: "",
-  country: "",
-};
-
-function useAddShippingAddressForm({
-  onSubmit,
-  initialValues = deafultValues,
-}: IuseAddShippingAddressForm) {
-  return useFormik<AddShippingAddressForm>({
+const useAddShippingAddressForm = (props: IuseAddShippingAddressForm) => {
+  const { initialValues, onSubmit } = props;
+  return useFormik({
     initialValues,
     onSubmit,
   });
-}
+};
 
 export default useAddShippingAddressForm;
