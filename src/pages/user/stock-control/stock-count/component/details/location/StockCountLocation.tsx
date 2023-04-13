@@ -12,11 +12,10 @@ function Location() {
   const { zones } = useZone();
   const { areas } = useArea();
 
-  const { values, handleChange, handleSubmit, touched, errors, setFieldValue } =
-    useLocationForm({
-      initialValues: locationInitialValues,
-      onSubmit,
-    });
+  const { values, touched, errors, setFieldValue } = useLocationForm({
+    initialValues: locationInitialValues,
+    onSubmit,
+  });
 
   const [areaLabel, setAreaLabel] = useState<string>("");
   const [zoneLabel, setZoneLabel] = useState<string>("");

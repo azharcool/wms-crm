@@ -1,5 +1,6 @@
 import { Card, Container, Grid } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
+import LocationList from "./list/LocationList";
 
 function StockCountLocations() {
   return (
@@ -11,7 +12,9 @@ function StockCountLocations() {
             mt: "25px",
           }}
         >
-          <CustomCardContent title="Location">hello</CustomCardContent>
+          <CustomCardContent title="Locations">
+            <LocationList />
+          </CustomCardContent>
         </Card>
       </Grid>
     </Container>
