@@ -144,6 +144,25 @@ export const StockCountDetails = Loadable({
     ),
   loading: () => <Spinner />,
 });
+// Movement
+export const MovementCreate = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/movement/component/MovementCreate"),
+  loading: () => <Spinner />,
+});
+
+export const MovementListing = Loadable({
+  loader: () => import("pages/user/stock-control/movement/Movement"),
+  loading: () => <Spinner />,
+});
+
+export const MovementDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/movement/component/details/MovementDetails"
+    ),
+  loading: () => <Spinner />,
+});
 
 // export const ReceiveGeneral = Loadable({
 //   loader: () =>
