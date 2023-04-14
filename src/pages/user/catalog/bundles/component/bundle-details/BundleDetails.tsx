@@ -11,11 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
 import { FormikHelpers, useFormik } from "formik";
-import useBundleAction from "hooks/catalog/bundle/useBundleAction";
-import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
+import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
+import useBundleCompositionAction from "hooks/actions/catalog/bundlle-composition/useBundleCompositionAction";
 import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
 import useDecodedData from "hooks/useDecodedData";

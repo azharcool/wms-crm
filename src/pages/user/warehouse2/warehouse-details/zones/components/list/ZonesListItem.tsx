@@ -1,7 +1,7 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
-import useZoneAction from "hooks/warehouse/zone/useZoneAction";
+import useZoneAction from "hooks/actions/warehouse/zone/useZoneAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";

@@ -9,7 +9,7 @@ import {
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
-import useProductConditionAction from "hooks/setting/product-condition/useProductConditionAction";
+import useProductConditionAction from "hooks/actions/setting/product-condition/useProductConditionAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";

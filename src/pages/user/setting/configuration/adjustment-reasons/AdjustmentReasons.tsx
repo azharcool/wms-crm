@@ -5,7 +5,7 @@ import useGetAllAdjustmentReason from "hooks/querys/setting/adjustmentReason/use
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import useAdjustmentReasonAction from "hooks/setting/adjustment-reason/useAdjustmentReasonAction";
+import useAdjustmentReasonAction from "hooks/actions/setting/adjustment-reason/useAdjustmentReasonAction";
 import { getSelectedAdjustmentReason } from "redux/settings/configuration/adjustmentReasonSelector";
 import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
 import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";

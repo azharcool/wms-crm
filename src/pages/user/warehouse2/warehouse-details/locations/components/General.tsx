@@ -1,14 +1,14 @@
 import { Card, Divider, Grid, Stack, Typography } from "@mui/material";
+import { Loctype, operation, warehouseStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
 import { FormikProps } from "formik";
-import useBrand from "hooks/catalog/brand/useBrand";
-import useCategory from "hooks/catalog/categories/useCategory";
-import useArea from "hooks/warehouse/area/useArea";
-import useZone from "hooks/warehouse/zone/useZone";
+import useBrand from "hooks/actions/catalog/brand/useBrand";
+import useCategory from "hooks/actions/catalog/categories/useCategory";
+import useArea from "hooks/actions/warehouse/area/useArea";
+import useZone from "hooks/actions/warehouse/zone/useZone";
 import { useEffect, useState } from "react";
 import { GetByIdLocationResponseData } from "types/warehouse/location/getByIdLocationResponse";
-import { Loctype, operation, warehouseStatus } from "__mock__";
 import { LocationInitialValues } from "../hooks/useLocationForm";
 
 interface IGeneral {

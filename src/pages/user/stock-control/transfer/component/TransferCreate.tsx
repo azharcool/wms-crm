@@ -1,6 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import PrintIcon from "@mui/icons-material/Print";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import SaveIcon from "@mui/icons-material/Save";
 import {
@@ -28,11 +27,11 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikProps } from "formik";
+import useAdjustmentReason from "hooks/actions/setting/adjustment-reason/useAdjustmentReason";
+import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
+import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
-import useAdjustmentReason from "hooks/setting/adjustment-reason/useAdjustmentReason";
-import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
-import useWarehouse from "hooks/warehouse/useWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -279,7 +278,12 @@ function TransferCreate() {
                       options={warehouseMenuItem}
                     />
                   </Stack>
-                  <Stack direction="column" mx={2} gap={2} sx={{ width: "100%" }}>
+                  <Stack
+                    direction="column"
+                    gap={2}
+                    mx={2}
+                    sx={{ width: "100%" }}
+                  >
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
                       handleChange={(e: any, value: any) =>
@@ -295,36 +299,27 @@ function TransferCreate() {
                       options={warehouseMenuItem}
                     />
                   </Stack>
-                  <Stack
-                    direction="row"
-                    mx={2}
-                    sx={{ width: "100%" }}
-                  >
-                  <TextField
-                  id="notes"
-                  label="Tranfer date"
-                  type="date"
-                  size="small"
-                  name="transferDate"
-                  value={values.notes}
-                  onChange={handleChange("transferDate")}
-                />
+                  <Stack direction="row" mx={2} sx={{ width: "100%" }}>
+                    <TextField
+                      id="notes"
+                      label="Tranfer date"
+                      name="transferDate"
+                      size="small"
+                      type="date"
+                      value={values.notes}
+                      onChange={handleChange("transferDate")}
+                    />
                   </Stack>
-                  <Stack
-                    direction="row"
-
-                    mx={2}
-                    sx={{ width: "100%" }}
-                  >
-                  <TextField
-                  id="expectedDate"
-                  label="Expected date"
-                  type="date"
-                  name="expectedDate"
-                  size="small"
-                  value={values.notes}
-                  onChange={handleChange("expectedDate")}
-                />
+                  <Stack direction="row" mx={2} sx={{ width: "100%" }}>
+                    <TextField
+                      id="expectedDate"
+                      label="Expected date"
+                      name="expectedDate"
+                      size="small"
+                      type="date"
+                      value={values.notes}
+                      onChange={handleChange("expectedDate")}
+                    />
                   </Stack>
                 </Grid>
               </CustomCardContent>

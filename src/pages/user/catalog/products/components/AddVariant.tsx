@@ -23,7 +23,7 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { useFormik } from "formik";
-import useVariantAction from "hooks/catalog/variant/useVariantAction";
+import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";

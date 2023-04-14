@@ -2,7 +2,7 @@ import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
-import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
+import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -141,7 +141,7 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
       <TableCell
         sx={{
           minWidth: 170,
-          whiteSpace:"nowrap"
+          whiteSpace: "nowrap",
         }}
       >
         {dateTimeFormat(item.updatedOn) || "_"}
