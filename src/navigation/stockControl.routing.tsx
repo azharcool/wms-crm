@@ -117,6 +117,10 @@ const stockControlRouting = (
       path={`${AppRoutes.stockControl.stock_count.listing}`}
     />
     <Route
+      element={<StockControlLoadable.StockCountCreate />}
+      path={`${AppRoutes.stockControl.stock_count.create}`}
+    />
+    <Route
       element={<StockControlLoadable.StockCountDetails />}
       path={`${AppRoutes.stockControl.stock_count.details}/:stock_countId`}
     />

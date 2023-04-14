@@ -152,6 +152,7 @@ const AppRoutes = {
     },
     stock_count: {
       listing: "stock-count/listing",
+      create: "stock-count/create",
       details: "stock-count/details",
     },
     transfer: {
