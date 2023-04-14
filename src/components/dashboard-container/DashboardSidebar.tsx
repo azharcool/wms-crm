@@ -1,4 +1,4 @@
-import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
+import { Box, Drawer, useMediaQuery } from "@mui/material";
 import palette from "theme/palette";
 import { isScreenAccessible, logoURL } from "utils";
 import NavItem from "./NavItem";
@@ -39,12 +39,8 @@ export function DashboardSidebar(props: any) {
         >
           <img alt="logo" height="80" src={logoURL} width="80%" />
         </Box>
-        <Divider
-          sx={{
-            my: 2,
-          }}
-        />
-        <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem" }}>
+
+        <Box sx={{ flexGrow: 1, color: "#000", fontSize: "0.8rem", my: 2 }}>
           {sideNavMenu.map((item) => {
             return isScreenAccessible(item.screenCode) ? (
               <NavItem key={item.id} item={item} />
@@ -83,11 +79,6 @@ export function DashboardSidebar(props: any) {
           color: "#000",
           borderRight: "none",
           width: 250,
-        },
-      }}
-      sx={{
-        zIndex: (theme) => {
-          return theme.zIndex.appBar + 100;
         },
       }}
       variant="temporary"
