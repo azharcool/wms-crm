@@ -2,7 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 
 import TableToolbar from "components/table-toolbar";
-import useBrandAction from "hooks/catalog/brand/useBrandAction";
+import useBrandAction from "hooks/actions/catalog/brand/useBrandAction";
 import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
 import { useState } from "react";
 import { useSelector } from "react-redux";

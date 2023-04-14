@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import palette from "theme/palette";
 
-import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
+import useBundleCompositionAction from "hooks/actions/catalog/bundlle-composition/useBundleCompositionAction";
 import useDecodedData from "hooks/useDecodedData";
 import { AddBundlCompositionRequestRoot } from "types/catalog/bundleComposition/addBundleCompostionRequest";
 import CompositionListing from "./component/CompositionListing";

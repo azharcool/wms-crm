@@ -8,10 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
 import { useFormik } from "formik";
-import useProductAction from "hooks/catalog/product/useProductAction";
+import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";

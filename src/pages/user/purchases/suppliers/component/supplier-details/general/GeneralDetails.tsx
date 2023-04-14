@@ -11,12 +11,12 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
 import { FormikHelpers } from "formik";
-import useSupplierAction from "hooks/catalog/supplier/useSupplierAction";
+import useSupplierAction from "hooks/actions/catalog/supplier/useSupplierAction";
 import useGetByIdSupplier from "hooks/querys/catalog/supplier/useGetByIdSupplier";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";

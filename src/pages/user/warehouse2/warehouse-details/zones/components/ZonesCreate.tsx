@@ -1,17 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Card, Grid, Stack } from "@mui/material";
+import { areaStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
+import useArea from "hooks/actions/warehouse/area/useArea";
+import useZoneAction from "hooks/actions/warehouse/zone/useZoneAction";
 import useDecodedData from "hooks/useDecodedData";
-import useArea from "hooks/warehouse/area/useArea";
-import useZoneAction from "hooks/warehouse/zone/useZoneAction";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { AddZoneRequestRoot } from "types/warehouse/zone/addZoneRequest";
 import { GetAllZoneResponseData } from "types/warehouse/zone/getAllZoneResponse";
-import { areaStatus } from "__mock__";
 import useZoneForm, {
   ZoneInitialValues,
   zoneInitialValues,

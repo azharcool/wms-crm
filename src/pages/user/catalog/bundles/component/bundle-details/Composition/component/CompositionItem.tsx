@@ -2,7 +2,7 @@ import PercentIcon from "@mui/icons-material/Percent";
 import { Box, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import TextField from "components/textfield";
-import useBundleCompositionAction from "hooks/catalog/bundlle-composition/useBundleCompositionAction";
+import useBundleCompositionAction from "hooks/actions/catalog/bundlle-composition/useBundleCompositionAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";

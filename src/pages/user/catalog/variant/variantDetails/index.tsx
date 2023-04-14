@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import { useFormik } from "formik";
-import useVariantAction from "hooks/catalog/variant/useVariantAction";
+import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
 import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import useDecodedData from "hooks/useDecodedData";

@@ -1,8 +1,8 @@
 import { Card, Container, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
-import useArea from "hooks/warehouse/area/useArea";
-import useZone from "hooks/warehouse/zone/useZone";
+import useArea from "hooks/actions/warehouse/area/useArea";
+import useZone from "hooks/actions/warehouse/zone/useZone";
 import useLocationForm, {
   locationInitialValues,
 } from "pages/user/warehouse2/warehouse-details/locations/hooks/useLocationForm";

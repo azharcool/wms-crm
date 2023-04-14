@@ -1,6 +1,6 @@
 import { Box, Card, Stack } from "@mui/material";
 import Slider from "components/layouts/popup-modals/Slider";
-import useWarehouse from "hooks/warehouse/useWarehouse";
+import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -48,10 +48,11 @@ function OpenPutawayWarehouses(props: IOpenPutawayWarehouses) {
                   fontWeight: "600",
                   cursor: "pointer",
                   width: "45%",
-                  height: "250px",
+                  // height: "250px",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
+                  boxShadow: "none",
                 }}
                 onClick={() => {
                   navigate(
