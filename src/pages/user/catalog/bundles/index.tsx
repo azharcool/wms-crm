@@ -1,7 +1,7 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import useBundleAction from "hooks/catalog/bundle/useBundleAction";
+import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import useGetAllBundle from "hooks/querys/catalog/bundle/useGetAllBundle";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import BundleListing from "./component/BundleListing";
 
 function Bundles() {
   const navigate = useNavigate();
-  const [bundlePagination, setbundlePagination] = useState({
+  const [bundlePagination, setBundlePagination] = useState({
     pageSize: 10,
     page: 1,
   });
@@ -23,17 +23,15 @@ function Bundles() {
     useGetAllBundle(bundlePagination);
   const ids = getSelectedBulkIdsState.toString();
 
-  const handlePageChange = (pageNo: number) => {
-    setbundlePagination((prevState) => ({ ...prevState, page: pageNo }));
+  const handlePagination = (name: string, value: number) => {
+    setBundlePagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setbundlePagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -73,11 +71,9 @@ function Bundles() {
         />
         <Box sx={{ mt: 3 }}>
           <BundleListing
+            bundlePagination={bundlePagination}
             data={bundlePaginationResponse}
-            paginationData={bundlePagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={bundlePaginationResponse?.totalDocs || 0}
+            handlePagination={handlePagination}
           />
         </Box>
       </CardContent>

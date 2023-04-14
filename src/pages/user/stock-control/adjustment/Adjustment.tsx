@@ -1,8 +1,8 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
 import useGetAllAdjustment from "hooks/querys/stock/adjustment/useGetAllAdjustment";
-import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";

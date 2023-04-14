@@ -5,10 +5,13 @@ import { getAllWarehouseArea } from "services/warehouseArea.services";
 import { QueryKeys } from "utils/QueryKeys";
 
 function useGetAllWarehouseAreaWithoutPagnation() {
-  const cachedKey = [QueryKeys.getAllWarehouseAreaWithoutPagination];
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
-
+  const cachedKey = [
+    QueryKeys.getAllWarehouseAreaWithoutPagination,
+    getSelectedWarehouse.id,
+  ];
   const url = `warehouseId=${getSelectedWarehouse.id}`;
+
   return useQuery(cachedKey, () => getAllWarehouseArea(url), {
     enabled: Boolean(getSelectedWarehouse.name),
   });

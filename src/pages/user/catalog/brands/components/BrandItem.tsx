@@ -10,7 +10,7 @@ import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
-import useBrandAction from "hooks/catalog/brand/useBrandAction";
+import useBrandAction from "hooks/actions/catalog/brand/useBrandAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";

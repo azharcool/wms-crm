@@ -163,6 +163,10 @@ const AppRoutes = {
       create: "transfer/create",
       update: "transfer/update",
     },
+    reorder:{
+      listing:"reorder/listing",
+      details:"reorder/details"
+    }
   },
 
   setting: {
@@ -179,6 +183,9 @@ const AppRoutes = {
     roles: {
       roleListing: "role/listing",
     },
+    account:{
+      account:"account"
+    }
   },
 };
 

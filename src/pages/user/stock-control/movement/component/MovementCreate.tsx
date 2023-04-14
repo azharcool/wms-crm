@@ -7,30 +7,28 @@ import {
   Card,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Table,
   TableContainer,
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { receivingType, timezone, warehouseStatus } from "__mock__";
+import { timezone, warehouseStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
+import useArea from "hooks/actions/warehouse/area/useArea";
+import useWarehouse from "hooks/actions/warehouse/useWarehouse";
+import useZone from "hooks/actions/warehouse/zone/useZone";
 import useDecodedData from "hooks/useDecodedData";
-import useArea from "hooks/warehouse/area/useArea";
-import useWarehouse from "hooks/warehouse/useWarehouse";
-import useZone from "hooks/warehouse/zone/useZone";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
+import { useAppDispatch } from "redux/store";
+import { setWarehouse } from "redux/warehouse/warehouseSlice";
 import palette from "theme/palette";
 import useAddMovementForm, {
   AddMovementForm,
@@ -45,42 +43,16 @@ const initialValues: AddMovementForm = {
 };
 
 function MovementCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
-  const userDecoded = useDecodedData();
   const [barcodeSliderOpen, setBarcodeSliderOpen] = useState(false);
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
+  const [totalValue, setTotalValue] = useState(0);
+  const [totalQuantity, setTotalQuantity] = useState(0);
+
+  const userDecoded = useDecodedData();
+  const { warehouse: warehouseMenuItem } = useWarehouse();
+  const { zones } = useZone();
+  const { areas } = useArea();
+  const decodeData = useDecodedData();
+  const dispatch = useAppDispatch();
 
   async function onSubmit(values: AddMovementForm) {
     const data = {
@@ -92,7 +64,6 @@ function MovementCreate() {
     };
   }
 
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -139,17 +110,11 @@ function MovementCreate() {
     },
   ];
 
-  const { warehouse: warehouseMenuItem } = useWarehouse();
-  const { zones } = useZone();
-  const { areas } = useArea();
-  const decodeData = useDecodedData();
-  const [totalValue, setTotalValue] = useState(0);
-  const [totalQuantity, setTotalQuantity] = useState(0);
-
   const movementForm = useAddMovementForm({
     onSubmit,
     initialValues,
   });
+
   const {
     touched,
     errors,
@@ -169,40 +134,25 @@ function MovementCreate() {
   } = AppRoutes;
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[
-            {
-              link: "Movement",
-              to: "",
-            },
-          ]}
-          buttonText="Save"
-          handleClick={() => {
-            // handleSubmit()
-          }}
-          navTitle=""
-          rightActions={rightActionsData}
-          title="New Movement"
-        />
-        <Grid
-          container
-          direction="row"
-          marginTop={2}
-          padding={0}
-          paddingBottom={2}
-          spacing={2}
-        >
-          {/* coloumn */}
-          <Grid
-            item
-            direction="column"
-            gap={2}
-            rowSpacing={2}
-            spacing={2}
-            xs={9}
-          >
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[
+          {
+            link: "Movement",
+            to: "",
+          },
+        ]}
+        buttonText="Save"
+        handleClick={() => {
+          // handleSubmit()
+        }}
+        navTitle=""
+        rightActions={rightActionsData}
+        title="New Movement"
+      />
+      <Grid container marginTop={2} spacing={2}>
+        <Grid container item rowSpacing={2} xs={9}>
+          <Grid item xs={12}>
             <Card
               sx={{
                 flex: 1,
@@ -217,9 +167,15 @@ function MovementCreate() {
                   <Stack direction="column" gap={2} sx={{ width: "100%" }}>
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("warehouse", value.value)
-                      }
+                      handleChange={(e: any, item: any) => {
+                        dispatch(
+                          setWarehouse({
+                            id: item?.id || 0,
+                            name: item?.value || "",
+                          }),
+                        );
+                        setFieldValue("warehouse", item.value);
+                      }}
                       id="warehouse"
                       label="Warehouse*"
                       options={warehouseMenuItem}
@@ -261,7 +217,7 @@ function MovementCreate() {
                   </Stack>
                   <Stack direction="column" sx={{ width: "100%" }}>
                     <AutoComplete
-                      disabled={!values.zone}
+                      disabled={!values.area}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("location", value.value)
                       }
@@ -272,90 +228,101 @@ function MovementCreate() {
                 </Grid>
               </CustomCardContent>
             </Card>
-            <Grid direction="row" display="flex" justifyContent="space-around">
-              <StocksTable />
-            </Grid>
-            <Grid direction="row" display="flex" justifyContent="space-around">
-              <Card sx={{ flex: 1 }}>
-                <CustomCardContent title="Notes">
-                  <TextField
-                    multiline
-                    id="notes"
-                    label="Notes"
-                    name="notes"
-                    rows={5}
-                  />
-                </CustomCardContent>
-              </Card>
-            </Grid>
           </Grid>
-          <Grid item xs={3}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Move to">
-                <TextField
-                  isSelect
-                  label="Warehouse test1"
-                  menuItems={warehouseStatus}
-                  name="status"
-                  size="small"
-                />
 
+          <Grid item xs={12}>
+            <StocksTable />
+          </Grid>
+          <Grid item xs={12}>
+            <Card sx={{ flex: 1 }}>
+              <CustomCardContent title="Notes">
                 <TextField
-                  isSelect
-                  label="Area"
-                  menuItems={areas}
-                  name="area"
-                  size="small"
+                  multiline
+                  id="notes"
+                  label="Notes"
+                  name="notes"
+                  rows={5}
                 />
-                <TextField
-                  isSelect
-                  label="Zone"
-                  menuItems={areas}
-                  name="zone"
-                  size="small"
-                />
-                <TextField
-                  isSelect
-                  label="Location"
-                  menuItems={timezone}
-                  name="location"
-                  size="small"
-                />
-                <TextField
-                  isSelect
-                  label="To container"
-                  menuItems={receivingType}
-                  name="tocontainer"
-                  size="small"
-                />
-              </CustomCardContent>
-              <CustomCardContent title=" Movement Summary">
-                <Stack direction="column" gap={2} marginTop={2}>
-                  <TextField
-                    darkDisable
-                    label="Total movement Quantity"
-                    name="totalQuantity"
-                    size="small"
-                    value={Number(totalQuantity) || 0}
-                  />
-                  <TextField
-                    darkDisable
-                    label="Total movement value"
-                    name="totalValue"
-                    size="small"
-                    value={`INR ${totalValue}.00`}
-                  />
-                </Stack>
               </CustomCardContent>
             </Card>
           </Grid>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        <Grid item xs={3}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Move to">
+              <TextField
+                disabled
+                isSelect
+                label="Warehouse test1"
+                menuItems={warehouseStatus}
+                name="warehouse"
+                size="small"
+              />
+
+              <TextField
+                isSelect
+                disabled={!values.warehouse}
+                label="Area"
+                menuItems={areas}
+                name="areas"
+                size="small"
+                value={values.area}
+                onChange={handleChange("area")}
+              />
+              <TextField
+                isSelect
+                disabled={!values.area}
+                label="Zone"
+                menuItems={zones}
+                name="zone"
+                size="small"
+                value={values.zone}
+                onChange={handleChange("zone")}
+              />
+              <TextField
+                isSelect
+                disabled={!values.area}
+                label="Location"
+                menuItems={timezone}
+                name="location"
+                size="small"
+                value={values.location}
+                onChange={handleChange("location")}
+              />
+              <TextField
+                isSelect
+                disabled={!values.location}
+                label="To container"
+                name="tocontainer"
+                size="small"
+              />
+            </CustomCardContent>
+            <CustomCardContent title="Movement Summary">
+              <Stack direction="column" gap={2} marginTop={2}>
+                <TextField
+                  darkDisable
+                  label="Total movement Quantity"
+                  name="totalQuantity"
+                  size="small"
+                  value={Number(totalQuantity) || 0}
+                />
+                <TextField
+                  darkDisable
+                  label="Total movement value"
+                  name="totalValue"
+                  size="small"
+                  value={`INR ${totalValue}.00`}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
@@ -400,8 +367,6 @@ const tableTitle = [
 
 function StocksTable() {
   const [openBrows, setOpenBrows] = useState(false);
-
-  const newtheme = useSelector((state: any) => state.theme);
 
   return (
     <>

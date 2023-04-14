@@ -1,7 +1,7 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import TableActionButton from "components/table/TableActionButton";
-import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
+import useWarehouseAreaAction from "hooks/actions/warehouse/area/useWarehouseAreaAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";

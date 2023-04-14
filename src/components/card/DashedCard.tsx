@@ -19,7 +19,7 @@ function DashedCard(props: ICustomCard) {
         alignItems: "center",
       }}
     >
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", paddingY: 0.5 }}>
         {leftIcon}
         <Box
           sx={{

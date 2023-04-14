@@ -11,7 +11,7 @@ import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
 import { FILE_URL } from "config";
-import useCategoriesAction from "hooks/catalog/categories/useCategoriesAction";
+import useCategoriesAction from "hooks/actions/catalog/categories/useCategoriesAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";

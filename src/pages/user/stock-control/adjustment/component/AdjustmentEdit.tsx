@@ -27,12 +27,12 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikProps } from "formik";
+import useAdjustmentReason from "hooks/actions/setting/adjustment-reason/useAdjustmentReason";
+import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
+import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
-import useAdjustmentReason from "hooks/setting/adjustment-reason/useAdjustmentReason";
-import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
-import useWarehouse from "hooks/warehouse/useWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -290,8 +290,8 @@ function AdjustmentEdit() {
             >
               <CustomCardContent title="Details">
                 <Grid
-                  display="flex"
                   direction="row"
+                  display="flex"
                   justifyContent="space-around"
                 >
                   <Stack direction="column" gap={2} sx={{ width: "100%" }}>
@@ -303,6 +303,10 @@ function AdjustmentEdit() {
                       //     return item
                       //   }
                       // })}
+                      handleChange={(e: any, value: any) => {
+                        setFieldValue("warehosuseId", value?.id);
+                      }}
+                      options={warehouseMenuItem}
                       defaultValue={{ value: warehouseMenuItem[0]?.value }}
                       // defaultValue={index !== -1  && {id:String(values.warehosuseId), value:warehouseMenuItem[index].value}}
                       helperText={
@@ -311,10 +315,6 @@ function AdjustmentEdit() {
                           errors.warehosuseId) ||
                         ""
                       }
-                      options={warehouseMenuItem}
-                      handleChange={(e: any, value: any) => {
-                        setFieldValue("warehosuseId", value?.id);
-                      }}
                     />
                   </Stack>
                   <Stack
@@ -325,6 +325,9 @@ function AdjustmentEdit() {
                   >
                     <AutoComplete
                       getOptionLabel={(item: any) => item.value}
+                      handleChange={(e: any, value: any) =>
+                        setFieldValue("adjustmentReasonId", value?.id)
+                      }
                       helperText={
                         (touched.adjustmentReasonId &&
                           errors &&
@@ -333,9 +336,6 @@ function AdjustmentEdit() {
                       }
                       label="Adjustment Reason*"
                       options={adjustmentMenuItem}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("adjustmentReasonId", value?.id)
-                      }
                     />
                   </Stack>
                   <Stack direction="column" mr={2} sx={{ width: "100%" }}>
@@ -351,11 +351,11 @@ function AdjustmentEdit() {
                   <Stack direction="column" sx={{ width: "100%" }}>
                     <AutoComplete
                       getOptionLabel={(item: any) => item.company}
-                      label="Company"
-                      options={[{ id: "1", company: "smart" }]}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("companyId", value?.id)
                       }
+                      label="Company"
+                      options={[{ id: "1", company: "smart" }]}
                     />
                   </Stack>
                 </Grid>
@@ -365,11 +365,11 @@ function AdjustmentEdit() {
 
           <Grid item xs={12}>
             <StocksTable
-              formik={formik}
-              warehouseId={values.warehosuseId}
               adjustmentReasonId={values.adjustmentReasonId}
+              formik={formik}
               setUnits={setUnits}
               units={units}
+              warehouseId={values.warehosuseId}
             />
           </Grid>
 
@@ -381,9 +381,9 @@ function AdjustmentEdit() {
                   id="notes"
                   label="Notes"
                   name="notes"
+                  rows={5}
                   value={values.notes}
                   onChange={handleChange("notes")}
-                  rows={5}
                 />
               </CustomCardContent>
               <CustomCardContent title="Adjustment Summary">
@@ -391,8 +391,8 @@ function AdjustmentEdit() {
                   <TextField
                     darkDisable
                     label="Total adjusted Quantity"
-                    size="small"
                     name="totalQuantity"
+                    size="small"
                     value={Number(totalQuantity) || 0}
                     onChange={() =>
                       setFieldValue("totalQuantity", totalQuantity)
@@ -400,9 +400,9 @@ function AdjustmentEdit() {
                   />
                   <TextField
                     darkDisable
+                    label="Total adjusted value"
                     name="totalValue"
                     size="small"
-                    label="Total adjusted value"
                     value={`INR ${totalValue}.00`}
                     onChange={() => setFieldValue("totalValue", totalValue)}
                   />
@@ -620,9 +620,9 @@ function StocksTable(props: IStockTable) {
                               id="unitCost"
                               label="Unit Cost"
                               name={`stock[${index}].unitCost`}
+                              size="small"
                               value={values?.stock[index]?.unitCost}
                               onChange={handleChange}
-                              size="small"
                             />
                           </TableCell>
                           <TableCell
@@ -658,8 +658,8 @@ function StocksTable(props: IStockTable) {
                             <TextField
                               darkDisable
                               label="Container Number"
-                              size="small"
                               name={`stock[${index}].containerNumber`}
+                              size="small"
                               value={values.stock[index]?.containerNumber}
                               onChange={handleChange}
                             />
@@ -672,10 +672,10 @@ function StocksTable(props: IStockTable) {
                           >
                             <TextField
                               darkDisable
-                              type="date"
                               label="Expiry Date"
-                              size="small"
                               name={`stock[${index}].expiryDate`}
+                              size="small"
+                              type="date"
                               value={values.stock[index]?.expiryDate}
                               onChange={handleChange}
                             />
@@ -689,14 +689,14 @@ function StocksTable(props: IStockTable) {
                             <Box sx={{ mb: 2 }}>
                               <AutoComplete
                                 getOptionLabel={(item: any) => item.value}
-                                label="Location*"
-                                options={locationMenuItem}
                                 handleChange={(e: any, value: any) =>
                                   setFieldValue(
                                     `stock[${index}].locationId`,
                                     value?.id,
                                   )
                                 }
+                                label="Location*"
+                                options={locationMenuItem}
                               />
                             </Box>
                           </TableCell>
@@ -714,22 +714,22 @@ function StocksTable(props: IStockTable) {
       </Card>
 
       <BrowsStock
-        handleClose={handleClose}
-        open={openBrows}
-        setVariants={setSelectedVariants}
         formik={formik}
-        variants={selectedVariants}
         handleAdd={() => {
           setVariants(selectedVariants);
           setOpenBrows(!openBrows);
         }}
+        handleClose={handleClose}
+        open={openBrows}
+        setVariants={setSelectedVariants}
+        variants={selectedVariants}
       />
       <UnitSlider
-        handleClose={handleUnitClose}
-        open={unitSliderOpen}
+        data={selectedItem}
         formik={formik}
         handleAdd={() => setUnitSliderOpen(!unitSliderOpen)}
-        data={selectedItem}
+        handleClose={handleUnitClose}
+        open={unitSliderOpen}
         setUnits={setUnits}
       />
     </>

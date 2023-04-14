@@ -2,7 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 
 import TableToolbar from "components/table-toolbar";
-import useBrandAction from "hooks/catalog/brand/useBrandAction";
+import useBrandAction from "hooks/actions/catalog/brand/useBrandAction";
 import useGetAllBrand from "hooks/querys/catalog/brands/useGetAllBrand";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -26,17 +26,16 @@ function Brands() {
   const handleMange = () => {
     setManageOpen((s) => !s);
   };
-  const handlePageChange = (pageNo: number) => {
-    setBrandPagination((prevState) => ({ ...prevState, page: pageNo }));
+
+  const handlePagination = (name: string, value: number) => {
+    setBrandPagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setBrandPagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -74,11 +73,9 @@ function Brands() {
         />
         <Box sx={{ mt: 3 }}>
           <BrandListing
+            brandPagination={brandPagination}
             data={brandData}
-            paginationData={brandPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={brandData?.totalDocs || 0}
+            handlePagination={handlePagination}
           />
         </Box>
       </CardContent>
