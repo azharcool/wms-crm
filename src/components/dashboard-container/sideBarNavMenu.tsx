@@ -172,14 +172,24 @@ export const sideNavMenu: ISideNavMenu[] = [
       },
       {
         id: crypto.randomUUID(),
+        title: "Billing",
+        location: `/${setting.layout}/${setting.billing.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Configuration",
         location: `/${setting.layout}/${setting.configuration.listing}`,
       },
-      // {
-      //   id: crypto.randomUUID(),
-      //   title: "Roles",
-      //   location: `/${settting.layout}/${settting.configuration.listing}`,
-      // },
+      {
+        id: crypto.randomUUID(),
+        title: "User",
+        location: `/${setting.layout}/${setting.user.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Roles",
+        location: `/${setting.layout}/${setting.role.listing}`,
+      },
       {
         id: crypto.randomUUID(),
         title: "Barcode",
