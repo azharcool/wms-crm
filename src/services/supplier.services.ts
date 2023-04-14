@@ -1,6 +1,9 @@
 import { IResponse } from "constants/interfaces";
+import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import { GetAllBillingAddressRoot } from "types/catalog/supplier/getAllBillingAddress";
+import { GetAllShippingAddressRoot } from "types/catalog/supplier/getAllShippingAddress";
 import { GetAllSupplierRoot } from "types/catalog/supplier/getAllSupplierResponse";
 import { GetByIdSupplierResponseRoot } from "types/catalog/supplier/getByIdSupplierResponse";
 import client from "utils/ApiClient";
@@ -57,4 +60,25 @@ export async function addShippingAddress(
 ): Promise<IResponse> {
   const URL = `${API_URLS.ADD_SHIPPING_ADDRESS}`;
   return client.post(URL, request);
+}
+
+export async function getAllShippingAddress(
+  id: number,
+): Promise<GetAllShippingAddressRoot> {
+  const URL = `${API_URLS.GET_ALL_SHIPPING_ADDRESS}?supplierId=${id}`;
+  return client.get(URL);
+}
+
+export async function addBillingAddress(
+  request: AddBillingAddressRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.ADD_BILLING_ADDRESS}`;
+  return client.post(URL, request);
+}
+
+export async function getAllBillingAddress(
+  id: number,
+): Promise<GetAllBillingAddressRoot> {
+  const URL = `${API_URLS.GET_ALL_BILLING_ADDRESS}?supplierId=${id}`;
+  return client.get(URL);
 }

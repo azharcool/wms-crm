@@ -48,25 +48,19 @@ interface IPaginationData {
 }
 interface IBrandListing {
   data?: IGetBrandResponseRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  brandPagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 
 function BrandListing(props: IBrandListing) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
-
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
-  };
+  const { data, brandPagination, handlePagination } = props;
 
   const csvData = data?.data.map((item) => ({
     image: "",
-    name: item.name
+    name: item.name,
   }));
 
   const csvHeaders = tableTitle.map((item) => ({
@@ -145,12 +139,16 @@ function BrandListing(props: IBrandListing) {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={total}
-            page={paginationData.page}
-            rowsPerPage={paginationData.pageSize}
+            count={data?.totalDocs || 0}
+            page={brandPagination.page}
+            rowsPerPage={brandPagination.pageSize}
             rowsPerPageOptions={[5, 10, 25]}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleLimitChange}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
           />
         </TableContainer>
       </Box>

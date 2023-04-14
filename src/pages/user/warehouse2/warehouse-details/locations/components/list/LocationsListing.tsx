@@ -120,6 +120,21 @@ function LocationsListing() {
     warehouse: { warehouseLayout, locationCreate },
   } = AppRoutes;
 
+  const csvData = locationResponse?.data.map((item) => ({
+    locationlabel: item.locationLabel || item.locationAlias,
+    area: item.areaName,
+    zone: item.zoneName,
+    aisle: item.aisle,
+    bay:"",
+    level:""
+
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
@@ -128,6 +143,16 @@ function LocationsListing() {
             navigate(`/${warehouseLayout}/${locationCreate}`);
           }
         }}
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Locations"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          },
+        ]}
       />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>

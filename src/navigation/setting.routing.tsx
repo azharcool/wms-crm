@@ -1,29 +1,29 @@
 import { Route } from "react-router-dom";
 import AppRoutes from "./appRoutes";
-import * as StockControlLoadable from "./loadRoutes/setting.load";
+import * as SettingLoadable from "./loadRoutes/setting.load";
 
 const settingRouting = (
   <Route
-    element={<StockControlLoadable.SettingLayout />}
+    element={<SettingLoadable.SettingLayout />}
     path={`${AppRoutes.setting.layout}`}
   >
     <Route
-      element={<StockControlLoadable.BarcodeGenerate />}
+      element={<SettingLoadable.BarcodeGenerate />}
       path={`${AppRoutes.setting.barcode.generate}`}
     />
 
     <Route
-      element={<StockControlLoadable.ConfigurationListing />}
+      element={<SettingLoadable.ConfigurationListing />}
       path={`${AppRoutes.setting.configuration.listing}`}
     />
     <Route
-      element={<StockControlLoadable.AdjustmentReasonListing />}
+      element={<SettingLoadable.AdjustmentReasonListing />}
       path={`${AppRoutes.setting.configuration.adjustmentReasons}`}
     />
 
     <Route
-      element={<StockControlLoadable.ProductConditionListing />}
-      path={`${AppRoutes.setting.configuration.productCondition}`}
+      element={<SettingLoadable.SettingAccount />}
+      path={`${AppRoutes.setting.account.account}`}
     />
   </Route>
 );

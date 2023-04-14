@@ -23,6 +23,8 @@ interface ITableToolbar {
   rightActions?: IRightActions[];
   hasBulk?: boolean;
   onBulkHandle?: (_: string) => void;
+  isDelete?:boolean
+  moreMenuItem?: String[]
 }
 
 interface IRightActions {
@@ -83,6 +85,8 @@ function TableToolbar(props: ITableToolbar) {
     hasBulk,
     onBulkHandle,
     isBulkDisabled,
+    isDelete,
+    moreMenuItem
   } = props;
   const location = useLocation();
   const navigation = useNavigate();
@@ -236,6 +240,8 @@ function TableToolbar(props: ITableToolbar) {
               <BulkActionButton
                 isDisabled={isBulkDisabled}
                 onBulkHandle={onBulkHandle}
+                isDelete={isDelete}
+                moreMenuItem={moreMenuItem}
               />
             ) : null}
             {rightActions?.map((item) => {

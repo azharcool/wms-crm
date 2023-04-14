@@ -94,9 +94,42 @@ function SupplierList(props: ISupplierList) {
   const handlePageChange = (event: any, newPage: any) => {
     setCurrentPage(newPage);
   };
+
+  const csvData = data?.data.map((item) => ({
+    name: item.companyName,
+    shortname: item.shortName,
+    supplierid: item.id,
+    city: item.city,
+    email:item.email,
+    phone:item.phoneNumber,
+    primarycontact:item.primaryPhone,
+    status:item.status
+  }));
+
+  const csvHeaders = tableTitle.map((item) => ({
+    label: item.title,
+    key: item.title.replace(" ", "").toLowerCase(),
+  }));
+
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar />
+      <EnhancedTableToolbar
+        csvHeader={csvHeaders}
+        csvData={csvData}
+        csvTitle="Suppliers"
+        moreList={[
+          {
+            id: crypto.randomUUID(),
+            title: "Import",
+            onClick: () => {},
+          },
+          {
+            id: crypto.randomUUID(),
+            title: "Density",
+            onClick: () => {},
+          },
+        ]}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>

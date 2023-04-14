@@ -26,17 +26,16 @@ function Brands() {
   const handleMange = () => {
     setManageOpen((s) => !s);
   };
-  const handlePageChange = (pageNo: number) => {
-    setBrandPagination((prevState) => ({ ...prevState, page: pageNo }));
+
+  const handlePagination = (name: string, value: number) => {
+    setBrandPagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setBrandPagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -74,11 +73,9 @@ function Brands() {
         />
         <Box sx={{ mt: 3 }}>
           <BrandListing
+            brandPagination={brandPagination}
             data={brandData}
-            paginationData={brandPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={brandData?.totalDocs || 0}
+            handlePagination={handlePagination}
           />
         </Box>
       </CardContent>

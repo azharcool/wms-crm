@@ -72,14 +72,15 @@ interface IPaginationData {
 }
 interface IBundleListing {
   data?: IGetBundleResponseRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  bundlePagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 
 function BundleListing(props: IBundleListing) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+  const { data, bundlePagination, handlePagination } = props;
   const getSelectedBundleIdsState = useSelector(getSelectedBundle);
   const dispatch = useAppDispatch();
   const bundleData = {
@@ -104,14 +105,6 @@ function BundleListing(props: IBundleListing) {
     }
   };
 
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
-
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
-  };
-
   const csvData = data?.data.map((item) => ({
     image: "",
     name: item.name,
@@ -132,15 +125,15 @@ function BundleListing(props: IBundleListing) {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
-      csvData={csvData}
-      csvHeader={csvHeaders}
-      csvTitle="Bundles"
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Bundles"
         moreList={[
           {
             id: crypto.randomUUID(),
             title: "Density",
             onClick: () => {},
-          }
+          },
         ]}
       />
 
@@ -219,12 +212,16 @@ function BundleListing(props: IBundleListing) {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={total}
-            page={paginationData.page}
-            rowsPerPage={paginationData.pageSize}
+            count={data?.totalDocs || 0}
+            page={bundlePagination.page}
+            rowsPerPage={bundlePagination.pageSize}
             rowsPerPageOptions={[5, 10, 25]}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleLimitChange}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
           />
         </TableContainer>
       </Box>

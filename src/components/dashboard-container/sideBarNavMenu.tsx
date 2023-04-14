@@ -133,6 +133,28 @@ export const sideNavMenu: ISideNavMenu[] = [
         title: "Adjustment",
         location: `/${stockControl.layout}/${stockControl.adjustment.listing}`,
       },
+      {
+        id: crypto.randomUUID(),
+        title: "Stock Count",
+        location: `/${stockControl.layout}/${stockControl.stock_count.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Movement",
+        location: `/${stockControl.layout}/${stockControl.movement.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Transfer",
+        location: `/${stockControl.layout}/${stockControl.transfer.listing}`,
+      },
+
+      {
+        id: crypto.randomUUID(),
+        title: "Reorder",
+        location: `/${stockControl.layout}/${stockControl.reorder.listing}`,
+      },
+
     ],
     screenCode: "",
   },
@@ -143,6 +165,11 @@ export const sideNavMenu: ISideNavMenu[] = [
     title: "Settings",
     screenCode: SCREEN_CODES.SETTINGS,
     menuItems: [
+      {
+        id: crypto.randomUUID(),
+        title: "Account",
+        location: `/${setting.layout}/${setting.account.account}`,
+      },
       {
         id: crypto.randomUUID(),
         title: "Configuration",

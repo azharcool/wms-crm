@@ -12,7 +12,7 @@ const stockControlRouting = (
       element={<StockControlLoadable.AdjustmentCreate />}
       path={`${AppRoutes.stockControl.adjustment.create}`}
     />
-     <Route
+    <Route
       element={<StockControlLoadable.AdjustmentUpdate />}
       path={`${AppRoutes.stockControl.adjustment.update}/:adjustmentId`}
     />
@@ -34,6 +34,31 @@ const stockControlRouting = (
         element={<StockControlLoadable.AdjustmentHistoryListing />}
         path={`${AppRoutes.stockControl.adjustment.historylisting}`}
       />
+    </Route>
+    {/* Adjustment Routing */}
+
+    <Route
+      element={<StockControlLoadable.MovementCreate />}
+      path={`${AppRoutes.stockControl.movement.create}`}
+    />
+    <Route
+      element={<StockControlLoadable.MovementListing />}
+      path={`${AppRoutes.stockControl.movement.listing}`}
+    />
+
+    <Route
+      element={<StockControlLoadable.MovementDetails />}
+      path={`${AppRoutes.stockControl.movement.details}/:movementId`}
+    >
+      {/* <Route
+        element={<StockControlLoadable.AdjustmentGeneralDetails />}
+        path={`${AppRoutes.stockControl.adjustment.generalDetails}`}
+      />
+
+      <Route
+        element={<StockControlLoadable.AdjustmentHistoryListing />}
+        path={`${AppRoutes.stockControl.adjustment.historylisting}`}
+      /> */}
     </Route>
 
     {/* Recieve Routing */}
@@ -86,6 +111,51 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.putaway_v2.history}`}
       />
     </Route>
+    {/* {Stock Count} */}
+    <Route
+      element={<StockControlLoadable.StockCountListing />}
+      path={`${AppRoutes.stockControl.stock_count.listing}`}
+    />
+    <Route
+      element={<StockControlLoadable.StockCountDetails />}
+      path={`${AppRoutes.stockControl.stock_count.details}/:stock_countId`}
+    />
+
+    {/* Transfer Routing */}
+    <Route
+      element={<StockControlLoadable.TransferListing />}
+      path={`${AppRoutes.stockControl.transfer.listing}`}
+    />
+    <Route
+      element={<StockControlLoadable.TransferCreate />}
+      path={`${AppRoutes.stockControl.transfer.create}`}
+    />
+    <Route
+      element={<StockControlLoadable.TransferUpdate />}
+      path={`${AppRoutes.stockControl.transfer.update}/:transferId`}
+    />
+    <Route
+      element={<StockControlLoadable.TransferDetails />}
+      path={`${AppRoutes.stockControl.transfer.details}/:transferId`}
+    >
+      <Route
+        element={<StockControlLoadable.TransferDetailsGeneral />}
+        path={`${AppRoutes.stockControl.transfer.general}`}
+      />
+      <Route
+        element={<StockControlLoadable.TransferDetailsHistory />}
+        path={`${AppRoutes.stockControl.transfer.history}`}
+      />
+    </Route>
+      {/* Reoder */}
+      <Route
+        element={<StockControlLoadable.ReorderListing />}
+        path={`${AppRoutes.stockControl.reorder.listing}`}
+      />
+      <Route
+        element={<StockControlLoadable.ReorderDetails />}
+        path={`${AppRoutes.stockControl.reorder.details}/:reorderId`}
+      />
   </Route>
 );
 
