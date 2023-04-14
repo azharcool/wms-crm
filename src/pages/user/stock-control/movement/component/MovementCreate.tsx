@@ -16,7 +16,7 @@ import {
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { receivingType, timezone, warehouseStatus } from "__mock__";
+import { timezone, warehouseStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -261,7 +261,7 @@ function MovementCreate() {
                   </Stack>
                   <Stack direction="column" sx={{ width: "100%" }}>
                     <AutoComplete
-                      disabled={!values.zone}
+                      disabled={!values.area}
                       handleChange={(e: any, value: any) =>
                         setFieldValue("location", value.value)
                       }
@@ -297,38 +297,48 @@ function MovementCreate() {
             >
               <CustomCardContent title="Move to">
                 <TextField
+                  disabled
                   isSelect
                   label="Warehouse test1"
                   menuItems={warehouseStatus}
-                  name="status"
+                  name="warehouse"
                   size="small"
                 />
 
                 <TextField
                   isSelect
+                  disabled={!values.warehouse}
                   label="Area"
                   menuItems={areas}
-                  name="area"
+                  name="areas"
                   size="small"
+                  value={values.area}
+                  onChange={handleChange("area")}
                 />
                 <TextField
                   isSelect
+                  disabled={!values.area}
                   label="Zone"
-                  menuItems={areas}
+                  menuItems={zones}
                   name="zone"
                   size="small"
+                  value={values.zone}
+                  onChange={handleChange("zone")}
                 />
                 <TextField
                   isSelect
+                  disabled={!values.area}
                   label="Location"
                   menuItems={timezone}
                   name="location"
                   size="small"
+                  value={values.location}
+                  onChange={handleChange("location")}
                 />
                 <TextField
                   isSelect
+                  disabled={!values.location}
                   label="To container"
-                  menuItems={receivingType}
                   name="tocontainer"
                   size="small"
                 />

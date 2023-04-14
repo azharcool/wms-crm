@@ -111,6 +111,15 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.putaway_v2.history}`}
       />
     </Route>
+    {/* {Stock Count} */}
+    <Route
+      element={<StockControlLoadable.StockCountListing />}
+      path={`${AppRoutes.stockControl.stock_count.listing}`}
+    />
+    <Route
+      element={<StockControlLoadable.StockCountDetails />}
+      path={`${AppRoutes.stockControl.stock_count.details}/:stock_countId`}
+    />
 
     {/* Transfer Routing */}
     <Route

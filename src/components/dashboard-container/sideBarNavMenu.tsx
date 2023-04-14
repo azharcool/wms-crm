@@ -135,20 +135,26 @@ export const sideNavMenu: ISideNavMenu[] = [
       },
       {
         id: crypto.randomUUID(),
+        title: "Stock Count",
+        location: `/${stockControl.layout}/${stockControl.stock_count.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Movement",
         location: `/${stockControl.layout}/${stockControl.movement.listing}`,
-
       },
       {
         id: crypto.randomUUID(),
         title: "Transfer",
         location: `/${stockControl.layout}/${stockControl.transfer.listing}`,
       },
+
       {
         id: crypto.randomUUID(),
         title: "Reorder",
         location: `/${stockControl.layout}/${stockControl.reorder.listing}`,
       },
+
     ],
     screenCode: "",
   },

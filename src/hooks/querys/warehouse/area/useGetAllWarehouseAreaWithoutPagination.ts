@@ -9,6 +9,7 @@ function useGetAllWarehouseAreaWithoutPagnation() {
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
 
   const url = `warehouseId=${getSelectedWarehouse.id}`;
+  console.log("id--->", getSelectedWarehouse);
   return useQuery(cachedKey, () => getAllWarehouseArea(url), {
     enabled: Boolean(getSelectedWarehouse.name),
   });
