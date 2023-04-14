@@ -31,3 +31,8 @@ export const ProductConditionListing = Loadable({
     ),
   loading: () => <Spinner />,
 });
+
+export const SettingAccount = Loadable({
+  loader: () => import("pages/user/setting/account/SettingAccount"),
+  loading: () => <Spinner />,
+});

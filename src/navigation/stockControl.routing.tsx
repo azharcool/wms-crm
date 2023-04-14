@@ -147,6 +147,15 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.transfer.history}`}
       />
     </Route>
+      {/* Reoder */}
+      <Route
+        element={<StockControlLoadable.ReorderListing />}
+        path={`${AppRoutes.stockControl.reorder.listing}`}
+      />
+      <Route
+        element={<StockControlLoadable.ReorderDetails />}
+        path={`${AppRoutes.stockControl.reorder.details}/:reorderId`}
+      />
   </Route>
 );
 

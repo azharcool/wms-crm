@@ -217,3 +217,15 @@ export const TransferDetailsHistory = Loadable({
     import("pages/user/stock-control/transfer/component/details/History"),
   loading: () => <Spinner />,
 });
+
+// reorder
+export const ReorderListing = Loadable({
+  loader: () => import("pages/user/stock-control/reorder/Reorder"),
+  loading: () => <Spinner />,
+});
+
+export const ReorderDetails = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/reorder/component/details/ReorderDetails"),
+  loading: () => <Spinner />,
+});
