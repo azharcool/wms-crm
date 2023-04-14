@@ -131,7 +131,19 @@ export const PutAwayV2History = Loadable({
     ),
   loading: () => <Spinner />,
 });
+// StockCount
+export const StockCountListing = Loadable({
+  loader: () => import("pages/user/stock-control/stock-count/StockCount"),
+  loading: () => <Spinner />,
+});
 
+export const StockCountDetails = Loadable({
+  loader: () =>
+    import(
+      "pages/user/stock-control/stock-count/component/details/StockCountDetails"
+    ),
+  loading: () => <Spinner />,
+});
 // Movement
 export const MovementCreate = Loadable({
   loader: () =>
@@ -152,10 +164,25 @@ export const MovementDetails = Loadable({
   loading: () => <Spinner />,
 });
 
+// export const ReceiveGeneral = Loadable({
+//   loader: () =>
+//     import(
+//       "pages/user/stock-control/receive/component/detials/general/General"
+//     ),
+//   loading: () => <Spinner />,
+// });
+
+// export const ReceiveHistory = Loadable({
+//   loader: () =>
+//     import(
+//       "pages/user/stock-control/receive/component/detials/history/History"
+//     ),
+//   loading: () => <Spinner />,
+// });
+
 // tranfer
 export const TransferListing = Loadable({
-  loader: () =>
-    import("pages/user/stock-control/transfer/StockTransfer"),
+  loader: () => import("pages/user/stock-control/transfer/StockTransfer"),
   loading: () => <Spinner />,
 });
 
@@ -173,7 +200,9 @@ export const TransferUpdate = Loadable({
 
 export const TransferDetails = Loadable({
   loader: () =>
-    import("pages/user/stock-control/transfer/component/details/TransferLayout"),
+    import(
+      "pages/user/stock-control/transfer/component/details/TransferLayout"
+    ),
   loading: () => <Spinner />,
 });
 
