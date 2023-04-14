@@ -36,6 +36,8 @@ const QueryKeys = {
   getAllSupplierWithPagination: "getAllSupplierWithPagination",
   getAllSupplierWithoutPagination: "getAllSupplierWithoutPagination",
   getByIdSupplier: "getByIdSupplier",
+  getAllBillingAddressByIdSupplier: "getAllBillingAddressByIdSupplier",
+  getAllShippingAddressByIdSupplier: "getAllShippingAddressByIdSupplier",
   getByIdBrand: "getByIdBrand",
   getAllVariantByProductId: "getAllVariantByProductId",
   getByIdVariant: "getByIdVariant",
