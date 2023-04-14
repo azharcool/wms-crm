@@ -136,6 +136,11 @@ export const StockCountListing = Loadable({
   loader: () => import("pages/user/stock-control/stock-count/StockCount"),
   loading: () => <Spinner />,
 });
+export const StockCountCreate = Loadable({
+  loader: () =>
+    import("pages/user/stock-control/stock-count/component/StockCountCreate"),
+  loading: () => <Spinner />,
+});
 
 export const StockCountDetails = Loadable({
   loader: () =>

@@ -1,9 +1,12 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import AppRoutes from "navigation/appRoutes";
+import { useNavigate } from "react-router";
 import StockCountList from "./component/list/StockCountList";
 
 function StockCount() {
+  const navigate = useNavigate();
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>
@@ -15,11 +18,11 @@ function StockCount() {
             {
               id: crypto.randomUUID(),
               title: "New",
-              onClick: () =>
-                // navigate(
-                //   `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.adjustment.create}`,
-                // ),
-                {},
+              onClick: () => {
+                navigate(
+                  `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.stock_count.create}`,
+                );
+              },
               icon: (
                 <AddCircleIcon
                   sx={{

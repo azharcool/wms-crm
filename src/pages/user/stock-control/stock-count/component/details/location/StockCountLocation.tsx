@@ -33,12 +33,20 @@ function Location() {
           <CustomCardContent title="Location">
             <Stack direction="row" gap={3}>
               <TextField
-                disabled
+                isSelect
+                error={!!touched.area && !!errors.area}
+                helperText={(touched.area && errors && errors.area) || ""}
                 id="warehouse"
                 label="Warehouse"
                 name="warehouse"
                 size="small"
-                // value={getSelectedWarehouse.name}
+                value={values.area}
+                onSelectHandler={(e) => {
+                  setFieldValue("area", e.target.value);
+                  const tempId = e.target.value;
+                  const tempArr = areas.filter((item) => item.id === tempId);
+                  setAreaLabel(tempArr[0].label);
+                }}
               />
 
               <TextField
