@@ -3,8 +3,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
 import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Countries from "__mock__/countries.json";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
@@ -20,6 +19,7 @@ import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import Countries from "__mock__/countries.json";
 import useAddSupplierForm, {
   AddSupplierForm,
 } from "../hooks/useAddSupplierForm";
@@ -49,7 +49,7 @@ const initialValues: AddSupplierForm = {
   region: "",
   city: "",
   zipCode: "",
-  countryId: 0,
+  countryId: "",
   firstName: "",
   lastName: "",
   primaryEmail: "",
@@ -328,7 +328,7 @@ function SupplierCreate() {
                   <AutoComplete
                     getOptionLabel={(option: any) => option?.name}
                     handleChange={(e: any, value: any) =>
-                      setFieldValue("country", value?.name)
+                      setFieldValue("countryId", value?.name)
                     }
                     label="Country"
                     options={Countries || []}

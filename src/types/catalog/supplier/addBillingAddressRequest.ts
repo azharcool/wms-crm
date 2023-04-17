@@ -9,5 +9,5 @@ export interface AddBillingAddressRootData {
   address?: string;
   city?: string;
   zipCode?: string;
-  country?: number;
+  country?: string;
 }

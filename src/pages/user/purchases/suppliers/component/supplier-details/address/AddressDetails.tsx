@@ -15,6 +15,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
+import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
 import Countries from "__mock__/countries.json";
 import useManageBillingAddressForm, {
   ManageBillingAddressForm,
@@ -27,43 +28,76 @@ import useManageShippingAddressForm, {
 
 function AddressDetails() {
   const [editable, setEditable] = useState(false);
+  const [isEditingShipping, setIsEditingShipping] = useState(false);
+  const [isEditingBilling, setIsEditingBilling] = useState(false);
 
   const { supplierId } = useParams();
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
   const nameRef = useRef<any>(null);
 
-  const { addShippingAddressAction, addBillingAddressAction } =
-    useSupplierAction();
-  const { data: billingItemResponse } = useGetAllBillingAddress({
-    supplierId: Number(supplierId),
-  });
-  const { data: shippingItemResponse } = useGetAllShippingAddress({
-    supplierId: Number(supplierId),
-  });
+  const {
+    addShippingAddressAction,
+    editShippingAddressAction,
+    addBillingAddressAction,
+    editBillingAddressAction,
+    deleteShippingAddressAsync,
+    deleteBillingAddressAsync,
+  } = useSupplierAction();
+  const { data: billingItemResponse, refetch: refetchBilling } =
+    useGetAllBillingAddress({
+      supplierId: Number(supplierId),
+    });
+  const { data: shippingItemResponse, refetch: refetchShipping } =
+    useGetAllShippingAddress({
+      supplierId: Number(supplierId),
+    });
 
   const shippingAddressForm = useManageShippingAddressForm({
     onSubmit: onSubmitShippingAddress,
     initialValues: manageShippingAddressForm,
   });
   async function onSubmitShippingAddress(values: ManageShippingAddressForm) {
-    const data: AddShippingAddressRoot = values.manageShippingAddressData.map(
-      (item) => ({
-        userId: Number(userDecoded.id),
-        supplierId: Number(supplierId),
-        firstName: item.firstName,
-        lastName: item.lastName,
-        address: item.address,
-        city: item.city,
-        zipCode: item.zipCode,
-        country: Number(item.country),
-        createdOn: "2023-04-12T06:31:22.085Z",
-        updatedOn: "2023-04-12T06:31:22.085Z",
-      }),
-    );
-    const response = await addShippingAddressAction(data);
-    if (response) {
-      shippingAddressForm.resetForm();
+    if (shippingItemResponse?.data.length) {
+      const data: AddShippingAddressRoot = values.manageShippingAddressData.map(
+        (item) => ({
+          id: item.id,
+          userId: Number(userDecoded.id),
+          supplierId: Number(supplierId),
+          firstName: item.firstName,
+          lastName: item.lastName,
+          address: item.address,
+          city: item.city,
+          zipCode: item.zipCode,
+          country: item.country,
+          createdOn: "2023-04-12T06:31:22.085Z",
+          updatedOn: "2023-04-12T06:31:22.085Z",
+        }),
+      );
+      const response = await editShippingAddressAction(data);
+      if (response) {
+        setEditable(false);
+        refetchShipping();
+      }
+    } else {
+      const data: AddShippingAddressRoot = values.manageShippingAddressData.map(
+        (item) => ({
+          userId: Number(userDecoded.id),
+          supplierId: Number(supplierId),
+          firstName: item.firstName,
+          lastName: item.lastName,
+          address: item.address,
+          city: item.city,
+          zipCode: item.zipCode,
+          country: item.country,
+          createdOn: "2023-04-12T06:31:22.085Z",
+          updatedOn: "2023-04-12T06:31:22.085Z",
+        }),
+      );
+      const response = await addShippingAddressAction(data);
+      if (response) {
+        shippingAddressForm.resetForm();
+      }
     }
   }
 
@@ -72,57 +106,94 @@ function AddressDetails() {
     initialValues: manageBillingAddressForm,
   });
   async function onSubmitBillingAddress(values: ManageBillingAddressForm) {
-    const data: AddBillingAddressRoot = values.manageBillingAddressData.map(
-      (item) => ({
-        userId: Number(userDecoded.id),
-        supplierId: Number(supplierId),
-        firstName: item.firstName,
-        lastName: item.lastName,
-        address: item.address,
-        city: item.city,
-        zipCode: item.zipCode,
-        country: Number(item.country),
-      }),
-    );
-    const response = await addBillingAddressAction(data);
-    if (response) {
-      billingAddressForm.resetForm();
+    if (billingItemResponse?.data.length) {
+      const data: EditBillingRoot = {
+        editBilling: values.manageBillingAddressData.map((item) => ({
+          id: Number(item.id),
+          userId: Number(userDecoded.id),
+          supplierId: Number(supplierId),
+          firstName: item.firstName,
+          lastName: item.lastName,
+          address: item.address,
+          city: item.city,
+          zipCode: item.zipCode,
+          country: item.country,
+        })),
+      };
+      const response = await editBillingAddressAction(data);
+      if (response) {
+        setEditable(false);
+        refetchBilling();
+      }
+    } else {
+      const data: AddBillingAddressRoot = values.manageBillingAddressData.map(
+        (item) => ({
+          userId: Number(userDecoded.id),
+          supplierId: Number(supplierId),
+          firstName: item.firstName,
+          lastName: item.lastName,
+          address: item.address,
+          city: item.city,
+          zipCode: item.zipCode,
+          country: item.country,
+        }),
+      );
+      const response = await addBillingAddressAction(data);
+      if (response) {
+        billingAddressForm.resetForm();
+      }
     }
   }
 
   useEffect(() => {
-    shippingAddressForm.setFieldValue(
-      "manageShippingAddressData",
-      shippingItemResponse?.data || [
-        {
-          firstName: "",
-          lastName: "",
-          address: "",
-          city: "",
-          zipCode: "",
-          country: "",
-        },
-      ],
-    );
-    billingAddressForm.setFieldValue(
-      "manageBillingAddressData",
-      billingItemResponse?.data || [
-        {
-          firstName: "",
-          lastName: "",
-          address: "",
-          city: "",
-          zipCode: "",
-          country: "",
-        },
-      ],
-    );
-  }, [
-    billingAddressForm,
-    billingItemResponse?.data,
-    shippingAddressForm,
-    shippingItemResponse?.data,
-  ]);
+    if (shippingItemResponse?.data.length) {
+      shippingAddressForm.setFieldValue(
+        "manageShippingAddressData",
+        shippingItemResponse?.data,
+      );
+      setIsEditingShipping(true);
+    }
+  }, [shippingItemResponse?.data]);
+
+  useEffect(() => {
+    if (billingItemResponse?.data.length) {
+      billingAddressForm.setFieldValue(
+        "manageBillingAddressData",
+        billingItemResponse?.data,
+      );
+      setIsEditingBilling(true);
+    }
+  }, [billingItemResponse?.data]);
+
+  const handleSave = () => {
+    const shipBill =
+      shippingAddressForm.values.manageShippingAddressData[0].firstName ===
+        "" &&
+      shippingAddressForm.values.manageShippingAddressData[0].lastName === "" &&
+      shippingAddressForm.values.manageShippingAddressData[0].address === "" &&
+      shippingAddressForm.values.manageShippingAddressData[0].city === "" &&
+      shippingAddressForm.values.manageShippingAddressData[0].zipCode === "" &&
+      billingAddressForm.values.manageBillingAddressData[0].firstName === "" &&
+      billingAddressForm.values.manageBillingAddressData[0].lastName === "" &&
+      billingAddressForm.values.manageBillingAddressData[0].address === "" &&
+      billingAddressForm.values.manageBillingAddressData[0].city === "" &&
+      billingAddressForm.values.manageBillingAddressData[0].zipCode === "";
+    if (isEditingShipping && isEditingBilling) {
+      // call edit functionality for both shipping and billing
+      shippingAddressForm.handleSubmit();
+      billingAddressForm.handleSubmit();
+    } else if (isEditingShipping) {
+      // call edit shipping functionality only
+      shippingAddressForm.handleSubmit();
+    } else if (isEditingBilling) {
+      // call edit billing functionality only
+      billingAddressForm.handleSubmit();
+    } else if (!shipBill) {
+      // handle case where neither shipping nor billing is being edited
+      shippingAddressForm.handleSubmit();
+      billingAddressForm.handleSubmit();
+    }
+  };
 
   const rightActionsData = [
     {
@@ -162,8 +233,7 @@ function AddressDetails() {
       id: crypto.randomUUID(),
       title: "Save",
       onClick: () => {
-        shippingAddressForm.handleSubmit();
-        billingAddressForm.handleSubmit();
+        handleSave();
       },
       icon: (
         <SaveIcon
@@ -182,6 +252,7 @@ function AddressDetails() {
     shippingAddressForm.setFieldValue("manageShippingAddressData", [
       ...shippingAddressForm.values.manageShippingAddressData,
       {
+        // id: ,
         firstName: "",
         lastName: "",
         address: "",
@@ -192,13 +263,18 @@ function AddressDetails() {
     ]);
   };
 
-  const handleDeleteShipping = (index: number) => {
-    shippingAddressForm.setFieldValue(
-      "manageShippingAddressData",
-      shippingAddressForm.values.manageShippingAddressData.filter(
-        (_, i) => i !== index,
-      ),
-    );
+  const handleDeleteShipping = (id: number) => {
+    const idExist = shippingItemResponse?.data.some((obj) => obj.id === id);
+    if (idExist) {
+      deleteShippingAddressAsync(id);
+    } else {
+      shippingAddressForm.setFieldValue(
+        "manageShippingAddressData",
+        shippingAddressForm.values.manageShippingAddressData.filter(
+          (s, i) => s.id !== id,
+        ),
+      );
+    }
   };
 
   const handleAddAnotherBilling = () => {
@@ -215,13 +291,18 @@ function AddressDetails() {
     ]);
   };
 
-  const handleDeleteBilling = (index: number) => {
-    billingAddressForm.setFieldValue(
-      "manageBillingAddressData",
-      billingAddressForm.values.manageBillingAddressData.filter(
-        (_, i) => i !== index,
-      ),
-    );
+  const handleDeleteBilling = (id: number) => {
+    const idExist = billingItemResponse?.data.some((obj) => obj.id === id);
+    if (idExist) {
+      deleteBillingAddressAsync(id);
+    } else {
+      billingAddressForm.setFieldValue(
+        "manageBillingAddressData",
+        billingAddressForm.values.manageBillingAddressData.filter(
+          (s, i) => s.id !== id,
+        ),
+      );
+    }
   };
 
   return (
@@ -256,7 +337,7 @@ function AddressDetails() {
             (item, index: number, array) => {
               return (
                 <Card
-                  key={item.firstName}
+                  key={item.id}
                   sx={{
                     flex: 1,
                     marginBottom: "16px",
@@ -265,6 +346,17 @@ function AddressDetails() {
                   <CustomCardContent title="Shipping Address">
                     <Stack direction="row" gap={2}>
                       <TextField
+                        // error={
+                        //   !!shippingAddressForm.touched
+                        //     ?.manageShippingAddressData?.[index].firstName &&
+                        //   !!shippingAddressForm.errors?.manageShippingAddressData?.[index].firstName
+                        // }
+                        //  helperText={
+                        //   (touched.warehouseName &&
+                        //     errors &&
+                        //     errors.warehouseName) ||
+                        //   ""
+                        // }
                         darkDisable
                         disabled={istrue}
                         id="firstName"
@@ -366,7 +458,7 @@ function AddressDetails() {
                               fontWeight: "500",
                               cursor: "pointer",
                             }}
-                            onClick={() => handleDeleteShipping(index)}
+                            onClick={() => handleDeleteShipping(item.id)}
                           >
                             DELETE
                           </Box>
@@ -402,7 +494,7 @@ function AddressDetails() {
             (item, index: number, array) => {
               return (
                 <Card
-                  key={item.firstName}
+                  key={item.id}
                   sx={{
                     flex: 1,
                     marginBottom: "16px",
@@ -512,7 +604,7 @@ function AddressDetails() {
                               fontWeight: "500",
                               cursor: "pointer",
                             }}
-                            onClick={() => handleDeleteBilling(index)}
+                            onClick={() => handleDeleteBilling(item.id)}
                           >
                             DELETE
                           </Box>

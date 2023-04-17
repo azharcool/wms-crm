@@ -9,7 +9,7 @@ export interface AddSupplierRequestRoot {
   region?: string;
   city?: string;
   zipCode?: string;
-  countryId?: number;
+  countryId?: string;
   firstName?: string;
   lastName?: string;
   primaryEmail?: string;

@@ -11,7 +11,7 @@ export interface AddSupplierForm {
   region: string;
   city: string;
   zipCode: string;
-  countryId: number;
+  countryId: string;
   firstName: string;
   lastName: string;
   primaryEmail: string;
@@ -42,7 +42,7 @@ const defaultValues: AddSupplierForm = {
   region: "",
   city: "",
   zipCode: "",
-  countryId: 0,
+  countryId: "",
   firstName: "",
   lastName: "",
   primaryEmail: "",

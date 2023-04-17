@@ -1,6 +1,8 @@
-export type AddShippingAddressRoot = AddShippingAddressRootData[];
+export interface EditBillingRoot {
+  editBilling: EditBillingData[];
+}
 
-export interface AddShippingAddressRootData {
+export interface EditBillingData {
   id?: number;
   userId?: number;
   supplierId?: number;
@@ -10,7 +12,4 @@ export interface AddShippingAddressRootData {
   city?: string;
   zipCode?: string;
   country?: string;
-  createdOn?: string;
-  status?: number;
-  updatedOn?: string;
 }

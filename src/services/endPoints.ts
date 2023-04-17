@@ -208,8 +208,12 @@ const API_URLS = {
   DELETE_SUPPLIER: `supplier/${endPoints.delete}`,
   BULK_DELETE_SUPPLIER: `supplier/${endPoints.bulkDelete}`,
   ADD_SHIPPING_ADDRESS: "supplier/add-ShippingAddress",
+  EDIT_SHIPPING_ADDRESS: "supplier/edit-ShippingAddress",
+  DELETE_SHIPPING_ADDRESS: "supplier/delete-ShippingAddress",
   GET_ALL_SHIPPING_ADDRESS: "supplier/getall-ShippingAddress-By-SupplierId",
   ADD_BILLING_ADDRESS: "supplier/add-BillingAddress",
+  EDIT_BILLING_ADDRESS: "supplier/edit-BillingAddress",
+  DELETE_BILLING_ADDRESS: "supplier/delete-BilliingAddress",
   GET_ALL_BILLING_ADDRESS: "supplier/getall-BillingAddress-By-SupplierId",
 
   // bundle

@@ -249,6 +249,13 @@ const ErrorMessages = {
     shortName: "Please enter short name",
     status: "Please enter supplier status",
   },
+  add_shipping_billing: {
+    firstName: "Please enter first name",
+    lastName: "Please enter last name",
+    address: "Please enter address",
+    city: "Please enter city",
+    zipCode: "Please enter zip code",
+  },
   general: {
     name: "please enter name",
     description: "please enter description",
