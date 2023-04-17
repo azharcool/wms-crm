@@ -54,7 +54,7 @@ const initialValues: AddSupplierForm = {
   region: "",
   city: "",
   zipCode: "",
-  countryId: 0,
+  countryId: "",
   firstName: "",
   lastName: "",
   primaryEmail: "",
@@ -178,7 +178,7 @@ function GeneralDetails() {
       setFieldValue("region", supplierItemResponse.data.region || "");
       setFieldValue("city", supplierItemResponse.data.city || "");
       setFieldValue("zipCode", supplierItemResponse.data.zipCode || "");
-      setFieldValue("countryId", supplierItemResponse.data.countryId || 0);
+      setFieldValue("countryId", supplierItemResponse.data.countryId || "");
       setFieldValue("firstName", supplierItemResponse.data.firstName || "");
       setFieldValue("lastName", supplierItemResponse.data.lastName || "");
       setFieldValue(

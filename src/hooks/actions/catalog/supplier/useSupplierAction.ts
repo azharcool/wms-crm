@@ -5,13 +5,18 @@ import {
   addShippingAddress,
   addSupplier,
   buldDeleteSupplier,
+  deleteBillingAddress,
+  deleteShippingAddress,
   deleteSupplier,
+  editBillingAddress,
+  editShippingAddress,
   editSupplier,
 } from "services/supplier.services";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
 function useSupplierAction() {
@@ -108,7 +113,55 @@ function useSupplierAction() {
     try {
       const response = await addShippingAddress(data);
       if (response.statusCode === 200) {
-        queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
+        queryClient.invalidateQueries([
+          QueryKeys.getAllShippingAddressByIdSupplier,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
+  const editShippingAddressAction = async (
+    data: AddShippingAddressRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editShippingAddress(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllShippingAddressByIdSupplier,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
+  const deleteShippingAddressAsync = async (id: number): Promise<boolean> => {
+    try {
+      const response = await deleteShippingAddress(id);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllShippingAddressByIdSupplier,
+        ]);
         snackbar?.show({
           title: response.message,
           type: "success",
@@ -130,7 +183,55 @@ function useSupplierAction() {
     try {
       const response = await addBillingAddress(data);
       if (response.statusCode === 200) {
-        queryClient.invalidateQueries([QueryKeys.getAllSupplierWithPagination]);
+        queryClient.invalidateQueries([
+          QueryKeys.getAllBillingAddressByIdSupplier,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
+  const editBillingAddressAction = async (
+    data: EditBillingRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editBillingAddress(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllBillingAddressByIdSupplier,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
+  const deleteBillingAddressAsync = async (id: number): Promise<boolean> => {
+    try {
+      const response = await deleteBillingAddress(id);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllBillingAddressByIdSupplier,
+        ]);
         snackbar?.show({
           title: response.message,
           type: "success",
@@ -152,7 +253,11 @@ function useSupplierAction() {
     bulkDeleteSupplierAsync,
     editSupplierAction,
     addShippingAddressAction,
+    editShippingAddressAction,
+    deleteShippingAddressAsync,
     addBillingAddressAction,
+    editBillingAddressAction,
+    deleteBillingAddressAsync,
   };
 }
 

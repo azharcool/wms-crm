@@ -2,6 +2,7 @@ import { IResponse } from "constants/interfaces";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
 import { GetAllBillingAddressRoot } from "types/catalog/supplier/getAllBillingAddress";
 import { GetAllShippingAddressRoot } from "types/catalog/supplier/getAllShippingAddress";
 import { GetAllSupplierRoot } from "types/catalog/supplier/getAllSupplierResponse";
@@ -62,6 +63,18 @@ export async function addShippingAddress(
   return client.post(URL, request);
 }
 
+export async function editShippingAddress(
+  request: AddShippingAddressRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.EDIT_SHIPPING_ADDRESS}`;
+  return client.put(URL, request);
+}
+
+export async function deleteShippingAddress(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_SHIPPING_ADDRESS}?id=${id}`;
+  return client.delete(URL);
+}
+
 export async function getAllShippingAddress(
   id: number,
 ): Promise<GetAllShippingAddressRoot> {
@@ -74,6 +87,18 @@ export async function addBillingAddress(
 ): Promise<IResponse> {
   const URL = `${API_URLS.ADD_BILLING_ADDRESS}`;
   return client.post(URL, request);
+}
+
+export async function editBillingAddress(
+  request: EditBillingRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.EDIT_BILLING_ADDRESS}`;
+  return client.put(URL, request);
+}
+
+export async function deleteBillingAddress(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_BILLING_ADDRESS}?id=${id}`;
+  return client.delete(URL);
 }
 
 export async function getAllBillingAddress(

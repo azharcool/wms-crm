@@ -1,6 +1,7 @@
 import { FormikHelpers, useFormik } from "formik";
 
 export interface IManageBillingAddressData {
+  id: number;
   firstName: string;
   lastName: string;
   address: string;
@@ -15,6 +16,7 @@ export interface ManageBillingAddressForm {
 export const manageBillingAddressForm: ManageBillingAddressForm = {
   manageBillingAddressData: [
     {
+      id: 0,
       firstName: "",
       lastName: "",
       address: "",
