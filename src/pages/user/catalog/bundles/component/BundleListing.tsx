@@ -66,10 +66,6 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
 interface IBundleListing {
   data?: IGetBundleResponseRoot;
   bundlePagination: {
