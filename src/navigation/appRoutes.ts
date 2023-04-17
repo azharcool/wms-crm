@@ -185,7 +185,27 @@ const AppRoutes = {
     },
     account:{
       account:"account"
+    },
+    billing:{
+      listing:"billing/listing",
+      details:"billing/details"
+    },
+    user:{
+      listing:"user/listing",
+      create:"user/create",
+      update:"user/update",
+      details:"user/details",
+      general:"details/general",
+      history:"details/history"
+    },
+    role:{
+      listing:"role/listing",
+      create:"role/create",
+      update:"role/update",
+      general:"update/general",
+      permission:"update/permission"
     }
+
   },
 };
 
