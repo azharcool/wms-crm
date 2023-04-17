@@ -18,7 +18,7 @@ function Products() {
   const alert = useAlert();
   const [productPagination, setproductPagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
 
   const getSelectedProductIdsState = useSelector(getSelectedProduct);
@@ -51,7 +51,11 @@ function Products() {
     }, 500);
   };
   const handlePageLimitChange = (limit: number) => {
-    setproductPagination((prevState) => ({ ...prevState, pageSize: limit }));
+    setproductPagination((prevState) => ({
+      ...prevState,
+      pageSize: limit,
+      page: 0,
+    }));
     setTimeout(() => {
       refetch();
     }, 500);

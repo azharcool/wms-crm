@@ -178,7 +178,10 @@ function ProductListing(props: IProductListing) {
                   >
                     <Checkbox
                       checked={
-                        data?.data.length === getSelectedProductIdsState.length
+                        data?.data.length === 0
+                          ? false
+                          : data?.data.length ===
+                            getSelectedProductIdsState.length
                       }
                       color="primary"
                       onChange={selectAll}

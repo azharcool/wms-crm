@@ -82,26 +82,6 @@ const itemsLabel = [
   },
 ];
 
-interface IWeightAndDimensions {
-  weight: string;
-  width: string;
-  height: string;
-  lenght: string;
-}
-
-interface IVariantItem {
-  id: string;
-  image: string;
-  variant: string;
-  variantLabel: string;
-  sku: string;
-  barcode: string;
-  supplyPrice: string;
-  MRP: string;
-  retailPrice: string;
-  weightAndDimensions: IWeightAndDimensions;
-}
-
 interface IAddVariant {
   open: boolean;
   handleClose: (_?: "open") => void;
@@ -405,7 +385,6 @@ function AddVariant(props: IAddVariant) {
   //* End Combination Generator
 
   const handleModal = (status?: string) => {
-    // navigate(-1);
     if (status) {
       setOpenModal(status);
       return;

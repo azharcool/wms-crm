@@ -30,10 +30,10 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
+import useBrand from "hooks/actions/catalog/brand/useBrand";
 import useCategory from "hooks/actions/catalog/categories/useCategory";
 import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import useSupplier from "hooks/actions/catalog/supplier/useSupplier";
-import useBrand from "hooks/actions/catalog/brand/useBrand";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
@@ -196,6 +196,9 @@ function ProductCreate() {
     setOpenVariant((s) => !s);
   };
 
+  const navigateToProducts = () => {
+    navigate(`/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`);
+  };
   const handleFile = async (e: any) => {
     const allFiles = Array.from(e.target.files);
     const images = await Promise.all(
@@ -263,9 +266,7 @@ function ProductCreate() {
               id: crypto.randomUUID(),
               title: "Cancel",
               onClick: () => {
-                navigate(
-                  `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.products}`,
-                );
+                navigateToProducts();
               },
               icon: (
                 <ArrowBackIosIcon
@@ -670,7 +671,10 @@ function ProductCreate() {
       </Container>
       {openVariant && productId ? (
         <AddVariant
-          handleClose={handleVariant}
+          handleClose={() => {
+            handleVariant();
+            navigateToProducts();
+          }}
           open={openVariant}
           productId={productId}
           productName={values.name}
