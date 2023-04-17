@@ -7,6 +7,7 @@ import useLocationForm, {
   locationInitialValues,
 } from "pages/user/warehouse2/warehouse-details/locations/hooks/useLocationForm";
 import { useState } from "react";
+import "react-perfect-scrollbar/dist/css/styles.css";
 
 function Location() {
   const { zones } = useZone();
