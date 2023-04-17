@@ -12,7 +12,7 @@ import SupplierList from "./component/list/SupplierList";
 
 function Suppliers() {
   const navigate = useNavigate();
-  const [suppliersPagination, setSupplierspagination] = useState({
+  const [suppliersPagination, setSuppliersPagination] = useState({
     pageSize: 10,
     page: 1,
   });
@@ -25,17 +25,15 @@ function Suppliers() {
     useGetAllSupplierWithPagination(suppliersPagination);
   const ids = getSelectedSupplierIdsState.toString();
 
-  const handlePageChange = (pageNo: number) => {
-    setSupplierspagination((prevState) => ({ ...prevState, page: pageNo }));
+  const handlePagination = (name: string, value: number) => {
+    setSuppliersPagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setSupplierspagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -72,10 +70,8 @@ function Suppliers() {
         <Box sx={{ mt: 3 }}>
           <SupplierList
             data={supplierPaginationResponse}
-            paginationData={suppliersPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={supplierPaginationResponse?.totalDocs || 0}
+            handlePagination={handlePagination}
+            suppliersPagination={suppliersPagination}
           />
         </Box>
       </CardContent>

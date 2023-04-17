@@ -9,7 +9,7 @@ import ProductConditionList from "./components/list/ProductConditionList";
 
 function ProductCondition() {
   const [manageOpen, setManageOpen] = useState(false);
-  const [productconditionPagination, setproductconditionPagination] = useState({
+  const [productconditionPagination, setProductconditionPagination] = useState({
     pageSize: 10,
     page: 1,
   });
@@ -17,26 +17,18 @@ function ProductCondition() {
   const { data: productconditionResponse, refetch } =
     useGetAllPaginationProductCondition(productconditionPagination);
 
-  const handlePageChange = (pageNo: number) => {
-    setproductconditionPagination((prevState) => ({
-      ...prevState,
-      page: pageNo,
-    }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setproductconditionPagination((prevState) => ({
-      ...prevState,
-      pageSize: limit,
-    }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
-  };
   const handleManage = () => {
     setManageOpen((s) => !s);
+  };
+  const handlePagination = (name: string, value: number) => {
+    setProductconditionPagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+
+    setTimeout(() => {
+      refetch();
+    });
   };
 
   return (
@@ -67,10 +59,8 @@ function ProductCondition() {
         <Box sx={{ mt: 3 }}>
           <ProductConditionList
             data={productconditionResponse}
-            paginationData={productconditionPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={productconditionResponse?.totalDocs || 0}
+            handlePagination={handlePagination}
+            productconditionPagination={productconditionPagination}
           />
         </Box>
       </CardContent>
