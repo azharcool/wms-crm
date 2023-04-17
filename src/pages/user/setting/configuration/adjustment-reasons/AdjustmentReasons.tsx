@@ -5,14 +5,14 @@ import useGetAllAdjustmentReason from "hooks/querys/setting/adjustmentReason/use
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import useAdjustmentReasonAction from "hooks/setting/adjustment-reason/useAdjustmentReasonAction";
+import useAdjustmentReasonAction from "hooks/actions/setting/adjustment-reason/useAdjustmentReasonAction";
 import { getSelectedAdjustmentReason } from "redux/settings/configuration/adjustmentReasonSelector";
 import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
 import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";
 
 function AdjustmentReasons() {
   const [openForm, setOpenForm] = useState(false);
-  const [adjustmentPagination, setadjustmentPagination] = useState({
+  const [adjustmentPagination, setAdjustmentPagination] = useState({
     pageSize: 10,
     page: 1,
   });
@@ -29,17 +29,15 @@ function AdjustmentReasons() {
   const handleAdjustment = () => {
     setOpenForm((s) => !s);
   };
-  const handlePageChange = (pageNo: number) => {
-    setadjustmentPagination((prevState) => ({ ...prevState, page: pageNo }));
+  const handlePagination = (name: string, value: number) => {
+    setAdjustmentPagination((s) => ({
+      ...s,
+      [name]: value,
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setadjustmentPagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -74,11 +72,9 @@ function AdjustmentReasons() {
         />
         <Box sx={{ mt: 3 }}>
           <AdjustmentReasonsList
+            adjustmentPagination={adjustmentPagination}
             data={adjustmentResponse}
-            paginationData={adjustmentPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={adjustmentResponse?.totalDocs || 0}
+            handlePagination={handlePagination}
           />
         </Box>
       </CardContent>

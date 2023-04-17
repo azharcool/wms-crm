@@ -11,11 +11,11 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
+import useLocationAction from "hooks/actions/warehouse/location/useLocation";
 import useGetByIdLocation from "hooks/querys/warehouse/location/useGetByIdLocation";
 import useDecodedData from "hooks/useDecodedData";
-import useLocationAction from "hooks/warehouse/location/useLocation";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";

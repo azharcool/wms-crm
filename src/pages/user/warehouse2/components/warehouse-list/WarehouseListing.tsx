@@ -107,7 +107,7 @@ function WarehouseListing(props: IWarehouselisting) {
             id: crypto.randomUUID(),
             title: "Density",
             onClick: () => {},
-          }
+          },
         ]}
       />
 

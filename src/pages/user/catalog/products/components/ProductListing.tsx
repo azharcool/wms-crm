@@ -9,10 +9,10 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
+import dateTimeFormat from "components/dateTime-format";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
-import dateTimeFormat from "components/dateTime-format";
 import AppRoutes from "navigation/appRoutes";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -23,6 +23,7 @@ import { setAllProductIds } from "redux/catalog/productSlice";
 import { useAppDispatch } from "redux/store";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 import ProductItem from "./ProductItem";
+// import { removeAllBrandIds } from 'redux/catalog/brandSlice';
 
 const tableTitle = [
   {
@@ -142,7 +143,9 @@ function ProductListing(props: IProductListing) {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
-       csvData={csvData} csvHeader={csvHeaders} csvTitle="Product"
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Product"
         moreList={[
           {
             id: crypto.randomUUID(),
@@ -150,7 +153,7 @@ function ProductListing(props: IProductListing) {
             onClick: bulkUploadHandler,
           },
           { id: crypto.randomUUID(), title: "Bulk Update", onClick: () => {} },
-          { id: crypto.randomUUID(), title: "Export", onClick: () => {} }
+          { id: crypto.randomUUID(), title: "Export", onClick: () => {} },
         ]}
       />
 

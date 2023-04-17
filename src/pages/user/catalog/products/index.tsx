@@ -1,29 +1,48 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
+import { useAlert } from "components/alert";
 import TableToolbar from "components/table-toolbar";
-import useProductAction from "hooks/catalog/product/useProductAction";
+import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import useGetAllProduct from "hooks/querys/catalog/product/useGetAllProduct";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedProduct } from "redux/catalog/productSelector";
+import { removeAllProductIds } from "redux/catalog/productSlice";
+import { useAppDispatch } from "redux/store";
 import ProductListing from "./components/ProductListing";
 
 function Products() {
   const navigate = useNavigate();
+  const alert = useAlert();
   const [productPagination, setproductPagination] = useState({
     pageSize: 10,
     page: 1,
   });
 
   const getSelectedProductIdsState = useSelector(getSelectedProduct);
+  const dispatch = useAppDispatch();
 
   const { bulkDeleteProductAsync } = useProductAction();
 
   const { data: productPaginationResponse, refetch } =
     useGetAllProduct(productPagination);
   const ids = getSelectedProductIdsState.toString();
+
+  const handleProductBulkDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete all selected products",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await bulkDeleteProductAsync(ids);
+        dispatch(removeAllProductIds());
+        // refetch();
+      },
+    });
+  };
 
   const handlePageChange = (pageNo: number) => {
     setproductPagination((prevState) => ({ ...prevState, page: pageNo }));
@@ -64,7 +83,7 @@ function Products() {
           ]}
           title="Products"
           onBulkHandle={() => {
-            bulkDeleteProductAsync(ids);
+            handleProductBulkDelete();
           }}
         />
         <Box sx={{ mt: 3 }}>

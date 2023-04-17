@@ -116,3 +116,15 @@ export function generateRandomNumber(digit: number) {
   // return String(new Date().getTime()).slice(length);
   return Math.random().toFixed(digit).split(".")[1];
 }
+
+export function generatePassword() {
+  const chars =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  let password = "";
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < 8; i++) {
+    const randomIndex = Math.floor(Math.random() * chars.length);
+    password += chars[randomIndex];
+  }
+  return password;
+}

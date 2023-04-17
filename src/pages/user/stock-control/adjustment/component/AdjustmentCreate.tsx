@@ -20,7 +20,7 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -28,11 +28,11 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikProps } from "formik";
+import useAdjustmentReason from "hooks/actions/setting/adjustment-reason/useAdjustmentReason";
+import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
+import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
-import useAdjustmentReason from "hooks/setting/adjustment-reason/useAdjustmentReason";
-import useAdjustmentAction from "hooks/stock/adjustment/useAdjustmentAction";
 import useDecodedData from "hooks/useDecodedData";
-import useWarehouse from "hooks/warehouse/useWarehouse";
 import AppRoutes from "navigation/appRoutes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -43,8 +43,8 @@ import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
 import useManageAdjustmentForm, {
-  deafultValues,
   ManageAdjustmentForm,
+  deafultValues,
 } from "../hooks/useManageAdjustmentForm";
 import AdjustmentBarcode from "./slider/AdjustmentBarcode";
 import BrowsStock from "./slider/BrowseStack";

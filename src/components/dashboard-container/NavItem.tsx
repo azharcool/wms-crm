@@ -101,10 +101,14 @@ function NavItem(props: INavItem) {
       expanded={expandedActive}
       id="panel1-accordian"
       sx={{
-        backgroundColor: "transparent",
+        backgroundColor: "#4b0808",
+
         boxShadow: "none",
         "&:before": {
           boxShadow: "none",
+        },
+        "&.Mui-expanded": {
+          margin: 0,
         },
       }}
       onChange={() => {
@@ -126,8 +130,9 @@ function NavItem(props: INavItem) {
         sx={{
           borderRadius: 0,
           backgroundColor: expandedActive ? "#00000038" : "#4b0808",
-          "&::before": {
-            backgroundColor: "transparent",
+
+          "&.Mui-expanded": {
+            minHeight: "48px",
           },
           "& .MuiButton-startIcon": {
             color: "white",
@@ -161,10 +166,13 @@ function NavItem(props: INavItem) {
       expanded={expandedActive}
       id="panel1-accordian"
       sx={{
-        backgroundColor: "transparent",
+        backgroundColor: "#4b0808",
         boxShadow: "none",
         "&:before": {
           boxShadow: "none",
+        },
+        "&.Mui-expanded": {
+          margin: 0,
         },
       }}
       onClick={() => {

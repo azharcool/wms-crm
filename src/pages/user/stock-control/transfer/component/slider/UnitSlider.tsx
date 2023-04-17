@@ -19,7 +19,7 @@ import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikProps } from "formik";
-import useProductCondition from "hooks/setting/product-condition/useProductCondition";
+import useProductCondition from "hooks/actions/setting/product-condition/useProductCondition";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -81,7 +81,7 @@ function UnitSlider(props: IListItem) {
   };
   useEffect(() => {
     const find = unitList.filter((item) => item.unitNumber === data?.barcode);
-    if (find.length ===0 && data?.isEdit)
+    if (find.length === 0 && data?.isEdit)
       setUnitList([
         {
           unitNumber: data?.barcode,
