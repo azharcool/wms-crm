@@ -357,3 +357,5 @@ export const defaultUnit = [
     value: "Inch(in)",
   },
 ];
+
+export const crudData = ["View", "Edit", "Add", "Delete"];
