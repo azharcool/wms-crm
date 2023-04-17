@@ -107,13 +107,13 @@ function TextField(props: Props) {
           InputLabelProps={inputLabelProps}
           InputProps={{
             startAdornment: !iconEnd && icon && (
-              <InputAdornment position="start" onClick={onClickIcon}>
+              <InputAdornment position="start" sx={{cursor:"pointer"}} onClick={onClickIcon}>
                 {icon}
               </InputAdornment>
             ),
 
             endAdornment: iconEnd && icon && (
-              <InputAdornment position="end" onClick={onClickIcon}>
+              <InputAdornment position="end" sx={{cursor:"pointer"}} onClick={onClickIcon}>
                 {icon}
               </InputAdornment>
             ),
