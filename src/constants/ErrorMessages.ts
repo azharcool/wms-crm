@@ -257,6 +257,15 @@ const ErrorMessages = {
     name: "Please enter name",
     operations: " Please enter operations",
   },
+  setting_user:{
+    firstName: "Please enter first name",
+    lastName: "Please enter last name",
+    email: "Please enter email",
+    password: "Please enter password",
+    warehouse: "Please select warehouse",
+    role: "Please select role",
+
+  }
 };
 
 export default ErrorMessages;

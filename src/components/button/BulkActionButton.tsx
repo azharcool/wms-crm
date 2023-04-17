@@ -5,10 +5,12 @@ import { SelectChangeEvent } from "@mui/material/Select";
 interface IBulkActionButton {
   onBulkHandle?: (status: string) => void;
   isDisabled?: boolean;
+  isDelete?: boolean;
+  moreMenuItem?: String[];
 }
 
 function BulkActionButton(props: IBulkActionButton) {
-  const { onBulkHandle, isDisabled } = props;
+  const { onBulkHandle, isDisabled, isDelete = true, moreMenuItem } = props;
 
   const handleChange = (event: SelectChangeEvent) => {
     if (onBulkHandle) onBulkHandle(event.target.value);
@@ -27,7 +29,10 @@ function BulkActionButton(props: IBulkActionButton) {
         <MenuItem value="">
           <em>Bulk Actions</em>
         </MenuItem>
-        <MenuItem value="delete">Delete</MenuItem>
+        {isDelete && <MenuItem value="delete">Delete</MenuItem>}
+        {moreMenuItem?.map((item) => {
+          return <MenuItem value={String(item)}>{item}</MenuItem>;
+        })}
       </Select>
     </FormControl>
   );

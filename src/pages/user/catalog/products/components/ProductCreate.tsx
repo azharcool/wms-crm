@@ -13,7 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import {
+  UoM,
+  detailMenu,
+  fullfillmentSwitchs,
+  strategys,
+  uniqueBarcodingStrategy,
+} from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import { useAlert } from "components/alert";
 import CustomCardContent from "components/card/CustomCardContent";
@@ -23,10 +30,10 @@ import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
 import TextFieldChip from "components/textfield/TextFieldChip";
 import { FormikHelpers } from "formik";
-import useBrand from "hooks/catalog/brand/useBrand";
-import useCategory from "hooks/catalog/categories/useCategory";
-import useProductAction from "hooks/catalog/product/useProductAction";
-import useSupplier from "hooks/catalog/supplier/useSupplier";
+import useCategory from "hooks/actions/catalog/categories/useCategory";
+import useProductAction from "hooks/actions/catalog/product/useProductAction";
+import useSupplier from "hooks/actions/catalog/supplier/useSupplier";
+import useBrand from "hooks/actions/catalog/brand/useBrand";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
@@ -35,13 +42,6 @@ import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { generateRandomNumber } from "utils";
-import {
-  detailMenu,
-  fullfillmentSwitchs,
-  strategys,
-  uniqueBarcodingStrategy,
-  UoM,
-} from "__mock__";
 import useAddProductForm, { AddProductForm } from "../hooks/useAddProductForm";
 import AddVariant from "./AddVariant";
 

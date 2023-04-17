@@ -9,7 +9,7 @@ import {
 import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
-import useBundleAction from "hooks/catalog/bundle/useBundleAction";
+import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";

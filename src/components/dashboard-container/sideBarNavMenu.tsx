@@ -135,16 +135,26 @@ export const sideNavMenu: ISideNavMenu[] = [
       },
       {
         id: crypto.randomUUID(),
+        title: "Stock Count",
+        location: `/${stockControl.layout}/${stockControl.stock_count.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Movement",
         location: `/${stockControl.layout}/${stockControl.movement.listing}`,
-
       },
       {
         id: crypto.randomUUID(),
         title: "Transfer",
         location: `/${stockControl.layout}/${stockControl.transfer.listing}`,
       },
-      
+
+      {
+        id: crypto.randomUUID(),
+        title: "Reorder",
+        location: `/${stockControl.layout}/${stockControl.reorder.listing}`,
+      },
+
     ],
     screenCode: "",
   },
@@ -157,14 +167,29 @@ export const sideNavMenu: ISideNavMenu[] = [
     menuItems: [
       {
         id: crypto.randomUUID(),
+        title: "Account",
+        location: `/${setting.layout}/${setting.account.account}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Billing",
+        location: `/${setting.layout}/${setting.billing.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
         title: "Configuration",
         location: `/${setting.layout}/${setting.configuration.listing}`,
       },
-      // {
-      //   id: crypto.randomUUID(),
-      //   title: "Roles",
-      //   location: `/${settting.layout}/${settting.configuration.listing}`,
-      // },
+      {
+        id: crypto.randomUUID(),
+        title: "User",
+        location: `/${setting.layout}/${setting.user.listing}`,
+      },
+      {
+        id: crypto.randomUUID(),
+        title: "Roles",
+        location: `/${setting.layout}/${setting.role.listing}`,
+      },
       {
         id: crypto.randomUUID(),
         title: "Barcode",

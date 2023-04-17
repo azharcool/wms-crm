@@ -11,7 +11,7 @@ import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
-import useProductAction from "hooks/catalog/product/useProductAction";
+import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";

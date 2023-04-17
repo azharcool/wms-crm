@@ -3,6 +3,7 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import { Box, Card, Divider, Grid, Stack, Typography } from "@mui/material";
+import { UoM, detailMenu, fullfillmentSwitchs, strategys } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import UploadButton from "components/image-upload-button/UploadButton";
@@ -10,12 +11,11 @@ import { ToolBarButton } from "components/table-toolbar";
 import TextField from "components/textfield";
 import { FILE_URL } from "config";
 import { FormikProps } from "formik";
-import useBrand from "hooks/catalog/brand/useBrand";
-import useCategory from "hooks/catalog/categories/useCategory";
+import useBrand from "hooks/actions/catalog/brand/useBrand";
+import useCategory from "hooks/actions/catalog/categories/useCategory";
 import { useEffect, useState } from "react";
 import palette from "theme/palette";
 import { IGetByIdProductData } from "types/catalog/products/getByIdProductResponse";
-import { detailMenu, fullfillmentSwitchs, strategys, UoM } from "__mock__";
 
 interface IMenuItem {
   id: string;

@@ -1,15 +1,15 @@
 import { Card, Grid, Stack } from "@mui/material";
+import { areaStatus } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
+import useWarehouseAreaAction from "hooks/actions/warehouse/area/useWarehouseAreaAction";
 import useDecodedData from "hooks/useDecodedData";
-import useWarehouseAreaAction from "hooks/warehouse/area/useWarehouseAreaAction";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
 import { AddWarehouseAreaRequestRoot } from "types/warehouse/area/addWarehouseAreaRequest";
 import { GetByIdWarehouseAreaData } from "types/warehouse/area/getByIdWarehouseResponse";
-import { areaStatus } from "__mock__";
 import useAreaForm, {
   AreaInitialValues,
   areaInitialValues,

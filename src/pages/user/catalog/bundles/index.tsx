@@ -1,7 +1,7 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import useBundleAction from "hooks/catalog/bundle/useBundleAction";
+import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import useGetAllBundle from "hooks/querys/catalog/bundle/useGetAllBundle";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";

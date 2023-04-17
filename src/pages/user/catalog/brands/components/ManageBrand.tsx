@@ -4,7 +4,7 @@ import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
-import useBrandAction from "hooks/catalog/brand/useBrandAction";
+import useBrandAction from "hooks/actions/catalog/brand/useBrandAction";
 import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useState } from "react";

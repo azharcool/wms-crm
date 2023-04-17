@@ -150,6 +150,11 @@ const AppRoutes = {
       history: "history/details",
       create: "putaway-v2/create",
     },
+    stock_count: {
+      listing: "stock-count/listing",
+      create: "stock-count/create",
+      details: "stock-count/details",
+    },
     transfer: {
       listing: "transfer/listing",
       details: "transfer/details",
@@ -158,6 +163,10 @@ const AppRoutes = {
       create: "transfer/create",
       update: "transfer/update",
     },
+    reorder:{
+      listing:"reorder/listing",
+      details:"reorder/details"
+    }
   },
 
   setting: {
@@ -174,6 +183,29 @@ const AppRoutes = {
     roles: {
       roleListing: "role/listing",
     },
+    account:{
+      account:"account"
+    },
+    billing:{
+      listing:"billing/listing",
+      details:"billing/details"
+    },
+    user:{
+      listing:"user/listing",
+      create:"user/create",
+      update:"user/update",
+      details:"user/details",
+      general:"details/general",
+      history:"details/history"
+    },
+    role:{
+      listing:"role/listing",
+      create:"role/create",
+      update:"role/update",
+      general:"update/general",
+      permission:"update/permission"
+    }
+
   },
 };
 

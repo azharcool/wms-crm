@@ -111,6 +111,19 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.putaway_v2.history}`}
       />
     </Route>
+    {/* {Stock Count} */}
+    <Route
+      element={<StockControlLoadable.StockCountListing />}
+      path={`${AppRoutes.stockControl.stock_count.listing}`}
+    />
+    <Route
+      element={<StockControlLoadable.StockCountCreate />}
+      path={`${AppRoutes.stockControl.stock_count.create}`}
+    />
+    <Route
+      element={<StockControlLoadable.StockCountDetails />}
+      path={`${AppRoutes.stockControl.stock_count.details}/:stock_countId`}
+    />
 
     {/* Transfer Routing */}
     <Route
@@ -121,7 +134,7 @@ const stockControlRouting = (
       element={<StockControlLoadable.TransferCreate />}
       path={`${AppRoutes.stockControl.transfer.create}`}
     />
-     <Route
+    <Route
       element={<StockControlLoadable.TransferUpdate />}
       path={`${AppRoutes.stockControl.transfer.update}/:transferId`}
     />
@@ -138,6 +151,15 @@ const stockControlRouting = (
         path={`${AppRoutes.stockControl.transfer.history}`}
       />
     </Route>
+      {/* Reoder */}
+      <Route
+        element={<StockControlLoadable.ReorderListing />}
+        path={`${AppRoutes.stockControl.reorder.listing}`}
+      />
+      <Route
+        element={<StockControlLoadable.ReorderDetails />}
+        path={`${AppRoutes.stockControl.reorder.details}/:reorderId`}
+      />
   </Route>
 );
 
