@@ -47,7 +47,6 @@ export const BillingDetails = Loadable({
   loading: () => <Spinner />,
 });
 
-
 export const UserListing = Loadable({
   loader: () => import("pages/user/setting/setting-user/SettingUser"),
   loading: () => <Spinner />,
@@ -64,15 +63,20 @@ export const UserUpdate = Loadable({
 });
 
 export const UserDetails = Loadable({
-  loader: () => import("pages/user/setting/setting-user/component/details/UserDetails"),
+  loader: () =>
+    import("pages/user/setting/setting-user/component/details/UserDetails"),
   loading: () => <Spinner />,
 });
+
 export const UserDetailsGeneral = Loadable({
-  loader: () => import("pages/user/setting/setting-user/component/details/General"),
+  loader: () =>
+    import("pages/user/setting/setting-user/component/details/General"),
   loading: () => <Spinner />,
 });
+
 export const UserDetailsHistory = Loadable({
-  loader: () => import("pages/user/setting/setting-user/component/details/History"),
+  loader: () =>
+    import("pages/user/setting/setting-user/component/details/History"),
   loading: () => <Spinner />,
 });
 
@@ -90,10 +94,12 @@ export const RoleUpdate = Loadable({
   loader: () => import("pages/user/setting/roles/component/Update/RollUpdate"),
   loading: () => <Spinner />,
 });
+
 export const RoleUpdateGeneral = Loadable({
   loader: () => import("pages/user/setting/roles/component/Update/General"),
   loading: () => <Spinner />,
 });
+
 export const RoleUpdatePermission = Loadable({
   loader: () => import("pages/user/setting/roles/component/Update/Permission"),
   loading: () => <Spinner />,
