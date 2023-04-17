@@ -45,7 +45,7 @@ import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariant
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
 import useManageTransferForm, {
   ManageTransferForm,
-  deafultValues,
+  defaultValues,
 } from "../hooks/useManageTransferForm";
 import BrowsStock from "./slider/BrowseStack";
 import UnitSlider from "./slider/UnitSlider";
@@ -153,7 +153,7 @@ function TransferUpdate() {
   } = AppRoutes;
 
   const formik = useManageTransferForm({
-    initialValues: deafultValues,
+    initialValues: defaultValues,
     onSubmit,
   });
   const {

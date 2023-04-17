@@ -1,4 +1,3 @@
-
 import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -56,7 +55,7 @@ const validationSchema = Yup.object().shape({
     .min(1, "Please select adjustment reason"),
 });
 
-export const deafultValues: ManageTransferForm = {
+export const defaultValues: ManageTransferForm = {
   id: 0,
   userId: 0,
   warehosuseId: 0,
@@ -74,7 +73,7 @@ export const deafultValues: ManageTransferForm = {
 
 function useManageTransferForm({
   onSubmit,
-  initialValues = deafultValues,
+  initialValues = defaultValues,
 }: IManageTransferForm) {
   return useFormik<ManageTransferForm>({
     initialValues,
