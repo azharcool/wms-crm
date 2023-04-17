@@ -33,9 +33,14 @@ const productSlice = createSlice({
         state.productIds = [];
       }
     },
+
+    removeAllProductIds: (state) => {
+      state.productIds = [];
+    },
   },
 });
 
-export const { setProductId, setAllProductIds } = productSlice.actions;
+export const { setProductId, setAllProductIds, removeAllProductIds } =
+  productSlice.actions;
 
 export default productSlice.reducer;

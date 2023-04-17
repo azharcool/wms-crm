@@ -42,10 +42,6 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
 interface IBrandListing {
   data?: IGetBrandResponseRoot;
   brandPagination: {

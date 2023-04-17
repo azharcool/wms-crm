@@ -27,27 +27,17 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
 interface IAdjustmentReasonListing {
   data?: IGetAdjustmentResponseRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  adjustmentPagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 
 function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
-
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
-  };
+  const { data, adjustmentPagination, handlePagination } = props;
 
   return (
     <>
@@ -108,12 +98,16 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
             </PerfectScrollbar>
             <TablePagination
               component="div"
-              count={total}
-              page={paginationData.page}
-              rowsPerPage={paginationData.pageSize}
+              count={data?.totalDocs || 0}
+              page={adjustmentPagination.page}
+              rowsPerPage={adjustmentPagination.pageSize}
               rowsPerPageOptions={[5, 10, 25]}
-              onPageChange={handlePageChange}
-              onRowsPerPageChange={handleLimitChange}
+              onPageChange={(_, pageNo) => {
+                handlePagination("page", pageNo);
+              }}
+              onRowsPerPageChange={(e) => {
+                handlePagination("pageSize", Number(e.target.value));
+              }}
             />
           </TableContainer>
         </Box>

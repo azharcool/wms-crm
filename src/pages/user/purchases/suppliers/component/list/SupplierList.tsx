@@ -60,20 +60,17 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
 interface ISupplierList {
   data?: GetAllSupplierRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  suppliersPagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 function SupplierList(props: ISupplierList) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+  const { data, suppliersPagination, handlePagination } = props;
   const getSelectedSupplierByIdState = useSelector(getSelectedSupplier);
   const dispatch = useDispatch();
   const selectAll = (event: IChangeEvent, checked: boolean) => {
@@ -87,23 +84,15 @@ function SupplierList(props: ISupplierList) {
     }
   };
 
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
-
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
-  };
-
   const csvData = data?.data.map((item) => ({
     name: item.companyName,
     shortname: item.shortName,
     supplierid: item.id,
     city: item.city,
-    email:item.email,
-    phone:item.phoneNumber,
-    primarycontact:item.primaryPhone,
-    status:item.status
+    email: item.email,
+    phone: item.phoneNumber,
+    primarycontact: item.primaryPhone,
+    status: item.status,
   }));
 
   const csvHeaders = tableTitle.map((item) => ({
@@ -114,8 +103,8 @@ function SupplierList(props: ISupplierList) {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
-        csvHeader={csvHeaders}
         csvData={csvData}
+        csvHeader={csvHeaders}
         csvTitle="Suppliers"
         moreList={[
           {
@@ -196,12 +185,16 @@ function SupplierList(props: ISupplierList) {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={total}
-            page={paginationData.page}
-            rowsPerPage={paginationData.pageSize}
+            count={data?.totalDocs || 0}
+            page={suppliersPagination.page}
+            rowsPerPage={suppliersPagination.pageSize}
             rowsPerPageOptions={[5, 10, 25]}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleLimitChange}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
           />
         </TableContainer>
       </Box>
