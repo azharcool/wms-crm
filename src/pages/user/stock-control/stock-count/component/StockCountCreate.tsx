@@ -23,7 +23,6 @@ import useArea from "hooks/actions/warehouse/area/useArea";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useZone from "hooks/actions/warehouse/zone/useZone";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -134,12 +133,12 @@ function StockCountCreate() {
     resetForm,
   } = movementForm;
 
-  const {
-    stockControl: {
-      layout,
-      movement: { listing },
-    },
-  } = AppRoutes;
+  // const {
+  //   stockControl: {
+  //     layout,
+  //     movement: { listing },
+  //   },
+  // } = AppRoutes;
 
   return (
     <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
@@ -231,21 +230,21 @@ export default StockCountCreate;
 const tableTitle = [
   {
     id: crypto.randomUUID(),
-    title: "Number",
+    title: "Location",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "Status",
+    title: "Location type",
   },
 
   {
     id: crypto.randomUUID(),
-    title: "Warehouse",
+    title: "Area",
   },
   {
     id: crypto.randomUUID(),
-    title: "Created date",
+    title: "Zone",
   },
 ];
 
