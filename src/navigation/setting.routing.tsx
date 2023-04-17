@@ -16,9 +16,15 @@ const settingRouting = (
       element={<SettingLoadable.ConfigurationListing />}
       path={`${AppRoutes.setting.configuration.listing}`}
     />
+
     <Route
       element={<SettingLoadable.AdjustmentReasonListing />}
       path={`${AppRoutes.setting.configuration.adjustmentReasons}`}
+    />
+
+    <Route
+      element={<SettingLoadable.ProductConditionListing />}
+      path={`${AppRoutes.setting.configuration.productCondition}`}
     />
 
     <Route
@@ -45,10 +51,12 @@ const settingRouting = (
       element={<SettingLoadable.UserCreate />}
       path={`${AppRoutes.setting.user.create}`}
     />
+
     <Route
       element={<SettingLoadable.UserUpdate />}
       path={`${AppRoutes.setting.user.update}/:userId`}
     />
+
     <Route
       element={<SettingLoadable.UserDetails />}
       path={`${AppRoutes.setting.user.details}/:userId`}
