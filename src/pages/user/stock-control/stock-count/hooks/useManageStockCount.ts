@@ -2,39 +2,43 @@ import ErrorMessages from "constants/ErrorMessages";
 import { FormikHelpers, useFormik } from "formik";
 import * as Yup from "yup";
 
-export interface AddLocation {
+export interface ManageStockCount {
   warehouse: string;
   area: string;
   zone: string;
 }
 
-interface IuseAddLocation {
+interface IuseManageStockCount {
   onSubmit: (
-    values: AddLocation,
-    formikHelpers: FormikHelpers<AddLocation>,
+    values: ManageStockCount,
+    formikHelpers: FormikHelpers<ManageStockCount>,
   ) => void | Promise<unknown>;
-  initialValues: AddLocation;
+  initialValues: ManageStockCount;
 }
 
 const validationSchema = Yup.object().shape({
-  warehouseId: Yup.string().required(ErrorMessages.add_warehouse.warehouseName),
+  warehouseId: Yup.string().required(
+    ErrorMessages.add_stockcount.warehouseName,
+  ),
+  zoneId: Yup.string().required(ErrorMessages.add_stockcount.zone),
+  areaId: Yup.string().required(ErrorMessages.add_stockcount.area),
 });
 
-const defaultValues: AddLocation = {
+const defaultValues: ManageStockCount = {
   warehouse: "",
   area: "",
   zone: "",
 };
 
-function useAddLocation({
+function useManageStockCount({
   onSubmit,
   initialValues = defaultValues,
-}: IuseAddLocation) {
-  return useFormik<AddLocation>({
+}: IuseManageStockCount) {
+  return useFormik<ManageStockCount>({
     initialValues,
     onSubmit,
     validationSchema,
   });
 }
 
-export default useAddLocation;
+export default useManageStockCount;

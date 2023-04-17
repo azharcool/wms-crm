@@ -244,6 +244,11 @@ const ErrorMessages = {
     country: "Please select country",
     city: "Please enter city name",
   },
+  add_stockcount: {
+    warehouseName: "Please select warehouse",
+    zone: "Please select zone",
+    area: "Please select area",
+  },
   add_supplier: {
     companyName: "Please enter company name",
     shortName: "Please enter short name",
@@ -257,15 +262,14 @@ const ErrorMessages = {
     name: "Please enter name",
     operations: " Please enter operations",
   },
-  setting_user:{
+  setting_user: {
     firstName: "Please enter first name",
     lastName: "Please enter last name",
     email: "Please enter email",
     password: "Please enter password",
     warehouse: "Please select warehouse",
     role: "Please select role",
-
-  }
+  },
 };
 
 export default ErrorMessages;
