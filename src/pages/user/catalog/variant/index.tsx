@@ -14,17 +14,18 @@ function Variant() {
   const { data: variantPaginationResponse, refetch } =
     useGetAllVariant(variantPagination);
 
-  const handlePageChange = (pageNo: number) => {
-    setvariantPagination((prevState) => ({ ...prevState, page: pageNo }));
+  const handlePagination = (name: string, value: number) => {
+    setvariantPagination((s) => ({
+      ...s,
+      [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setvariantPagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -42,10 +43,8 @@ function Variant() {
         <Box sx={{ mt: 3 }}>
           <VariantListing
             data={variantPaginationResponse}
-            paginationData={variantPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={0}
+            handlePagination={handlePagination}
+            variantPagination={variantPagination}
           />
         </Box>
       </CardContent>

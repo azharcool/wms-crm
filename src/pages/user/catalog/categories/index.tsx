@@ -24,17 +24,18 @@ function Categories() {
     useGetAllCategories(categoryPagination);
   const ids = getSelectedCategoryIdsState.toString();
 
-  const handlePageChange = (pageNo: number) => {
-    setCategoryPagination((prevState) => ({ ...prevState, page: pageNo }));
+  const handlePagination = (name: string, value: number) => {
+    setCategoryPagination((s) => ({
+      ...s,
+      [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
+    }));
+
     setTimeout(() => {
       refetch();
-    }, 500);
-  };
-  const handlePageLimitChange = (limit: number) => {
-    setCategoryPagination((prevState) => ({ ...prevState, pageSize: limit }));
-    setTimeout(() => {
-      refetch();
-    }, 500);
+    });
   };
 
   return (
@@ -69,11 +70,9 @@ function Categories() {
         />
         <Box sx={{ mt: 3 }}>
           <CategoriesListing
+            categoriesPagination={categoryPagination}
             data={CategoryPaginationResponse}
-            paginationData={categoryPagination}
-            setCurrentPage={(pageNo: number) => handlePageChange(pageNo)}
-            setPageLimit={(limit: number) => handlePageLimitChange(limit)}
-            total={0}
+            handlePagination={handlePagination}
           />
         </Box>
       </CardContent>

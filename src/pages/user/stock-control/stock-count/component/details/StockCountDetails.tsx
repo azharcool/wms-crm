@@ -26,7 +26,7 @@ function StockCountDetails() {
           breadcrumbs={[
             {
               link: "Stock Control",
-              to: "/stock-control/stock-control/listing",
+              to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.stock_count.listing}`,
             },
           ]}
           rightActions={[
