@@ -117,11 +117,6 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
-
 interface IVariantListing {
   data?: IGetAllVariantResponseRoot;
   variantPagination: {
@@ -133,14 +128,6 @@ interface IVariantListing {
 
 function VariantListing(props: IVariantListing) {
   const { data, handlePagination, variantPagination } = props;
-
-  // const handleLimitChange = (event: any) => {
-  //   setPageLimit(event.target.value);
-  // };
-
-  // const handlePageChange = (event: any, newPage: any) => {
-  //   setCurrentPage(newPage);
-  // };
 
   const csvData = data?.data.map((item) => ({
     image: "",
@@ -232,6 +219,7 @@ function VariantListing(props: IVariantListing) {
             </Table>
           </PerfectScrollbar>
           <TablePagination
+            // pagination
             component="div"
             count={data?.totalDocs || 0}
             page={variantPagination.page}
