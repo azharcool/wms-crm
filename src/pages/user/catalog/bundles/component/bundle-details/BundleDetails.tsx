@@ -1,17 +1,5 @@
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import EditIcon from "@mui/icons-material/Edit";
-import SaveIcon from "@mui/icons-material/Save";
-import {
-  Box,
-  Container,
-  PaletteMode,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Container, Stack, Tab, Tabs, Typography } from "@mui/material";
+import { createTheme } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
 import { FormikHelpers, useFormik } from "formik";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
@@ -20,7 +8,6 @@ import useGetByIdBundle from "hooks/querys/catalog/bundle/useGetByIdBundle";
 import useGetAllVariant from "hooks/querys/catalog/variants/useGetAllVariant";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { AddBundlCompositionRequestRoot } from "types/catalog/bundleComposition/addBundleCompostionRequest";
 import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
@@ -61,7 +48,6 @@ function BundleDetails() {
   const navigate = useNavigate();
   const { editBundleAction } = useBundleAction();
   const nameRef = useRef<any>(null);
-  const newtheme = useSelector((state: any) => state.theme);
   const [value, setValue] = useState(0);
   const [editable, setEditable] = useState(false);
   const lightTheme = createTheme({
@@ -73,36 +59,6 @@ function BundleDetails() {
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const { bundleId } = useParams();
   const {
@@ -132,7 +88,6 @@ function BundleDetails() {
     onSubmit,
     initialValues,
   });
-  const { values, handleChange, handleSubmit, setFieldValue } = bundleForm;
 
   const formik = useFormik({
     initialValues: {
@@ -165,60 +120,9 @@ function BundleDetails() {
     },
   });
 
-  const rightActionsData = [
-    {
-      id: crypto.randomUUID(),
-      title: "Cancel",
-      onClick: () => {
-        setEditable(false);
-        // history.push(`123436/${AppRoutes.CATALOG.categoryDetail}`);
-      },
-      icon: (
-        <ArrowBackIosIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Edit",
-      onClick: () => {
-        setEditable(true);
-        setTimeout(() => {
-          nameRef.current?.focus();
-        }, 500);
-      },
-      icon: (
-        <EditIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Save",
-      onClick: (e: any) => {
-        formik.handleSubmit();
-      },
-      icon: (
-        <SaveIcon
-          sx={{
-            fontSize: 18,
-            mr: 1,
-          }}
-        />
-      ),
-    },
-  ];
   async function onSubmit(
     values: AddBundleCompForm,
-    helper: FormikHelpers<AddBundleCompForm>,
+    _: FormikHelpers<AddBundleCompForm>,
   ) {
     const data: AddBundlCompositionRequestRoot = {
       bundleComposition: [
@@ -239,37 +143,35 @@ function BundleDetails() {
   }
   const istrue = !editable;
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[{ link: "BUNDLES", to: "/catalog/bundles" }]}
-          navTitle="bundles"
-          title="bundles"
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[{ link: "BUNDLES", to: "/catalog/bundles" }]}
+        navTitle="bundles"
+        title="bundles"
+      />
+      <Stack direction="row">
+        <Tabs
+          aria-label="basic tabs example"
+          value={value}
+          onChange={handleTabChange}
+        >
+          <Tab label="General" />
+          <Tab label="Composition" />
+        </Tabs>
+      </Stack>
+      <TabPanel index={0} value={value}>
+        <General
+          data={bundle?.data}
+          editable={editable}
+          formik={formik}
+          isTrue={istrue}
+          nameRef={nameRef}
         />
-        <Stack direction="row">
-          <Tabs
-            aria-label="basic tabs example"
-            value={value}
-            onChange={handleTabChange}
-          >
-            <Tab label="General" />
-            <Tab label="Composition" />
-          </Tabs>
-        </Stack>
-        <TabPanel index={0} value={value}>
-          <General
-            data={bundle?.data}
-            editable={editable}
-            formik={formik}
-            isTrue={istrue}
-            nameRef={nameRef}
-          />
-        </TabPanel>
-        <TabPanel index={1} value={value}>
-          <Composition />
-        </TabPanel>
-      </Container>
-    </ThemeProvider>
+      </TabPanel>
+      <TabPanel index={1} value={value}>
+        <Composition />
+      </TabPanel>
+    </Container>
   );
 }
 

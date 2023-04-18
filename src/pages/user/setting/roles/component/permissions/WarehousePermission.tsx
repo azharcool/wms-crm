@@ -1,9 +1,9 @@
 import { SelectChangeEvent } from "@mui/material";
 import { Stack } from "@mui/system";
+import { crudData } from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomChipSelect from "components/chip-selector/CustomChipSelect";
 import { useState } from "react";
-import { crudData } from "__mock__";
 import { IWarehouses } from "types/setting/roles/permission";
 
 function WarehousePermission() {
@@ -14,8 +14,7 @@ function WarehousePermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="warehouse"
-            values={warehouse?.warehouse}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof warehouse>) => {
               const {
                 target: { value },
@@ -28,12 +27,12 @@ function WarehousePermission() {
                 };
               });
             }}
+            name="warehouse"
             screenName="Warehouses"
-            accessItems={crudData}
+            values={warehouse?.warehouse}
           />
           <CustomChipSelect
-            name="area"
-            values={warehouse?.area}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof warehouse>) => {
               const {
                 target: { value },
@@ -45,14 +44,14 @@ function WarehousePermission() {
                 };
               });
             }}
+            name="area"
             screenName="Areas"
-            accessItems={crudData}
+            values={warehouse?.area}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="zone"
-            values={warehouse?.zone}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof warehouse>) => {
               const {
                 target: { value },
@@ -64,12 +63,12 @@ function WarehousePermission() {
                 };
               });
             }}
+            name="zone"
             screenName="Zones"
-            accessItems={crudData}
+            values={warehouse?.zone}
           />
           <CustomChipSelect
-            name="location"
-            values={warehouse?.location}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof warehouse>) => {
               const {
                 target: { value },
@@ -82,14 +81,14 @@ function WarehousePermission() {
                 };
               });
             }}
+            name="location"
             screenName="Locations"
-            accessItems={crudData}
+            values={warehouse?.location}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="container"
-            values={warehouse?.container}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof warehouse>) => {
               const {
                 target: { value },
@@ -102,8 +101,9 @@ function WarehousePermission() {
                 };
               });
             }}
+            name="container"
             screenName="Containers"
-            accessItems={crudData}
+            values={warehouse?.container}
           />
         </Stack>
       </Stack>

@@ -12,10 +12,9 @@ function InventoryLog() {
           isBulkDisabled={false}
           navTitle="Stock Control"
           title="Inventory Log"
-          onBulkHandle={() => { }}
+          onBulkHandle={() => {}}
         />
         <Box sx={{ mt: 3 }}>
-
           <InventoryLogList />
         </Box>
       </CardContent>

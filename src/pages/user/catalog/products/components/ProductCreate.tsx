@@ -3,17 +3,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import RefreshIcon from "@mui/icons-material/Refresh";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  PaletteMode,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import {
   UoM,
   detailMenu,
@@ -37,7 +27,6 @@ import useSupplier from "hooks/actions/catalog/supplier/useSupplier";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
@@ -78,7 +67,6 @@ const initialValues: AddProductForm = {
 };
 
 function ProductCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
   const [openVariant, setOpenVariant] = useState(false);
   const alert = useAlert();
   const [productId, setProductId] = useState("");
@@ -186,12 +174,6 @@ function ProductCreate() {
     }
   }
 
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
   const handleVariant = () => {
     setOpenVariant((s) => !s);
   };
@@ -226,38 +208,8 @@ function ProductCreate() {
     });
   };
 
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
-
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
+    <>
       <Container maxWidth={false}>
         <TableToolbar
           navTitle="PRODUCTS"
@@ -680,7 +632,7 @@ function ProductCreate() {
           productName={values.name}
         />
       ) : null}
-    </ThemeProvider>
+    </>
   );
 }
 
