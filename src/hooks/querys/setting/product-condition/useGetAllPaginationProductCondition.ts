@@ -11,7 +11,7 @@ function useGetAllPaginationProductCondition(
   props: IuseGetAllPaginationProductCondition,
 ) {
   const cachedKey = [QueryKeys.getAllProductCondition];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${props.page + 1 || 1} `;
   return useQuery(cachedKey, () => getAllPaginationProductCondition(url));
 }
 
