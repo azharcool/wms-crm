@@ -261,6 +261,14 @@ const ErrorMessages = {
     city: "Please enter city",
     zipCode: "Please enter zip code",
   },
+  manage_bank_Account: {
+    bankName: "Please enter bank name",
+    bankBranch: "Please enter branch name",
+    bankCode: "Please enter bank code",
+    bankSwift: "Please enter bank swift",
+    accountHolder: "Please enter account holder name",
+    accountNumber: "Please enter account holder number",
+  },
   general: {
     name: "please enter name",
     description: "please enter description",

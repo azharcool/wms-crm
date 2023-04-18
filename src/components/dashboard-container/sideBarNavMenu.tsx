@@ -158,7 +158,6 @@ export const sideNavMenu: ISideNavMenu[] = [
         title: "Reorder",
         location: `/${stockControl.layout}/${stockControl.reorder.listing}`,
       },
-
     ],
     screenCode: "",
   },

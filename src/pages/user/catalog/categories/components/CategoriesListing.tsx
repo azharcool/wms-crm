@@ -53,23 +53,19 @@ const tableTitle = [
   },
 ];
 
-interface IPaginationData {
-  pageSize: number;
-  page: number;
-}
-
 interface ICategoriesListing {
   data?: IGetCategoriesResponseRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  categoriesPagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 function CategoriesListing(props: ICategoriesListing) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+  const { data, categoriesPagination, handlePagination } = props;
   const getSelectedCategoryIdsState = useSelector(getSelectedCategory);
   const dispatch = useAppDispatch();
 
@@ -84,13 +80,6 @@ function CategoriesListing(props: ICategoriesListing) {
     }
   };
 
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
-
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
-  };
   const csvData = data?.data.map((item) => ({
     image: "",
     name: item.name,
@@ -178,12 +167,16 @@ function CategoriesListing(props: ICategoriesListing) {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={total}
-            page={paginationData.page}
-            rowsPerPage={paginationData.pageSize}
+            count={data?.totalDocs || 0}
+            page={categoriesPagination.page}
+            rowsPerPage={categoriesPagination.pageSize}
             rowsPerPageOptions={[5, 10, 25]}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleLimitChange}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
           />
         </TableContainer>
       </Box>

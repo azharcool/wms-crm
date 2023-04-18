@@ -1,9 +1,9 @@
-import { Grid, Card, SelectChangeEvent } from "@mui/material";
-import { Container, Stack } from "@mui/system";
+import { SelectChangeEvent } from "@mui/material";
+import { Stack } from "@mui/system";
+import { crudData } from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomChipSelect from "components/chip-selector/CustomChipSelect";
-import React, { useState } from "react";
-import { crudData } from "__mock__";
+import { useState } from "react";
 import { ISettings } from "types/setting/roles/permission";
 
 function SettingPermission() {
@@ -14,8 +14,7 @@ function SettingPermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="adjustmentReasons"
-            values={settings?.adjustmentReasons}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -28,12 +27,12 @@ function SettingPermission() {
                 };
               });
             }}
+            name="adjustmentReasons"
             screenName="Adjustment-Reasons"
-            accessItems={crudData}
+            values={settings?.adjustmentReasons}
           />
           <CustomChipSelect
-            name="containerTypes"
-            values={settings?.containerTypes}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -46,14 +45,14 @@ function SettingPermission() {
                 };
               });
             }}
+            name="containerTypes"
             screenName="Container-Types"
-            accessItems={crudData}
+            values={settings?.containerTypes}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="integration"
-            values={settings?.integrations}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -66,12 +65,12 @@ function SettingPermission() {
                 };
               });
             }}
+            name="integration"
             screenName="Integration"
-            accessItems={crudData}
+            values={settings?.integrations}
           />
           <CustomChipSelect
-            name="users"
-            values={settings?.users}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -83,14 +82,14 @@ function SettingPermission() {
                 };
               });
             }}
+            name="users"
             screenName="Users"
-            accessItems={crudData}
+            values={settings?.users}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="roles"
-            values={settings?.roles}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -102,12 +101,12 @@ function SettingPermission() {
                 };
               });
             }}
+            name="roles"
             screenName="Roles"
-            accessItems={crudData}
+            values={settings?.roles}
           />
           <CustomChipSelect
-            name="filter"
-            values={settings?.filters}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -119,14 +118,14 @@ function SettingPermission() {
                 };
               });
             }}
+            name="filter"
             screenName="Roles"
-            accessItems={crudData}
+            values={settings?.filters}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="condition"
-            values={settings?.condition}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -139,12 +138,12 @@ function SettingPermission() {
                 };
               });
             }}
+            name="condition"
             screenName="Condition"
-            accessItems={crudData}
+            values={settings?.condition}
           />
           <CustomChipSelect
-            name="paymentType"
-            values={settings?.paymentType}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -157,14 +156,14 @@ function SettingPermission() {
                 };
               });
             }}
+            name="paymentType"
             screenName="Payments-Type"
-            accessItems={crudData}
+            values={settings?.paymentType}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="account"
-            values={settings?.account}
+            accessItems={["View", "Edit"]}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -176,12 +175,12 @@ function SettingPermission() {
                 };
               });
             }}
+            name="account"
             screenName="Account"
-            accessItems={["View", "Edit"]}
+            values={settings?.account}
           />
           <CustomChipSelect
-            name="files"
-            values={settings?.files}
+            accessItems={["Upload"]}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -193,14 +192,14 @@ function SettingPermission() {
                 };
               });
             }}
+            name="files"
             screenName="Files"
-            accessItems={["Upload"]}
+            values={settings?.files}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="biiling"
-            values={settings?.billing}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -212,12 +211,12 @@ function SettingPermission() {
                 };
               });
             }}
+            name="biiling"
             screenName="Billing"
-            accessItems={crudData}
+            values={settings?.billing}
           />
           <CustomChipSelect
-            name="automation"
-            values={settings?.automation}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -230,14 +229,14 @@ function SettingPermission() {
                 };
               });
             }}
+            name="automation"
             screenName="Automation"
-            accessItems={crudData}
+            values={settings?.automation}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="contract"
-            values={settings?.contracts}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof settings>) => {
               const {
                 target: { value },
@@ -250,8 +249,9 @@ function SettingPermission() {
                 };
               });
             }}
+            name="contract"
             screenName="Contracts"
-            accessItems={crudData}
+            values={settings?.contracts}
           />
         </Stack>
       </Stack>

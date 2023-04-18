@@ -8,7 +8,6 @@ import {
   Card,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Table,
   TableBody,
@@ -18,8 +17,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -57,41 +54,6 @@ export interface IUnits {
 }
 
 function TransferCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -224,158 +186,145 @@ function TransferCreate() {
   }, [values]);
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[
-            {
-              link: "Transfer",
-              to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.transfer.listing}`,
-            },
-          ]}
-          buttonText="Save"
-          handleClick={() => {
-            // handleSubmit()
-          }}
-          navTitle="New"
-          rightActions={rightActionsData}
-          title="New Transfer"
-        />
-        <Grid
-          container
-          direction="row"
-          marginTop={2}
-          padding={0}
-          paddingBottom={2}
-          spacing={2}
-        >
-          {/* coloumn */}
-          <Grid item direction="column" spacing={2} xs={12}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Details">
-                <Grid
-                  direction="row"
-                  display="flex"
-                  justifyContent="space-around"
-                >
-                  <Stack direction="column" gap={2} sx={{ width: "100%" }}>
-                    <AutoComplete
-                      getOptionLabel={(item: any) => item.value}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("warehosuseId", value?.id)
-                      }
-                      helperText={
-                        (touched.warehosuseId &&
-                          errors &&
-                          errors.warehosuseId) ||
-                        ""
-                      }
-                      label="From warehouse"
-                      options={warehouseMenuItem}
-                    />
-                  </Stack>
-                  <Stack
-                    direction="column"
-                    gap={2}
-                    mx={2}
-                    sx={{ width: "100%" }}
-                  >
-                    <AutoComplete
-                      getOptionLabel={(item: any) => item.value}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("warehosuseId", value?.id)
-                      }
-                      helperText={
-                        (touched.warehosuseId &&
-                          errors &&
-                          errors.warehosuseId) ||
-                        ""
-                      }
-                      label="To warehouse"
-                      options={warehouseMenuItem}
-                    />
-                  </Stack>
-                  <Stack direction="row" mx={2} sx={{ width: "100%" }}>
-                    <TextField
-                      id="notes"
-                      label="Tranfer date"
-                      name="transferDate"
-                      size="small"
-                      type="date"
-                      value={values.notes}
-                      onChange={handleChange("transferDate")}
-                    />
-                  </Stack>
-                  <Stack direction="row" mx={2} sx={{ width: "100%" }}>
-                    <TextField
-                      id="expectedDate"
-                      label="Expected date"
-                      name="expectedDate"
-                      size="small"
-                      type="date"
-                      value={values.notes}
-                      onChange={handleChange("expectedDate")}
-                    />
-                  </Stack>
-                </Grid>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-
-          <Grid item xs={12}>
-            <StocksTable
-              adjustmentReasonId={values.adjustmentReasonId}
-              formik={formik}
-              setUnits={setUnits}
-              units={units}
-              warehouseId={values.warehosuseId}
-            />
-          </Grid>
-
-          <Grid item xs={12}>
-            <Card>
-              <CustomCardContent title="Notes">
-                <TextField
-                  multiline
-                  id="notes"
-                  label="Notes"
-                  name="notes"
-                  rows={5}
-                  value={values.notes}
-                  onChange={handleChange("notes")}
-                />
-              </CustomCardContent>
-              <CustomCardContent title="Adjustment Summary">
-                <Stack direction="row" gap={2} marginTop={2}>
-                  <TextField
-                    darkDisable
-                    label="Total adjusted Quantity"
-                    name="totalQuantity"
-                    size="small"
-                    value={Number(totalQuantity) || 0}
-                    onChange={() =>
-                      setFieldValue("totalQuantity", totalQuantity)
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[
+          {
+            link: "Transfer",
+            to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.transfer.listing}`,
+          },
+        ]}
+        buttonText="Save"
+        handleClick={() => {
+          // handleSubmit()
+        }}
+        navTitle="New"
+        rightActions={rightActionsData}
+        title="New Transfer"
+      />
+      <Grid
+        container
+        direction="row"
+        marginTop={2}
+        padding={0}
+        paddingBottom={2}
+        spacing={2}
+      >
+        {/* coloumn */}
+        <Grid item direction="column" spacing={2} xs={12}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Grid
+                direction="row"
+                display="flex"
+                justifyContent="space-around"
+              >
+                <Stack direction="column" gap={2} sx={{ width: "100%" }}>
+                  <AutoComplete
+                    getOptionLabel={(item: any) => item.value}
+                    handleChange={(e: any, value: any) =>
+                      setFieldValue("warehosuseId", value?.id)
                     }
-                  />
-                  <TextField
-                    darkDisable
-                    label="Total adjusted value"
-                    name="totalValue"
-                    size="small"
-                    value={`INR ${totalValue}.00`}
-                    onChange={() => setFieldValue("totalValue", totalValue)}
+                    helperText={
+                      (touched.warehosuseId && errors && errors.warehosuseId) ||
+                      ""
+                    }
+                    label="From warehouse"
+                    options={warehouseMenuItem}
                   />
                 </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
+                <Stack direction="column" gap={2} mx={2} sx={{ width: "100%" }}>
+                  <AutoComplete
+                    getOptionLabel={(item: any) => item.value}
+                    handleChange={(e: any, value: any) =>
+                      setFieldValue("warehosuseId", value?.id)
+                    }
+                    helperText={
+                      (touched.warehosuseId && errors && errors.warehosuseId) ||
+                      ""
+                    }
+                    label="To warehouse"
+                    options={warehouseMenuItem}
+                  />
+                </Stack>
+                <Stack direction="row" mx={2} sx={{ width: "100%" }}>
+                  <TextField
+                    id="notes"
+                    label="Tranfer date"
+                    name="transferDate"
+                    size="small"
+                    type="date"
+                    value={values.notes}
+                    onChange={handleChange("transferDate")}
+                  />
+                </Stack>
+                <Stack direction="row" mx={2} sx={{ width: "100%" }}>
+                  <TextField
+                    id="expectedDate"
+                    label="Expected date"
+                    name="expectedDate"
+                    size="small"
+                    type="date"
+                    value={values.notes}
+                    onChange={handleChange("expectedDate")}
+                  />
+                </Stack>
+              </Grid>
+            </CustomCardContent>
+          </Card>
         </Grid>
-      </Container>
-    </ThemeProvider>
+
+        <Grid item xs={12}>
+          <StocksTable
+            adjustmentReasonId={values.adjustmentReasonId}
+            formik={formik}
+            setUnits={setUnits}
+            units={units}
+            warehouseId={values.warehosuseId}
+          />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Card>
+            <CustomCardContent title="Notes">
+              <TextField
+                multiline
+                id="notes"
+                label="Notes"
+                name="notes"
+                rows={5}
+                value={values.notes}
+                onChange={handleChange("notes")}
+              />
+            </CustomCardContent>
+            <CustomCardContent title="Adjustment Summary">
+              <Stack direction="row" gap={2} marginTop={2}>
+                <TextField
+                  darkDisable
+                  label="Total adjusted Quantity"
+                  name="totalQuantity"
+                  size="small"
+                  value={Number(totalQuantity) || 0}
+                  onChange={() => setFieldValue("totalQuantity", totalQuantity)}
+                />
+                <TextField
+                  darkDisable
+                  label="Total adjusted value"
+                  name="totalValue"
+                  size="small"
+                  value={`INR ${totalValue}.00`}
+                  onChange={() => setFieldValue("totalValue", totalValue)}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

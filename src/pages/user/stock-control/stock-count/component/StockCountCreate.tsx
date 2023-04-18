@@ -5,7 +5,6 @@ import {
   Checkbox,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Table,
   TableBody,
@@ -13,8 +12,6 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -22,11 +19,10 @@ import TextField from "components/textfield";
 import useArea from "hooks/actions/warehouse/area/useArea";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useZone from "hooks/actions/warehouse/zone/useZone";
-import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import useManageStockCount, {
   ManageStockCount,
 } from "../hooks/useManageStockCount";
@@ -38,43 +34,6 @@ const initialValues: ManageStockCount = {
 };
 
 function StockCountCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
-  const userDecoded = useDecodedData();
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -110,7 +69,7 @@ function StockCountCreate() {
   const { zones } = useZone();
   const { areas } = useArea();
 
-  const movementForm = useManageStockCount({
+  const ManageStockCount = useManageStockCount({
     onSubmit,
     initialValues,
   });
@@ -131,7 +90,7 @@ function StockCountCreate() {
     handleSubmit,
     setFieldValue,
     resetForm,
-  } = movementForm;
+  } = ManageStockCount;
 
   // const {
   //   stockControl: {
@@ -141,87 +100,85 @@ function StockCountCreate() {
   // } = AppRoutes;
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[
-            {
-              link: "Movement",
-              to: "",
-            },
-          ]}
-          buttonText="Save"
-          handleClick={() => {
-            // handleSubmit()
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[
+          {
+            link: "Stock Control",
+            to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.stock_count.listing}`,
+          },
+        ]}
+        buttonText="Save"
+        handleClick={() => {
+          // handleSubmit()
+        }}
+        navTitle=""
+        rightActions={rightActionsData}
+        title="Create stock count"
+      />
+
+      <Grid item xs={8}>
+        <Card
+          sx={{
+            flex: 1,
+            mt: "25px",
           }}
-          navTitle=""
-          rightActions={rightActionsData}
-          title="Create stock count"
-        />
+        >
+          <CustomCardContent title="Location">
+            <Stack direction="row" gap={3}>
+              <TextField
+                isSelect
+                error={!!touched.area && !!errors.area}
+                helperText={(touched.area && errors && errors.area) || ""}
+                id="warehouse"
+                label="Warehouse"
+                menuItems={warehouse}
+                name="warehouse"
+                size="small"
+                value={values.warehouse}
+                onSelectHandler={(e) => {
+                  setFieldValue("warehouse", e.target.value);
+                }}
+              />
 
-        <Grid item xs={8}>
-          <Card
-            sx={{
-              flex: 1,
-              mt: "25px",
-            }}
-          >
-            <CustomCardContent title="Location">
-              <Stack direction="row" gap={3}>
-                <TextField
-                  isSelect
-                  error={!!touched.area && !!errors.area}
-                  helperText={(touched.area && errors && errors.area) || ""}
-                  id="warehouse"
-                  label="Warehouse"
-                  menuItems={warehouse}
-                  name="warehouse"
-                  size="small"
-                  value={values.warehouse}
-                  onSelectHandler={(e) => {
-                    setFieldValue("warehouse", e.target.value);
-                  }}
-                />
-
-                <TextField
-                  isSelect
-                  disabled={Boolean(!values.warehouse)}
-                  error={!!touched.area && !!errors.area}
-                  helperText={(touched.area && errors && errors.area) || ""}
-                  id="area"
-                  label="Area"
-                  menuItems={areas}
-                  name="area"
-                  size="small"
-                  value={values.area}
-                  onSelectHandler={(e) => {
-                    setFieldValue("area", e.target.value);
-                  }}
-                />
-                <TextField
-                  isSelect
-                  disabled={Boolean(!values.area)}
-                  error={!!touched.zone && !!errors.zone}
-                  helperText={(touched.zone && errors && errors.zone) || ""}
-                  id="zone"
-                  label="Zone"
-                  menuItems={zones}
-                  name="zone"
-                  size="small"
-                  value={values.zone}
-                  onSelectHandler={(e) => {
-                    setFieldValue("zone", e.target.value);
-                  }}
-                />
-              </Stack>
-            </CustomCardContent>
-          </Card>
-        </Grid>
-        <Grid item sx={{ mt: "25px" }} xs={12}>
-          <StocksCountTable />
-        </Grid>
-      </Container>
-    </ThemeProvider>
+              <TextField
+                isSelect
+                disabled={Boolean(!values.warehouse)}
+                error={!!touched.area && !!errors.area}
+                helperText={(touched.area && errors && errors.area) || ""}
+                id="area"
+                label="Area"
+                menuItems={areas}
+                name="area"
+                size="small"
+                value={values.area}
+                onSelectHandler={(e) => {
+                  setFieldValue("area", e.target.value);
+                }}
+              />
+              <TextField
+                isSelect
+                disabled={Boolean(!values.area)}
+                error={!!touched.zone && !!errors.zone}
+                helperText={(touched.zone && errors && errors.zone) || ""}
+                id="zone"
+                label="Zone"
+                menuItems={zones}
+                name="zone"
+                size="small"
+                value={values.zone}
+                onSelectHandler={(e) => {
+                  setFieldValue("zone", e.target.value);
+                }}
+              />
+            </Stack>
+          </CustomCardContent>
+        </Card>
+      </Grid>
+      <Grid item sx={{ mt: "25px" }} xs={12}>
+        <StocksCountTable />
+      </Grid>
+    </Container>
   );
 }
 

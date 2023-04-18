@@ -1,9 +1,9 @@
 import { SelectChangeEvent } from "@mui/material";
 import { Stack } from "@mui/system";
+import { crudData } from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomChipSelect from "components/chip-selector/CustomChipSelect";
 import { useState } from "react";
-import { crudData } from "__mock__";
 import { IStocks } from "types/setting/roles/permission";
 
 function StockPermission() {
@@ -14,8 +14,7 @@ function StockPermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="adjustments"
-            values={stocks?.adjustment}
+            accessItems={[...crudData, "Complete", "Cancel"]}
             handleChange={(event: SelectChangeEvent<typeof stocks>) => {
               const {
                 target: { value },
@@ -28,12 +27,12 @@ function StockPermission() {
                 };
               });
             }}
+            name="adjustments"
             screenName="Adjustments"
-            accessItems={[...crudData, "Complete", "Cancel"]}
+            values={stocks?.adjustment}
           />
           <CustomChipSelect
-            name="putaway"
-            values={stocks?.putaway}
+            accessItems={["View", "Edit", "Process", "Progress", "Complete"]}
             handleChange={(event: SelectChangeEvent<typeof stocks>) => {
               const {
                 target: { value },
@@ -45,14 +44,14 @@ function StockPermission() {
                 };
               });
             }}
+            name="putaway"
             screenName="Putaway"
-            accessItems={["View", "Edit", "Process", "Progress", "Complete"]}
+            values={stocks?.putaway}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="receive"
-            values={stocks?.putaway}
+            accessItems={["View", "Receive", "Complete"]}
             handleChange={(event: SelectChangeEvent<typeof stocks>) => {
               const {
                 target: { value },
@@ -64,12 +63,12 @@ function StockPermission() {
                 };
               });
             }}
+            name="receive"
             screenName="Receive"
-            accessItems={["View", "Receive", "Complete"]}
+            values={stocks?.putaway}
           />
           <CustomChipSelect
-            name="stockTransfer"
-            values={stocks?.stockTransfer}
+            accessItems={["View", "Edit", "Add", "Process", "Cancel"]}
             handleChange={(event: SelectChangeEvent<typeof stocks>) => {
               const {
                 target: { value },
@@ -82,14 +81,14 @@ function StockPermission() {
                 };
               });
             }}
+            name="stockTransfer"
             screenName="Stock-Transfer"
-            accessItems={["View", "Edit", "Add", "Process", "Cancel"]}
+            values={stocks?.stockTransfer}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="unitNumber"
-            values={stocks?.unitNumbers}
+            accessItems={["Add"]}
             handleChange={(event: SelectChangeEvent<typeof stocks>) => {
               const {
                 target: { value },
@@ -102,12 +101,12 @@ function StockPermission() {
                 };
               });
             }}
+            name="unitNumber"
             screenName="Unit-Numbers"
-            accessItems={["Add"]}
+            values={stocks?.unitNumbers}
           />
           <CustomChipSelect
-            name="movement"
-            values={stocks?.movements}
+            accessItems={[...crudData, "Complete", "Cancel"]}
             handleChange={(event: SelectChangeEvent<typeof stocks>) => {
               const {
                 target: { value },
@@ -120,8 +119,9 @@ function StockPermission() {
                 };
               });
             }}
+            name="movement"
             screenName="Movements"
-            accessItems={[...crudData, "Complete", "Cancel"]}
+            values={stocks?.movements}
           />
         </Stack>
       </Stack>

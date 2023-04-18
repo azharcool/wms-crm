@@ -1,17 +1,7 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
-import {
-  Box,
-  Container,
-  PaletteMode,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-} from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Container, Stack, Tab, Tabs, Typography } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useLocationAction from "hooks/actions/warehouse/location/useLocation";
 import useGetByIdLocation from "hooks/querys/warehouse/location/useGetByIdLocation";
@@ -55,7 +45,6 @@ function TabPanel(props: TabPanelProps) {
 }
 
 function LocationsDetails() {
-  const newtheme = useSelector((state: any) => state.theme);
   const nameRef = useRef<any>(null);
   const userDecoded = useDecodedData();
   const [editable, setEditable] = useState(false);
@@ -75,12 +64,6 @@ function LocationsDetails() {
     setValue(newValue);
     setEditable(false);
   };
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
 
   const formik = useLocationForm({
     initialValues: locationInitialValues,
@@ -132,36 +115,6 @@ function LocationsDetails() {
     }
   }
 
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
-
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -212,42 +165,40 @@ function LocationsDetails() {
   ];
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[{ link: "WAREHOUSE", to: "" }]}
-          rightActions={
-            editable
-              ? rightActionsData.filter((i) => i.title !== "Edit")
-              : rightActionsData.filter((i) => i.title === "Edit")
-          }
-          title=""
-        />
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[{ link: "WAREHOUSE", to: "" }]}
+        rightActions={
+          editable
+            ? rightActionsData.filter((i) => i.title !== "Edit")
+            : rightActionsData.filter((i) => i.title === "Edit")
+        }
+        title=""
+      />
 
-        <Stack direction="row">
-          <Tabs
-            aria-label="basic tabs example"
-            value={value}
-            onChange={handleChange}
-          >
-            <Tab label="General" />
-            <Tab label="Content" />
-          </Tabs>
-        </Stack>
-        <TabPanel index={0} value={value}>
-          <General
-            data={locationResponse?.data}
-            editable={editable}
-            formik={formik}
-            isTrue={false}
-            nameRef={nameRef}
-          />
-        </TabPanel>
-        <TabPanel index={1} value={value}>
-          <Contents />
-        </TabPanel>
-      </Container>
-    </ThemeProvider>
+      <Stack direction="row">
+        <Tabs
+          aria-label="basic tabs example"
+          value={value}
+          onChange={handleChange}
+        >
+          <Tab label="General" />
+          <Tab label="Content" />
+        </Tabs>
+      </Stack>
+      <TabPanel index={0} value={value}>
+        <General
+          data={locationResponse?.data}
+          editable={editable}
+          formik={formik}
+          isTrue={false}
+          nameRef={nameRef}
+        />
+      </TabPanel>
+      <TabPanel index={1} value={value}>
+        <Contents />
+      </TabPanel>
+    </Container>
   );
 }
 
