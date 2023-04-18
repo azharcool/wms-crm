@@ -1,5 +1,6 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
+import { useAlert } from "components/alert";
 import TableToolbar from "components/table-toolbar";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import useGetAllBundle from "hooks/querys/catalog/bundle/useGetAllBundle";
@@ -8,21 +9,38 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedBundle } from "redux/catalog/bundleSelector";
+import { removeAllBundleIds } from "redux/catalog/bundleSlice";
+import { useAppDispatch } from "redux/store";
 import BundleListing from "./component/BundleListing";
 
 function Bundles() {
   const navigate = useNavigate();
+  const alert = useAlert();
   const [bundlePagination, setBundlePagination] = useState({
     pageSize: 10,
     page: 0,
   });
 
   const getSelectedBulkIdsState = useSelector(getSelectedBundle);
+  const dispatch = useAppDispatch();
   const { bulkDeleteBundleAsync } = useBundleAction();
   const { data: bundlePaginationResponse, refetch } =
     useGetAllBundle(bundlePagination);
   const ids = getSelectedBulkIdsState.toString();
 
+  const handleBundleBulkDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete all selected bundles",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await bulkDeleteBundleAsync(ids);
+        dispatch(removeAllBundleIds());
+        // refetch();
+      },
+    });
+  };
   const handlePagination = (name: string, value: number) => {
     setBundlePagination((s) => ({
       ...s,
@@ -67,9 +85,7 @@ function Bundles() {
           ]}
           title="Bundles"
           onBulkHandle={() => {
-            if (ids) {
-              bulkDeleteBundleAsync(ids);
-            }
+            handleBundleBulkDelete();
           }}
         />
         <Box sx={{ mt: 3 }}>
