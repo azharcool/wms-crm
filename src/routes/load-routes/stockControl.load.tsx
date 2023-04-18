@@ -47,6 +47,19 @@ export const AdjustmentHistoryListing = Loadable({
   loading: () => <Spinner />,
 });
 
+// export const AdjustmentGeneralDetails = Loadable({
+//   loader: () =>
+//     import("pages/user/stock-control/adjustment/component/details/General"),
+//   loading: () => <Spinner />,
+// });
+
+// export const AdjustmentHistoryListing = Loadable({
+//   loader: () =>
+//     import(
+//       "pages/user/stock-control/adjustment/component/details/history/HistoryListing"
+//     ),
+//   loading: () => <Spinner />,
+
 // Recieve
 export const ReceiveListing = Loadable({
   loader: () => import("pages/user/stock-control/receive/Receive"),
@@ -219,5 +232,11 @@ export const ReorderListing = Loadable({
 export const ReorderDetails = Loadable({
   loader: () =>
     import("pages/user/stock-control/reorder/component/details/ReorderDetails"),
+  loading: () => <Spinner />,
+});
+
+// inventory-log
+export const InventoryLogListing = Loadable({
+  loader: () => import("pages/user/stock-control/inventory-log/inventoryLog"),
   loading: () => <Spinner />,
 });

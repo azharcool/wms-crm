@@ -13,8 +13,7 @@ function DashboardPermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="overview"
-            values={dashboard?.overview}
+            accessItems={["View"]}
             handleChange={(event: SelectChangeEvent<typeof dashboard>) => {
               const {
                 target: { value },
@@ -27,8 +26,9 @@ function DashboardPermission() {
                 };
               });
             }}
+            name="overview"
             screenName="Overview"
-            accessItems={["View"]}
+            values={dashboard?.overview}
           />
         </Stack>
       </Stack>

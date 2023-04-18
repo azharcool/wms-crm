@@ -171,7 +171,6 @@ function InventoryLogListItem(props: { item: any }) {
         created date
         {/* notes */}
       </TableCell>
-
     </TableRow>
   );
 }

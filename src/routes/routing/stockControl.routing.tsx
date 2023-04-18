@@ -124,7 +124,11 @@ const stockControlRouting = (
       element={<StockControlLoadable.StockCountDetails />}
       path={`${AppRoutes.stockControl.stock_count.details}/:stock_countId`}
     />
-
+    {/* {inventory-log routing} */}
+    <Route
+      element={<StockControlLoadable.InventoryLogListing />}
+      path={`${AppRoutes.stockControl.inventory_log.listing}`}
+    />
     {/* Transfer Routing */}
     <Route
       element={<StockControlLoadable.TransferListing />}
