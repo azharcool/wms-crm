@@ -234,3 +234,9 @@ export const ReorderDetails = Loadable({
     import("pages/user/stock-control/reorder/component/details/ReorderDetails"),
   loading: () => <Spinner />,
 });
+
+// inventory-log
+export const InventoryLogListing = Loadable({
+  loader: () => import("pages/user/stock-control/inventory-log/inventoryLog"),
+  loading: () => <Spinner />,
+});
