@@ -148,7 +148,11 @@ export const sideNavMenu: ISideNavMenu[] = [
         title: "Transfer",
         location: `/${stockControl.layout}/${stockControl.transfer.listing}`,
       },
-
+      {
+        id: crypto.randomUUID(),
+        title: "Inventory Log",
+        location: `/${stockControl.layout}/${stockControl.inventory_log.listing}`,
+      },
       {
         id: crypto.randomUUID(),
         title: "Reorder",
