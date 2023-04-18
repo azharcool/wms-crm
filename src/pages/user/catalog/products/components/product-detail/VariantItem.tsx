@@ -1,5 +1,8 @@
 import { Box, TableCell, TableRow, Typography } from "@mui/material";
+import { useAlert } from "components/alert";
 import CustomSwitch from "components/custom-switch";
+import TableActionButton from "components/table/TableActionButton";
+import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
@@ -10,8 +13,22 @@ interface IVariantItem {
 }
 function VariantItem(props: IVariantItem) {
   const { item } = props;
-
+  const { deleteVariantAsync } = useVariantAction();
   const newtheme = useSelector((state: any) => state.theme);
+  const alert = useAlert();
+
+  const handleVariantDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete Variant",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteVariantAsync(item.id);
+        // refetch();
+      },
+    });
+  };
 
   return (
     <>
@@ -152,6 +169,21 @@ function VariantItem(props: IVariantItem) {
           }}
         >
           <CustomSwitch checked={item.enable} />
+        </TableCell>
+        <TableCell
+          sx={{
+            position: "sticky",
+            right: 0,
+            background: newtheme.isDarkMode
+              ? "#26263D"
+              : palette.background.default,
+          }}
+        >
+          <TableActionButton
+            onDeleteHandle={() => {
+              handleVariantDelete();
+            }}
+          />
         </TableCell>
       </TableRow>
     </>
