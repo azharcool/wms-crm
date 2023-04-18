@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 // import "react-perfect-scrollbar/dist/css/styles.css";
 import NOImage from "assets/images/no-image.png";
+import { useAlert } from "components/alert";
+import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
 
@@ -22,7 +24,21 @@ interface IVariantItem {
 function VariantItem(props: IVariantItem) {
   const { item } = props;
   const navigate = useNavigate();
+  const alert = useAlert();
+  const { deleteVariantAsync } = useVariantAction();
   const newtheme = useSelector((state: any) => state.theme);
+
+  const handleVariantDelete = async () => {
+    alert?.show({
+      title: "Confirmation",
+      message: "Do you really want to delete Variant",
+      cancelText: "No",
+      confirmText: "Yes",
+      onConfirm: async () => {
+        await deleteVariantAsync(Number(item.id));
+      },
+    });
+  };
 
   return (
     <TableRow>
@@ -238,7 +254,11 @@ function VariantItem(props: IVariantItem) {
             : palette.background.default,
         }}
       >
-        <TableActionButton />
+        <TableActionButton
+          onDeleteHandle={() => {
+            handleVariantDelete();
+          }}
+        />
       </TableCell>
     </TableRow>
   );

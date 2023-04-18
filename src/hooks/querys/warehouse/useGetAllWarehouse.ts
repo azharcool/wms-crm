@@ -12,7 +12,7 @@ interface IuseGetAllWarehouse {
 
 function useGetAllWarehouse(props: IuseGetAllWarehouse) {
   const cachedKey = [QueryKeys.getAllWarehouse];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${props.page + 1 || 1}`;
   return useQuery(cachedKey, () =>
     props.pageSize !== 0 ? getAllPaginationWarehouse(url) : getAllWarehouse(),
   );

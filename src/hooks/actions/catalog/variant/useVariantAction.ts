@@ -1,6 +1,10 @@
 import { useSnackbar } from "components/snackbar";
 import { useQueryClient } from "react-query";
-import { addVariant, editVariant } from "services/variant.services";
+import {
+  addVariant,
+  deleteVariant,
+  editVariant,
+} from "services/variant.services";
 import { IAddVariantRequestRoot } from "types/catalog/variants/addVariantRequest";
 import { IEditVariantRequestRoot } from "types/catalog/variants/editVariantRequest";
 import { QueryKeys } from "utils/QueryKeys";
@@ -55,9 +59,30 @@ function useVariantAction() {
     }
   };
 
+  const deleteVariantAsync = async (id: number): Promise<boolean> => {
+    try {
+      const response = await deleteVariant(id);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllVariant]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
   return {
     addVariantAction,
     editVariantAction,
+    deleteVariantAsync,
   };
 }
 
