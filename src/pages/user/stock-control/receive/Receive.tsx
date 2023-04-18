@@ -1,9 +1,15 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import { useState } from "react";
 import ReceiveList from "./component/list/ReceiveList";
 
 function Receive() {
+  const [receivePagination, setReceivePagination] = useState({
+    pageSize: 10,
+    page: 0,
+  });
+
   return (
     <Container maxWidth={false}>
       <CardContent sx={{ paddingTop: 0 }}>

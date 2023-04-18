@@ -6,6 +6,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -14,8 +15,8 @@ import NoDataTableRow from "components/table/no-data-table-row";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import {
-  GetAllAdjustmentResponseRoot,
   GetAllAdjustmentResponseData,
+  GetAllAdjustmentResponseRoot,
 } from "types/stock/adjustment/getAllAdjustmentResponse";
 
 import AdjustmentListItem from "./AdjustmentListItem";
@@ -77,22 +78,26 @@ const tableTabs = [
 
 interface IAdjustmentList {
   data?: GetAllAdjustmentResponseRoot;
+  adjustmentPagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 
 function AdjustmentList(props: IAdjustmentList) {
-  const { data } = props;
+  const { data, adjustmentPagination, handlePagination } = props;
 
   const csvData = data?.data.map((item) => ({
     sa: item.sa,
     lineitems: item.lineItem,
     qtychange: item.qtyChange,
     total: item.totalValue,
-    reasion:item.reason,
-    referenceid:item.referenceId,
-    status:item.status,
-    lastupdated:item.updatedOn,
-    notes:item.notes
-
+    reasion: item.reason,
+    referenceid: item.referenceId,
+    status: item.status,
+    lastupdated: item.updatedOn,
+    notes: item.notes,
   }));
 
   const csvHeaders = tableTitle.map((item) => ({
@@ -102,7 +107,8 @@ function AdjustmentList(props: IAdjustmentList) {
 
   return (
     <PerfectScrollbar>
-      <EnhancedTableToolbar tabs={tableTabs}  csvData={csvData}
+      <EnhancedTableToolbar
+        csvData={csvData}
         csvHeader={csvHeaders}
         csvTitle="Adjustments"
         moreList={[
@@ -116,7 +122,9 @@ function AdjustmentList(props: IAdjustmentList) {
             title: "Density",
             onClick: () => {},
           },
-        ]} />
+        ]}
+        tabs={tableTabs}
+      />
 
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
         <TableContainer component={Paper}>
@@ -179,6 +187,19 @@ function AdjustmentList(props: IAdjustmentList) {
               </TableBody>
             </Table>
           </PerfectScrollbar>
+          <TablePagination
+            component="div"
+            count={data?.totalDocs || 0}
+            page={adjustmentPagination.page}
+            rowsPerPage={adjustmentPagination.pageSize}
+            rowsPerPageOptions={[5, 10, 25]}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
+          />
         </TableContainer>
       </Box>
     </PerfectScrollbar>

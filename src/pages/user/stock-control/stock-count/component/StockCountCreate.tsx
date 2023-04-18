@@ -23,6 +23,7 @@ import useArea from "hooks/actions/warehouse/area/useArea";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useZone from "hooks/actions/warehouse/zone/useZone";
 import useDecodedData from "hooks/useDecodedData";
+import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -110,7 +111,7 @@ function StockCountCreate() {
   const { zones } = useZone();
   const { areas } = useArea();
 
-  const movementForm = useManageStockCount({
+  const ManageStockCount = useManageStockCount({
     onSubmit,
     initialValues,
   });
@@ -131,7 +132,7 @@ function StockCountCreate() {
     handleSubmit,
     setFieldValue,
     resetForm,
-  } = movementForm;
+  } = ManageStockCount;
 
   // const {
   //   stockControl: {
@@ -146,8 +147,8 @@ function StockCountCreate() {
         <TableToolbar
           breadcrumbs={[
             {
-              link: "Movement",
-              to: "",
+              link: "Stock Control",
+              to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.stock_count.listing}`,
             },
           ]}
           buttonText="Save"

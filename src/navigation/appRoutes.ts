@@ -143,6 +143,9 @@ const AppRoutes = {
     putaway_v1: {
       listing: "putaway-v1/listing",
     },
+    inventory_log:{
+      listing: "inventory-log/listing",
+    },
     putaway_v2: {
       listing: "putaway-v2/listing",
       details: "putaway-v2/details",

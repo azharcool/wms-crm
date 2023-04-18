@@ -14,15 +14,29 @@ function Adjustment() {
   const navigate = useNavigate();
   const [adjustmentPagination, setAdjustmentPagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
-  const { data: adjustmentPaginationResponse } =
+  const { data: adjustmentPaginationResponse, refetch } =
     useGetAllAdjustment(adjustmentPagination);
   const getSelectedAdjustmentIdsState = useSelector(getSelectedAdjustment);
 
   const { bulkDeleteAdjustmentAsync } = useAdjustmentAction();
 
   const ids = getSelectedAdjustmentIdsState.toString();
+
+  const handlePagination = (name: string, value: number) => {
+    setAdjustmentPagination((s) => ({
+      ...s,
+      [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
+    }));
+
+    setTimeout(() => {
+      refetch();
+    });
+  };
 
   return (
     <Container maxWidth={false}>
@@ -55,7 +69,11 @@ function Adjustment() {
           }}
         />
         <Box sx={{ mt: 3 }}>
-          <AdjustmentList data={adjustmentPaginationResponse} />
+          <AdjustmentList
+            adjustmentPagination={adjustmentPagination}
+            data={adjustmentPaginationResponse}
+            handlePagination={handlePagination}
+          />
         </Box>
       </CardContent>
     </Container>

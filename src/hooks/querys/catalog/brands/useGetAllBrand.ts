@@ -9,7 +9,7 @@ interface IuseGetAllBrand {
 
 function useGetAllBrand(props: IuseGetAllBrand) {
   const cachedKey = [QueryKeys.getAllBrand];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${props.page + 1 || 1}`;
   return useQuery(cachedKey, () => getAllPaginationBrand(url));
 }
 
