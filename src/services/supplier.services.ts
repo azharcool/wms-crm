@@ -1,8 +1,10 @@
 import { IResponse } from "constants/interfaces";
+import { AddBankAccountRoot } from "types/catalog/supplier/addBankAccountRequest";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
 import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
+import { GetAllBankAccountRoot } from "types/catalog/supplier/getAllBankAccountResponse";
 import { GetAllBillingAddressRoot } from "types/catalog/supplier/getAllBillingAddress";
 import { GetAllShippingAddressRoot } from "types/catalog/supplier/getAllShippingAddress";
 import { GetAllSupplierRoot } from "types/catalog/supplier/getAllSupplierResponse";
@@ -105,5 +107,19 @@ export async function getAllBillingAddress(
   id: number,
 ): Promise<GetAllBillingAddressRoot> {
   const URL = `${API_URLS.GET_ALL_BILLING_ADDRESS}?supplierId=${id}`;
+  return client.get(URL);
+}
+
+export async function addBankAccount(
+  request: AddBankAccountRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.ADD_BANK_ACCOUNT}`;
+  return client.post(URL, request);
+}
+
+export async function getAllBankAccount(
+  id: number,
+): Promise<GetAllBankAccountRoot> {
+  const URL = `${API_URLS.GET_ALL_BANK_ACCOUNT}?supplierId=${id}`;
   return client.get(URL);
 }

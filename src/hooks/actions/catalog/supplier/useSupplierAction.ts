@@ -1,6 +1,7 @@
 import { useSnackbar } from "components/snackbar";
 import { useQueryClient } from "react-query";
 import {
+  addBankAccount,
   addBillingAddress,
   addShippingAddress,
   addSupplier,
@@ -12,6 +13,7 @@ import {
   editShippingAddress,
   editSupplier,
 } from "services/supplier.services";
+import { AddBankAccountRoot } from "types/catalog/supplier/addBankAccountRequest";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 
@@ -247,6 +249,30 @@ function useSupplierAction() {
     return false;
   };
 
+  const addBankAccountAction = async (
+    data: AddBankAccountRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await addBankAccount(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllBankAccountBySupplierId,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
   return {
     addSupplierAction,
     deleteSupplierAsync,
@@ -258,6 +284,7 @@ function useSupplierAction() {
     addBillingAddressAction,
     editBillingAddressAction,
     deleteBillingAddressAsync,
+    addBankAccountAction,
   };
 }
 

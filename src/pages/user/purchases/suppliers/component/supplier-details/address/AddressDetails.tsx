@@ -2,6 +2,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import { Box, Card, Container, Grid, Stack } from "@mui/material";
+import Countries from "__mock__/countries.json";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomSwitch from "components/custom-switch";
 import CustomToolButton from "components/custom-tool-button/CustomToolButton";
@@ -16,7 +17,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
-import Countries from "__mock__/countries.json";
 
 import useManageBillingAddressForm, {
   ManageBillingAddressForm,
@@ -435,6 +435,11 @@ function AddressDetails() {
                     </Stack>
                     <Grid marginBottom={2} xs={12}>
                       <AutoComplete
+                        defaultValue={{
+                          value:
+                            shippingAddressForm.values
+                              .manageShippingAddressData[index].country,
+                        }}
                         getOptionLabel={(option: any) => option?.name}
                         handleChange={(e: any, value: any) =>
                           shippingAddressForm.setFieldValue(
@@ -581,6 +586,12 @@ function AddressDetails() {
                     </Stack>
                     <Grid marginBottom={2} xs={12}>
                       <AutoComplete
+                        defaultValue={{
+                          value:
+                            billingAddressForm.values.manageBillingAddressData[
+                              index
+                            ].country,
+                        }}
                         getOptionLabel={(option: any) => option?.name}
                         handleChange={(e: any, value: any) =>
                           billingAddressForm.setFieldValue(
