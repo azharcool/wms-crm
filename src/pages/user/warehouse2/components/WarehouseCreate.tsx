@@ -1,8 +1,6 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import { Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Card, Container, Grid, Stack } from "@mui/material";
 import {
   newWarehouseSwitchs,
   pickingStrategy,
@@ -22,7 +20,6 @@ import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
 import useAddWarehouseForm, {
@@ -54,45 +51,12 @@ const initialValues: AddWarehouseForm = {
   status: 1,
 };
 function WarehouseCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
   const { addWarehouseAction, editWarehouseAction } = useWarehouseAction();
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
+
   const { state } = useLocation();
 
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
   useEffect(() => {
     if (state?.editData) {
       setFieldValue("warehouseName", state?.editData?.warehouseName);
@@ -121,6 +85,7 @@ function WarehouseCreate() {
       setFieldValue("status", state?.editData?.status);
     }
   }, [state?.editData]);
+
   const warehouseForm = useAddWarehouseForm({
     onSubmit,
     initialValues,
@@ -139,7 +104,7 @@ function WarehouseCreate() {
 
   async function onSubmit(
     values: AddWarehouseForm,
-    helper: FormikHelpers<AddWarehouseForm>,
+    _: FormikHelpers<AddWarehouseForm>,
   ) {
     const data: IAddWarehouseRequestRoot = {
       userId: Number(userDecoded.id),
@@ -179,302 +144,298 @@ function WarehouseCreate() {
       );
     }
   }
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
-  // console.log("timezone", moment().tz("America/Los_Angeles"));
+
   const navigateDetails = state?.editData?.id
     ? `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${state?.editData?.id}/${AppRoutes.warehouse.generalDetails}`
     : `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`;
+
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          navTitle="WAREHOUSE"
-          rightActions={[
-            {
-              id: crypto.randomUUID(),
-              title: "Cancel",
-              onClick: () => {
-                navigate(navigateDetails);
-              },
-              icon: (
-                <ArrowBackIosIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
+    <Container maxWidth={false}>
+      <TableToolbar
+        navTitle="WAREHOUSE"
+        rightActions={[
+          {
+            id: crypto.randomUUID(),
+            title: "Cancel",
+            onClick: () => {
+              navigate(navigateDetails);
             },
-            {
-              id: crypto.randomUUID(),
-              title: "Save",
-              onClick: () => {
-                handleSubmit();
-              },
-              icon: (
-                <AddCircleIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
+            icon: (
+              <ArrowBackIosIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            ),
+          },
+          {
+            id: crypto.randomUUID(),
+            title: "Save",
+            onClick: () => {
+              handleSubmit();
             },
-          ]}
-          title={
-            state?.editData ? state?.editData.warehouseName : "New Warehouse"
-          }
-        />
+            icon: (
+              <AddCircleIcon
+                sx={{
+                  fontSize: 18,
+                  mr: 1,
+                }}
+              />
+            ),
+          },
+        ]}
+        title={
+          state?.editData ? state?.editData.warehouseName : "New Warehouse"
+        }
+      />
 
-        <Grid container marginTop={2} spacing={2}>
-          <Grid item xs={8}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Details">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    error={!!touched.warehouseName && !!errors.warehouseName}
-                    helperText={
-                      (touched.warehouseName &&
-                        errors &&
-                        errors.warehouseName) ||
-                      ""
+      <Grid container marginTop={2} spacing={2}>
+        <Grid item xs={8}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  error={!!touched.warehouseName && !!errors.warehouseName}
+                  helperText={
+                    (touched.warehouseName && errors && errors.warehouseName) ||
+                    ""
+                  }
+                  id="warehouseName"
+                  label="Warehouse Name"
+                  name="warehouseName"
+                  size="small"
+                  value={values.warehouseName}
+                  onBlur={handleBlur("warehouseName")}
+                  onChange={handleChange("warehouseName")}
+                />
+                <TextField
+                  id="label"
+                  label="Label"
+                  name="label"
+                  size="small"
+                  value={values.label}
+                  onChange={handleChange("label")}
+                />
+              </Stack>
+
+              <Stack direction="row" gap={2}>
+                <TextField
+                  iconEnd
+                  id="email"
+                  label="Email"
+                  name="email"
+                  size="small"
+                  value={values.email}
+                  onChange={handleChange("email")}
+                />
+
+                <TextField
+                  iconEnd
+                  id="phoneNumber"
+                  label="Phone Number"
+                  name="phoneNumber"
+                  size="small"
+                  value={values.phoneNumber}
+                  onChange={handleChange("phoneNumber")}
+                />
+              </Stack>
+
+              <TextField
+                multiline
+                id="adress"
+                label="Address"
+                name="address"
+                value={values.address}
+                onChange={handleChange("address")}
+              />
+
+              <Stack direction="row" gap={2}>
+                <Grid xs={12}>
+                  <AutoComplete
+                    getOptionLabel={(option: any) => option?.name}
+                    handleChange={(e: any, value: any) =>
+                      setFieldValue("country", value?.name)
                     }
-                    id="warehouseName"
-                    label="Warehouse Name"
-                    name="warehouseName"
-                    size="small"
-                    value={values.warehouseName}
-                    onBlur={handleBlur("warehouseName")}
-                    onChange={handleChange("warehouseName")}
+                    helperText={
+                      (touched.country && errors && errors.country) || ""
+                    }
+                    label="Country"
+                    options={Countries || []}
                   />
-                  <TextField
-                    id="label"
-                    label="Label"
-                    name="label"
-                    size="small"
-                    value={values.label}
-                    onChange={handleChange("label")}
-                  />
-                </Stack>
-
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    iconEnd
-                    id="email"
-                    label="Email"
-                    name="email"
-                    size="small"
-                    value={values.email}
-                    onChange={handleChange("email")}
-                  />
-
-                  <TextField
-                    iconEnd
-                    id="phoneNumber"
-                    label="Phone Number"
-                    name="phoneNumber"
-                    size="small"
-                    value={values.phoneNumber}
-                    onChange={handleChange("phoneNumber")}
-                  />
-                </Stack>
-
+                </Grid>
                 <TextField
-                  multiline
-                  id="adress"
-                  label="Address"
-                  name="address"
-                  value={values.address}
-                  onChange={handleChange("address")}
-                />
-
-                <Stack direction="row" gap={2}>
-                  <Grid xs={12}>
-                    <AutoComplete
-                      getOptionLabel={(option: any) => option?.name}
-                      handleChange={(e: any, value: any) =>
-                        setFieldValue("country", value?.name)
-                      }
-                      helperText={
-                        (touched.country && errors && errors.country) || ""
-                      }
-                      label="Country"
-                      options={Countries || []}
-                    />
-                  </Grid>
-                  <TextField
-                    error={!!touched.city && !!errors.city}
-                    helperText={(touched.city && errors && errors.city) || ""}
-                    id="city"
-                    label="City"
-                    name="city"
-                    size="small"
-                    value={values.city}
-                    onBlur={handleBlur("city")}
-                    onChange={handleChange("city")}
-                  />
-                </Stack>
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    id="zipCode"
-                    label="Zip Code"
-                    name="zipCode"
-                    size="small"
-                    value={values.zipCode}
-                    onBlur={handleBlur("zipCode")}
-                    onChange={handleChange("zipCode")}
-                  />
-                </Stack>
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    id="lng"
-                    label="Longitude"
-                    name="lng"
-                    size="small"
-                    value={values.lng}
-                    onChange={handleChange("lng")}
-                  />
-
-                  <TextField
-                    id="lat"
-                    label="Latitude"
-                    name="lat"
-                    size="small"
-                    value={values.lat}
-                    onChange={handleChange("lat")}
-                  />
-                </Stack>
-              </CustomCardContent>
-
-              <CustomCardContent title="Primary Contact">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    id="firstName"
-                    label="First Name"
-                    name="firstName"
-                    size="small"
-                    value={values.firstName}
-                    onChange={handleChange("firstName")}
-                  />
-                  <TextField
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    size="small"
-                    value={values.lastName}
-                    onChange={handleChange("lastName")}
-                  />
-                </Stack>
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    id="email"
-                    label="Email"
-                    name="email"
-                    size="small"
-                    value={values.primaryEmail}
-                    onChange={handleChange("primaryEmail")}
-                  />
-                  <TextField
-                    id="primaryPhoneNumber"
-                    label="Phone Number"
-                    name="primaryPhoneNumber"
-                    size="small"
-                    type="number"
-                    value={values.primaryPhoneNumber}
-                    onChange={handleChange("primaryPhoneNumber")}
-                  />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Setting">
-                <TextField
-                  isSelect
-                  label="Status"
-                  menuItems={warehouseStatus}
-                  name="status"
+                  error={!!touched.city && !!errors.city}
+                  helperText={(touched.city && errors && errors.city) || ""}
+                  id="city"
+                  label="City"
+                  name="city"
                   size="small"
-                  value={values.status || warehouseStatus[0].id}
-                  onSelectHandler={(e) => {
-                    setFieldValue("status", e.target.value);
-                  }}
+                  value={values.city}
+                  onBlur={handleBlur("city")}
+                  onChange={handleChange("city")}
+                />
+              </Stack>
+              <Stack direction="row" gap={2}>
+                <TextField
+                  id="zipCode"
+                  label="Zip Code"
+                  name="zipCode"
+                  size="small"
+                  value={values.zipCode}
+                  onBlur={handleBlur("zipCode")}
+                  onChange={handleChange("zipCode")}
+                />
+              </Stack>
+              <Stack direction="row" gap={2}>
+                <TextField
+                  id="lng"
+                  label="Longitude"
+                  name="lng"
+                  size="small"
+                  value={values.lng}
+                  onChange={handleChange("lng")}
                 />
 
                 <TextField
-                  isSelect
-                  label="Picking Strategy"
-                  menuItems={pickingStrategy}
-                  name="pickingStrategy"
+                  id="lat"
+                  label="Latitude"
+                  name="lat"
                   size="small"
-                  value={values.pickingStrategy}
-                  onSelectHandler={(e) => {
-                    setFieldValue("pickingStrategy", e.target.value);
-                  }}
+                  value={values.lat}
+                  onChange={handleChange("lat")}
                 />
-                <TextField
-                  isSelect
-                  label="Recieving Strategy"
-                  menuItems={receivingStrategy}
-                  name="receivingStrategy"
-                  size="small"
-                  value={values.receivingStrategy}
-                  onSelectHandler={(e) => {
-                    setFieldValue("receivingStrategy", e.target.value);
-                  }}
-                />
-                <TextField
-                  isSelect
-                  label="Timezone"
-                  menuItems={timezone}
-                  name="timezone"
-                  size="small"
-                  value={values.timezone}
-                  onSelectHandler={(e) => {
-                    setFieldValue("timezone", e.target.value);
-                  }}
-                />
-                <TextField
-                  isSelect
-                  label="Recieving Type"
-                  menuItems={receivingType}
-                  name="receivingType"
-                  size="small"
-                  value={values.receivingType}
-                  onSelectHandler={(e) => {
-                    setFieldValue("receivingType", e.target.value);
-                  }}
-                />
+              </Stack>
+            </CustomCardContent>
 
-                {newWarehouseSwitchs?.map((item) => {
-                  return (
-                    <CustomSwitch
-                      key={item.id}
-                      checked={Boolean(
-                        values[item.name as keyof AddWarehouseForm],
-                      )}
-                      title={item.value}
-                      onChange={(e) => {
-                        setFieldValue(item.name, e.target.checked);
-                      }}
-                    />
-                  );
-                })}
-              </CustomCardContent>
-            </Card>
-          </Grid>
+            <CustomCardContent title="Primary Contact">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  size="small"
+                  value={values.firstName}
+                  onChange={handleChange("firstName")}
+                />
+                <TextField
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  size="small"
+                  value={values.lastName}
+                  onChange={handleChange("lastName")}
+                />
+              </Stack>
+              <Stack direction="row" gap={2}>
+                <TextField
+                  id="email"
+                  label="Email"
+                  name="email"
+                  size="small"
+                  value={values.primaryEmail}
+                  onChange={handleChange("primaryEmail")}
+                />
+                <TextField
+                  id="primaryPhoneNumber"
+                  label="Phone Number"
+                  name="primaryPhoneNumber"
+                  size="small"
+                  type="number"
+                  value={values.primaryPhoneNumber}
+                  onChange={handleChange("primaryPhoneNumber")}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        <Grid item xs={4}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Setting">
+              <TextField
+                isSelect
+                label="Status"
+                menuItems={warehouseStatus}
+                name="status"
+                size="small"
+                value={values.status || warehouseStatus[0].id}
+                onSelectHandler={(e) => {
+                  setFieldValue("status", e.target.value);
+                }}
+              />
+
+              <TextField
+                isSelect
+                label="Picking Strategy"
+                menuItems={pickingStrategy}
+                name="pickingStrategy"
+                size="small"
+                value={values.pickingStrategy}
+                onSelectHandler={(e) => {
+                  setFieldValue("pickingStrategy", e.target.value);
+                }}
+              />
+              <TextField
+                isSelect
+                label="Recieving Strategy"
+                menuItems={receivingStrategy}
+                name="receivingStrategy"
+                size="small"
+                value={values.receivingStrategy}
+                onSelectHandler={(e) => {
+                  setFieldValue("receivingStrategy", e.target.value);
+                }}
+              />
+              <TextField
+                isSelect
+                label="Timezone"
+                menuItems={timezone}
+                name="timezone"
+                size="small"
+                value={values.timezone}
+                onSelectHandler={(e) => {
+                  setFieldValue("timezone", e.target.value);
+                }}
+              />
+              <TextField
+                isSelect
+                label="Recieving Type"
+                menuItems={receivingType}
+                name="receivingType"
+                size="small"
+                value={values.receivingType}
+                onSelectHandler={(e) => {
+                  setFieldValue("receivingType", e.target.value);
+                }}
+              />
+
+              {newWarehouseSwitchs?.map((item) => {
+                return (
+                  <CustomSwitch
+                    key={item.id}
+                    checked={Boolean(
+                      values[item.name as keyof AddWarehouseForm],
+                    )}
+                    title={item.value}
+                    onChange={(e) => {
+                      setFieldValue(item.name, e.target.checked);
+                    }}
+                  />
+                );
+              })}
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 
