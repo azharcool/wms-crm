@@ -1,14 +1,14 @@
 import { Grid, Card } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
-import Fullfillment from "../permission-screen/FullfillmentPermission";
-import Catalog from "../permission-screen/CatalogPermission";
-import Purchases from "../permission-screen/PurchasesPermission";
-import Stock from "../permission-screen/StockPermission";
-import Setting from "../permission-screen/SettingPermission";
-import Warehouse from "../permission-screen/WarehousePermission";
-import Dashboard from "../permission-screen/DashboardPermission";
-import Finance from "../permission-screen/FinancePermission";
+import Fullfillment from "../permissions/FullfillmentPermission";
+import Catalog from "../permissions/CatalogPermission";
+import Purchases from "../permissions/PurchasesPermission";
+import Stock from "../permissions/StockPermission";
+import Setting from "../permissions/SettingPermission";
+import Warehouse from "../permissions/WarehousePermission";
+import Dashboard from "../permissions/DashboardPermission";
+import Finance from "../permissions/FinancePermission";
 
 function Permission() {
   return (
