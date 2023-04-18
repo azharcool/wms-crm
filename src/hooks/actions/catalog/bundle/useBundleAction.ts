@@ -62,6 +62,7 @@ function useBundleAction() {
     try {
       const response = await deleteBundleById(id);
       if (response.statusCode === 200) {
+        queryClient.invalidateQueries([QueryKeys.getAllBundle]);
         snackbar?.show({
           title: response.message,
           type: "success",

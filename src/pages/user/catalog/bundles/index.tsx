@@ -14,7 +14,7 @@ function Bundles() {
   const navigate = useNavigate();
   const [bundlePagination, setBundlePagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
 
   const getSelectedBulkIdsState = useSelector(getSelectedBundle);
@@ -27,6 +27,9 @@ function Bundles() {
     setBundlePagination((s) => ({
       ...s,
       [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
     }));
 
     setTimeout(() => {

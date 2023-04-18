@@ -12,7 +12,6 @@ import {
 import TableMessage from "components/table-message";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
-import useGetAllBundle from "hooks/querys/catalog/bundle/useGetAllBundle";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -79,22 +78,12 @@ function BundleListing(props: IBundleListing) {
   const { data, bundlePagination, handlePagination } = props;
   const getSelectedBundleIdsState = useSelector(getSelectedBundle);
   const dispatch = useAppDispatch();
-  const bundleData = {
-    pageSize: 100,
-    page: 1,
-  };
-  const {
-    data: bundles,
-    refetch,
-    isLoading,
-    isFetching: isFetchingBundle,
-  } = useGetAllBundle(bundleData);
 
   const selectAll = (event: any, checked: boolean) => {
-    if (bundles) {
+    if (data) {
       dispatch(
         setAllBundleIds({
-          ids: bundles?.data.map((i) => i.id),
+          ids: data?.data.map((i) => i.id),
           checked,
         }),
       );
@@ -154,8 +143,7 @@ function BundleListing(props: IBundleListing) {
                   >
                     <Checkbox
                       checked={
-                        bundles?.data.length ===
-                        getSelectedBundleIdsState.length
+                        data?.data.length === getSelectedBundleIdsState.length
                       }
                       color="primary"
                       onChange={selectAll}
@@ -196,11 +184,11 @@ function BundleListing(props: IBundleListing) {
                 })}
               </TableBody> */}
               <TableBody>
-                {bundles?.data?.length === 0 ? (
+                {data?.data?.length === 0 ? (
                   <TableMessage colspan={6} message="No content Available" />
                 ) : (
-                  bundles?.data?.map((bundle: IBundle) => {
-                    return <BundleItem bundle={bundle} refetch={refetch} />;
+                  data?.data?.map((bundle: IBundle) => {
+                    return <BundleItem bundle={bundle} />;
                   })
                 )}
               </TableBody>

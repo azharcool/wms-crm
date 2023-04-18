@@ -15,7 +15,7 @@ function Brands() {
 
   const [brandPagination, setBrandPagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
   const getSelectedBrandIdsState = useSelector(getSelectedBrand);
 
@@ -31,6 +31,9 @@ function Brands() {
     setBrandPagination((s) => ({
       ...s,
       [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
     }));
 
     setTimeout(() => {

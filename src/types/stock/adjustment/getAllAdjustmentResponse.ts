@@ -1,6 +1,7 @@
 export interface GetAllAdjustmentResponseRoot {
   statusCode: number;
   data: GetAllAdjustmentResponseData[];
+  totalDocs: number;
 }
 
 export interface GetAllAdjustmentResponseData {

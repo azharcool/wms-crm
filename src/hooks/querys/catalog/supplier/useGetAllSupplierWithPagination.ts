@@ -11,7 +11,7 @@ function useGetAllSupplierWithPagination(
   props: IuseGetAllSupplierWithPagination,
 ) {
   const cachedKey = [QueryKeys.getAllSupplierWithPagination];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${props.page + 1 || 1}`;
   return useQuery(cachedKey, () => getAllSupplierWithPagination(url));
 }
 

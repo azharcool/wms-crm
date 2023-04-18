@@ -23,11 +23,10 @@ import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
   bundle: IBundle;
-  refetch: any;
 }
 
 function BundleItem(props: IProps) {
-  const { bundle, refetch } = props;
+  const { bundle } = props;
   const navigate = useNavigate();
   const [tags, setTags] = useState<any>([]);
   const newtheme = useSelector((state: any) => state.theme);
@@ -69,7 +68,6 @@ function BundleItem(props: IProps) {
       confirmText: "Yes",
       onConfirm: async () => {
         await deleteBundleAction(id);
-        refetch();
       },
     });
   };
