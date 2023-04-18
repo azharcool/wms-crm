@@ -8,7 +8,6 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography,
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
@@ -125,22 +124,23 @@ interface IPaginationData {
 
 interface IVariantListing {
   data?: IGetAllVariantResponseRoot;
-  total: number;
-  paginationData: IPaginationData;
-  setCurrentPage: (page: number) => void;
-  setPageLimit: (limit: number) => void;
+  variantPagination: {
+    pageSize: number;
+    page: number;
+  };
+  handlePagination: (name: string, page: number) => void;
 }
 
 function VariantListing(props: IVariantListing) {
-  const { data, total, setCurrentPage, setPageLimit, paginationData } = props;
+  const { data, handlePagination, variantPagination } = props;
 
-  const handleLimitChange = (event: any) => {
-    setPageLimit(event.target.value);
-  };
+  // const handleLimitChange = (event: any) => {
+  //   setPageLimit(event.target.value);
+  // };
 
-  const handlePageChange = (event: any, newPage: any) => {
-    setCurrentPage(newPage);
-  };
+  // const handlePageChange = (event: any, newPage: any) => {
+  //   setCurrentPage(newPage);
+  // };
 
   const csvData = data?.data.map((item) => ({
     image: "",
@@ -152,17 +152,17 @@ function VariantListing(props: IVariantListing) {
     available: "",
     unavailable: "",
     onhand: "",
-    allocated:"",
-    awaiting:"",
-    intransfer:"",
-    supplyprice:item.supplyPrice,
-    retailprice:item.retailPrice,
-    mrp:item.mrp,
-    category:"",
-    brand:"",
-    company:"",
-    tags:"",
-    lastupdated:item.updatedOn,
+    allocated: "",
+    awaiting: "",
+    intransfer: "",
+    supplyprice: item.supplyPrice,
+    retailprice: item.retailPrice,
+    mrp: item.mrp,
+    category: "",
+    brand: "",
+    company: "",
+    tags: "",
+    lastupdated: item.updatedOn,
   }));
 
   const csvHeaders = tableTitle.map((item) => ({
@@ -173,15 +173,15 @@ function VariantListing(props: IVariantListing) {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
-         csvData={csvData}
-         csvHeader={csvHeaders}
-         csvTitle="Variants"
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Variants"
         moreList={[
           {
             id: crypto.randomUUID(),
             title: "Density",
             onClick: () => {},
-          }
+          },
         ]}
       />
 
@@ -233,12 +233,16 @@ function VariantListing(props: IVariantListing) {
           </PerfectScrollbar>
           <TablePagination
             component="div"
-            count={total}
-            page={paginationData.page}
-            rowsPerPage={paginationData.pageSize}
+            count={data?.totalDocs || 0}
+            page={variantPagination.page}
+            rowsPerPage={variantPagination.pageSize}
             rowsPerPageOptions={[5, 10, 25]}
-            onPageChange={handlePageChange}
-            onRowsPerPageChange={handleLimitChange}
+            onPageChange={(_, pageNo) => {
+              handlePagination("page", pageNo);
+            }}
+            onRowsPerPageChange={(e) => {
+              handlePagination("pageSize", Number(e.target.value));
+            }}
           />
         </TableContainer>
       </Box>
