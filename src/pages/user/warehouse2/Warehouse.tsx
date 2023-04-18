@@ -12,7 +12,7 @@ import WarehouseListing from "./components/warehouse-list/WarehouseListing";
 function Warehouse() {
   const [warehousePagination, setWarehousepagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
 
   const navigate = useNavigate();
@@ -27,6 +27,9 @@ function Warehouse() {
     setWarehousepagination((s) => ({
       ...s,
       [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
     }));
 
     setTimeout(() => {
