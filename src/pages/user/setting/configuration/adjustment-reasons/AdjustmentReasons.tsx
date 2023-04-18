@@ -14,7 +14,7 @@ function AdjustmentReasons() {
   const [openForm, setOpenForm] = useState(false);
   const [adjustmentPagination, setAdjustmentPagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
   const getSelectedAdjustmentReasonIdsState = useSelector(
     getSelectedAdjustmentReason,
@@ -33,6 +33,9 @@ function AdjustmentReasons() {
     setAdjustmentPagination((s) => ({
       ...s,
       [name]: value,
+      ...(name === "pageSize" && {
+        page: 0,
+      }),
     }));
 
     setTimeout(() => {

@@ -9,7 +9,7 @@ interface IuseGetAllAdjustmentReason {
 
 function useGetAllAdjustmentReason(props: IuseGetAllAdjustmentReason) {
   const cachedKey = [QueryKeys.getAllAdjustmentReason];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${props.page + 1 || 1}`;
   return useQuery(cachedKey, () => getAllPaginationAdjustmentReason(url));
 }
 

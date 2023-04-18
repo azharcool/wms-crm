@@ -9,8 +9,8 @@ interface IuseGetAllBundle {
 
 function useGetAllBundle(props: IuseGetAllBundle) {
   const cachedKey = [QueryKeys.getAllBundle];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${props.page + 1 || 1}`;
   return useQuery(cachedKey, () => getAllPaginationBundle(url));
 }
 
-export default useGetAllBundle; 
+export default useGetAllBundle;
