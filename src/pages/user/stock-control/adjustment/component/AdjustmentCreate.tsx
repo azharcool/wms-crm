@@ -9,7 +9,6 @@ import {
   Card,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Table,
   TableBody,
@@ -19,8 +18,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -59,42 +56,8 @@ export interface IUnits {
 }
 
 function AdjustmentCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
   const [barcodeSliderOpen, setBarcodeSliderOpen] = useState(false);
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -220,7 +183,6 @@ function AdjustmentCreate() {
     resetForm();
     navigate(`/${layout}/${listing}`);
   }
-  console.log("values", JSON.stringify(values, null, 2));
 
   useEffect(() => {
     const quantity = values.stock
@@ -242,7 +204,7 @@ function AdjustmentCreate() {
   }, [values]);
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
+    <>
       <Container maxWidth={false}>
         <TableToolbar
           breadcrumbs={[
@@ -395,7 +357,7 @@ function AdjustmentCreate() {
         handleClose={() => setBarcodeSliderOpen(false)}
         open={barcodeSliderOpen}
       />
-    </ThemeProvider>
+    </>
   );
 }
 

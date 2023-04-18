@@ -1,9 +1,7 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Card, Container, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
@@ -13,7 +11,6 @@ import useCategoriesAction from "hooks/actions/catalog/categories/useCategoriesA
 import useCategory from "hooks/actions/catalog/categories/useCategory";
 import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { IAddCategoriesRequestRoot } from "types/catalog/catagories/addCategoriesRequest";
@@ -55,7 +52,7 @@ function CategoriesCreate() {
   const [categoryId, setCategoryId] = useState("");
   const [editable, setEditable] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
-  const newtheme = useSelector((state: any) => state.theme);
+
   const categoryForm = useAddCategoriesForm({
     onSubmit,
     initialValues,
@@ -92,42 +89,6 @@ function CategoriesCreate() {
       navigate(-1);
     }
   }
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const rightActionsData = [
     {
@@ -192,164 +153,162 @@ function CategoriesCreate() {
   };
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[{ link: "CATAGORIES", to: "/New Category" }]}
-          buttonText="Save"
-          handleClick={() => {
-            handleSubmit();
-          }}
-          rightActions={rightActionsData}
-          title="New Category"
-        />
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[{ link: "CATAGORIES", to: "/New Category" }]}
+        buttonText="Save"
+        handleClick={() => {
+          handleSubmit();
+        }}
+        rightActions={rightActionsData}
+        title="New Category"
+      />
 
-        <Grid container marginTop={2} spacing={2}>
-          <Grid item xs={8}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Details">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    error={!!touched.name && !!errors.name}
-                    helperText={(touched.name && errors && errors.name) || ""}
-                    id="name"
-                    label="Name"
-                    name="name"
-                    size="small"
-                    value={values.name}
-                    onBlur={handleBlur("name")}
-                    onChange={handleChange("name")}
-                  />
-                  <TextField
-                    id="slug"
-                    label="Slug"
-                    name="slug"
-                    size="small"
-                    value={values.slug}
-                    onChange={handleChange("slug")}
-                  />
-                </Stack>
-                <Stack direction="row" gap={2} marginTop={2}>
-                  <TextField
-                    multiline
-                    id="detail"
-                    label="Detail"
-                    name="detail"
-                    rows={3}
-                    size="small"
-                    value={values.detail}
-                    onChange={handleChange("detail")}
-                  />
-                </Stack>
-              </CustomCardContent>
+      <Grid container marginTop={2} spacing={2}>
+        <Grid item xs={8}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  error={!!touched.name && !!errors.name}
+                  helperText={(touched.name && errors && errors.name) || ""}
+                  id="name"
+                  label="Name"
+                  name="name"
+                  size="small"
+                  value={values.name}
+                  onBlur={handleBlur("name")}
+                  onChange={handleChange("name")}
+                />
+                <TextField
+                  id="slug"
+                  label="Slug"
+                  name="slug"
+                  size="small"
+                  value={values.slug}
+                  onChange={handleChange("slug")}
+                />
+              </Stack>
+              <Stack direction="row" gap={2} marginTop={2}>
+                <TextField
+                  multiline
+                  id="detail"
+                  label="Detail"
+                  name="detail"
+                  rows={3}
+                  size="small"
+                  value={values.detail}
+                  onChange={handleChange("detail")}
+                />
+              </Stack>
+            </CustomCardContent>
 
-              <CustomCardContent title="Organization">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    isSelect
-                    id="parentCategoryId"
-                    label="Parent"
-                    menuItems={category}
-                    name="parentCategoryId"
-                    size="small"
-                    value={values.parentCategoryId}
-                    onSelectHandler={(e) => {
-                      setFieldValue("parentCategoryId", e.target.value);
-                    }}
-                  />
-                  <TextField
-                    id="position"
-                    label="Positon"
-                    name="position"
-                    size="small"
-                    type="number"
-                    value={values.position}
-                    onChange={handleChange("position")}
-                  />
-                </Stack>
+            <CustomCardContent title="Organization">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  isSelect
+                  id="parentCategoryId"
+                  label="Parent"
+                  menuItems={category}
+                  name="parentCategoryId"
+                  size="small"
+                  value={values.parentCategoryId}
+                  onSelectHandler={(e) => {
+                    setFieldValue("parentCategoryId", e.target.value);
+                  }}
+                />
+                <TextField
+                  id="position"
+                  label="Positon"
+                  name="position"
+                  size="small"
+                  type="number"
+                  value={values.position}
+                  onChange={handleChange("position")}
+                />
+              </Stack>
 
-                <Stack direction="row" gap={2} marginTop={2}>
-                  <TextField
-                    isSelect
-                    id="status"
-                    label="Status"
-                    menuItems={statusMenu}
-                    name="status"
-                    size="small"
-                    value={values.status}
-                    onSelectHandler={(e) => {
-                      setFieldValue("status", e.target.value);
-                    }}
-                  />
-                  <TextField
-                    id="tag"
-                    label="Tags"
-                    name="tag"
-                    size="small"
-                    value={values.tag}
-                    onChange={handleChange("tag")}
-                  />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Image">
-                <Stack direction="row" flexWrap="wrap" gap={2}>
-                  {uploadedFiles.map((item) => {
-                    return (
-                      <Box
-                        key={item.id}
-                        sx={{
-                          position: "relative",
-                        }}
-                      >
-                        <CancelIcon
-                          sx={{
-                            width: "17px",
-                            height: "17px",
-                            cursor: "pointer",
-                            color: `${palette.error.lightRed}`,
-                            position: "absolute",
-                            right: "-5px",
-                            top: "-5px",
-                            background: "white",
-                          }}
-                          onClick={() => {
-                            const newUploadedFile = uploadedFiles.filter(
-                              (i) => i.id !== item.id,
-                            );
-                            setUploadedFiles(newUploadedFile);
-                          }}
-                        />
-                        <img
-                          alt={item.value}
-                          src={item.value}
-                          style={{
-                            width: "100px",
-                            height: "100px",
-                          }}
-                        />
-                      </Box>
-                    );
-                  })}
-                  <UploadButton single handleFile={handleFile} />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
+              <Stack direction="row" gap={2} marginTop={2}>
+                <TextField
+                  isSelect
+                  id="status"
+                  label="Status"
+                  menuItems={statusMenu}
+                  name="status"
+                  size="small"
+                  value={values.status}
+                  onSelectHandler={(e) => {
+                    setFieldValue("status", e.target.value);
+                  }}
+                />
+                <TextField
+                  id="tag"
+                  label="Tags"
+                  name="tag"
+                  size="small"
+                  value={values.tag}
+                  onChange={handleChange("tag")}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        <Grid item xs={4}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Image">
+              <Stack direction="row" flexWrap="wrap" gap={2}>
+                {uploadedFiles.map((item) => {
+                  return (
+                    <Box
+                      key={item.id}
+                      sx={{
+                        position: "relative",
+                      }}
+                    >
+                      <CancelIcon
+                        sx={{
+                          width: "17px",
+                          height: "17px",
+                          cursor: "pointer",
+                          color: `${palette.error.lightRed}`,
+                          position: "absolute",
+                          right: "-5px",
+                          top: "-5px",
+                          background: "white",
+                        }}
+                        onClick={() => {
+                          const newUploadedFile = uploadedFiles.filter(
+                            (i) => i.id !== item.id,
+                          );
+                          setUploadedFiles(newUploadedFile);
+                        }}
+                      />
+                      <img
+                        alt={item.value}
+                        src={item.value}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                        }}
+                      />
+                    </Box>
+                  );
+                })}
+                <UploadButton single handleFile={handleFile} />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

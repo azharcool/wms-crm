@@ -6,12 +6,9 @@ import {
   Card,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
@@ -21,7 +18,6 @@ import useGetByIdSupplier from "hooks/querys/catalog/supplier/useGetByIdSupplier
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
@@ -108,7 +104,7 @@ function GeneralDetails() {
   const { data: supplierItemResponse } = useGetByIdSupplier({
     supplierId: Number(supplierId),
   });
-  const newtheme = useSelector((state: any) => state.theme);
+
   const { editSupplierAction } = useSupplierAction();
   const [editable, setEditable] = useState(false);
   const nameRef = useRef<any>(null);
@@ -116,41 +112,7 @@ function GeneralDetails() {
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
 
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
   const { state } = useLocation();
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
 
   const supplierForm = useAddSupplierForm({
     onSubmit,
@@ -195,7 +157,7 @@ function GeneralDetails() {
 
   async function onSubmit(
     values: AddSupplierForm,
-    helper: FormikHelpers<AddSupplierForm>,
+    _: FormikHelpers<AddSupplierForm>,
   ) {
     const data: AddSupplierRequestRoot = {
       id: Number(supplierId),
@@ -224,8 +186,6 @@ function GeneralDetails() {
       );
     }
   }
-
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const handleFile = async (e: any) => {
     const allFiles = Array.from(e.target.files);
@@ -278,255 +238,252 @@ function GeneralDetails() {
   const istrue = !editable;
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <Stack direction="row" justifyContent="flex-end">
-          {editable ? (
-            <>
-              <ToolBarButton
-                handleClick={() => {
-                  setEditable(false);
-                }}
-                icon={
-                  <EditIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 1,
-                    }}
-                  />
-                }
-                title="Cancel"
-              />
-              <ToolBarButton
-                handleClick={() => {
-                  handleSubmit();
-                  navigate(-1);
-                }}
-                icon={
-                  <EditIcon
-                    sx={{
-                      fontSize: 18,
-                      mr: 1,
-                    }}
-                  />
-                }
-                title="Save"
-              />
-            </>
-          ) : null}
-
-          {!editable
-            ? editActionsButton.map((item) => (
-                <ToolBarButton
-                  key={item.id}
-                  handleClick={() => {
-                    item.onClick();
-                  }}
-                  icon={item.icon}
-                  title={item.title}
-                />
-              ))
-            : null}
-        </Stack>
-
-        <Grid container spacing={2}>
-          <Grid item xs={8}>
-            <Card
-              sx={{
-                flex: 1,
+    <Container maxWidth={false}>
+      <Stack direction="row" justifyContent="flex-end">
+        {editable ? (
+          <>
+            <ToolBarButton
+              handleClick={() => {
+                setEditable(false);
               }}
-            >
-              <CustomCardContent title="Information">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    error={!!touched.companyName && !!errors.companyName}
-                    helperText={
-                      (touched.companyName && errors && errors.companyName) ||
-                      ""
-                    }
-                    id="companyName"
-                    label="Company Name"
-                    name="companyName"
-                    nameRef={nameRef}
-                    size="small"
-                    value={values.companyName}
-                    onBlur={handleBlur("companyName")}
-                    onChange={handleChange("companyName")}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    error={!!touched.shortName && !!errors.shortName}
-                    helperText={
-                      (touched.shortName && errors && errors.shortName) || ""
-                    }
-                    id="shortName"
-                    label="Short Name"
-                    name="shortName"
-                    size="small"
-                    value={values.shortName}
-                    onBlur={handleBlur("shortName")}
-                    onChange={handleChange("shortName")}
-                  />
-                </Stack>
+              icon={
+                <EditIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Cancel"
+            />
+            <ToolBarButton
+              handleClick={() => {
+                handleSubmit();
+                navigate(-1);
+              }}
+              icon={
+                <EditIcon
+                  sx={{
+                    fontSize: 18,
+                    mr: 1,
+                  }}
+                />
+              }
+              title="Save"
+            />
+          </>
+        ) : null}
+
+        {!editable
+          ? editActionsButton.map((item) => (
+              <ToolBarButton
+                key={item.id}
+                handleClick={() => {
+                  item.onClick();
+                }}
+                icon={item.icon}
+                title={item.title}
+              />
+            ))
+          : null}
+      </Stack>
+
+      <Grid container spacing={2}>
+        <Grid item xs={8}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Information">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  error={!!touched.companyName && !!errors.companyName}
+                  helperText={
+                    (touched.companyName && errors && errors.companyName) || ""
+                  }
+                  id="companyName"
+                  label="Company Name"
+                  name="companyName"
+                  nameRef={nameRef}
+                  size="small"
+                  value={values.companyName}
+                  onBlur={handleBlur("companyName")}
+                  onChange={handleChange("companyName")}
+                />
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  error={!!touched.shortName && !!errors.shortName}
+                  helperText={
+                    (touched.shortName && errors && errors.shortName) || ""
+                  }
+                  id="shortName"
+                  label="Short Name"
+                  name="shortName"
+                  size="small"
+                  value={values.shortName}
+                  onBlur={handleBlur("shortName")}
+                  onChange={handleChange("shortName")}
+                />
+              </Stack>
+
+              <TextField
+                darkDisable
+                disabled={istrue}
+                id="email"
+                label="Email"
+                name="email"
+                size="small"
+                value={values.email}
+                onChange={handleChange("email")}
+              />
+
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="referenceId"
+                  label="Reference id"
+                  name="referenceId"
+                  size="small"
+                  value="Reference id"
+                  onChange={handleChange("label")}
+                />
 
                 <TextField
                   darkDisable
                   disabled={istrue}
-                  id="email"
+                  id="supplierID"
+                  label="Supplier ID"
+                  name="supplierID"
+                  size="small"
+                  value={supplierItemResponse?.data.id}
+                />
+              </Stack>
+            </CustomCardContent>
+
+            <CustomCardContent title="Primary Contact">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="firstName"
+                  label="First Name"
+                  name="firstName"
+                  size="small"
+                  value={values.firstName}
+                  onChange={handleChange("firstName")}
+                />
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  size="small"
+                  value={values.lastName}
+                  onChange={handleChange("lastName")}
+                />
+              </Stack>
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled={istrue}
+                  id="primaryEmail"
                   label="Email"
-                  name="email"
+                  name="Primary Email"
                   size="small"
-                  value={values.email}
-                  onChange={handleChange("email")}
+                  value={values.primaryEmail}
+                  onChange={handleChange("primaryEmail")}
                 />
-
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="referenceId"
-                    label="Reference id"
-                    name="referenceId"
-                    size="small"
-                    value="Reference id"
-                    onChange={handleChange("label")}
-                  />
-
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="supplierID"
-                    label="Supplier ID"
-                    name="supplierID"
-                    size="small"
-                    value={supplierItemResponse?.data.id}
-                  />
-                </Stack>
-              </CustomCardContent>
-
-              <CustomCardContent title="Primary Contact">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="firstName"
-                    label="First Name"
-                    name="firstName"
-                    size="small"
-                    value={values.firstName}
-                    onChange={handleChange("firstName")}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="lastName"
-                    label="Last Name"
-                    name="lastName"
-                    size="small"
-                    value={values.lastName}
-                    onChange={handleChange("lastName")}
-                  />
-                </Stack>
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="primaryEmail"
-                    label="Email"
-                    name="Primary Email"
-                    size="small"
-                    value={values.primaryEmail}
-                    onChange={handleChange("primaryEmail")}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled={istrue}
-                    id="primaryPhoneNumber"
-                    label="Phone Number"
-                    name="primaryPhoneNumber"
-                    size="small"
-                    value={values.primaryPhoneNumber}
-                    onChange={handleChange("primaryPhoneNumber")}
-                  />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card sx={{ flex: 1, marginBottom: "15px" }}>
-              <CustomCardContent title="Image">
-                <Stack direction="row" flexWrap="wrap" gap={2}>
-                  {uploadedFiles.map((item) => {
-                    return (
-                      <Box
-                        key={item.id}
-                        sx={{
-                          position: "relative",
-                        }}
-                      >
-                        <CancelIcon
-                          sx={{
-                            width: "17px",
-                            height: "17px",
-                            cursor: "pointer",
-                            color: `${palette.error.lightRed}`,
-                            position: "absolute",
-                            right: "-5px",
-                            top: "-5px",
-                            background: "white",
-                          }}
-                          onClick={() => {
-                            const newUploadedFile = uploadedFiles.filter(
-                              (i) => i.id !== item.id,
-                            );
-                            setUploadedFiles(newUploadedFile);
-                          }}
-                        />
-                        <img
-                          alt={item.value}
-                          src={item.value}
-                          style={{
-                            width: "100px",
-                            height: "100px",
-                          }}
-                        />
-                      </Box>
-                    );
-                  })}
-                  <UploadButton handleFile={handleFile} />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Settings">
                 <TextField
                   darkDisable
-                  isSelect
                   disabled={istrue}
-                  helperText={(touched.status && errors && errors.status) || ""}
-                  label="Status"
-                  menuItems={statusMenu}
-                  name="status"
+                  id="primaryPhoneNumber"
+                  label="Phone Number"
+                  name="primaryPhoneNumber"
                   size="small"
-                  value={values.status}
-                  onSelectHandler={(e) => {
-                    setFieldValue("status", e.target.value);
-                  }}
+                  value={values.primaryPhoneNumber}
+                  onChange={handleChange("primaryPhoneNumber")}
                 />
-              </CustomCardContent>
-            </Card>
-          </Grid>
+              </Stack>
+            </CustomCardContent>
+          </Card>
         </Grid>
-      </Container>
-    </ThemeProvider>
+        <Grid item xs={4}>
+          <Card sx={{ flex: 1, marginBottom: "15px" }}>
+            <CustomCardContent title="Image">
+              <Stack direction="row" flexWrap="wrap" gap={2}>
+                {uploadedFiles.map((item) => {
+                  return (
+                    <Box
+                      key={item.id}
+                      sx={{
+                        position: "relative",
+                      }}
+                    >
+                      <CancelIcon
+                        sx={{
+                          width: "17px",
+                          height: "17px",
+                          cursor: "pointer",
+                          color: `${palette.error.lightRed}`,
+                          position: "absolute",
+                          right: "-5px",
+                          top: "-5px",
+                          background: "white",
+                        }}
+                        onClick={() => {
+                          const newUploadedFile = uploadedFiles.filter(
+                            (i) => i.id !== item.id,
+                          );
+                          setUploadedFiles(newUploadedFile);
+                        }}
+                      />
+                      <img
+                        alt={item.value}
+                        src={item.value}
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                        }}
+                      />
+                    </Box>
+                  );
+                })}
+                <UploadButton handleFile={handleFile} />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Settings">
+              <TextField
+                darkDisable
+                isSelect
+                disabled={istrue}
+                helperText={(touched.status && errors && errors.status) || ""}
+                label="Status"
+                menuItems={statusMenu}
+                name="status"
+                size="small"
+                value={values.status}
+                onSelectHandler={(e) => {
+                  setFieldValue("status", e.target.value);
+                }}
+              />
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

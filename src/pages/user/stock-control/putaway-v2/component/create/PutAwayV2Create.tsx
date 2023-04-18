@@ -5,7 +5,6 @@ import {
   Card,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Table,
   TableBody,
@@ -15,8 +14,6 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import CustomToolButton from "components/custom-tool-button/CustomToolButton";
 import TableToolbar from "components/table-toolbar";
@@ -42,41 +39,6 @@ function PutAwayV2Create() {
     setShowScanedItems((s) => !s);
   };
 
-  const newtheme = useSelector((state: any) => state.theme);
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -104,81 +66,79 @@ function PutAwayV2Create() {
   ];
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[
-            {
-              link: "Stock Control",
-              to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.putaway_v2.listing}`,
-            },
-          ]}
-          buttonText="Save"
-          handleClick={() => {
-            // handleSubmit()
-          }}
-          navTitle="PUTAWAY"
-          rightActions={rightActionsData}
-          title="Create putaway"
-        />
-        <Grid item marginTop={2} xs={12}>
-          <Stack flexDirection="row" justifyContent="space-between">
-            <Box
-              sx={{
-                display: "flex",
-                gap: 2,
-                width: "50%",
-              }}
-            >
-              <TextField
-                iconEnd
-                icon={<QrCodeScannerIcon />}
-                id="sku"
-                label="Scan Location"
-                name="sku"
-                size="small"
-                style={{ width: "60%" }}
-                onClickIcon={() => {}}
-              />
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[
+          {
+            link: "Stock Control",
+            to: `/${AppRoutes.stockControl.layout}/${AppRoutes.stockControl.putaway_v2.listing}`,
+          },
+        ]}
+        buttonText="Save"
+        handleClick={() => {
+          // handleSubmit()
+        }}
+        navTitle="PUTAWAY"
+        rightActions={rightActionsData}
+        title="Create putaway"
+      />
+      <Grid item marginTop={2} xs={12}>
+        <Stack flexDirection="row" justifyContent="space-between">
+          <Box
+            sx={{
+              display: "flex",
+              gap: 2,
+              width: "50%",
+            }}
+          >
+            <TextField
+              iconEnd
+              icon={<QrCodeScannerIcon />}
+              id="sku"
+              label="Scan Location"
+              name="sku"
+              size="small"
+              style={{ width: "60%" }}
+              onClickIcon={() => {}}
+            />
+            <Typography sx={{ fontSize: "14px" }}>
+              Source Location
               <Typography sx={{ fontSize: "14px" }}>
-                Source Location
-                <Typography sx={{ fontSize: "14px" }}>
-                  No location scanned
-                </Typography>
+                No location scanned
               </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "flex-end",
-                width: "50%",
-              }}
-            >
-              <CustomToolButton
-                handleClick={handleshowItems}
-                title="Show Items"
-              />
-              <CustomToolButton
-                handleClick={handleshowScanedItems}
-                title="Show Scanned Items"
-              />
-            </Box>
-          </Stack>
-        </Grid>
-        <Grid item marginTop={2} xs={12}>
-          <LineItems />
-        </Grid>
-        {showItems ? (
-          <ShowItems handleClose={handleshowItems} open={showItems} />
-        ) : null}
-        {showScanedItems ? (
-          <ShowScanedItems
-            handleClose={handleshowScanedItems}
-            open={showScanedItems}
-          />
-        ) : null}
-      </Container>
-    </ThemeProvider>
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "50%",
+            }}
+          >
+            <CustomToolButton
+              handleClick={handleshowItems}
+              title="Show Items"
+            />
+            <CustomToolButton
+              handleClick={handleshowScanedItems}
+              title="Show Scanned Items"
+            />
+          </Box>
+        </Stack>
+      </Grid>
+      <Grid item marginTop={2} xs={12}>
+        <LineItems />
+      </Grid>
+      {showItems ? (
+        <ShowItems handleClose={handleshowItems} open={showItems} />
+      ) : null}
+      {showScanedItems ? (
+        <ShowScanedItems
+          handleClose={handleshowScanedItems}
+          open={showScanedItems}
+        />
+      ) : null}
+    </Container>
   );
 }
 

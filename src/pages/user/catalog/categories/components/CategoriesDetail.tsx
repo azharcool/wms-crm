@@ -2,9 +2,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { Box, Card, Container, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
@@ -17,7 +15,6 @@ import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCatego
 import useDecodedData from "hooks/useDecodedData";
 import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import palette from "theme/palette";
 import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
@@ -52,7 +49,6 @@ const initialValues: EditCategoriesForm = {
 };
 
 function CategoriesDetail() {
-  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
   const { category } = useCategory();
@@ -119,42 +115,6 @@ function CategoriesDetail() {
       setEditable(false);
     }
   }
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const rightActionsData = [
     {
@@ -240,182 +200,180 @@ function CategoriesDetail() {
   };
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <TableToolbar
-          breadcrumbs={[
-            {
-              link: "CATAGORIES",
-              to: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
-            },
-          ]}
-          rightActions={
-            editable
-              ? rightActionsData.filter((i) => i.title !== "Edit")
-              : rightActionsData.filter((i) => i.title === "Edit")
-          }
-          title={categoryItemResponse?.data.name}
-        />
+    <Container maxWidth={false}>
+      <TableToolbar
+        breadcrumbs={[
+          {
+            link: "CATAGORIES",
+            to: `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
+          },
+        ]}
+        rightActions={
+          editable
+            ? rightActionsData.filter((i) => i.title !== "Edit")
+            : rightActionsData.filter((i) => i.title === "Edit")
+        }
+        title={categoryItemResponse?.data.name}
+      />
 
-        <Grid container marginTop={2} spacing={2}>
-          <Grid item xs={8}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Details">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    disabled={istrue}
-                    error={!!touched.name && !!errors.name}
-                    helperText={(touched.name && errors && errors.name) || ""}
-                    id="name"
-                    label="Name"
-                    name="name"
-                    nameRef={nameRef}
-                    size="small"
-                    value={values.name}
-                    onBlur={handleBlur("name")}
-                    onChange={handleChange("name")}
-                  />
+      <Grid container marginTop={2} spacing={2}>
+        <Grid item xs={8}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Details">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  disabled={istrue}
+                  error={!!touched.name && !!errors.name}
+                  helperText={(touched.name && errors && errors.name) || ""}
+                  id="name"
+                  label="Name"
+                  name="name"
+                  nameRef={nameRef}
+                  size="small"
+                  value={values.name}
+                  onBlur={handleBlur("name")}
+                  onChange={handleChange("name")}
+                />
 
-                  <TextField
-                    disabled={istrue}
-                    id="slug"
-                    label="Slug"
-                    name="slug"
-                    size="small"
-                    value={values.slug}
-                    onChange={handleChange("slug")}
-                  />
+                <TextField
+                  disabled={istrue}
+                  id="slug"
+                  label="Slug"
+                  name="slug"
+                  size="small"
+                  value={values.slug}
+                  onChange={handleChange("slug")}
+                />
 
-                  <TextField
-                    disabled={istrue}
-                    id="detail"
-                    label="Detail"
-                    name="detail"
-                    size="small"
-                    value={values.detail}
-                    onChange={handleChange("detail")}
-                  />
-                </Stack>
-              </CustomCardContent>
+                <TextField
+                  disabled={istrue}
+                  id="detail"
+                  label="Detail"
+                  name="detail"
+                  size="small"
+                  value={values.detail}
+                  onChange={handleChange("detail")}
+                />
+              </Stack>
+            </CustomCardContent>
 
-              <CustomCardContent title="Organization">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    isSelect
-                    disabled={istrue}
-                    id="parentCategoryId"
-                    label="Parent"
-                    menuItems={category}
-                    name="parentCategoryId"
-                    size="small"
-                    value={values.parentCategoryId}
-                    onSelectHandler={(e) => {
-                      setFieldValue("parentCategoryId", e.target.value);
+            <CustomCardContent title="Organization">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  isSelect
+                  disabled={istrue}
+                  id="parentCategoryId"
+                  label="Parent"
+                  menuItems={category}
+                  name="parentCategoryId"
+                  size="small"
+                  value={values.parentCategoryId}
+                  onSelectHandler={(e) => {
+                    setFieldValue("parentCategoryId", e.target.value);
+                  }}
+                />
+                <TextField
+                  disabled={istrue}
+                  id="position"
+                  label="Positon"
+                  name="position"
+                  size="small"
+                  value={values.position}
+                  onChange={handleChange("position")}
+                />
+              </Stack>
+
+              <Stack direction="row" gap={2} marginTop={2}>
+                <TextField
+                  isSelect
+                  disabled={istrue}
+                  id="status"
+                  label="Status"
+                  menuItems={statusMenu}
+                  name="status"
+                  size="small"
+                  value={values.status}
+                  onSelectHandler={(e) => {
+                    setFieldValue("status", e.target.value);
+                  }}
+                />
+                <TextField
+                  disabled={istrue}
+                  id="tag"
+                  label="Tags"
+                  name="tag"
+                  size="small"
+                  value={values.tag}
+                  onChange={handleChange("tag")}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+        <Grid item xs={4}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Image">
+              <Stack
+                direction="row"
+                flexWrap="wrap"
+                gap={2}
+                justifyContent="center"
+              >
+                {categoryItemResponse?.data?.picture ? (
+                  <Box
+                    sx={{
+                      position: "relative",
                     }}
-                  />
-                  <TextField
-                    disabled={istrue}
-                    id="position"
-                    label="Positon"
-                    name="position"
-                    size="small"
-                    value={values.position}
-                    onChange={handleChange("position")}
-                  />
-                </Stack>
-
-                <Stack direction="row" gap={2} marginTop={2}>
-                  <TextField
-                    isSelect
-                    disabled={istrue}
-                    id="status"
-                    label="Status"
-                    menuItems={statusMenu}
-                    name="status"
-                    size="small"
-                    value={values.status}
-                    onSelectHandler={(e) => {
-                      setFieldValue("status", e.target.value);
-                    }}
-                  />
-                  <TextField
-                    disabled={istrue}
-                    id="tag"
-                    label="Tags"
-                    name="tag"
-                    size="small"
-                    value={values.tag}
-                    onChange={handleChange("tag")}
-                  />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={4}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Image">
-                <Stack
-                  direction="row"
-                  flexWrap="wrap"
-                  gap={2}
-                  justifyContent="center"
-                >
-                  {categoryItemResponse?.data?.picture ? (
-                    <Box
-                      sx={{
-                        position: "relative",
-                      }}
-                    >
-                      {!istrue && (
-                        <CancelIcon
-                          sx={{
-                            width: "17px",
-                            height: "17px",
-                            cursor: "pointer",
-                            color: `${palette.error.lightRed}`,
-                            position: "absolute",
-                            right: "-5px",
-                            top: "-5px",
-                            background: "white",
-                          }}
-                          onClick={() => {
-                            console.log("clicked");
-                          }}
-                        />
-                      )}
-
-                      <img
-                        alt="new"
-                        src={`${FILE_URL}${categoryItemResponse?.data?.picture.atachment}`}
-                        style={{
-                          objectFit: "cover",
-                          width: "120px",
-                          height: "120px",
-                          borderRadius: "5px",
-                          border: "0.5px solid #eee",
+                  >
+                    {!istrue && (
+                      <CancelIcon
+                        sx={{
+                          width: "17px",
+                          height: "17px",
+                          cursor: "pointer",
+                          color: `${palette.error.lightRed}`,
+                          position: "absolute",
+                          right: "-5px",
+                          top: "-5px",
+                          background: "white",
+                        }}
+                        onClick={() => {
+                          console.log("clicked");
                         }}
                       />
-                    </Box>
-                  ) : (
-                    <Box>No Image</Box>
-                  )}
+                    )}
 
-                  {!istrue && <UploadButton handleFile={handleFile} />}
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
+                    <img
+                      alt="new"
+                      src={`${FILE_URL}${categoryItemResponse?.data?.picture.atachment}`}
+                      style={{
+                        objectFit: "cover",
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "5px",
+                        border: "0.5px solid #eee",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  <Box>No Image</Box>
+                )}
+
+                {!istrue && <UploadButton handleFile={handleFile} />}
+              </Stack>
+            </CustomCardContent>
+          </Card>
         </Grid>
-      </Container>
-    </ThemeProvider>
+      </Grid>
+    </Container>
   );
 }
 
