@@ -23,9 +23,10 @@ const configurationList = [
   {
     id: crypto.randomUUID(),
     title: "Taxes",
-    desc: "Set up mulitple tax types",
+    desc: "Set up multiple tax types",
     icon: <AttachMoneyIcon />,
-    href: "",
+    // href: "/${setting.layout}/${setting.configuration.taxes}",
+    href: `/${setting.layout}/${setting.configuration.taxes}`,
   },
   {
     id: crypto.randomUUID(),

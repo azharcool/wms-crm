@@ -143,7 +143,7 @@ const AppRoutes = {
     putaway_v1: {
       listing: "putaway-v1/listing",
     },
-    inventory_log:{
+    inventory_log: {
       listing: "inventory-log/listing",
     },
     putaway_v2: {
@@ -179,6 +179,7 @@ const AppRoutes = {
       adjustmentReasons: "configuration/adjustment-reason/listing",
       adjustmentDetail: "configuration/adjustment-reason/detail",
       productCondition: "configuration/product-condition/listing",
+      taxes: "configuration/taxes/listing",
     },
     barcode: {
       generate: "barcode/generate",

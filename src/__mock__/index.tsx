@@ -283,6 +283,17 @@ export const operations = [
 ];
 
 // Setting
+export const taxtype = [
+  {
+    id: "Sales",
+    value: "sales",
+  },
+  {
+    id: "Purchases",
+    value: "Purchases",
+  },
+];
+
 export const companyType = [
   {
     id: "Retailer",

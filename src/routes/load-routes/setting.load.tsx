@@ -24,6 +24,11 @@ export const AdjustmentReasonListing = Loadable({
   loading: () => <Spinner />,
 });
 
+export const TaxesListing = Loadable({
+  loader: () => import("pages/user/setting/configuration/taxes/Taxes"),
+  loading: () => <Spinner />,
+});
+
 export const ProductConditionListing = Loadable({
   loader: () =>
     import(

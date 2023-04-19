@@ -23,6 +23,11 @@ const settingRouting = (
     />
 
     <Route
+      element={<SettingLoadable.TaxesListing />}
+      path={`${AppRoutes.setting.configuration.taxes}`}
+    />
+
+    <Route
       element={<SettingLoadable.ProductConditionListing />}
       path={`${AppRoutes.setting.configuration.productCondition}`}
     />
