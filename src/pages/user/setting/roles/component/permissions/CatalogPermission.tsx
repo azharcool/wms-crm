@@ -1,9 +1,9 @@
 import { SelectChangeEvent } from "@mui/material";
 import { Stack } from "@mui/system";
+import { crudData } from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomChipSelect from "components/chip-selector/CustomChipSelect";
 import { useState } from "react";
-import { crudData } from "__mock__";
 import { ICatalog } from "types/setting/roles/permission";
 
 function CatalogPermission() {
@@ -14,8 +14,7 @@ function CatalogPermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="products"
-            values={catalog?.product}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -27,12 +26,12 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="products"
             screenName="Product"
-            accessItems={crudData}
+            values={catalog?.product}
           />
           <CustomChipSelect
-            name="variants"
-            values={catalog?.variants}
+            accessItems={["View", "Edit", "Delete"]}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -45,14 +44,22 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="variants"
             screenName="Variants"
-            accessItems={["View", "Edit", "Delete"]}
+            values={catalog?.variants}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="categories"
-            values={catalog?.categories}
+            accessItems={[
+              "View",
+              "Process",
+              "Progress",
+              "Complete",
+              "Generate",
+              "Pick",
+              "Edit",
+            ]}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -65,20 +72,12 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="categories"
             screenName="Picklist"
-            accessItems={[
-              "View",
-              "Process",
-              "Progress",
-              "Complete",
-              "Generate",
-              "Pick",
-              "Edit",
-            ]}
+            values={catalog?.categories}
           />
           <CustomChipSelect
-            name="brand"
-            values={catalog?.brand}
+            accessItems={["View", "Edit", "Process", "Complete"]}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -90,14 +89,21 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="brand"
             screenName="Brands"
-            accessItems={["View", "Edit", "Process", "Complete"]}
+            values={catalog?.brand}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="listing"
-            values={catalog?.listing}
+            accessItems={[
+              "View",
+              "Add",
+              "Reject",
+              "Publish",
+              "Unpublish",
+              "Pause",
+            ]}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -109,19 +115,12 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="listing"
             screenName="Listing"
-            accessItems={[
-              "View",
-              "Add",
-              "Reject",
-              "Publish",
-              "Unpublish",
-              "Pause",
-            ]}
+            values={catalog?.listing}
           />
           <CustomChipSelect
-            name="unit"
-            values={catalog?.unit}
+            accessItems={["View"]}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -133,14 +132,14 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="unit"
             screenName="Unit"
-            accessItems={["View"]}
+            values={catalog?.unit}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="channel"
-            values={catalog?.channels}
+            accessItems={["View"]}
             handleChange={(event: SelectChangeEvent<typeof catalog>) => {
               const {
                 target: { value },
@@ -153,8 +152,9 @@ function CatalogPermission() {
                 };
               });
             }}
+            name="channel"
             screenName="Channels"
-            accessItems={["View"]}
+            values={catalog?.channels}
           />
         </Stack>
       </Stack>

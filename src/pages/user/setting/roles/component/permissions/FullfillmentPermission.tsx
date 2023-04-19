@@ -1,9 +1,9 @@
 import { SelectChangeEvent } from "@mui/material";
 import { Stack } from "@mui/system";
+import { crudData } from "__mock__";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomChipSelect from "components/chip-selector/CustomChipSelect";
-import React, { useState } from "react";
-import { crudData } from "__mock__";
+import { useState } from "react";
 import { IFullfillment } from "types/setting/roles/permission";
 
 function FullfillmentPermission() {
@@ -14,8 +14,13 @@ function FullfillmentPermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="order"
-            values={fullfillment?.orders}
+            accessItems={[
+              ...crudData,
+              "Allocate",
+              "Process",
+              "Resolve",
+              "Cancel",
+            ]}
             handleChange={(event: SelectChangeEvent<typeof fullfillment>) => {
               const {
                 target: { value },
@@ -27,18 +32,12 @@ function FullfillmentPermission() {
                 };
               });
             }}
+            name="order"
             screenName="Order"
-            accessItems={[
-              ...crudData,
-              "Allocate",
-              "Process",
-              "Resolve",
-              "Cancel",
-            ]}
+            values={fullfillment?.orders}
           />
           <CustomChipSelect
-            name="customers"
-            values={fullfillment?.customers}
+            accessItems={crudData}
             handleChange={(event: SelectChangeEvent<typeof fullfillment>) => {
               const {
                 target: { value },
@@ -51,14 +50,22 @@ function FullfillmentPermission() {
                 };
               });
             }}
+            name="customers"
             screenName="Customers"
-            accessItems={crudData}
+            values={fullfillment?.customers}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="picklist"
-            values={fullfillment?.picklists}
+            accessItems={[
+              "View",
+              "Process",
+              "Progress",
+              "Complete",
+              "Generate",
+              "Pick",
+              "Edit",
+            ]}
             handleChange={(event: SelectChangeEvent<typeof fullfillment>) => {
               const {
                 target: { value },
@@ -71,20 +78,12 @@ function FullfillmentPermission() {
                 };
               });
             }}
+            name="picklist"
             screenName="Picklist"
-            accessItems={[
-              "View",
-              "Process",
-              "Progress",
-              "Complete",
-              "Generate",
-              "Pick",
-              "Edit",
-            ]}
+            values={fullfillment?.picklists}
           />
           <CustomChipSelect
-            name="packing"
-            values={fullfillment?.packing}
+            accessItems={["View", "Edit", "Process", "Complete"]}
             handleChange={(event: SelectChangeEvent<typeof fullfillment>) => {
               const {
                 target: { value },
@@ -96,14 +95,14 @@ function FullfillmentPermission() {
                 };
               });
             }}
+            name="packing"
             screenName="Packing"
-            accessItems={["View", "Edit", "Process", "Complete"]}
+            values={fullfillment?.packing}
           />
         </Stack>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="shipments"
-            values={fullfillment?.shipments}
+            accessItems={["View", "Edit", "Process"]}
             handleChange={(event: SelectChangeEvent<typeof fullfillment>) => {
               const {
                 target: { value },
@@ -116,12 +115,12 @@ function FullfillmentPermission() {
                 };
               });
             }}
+            name="shipments"
             screenName="Shipments"
-            accessItems={["View", "Edit", "Process"]}
+            values={fullfillment?.shipments}
           />
           <CustomChipSelect
-            name="returns"
-            values={fullfillment?.returns}
+            accessItems={[...crudData, "Process"]}
             handleChange={(event: SelectChangeEvent<typeof fullfillment>) => {
               const {
                 target: { value },
@@ -133,8 +132,9 @@ function FullfillmentPermission() {
                 };
               });
             }}
+            name="returns"
             screenName="Returns"
-            accessItems={[...crudData, "Process"]}
+            values={fullfillment?.returns}
           />
         </Stack>
       </Stack>

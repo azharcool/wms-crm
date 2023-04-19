@@ -10,7 +10,6 @@ import {
   DialogTitle,
   Divider,
   Grid,
-  PaletteMode,
   Stack,
   Table,
   TableBody,
@@ -20,8 +19,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { paymentTerm, paymentType } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -33,46 +31,11 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import palette from "theme/palette";
-import { paymentTerm, paymentType } from "__mock__";
 import AddSupplier from "./AddSupplier";
 
 function PurchaseOrderCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
   const [openSupplier, setOpenSupplier] = React.useState(false);
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
+
   const rightActionsData = [
     {
       id: crypto.randomUUID(),
@@ -105,10 +68,9 @@ function PurchaseOrderCreate() {
       ),
     },
   ];
-  const isTrue = true;
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
+    <>
       <Container maxWidth={false}>
         <TableToolbar
           breadcrumbs={[
@@ -477,7 +439,7 @@ function PurchaseOrderCreate() {
         handleClose={() => setOpenSupplier(!openSupplier)}
         open={openSupplier}
       />
-    </ThemeProvider>
+    </>
   );
 }
 

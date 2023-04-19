@@ -5,15 +5,11 @@ import {
   CardContent,
   Container,
   Grid,
-  PaletteMode,
   Stack,
   Typography,
 } from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CustomCardContent from "components/card/CustomCardContent";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import GeneralList from "./component/GeneralList";
@@ -88,43 +84,6 @@ function ToolBarButton(props: ITooblarButton) {
 
 function General() {
   const navigate = useNavigate();
-  const newtheme = useSelector((state: any) => state.theme);
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
 
   const rightActionsData = [
     {
@@ -137,122 +96,120 @@ function General() {
   ];
 
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <Container maxWidth={false}>
-        <Stack direction="row" justifyContent="flex-end">
-          {rightActionsData.map((item) => (
-            <ToolBarButton
-              key={item.id}
-              handleClick={item.onClick}
-              icon={undefined}
-              title={item.title}
-            />
-          ))}
-        </Stack>
-        <Grid container marginTop={2} spacing={2}>
-          <Grid item xs={9}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Putaway Information">
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled
-                    id="lineItem"
-                    label="Line Item"
-                    name="lineItem"
-                    size="small"
-                    value={1}
-                  />
-                  <TextField
-                    darkDisable
-                    disabled
-                    id="qty"
-                    label="Qty"
-                    name="qty"
-                    size="small"
-                    value={10}
-                  />
-                  <TextField
-                    disabled
-                    isSelect
-                    id="status"
-                    label="Status"
-                    menuItems={statusMenu}
-                    name="status"
-                    size="small"
-                    value={statusMenu[0].id}
-                    onSelectHandler={(e) => {
-                      //   setFieldValue("status", e.target.value);
-                    }}
-                  />
-                </Stack>
-                <Stack direction="row" gap={2}>
-                  <TextField
-                    darkDisable
-                    disabled
-                    id="fromLocation"
-                    label="From Location"
-                    name="fromLocation"
-                    size="small"
-                    value="RCV"
-                  />
-                  <TextField
-                    darkDisable
-                    disabled
-                    id="duration"
-                    label="Duration"
-                    name="duration"
-                    size="small"
-                    value="00:03:12"
-                  />
-                  <TextField
-                    darkDisable
-                    disabled
-                    id="createdDate"
-                    label="Created Date"
-                    name="createdDate"
-                    size="small"
-                    value="Mar 29, 2023"
-                  />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
-          <Grid item xs={3}>
-            <Card
-              sx={{
-                flex: 1,
-              }}
-            >
-              <CustomCardContent title="Assigned to">
-                <Stack direction="row" flexWrap="wrap" gap={2} paddingY={3}>
-                  <TextField
-                    disabled
-                    isSelect
-                    id="categorys"
-                    menuItems={conditionCode}
-                    name="conditionCode"
-                    size="small"
-                    value={conditionCode[1].value}
-                    onSelectHandler={(e) => {}}
-                  />
-                </Stack>
-              </CustomCardContent>
-            </Card>
-          </Grid>
+    <Container maxWidth={false}>
+      <Stack direction="row" justifyContent="flex-end">
+        {rightActionsData.map((item) => (
+          <ToolBarButton
+            key={item.id}
+            handleClick={item.onClick}
+            icon={undefined}
+            title={item.title}
+          />
+        ))}
+      </Stack>
+      <Grid container marginTop={2} spacing={2}>
+        <Grid item xs={9}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Putaway Information">
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled
+                  id="lineItem"
+                  label="Line Item"
+                  name="lineItem"
+                  size="small"
+                  value={1}
+                />
+                <TextField
+                  darkDisable
+                  disabled
+                  id="qty"
+                  label="Qty"
+                  name="qty"
+                  size="small"
+                  value={10}
+                />
+                <TextField
+                  disabled
+                  isSelect
+                  id="status"
+                  label="Status"
+                  menuItems={statusMenu}
+                  name="status"
+                  size="small"
+                  value={statusMenu[0].id}
+                  onSelectHandler={(e) => {
+                    //   setFieldValue("status", e.target.value);
+                  }}
+                />
+              </Stack>
+              <Stack direction="row" gap={2}>
+                <TextField
+                  darkDisable
+                  disabled
+                  id="fromLocation"
+                  label="From Location"
+                  name="fromLocation"
+                  size="small"
+                  value="RCV"
+                />
+                <TextField
+                  darkDisable
+                  disabled
+                  id="duration"
+                  label="Duration"
+                  name="duration"
+                  size="small"
+                  value="00:03:12"
+                />
+                <TextField
+                  darkDisable
+                  disabled
+                  id="createdDate"
+                  label="Created Date"
+                  name="createdDate"
+                  size="small"
+                  value="Mar 29, 2023"
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
         </Grid>
+        <Grid item xs={3}>
+          <Card
+            sx={{
+              flex: 1,
+            }}
+          >
+            <CustomCardContent title="Assigned to">
+              <Stack direction="row" flexWrap="wrap" gap={2} paddingY={3}>
+                <TextField
+                  disabled
+                  isSelect
+                  id="categorys"
+                  menuItems={conditionCode}
+                  name="conditionCode"
+                  size="small"
+                  value={conditionCode[1].value}
+                  onSelectHandler={(e) => {}}
+                />
+              </Stack>
+            </CustomCardContent>
+          </Card>
+        </Grid>
+      </Grid>
 
-        <CardContent sx={{ padding: 0 }}>
-          <Box sx={{ mt: 3 }}>
-            <GeneralList />
-          </Box>
-        </CardContent>
-      </Container>
-    </ThemeProvider>
+      <CardContent sx={{ padding: 0 }}>
+        <Box sx={{ mt: 3 }}>
+          <GeneralList />
+        </Box>
+      </CardContent>
+    </Container>
   );
 }
 

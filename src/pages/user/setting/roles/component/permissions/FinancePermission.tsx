@@ -1,9 +1,9 @@
+import { SelectChangeEvent } from "@mui/material";
 import { Stack } from "@mui/system";
 import CustomAccordian from "components/accordian/CustomAccordian";
 import CustomChipSelect from "components/chip-selector/CustomChipSelect";
 import { useState } from "react";
 import { IFinance } from "types/setting/roles/permission";
-import { SelectChangeEvent } from "@mui/material";
 
 function FinancePermission() {
   const [finance, setFinance] = useState<IFinance>();
@@ -13,8 +13,7 @@ function FinancePermission() {
       <Stack direction="column" gap={2}>
         <Stack direction="row" gap={2}>
           <CustomChipSelect
-            name="invoice"
-            values={finance?.invoice}
+            accessItems={["View", "Delete", "Edit"]}
             handleChange={(event: SelectChangeEvent<typeof finance>) => {
               const {
                 target: { value },
@@ -26,8 +25,9 @@ function FinancePermission() {
                 };
               });
             }}
+            name="invoice"
             screenName="Invoices"
-            accessItems={["View", "Delete", "Edit"]}
+            values={finance?.invoice}
           />
         </Stack>
       </Stack>

@@ -3,19 +3,9 @@ import HorizontalSplitIcon from "@mui/icons-material/HorizontalSplit";
 import LockIcon from "@mui/icons-material/Lock";
 import ScreenshotMonitorIcon from "@mui/icons-material/ScreenshotMonitor";
 import TuneIcon from "@mui/icons-material/Tune";
-import {
-  Box,
-  Card,
-  CardHeader,
-  Container,
-  PaletteMode,
-  Typography,
-} from "@mui/material";
-import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { Box, Card, CardHeader, Container, Typography } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
 import AppRoutes from "navigation/appRoutes";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 import { isControlAccessible } from "utils";
@@ -45,150 +35,93 @@ function Settings() {
     navigate(AppRoutes.BARCODE);
   };
 
-  // const gotoCustomField = () => {
-  //   navigate(AppRoutes.CUSTOM_FIELDS);
-  // };
-
-  // const gotoLeadSource = () => {
-  //   navigate(AppRoutes.LEAD_SOURCE);
-  // };
-
-  // const gotoLeadStatus = () => {
-  //   navigate(AppRoutes.LEAD_STATUS);
-  // };
-
-  // const gotoPipeline = () => {
-  //   navigate(AppRoutes.PIPELINES);
-  // };
-
   const gotoMyTeam = () => {
     navigate(AppRoutes.TEAM);
   };
 
-  const newtheme = useSelector((state: any) => state.theme);
-
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
-
-  const getDesignTokens = (mode: PaletteMode) => ({
-    palette: {
-      mode,
-      primary: {
-        ...purple,
-        ...(mode === "dark" && {
-          main: "#1e1e2d",
-        }),
-      },
-      ...(mode === "dark" && {
-        background: {
-          default: "#1e1e2d",
-          paper: "#1B1B33",
-        },
-      }),
-      text: {
-        ...(mode === "light"
-          ? {
-              primary: grey[900],
-              secondary: grey[800],
-            }
-          : {
-              primary: "#fff",
-              secondary: grey[500],
-            }),
-      },
-    },
-  });
-  const darkModeTheme = createTheme(getDesignTokens("dark"));
-
   return (
-    <ThemeProvider theme={newtheme.isDarkMode ? darkModeTheme : lightTheme}>
-      <DashboardLayout>
-        <Box
-          component="main"
-          sx={{
-            flexGrow: 1,
-            py: 8,
-          }}
-        >
-          <Container maxWidth="lg">
-            <Typography sx={{ mb: 3 }} variant="h4">
-              Settings
-            </Typography>
-            <Box sx={{ pt: 3 }}>
-              <Card>
-                <CardHeader subheader="" title="Security" />
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <SettingBlock
-                    accessible={isControlAccessible(
-                      ACCESS_CODES.ROLL,
-                      SCREEN_CODES.SETTINGS,
-                    )}
-                    color={palette.success.lightGreen}
-                    handleClick={gotoRoles}
-                    icon={
-                      <GroupsIcon fontSize="medium" sx={{ color: "#fff" }} />
-                    }
-                    title="Roles"
-                  />
-                  <SettingBlock
-                    accessible={isControlAccessible(
-                      ACCESS_CODES.SCREEN,
-                      SCREEN_CODES.SETTINGS,
-                    )}
-                    handleClick={gotoScreens}
-                    icon={
-                      <ScreenshotMonitorIcon
-                        fontSize="medium"
-                        sx={{ color: "#fff" }}
-                      />
-                    }
-                    title="Screens"
-                  />
-                  <SettingBlock
-                    accessible={isControlAccessible("control_01", "setting_01")}
-                    color={palette.warning.orange}
-                    handleClick={gotoPermissions}
-                    icon={<TuneIcon fontSize="medium" sx={{ color: "#fff" }} />}
-                    title="Screen Control"
-                  />
+    <DashboardLayout>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          py: 8,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography sx={{ mb: 3 }} variant="h4">
+            Settings
+          </Typography>
+          <Box sx={{ pt: 3 }}>
+            <Card>
+              <CardHeader subheader="" title="Security" />
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <SettingBlock
+                  accessible={isControlAccessible(
+                    ACCESS_CODES.ROLL,
+                    SCREEN_CODES.SETTINGS,
+                  )}
+                  color={palette.success.lightGreen}
+                  handleClick={gotoRoles}
+                  icon={<GroupsIcon fontSize="medium" sx={{ color: "#fff" }} />}
+                  title="Roles"
+                />
+                <SettingBlock
+                  accessible={isControlAccessible(
+                    ACCESS_CODES.SCREEN,
+                    SCREEN_CODES.SETTINGS,
+                  )}
+                  handleClick={gotoScreens}
+                  icon={
+                    <ScreenshotMonitorIcon
+                      fontSize="medium"
+                      sx={{ color: "#fff" }}
+                    />
+                  }
+                  title="Screens"
+                />
+                <SettingBlock
+                  accessible={isControlAccessible("control_01", "setting_01")}
+                  color={palette.warning.orange}
+                  handleClick={gotoPermissions}
+                  icon={<TuneIcon fontSize="medium" sx={{ color: "#fff" }} />}
+                  title="Screen Control"
+                />
 
-                  <SettingBlock
-                    accessible={isControlAccessible(
-                      ACCESS_CODES.SCREEN_ACCESS,
-                      SCREEN_CODES.SETTINGS,
-                    )}
-                    color={palette.success.light}
-                    handleClick={gotoScreenAccess}
-                    icon={<LockIcon fontSize="medium" sx={{ color: "#fff" }} />}
-                    title="Screen Access"
-                  />
-                  <SettingBlock
-                    // accessible={isControlAccessible(
-                    //   ACCESS_CODES.SCREEN_ACCESS,
-                    //   SCREEN_CODES.SETTINGS,
-                    // )}
-                    color={palette.success.light}
-                    handleClick={gotoBarcode}
-                    icon={
-                      <HorizontalSplitIcon
-                        fontSize="medium"
-                        sx={{ color: "#fff" }}
-                      />
-                    }
-                    title="Barcode"
-                  />
-                </Box>
-              </Card>
-            </Box>
-            {/* <Box sx={{ pt: 3 }}>
+                <SettingBlock
+                  accessible={isControlAccessible(
+                    ACCESS_CODES.SCREEN_ACCESS,
+                    SCREEN_CODES.SETTINGS,
+                  )}
+                  color={palette.success.light}
+                  handleClick={gotoScreenAccess}
+                  icon={<LockIcon fontSize="medium" sx={{ color: "#fff" }} />}
+                  title="Screen Access"
+                />
+                <SettingBlock
+                  // accessible={isControlAccessible(
+                  //   ACCESS_CODES.SCREEN_ACCESS,
+                  //   SCREEN_CODES.SETTINGS,
+                  // )}
+                  color={palette.success.light}
+                  handleClick={gotoBarcode}
+                  icon={
+                    <HorizontalSplitIcon
+                      fontSize="medium"
+                      sx={{ color: "#fff" }}
+                    />
+                  }
+                  title="Barcode"
+                />
+              </Box>
+            </Card>
+          </Box>
+          {/* <Box sx={{ pt: 3 }}>
             <Card>
               <CardHeader subheader="" title="Lead" />
               <Box
@@ -237,7 +170,7 @@ function Settings() {
               </Box>
             </Card>
           </Box> */}
-            {/* <Box sx={{ pt: 3 }}>
+          {/* <Box sx={{ pt: 3 }}>
             <Card>
               <CardHeader subheader="" title="Custom Fields" />
               <Box
@@ -262,34 +195,31 @@ function Settings() {
             </Card>
           </Box> */}
 
-            <Box sx={{ pt: 3 }}>
-              <Card>
-                <CardHeader subheader="" title="My Team" />
-                <Box
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <SettingBlock
-                    accessible={isControlAccessible(
-                      ACCESS_CODES.MY_TEAM,
-                      SCREEN_CODES.SETTINGS,
-                    )}
-                    color={palette.success.main}
-                    handleClick={gotoMyTeam}
-                    icon={
-                      <GroupsIcon fontSize="medium" sx={{ color: "#fff" }} />
-                    }
-                    title="My Team"
-                  />
-                </Box>
-              </Card>
-            </Box>
-          </Container>
-        </Box>
-      </DashboardLayout>
-    </ThemeProvider>
+          <Box sx={{ pt: 3 }}>
+            <Card>
+              <CardHeader subheader="" title="My Team" />
+              <Box
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                }}
+              >
+                <SettingBlock
+                  accessible={isControlAccessible(
+                    ACCESS_CODES.MY_TEAM,
+                    SCREEN_CODES.SETTINGS,
+                  )}
+                  color={palette.success.main}
+                  handleClick={gotoMyTeam}
+                  icon={<GroupsIcon fontSize="medium" sx={{ color: "#fff" }} />}
+                  title="My Team"
+                />
+              </Box>
+            </Card>
+          </Box>
+        </Container>
+      </Box>
+    </DashboardLayout>
   );
 }
 
