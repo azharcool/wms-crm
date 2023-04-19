@@ -131,3 +131,8 @@ export async function editBankAccount(
   const URL = `${API_URLS.EDIT_BANK_ACCOUNT}`;
   return client.put(URL, request);
 }
+
+export async function deleteBankAccount(id: number): Promise<IResponse> {
+  const URL = `${API_URLS.DELETE_BANK_ACCOUNT}?delete=${id}`;
+  return client.delete(URL);
+}

@@ -12,6 +12,7 @@ import useDecodedData from "hooks/useDecodedData";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AddBankAccountRoot } from "types/catalog/supplier/addBankAccountRequest";
+import { EditBankAccountRoot } from "types/catalog/supplier/editBankAccountRequest";
 import useManageBankAccountForm, {
   ManageBankAccountForm,
   manageBankAccountForm,
@@ -26,11 +27,14 @@ function BankAccountDetails() {
   const nameRef = useRef<any>(null);
   const navigate = useNavigate();
 
-  const { addBankAccountAction } = useSupplierAction();
-  const { data: bankItemResponse, refetch: refetchBilling } =
-    useGetAllBankAccount({
-      supplierId: Number(supplierId),
-    });
+  const {
+    addBankAccountAction,
+    editBankAccountAction,
+    deleteBankAccountAsync,
+  } = useSupplierAction();
+  const { data: bankItemResponse, refetch } = useGetAllBankAccount({
+    supplierId: Number(supplierId),
+  });
 
   const bankAccountForm = useManageBankAccountForm({
     onSubmit,
@@ -49,28 +53,51 @@ function BankAccountDetails() {
   } = bankAccountForm;
 
   async function onSubmit(values: ManageBankAccountForm) {
-    const data: AddBankAccountRoot = values.manageBankAccountData.map(
-      (item) => ({
-        userId: Number(userDecoded.id),
-        supplierId: Number(supplierId),
-        bankName: item.bankName,
-        bankBranch: item.bankBranch,
-        bankCode: item.bankCode,
-        bankSwift: item.bankSwift,
-        accountHolder: item.accountHolder,
-        accountNumber: item.accountNumber,
-      }),
-    );
-    const response = await addBankAccountAction(data);
-    if (response) {
-      resetForm();
+    if (bankItemResponse?.data.length) {
+      const data: EditBankAccountRoot = {
+        edit: values.manageBankAccountData.map((item) => ({
+          id: item.id,
+          userId: Number(userDecoded.id),
+          supplierId: Number(supplierId),
+          bankName: item.bankName,
+          bankBranch: item.bankBranch,
+          bankCode: item.bankCode,
+          bankSwift: item.bankSwift,
+          accountHolder: item.accountHolder,
+          accountNumber: item.accountNumber,
+        })),
+      };
+      const response = await editBankAccountAction(data);
+      if (response) {
+        resetForm();
+        refetch();
+        setEditable(false);
+      }
+    } else {
+      const data: AddBankAccountRoot = values.manageBankAccountData.map(
+        (item) => ({
+          userId: Number(userDecoded.id),
+          supplierId: Number(supplierId),
+          bankName: item.bankName,
+          bankBranch: item.bankBranch,
+          bankCode: item.bankCode,
+          bankSwift: item.bankSwift,
+          accountHolder: item.accountHolder,
+          accountNumber: item.accountNumber,
+        }),
+      );
+      const response = await addBankAccountAction(data);
+      if (response) {
+        resetForm();
+        setEditable(false);
+        refetch();
+      }
     }
   }
 
   useEffect(() => {
     if (bankItemResponse?.data.length) {
       setFieldValue("manageBankAccountData", bankItemResponse.data);
-      setIsEditingBank(true);
     }
   }, [bankItemResponse?.data]);
 
@@ -131,6 +158,7 @@ function BankAccountDetails() {
     setFieldValue("manageBankAccountData", [
       ...values.manageBankAccountData,
       {
+        id: id + 1,
         firstName: "",
         lastName: "",
         address: "",
@@ -142,15 +170,15 @@ function BankAccountDetails() {
   };
 
   const handleDelete = (id: number) => {
-    // const idExist = shippingItemResponse?.data.some((obj) => obj.id === id);
-    // if (idExist) {
-    //   deleteShippingAddressAsync(id);
-    // } else {
-    setFieldValue(
-      "manageBankAccountData",
-      values.manageBankAccountData.filter((s, i) => s.id !== id),
-    );
-    // }
+    const idExist = bankItemResponse?.data.some((obj) => obj.id === id);
+    if (idExist) {
+      deleteBankAccountAsync(id);
+    } else {
+      setFieldValue(
+        "manageBankAccountData",
+        values.manageBankAccountData.filter((s, i) => s.id !== id),
+      );
+    }
   };
 
   return (

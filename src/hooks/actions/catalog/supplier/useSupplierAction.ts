@@ -6,6 +6,7 @@ import {
   addShippingAddress,
   addSupplier,
   buldDeleteSupplier,
+  deleteBankAccount,
   deleteBillingAddress,
   deleteShippingAddress,
   deleteSupplier,
@@ -299,6 +300,28 @@ function useSupplierAction() {
     return false;
   };
 
+  const deleteBankAccountAsync = async (id: number): Promise<boolean> => {
+    try {
+      const response = await deleteBankAccount(id);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllBankAccountBySupplierId,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
   return {
     addSupplierAction,
     deleteSupplierAsync,
@@ -312,6 +335,7 @@ function useSupplierAction() {
     deleteBillingAddressAsync,
     addBankAccountAction,
     editBankAccountAction,
+    deleteBankAccountAsync,
   };
 }
 
