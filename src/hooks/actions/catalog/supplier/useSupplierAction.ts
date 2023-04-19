@@ -9,6 +9,7 @@ import {
   deleteBillingAddress,
   deleteShippingAddress,
   deleteSupplier,
+  editBankAccount,
   editBillingAddress,
   editShippingAddress,
   editSupplier,
@@ -18,6 +19,7 @@ import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressR
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import { EditBankAccountRoot } from "types/catalog/supplier/editBankAccountRequest";
 import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
 import { QueryKeys } from "utils/QueryKeys";
 
@@ -273,6 +275,30 @@ function useSupplierAction() {
     return false;
   };
 
+  const editBankAccountAction = async (
+    data: EditBankAccountRoot,
+  ): Promise<boolean> => {
+    try {
+      const response = await editBankAccount(data);
+      if (response.statusCode === 200) {
+        queryClient.invalidateQueries([
+          QueryKeys.getAllBankAccountBySupplierId,
+        ]);
+        snackbar?.show({
+          title: response.message,
+          type: "success",
+        });
+        return true;
+      }
+    } catch (error: any) {
+      snackbar?.show({
+        title: error.message,
+        type: "error",
+      });
+    }
+    return false;
+  };
+
   return {
     addSupplierAction,
     deleteSupplierAsync,
@@ -285,6 +311,7 @@ function useSupplierAction() {
     editBillingAddressAction,
     deleteBillingAddressAsync,
     addBankAccountAction,
+    editBankAccountAction,
   };
 }
 

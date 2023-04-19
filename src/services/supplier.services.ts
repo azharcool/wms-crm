@@ -3,6 +3,7 @@ import { AddBankAccountRoot } from "types/catalog/supplier/addBankAccountRequest
 import { AddBillingAddressRoot } from "types/catalog/supplier/addBillingAddressRequest";
 import { AddShippingAddressRoot } from "types/catalog/supplier/addShippingAddressRequest";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
+import { EditBankAccountRoot } from "types/catalog/supplier/editBankAccountRequest";
 import { EditBillingRoot } from "types/catalog/supplier/editBillingAddressRequest";
 import { GetAllBankAccountRoot } from "types/catalog/supplier/getAllBankAccountResponse";
 import { GetAllBillingAddressRoot } from "types/catalog/supplier/getAllBillingAddress";
@@ -122,4 +123,11 @@ export async function getAllBankAccount(
 ): Promise<GetAllBankAccountRoot> {
   const URL = `${API_URLS.GET_ALL_BANK_ACCOUNT}?supplierId=${id}`;
   return client.get(URL);
+}
+
+export async function editBankAccount(
+  request: EditBankAccountRoot,
+): Promise<IResponse> {
+  const URL = `${API_URLS.EDIT_BANK_ACCOUNT}`;
+  return client.put(URL, request);
 }

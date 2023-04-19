@@ -9,7 +9,7 @@ import TextField from "components/textfield";
 import useSupplierAction from "hooks/actions/catalog/supplier/useSupplierAction";
 import useGetAllBankAccount from "hooks/querys/catalog/supplier/useGetAllBankAccount";
 import useDecodedData from "hooks/useDecodedData";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { AddBankAccountRoot } from "types/catalog/supplier/addBankAccountRequest";
 import useManageBankAccountForm, {
@@ -66,6 +66,13 @@ function BankAccountDetails() {
       resetForm();
     }
   }
+
+  useEffect(() => {
+    if (bankItemResponse?.data.length) {
+      setFieldValue("manageBankAccountData", bankItemResponse.data);
+      setIsEditingBank(true);
+    }
+  }, [bankItemResponse?.data]);
 
   const rightActionsData = [
     {
