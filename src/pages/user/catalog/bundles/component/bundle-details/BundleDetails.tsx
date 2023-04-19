@@ -13,7 +13,7 @@ import { AddBundlCompositionRequestRoot } from "types/catalog/bundleComposition/
 import { IAddBundleRequestRoot } from "types/catalog/bundles/addBundleRequest";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import Composition from "./Composition";
-import General from "./General";
+import General, { IMenuItem } from "./General";
 import useAddBundleCompositionForm, {
   AddBundleCompForm,
 } from "./hooks/useAddBundleComposition";
@@ -45,16 +45,13 @@ function TabPanel(props: TabPanelProps) {
 }
 
 function BundleDetails() {
+  const [value, setValue] = useState(0);
+  const [editable, setEditable] = useState(false);
+  const [newImages, setNewImages] = useState<IMenuItem[]>([]);
+
   const navigate = useNavigate();
   const { editBundleAction } = useBundleAction();
   const nameRef = useRef<any>(null);
-  const [value, setValue] = useState(0);
-  const [editable, setEditable] = useState(false);
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -71,8 +68,7 @@ function BundleDetails() {
   const userDecoded = useDecodedData();
   const { addBundleCompositionAction } = useBundleCompositionAction();
   const { data: variantResponse } = useGetAllVariant({});
-  const variantData: IGetAllVariantResponseData[] | undefined =
-    variantResponse?.data;
+  
   const initialValues: AddBundleCompForm = {
     userId: Number(userDecoded.id),
     bundleId: Number(bundleId),
@@ -98,6 +94,8 @@ function BundleDetails() {
       categoryId: "",
       brandId: "",
       tag: "",
+      image:[],
+      oldImage:[]
     },
     onSubmit: async (values) => {
       const editData: IAddBundleRequestRoot = {
@@ -110,6 +108,8 @@ function BundleDetails() {
         categoryId: Number(values.categoryId),
         brandId: Number(values.brandId),
         tag: values.tag,
+        oldImage: values.oldImage?.map((i) => i),
+        image: newImages?.map((i) => i.value?.split("base64,")[1]),
       };
       const response = await editBundleAction(editData);
       if (response) {
@@ -164,6 +164,8 @@ function BundleDetails() {
           data={bundle?.data}
           editable={editable}
           formik={formik}
+          setNewImages={setNewImages}
+          newImages={newImages}
           isTrue={istrue}
           nameRef={nameRef}
         />
