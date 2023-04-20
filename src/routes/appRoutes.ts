@@ -181,6 +181,7 @@ const AppRoutes = {
       productCondition: "configuration/product-condition/listing",
       taxes: "configuration/taxes/listing",
       containerTypes: "configuration/container-types/listing",
+      CurrencyRate: "configuration/currency-rate/listing",
     },
     barcode: {
       generate: "barcode/generate",

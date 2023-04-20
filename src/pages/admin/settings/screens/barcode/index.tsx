@@ -57,8 +57,7 @@ function Permissions() {
                   <CustomCardContent title="Details">
                     <Stack direction="column" gap={2}>
                       <TextField
-                        iconEnd
-                        icon={<RefreshIcon />}
+                        endIcon={<RefreshIcon />}
                         id="barcode"
                         name="barcode"
                         size="small"

@@ -267,8 +267,7 @@ function LocationsCreate() {
             <CustomCardContent title="Demensions">
               <Stack direction="row" gap={3} marginTop={2}>
                 <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
+                  endIcon={<Typography>cm</Typography>}
                   id="height"
                   label="Height"
                   name="height"
@@ -278,8 +277,7 @@ function LocationsCreate() {
                   onChange={handleChange("height")}
                 />
                 <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
+                  endIcon={<Typography>cm</Typography>}
                   id="width"
                   label="Width"
                   name="width"
@@ -289,8 +287,7 @@ function LocationsCreate() {
                   onChange={handleChange("width")}
                 />
                 <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
+                  endIcon={<Typography>cm</Typography>}
                   id="length"
                   label="Length"
                   name="length"
@@ -302,8 +299,7 @@ function LocationsCreate() {
               </Stack>
               <Stack direction="row" gap={3} marginTop={3}>
                 <TextField
-                  iconEnd
-                  icon={<Typography>kg</Typography>}
+                  endIcon={<Typography>kg</Typography>}
                   id="maxload"
                   label="Max.Load"
                   name="maxload"
@@ -314,8 +310,7 @@ function LocationsCreate() {
                 />
                 <TextField
                   disabled
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
+                  endIcon={<Typography>cm</Typography>}
                   id="volume"
                   label="Volume"
                   name="volume"

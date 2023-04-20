@@ -7,7 +7,7 @@ import StayCurrentPortraitIcon from "@mui/icons-material/StayCurrentPortrait";
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
+import AppRoutes from "routes/appRoutes";
 import { useNavigate } from "react-router-dom";
 
 const { setting } = AppRoutes;
@@ -18,7 +18,7 @@ const configurationList = [
     title: "Currency Rate",
     desc: "Manage base currency and exchange rates",
     icon: <AttachMoneyIcon />,
-    href: "",
+    href: `/${setting.layout}/${setting.configuration.CurrencyRate}`,
   },
   {
     id: crypto.randomUUID(),

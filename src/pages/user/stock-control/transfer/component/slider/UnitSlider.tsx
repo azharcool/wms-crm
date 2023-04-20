@@ -137,9 +137,8 @@ function UnitSlider(props: IListItem) {
             <CustomCardContent title="Search Barcode">
               <Stack direction="row" gap={2}>
                 <TextField
-                  iconEnd
                   autoComplete="off"
-                  icon={<SearchIcon />}
+                  endIcon={<SearchIcon />}
                   label="Search"
                   name="search"
                   size="small"
