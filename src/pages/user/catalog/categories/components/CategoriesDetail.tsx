@@ -115,7 +115,7 @@ function CategoriesDetail() {
       tag: values.tag,
       name: values.name,
       slug: values.slug,
-      detail: values.slug,
+      detail: values.detail,
       status: Number(values.status),
       image:
         uploadedFiles?.isUpload && uploadedFiles?.value
@@ -124,6 +124,9 @@ function CategoriesDetail() {
     };
     const response = await editCategoryAction(data);
     if (response) {
+      navigate(
+        `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
+      );
       setEditable(false);
     }
   }
@@ -167,9 +170,6 @@ function CategoriesDetail() {
       title: "Save",
       onClick: () => {
         handleSubmit();
-        navigate(
-          `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
-        );
       },
       icon: (
         <SaveIcon
