@@ -14,7 +14,7 @@ function Categories() {
   const navigate = useNavigate();
   const [categoryPagination, setCategoryPagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
   const getSelectedCategoryIdsState = useSelector(getSelectedCategory);
 

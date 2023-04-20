@@ -12,21 +12,38 @@ import {
   Typography,
 } from "@mui/material";
 import { Box, Stack } from "@mui/system";
-
+import NOImage from "assets/images/no-image.png";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
+import { FILE_URL } from "config";
 import { FormikProps } from "formik";
 import useBrand from "hooks/actions/catalog/brand/useBrand";
 import useCategory from "hooks/actions/catalog/categories/useCategory";
-import React, { useEffect, useState } from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { IBundleDetails } from "types/catalog/bundles/getBundleResponse";
 import { generateRandomNumber } from "utils";
+import palette from "theme/palette";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { ToolBarButton } from "components/table-toolbar";
 
 interface ICustomCard {
   title: string;
   children: React.ReactNode;
+}
+
+export interface IMenuItem {
+  id: string;
+  value?: string;
+  isUpload: boolean;
+}
+interface IGeneral {
+  isTrue?: boolean;
+  data?: IBundleDetails | undefined;
+  nameRef?: any;
+  editable?: boolean;
+  formik: FormikProps<any>;
+  setNewImages: Dispatch<React.SetStateAction<IMenuItem[]>>;
+  newImages: IMenuItem[];
 }
 
 function CustomCardContent(props: ICustomCard) {
@@ -42,20 +59,8 @@ function CustomCardContent(props: ICustomCard) {
   );
 }
 
-interface IMenuItem {
-  id: string;
-  value: string;
-}
-interface IGeneral {
-  isTrue?: boolean;
-  data?: IBundleDetails | undefined;
-  nameRef?: any;
-  editable?: boolean;
-  formik: FormikProps<any>;
-}
-
 function General(props: IGeneral) {
-  const { data, nameRef, formik } = props;
+  const { data, nameRef, formik, newImages, setNewImages } = props;
 
   const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const [editable, setEditable] = useState(false);
@@ -72,6 +77,17 @@ function General(props: IGeneral) {
       formik?.setFieldValue("brandId", data?.brandId || "");
       formik?.setFieldValue("sku", data?.sku || "");
       formik?.setFieldValue("barcode", data?.barcode || "");
+      formik?.setFieldValue(
+        "oldImage",
+        data?.picture.map((i) => i.atachment) || [],
+      );
+      setUploadedFiles(
+        data?.picture.map((i) => ({
+          id: crypto.randomUUID(),
+          value: i.atachment,
+          isUpload: false,
+        })),
+      );
     }
   }, [data]);
 
@@ -84,9 +100,10 @@ function General(props: IGeneral) {
     const newUploadedFiles = images.map((item) => ({
       id: crypto.randomUUID(),
       value: item,
+      isUpload: true,
     }));
-
     setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+    setNewImages((i) => [...i, ...newUploadedFiles]);
   };
   const convertBase64 = (file: any): Promise<any> => {
     return new Promise((resolve, reject) => {
@@ -103,6 +120,20 @@ function General(props: IGeneral) {
 
   const toggleEditable = () => {
     setEditable((s) => !s);
+  };
+
+  const onRemoveTap = (image: IMenuItem) => {
+    const filter = uploadedFiles.filter((i) => i.id !== image.id);
+    setUploadedFiles(filter);
+    if (image.isUpload) {
+      const filterNew = newImages.filter((i) => i.value !== image.value);
+      setNewImages(filterNew);
+    } else {
+      const filterOld = formik.values.oldImage.filter(
+        (i: any) => i !== image.value,
+      );
+      formik.setFieldValue("oldImage", filterOld);
+    }
   };
 
   return (
@@ -212,9 +243,8 @@ function General(props: IGeneral) {
           <CustomCardContent title="Tracking">
             <Stack direction="row" gap={2}>
               <TextField
-                iconEnd
                 disabled={!editable}
-                icon={<RefreshIcon />}
+                endIcon={<RefreshIcon />}
                 id="sku"
                 label="SKU"
                 name="sku"
@@ -236,9 +266,8 @@ function General(props: IGeneral) {
               />
 
               <TextField
-                iconEnd
                 disabled={!editable}
-                icon={<RefreshIcon />}
+                endIcon={<RefreshIcon />}
                 id="barcode"
                 label="barcode"
                 name="barcode"
@@ -311,44 +340,56 @@ function General(props: IGeneral) {
           }}
         >
           <CustomCardContent title="Image">
-            <Stack direction="row" flexWrap="wrap" gap={2}>
-              {uploadedFiles.map((item) => {
+            <Stack
+              direction="row"
+              flexWrap="wrap"
+              gap={2}
+              justifyContent="center"
+            >
+              {uploadedFiles.map((images) => {
                 return (
                   <Box
-                    key={item.id}
+                    key={images.id}
                     sx={{
                       position: "relative",
                     }}
                   >
-                    <CancelIcon
-                      sx={{
-                        width: "17px",
-                        height: "17px",
-                        cursor: "pointer",
-                        position: "absolute",
-                        right: "-5px",
-                        top: "-5px",
-                        background: "white",
-                      }}
-                      onClick={() => {
-                        const newUploadedFile = uploadedFiles.filter(
-                          (i) => i.id !== item.id,
-                        );
-                        setUploadedFiles(newUploadedFile);
-                      }}
-                    />
+                    {editable && (
+                      <CancelIcon
+                        sx={{
+                          width: "17px",
+                          height: "17px",
+                          cursor: "pointer",
+                          color: `${palette.error.lightRed}`,
+                          position: "absolute",
+                          right: "-5px",
+                          top: "-5px",
+                          background: "white",
+                        }}
+                        onClick={() => onRemoveTap(images)}
+                      />
+                    )}
                     <img
-                      alt={item.value}
-                      src={item.value}
+                      alt={images.value}
+                      src={
+                        uploadedFiles?.length > 0
+                          ? images.isUpload
+                            ? images.value
+                            : `${FILE_URL}${images.value}`
+                          : NOImage
+                      }
                       style={{
+                        objectFit: "cover",
                         width: "120px",
                         height: "120px",
+                        borderRadius: "5px",
+                        border: "0.5px solid #eee",
                       }}
                     />
                   </Box>
                 );
               })}
-              <UploadButton disabled={!editable} handleFile={handleFile} />
+              {editable && <UploadButton handleFile={handleFile} />}
             </Stack>
           </CustomCardContent>
         </Card>

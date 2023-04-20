@@ -347,9 +347,8 @@ export default function General(props: IGeneral) {
           <CustomAccordian title="Dimensions">
             <Stack direction="row" gap={2}>
               <TextField
-                iconEnd
                 disabled={istrue}
-                icon={<Typography>cm</Typography>}
+                endIcon={<Typography>cm</Typography>}
                 id="height"
                 label="Height"
                 name="height"
@@ -359,9 +358,8 @@ export default function General(props: IGeneral) {
               />
 
               <TextField
-                iconEnd
                 disabled={istrue}
-                icon={<Typography>cm</Typography>}
+                endIcon={<Typography>cm</Typography>}
                 id="width"
                 label="Width"
                 name="width"
@@ -372,9 +370,8 @@ export default function General(props: IGeneral) {
             </Stack>
             <Stack direction="row" gap={2}>
               <TextField
-                iconEnd
                 disabled={istrue}
-                icon={<Typography>cm</Typography>}
+                endIcon={<Typography>cm</Typography>}
                 id="length"
                 label="Lenght"
                 value={formik?.values.length}
@@ -385,9 +382,8 @@ export default function General(props: IGeneral) {
               />
 
               <TextField
-                iconEnd
                 disabled={istrue}
-                icon={<Typography>kg</Typography>}
+                endIcon={<Typography>kg</Typography>}
                 id="weight"
                 label="Weight"
                 name="weight"
@@ -453,9 +449,8 @@ export default function General(props: IGeneral) {
               />
 
               <TextField
-                iconEnd
                 disabled={istrue}
-                icon={<Typography>INR</Typography>}
+                endIcon={<Typography>INR</Typography>}
                 id="supplyPrice"
                 label="Sync Supply Price"
                 name="supplyPrice"

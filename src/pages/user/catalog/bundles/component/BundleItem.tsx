@@ -6,8 +6,10 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
+import { FILE_URL } from "config";
 import TableActionButton from "components/table/TableActionButton";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import { useState } from "react";
@@ -111,15 +113,15 @@ function BundleItem(props: IProps) {
           }}
         >
           <img
-            alt="new"
-            src="https://app.storfox.com/d9f5ac726db86ff29f7b.png"
-            width="100%"
-          />
-          {/* <img
             alt=""
-            src={`${FILE_URL}${picture[0]?.atachment}`}
-            width="100%"
-          /> */}
+            src={picture.length > 0 ? `${FILE_URL}${picture[0]?.atachment}` : NOImage}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              borderRadius: "5px",
+            }}
+          />
         </Box>
       </TableCell>
 

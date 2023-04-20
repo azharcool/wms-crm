@@ -88,7 +88,7 @@ function BundleCreate() {
       userId: Number(userDecoded.id),
       description: values.description,
       ...(uploadedFiles.length && {
-        image: uploadedFiles.map((i) => i.value),
+        image: uploadedFiles.map((i) => i.value.split("base64,")[1]),
       }),
     };
     await addBundleAction(data);

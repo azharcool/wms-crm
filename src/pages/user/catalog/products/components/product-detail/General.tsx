@@ -13,13 +13,14 @@ import { FILE_URL } from "config";
 import { FormikProps } from "formik";
 import useBrand from "hooks/actions/catalog/brand/useBrand";
 import useCategory from "hooks/actions/catalog/categories/useCategory";
-import { useEffect, useState } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import palette from "theme/palette";
 import { IGetByIdProductData } from "types/catalog/products/getByIdProductResponse";
 
-interface IMenuItem {
+export interface IMenuItem {
   id: string;
-  value: string;
+  value?: string;
+  isUpload: boolean;
 }
 interface IGeneral {
   isTrue?: boolean;
@@ -27,12 +28,15 @@ interface IGeneral {
   editable?: boolean;
   data?: IGetByIdProductData;
   formik: FormikProps<any>;
+  setNewImages: Dispatch<React.SetStateAction<IMenuItem[]>>;
+  newImages: IMenuItem[];
 }
 
 function General(props: IGeneral) {
-  const { nameRef, data, formik } = props;
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+  const { nameRef, data, formik, newImages, setNewImages } = props;
+  // const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const [editable, setEditable] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
   const { category } = useCategory();
   const { brand } = useBrand();
@@ -52,23 +56,33 @@ function General(props: IGeneral) {
       formik?.setFieldValue("productWeight", data?.weight || "");
       formik?.setFieldValue("strategy", data?.strategy || "");
       formik?.setFieldValue("minExpiryDays", data?.expiryDays || "");
+      formik?.setFieldValue(
+        "oldImage",
+        data?.picture.map((i) => i.atachment) || [],
+      );
+      setUploadedFiles(
+        data?.picture.map((i) => ({
+          id: crypto.randomUUID(),
+          value: i.atachment,
+          isUpload: false,
+        })),
+      );
     }
   }, [data]);
-
+  console.log("edir", JSON.stringify(data, null, 2));
   const handleFile = async (e: any) => {
     const allFiles = Array.from(e.target.files);
     const images = await Promise.all(
       allFiles.map((file) => convertBase64(file)),
     );
-
     const newUploadedFiles = images.map((item) => ({
       id: crypto.randomUUID(),
       value: item,
+      isUpload: true,
     }));
-
     setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+    setNewImages((i) => [...i, ...newUploadedFiles]);
   };
-
   const convertBase64 = (file: any): Promise<any> => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -84,6 +98,20 @@ function General(props: IGeneral) {
 
   const toggleEditable = () => {
     setEditable((s) => !s);
+  };
+
+  const onRemoveTap = (image: IMenuItem) => {
+    const filter = uploadedFiles.filter((i) => i.id !== image.id);
+    setUploadedFiles(filter);
+    if (image.isUpload) {
+      const filterNew = newImages.filter((i) => i.value !== image.value);
+      setNewImages(filterNew);
+    } else {
+      const filterOld = formik.values.oldImage.filter(
+        (i: any) => i !== image.value,
+      );
+      formik.setFieldValue("oldImage", filterOld);
+    }
   };
 
   return (
@@ -278,7 +306,7 @@ function General(props: IGeneral) {
               gap={2}
               justifyContent="center"
             >
-              {data?.picture.map((images) => {
+              {uploadedFiles?.map((images: any) => {
                 return (
                   <Box
                     key={images.id}
@@ -298,15 +326,17 @@ function General(props: IGeneral) {
                           top: "-5px",
                           background: "white",
                         }}
-                        onClick={() => {
-                          console.log("clicked");
-                        }}
+                        onClick={() => onRemoveTap(images)}
                       />
                     )}
 
                     <img
                       alt="new"
-                      src={`${FILE_URL}${images.atachment}`}
+                      src={
+                        images.isUpload
+                          ? images.value
+                          : `${FILE_URL}${images.value}`
+                      }
                       style={{
                         objectFit: "cover",
                         width: "120px",

@@ -12,7 +12,9 @@ interface IuseGetAllCategories {
 
 function useGetAllCategories(props: IuseGetAllCategories) {
   const cachedKey = [QueryKeys.getAllCategories];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${
+    props.page ? props.page + 1 : 1
+  }`;
   return useQuery(cachedKey, () =>
     props.pageSize ? getAllPaginationCategories(url) : getAllCategories(),
   );

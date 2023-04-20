@@ -198,14 +198,13 @@ function UserUpdate() {
               </Stack>
               <Stack direction="row" gap={2}>
                 <TextField
-                  iconEnd
                   error={!!touched.password && !!errors.password}
                   helperText={
                     (touched.password && errors && errors.password) || ""
                   }
                   value={values.password}
                   onChange={handleChange("password")}
-                  icon={<KeyIcon />}
+                  endIcon={<KeyIcon />}
                   id="password"
                   label="Password"
                   name="password"

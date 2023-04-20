@@ -18,14 +18,15 @@ const configurationList = [
     title: "Currency Rate",
     desc: "Manage base currency and exchange rates",
     icon: <AttachMoneyIcon />,
-    href: "",
+    href: `/${setting.layout}/${setting.configuration.CurrencyRate}`,
   },
   {
     id: crypto.randomUUID(),
     title: "Taxes",
-    desc: "Set up mulitple tax types",
+    desc: "Set up multiple tax types",
     icon: <AttachMoneyIcon />,
-    href: "",
+    // href: "/${setting.layout}/${setting.configuration.taxes}",
+    href: `/${setting.layout}/${setting.configuration.taxes}`,
   },
   {
     id: crypto.randomUUID(),

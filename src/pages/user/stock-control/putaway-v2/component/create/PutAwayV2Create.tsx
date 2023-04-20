@@ -92,8 +92,7 @@ function PutAwayV2Create() {
             }}
           >
             <TextField
-              iconEnd
-              icon={<QrCodeScannerIcon />}
+              endIcon={<QrCodeScannerIcon />}
               id="sku"
               label="Scan Location"
               name="sku"

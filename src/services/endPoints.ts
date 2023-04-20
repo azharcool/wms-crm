@@ -217,6 +217,8 @@ const API_URLS = {
   GET_ALL_BILLING_ADDRESS: "supplier/getall-BillingAddress-By-SupplierId",
   GET_ALL_BANK_ACCOUNT: "supplier/getall-BankAccount-By-SupplierId",
   ADD_BANK_ACCOUNT: "supplier/add-BankAcount",
+  EDIT_BANK_ACCOUNT: "supplier/edit-bankAccount",
+  DELETE_BANK_ACCOUNT: "supplier/deleteBankAccount",
 
   // bundle
   GET_ALL_PAGINATION_BUNDLE: `bundle/${endPoints.getAllPagination}`,

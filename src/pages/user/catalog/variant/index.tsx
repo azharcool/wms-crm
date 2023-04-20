@@ -9,7 +9,7 @@ function Variant() {
   const navigate = useNavigate();
   const [variantPagination, setvariantPagination] = useState({
     pageSize: 10,
-    page: 1,
+    page: 0,
   });
   const { data: variantPaginationResponse, refetch } =
     useGetAllVariant(variantPagination);

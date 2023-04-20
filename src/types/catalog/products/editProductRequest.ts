@@ -25,6 +25,7 @@ export interface EditProductRequestRoot {
   trackSerialNumbers?: boolean;
   trackExpiryDates?: boolean;
   syncSupplyPrice?: boolean;
-  image?: string[];
+  oldImage?: string[];
+  image?: (string | undefined)[];
   fileUrl?: string;
 }
