@@ -11,6 +11,7 @@ const darkTheme = createTheme({
       light: Colors.lightGrey,
       main: Colors.white,
       dark: Colors.black,
+      darkBlue: Colors.darkBlue,
     },
     secondary: {
       light: Colors.lightRed,

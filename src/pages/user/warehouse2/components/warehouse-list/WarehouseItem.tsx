@@ -1,6 +1,8 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { Checkbox, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell from "components/table/status-table-cell/CustomBodyTableCell";
 import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -10,6 +12,28 @@ import { getSelectedWarehouseById } from "redux/warehouse/warehouseSelector";
 import { setWarehouse, setWarehouseId } from "redux/warehouse/warehouseSlice";
 import AppRoutes from "routes/appRoutes";
 import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
+
+interface ICustomText {
+  text: string;
+  link?: boolean;
+}
+function CustomText(props: ICustomText) {
+  const { text, link } = props;
+
+  const theme = useTheme();
+
+  return (
+    <Typography
+      sx={{
+        textDecoration: link ? "underline" : "none",
+        whiteSpace: "nowrap",
+        color: theme.palette.text.darkBlue,
+      }}
+    >
+      {text}
+    </Typography>
+  );
+}
 
 interface IWarehouseItem {
   item: IGetWarehouseResponseData;
@@ -24,6 +48,7 @@ function WarehouseItem(props: IWarehouseItem) {
     getSelectedWarehouseById(state, item.id),
   );
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
 
@@ -33,9 +58,9 @@ function WarehouseItem(props: IWarehouseItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
+        sxProps={{
           minWidth: 60,
           position: "sticky",
           left: 0,
@@ -44,18 +69,21 @@ function WarehouseItem(props: IWarehouseItem) {
       >
         <Checkbox
           checked={getSelectedWarehouseByIdState}
-          color="primary"
           onChange={select}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           left: 60,
           zIndex: 999,
-
           cursor: "pointer",
         }}
         onClick={() => {
@@ -68,77 +96,42 @@ function WarehouseItem(props: IWarehouseItem) {
           navigate(navigateDetails);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {item?.warehouseName}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          position: "sticky",
-          // left: 169,
-          // background: "white",
-        }}
-      >
-        {item?.label}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.city}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.email}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.phoneNumber}
-      </TableCell>
+        <CustomText text={item?.warehouseName} link />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.primaryPhoneNumber}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
+        <CustomText text={item?.label} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomText text={item?.city} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomText text={item?.email} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomText text={item?.phoneNumber} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomText text={item?.primaryPhoneNumber} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
         <StatusTableCell
           success={item?.status !== 2}
           title={item?.status === 2 ? "InActive" : "Active"}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
-          minWidth: 150,
           position: "sticky",
           right: 0,
-
           cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
@@ -146,7 +139,7 @@ function WarehouseItem(props: IWarehouseItem) {
             deleteWarehouseAsync(item?.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }
