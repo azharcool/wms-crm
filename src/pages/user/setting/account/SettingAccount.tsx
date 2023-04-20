@@ -292,7 +292,7 @@ function SettingAccount() {
               </Stack>
               <Stack direction="column" gap={2} marginTop={4}>
                 <TextField
-                  icon={<TagIcon fontSize="small" />}
+                  startIcon={<TagIcon fontSize="small" />}
                   id="primaryColory"
                   type="color"
                   label="Primary Color"
@@ -300,7 +300,7 @@ function SettingAccount() {
                   size="small"
                 />
                 <TextField
-                  icon={<TagIcon fontSize="small" />}
+                  startIcon={<TagIcon fontSize="small" />}
                   id="secondaryColor"
                   type="color"
                   label="Secondary Color"

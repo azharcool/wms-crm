@@ -180,6 +180,7 @@ const AppRoutes = {
       adjustmentDetail: "configuration/adjustment-reason/detail",
       productCondition: "configuration/product-condition/listing",
       taxes: "configuration/taxes/listing",
+      CurrencyRate: "configuration/currency-rate/listing",
     },
     barcode: {
       generate: "barcode/generate",

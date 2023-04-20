@@ -243,9 +243,8 @@ function General(props: IGeneral) {
           <CustomCardContent title="Tracking">
             <Stack direction="row" gap={2}>
               <TextField
-                iconEnd
                 disabled={!editable}
-                icon={<RefreshIcon />}
+                endIcon={<RefreshIcon />}
                 id="sku"
                 label="SKU"
                 name="sku"
@@ -267,9 +266,8 @@ function General(props: IGeneral) {
               />
 
               <TextField
-                iconEnd
                 disabled={!editable}
-                icon={<RefreshIcon />}
+                endIcon={<RefreshIcon />}
                 id="barcode"
                 label="barcode"
                 name="barcode"

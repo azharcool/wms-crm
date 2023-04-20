@@ -77,9 +77,8 @@ function BrowsListItem(props: IListItem) {
               <Stack direction="row" gap={2}>
                 <TextField
                   label="Search"
-                  iconEnd
                   name="search"
-                  icon={<SearchIcon />}
+                  endIcon={<SearchIcon />}
                   size="small"
                 />
               </Stack>

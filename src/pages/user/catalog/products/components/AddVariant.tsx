@@ -802,7 +802,7 @@ function AddVariant(props: IAddVariant) {
                             }}
                           >
                             <TextField
-                              icon={
+                              startIcon={
                                 <Typography
                                   sx={{
                                     fontSize: "15px",
@@ -825,7 +825,7 @@ function AddVariant(props: IAddVariant) {
                             }}
                           >
                             <TextField
-                              icon={
+                              startIcon={
                                 <Typography
                                   sx={{
                                     fontSize: "15px",
@@ -849,7 +849,7 @@ function AddVariant(props: IAddVariant) {
                             }}
                           >
                             <TextField
-                              icon={<Typography>INR</Typography>}
+                              startIcon={<Typography>INR</Typography>}
                               id={item.id}
                               name="retailPrice"
                               size="small"

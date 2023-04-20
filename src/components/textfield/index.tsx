@@ -24,7 +24,9 @@ interface Props extends InputProps {
   label?: string;
   FieldLabel?: string;
   helperText?: string;
-  icon?: React.ReactElement;
+  icon?: React.ReactElement | string;
+  startIcon?: React.ReactElement | string;
+  endIcon?: React.ReactElement | string;
   iconEnd?: boolean;
   isSelect?: boolean;
   onSelectHandler?: IOnSelect;
@@ -64,6 +66,8 @@ function TextField(props: Props) {
     helperText,
     icon,
     iconEnd,
+    startIcon,
+    endIcon,
     isSelect,
     id,
     menuItems,
@@ -79,7 +83,9 @@ function TextField(props: Props) {
   } = props;
 
   const inputLabelProps =
-    value && (disabled || darkDisable) ? { shrink: true, position: "top" } : {};
+    (value && (disabled || darkDisable)) || type === "date"
+      ? { shrink: true, position: "top" }
+      : {};
 
   return (
     <FormControl sx={style}>
@@ -106,15 +112,23 @@ function TextField(props: Props) {
           id={id}
           InputLabelProps={inputLabelProps}
           InputProps={{
-            startAdornment: !iconEnd && icon && (
-              <InputAdornment position="start" sx={{cursor:"pointer"}} onClick={onClickIcon}>
-                {icon}
+            startAdornment: startIcon && (
+              <InputAdornment
+                position="start"
+                sx={{ cursor: "pointer" }}
+                onClick={onClickIcon}
+              >
+                {startIcon}
               </InputAdornment>
             ),
 
-            endAdornment: iconEnd && icon && (
-              <InputAdornment position="end" sx={{cursor:"pointer"}} onClick={onClickIcon}>
-                {icon}
+            endAdornment: endIcon && (
+              <InputAdornment
+                position="end"
+                sx={{ cursor: "pointer" }}
+                onClick={onClickIcon}
+              >
+                {endIcon}
               </InputAdornment>
             ),
           }}
