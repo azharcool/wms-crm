@@ -47,7 +47,7 @@ const configurationList = [
     title: "Container types",
     desc: "Create various containers such as cartons, pallets, totes.",
     icon: <StayCurrentPortraitIcon />,
-    href: "",
+    href: `/${setting.layout}/${setting.configuration.containerTypes}`,
   },
   {
     id: crypto.randomUUID(),
