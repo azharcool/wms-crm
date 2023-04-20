@@ -1,11 +1,10 @@
 import { Box, Button, Card, Container, Stack, Typography } from "@mui/material";
 import DashboardLayout from "components/dashboard-container";
-import { useFetchRolePermissions } from "components/dashboard-container/query/useFetchPermissions";
 import TextField from "components/textfield";
 import ErrorMessages from "constants/ErrorMessages";
 import { IDropdown } from "constants/interfaces";
 import { useFetchRoles } from "pages/admin/settings/screens/team/query/useFetchRoles";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import palette from "theme/palette";
 import { IScreen } from "../screens/query/useFetchScreens";
 import AccessAccordion from "./components/AccessAccordion";
@@ -20,10 +19,6 @@ function ScreenAccess() {
     roleId: 0,
     screens: [],
   });
-  const { data: rolePermissions, refetch } = useFetchRolePermissions(
-    roleId,
-    false,
-  );
 
   const [selectedScreenIds, setSelectedScreenIds] = useState<number[]>([]);
 
@@ -33,52 +28,6 @@ function ScreenAccess() {
   const { data: roleData } = useFetchRoles();
 
   const screens = useMemo(() => screensData?.data, [screensData]);
-
-  useEffect(() => {
-    if (roleId) {
-      refetch();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [roleId]);
-
-  useEffect(() => {
-    if (rolePermissions) {
-      const oldScreensPermissions: any[] = [];
-      const oldRolePermissions: any = { roleId: 0, screens: [] };
-      const oldPermissions: any = [];
-
-      rolePermissions?.data?.map((permission: any) => {
-        const { screen } = permission;
-        if (!screen) return false;
-        permission.permissions?.map((item: any) => {
-          oldPermissions.push({ permissionId: item?.id });
-          return item;
-        });
-        const newScreen = {
-          screenId: screen.id,
-          permissions: oldPermissions,
-        };
-        oldRolePermissions.roleId = roleId;
-        oldScreensPermissions.push(newScreen);
-        oldRolePermissions.screens = oldScreensPermissions;
-
-        return permission;
-      });
-      setData(oldRolePermissions);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rolePermissions]);
-
-  useEffect(() => {
-    if (roleData?.data) {
-      const tempRoles: IDropdown[] = [];
-      roleData?.data?.map((item: any) => {
-        tempRoles.push({ id: item.id, value: item.roleName });
-        return item;
-      });
-      setRoles(tempRoles);
-    }
-  }, [roleData]);
 
   const handleSubmit = async () => {
     if (!roleId) {

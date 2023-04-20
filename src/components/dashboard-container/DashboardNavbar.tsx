@@ -18,6 +18,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import useDecodedData from "hooks/useDecodedData";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
@@ -30,18 +31,21 @@ import AccountPopover from "./AccountPopover";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }: any) => {
   return {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.d,
     boxShadow: theme.shadows[3],
   };
 });
 
 export function DashboardNavbar(props: any) {
   const { onSidebarOpen, ...other } = props;
-  const settingsRef = useRef(null);
+
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
+
+  const settingsRef = useRef(null);
   const decode = useDecodedData();
   const getThemeMode = useSelector(getSelectedThemeMode);
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const handleTheme = () => {
     dispatch(setThemeMode());
@@ -49,17 +53,31 @@ export function DashboardNavbar(props: any) {
 
   return (
     <>
-      <DashboardNavbarRoot
+      <AppBar
+        // style={{
+        //   position: "sticky",
+        //   top: 0,
+        //   width: "100%",
+        //   backdropFilter: "blur(20px)",
+        //   backgroundImage: "none",
+        // }}
         sx={{
-          left: {
-            // lg: 250,
-          },
-          width: {
-            lg: "calc(100% - 250px)",
-          },
-          boxShadow: "0px 1px 21px rgb(100 116 139 / 15%)",
+          // left: {
+          //   // lg: 250,
+          // },
+          // width: {
+          //   lg: "calc(100% - 250px)",
+          // },
+          // boxShadow: "0px 1px 21px rgb(100 116 139 / 15%)",
+          backgroundColor: "transparent",
+          boxShadow: "none",
+          backgroundImage: "none",
+          backdropFilter: "blur(20px)",
+          position: "fixed",
+          width: "100%",
+          top: 0,
         }}
-        {...other}
+        // {...other}
       >
         <Toolbar
           disableGutters
@@ -70,7 +88,8 @@ export function DashboardNavbar(props: any) {
             width: {
               // lg: "calc(100% - 200px)",
             },
-            boxShadow: "0px 1px 21px rgb(100 116 139 / 15%)",
+            backdropFilter: "blur(20px)",
+            // boxShadow: "0px 1px 21px rgb(100 116 139 / 15%)",
           }}
           {...other}
         >
@@ -182,7 +201,7 @@ export function DashboardNavbar(props: any) {
             </Box>
           </Box>
         </Toolbar>
-      </DashboardNavbarRoot>
+      </AppBar>
 
       <AccountPopover
         anchorEl={settingsRef.current}
