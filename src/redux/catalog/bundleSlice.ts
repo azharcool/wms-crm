@@ -33,9 +33,13 @@ const bundleSlice = createSlice({
         state.bundleIds = [];
       }
     },
+    removeAllBundleIds: (state) => {
+      state.bundleIds = [];
+    },
   },
 });
 
-export const { setBundleId, setAllBundleIds } = bundleSlice.actions;
+export const { setBundleId, setAllBundleIds, removeAllBundleIds } =
+  bundleSlice.actions;
 
 export default bundleSlice.reducer;
