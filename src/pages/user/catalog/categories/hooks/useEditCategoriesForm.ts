@@ -9,6 +9,8 @@ export interface EditCategoriesForm {
   slug: string;
   detail: string;
   status: string;
+  image: string[];
+  oldImage: string[];
 }
 
 interface IuseEditCategoriesForm {
@@ -31,6 +33,8 @@ const deafultValues: EditCategoriesForm = {
   slug: "",
   detail: "",
   status: "",
+  image: [],
+  oldImage: [],
 };
 function useEditCategoriesForm({
   onSubmit,

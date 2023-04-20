@@ -2,7 +2,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box, Card, Container, Grid, Stack } from "@mui/material";
+import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar from "components/table-toolbar";
@@ -23,8 +23,9 @@ import useEditCategoriesForm, {
 } from "../hooks/useEditCategoriesForm";
 
 interface IMenuItem {
-  id: string;
+  id?: string;
   value: string;
+  isUpload?: boolean;
 }
 
 const statusMenu = [
@@ -46,21 +47,23 @@ const initialValues: EditCategoriesForm = {
   slug: "",
   detail: "",
   status: "",
+  image: [],
+  oldImage: [],
 };
 
 function CategoriesDetail() {
+  const [editable, setEditable] = useState(false);
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem>();
+
   const navigate = useNavigate();
   const nameRef = useRef<any>(null);
   const { category } = useCategory();
-  const [editable, setEditable] = useState(false);
   const { categoryId } = useParams();
   const { data: categoryItemResponse } = useGetByIdCategory({
     categoryId: Number(categoryId),
   });
-
   const userDecoded = useDecodedData();
   const { editCategoryAction } = useCategoriesAction();
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
 
   const categoryForm = useEditCategoriesForm({
     onSubmit,
@@ -92,9 +95,14 @@ function CategoriesDetail() {
       setFieldValue("slug", categoryItemResponse?.data.slug || "");
       setFieldValue("detail", categoryItemResponse?.data.detail || "");
       setFieldValue("status", categoryItemResponse?.data.status || "");
+      setUploadedFiles({
+        id: crypto.randomUUID(),
+        value: categoryItemResponse?.data.picture?.atachment,
+        isUpload: false,
+      });
     }
-  }, [categoryItemResponse?.data, setFieldValue]);
-
+  }, [categoryItemResponse?.data]);
+  
   async function onSubmit(
     values: EditCategoriesForm,
     _: FormikHelpers<EditCategoriesForm>,
@@ -107,11 +115,18 @@ function CategoriesDetail() {
       tag: values.tag,
       name: values.name,
       slug: values.slug,
-      detail: values.slug,
+      detail: values.detail,
       status: Number(values.status),
+      image:
+        uploadedFiles?.isUpload && uploadedFiles?.value
+          ? uploadedFiles?.value?.split("base64,")[1]
+          : "",
     };
     const response = await editCategoryAction(data);
     if (response) {
+      navigate(
+        `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
+      );
       setEditable(false);
     }
   }
@@ -155,9 +170,6 @@ function CategoriesDetail() {
       title: "Save",
       onClick: () => {
         handleSubmit();
-        navigate(
-          `/${AppRoutes.CATALOG.catalog}/${AppRoutes.CATALOG.categories}`,
-        );
       },
       icon: (
         <SaveIcon
@@ -177,13 +189,11 @@ function CategoriesDetail() {
     const images = await Promise.all(
       allFiles.map((file) => convertBase64(file)),
     );
-
-    const newUploadedFiles = images.map((item) => ({
+    setUploadedFiles({
       id: crypto.randomUUID(),
-      value: item,
-    }));
-
-    setUploadedFiles((s) => [...s, ...newUploadedFiles]);
+      value: images[0],
+      isUpload: true,
+    });
   };
 
   const convertBase64 = (file: any): Promise<any> => {
@@ -327,13 +337,14 @@ function CategoriesDetail() {
                 gap={2}
                 justifyContent="center"
               >
-                {categoryItemResponse?.data?.picture ? (
+                {uploadedFiles?.value ? (
                   <Box
+                    key={uploadedFiles.id}
                     sx={{
                       position: "relative",
                     }}
                   >
-                    {!istrue && (
+                    {editable && (
                       <CancelIcon
                         sx={{
                           width: "17px",
@@ -346,14 +357,20 @@ function CategoriesDetail() {
                           background: "white",
                         }}
                         onClick={() => {
-                          console.log("clicked");
+                          setUploadedFiles({
+                            value: "",
+                          });
                         }}
                       />
                     )}
 
                     <img
                       alt="new"
-                      src={`${FILE_URL}${categoryItemResponse?.data?.picture.atachment}`}
+                      src={
+                        uploadedFiles.isUpload
+                          ? uploadedFiles.value
+                          : `${FILE_URL}${uploadedFiles.value}`
+                      }
                       style={{
                         objectFit: "cover",
                         width: "120px",
@@ -364,7 +381,7 @@ function CategoriesDetail() {
                     />
                   </Box>
                 ) : (
-                  <Box>No Image</Box>
+                  !editable && <Typography>No Image</Typography>
                 )}
 
                 {!istrue && <UploadButton handleFile={handleFile} />}

@@ -42,6 +42,7 @@ const initialValues: AddCategoriesForm = {
   slug: "",
   detail: "",
   status: "",
+  image: "",
 };
 
 function CategoriesCreate() {

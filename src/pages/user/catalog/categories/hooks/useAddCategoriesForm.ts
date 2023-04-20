@@ -9,6 +9,7 @@ export interface AddCategoriesForm {
   slug: string;
   detail: string;
   status: string;
+  image:string
 }
 
 interface IuseAddCategoriesForm {
@@ -31,6 +32,7 @@ const deafultValues: AddCategoriesForm = {
   slug: "",
   detail: "",
   status: "",
+  image:""
 };
 function useAddCategoriesForm({
   onSubmit,
