@@ -9,7 +9,6 @@ import { getSelectedSupplierById } from "redux/purchase/supplierSelector";
 import { setSupplierId } from "redux/purchase/supplierSlice";
 import { RootState, useAppDispatch } from "redux/store";
 import AppRoutes from "routes/appRoutes";
-import palette from "theme/palette";
 import { GetAllSupplierData } from "types/catalog/supplier/getAllSupplierResponse";
 
 interface ISupplierListItem {
@@ -18,13 +17,14 @@ interface ISupplierListItem {
 
 function SupplierListItem(props: ISupplierListItem) {
   const { item } = props;
+
   const navigate = useNavigate();
-  const newtheme = useSelector((state: any) => state.theme);
   const { deleteSupplierAsync } = useSupplierAction();
   const getSelectedSupplierByIdState = useSelector((state: RootState) =>
     getSelectedSupplierById(state, item.id),
   );
   const dispatch = useAppDispatch();
+
   const select = () => {
     dispatch(setSupplierId(item.id));
   };
@@ -38,9 +38,6 @@ function SupplierListItem(props: ISupplierListItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -56,9 +53,6 @@ function SupplierListItem(props: ISupplierListItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -136,9 +130,6 @@ function SupplierListItem(props: ISupplierListItem) {
           minWidth: 150,
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
       >

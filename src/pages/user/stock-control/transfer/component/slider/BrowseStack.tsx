@@ -21,8 +21,6 @@ import useVariant from "hooks/querys/catalog/variants/useVariant";
 import { Dispatch, SetStateAction, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 
 interface IListItem {
@@ -175,7 +173,6 @@ interface IStockItem {
   variants: IGetAllVariantResponseData[];
 }
 function StockItem(props: IStockItem) {
-  const newtheme = useSelector((state: any) => state.theme);
   const { item, setVariants, variants } = props;
   const select = () => {
     const findVariant = variants?.find((i) => i.id === item.id);
@@ -195,9 +192,6 @@ function StockItem(props: IStockItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox color="primary" onChange={select} />
@@ -208,9 +202,6 @@ function StockItem(props: IStockItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Box

@@ -20,8 +20,6 @@ import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 
 interface IMenuItem {
   id: string;
@@ -474,8 +472,6 @@ function General(props: IGeneral) {
 export default General;
 
 function LineItems() {
-  const newtheme = useSelector((state: any) => state.theme);
-
   return (
     <Card>
       <CustomCardContent title="Line Items">
@@ -515,9 +511,6 @@ function LineItems() {
                       position: "sticky",
                       left: 0,
                       zIndex: 999,
-                      background: newtheme.isDarkMode
-                        ? "#26263D"
-                        : palette.background.default,
                     }}
                   >
                     <Box

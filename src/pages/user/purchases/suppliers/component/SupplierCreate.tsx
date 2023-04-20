@@ -13,7 +13,6 @@ import useSupplierAction from "hooks/actions/catalog/supplier/useSupplierAction"
 import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
 import useDecodedData from "hooks/useDecodedData";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
@@ -55,13 +54,12 @@ const initialValues: AddSupplierForm = {
   status: "",
 };
 function SupplierCreate() {
-  const newtheme = useSelector((state: any) => state.theme);
+  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
+
   const { addWarehouseAction, editWarehouseAction } = useWarehouseAction();
   const { addSupplierAction } = useSupplierAction();
-  const [uploadedFiles, setUploadedFiles] = useState<IMenuItem[]>([]);
   const navigate = useNavigate();
   const userDecoded = useDecodedData();
-
   const { state } = useLocation();
 
   const supplierForm = useAddSupplierForm({

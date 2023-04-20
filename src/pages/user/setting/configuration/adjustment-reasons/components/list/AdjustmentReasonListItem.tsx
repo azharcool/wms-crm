@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 import { getSelectedAdjustmentReasonById } from "redux/settings/configuration/adjustmentReasonSelector";
 import { setAdjustmentReasonId } from "redux/settings/configuration/adjustmentReasonSlice";
 import { RootState, useAppDispatch } from "redux/store";
-import palette from "theme/palette";
 import { IGetAdjustmentResponseData } from "types/setting/adjustment/getAdjustmentResponse";
 import AdjustmentReasonsCreate from "../AdjustmentReasonsCreate";
 
@@ -20,7 +19,6 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
   const { item } = props;
 
   const [manageOpen, setManageOpen] = useState(false);
-  const newtheme = useSelector((state: any) => state.theme);
   const getSelectedAdjustmentReasonByIdState = useSelector((state: RootState) =>
     getSelectedAdjustmentReasonById(state, Number(item.id)),
   );
@@ -61,9 +59,6 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
             position: "sticky",
             left: 0,
             zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Checkbox
@@ -79,9 +74,6 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
             position: "sticky",
             left: 60,
             zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
             cursor: "pointer",
           }}
           onClick={() => {

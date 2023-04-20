@@ -12,8 +12,6 @@ import { FILE_URL } from "config";
 import useProductConditionAction from "hooks/actions/setting/product-condition/useProductConditionAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 import { GetAllProductConditionPaginationResponseData } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
 import ManageProductCondition from "../ManageProductCondition";
 
@@ -23,8 +21,9 @@ interface IProductConditionListItem {
 
 function ProductConditionListItem(props: IProductConditionListItem) {
   const { item } = props;
+
   const [manageOpen, setManageOpen] = useState(false);
-  const newtheme = useSelector((state: any) => state.theme);
+
   const { deleteProductConditionAction } = useProductConditionAction();
 
   const handleManage = () => {
@@ -45,9 +44,6 @@ function ProductConditionListItem(props: IProductConditionListItem) {
             position: "sticky",
             left: 0,
             zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Checkbox color="primary" />
@@ -59,9 +55,6 @@ function ProductConditionListItem(props: IProductConditionListItem) {
             position: "sticky",
             left: 60,
             zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
             cursor: "pointer",
           }}
           onClick={() => {

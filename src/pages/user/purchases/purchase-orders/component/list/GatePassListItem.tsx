@@ -1,10 +1,8 @@
 import { TableCell, TableRow } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 function GatePassListItem() {
-  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   return (
     <TableRow>

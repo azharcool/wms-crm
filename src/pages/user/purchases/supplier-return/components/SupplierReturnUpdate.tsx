@@ -27,7 +27,6 @@ import AutoComplete from "components/textfield/AutoComplete";
 import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import AddSupplier from "./NewSupplier";
@@ -426,7 +425,6 @@ const tableTitle = [
 ];
 
 function LineItems() {
-  const newtheme = useSelector((state: any) => state.theme);
   const [openBrowsItem, setOpenBrowsItem] = React.useState(false);
   return (
     <>
@@ -507,9 +505,6 @@ function LineItems() {
                         position: "sticky",
                         left: 0,
                         zIndex: 999,
-                        background: newtheme.isDarkMode
-                          ? "#26263D"
-                          : palette.background.default,
                       }}
                     >
                       <Box

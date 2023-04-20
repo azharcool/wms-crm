@@ -1,13 +1,13 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
-import palette from "theme/palette";
 
-function ReorderListItem(props: { item: any }) {
-  const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
+interface IReorderListItem {
+  item: any;
+}
+
+function ReorderListItem(_: IReorderListItem) {
   const navigate = useNavigate();
   const {
     stockControl: {
@@ -25,9 +25,6 @@ function ReorderListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -42,9 +39,6 @@ function ReorderListItem(props: { item: any }) {
           position: "sticky",
           left: 40,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1}`)}

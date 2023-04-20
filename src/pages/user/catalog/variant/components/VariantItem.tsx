@@ -14,8 +14,6 @@ import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariant
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 
 interface IVariantItem {
   item: IGetAllVariantResponseData;
@@ -23,10 +21,10 @@ interface IVariantItem {
 
 function VariantItem(props: IVariantItem) {
   const { item } = props;
+
   const navigate = useNavigate();
   const alert = useAlert();
   const { deleteVariantAsync } = useVariantAction();
-  const newtheme = useSelector((state: any) => state.theme);
 
   const handleVariantDelete = async () => {
     alert?.show({
@@ -49,9 +47,6 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -62,9 +57,6 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Box
@@ -97,9 +89,6 @@ function VariantItem(props: IVariantItem) {
           position: "sticky",
           left: 130,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -249,9 +238,6 @@ function VariantItem(props: IVariantItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <TableActionButton

@@ -1,14 +1,11 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
-import palette from "theme/palette";
 
 function PutAwayV2ListItem(props: { item: any }) {
   const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const {
     stockControl: {
@@ -26,9 +23,6 @@ function PutAwayV2ListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -43,9 +37,6 @@ function PutAwayV2ListItem(props: { item: any }) {
           position: "sticky",
           left: 50,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1/${general}`)}

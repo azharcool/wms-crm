@@ -22,7 +22,6 @@ import TextField from "components/textfield";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import AppRoutes from "routes/appRoutes";
 import ShowItems from "./ShowItems";
 import ShowScanedItems from "./ShowScanedItems";
@@ -169,7 +168,6 @@ const tableTitle = [
 ];
 
 function LineItems() {
-  const newtheme = useSelector((state: any) => state.theme);
   return (
     <Card>
       <CustomCardContent title="Active line item">

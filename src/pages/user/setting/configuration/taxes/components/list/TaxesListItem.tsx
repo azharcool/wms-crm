@@ -2,43 +2,14 @@ import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 import TaxesCreate from "../TaxesCreate";
 
-// interface IAdjustmentItem {
-//   item: IGetAdjustmentResponseData;
-// }
-
 function TaxesListItem() {
-  //   const { item } = props;
-
   const [manageOpen, setManageOpen] = useState(false);
-  const newtheme = useSelector((state: any) => state.theme);
-
-  //   const select = () => {
-  //     dispatch(setAdjustmentReasonId(Number(item.id)));
-  //   };
-
-  //   const alert = useAlert();
-  //   const { deleteAdjustmentReasonAction } = useAdjustmentReasonAction();
 
   const handleManage = () => {
     setManageOpen((s) => !s);
   };
-
-  //   const handleAdjustmentDelete = async () => {
-  //     alert?.show({
-  //       title: "Confirmation",
-  //       message: "Do you really want to delete Adjustment Reason",
-  //       cancelText: "No",
-  //       confirmText: "Yes",
-  //       onConfirm: async () => {
-  //         await deleteAdjustmentReasonAction(Number(item.id));
-  //         // refetch();
-  //       },
-  //     });
-  //   };
 
   return (
     <>
@@ -50,9 +21,6 @@ function TaxesListItem() {
             position: "sticky",
             left: 0,
             zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Checkbox
@@ -68,9 +36,6 @@ function TaxesListItem() {
             position: "sticky",
             left: 60,
             zIndex: 999,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
             cursor: "pointer",
           }}
           onClick={() => {

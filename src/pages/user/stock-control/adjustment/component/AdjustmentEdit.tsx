@@ -415,9 +415,7 @@ interface IStockTable {
 function StocksTable(props: IStockTable) {
   const { warehouseId, adjustmentReasonId, formik, setUnits } = props;
 
-  const newtheme = useSelector((state: any) => state.theme);
   const [openBrows, setOpenBrows] = useState(false);
-
   const [selectedVariants, setSelectedVariants] = useState<
     IGetAllVariantResponseData[]
   >([]);
@@ -426,15 +424,18 @@ function StocksTable(props: IStockTable) {
   const [selectedItem, setSelectedItem] =
     useState<IGetAllVariantResponseData>();
   const [unitSliderOpen, setUnitSliderOpen] = useState(false);
+  const { location: locationMenuItem } = useLocation(warehouseId);
+
+  const { setFieldValue, handleChange, values } = formik;
+  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
+
   const handleClose = () => {
     setOpenBrows(!openBrows);
   };
+
   const handleUnitClose = () => {
     setUnitSliderOpen(!unitSliderOpen);
   };
-  const { location: locationMenuItem } = useLocation(warehouseId);
-  const { setFieldValue, handleChange, values } = formik;
-  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
 
   return (
     <>
@@ -517,9 +518,6 @@ function StocksTable(props: IStockTable) {
                               position: "sticky",
                               left: 0,
                               zIndex: 999,
-                              background: newtheme.isDarkMode
-                                ? "#26263D"
-                                : palette.background.default,
                             }}
                           >
                             <Box

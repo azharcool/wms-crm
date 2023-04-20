@@ -1,11 +1,8 @@
-import { TableCell, TableRow } from "@mui/material";
 import HistoryIcon from "@mui/icons-material/History";
+import { TableCell, TableRow } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 function HistoryListItem() {
-  const newtheme = useSelector((state: any) => state.theme);
   return (
     <TableRow>
       <TableCell
@@ -23,7 +20,7 @@ function HistoryListItem() {
           // background: "white",
         }}
       >
-       description
+        description
       </TableCell>
 
       <TableCell
@@ -32,7 +29,7 @@ function HistoryListItem() {
           // background: "white",
         }}
       >
-       Aasif sheikh
+        Aasif sheikh
       </TableCell>
       <TableCell
         sx={{

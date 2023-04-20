@@ -9,7 +9,6 @@ import { RootState, useAppDispatch } from "redux/store";
 import { getSelectedWarehouseById } from "redux/warehouse/warehouseSelector";
 import { setWarehouse, setWarehouseId } from "redux/warehouse/warehouseSlice";
 import AppRoutes from "routes/appRoutes";
-import palette from "theme/palette";
 import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
 
 interface IWarehouseItem {
@@ -18,14 +17,16 @@ interface IWarehouseItem {
 
 function WarehouseItem(props: IWarehouseItem) {
   const { item } = props;
+
   const { deleteWarehouseAsync } = useWarehouseAction();
   const navigate = useNavigate();
-  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
-  const newtheme = useSelector((state: any) => state.theme);
   const getSelectedWarehouseByIdState = useSelector((state: RootState) =>
     getSelectedWarehouseById(state, item.id),
   );
   const dispatch = useAppDispatch();
+
+  const navigateDetails = `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.details}/${item?.id}/${AppRoutes.warehouse.generalDetails}`;
+
   const select = () => {
     dispatch(setWarehouseId(item.id));
   };
@@ -39,9 +40,6 @@ function WarehouseItem(props: IWarehouseItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -57,9 +55,7 @@ function WarehouseItem(props: IWarehouseItem) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
+
           cursor: "pointer",
         }}
         onClick={() => {
@@ -141,9 +137,7 @@ function WarehouseItem(props: IWarehouseItem) {
           minWidth: 150,
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
+
           cursor: "pointer",
         }}
       >

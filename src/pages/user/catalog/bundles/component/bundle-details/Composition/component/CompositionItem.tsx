@@ -4,8 +4,6 @@ import TableActionButton from "components/table/TableActionButton";
 import TextField from "components/textfield";
 import useBundleCompositionAction from "hooks/actions/catalog/bundlle-composition/useBundleCompositionAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 import { IBundleCompositionList } from "..";
 
 const conditionCode = [
@@ -35,7 +33,6 @@ interface ICompositionItem {
 function CompositionItem(props: ICompositionItem) {
   const { isManage, item, setBundleItem } = props;
   const { deleteBundlCompeAction } = useBundleCompositionAction();
-  const newtheme = useSelector((state: any) => state.theme);
 
   const handleDelete = (id: any) => {
     deleteBundlCompeAction(id);
@@ -49,9 +46,6 @@ function CompositionItem(props: ICompositionItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Box
@@ -168,9 +162,6 @@ function CompositionItem(props: ICompositionItem) {
           sx={{
             position: "sticky",
             right: 0,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <TableActionButton
