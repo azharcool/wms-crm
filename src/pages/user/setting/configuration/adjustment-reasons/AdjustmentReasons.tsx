@@ -1,11 +1,10 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
+import useAdjustmentReasonAction from "hooks/actions/setting/adjustment-reason/useAdjustmentReasonAction";
 import useGetAllAdjustmentReason from "hooks/querys/setting/adjustmentReason/useGetAllAdjustmentReason";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-
-import useAdjustmentReasonAction from "hooks/actions/setting/adjustment-reason/useAdjustmentReasonAction";
 import { getSelectedAdjustmentReason } from "redux/settings/configuration/adjustmentReasonSelector";
 import AdjustmentReasonsCreate from "./components/AdjustmentReasonsCreate";
 import AdjustmentReasonsList from "./components/list/AdjustmentReasonsList";
