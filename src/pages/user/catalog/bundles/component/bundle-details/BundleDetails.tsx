@@ -143,7 +143,7 @@ function BundleDetails() {
   }
   const istrue = !editable;
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[{ link: "BUNDLES", to: "/catalog/bundles" }]}
         navTitle="bundles"

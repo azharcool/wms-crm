@@ -1,16 +1,21 @@
-import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
+import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 
 function UserListItem() {
   const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
 
-  const {setting:{layout,user:{details, general, history}}}= AppRoutes
+  const {
+    setting: {
+      layout,
+      user: { details, general, history },
+    },
+  } = AppRoutes;
   return (
     <TableRow>
       <TableCell
@@ -42,11 +47,7 @@ function UserListItem() {
             : palette.background.default,
           cursor: "pointer",
         }}
-        onClick={() =>
-          navigate(
-            `/${layout}/${details}/1/${general}`,
-          )
-        }
+        onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
         <Box
           sx={{

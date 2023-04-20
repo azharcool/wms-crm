@@ -19,11 +19,11 @@ import CustomToolButton from "components/custom-tool-button/CustomToolButton";
 import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import AppRoutes from "routes/appRoutes";
 import ShowItems from "./ShowItems";
 import ShowScanedItems from "./ShowScanedItems";
 
@@ -66,7 +66,7 @@ function PutAwayV2Create() {
   ];
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

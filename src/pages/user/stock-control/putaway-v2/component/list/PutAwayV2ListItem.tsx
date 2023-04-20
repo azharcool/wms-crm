@@ -1,9 +1,9 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 
 function PutAwayV2ListItem(props: { item: any }) {

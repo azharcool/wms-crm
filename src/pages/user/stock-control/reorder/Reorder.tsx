@@ -1,11 +1,10 @@
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import ReorderList from "./component/list/ReorderList";
 
 function Reorder() {
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

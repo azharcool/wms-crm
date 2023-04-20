@@ -1,10 +1,10 @@
 import { Container, Stack, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
+import AppRoutes from "routes/appRoutes";
 
 function DetailLayout() {
   const [value, setValue] = useState(0);
@@ -42,7 +42,7 @@ function DetailLayout() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

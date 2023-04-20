@@ -1,8 +1,8 @@
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 function ReceiveDetailLayout() {
   const [value, setValue] = useState(0);
@@ -40,7 +40,7 @@ function ReceiveDetailLayout() {
     }
   };
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Warehouse", to: "/warehouse/listing" }]}

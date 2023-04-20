@@ -7,8 +7,8 @@ import StayCurrentPortraitIcon from "@mui/icons-material/StayCurrentPortrait";
 import { Card, CardContent, Stack, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 const { setting } = AppRoutes;
 
@@ -88,7 +88,7 @@ const configurationList = [
 function Configuration() {
   const navigate = useNavigate();
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar title="Configuration" />
         <Stack direction="row" flexWrap="wrap" gap={2} marginTop={2}>

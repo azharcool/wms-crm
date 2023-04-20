@@ -12,13 +12,13 @@ import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
 import useGetAllLocation from "hooks/querys/warehouse/location/useGetAllLocation";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
+import AppRoutes from "routes/appRoutes";
 import LocationsListItem from "./LocationsListItem";
 
 const tableTitle = [
@@ -125,9 +125,8 @@ function LocationsListing() {
     area: item.areaName,
     zone: item.zoneName,
     aisle: item.aisle,
-    bay:"",
-    level:""
-
+    bay: "",
+    level: "",
   }));
 
   const csvHeaders = tableTitle.map((item) => ({
@@ -138,14 +137,14 @@ function LocationsListing() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Locations"
         handle={(e) => {
           if (e === "create") {
             navigate(`/${warehouseLayout}/${locationCreate}`);
           }
         }}
-        csvData={csvData}
-        csvHeader={csvHeaders}
-        csvTitle="Locations"
         moreList={[
           {
             id: crypto.randomUUID(),

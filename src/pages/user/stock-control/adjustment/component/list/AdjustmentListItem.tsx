@@ -3,7 +3,6 @@ import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
 import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +12,7 @@ import {
   setAdjustmentId,
 } from "redux/stock-control/adjustmentSlice";
 import { RootState, useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { GetAllAdjustmentResponseData } from "types/stock/adjustment/getAllAdjustmentResponse";
 

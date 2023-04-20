@@ -2,13 +2,13 @@ import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
 import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState, useAppDispatch } from "redux/store";
 import { getSelectedWarehouseById } from "redux/warehouse/warehouseSelector";
 import { setWarehouse, setWarehouseId } from "redux/warehouse/warehouseSlice";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
 

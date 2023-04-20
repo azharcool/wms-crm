@@ -128,7 +128,7 @@ function BundleCreate() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[{ link: "Bundles", to: "/catalog/bundles" }]}
         buttonText={

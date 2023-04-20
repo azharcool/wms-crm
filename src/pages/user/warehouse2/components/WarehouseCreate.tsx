@@ -18,9 +18,9 @@ import AutoComplete from "components/textfield/AutoComplete";
 import { FormikHelpers } from "formik";
 import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import { IAddWarehouseRequestRoot } from "types/warehouse/addWarehouseRequest";
 import useAddWarehouseForm, {
   AddWarehouseForm,
@@ -150,7 +150,7 @@ function WarehouseCreate() {
     : `/${AppRoutes.warehouse.warehouseLayout}/${AppRoutes.warehouse.listing}`;
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         navTitle="WAREHOUSE"
         rightActions={[

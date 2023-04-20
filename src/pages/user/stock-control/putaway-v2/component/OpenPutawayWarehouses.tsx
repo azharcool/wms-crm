@@ -1,10 +1,10 @@
 import { Box, Card, Stack } from "@mui/material";
 import Slider from "components/layouts/popup-modals/Slider";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
-import AppRoutes from "navigation/appRoutes";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 interface IOpenPutawayWarehouses {
   open: boolean;

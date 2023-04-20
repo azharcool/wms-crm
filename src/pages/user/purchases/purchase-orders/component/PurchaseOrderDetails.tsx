@@ -2,9 +2,9 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import EditIcon from "@mui/icons-material/Edit";
 import { Box, Container, Stack, Tab, Tabs, Typography } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import GatePass from "./GatePass";
 import General from "./General";
 import History from "./History";
@@ -80,7 +80,7 @@ function PurchaseOrderDetails() {
   ];
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

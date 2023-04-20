@@ -7,8 +7,8 @@ import {
   Typography,
 } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
-import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 // import "react-perfect-scrollbar/dist/css/styles.css";
 import NOImage from "assets/images/no-image.png";

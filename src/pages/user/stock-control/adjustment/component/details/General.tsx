@@ -1,3 +1,4 @@
+import EditIcon from "@mui/icons-material/Edit";
 import {
   Box,
   Card,
@@ -17,9 +18,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
 import { grey, purple } from "@mui/material/colors";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
 import CustomCardContent from "components/card/CustomCardContent";
 import DashedCard from "components/card/DashedCard";
@@ -28,16 +28,16 @@ import { ToolBarButton } from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import NoDataTableRow from "components/table/no-data-table-row";
 import TextField from "components/textfield";
+import { FILE_URL } from "config";
 import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { StockDetail } from "types/stock/adjustment/getAllAdjustmentResponse";
-import { useNavigate } from "react-router-dom";
-import AppRoutes from "navigation/appRoutes";
-import { FILE_URL } from "config";
 
 interface IMenuItem {
   id: string;

@@ -7,7 +7,7 @@ import RoleListing from "./component/list/RoleListing";
 function Roles() {
   const navigate = useNavigate();
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

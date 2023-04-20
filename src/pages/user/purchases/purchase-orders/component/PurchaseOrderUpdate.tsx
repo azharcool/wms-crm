@@ -26,11 +26,11 @@ import TableToolbar from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
-import AppRoutes from "navigation/appRoutes";
 import React from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import AddSupplier from "./AddSupplier";
 
@@ -72,7 +72,7 @@ function PurchaseOrderUpdate() {
 
   return (
     <>
-      <Container maxWidth={false}>
+      <Container>
         <TableToolbar
           breadcrumbs={[
             {

@@ -25,9 +25,9 @@ import useCategory from "hooks/actions/catalog/categories/useCategory";
 import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import useSupplier from "hooks/actions/catalog/supplier/useSupplier";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IAddProductRequestRoot } from "types/catalog/products/addProductRequest";
 import { generateRandomNumber } from "utils";
@@ -210,7 +210,7 @@ function ProductCreate() {
 
   return (
     <>
-      <Container maxWidth={false}>
+      <Container>
         <TableToolbar
           navTitle="PRODUCTS"
           rightActions={[

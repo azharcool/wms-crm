@@ -12,13 +12,13 @@ import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
 import { FILE_URL } from "config";
 import useCategoriesAction from "hooks/actions/catalog/categories/useCategoriesAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedCategoryById } from "redux/catalog/categorySelector";
 import { setCategoryId } from "redux/catalog/categorySlice";
 import { RootState, useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetCategoriesResponseData } from "types/catalog/catagories/getCategoriesResponse";
 

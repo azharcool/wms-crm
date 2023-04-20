@@ -2,12 +2,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import SaveIcon from "@mui/icons-material/Save";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import useGetByIdWarehouse from "hooks/querys/warehouse/useGetByIdWarehouse";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
-import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 function RollUpdate() {
   const [value, setValue] = useState(0);
@@ -48,7 +45,7 @@ function RollUpdate() {
   const handleOpen = () => {};
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Setting", to: "/setting/role/listing" }]}
@@ -71,8 +68,7 @@ function RollUpdate() {
             {
               id: crypto.randomUUID(),
               title: "Save",
-              onClick: () => {
-              },
+              onClick: () => {},
               icon: (
                 <SaveIcon
                   sx={{

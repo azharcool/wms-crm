@@ -1,15 +1,15 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { CardContent } from "@mui/material";
-import { Container, Box } from "@mui/system";
+import { Box, Container } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import UserListing from "./component/list/UserListing";
 
 function SettingUser() {
   const navigate = useNavigate();
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

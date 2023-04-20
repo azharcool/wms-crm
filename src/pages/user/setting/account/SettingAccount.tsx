@@ -1,23 +1,9 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import CancelIcon from "@mui/icons-material/Cancel";
-import SaveIcon from "@mui/icons-material/Save";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import SaveIcon from "@mui/icons-material/Save";
 import TagIcon from "@mui/icons-material/Tag";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  Stack,
-  Typography,
-} from "@mui/material";
-import CustomCardContent from "components/card/CustomCardContent";
-import TableToolbar from "components/table-toolbar";
-import TextField from "components/textfield";
-import UploadButton from "components/image-upload-button/UploadButton";
-import { useState } from "react";
-import "react-perfect-scrollbar/dist/css/styles.css";
-import palette from "theme/palette";
+import { Box, Card, Container, Grid, Stack, Typography } from "@mui/material";
 import {
   companyType,
   defaultLanguage,
@@ -27,8 +13,15 @@ import {
 } from "__mock__";
 import Countries from "__mock__/countries.json";
 import Currency from "__mock__/currency.json";
-import AutoComplete from "components/textfield/AutoComplete";
+import CustomCardContent from "components/card/CustomCardContent";
 import DashedCard from "components/card/DashedCard";
+import UploadButton from "components/image-upload-button/UploadButton";
+import TableToolbar from "components/table-toolbar";
+import TextField from "components/textfield";
+import AutoComplete from "components/textfield/AutoComplete";
+import { useState } from "react";
+import "react-perfect-scrollbar/dist/css/styles.css";
+import palette from "theme/palette";
 
 interface IMenuItem {
   id: string;
@@ -96,7 +89,7 @@ function SettingAccount() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[{ link: "ACCOUNT", to: "/account" }]}
         buttonText="Save"
@@ -283,10 +276,12 @@ function SettingAccount() {
                       flexDirection: "column",
                     }}
                   >
-                    <Typography sx={{fontSize:12}}>
+                    <Typography sx={{ fontSize: 12 }}>
                       Extension: .PNG, .JPG (Dark version of the Logo)
                     </Typography>
-                    <Typography sx={{fontSize:12}}>Aspect ratio: 25:6</Typography>
+                    <Typography sx={{ fontSize: 12 }}>
+                      Aspect ratio: 25:6
+                    </Typography>
                   </Box>
                 </DashedCard>
               </Stack>

@@ -1,15 +1,15 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import TransferList from "./component/list/TransferList";
 
 function StockTransfer() {
   const navigate = useNavigate();
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

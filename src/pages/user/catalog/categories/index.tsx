@@ -3,11 +3,11 @@ import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useCategoriesAction from "hooks/actions/catalog/categories/useCategoriesAction";
 import useGetAllCategories from "hooks/querys/catalog/categories/useGetAllCategories";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedCategory } from "redux/catalog/categorySelector";
+import AppRoutes from "routes/appRoutes";
 import CategoriesListing from "./components/CategoriesListing";
 
 function Categories() {
@@ -39,7 +39,7 @@ function Categories() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

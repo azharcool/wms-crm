@@ -1,20 +1,8 @@
-import CommentIcon from "@mui/icons-material/Comment";
-import {
-  Box,
-  Checkbox,
-  LinearProgress,
-  linearProgressClasses,
-  styled,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import StatusTableCell from "components/table/status-table-cell";
-import TableActionButton from "components/table/TableActionButton";
-import AppRoutes from "navigation/appRoutes";
+import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 
 function ReorderListItem(props: { item: any }) {
@@ -66,7 +54,7 @@ function ReorderListItem(props: { item: any }) {
             whiteSpace: "nowrap", //! Dont remove
           }}
         >
-        {/* variant */}-
+          {/* variant */}-
         </Typography>
       </TableCell>
       <TableCell sx={{ minWidth: 170 }}>
@@ -100,7 +88,7 @@ function ReorderListItem(props: { item: any }) {
           minWidth: 170,
         }}
       >
-      {/* reader */}-
+        {/* reader */}-
       </TableCell>
       <TableCell
         sx={{

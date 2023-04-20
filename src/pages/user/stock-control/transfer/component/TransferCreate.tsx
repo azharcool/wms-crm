@@ -29,12 +29,12 @@ import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAct
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
@@ -186,7 +186,7 @@ function TransferCreate() {
   }, [values]);
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

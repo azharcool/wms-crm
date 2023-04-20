@@ -1,11 +1,5 @@
 import CancelIcon from "@mui/icons-material/Cancel";
-import {
-  Box,
-  Card,
-  Container,
-  Grid,
-  Stack,
-} from "@mui/material";
+import { Box, Card, Container, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TextField from "components/textfield";
@@ -28,7 +22,6 @@ const statusMenu = [
     value: "Inactive",
   },
 ];
-
 
 // function ToolBarButton(props: ITooblarButton) {
 //   const { handleClick, title, icon } = props;
@@ -99,7 +92,7 @@ function General() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Grid container spacing={2} my={2}>
         <Grid item xs={8}>
           <Card
@@ -126,17 +119,15 @@ function General() {
                 />
               </Stack>
 
-             
-
               <Stack direction="row" gap={2}>
-              <TextField
-                darkDisable
-                disabled
-                id="email"
-                label="Email"
-                name="email"
-                size="small"
-              />
+                <TextField
+                  darkDisable
+                  disabled
+                  id="email"
+                  label="Email"
+                  name="email"
+                  size="small"
+                />
                 <TextField
                   darkDisable
                   disabled
@@ -144,7 +135,6 @@ function General() {
                   label="Phone Number"
                   size="small"
                 />
-
               </Stack>
             </CustomCardContent>
 

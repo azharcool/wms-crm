@@ -12,9 +12,9 @@ import TableToolbar from "components/table-toolbar";
 import CustomPopover, {
   ICustomPopoverRef,
 } from "components/utilities-popup/CustomPopover";
-import AppRoutes from "navigation/appRoutes";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import MovementList from "./component/list/MovementList";
 
 function Movement() {
@@ -27,7 +27,7 @@ function Movement() {
   const customPopoverRef = React.useRef<ICustomPopoverRef>(null);
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

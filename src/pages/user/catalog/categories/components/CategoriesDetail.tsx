@@ -13,9 +13,9 @@ import useCategoriesAction from "hooks/actions/catalog/categories/useCategoriesA
 import useCategory from "hooks/actions/catalog/categories/useCategory";
 import useGetByIdCategory from "hooks/querys/catalog/categories/useGetByIdCategory";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { EditCategoryRequestRoot } from "types/catalog/catagories/editCategoryRequest";
 import useEditCategoriesForm, {
@@ -200,7 +200,7 @@ function CategoriesDetail() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

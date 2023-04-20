@@ -2,11 +2,11 @@ import EditIcon from "@mui/icons-material/Edit";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useGetByIdWarehouse from "hooks/querys/warehouse/useGetByIdWarehouse";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
+import AppRoutes from "routes/appRoutes";
 
 function WarehouseDetails() {
   const [value, setValue] = useState(0);
@@ -60,7 +60,7 @@ function WarehouseDetails() {
   const handleOpen = () => {};
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Warehouse", to: "/warehouse/listing" }]}

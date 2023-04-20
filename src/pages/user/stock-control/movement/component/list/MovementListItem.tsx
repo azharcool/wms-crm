@@ -1,11 +1,11 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 
 // interface IAdjustmentListItem {

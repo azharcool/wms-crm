@@ -1,7 +1,7 @@
 import { Box, Card, Stack, Tooltip, Typography } from "@mui/material";
+import sections from "__mock__/sections.json";
 import CustomCardContent from "components/card/CustomCardContent";
 import palette from "theme/palette";
-import sections from "__mock__/sections.json";
 
 function WarehouseLogistics() {
   return (

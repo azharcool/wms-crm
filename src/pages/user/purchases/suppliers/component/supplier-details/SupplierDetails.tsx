@@ -1,10 +1,10 @@
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
 import { getWarehouseSelected } from "redux/warehouse/warehouseSelector";
+import AppRoutes from "routes/appRoutes";
 
 function SupplierDetails() {
   const [value, setValue] = useState(0);
@@ -58,7 +58,7 @@ function SupplierDetails() {
   const handleOpen = () => {};
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "Supplier", to: "/purchase/supplier/listing" }]}

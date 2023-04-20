@@ -10,7 +10,6 @@ import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -18,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { getSelectedBundleById } from "redux/catalog/bundleSelector";
 import { setBundleId } from "redux/catalog/bundleSlice";
 import { RootState, useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IBundle } from "types/catalog/bundles/getBundleResponse";
 

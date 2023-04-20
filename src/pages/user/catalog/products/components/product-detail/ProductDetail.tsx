@@ -5,9 +5,9 @@ import { useFormik } from "formik";
 import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import useGetByIdProduct from "hooks/querys/catalog/product/useGetByIdProduct";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import { EditProductRequestRoot } from "types/catalog/products/editProductRequest";
 import General from "./General";
 import Variants from "./Variants";
@@ -107,7 +107,7 @@ function ProductDetail() {
   const istrue = !editable;
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

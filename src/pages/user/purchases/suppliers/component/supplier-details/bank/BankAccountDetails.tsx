@@ -147,7 +147,7 @@ function BankAccountDetails() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Stack direction="row" justifyContent="flex-end">
         {editable
           ? rightActionsData

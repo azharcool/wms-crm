@@ -153,7 +153,7 @@ function CategoriesCreate() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[{ link: "CATAGORIES", to: "/New Category" }]}
         buttonText="Save"

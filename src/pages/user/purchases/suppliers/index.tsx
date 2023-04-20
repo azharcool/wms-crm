@@ -3,11 +3,11 @@ import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useSupplierAction from "hooks/actions/catalog/supplier/useSupplierAction";
 import useGetAllSupplierWithPagination from "hooks/querys/catalog/supplier/useGetAllSupplierWithPagination";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedSupplier } from "redux/purchase/supplierSelector";
+import AppRoutes from "routes/appRoutes";
 import SupplierList from "./component/list/SupplierList";
 
 function Suppliers() {
@@ -40,7 +40,7 @@ function Suppliers() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

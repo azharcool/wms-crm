@@ -165,7 +165,7 @@ function LocationsDetails() {
   ];
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[{ link: "WAREHOUSE", to: "" }]}
         rightActions={

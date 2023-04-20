@@ -10,14 +10,10 @@ import category from "./catalog/categorySlice";
 import product from "./catalog/productSlice";
 import variants from "./catalog/variants/variantsSlice";
 import common from "./common/common";
-import permissions from "./permissions/permissions";
 import supplier from "./purchase/supplierSlice";
-import roles from "./roles/roles";
-import screens from "./screen/screen";
 import adjustmentReason from "./settings/configuration/adjustmentReasonSlice";
 import sideDashboard from "./side-dashboard/sideDashboardSlice";
 import adjustment from "./stock-control/adjustmentSlice";
-import team from "./team/team";
 import theme from "./theme/themeSlice";
 import user from "./user/auth";
 import area from "./warehouse/areaSlice";
@@ -32,10 +28,7 @@ const persistConfig = {
 
 const combinedReducer = combineReducers({
   user,
-  team,
-  screens,
-  permissions,
-  roles,
+
   common,
   theme,
   product,

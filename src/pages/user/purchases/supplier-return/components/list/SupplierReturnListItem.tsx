@@ -1,9 +1,8 @@
-import { Box, Checkbox, Stack, TableCell, TableRow } from "@mui/material";
-import TableActionButton from "components/table/TableActionButton";
-import AppRoutes from "navigation/appRoutes";
+import { Checkbox, TableCell, TableRow } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 
 function SupplierReturnListItem() {
@@ -53,7 +52,7 @@ function SupplierReturnListItem() {
           minWidth: 170,
         }}
       >
-       {/* lineitem */}
+        {/* lineitem */}
       </TableCell>
       <TableCell
         sx={{
@@ -74,7 +73,7 @@ function SupplierReturnListItem() {
           minWidth: 170,
         }}
       >
-       {/* total */}
+        {/* total */}
       </TableCell>
       <TableCell
         sx={{
@@ -95,7 +94,7 @@ function SupplierReturnListItem() {
           minWidth: 170,
         }}
       >
-      {/* fullfill */}
+        {/* fullfill */}
       </TableCell>
       <TableCell
         sx={{

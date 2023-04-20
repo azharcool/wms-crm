@@ -19,12 +19,12 @@ import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
 import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSelectedOptions } from "redux/catalog/variants/variantsSelector";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetAllByOptionNameValueResponseData } from "types/catalog/variants/getAllByOptionNameValueResponse";
 import { EditVariantForm } from "../hooks/useEditVariantForm";
@@ -194,7 +194,7 @@ function VariantDetails() {
   }
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Box
         sx={{
           flexGrow: 1,

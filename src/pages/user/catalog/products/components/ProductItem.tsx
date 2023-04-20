@@ -12,13 +12,13 @@ import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import { FILE_URL } from "config";
 import useProductAction from "hooks/actions/catalog/product/useProductAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedProductById } from "redux/catalog/productSelector";
 import { setProductId } from "redux/catalog/productSlice";
 import { RootState, useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetProductResponseData } from "types/catalog/products/getProductResponse";
 
