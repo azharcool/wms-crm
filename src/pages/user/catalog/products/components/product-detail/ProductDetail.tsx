@@ -18,6 +18,12 @@ interface TabPanelProps {
   value: number;
 }
 
+interface IMenuItem {
+  id: string;
+  value?: string;
+  isUpload: boolean;
+}
+
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
 
@@ -43,7 +49,7 @@ function ProductDetail() {
   const userDecoded = useDecodedData();
   const [editable, setEditable] = useState(false);
   const [value, setValue] = useState(0);
-
+  const [newImages, setNewImages] = useState<IMenuItem[]>([]);
   const navigate = useNavigate();
   const { productId } = useParams();
   const { editProductAction } = useProductAction();
@@ -56,11 +62,6 @@ function ProductDetail() {
     setEditable(false);
   };
 
-  const lightTheme = createTheme({
-    palette: {
-      mode: "light",
-    },
-  });
   const formik = useFormik({
     initialValues: {
       productName: "",
@@ -76,6 +77,8 @@ function ProductDetail() {
       productWeight: "",
       strategy: "",
       minExpiryDays: "",
+      image: [],
+      oldImage: [],
     },
     onSubmit: async (values) => {
       const editData: EditProductRequestRoot = {
@@ -94,6 +97,8 @@ function ProductDetail() {
         weight: Number(values.productWeight),
         strategy: values.strategy,
         expiryDays: Number(values.minExpiryDays),
+        oldImage: values.oldImage?.map((i) => i),
+        image: newImages?.map((i) => i.value?.split("base64,")[1]),
       };
       const response = await editProductAction(editData);
       if (response) {
@@ -143,6 +148,8 @@ function ProductDetail() {
         <General
           data={productItemResponse?.data}
           editable={editable}
+          setNewImages={setNewImages}
+          newImages={newImages}
           formik={formik}
           isTrue={istrue}
           nameRef={nameRef}
