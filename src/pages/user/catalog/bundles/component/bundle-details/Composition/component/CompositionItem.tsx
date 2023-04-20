@@ -116,9 +116,8 @@ function CompositionItem(props: ICompositionItem) {
         }}
       >
         <TextField
-          iconEnd
           disabled={!isManage}
-          icon={<PercentIcon />}
+          endIcon={<PercentIcon />}
           id="discount"
           name="discount"
           size="small"

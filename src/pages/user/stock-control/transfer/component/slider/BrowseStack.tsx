@@ -89,8 +89,7 @@ function BrowseStock(props: IListItem) {
             <CustomCardContent title="Search Variants">
               <Stack direction="row" gap={2}>
                 <TextField
-                  iconEnd
-                  icon={<SearchIcon />}
+                  endIcon={<SearchIcon />}
                   label="Search"
                   name="search"
                   size="small"

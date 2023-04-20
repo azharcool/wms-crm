@@ -214,12 +214,11 @@ function AddUser(props: IAddUser) {
               }}
             >
               <TextField
-                iconEnd
                 error={!!touched.password && !!errors.password}
                 helperText={
                   (touched.password && errors && errors.password) || ""
                 }
-                icon={
+                endIcon={
                   <IconButton onClick={handlePasswordToggle}>
                     {showPassword ? <Visibility /> : <VisibilityOff />}
                   </IconButton>

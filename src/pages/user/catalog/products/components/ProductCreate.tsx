@@ -258,10 +258,9 @@ function ProductCreate() {
               <CustomCardContent title="Details">
                 <Stack direction="row" gap={2}>
                   <TextField
-                    iconEnd
                     error={!!touched.name && !!errors.name}
                     helperText={(touched.name && errors && errors.name) || ""}
-                    icon={<Inventory2Icon />}
+                    endIcon={<Inventory2Icon />}
                     id="name"
                     label="Name"
                     name="name"
@@ -286,10 +285,9 @@ function ProductCreate() {
 
                 <Stack direction="row" gap={2}>
                   <TextField
-                    iconEnd
                     error={!!touched.sku && !!errors.sku}
                     helperText={(touched.sku && errors && errors.sku) || ""}
-                    icon={<RefreshIcon />}
+                    endIcon={<RefreshIcon />}
                     id="sku"
                     label="Sku"
                     name="sku"
@@ -311,12 +309,11 @@ function ProductCreate() {
                   />
 
                   <TextField
-                    iconEnd
                     error={!!touched.barcode && !!errors.barcode}
                     helperText={
                       (touched.barcode && errors && errors.barcode) || ""
                     }
-                    icon={<RefreshIcon />}
+                    endIcon={<RefreshIcon />}
                     id="barcode"
                     label="Barcode"
                     name="barcode"
@@ -530,8 +527,7 @@ function ProductCreate() {
             <CustomAccordian title="Dimensions">
               <Stack direction="row" gap={2}>
                 <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
+                  endIcon={<Typography>cm</Typography>}
                   id="height"
                   label="Height"
                   name="height"
@@ -542,8 +538,7 @@ function ProductCreate() {
                 />
 
                 <TextField
-                  iconEnd
-                  icon={<Typography>cm</Typography>}
+                  endIcon={<Typography>cm</Typography>}
                   id="width"
                   label="Width"
                   name="width"
@@ -568,8 +563,7 @@ function ProductCreate() {
                 />
 
                 <TextField
-                  iconEnd
-                  icon={<Typography>kg</Typography>}
+                  endIcon={<Typography>kg</Typography>}
                   id="weight"
                   label="Weight"
                   name="weight"

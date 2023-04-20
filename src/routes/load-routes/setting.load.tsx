@@ -29,6 +29,12 @@ export const TaxesListing = Loadable({
   loading: () => <Spinner />,
 });
 
+export const CurrencyRateListing = Loadable({
+  loader: () =>
+    import("pages/user/setting/configuration/currency-rate/CurrencyRate"),
+  loading: () => <Spinner />,
+});
+
 export const ProductConditionListing = Loadable({
   loader: () =>
     import(
