@@ -177,6 +177,7 @@ const AppRoutes = {
     configuration: {
       listing: "configuration/listing",
       adjustmentReasons: "configuration/adjustment-reason/listing",
+      containerTypes: "configuration/container-types/listing",
       adjustmentDetail: "configuration/adjustment-reason/detail",
       productCondition: "configuration/product-condition/listing",
       taxes: "configuration/taxes/listing",

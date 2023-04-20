@@ -23,6 +23,11 @@ const settingRouting = (
     />
 
     <Route
+      element={<SettingLoadable.ContainerTypeListing />}
+      path={`${AppRoutes.setting.configuration.containerTypes}`}
+    />
+
+    <Route
       element={<SettingLoadable.TaxesListing />}
       path={`${AppRoutes.setting.configuration.taxes}`}
     />

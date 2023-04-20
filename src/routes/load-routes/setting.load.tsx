@@ -24,6 +24,12 @@ export const AdjustmentReasonListing = Loadable({
   loading: () => <Spinner />,
 });
 
+export const ContainerTypeListing = Loadable({
+  loader: () =>
+    import("pages/user/setting/configuration/container-types/ContainerType"),
+  loading: () => <Spinner />,
+});
+
 export const TaxesListing = Loadable({
   loader: () => import("pages/user/setting/configuration/taxes/Taxes"),
   loading: () => <Spinner />,

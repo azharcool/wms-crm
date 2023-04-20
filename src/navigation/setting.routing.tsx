@@ -22,6 +22,10 @@ const settingRouting = (
       path={`${AppRoutes.setting.configuration.adjustmentReasons}`}
     />
     <Route
+      element={<SettingLoadable.ContainerTypeListing />}
+      path={`${AppRoutes.setting.configuration.containerTypes}`}
+    />
+    <Route
       element={<SettingLoadable.TaxesListing />}
       path={`${AppRoutes.setting.configuration.taxes}`}
     />
