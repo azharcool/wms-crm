@@ -14,7 +14,7 @@ import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { GetAllProductConditionPaginationResponseRoot } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
-import ContainerTypeLIstItem from "./ContainerTypeLIstItem";
+import ContainerTypeListItem from "./ContainerTypeListItem";
 // import ProductConditionListItem from "./ProductConditionListItem";
 
 const tableTitle = [
@@ -106,7 +106,7 @@ function ContainerTypeList(props: IProductConditionListing) {
                 </TableHead>
                 <TableBody>
                   {data?.data.map((item) => {
-                    return <ContainerTypeLIstItem key={item.id} item={item} />;
+                    return <ContainerTypeListItem key={item.id} item={item} />;
                   })}
                 </TableBody>
               </Table>
