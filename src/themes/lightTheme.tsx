@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material/styles";
+import "@mui/material/styles/createPalette";
 import { Colors } from "./Colors";
 
 declare module "@mui/material/styles" {
@@ -21,12 +22,20 @@ declare module "@mui/material/styles" {
     darkBlue?: string;
     brown?: string;
     lightRed?: string;
+    tableButton?: {
+      main?: string;
+      light?: string;
+    };
   }
 
   interface SimplePaletteColorOptions {
     darkBlue?: string;
     brown?: string;
     lightRed?: string;
+    tableButton?: {
+      main?: string;
+      light?: string;
+    };
   }
 
   interface TypeText {
@@ -50,7 +59,12 @@ const lightTheme = createTheme({
       main: Colors.white,
       dark: Colors.darkBlue,
       darkBlue: Colors.darkBlue,
+      tableButton: {
+        main: Colors.white,
+        light: Colors.lightBlue,
+      },
     },
+
     secondary: {
       light: Colors.lightRed,
       main: Colors.brown,
