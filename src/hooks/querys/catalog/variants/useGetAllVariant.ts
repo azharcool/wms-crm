@@ -12,7 +12,9 @@ interface IuseGetAllVariant {
 
 function useGetAllVariant(props: IuseGetAllVariant) {
   const cachedKey = [QueryKeys.getAllVariant];
-  const url = `PageSize=${props.pageSize}&Page=${props.page}`;
+  const url = `PageSize=${props.pageSize}&Page=${
+    props.page ? props.page + 1 : 1
+  }`;
   return useQuery(cachedKey, () =>
     props.pageSize ? getAllPaginationVariant(url) : getAllVariant(),
   );
