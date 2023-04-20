@@ -8,5 +8,5 @@ export interface EditCategoryRequestRoot {
   slug?: string;
   detail?: string;
   status?: number;
-  image?: string[];
+  image?: string | undefined | false;
 }

@@ -1,9 +1,10 @@
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Box, Button, Card, Stack } from "@mui/material";
+import { Box, Button, Card, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import Slider from "components/layouts/popup-modals/Slider";
 import TextField from "components/textfield";
+import { FILE_URL } from "config";
 import useBrandAction from "hooks/actions/catalog/brand/useBrandAction";
 import useGetByIdBrand from "hooks/querys/catalog/brands/UseGetByIdBrand";
 import useDecodedData from "hooks/useDecodedData";
@@ -18,8 +19,9 @@ import useManageBrandForm, {
 } from "../hooks/useManageBrandForm";
 
 interface IValue {
-  id: string;
+  id?: string;
   value: string;
+  isUpload?: boolean;
 }
 
 interface IManageBrand {
@@ -32,7 +34,7 @@ interface IManageBrand {
 function ManageBrand(props: IManageBrand) {
   const { open, handleClose, brandId, view } = props;
   const [editable, setEditable] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<IValue[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<IValue>();
   const userDecoded = useDecodedData();
   const { addBrandAction, editBrandAction } = useBrandAction();
 
@@ -61,9 +63,15 @@ function ManageBrand(props: IManageBrand) {
       const brandItem = brandItemResponse.data;
       setFieldValue("name", brandItem.name);
       setFieldValue("slug", brandItem.slug);
+      setUploadedFiles({
+        id: crypto.randomUUID(),
+        value: brandItem.fileUrl,
+        isUpload: false,
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [brandItemResponse]);
+  console.log("brandItemResponse", brandItemResponse?.data);
 
   async function onSubmit(values: ManageBrandInitialValues) {
     let response = false;
@@ -71,7 +79,16 @@ function ManageBrand(props: IManageBrand) {
       userId: Number(userDecoded.id),
       name: values.name,
       slug: values.slug,
-      image: uploadedFiles.map((i) => i.value.split("base64,")[1]).toString(),
+
+      fileUrl:
+        !uploadedFiles?.isUpload && uploadedFiles?.value
+          ? uploadedFiles?.value?.split("base64,")[1]
+          : "",
+
+      image:
+        uploadedFiles?.isUpload && uploadedFiles?.value
+          ? uploadedFiles?.value?.split("base64,")[1]
+          : "",
     };
 
     if (editable) {
@@ -91,13 +108,11 @@ function ManageBrand(props: IManageBrand) {
     const images = await Promise.all(
       allFiles.map((file) => convertBase64(file)),
     );
-
-    const newUploadedFiles = images.map((item) => ({
+    setUploadedFiles({
       id: crypto.randomUUID(),
-      value: item,
-    }));
-
-    setUploadedFiles([...newUploadedFiles]);
+      value: images[0],
+      isUpload: true,
+    });
   };
 
   const convertBase64 = (file: any): Promise<any> => {
@@ -114,6 +129,7 @@ function ManageBrand(props: IManageBrand) {
   };
 
   const isDisabled = Boolean(editable ? false : view);
+  console.log("uploadss", uploadedFiles);
 
   return (
     <Slider
@@ -198,14 +214,14 @@ function ManageBrand(props: IManageBrand) {
           <Card>
             <CustomCardContent title="Image">
               <Stack direction="row" flexWrap="wrap" gap={2}>
-                {uploadedFiles.map((item) => {
-                  return (
-                    <Box
-                      key={item.id}
-                      sx={{
-                        position: "relative",
-                      }}
-                    >
+                {uploadedFiles?.value ? (
+                  <Box
+                    key={uploadedFiles.id}
+                    sx={{
+                      position: "relative",
+                    }}
+                  >
+                    {editable && (
                       <CancelIcon
                         sx={{
                           width: "17px",
@@ -218,24 +234,33 @@ function ManageBrand(props: IManageBrand) {
                           background: "white",
                         }}
                         onClick={() => {
-                          const newUploadedFile = uploadedFiles.filter(
-                            (i) => i.id !== item.id,
-                          );
-                          setUploadedFiles(newUploadedFile);
+                          setUploadedFiles({
+                            value: "",
+                          });
                         }}
                       />
-                      <img
-                        alt={item.value}
-                        src={item.value}
-                        style={{
-                          width: "100px",
-                          height: "100px",
-                        }}
-                      />
-                    </Box>
-                  );
-                })}
-                <UploadButton single handleFile={handleFile} />
+                    )}
+
+                    <img
+                      alt="new"
+                      src={
+                        uploadedFiles.isUpload
+                          ? uploadedFiles.value
+                          : `${FILE_URL}${uploadedFiles.value}`
+                      }
+                      style={{
+                        objectFit: "cover",
+                        width: "120px",
+                        height: "120px",
+                        borderRadius: "5px",
+                        border: "0.5px solid #eee",
+                      }}
+                    />
+                  </Box>
+                ) : (
+                  isDisabled && <Typography>No Image</Typography>
+                )}
+                {!isDisabled && <UploadButton single handleFile={handleFile} />}
               </Stack>
             </CustomCardContent>
           </Card>

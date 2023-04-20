@@ -57,7 +57,7 @@ function CurrencyCreate(props: ICurrency) {
               flex: 1,
             }}
           >
-            <CustomCardContent title="Currenct Rate">
+            <CustomCardContent title="Currency Rate">
               <Stack direction="column" gap={2}>
                 <TextField
                   error={!!touched.currency && !!errors.currency}
@@ -78,10 +78,13 @@ function CurrencyCreate(props: ICurrency) {
                 <TextField
                   id="rate"
                   error={!!touched.rate && !!errors.rate}
+                  type="number"
                   helperText={(touched.rate && errors && errors.rate) || ""}
-                  startIcon={<Typography>1 USD =</Typography>}
+                  startIcon={
+                    <Typography sx={{ color: "#000" }}>1 USD =</Typography>
+                  }
                   endIcon={
-                    <Typography>
+                    <Typography sx={{ color: "#000" }}>
                       {values.currency?.split("(")[1]?.split(")")[0]}
                     </Typography>
                   }
