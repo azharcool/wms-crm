@@ -346,49 +346,50 @@ function General(props: IGeneral) {
               gap={2}
               justifyContent="center"
             >
-              {uploadedFiles.map((images) => {
-                return (
-                  <Box
-                    key={images.id}
-                    sx={{
-                      position: "relative",
-                    }}
-                  >
-                    {editable && (
-                      <CancelIcon
+              {uploadedFiles?.length > 0
+                ? uploadedFiles?.map((images: any) => {
+                    return (
+                      <Box
+                        key={images.id}
                         sx={{
-                          width: "17px",
-                          height: "17px",
-                          cursor: "pointer",
-                          color: `${palette.error.lightRed}`,
-                          position: "absolute",
-                          right: "-5px",
-                          top: "-5px",
-                          background: "white",
+                          position: "relative",
                         }}
-                        onClick={() => onRemoveTap(images)}
-                      />
-                    )}
-                    <img
-                      alt={images.value}
-                      src={
-                        uploadedFiles?.length > 0
-                          ? images.isUpload
-                            ? images.value
-                            : `${FILE_URL}${images.value}`
-                          : NOImage
-                      }
-                      style={{
-                        objectFit: "cover",
-                        width: "120px",
-                        height: "120px",
-                        borderRadius: "5px",
-                        border: "0.5px solid #eee",
-                      }}
-                    />
-                  </Box>
-                );
-              })}
+                      >
+                        {editable && (
+                          <CancelIcon
+                            sx={{
+                              width: "17px",
+                              height: "17px",
+                              cursor: "pointer",
+                              color: `${palette.error.lightRed}`,
+                              position: "absolute",
+                              right: "-5px",
+                              top: "-5px",
+                              background: "white",
+                            }}
+                            onClick={() => onRemoveTap(images)}
+                          />
+                        )}
+
+                        <img
+                          alt="new"
+                          src={
+                            images.isUpload
+                              ? images.value
+                              : `${FILE_URL}${images.value}`
+                          }
+                          style={{
+                            objectFit: "cover",
+                            width: "120px",
+                            height: "120px",
+                            borderRadius: "5px",
+                            border: "0.5px solid #eee",
+                          }}
+                        />
+                      </Box>
+                    );
+                  })
+                : !editable && <Typography>No Image</Typography>}
               {editable && <UploadButton handleFile={handleFile} />}
             </Stack>
           </CustomCardContent>
