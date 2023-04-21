@@ -1,8 +1,10 @@
-import { Checkbox, TableRow, Typography } from "@mui/material";
+import { Checkbox, TableRow } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
-import CustomBodyTableCell from "components/table/status-table-cell/CustomBodyTableCell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -12,28 +14,6 @@ import { getSelectedWarehouseById } from "redux/warehouse/warehouseSelector";
 import { setWarehouse, setWarehouseId } from "redux/warehouse/warehouseSlice";
 import AppRoutes from "routes/appRoutes";
 import { IGetWarehouseResponseData } from "types/warehouse/getWarehouseResponse";
-
-interface ICustomText {
-  text: string;
-  link?: boolean;
-}
-function CustomText(props: ICustomText) {
-  const { text, link } = props;
-
-  const theme = useTheme();
-
-  return (
-    <Typography
-      sx={{
-        textDecoration: link ? "underline" : "none",
-        whiteSpace: "nowrap",
-        color: theme.palette.text.darkBlue,
-      }}
-    >
-      {text}
-    </Typography>
-  );
-}
 
 interface IWarehouseItem {
   item: IGetWarehouseResponseData;
@@ -96,27 +76,27 @@ function WarehouseItem(props: IWarehouseItem) {
           navigate(navigateDetails);
         }}
       >
-        <CustomText text={item?.warehouseName} link />
+        <CustomTableText text={item?.warehouseName} link />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell>
-        <CustomText text={item?.label} />
+        <CustomTableText text={item?.label} />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell>
-        <CustomText text={item?.city} />
+        <CustomTableText text={item?.city} />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell>
-        <CustomText text={item?.email} />
+        <CustomTableText text={item?.email} />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell>
-        <CustomText text={item?.phoneNumber} />
+        <CustomTableText text={item?.phoneNumber} />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell>
-        <CustomText text={item?.primaryPhoneNumber} />
+        <CustomTableText text={item?.primaryPhoneNumber} />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell>

@@ -1,7 +1,29 @@
-import { TableCell, TableCellProps } from "@mui/material";
-import { SxProps, Theme } from "@mui/material/styles";
+import { TableCell, TableCellProps, Typography } from "@mui/material";
+import { SxProps, Theme, useTheme } from "@mui/material/styles";
 import { ReactNode } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
+
+interface ICustomTableText {
+  text: string;
+  link?: boolean;
+}
+export function CustomTableText(props: ICustomTableText) {
+  const { text, link } = props;
+
+  const theme = useTheme();
+
+  return (
+    <Typography
+      sx={{
+        textDecoration: link ? "underline" : "none",
+        whiteSpace: "nowrap",
+        color: theme.palette.text.darkBlue,
+      }}
+    >
+      {text}
+    </Typography>
+  );
+}
 
 interface ICustomBodyTableCell extends TableCellProps {
   children: ReactNode;
