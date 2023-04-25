@@ -9,10 +9,11 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import theme from "theme/newTheme";
 import { GetAllProductConditionPaginationResponseRoot } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
 import ProductConditionListItem from "./ProductConditionListItem";
 
@@ -78,37 +79,44 @@ function ProductConditionList(props: IProductConditionListing) {
               >
                 <TableHead>
                   <TableRow>
-                    <CustomTableCell
-                      isCheck
-                      isHeader
-                      isSticky
-                      customStyle={{
+                    <CustomHeadTableCell
+                      sxProps={{
                         zIndex: 999,
+                        position: "sticky",
+                        left: 0,
+                        minWidth: "60px",
                       }}
-                      leftValue={0}
                     >
-                      <Checkbox color="primary" />
-                    </CustomTableCell>
+                      <Checkbox
+                        sx={{
+                          color: theme.palette.common.white,
+                        }}
+                      />
+                    </CustomHeadTableCell>
                     {tableTitle.map((item) => {
                       const isName = item.title.includes("Image");
 
                       return (
-                        <CustomTableCell
+                        <CustomHeadTableCell
                           key={item.id}
-                          isHeader
-                          customStyle={{
+                          sxProps={{
                             position: isName ? "sticky" : "static",
                             left: isName ? 60 : 0,
                           }}
-                          minWt={150}
                         >
                           {item.title}
-                        </CustomTableCell>
+                        </CustomHeadTableCell>
                       );
                     })}
-                    <CustomTableCell isHeader isSticky rightValue={0}>
+                    <CustomHeadTableCell
+                      sxProps={{
+                        position: "sticky",
+                        right: 0,
+                        backdropFilter: "blur(2px)",
+                      }}
+                    >
                       Actions
-                    </CustomTableCell>
+                    </CustomHeadTableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

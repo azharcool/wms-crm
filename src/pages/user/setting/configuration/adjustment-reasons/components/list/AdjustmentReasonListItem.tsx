@@ -1,6 +1,10 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useAdjustmentReasonAction from "hooks/actions/setting/adjustment-reason/useAdjustmentReasonAction";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -24,6 +28,7 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
   );
 
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const select = () => {
     dispatch(setAdjustmentReasonId(Number(item.id)));
@@ -52,9 +57,9 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
   return (
     <>
       <TableRow>
-        <TableCell
+        <CustomBodyTableCell
           padding="checkbox"
-          sx={{
+          sxProps={{
             minWidth: 60,
             position: "sticky",
             left: 0,
@@ -63,14 +68,18 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
         >
           <Checkbox
             checked={getSelectedAdjustmentReasonByIdState}
-            color="primary"
+            sx={{
+              color: theme.palette.primary.darkBlue,
+              "&.Mui-checked": {
+                color: theme.palette.primary.darkBlue,
+              },
+            }}
             onChange={select}
           />
-        </TableCell>
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
+        <CustomBodyTableCell
+          sxProps={{
             position: "sticky",
             left: 60,
             zIndex: 999,
@@ -80,19 +89,19 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
             handleManage();
           }}
         >
-          {item.name}
-        </TableCell>
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item.operations}
-        </TableCell>
-        <TableCell
-          sx={{
+          {/* {item.name} */}
+          <CustomTableText text={item?.name || ""} />
+        </CustomBodyTableCell>
+        <CustomBodyTableCell>
+          {/* {item.operations} */}
+          <CustomTableText text={item?.operations || ""} />
+        </CustomBodyTableCell>
+        <CustomBodyTableCell
+          sxProps={{
             position: "sticky",
             right: 0,
+            cursor: "pointer",
+            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton
@@ -102,7 +111,7 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
           >
             {/* Action button */}
           </TableActionButton>
-        </TableCell>
+        </CustomBodyTableCell>
       </TableRow>
       {manageOpen ? (
         <AdjustmentReasonsCreate
