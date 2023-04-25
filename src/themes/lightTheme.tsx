@@ -109,6 +109,13 @@ const lightTheme = createTheme({
       darkBlue: Colors.darkBlue,
     },
   },
+  components: {
+    MuiTab: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+  },
 });
 
 export default lightTheme;

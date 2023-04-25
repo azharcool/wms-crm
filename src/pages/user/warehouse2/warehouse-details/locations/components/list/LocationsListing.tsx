@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
@@ -116,6 +117,8 @@ function LocationsListing() {
     ...warehousePagination,
     warehouseId: getSelectedWarehouse.id,
   });
+  const theme = useTheme();
+
   const {
     warehouse: { warehouseLayout, locationCreate },
   } = AppRoutes;
@@ -172,7 +175,12 @@ function LocationsListing() {
                       left: 0,
                     }}
                   >
-                    <Checkbox checked={false} />
+                    <Checkbox
+                      checked={false}
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
+                    />
                   </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isName = item.title.includes("Name");

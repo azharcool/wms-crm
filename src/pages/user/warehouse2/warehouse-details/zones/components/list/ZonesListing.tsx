@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
@@ -55,6 +56,7 @@ function ZonesListing() {
     ...warehousePagination,
     warehouseId: getSelectedWarehouse.id,
   });
+  const theme = useTheme();
 
   const handle = (status: "create" | "filter") => {
     if (status === "create") {
@@ -114,7 +116,12 @@ function ZonesListing() {
                       left: 0,
                     }}
                   >
-                    <Checkbox checked={false} />
+                    <Checkbox
+                      checked={false}
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
+                    />
                   </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isName = item.title.includes("Name");
