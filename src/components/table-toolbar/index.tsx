@@ -5,6 +5,7 @@ import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import BulkActionButton from "components/button/BulkActionButton";
+import CustomButton from "components/custom-button/CustomButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import palette from "theme/palette";
 
@@ -23,8 +24,8 @@ interface ITableToolbar {
   rightActions?: IRightActions[];
   hasBulk?: boolean;
   onBulkHandle?: (_: string) => void;
-  isDelete?:boolean
-  moreMenuItem?: String[]
+  isDelete?: boolean;
+  moreMenuItem?: String[];
 }
 
 interface IRightActions {
@@ -86,7 +87,7 @@ function TableToolbar(props: ITableToolbar) {
     onBulkHandle,
     isBulkDisabled,
     isDelete,
-    moreMenuItem
+    moreMenuItem,
   } = props;
   const location = useLocation();
   const navigation = useNavigate();
@@ -235,7 +236,12 @@ function TableToolbar(props: ITableToolbar) {
             </Box>
           ) : null}
 
-          <Stack direction="row" gap={1}>
+          <Stack
+            direction="row"
+            gap={1}
+            justifyContent="center"
+            alignItems="center"
+          >
             {hasBulk ? (
               <BulkActionButton
                 isDisabled={isBulkDisabled}
@@ -246,10 +252,10 @@ function TableToolbar(props: ITableToolbar) {
             ) : null}
             {rightActions?.map((item) => {
               return (
-                <ToolBarButton
+                <CustomButton
                   key={item.id}
-                  handleClick={item.onClick}
-                  icon={item.icon}
+                  onChange={item.onClick}
+                  startIcon={item.icon}
                   title={item.title}
                 />
               );

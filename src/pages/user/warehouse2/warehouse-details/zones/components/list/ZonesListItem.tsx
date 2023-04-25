@@ -1,6 +1,9 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { Checkbox, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useZoneAction from "hooks/actions/warehouse/zone/useZoneAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -20,87 +23,55 @@ function ZonesListItem(props: IZonesListItem) {
   const navigateDetails = `/${warehouseLayout}/${zonesDetails}/${item.id}`;
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
         sx={{
-          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
-          // background: "white",
         }}
       >
         <Checkbox checked={false} />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
-          minWidth: 150,
           position: "sticky",
-          left: 60,
+          left: "60px",
           zIndex: 999,
-          // background: "white",
+
           cursor: "pointer",
         }}
         onClick={() => {
           navigate(navigateDetails);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {item.name}
-        </Typography>
-      </TableCell>
+        <CustomTableText link text={item.name} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.label}
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.label} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.warehouseName}
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.warehouseName} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.areaName}
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.areaName} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
         <StatusTableCell
           success={item?.status !== 2}
           title={item?.status === 2 ? "InActive" : "Active"}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
-          minWidth: 150,
           position: "sticky",
           right: 0,
-          // background: "white",
         }}
       >
         <TableActionButton
@@ -108,7 +79,7 @@ function ZonesListItem(props: IZonesListItem) {
             deleteZoneAction(item.id, item.warehouseId);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

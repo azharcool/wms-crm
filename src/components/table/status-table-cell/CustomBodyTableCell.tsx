@@ -18,6 +18,7 @@ export function CustomTableText(props: ICustomTableText) {
         textDecoration: link ? "underline" : "none",
         whiteSpace: "nowrap",
         color: theme.palette.text.darkBlue,
+        fontSize: "14px",
       }}
     >
       {text}

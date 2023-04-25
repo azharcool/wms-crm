@@ -1,8 +1,7 @@
 import CloseIcon from "@mui/icons-material/CancelRounded";
+import SaveIcon from "@mui/icons-material/Save";
 import {
   Box,
-  Button,
-  CircularProgress,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -11,9 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import Dialog from "@mui/material/Dialog";
+import CustomButton from "components/custom-button/CustomButton";
+import CustomLoadingButton from "components/custom-button/CustomLoadingButton";
 import { Transition } from "components/layouts/popup-modals/Transition";
 import * as React from "react";
-import palette from "theme/palette";
 
 interface ISlider {
   open: boolean;
@@ -57,6 +57,7 @@ function Slider(props: ISlider) {
             borderBottomRightRadius: 0,
             height: noHeight ? null : "100vh",
             // backgroundColor: "##fdf9f6",
+            backdropFilter: "blur(20px)",
           },
         }}
         sx={{
@@ -86,13 +87,7 @@ function Slider(props: ISlider) {
           </IconButton>
         </DialogTitle>
 
-        <DialogContent
-        // sx={{
-        //   background: newtheme.isDarkMode ? "#26263D" : "#fdf9f6",
-        // }}
-        >
-          {children}
-        </DialogContent>
+        <DialogContent>{children}</DialogContent>
 
         <DialogActions
           sx={{
@@ -106,30 +101,17 @@ function Slider(props: ISlider) {
             justifyContent="center"
             spacing={2}
           >
-            <Button
+            <CustomLoadingButton
               autoFocus
               disabled={isDisabled}
-              style={{ padding: "0.5rem 1rem", minWidth: 150 }}
-              sx={{
-                backgroundColor: palette.warning.dark,
-                boxShadow: "none",
-                "&:hover": {
-                  backgroundColor: palette.warning.dark,
-                  opacity: 0.6,
-                  boxShadow: "none",
-                },
-              }}
-              variant="contained"
+              loading={isSubmitting || false}
+              loadingPosition="start"
               onClick={handleChange}
-            >
-              {isSubmitting ? (
-                <CircularProgress color="warning" size={20} />
-              ) : (
-                buttonText
-              )}
-            </Button>
+              startIcon={<SaveIcon />}
+              title={buttonText || ""}
+            />
 
-            <Button
+            <CustomButton
               autoFocus
               color="error"
               startIcon={<CloseIcon />}
@@ -137,16 +119,15 @@ function Slider(props: ISlider) {
               sx={{
                 boxShadow: "none",
                 "&:hover": {
-                  backgroundColor: "#8B0000",
+                  backgroundColor: "#8b0000c2",
                   opacity: 0.6,
                   boxShadow: "none",
                 },
               }}
               variant="contained"
               onClick={handleClose}
-            >
-              Cancel
-            </Button>
+              title="Cancel"
+            />
           </Stack>
         </DialogActions>
       </Dialog>
