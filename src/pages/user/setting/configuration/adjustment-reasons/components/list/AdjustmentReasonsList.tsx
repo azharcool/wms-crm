@@ -56,10 +56,6 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
                 <TableHead>
                   <TableRow>
                     <CustomHeadTableCell
-                      // isCheck
-                      // isHeader
-                      // isSticky
-                      // leftValue={0}
                       sxProps={{
                         zIndex: 999,
                         position: "sticky",
@@ -79,8 +75,6 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
                       return (
                         <CustomHeadTableCell
                           key={item.id}
-                          // isHeader
-                          // minWt={150}
                           sxProps={{
                             position: isName ? "sticky" : "static",
                             left: isName ? 60 : 0,

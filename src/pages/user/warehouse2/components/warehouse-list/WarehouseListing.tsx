@@ -17,6 +17,7 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import { setAllWarehouseIds } from "redux/warehouse/warehouseSlice";
+import theme from "theme/newTheme";
 import {
   IGetWarehouseResponseData,
   IGetWarehouseResponseRoot,
@@ -136,6 +137,9 @@ function WarehouseListing(props: IWarehouselisting) {
                         getSelectedWarehouseByIdState?.length
                       }
                       color="primary"
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
                       onChange={selectAll}
                     />
                   </CustomHeadTableCell>
@@ -174,7 +178,7 @@ function WarehouseListing(props: IWarehouselisting) {
                   <NoDataTableRow
                     colSize={4}
                     title="No data found in Warehouse"
-                  /> 
+                  />
                 ) : null}
               </TableBody>
             </Table>
