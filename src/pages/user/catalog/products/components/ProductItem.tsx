@@ -1,3 +1,4 @@
+import { useTheme } from "@mui/material/styles";
 import {
   Box,
   Checkbox,
@@ -10,6 +11,9 @@ import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { FILE_URL } from "config";
 import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -33,7 +37,7 @@ function ProductItem(props: IProductItem) {
     getSelectedProductById(state, item.id),
   );
   const dispatch = useAppDispatch();
-
+  const theme = useTheme();
   const { deleteProductAsync } = useProductAction();
 
   const select = () => {
@@ -55,10 +59,10 @@ function ProductItem(props: IProductItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -66,16 +70,22 @@ function ProductItem(props: IProductItem) {
       >
         <Checkbox
           checked={getSelectedProductByIdState}
-          color="primary"
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
           onChange={select}
         />
-      </TableCell>
-      <TableCell
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           width: 50,
           position: "sticky",
           left: 60,
           zIndex: 999,
+          cursor: "pointer",
         }}
       >
         <Box
@@ -99,9 +109,9 @@ function ProductItem(props: IProductItem) {
             }}
           />
         </Box>
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
           minWidth: 150,
           position: "sticky",
@@ -113,16 +123,9 @@ function ProductItem(props: IProductItem) {
           navigate(`${AppRoutes.CATALOG.productDetail}/${item.id}`);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {item.name}
-        </Typography>
-      </TableCell>
-      <TableCell
+        <CustomTableText text={item.name} link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           width: 150,
           position: "sticky",
@@ -130,51 +133,22 @@ function ProductItem(props: IProductItem) {
           // background: "white",
         }}
       >
-        {/* inventory */}0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* variants count */}
-        {item.variantCount}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* category */}
-        {item.categoryName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* brand */}
-        {item.brandName}
-      </TableCell>
+        <CustomTableText text="inventory" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.variantCount} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.categoryName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.brandName} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* company */}Not Provided
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* tags */}
+      <CustomBodyTableCell>
+        <CustomTableText text="not provided" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
         {item.tags && (
           <Stack flexDirection="row" flexWrap="wrap">
             {item.tags.split(",").map((tag) => {
@@ -193,46 +167,30 @@ function ProductItem(props: IProductItem) {
                     textAlign: "center",
                   }}
                 >
-                  {tag}
+                  <CustomTableText text="knd" />
                 </Box>
               );
             })}
           </Stack>
         )}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* track SN */}
-        {item.trackSerialNumbers === true ? "Yes" : "No"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* track expiry */}
-        {item.trackExpiryDates === true ? "Yes" : "No"}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          minWidth: 150,
-          whiteSpace: "nowrap",
-          // background: "white",
-        }}
-      >
-        {dateTimeFormat(item.updatedOn)}
-      </TableCell>
-
-      <TableCell
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={item.trackSerialNumbers === true ? "Yes" : "No"}
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.trackExpiryDates === true ? "Yes" : "No"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={dateTimeFormat(item.updatedOn)} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
@@ -240,7 +198,7 @@ function ProductItem(props: IProductItem) {
             handleProductDelete();
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

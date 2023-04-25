@@ -6,10 +6,14 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { FILE_URL } from "config";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import { useState } from "react";
@@ -75,10 +79,10 @@ function BundleItem(props: IProps) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -89,9 +93,9 @@ function BundleItem(props: IProps) {
           color="primary"
           onChange={select}
         />
-      </TableCell>
-      <TableCell
-        sx={{
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           width: 50,
           position: "sticky",
           left: 60,
@@ -119,66 +123,34 @@ function BundleItem(props: IProps) {
             }}
           />
         </Box>
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
+      <CustomBodyTableCell
+        sxProps={{
           width: 150,
           position: "sticky",
           left: 130,
           zIndex: 999,
           cursor: "pointer",
         }}
+        onClick={() => goToDetails(id)}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap",
-          }}
-          onClick={() => goToDetails(id)}
-        >
-          {name || "not provided"}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        INR
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {categoryName || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {brandName || "not provided"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        not provided
-      </TableCell>
+        <CustomTableText text={name} link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={categoryName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={brandName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
         {tag && (
           <Stack flexDirection="row" flexWrap="wrap">
             {tag.split(",").map((tag) => {
@@ -197,38 +169,29 @@ function BundleItem(props: IProps) {
                     textAlign: "center",
                   }}
                 >
-                  {tag}
+                  <CustomTableText text={tag} />
                 </Box>
               );
             })}
           </Stack>
         )}
-      </TableCell>
-
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {dateTimeFormat(createdOn)}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {dateTimeFormat(createdOn)}
-      </TableCell>
-      <TableCell
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={dateTimeFormat(createdOn)} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={dateTimeFormat(createdOn)} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton onDeleteHandle={handleBundleDelete} />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

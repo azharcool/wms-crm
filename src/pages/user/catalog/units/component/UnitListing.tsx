@@ -8,12 +8,13 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import useGetAllPaginationUnit from "hooks/querys/catalog/unit/useGetAllPaginationUnit";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import theme from "theme";
 import UnitItem from "./UnitItem";
 
 const tableTitle = [
@@ -127,15 +128,15 @@ function UnitListing() {
   return (
     <PerfectScrollbar>
       <EnhancedTableToolbar
-      csvData={csvData}
-      csvHeader={csvHeaders}
-      csvTitle="Units"
+        csvData={csvData}
+        csvHeader={csvHeaders}
+        csvTitle="Units"
         moreList={[
           {
             id: crypto.randomUUID(),
             title: "Density",
             onClick: () => {},
-          }
+          },
         ]}
       />
 
@@ -149,29 +150,31 @@ function UnitListing() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
                   >
                     <Checkbox
                       checked={false}
                       color="primary"
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
                       onChange={() => {}}
                     />
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isVariant = item.title.includes("Variant");
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           minWidth: isImage ? 50 : 200,
                           position: isImage || isVariant ? "sticky" : "static",
                           left:
@@ -179,23 +182,26 @@ function UnitListing() {
                         }}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {unitResponse?.data.map((item) => {
                   return <UnitItem key={item.id} item={item} />;
                 })}
-                 {!unitResponse?.data.length ? (
-                  <NoDataTableRow
-                    colSize={4}
-                    title="No data found in unit"
-                  />
+                {!unitResponse?.data.length ? (
+                  <NoDataTableRow colSize={4} title="No data found in unit" />
                 ) : null}
               </TableBody>
             </Table>

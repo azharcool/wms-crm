@@ -1,28 +1,42 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import CustomSwitch from "components/custom-switch";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 function ListingItem() {
+  const theme = useTheme();
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+        <Checkbox
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
+          onChange={() => {}}
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           left: 60,
           zIndex: 999,
+          cursor: "pointer",
         }}
       >
         <Box
@@ -37,26 +51,21 @@ function ListingItem() {
             width="100%"
           />
         </Box>
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
+      <CustomBodyTableCell
+        sxProps={{
           width: 350,
           position: "sticky",
           left: 130,
           zIndex: 999,
         }}
       >
-        SKU
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        chanel
-      </TableCell>
+        <CustomTableText text="sku" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="channel" />
+      </CustomBodyTableCell>
       <TableCell
         sx={{
           minWidth: 200,
@@ -65,76 +74,43 @@ function ListingItem() {
       >
         <CustomSwitch />
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        Qty
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        Retail price
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="qty" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="price" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        M.R.P
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="M.R.P" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        Brand
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="brand" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        Category
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="category" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        Tags
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="tags" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        Last Updated
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="lastUpdated" />
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

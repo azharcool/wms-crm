@@ -11,12 +11,14 @@ import {
 } from "@mui/material";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { getSelectedCategory } from "redux/catalog/categorySelector";
 import { setAllCategoryIds } from "redux/catalog/categorySlice";
 import { useAppDispatch } from "redux/store";
+import theme from "theme/newTheme";
 import { IGetCategoriesResponseRoot } from "types/catalog/catagories/getCategoriesResponse";
 import CategoriesItem from "./CategoriesItem";
 
@@ -119,14 +121,14 @@ function CategoriesListing(props: ICategoriesListing) {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
                   >
                     <Checkbox
                       checked={
@@ -135,27 +137,32 @@ function CategoriesListing(props: ICategoriesListing) {
                       color="primary"
                       onChange={selectAll}
                     />
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isName = item.title.includes("Name");
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           minWidth: isImage ? 50 : 150,
                           position: isImage || isName ? "sticky" : "static",
                           left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
