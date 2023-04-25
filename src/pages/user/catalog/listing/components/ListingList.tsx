@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -101,29 +101,28 @@ function ListingList() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
                   >
                     <Checkbox
                       checked={false}
                       color="primary"
                       onChange={() => {}}
                     />
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isSku = item.title.includes("SKU");
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           minWidth: isImage ? 50 : isSku ? 350 : 150,
                           position: isImage || isSku ? "sticky" : "static",
                           left: isImage || isSku ? (isSku ? 130 : 60) : 0,
@@ -131,12 +130,18 @@ function ListingList() {
                         }}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

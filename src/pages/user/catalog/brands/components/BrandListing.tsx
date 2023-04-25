@@ -9,27 +9,13 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { IGetBrandResponseRoot } from "types/catalog/brands/getBrandResponse";
 import BrandItem from "./BrandItem";
 
-// const tabs = [
-//   {
-//     id: crypto.randomUUID(),
-//     title: "New",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Pick",
-//   },
-//   {
-//     id: crypto.randomUUID(),
-//     title: "Close",
-//   },
-// ];
 
 const tableTitle = [
   {
@@ -89,41 +75,46 @@ function BrandListing(props: IBrandListing) {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    // isSticky
-                    // customStyle={{
-                    //   zIndex: 999,
-                    // }}
-                    // leftValue={0}
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
+                      zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
+                    }}
                   >
                     <Checkbox
                       checked={false}
                       color="primary"
                       onChange={() => {}}
                     />
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isName = item.title.includes("Name");
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           minWidth: isImage ? 50 : 150,
                           // position: isImage || isName ? "sticky" : "static",
                           // left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

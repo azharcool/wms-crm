@@ -13,6 +13,7 @@ import dateTimeFormat from "components/dateTime-format";
 import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -167,14 +168,14 @@ function ProductListing(props: IProductListing) {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
                   >
                     <Checkbox
                       checked={
@@ -186,28 +187,33 @@ function ProductListing(props: IProductListing) {
                       color="primary"
                       onChange={selectAll}
                     />
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isName = item.title.includes("Name");
 
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
-                          minWidth: isImage ? 50 : 150,
+                        sxProps={{
                           position: isImage || isName ? "sticky" : "static",
                           left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
+                    {" "}
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

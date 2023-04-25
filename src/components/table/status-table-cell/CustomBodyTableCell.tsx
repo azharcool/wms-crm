@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 interface ICustomTableText {
-  text: string;
+  text?: string | number;
   link?: boolean;
 }
 export function CustomTableText(props: ICustomTableText) {
