@@ -254,7 +254,7 @@ function TableToolbar(props: ITableToolbar) {
               return (
                 <CustomButton
                   key={item.id}
-                  onChange={item.onClick}
+                  onClick={item.onClick}
                   startIcon={item.icon}
                   title={item.title}
                 />
