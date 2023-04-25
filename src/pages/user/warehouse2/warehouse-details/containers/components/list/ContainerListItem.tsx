@@ -1,8 +1,8 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 function ContainerListItem(props: any) {
   const { item } = props;

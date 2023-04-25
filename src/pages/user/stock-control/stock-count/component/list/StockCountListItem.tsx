@@ -1,14 +1,11 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 
 function StockCountListItem(props: { item: any }) {
   const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   const {
     stockControl: {
@@ -26,9 +23,6 @@ function StockCountListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -43,9 +37,7 @@ function StockCountListItem(props: { item: any }) {
           position: "sticky",
           left: 40,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
+
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1`)}

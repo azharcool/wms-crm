@@ -3,7 +3,7 @@ import ContentListing from "./ContentListing";
 
 function Contents() {
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Card>
         <CardContent sx={{ paddingTop: 0 }}>
           <Box sx={{ mt: 3 }}>

@@ -1,9 +1,9 @@
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import StockCountLocation from "./location/StockCountLocation";
 import StockCountLocations from "./locations/StockCountLocations";
 
@@ -20,7 +20,7 @@ function StockCountDetails() {
   //   } = AppRoutes;
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[

@@ -19,10 +19,10 @@ import TextField from "components/textfield";
 import useArea from "hooks/actions/warehouse/area/useArea";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useZone from "hooks/actions/warehouse/zone/useZone";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
+import AppRoutes from "routes/appRoutes";
 import useManageStockCount, {
   ManageStockCount,
 } from "../hooks/useManageStockCount";
@@ -100,7 +100,7 @@ function StockCountCreate() {
   // } = AppRoutes;
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

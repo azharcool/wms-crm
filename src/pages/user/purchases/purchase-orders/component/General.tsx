@@ -1,4 +1,3 @@
-import CancelIcon from "@mui/icons-material/Cancel";
 import {
   Box,
   Card,
@@ -7,23 +6,20 @@ import {
   Divider,
   Grid,
   Stack,
-  Paper,
   Table,
-  TableCell,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
   Typography,
 } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
+import DashedCard from "components/card/DashedCard";
 import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import palette from "theme/palette";
-import DashedCard from "components/card/DashedCard";
 
 interface IMenuItem {
   id: string;
@@ -476,12 +472,9 @@ function General(props: IGeneral) {
 export default General;
 
 function LineItems() {
-  const newtheme = useSelector((state: any) => state.theme);
-
   return (
     <Card>
       <CustomCardContent title="Line Items">
-
         <TableContainer>
           <PerfectScrollbar>
             <Table
@@ -518,9 +511,6 @@ function LineItems() {
                       position: "sticky",
                       left: 0,
                       zIndex: 999,
-                      background: newtheme.isDarkMode
-                        ? "#26263D"
-                        : palette.background.default,
                     }}
                   >
                     <Box

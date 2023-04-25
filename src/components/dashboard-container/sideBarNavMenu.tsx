@@ -1,9 +1,11 @@
+import CategoryIcon from "@mui/icons-material/Category";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import SettingsIcon from "@mui/icons-material/Settings";
 import WarehouseIcon from "@mui/icons-material/Warehouse";
 import { ChartBar as ChartBarIcon } from "assets/icons/chart-bar";
 import { SCREEN_CODES } from "config";
-import AppRoutes from "navigation/appRoutes";
+import AppRoutes from "routes/appRoutes";
 
 const { stockControl, setting, warehouse, purchases } = AppRoutes;
 
@@ -26,7 +28,7 @@ export const sideNavMenu: ISideNavMenu[] = [
   {
     id: crypto.randomUUID(),
     href: AppRoutes.DASHBOARD,
-    icon: <ChartBarIcon fontSize="small" />,
+    icon: <DashboardIcon fontSize="small" />,
     title: "Dashboard",
     screenCode: SCREEN_CODES.COMMON,
     menuItems: [],
@@ -42,7 +44,7 @@ export const sideNavMenu: ISideNavMenu[] = [
   {
     id: crypto.randomUUID(),
     href: AppRoutes.CATALOG.catalog,
-    icon: <WarehouseIcon fontSize="small" />,
+    icon: <CategoryIcon fontSize="small" />,
     title: "Catalog",
     screenCode: SCREEN_CODES.WAREHOUSE,
     menuItems: [

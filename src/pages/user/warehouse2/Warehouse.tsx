@@ -38,7 +38,7 @@ function Warehouse() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk
@@ -51,14 +51,7 @@ function Warehouse() {
               onClick: () => {
                 navigate("/warehouse/create");
               },
-              icon: (
-                <AddCircleIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
+              icon: <AddCircleIcon />,
             },
           ]}
           title="Warehouses"

@@ -23,12 +23,12 @@ import useArea from "hooks/actions/warehouse/area/useArea";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useZone from "hooks/actions/warehouse/zone/useZone";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useAppDispatch } from "redux/store";
 import { setWarehouse } from "redux/warehouse/warehouseSlice";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import useAddMovementForm, {
   AddMovementForm,
@@ -134,7 +134,7 @@ function MovementCreate() {
   } = AppRoutes;
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

@@ -30,13 +30,13 @@ import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useGetByIdAdjustment from "hooks/querys/stock/adjustment/useGetByIdAdjustment";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getAdjustmentSelected } from "redux/stock-control/adjustmentSelector";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
@@ -216,7 +216,7 @@ function AdjustmentEdit() {
   );
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {
@@ -415,9 +415,7 @@ interface IStockTable {
 function StocksTable(props: IStockTable) {
   const { warehouseId, adjustmentReasonId, formik, setUnits } = props;
 
-  const newtheme = useSelector((state: any) => state.theme);
   const [openBrows, setOpenBrows] = useState(false);
-
   const [selectedVariants, setSelectedVariants] = useState<
     IGetAllVariantResponseData[]
   >([]);
@@ -426,15 +424,18 @@ function StocksTable(props: IStockTable) {
   const [selectedItem, setSelectedItem] =
     useState<IGetAllVariantResponseData>();
   const [unitSliderOpen, setUnitSliderOpen] = useState(false);
+  const { location: locationMenuItem } = useLocation(warehouseId);
+
+  const { setFieldValue, handleChange, values } = formik;
+  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
+
   const handleClose = () => {
     setOpenBrows(!openBrows);
   };
+
   const handleUnitClose = () => {
     setUnitSliderOpen(!unitSliderOpen);
   };
-  const { location: locationMenuItem } = useLocation(warehouseId);
-  const { setFieldValue, handleChange, values } = formik;
-  const isBrowseDisable = warehouseId === 0 && adjustmentReasonId === 0;
 
   return (
     <>
@@ -517,9 +518,6 @@ function StocksTable(props: IStockTable) {
                               position: "sticky",
                               left: 0,
                               zIndex: 999,
-                              background: newtheme.isDarkMode
-                                ? "#26263D"
-                                : palette.background.default,
                             }}
                           >
                             <Box

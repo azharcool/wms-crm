@@ -8,7 +8,7 @@ import UnitListing from "./component/UnitListing";
 function Units() {
   const navigate = useNavigate();
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           buttonText="New"

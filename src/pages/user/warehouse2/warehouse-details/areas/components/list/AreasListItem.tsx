@@ -1,14 +1,17 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
-import StatusTableCell from "components/table/status-table-cell";
+import { Checkbox, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useWarehouseAreaAction from "hooks/actions/warehouse/area/useWarehouseAreaAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState, useAppDispatch } from "redux/store";
 import { getSelectedAreaById } from "redux/warehouse/areaSelector";
 import { setAreaId } from "redux/warehouse/areaSlice";
+import AppRoutes from "routes/appRoutes";
 import { GetAllWarehouseAreaResponseData } from "types/warehouse/area/getAllWarehouseAreaResponse";
 
 interface IAreaListItem {
@@ -34,14 +37,12 @@ function AreaListItem(props: IAreaListItem) {
   const navigateDetails = `/${warehouseLayout}/${areasDetails}/${item.id}`;
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          minWidth: 60,
+        sxProps={{
           position: "sticky",
           left: 0,
           zIndex: 999,
-          // background: "white",
         }}
       >
         <Checkbox
@@ -49,65 +50,41 @@ function AreaListItem(props: IAreaListItem) {
           color="primary"
           onChange={select}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
-          minWidth: 150,
           position: "sticky",
           left: 60,
           zIndex: 999,
-          // background: "white",
           cursor: "pointer",
         }}
         onClick={() => {
           navigate(navigateDetails);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {item.name}
-        </Typography>
-      </TableCell>
+        <CustomTableText link text={item.name} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.label}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.warehouseName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
+        <CustomTableText text={item.label} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.warehouseName} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
         <StatusTableCell
           success={item?.status !== 2}
           title={item?.status === 2 ? "InActive" : "Active"}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
-          minWidth: 150,
           position: "sticky",
           right: 0,
-          // background: "white",
         }}
       >
         <TableActionButton
@@ -115,7 +92,7 @@ function AreaListItem(props: IAreaListItem) {
             deleteAreaActionAsync(item.id, item.warehouseId);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

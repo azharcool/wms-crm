@@ -1,11 +1,9 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import useUnitActions from "hooks/actions/catalog/useUnitActions";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 import { GetAllPaginationUnitResponseData } from "types/catalog/unit/getAllPaginationUnitResponse";
 
 interface IUnitItem {
@@ -14,7 +12,6 @@ interface IUnitItem {
 function UnitItem(props: IUnitItem) {
   const { item } = props;
   const navigate = useNavigate();
-  const newtheme = useSelector((state: any) => state.theme);
   const { deleteUnitAction } = useUnitActions();
 
   const goToDetails = () => {
@@ -30,9 +27,6 @@ function UnitItem(props: IUnitItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -44,9 +38,6 @@ function UnitItem(props: IUnitItem) {
           left: 60,
           zIndex: 999,
           cursor: "pointer",
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
         onClick={() => goToDetails()}
       >
@@ -69,9 +60,6 @@ function UnitItem(props: IUnitItem) {
           position: "sticky",
           zIndex: 999,
           left: 130,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Typography
@@ -201,9 +189,6 @@ function UnitItem(props: IUnitItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <TableActionButton

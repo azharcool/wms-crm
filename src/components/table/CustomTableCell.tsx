@@ -1,5 +1,5 @@
 import { TableCell } from "@mui/material";
-import { SxProps, Theme } from "@mui/material/styles";
+import { SxProps, Theme, useTheme } from "@mui/material/styles";
 import { ReactNode } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
@@ -26,6 +26,9 @@ function CustomTableCell(props: ICustomTableCell) {
     minWt,
     sxTableCell,
   } = props;
+
+  const theme = useTheme();
+
   return (
     <TableCell
       padding={isCheck ? "checkbox" : "normal"}
@@ -41,7 +44,9 @@ function CustomTableCell(props: ICustomTableCell) {
             }
           : null),
 
-        background: isHeader ? "#ccc" : "white",
+        background: isHeader
+          ? theme.palette.primary.dark
+          : theme.palette.background.paper,
       }}
     >
       {children}

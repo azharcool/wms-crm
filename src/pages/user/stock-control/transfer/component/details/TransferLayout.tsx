@@ -1,8 +1,8 @@
 import { Container, Stack, Tab, Tabs } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 function TransferLayout() {
   const [value, setValue] = useState(0);
@@ -39,7 +39,7 @@ function TransferLayout() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={[
           {

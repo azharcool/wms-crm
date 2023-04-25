@@ -1,21 +1,10 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
-function LocationListItem(props: { item: any }) {
-  const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
-  const navigate = useNavigate();
-  const {
-    stockControl: {
-      layout,
-      stock_count: { details },
-    },
-  } = AppRoutes;
-
+interface ILocationListItem {
+  item: any;
+}
+function LocationListItem(_: ILocationListItem) {
   return (
     <TableRow>
       <TableCell
@@ -25,30 +14,11 @@ function LocationListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
-        <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
-        />
+        <Checkbox color="primary" />
       </TableCell>
-      <TableCell
-      // sx={{
-      //   width: 50,
-      //   position: "sticky",
-      //   left: 40,
-      //   zIndex: 999,
-      //   background: newtheme.isDarkMode
-      //     ? "#26263D"
-      //     : palette.background.default,
-      //   cursor: "pointer",
-      // }}
-      // onClick={() => navigate(`/${layout}/${details}/1`)}
-      >
+      <TableCell>
         <Typography
           sx={{
             textDecoration: "underline",

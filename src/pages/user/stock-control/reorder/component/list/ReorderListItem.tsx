@@ -1,25 +1,13 @@
-import CommentIcon from "@mui/icons-material/Comment";
-import {
-  Box,
-  Checkbox,
-  LinearProgress,
-  linearProgressClasses,
-  styled,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
-import StatusTableCell from "components/table/status-table-cell";
-import TableActionButton from "components/table/TableActionButton";
-import AppRoutes from "navigation/appRoutes";
+import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 
-function ReorderListItem(props: { item: any }) {
-  const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
+interface IReorderListItem {
+  item: any;
+}
+
+function ReorderListItem(_: IReorderListItem) {
   const navigate = useNavigate();
   const {
     stockControl: {
@@ -37,9 +25,6 @@ function ReorderListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -54,9 +39,6 @@ function ReorderListItem(props: { item: any }) {
           position: "sticky",
           left: 40,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1}`)}
@@ -66,7 +48,7 @@ function ReorderListItem(props: { item: any }) {
             whiteSpace: "nowrap", //! Dont remove
           }}
         >
-        {/* variant */}-
+          {/* variant */}-
         </Typography>
       </TableCell>
       <TableCell sx={{ minWidth: 170 }}>
@@ -100,7 +82,7 @@ function ReorderListItem(props: { item: any }) {
           minWidth: 170,
         }}
       >
-      {/* reader */}-
+        {/* reader */}-
       </TableCell>
       <TableCell
         sx={{

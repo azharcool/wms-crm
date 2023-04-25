@@ -1,8 +1,8 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import KeyIcon from "@mui/icons-material/Key";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Box, Card, Container, Grid, PaletteMode, Stack } from "@mui/material";
+import KeyIcon from "@mui/icons-material/Key";
+import { Box, Card, Container, Grid, Stack } from "@mui/material";
 import { defaultLanguage } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
@@ -11,9 +11,9 @@ import TextField from "components/textfield";
 import AutoComplete from "components/textfield/AutoComplete";
 import { FormikHelpers } from "formik";
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { generatePassword } from "utils";
 
@@ -98,7 +98,7 @@ function UserUpdate() {
     });
   };
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         navTitle="SETTINGS"
         rightActions={[

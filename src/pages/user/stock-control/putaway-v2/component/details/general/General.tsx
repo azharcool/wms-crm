@@ -96,7 +96,7 @@ function General() {
   ];
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Stack direction="row" justifyContent="flex-end">
         {rightActionsData.map((item) => (
           <ToolBarButton

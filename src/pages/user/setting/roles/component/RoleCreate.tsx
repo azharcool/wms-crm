@@ -1,26 +1,16 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import {
-  Box,
-  Button,
-  Card,
-  Container,
-  Grid,
-  PaletteMode,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Card, Container, Grid, Stack } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
-import TextField from "components/textfield";
 import TableToolbar from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
-import React from "react";
+import TextField from "components/textfield";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 function RoleCreate() {
   const navigate = useNavigate();
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         navTitle="SETTINGS"
         rightActions={[

@@ -5,7 +5,7 @@ import PutAwayV1List from "./component/list/PutAwayV1List";
 
 function PutAwayV1() {
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

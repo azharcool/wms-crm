@@ -9,10 +9,9 @@ import {
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
-import { FILE_URL } from "config";
 import TableActionButton from "components/table/TableActionButton";
+import { FILE_URL } from "config";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -20,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { getSelectedBundleById } from "redux/catalog/bundleSelector";
 import { setBundleId } from "redux/catalog/bundleSlice";
 import { RootState, useAppDispatch } from "redux/store";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 import { IBundle } from "types/catalog/bundles/getBundleResponse";
 
 interface IProps {
@@ -31,7 +30,7 @@ function BundleItem(props: IProps) {
   const { bundle } = props;
   const navigate = useNavigate();
   const [tags, setTags] = useState<any>([]);
-  const newtheme = useSelector((state: any) => state.theme);
+
   const { deleteBundleAction } = useBundleAction();
   const goToDetails = async (id: number) => {
     navigate(`${AppRoutes.CATALOG.bundleDetails}/${id}`, {
@@ -83,9 +82,6 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -100,10 +96,6 @@ function BundleItem(props: IProps) {
           position: "sticky",
           left: 60,
           zIndex: 999,
-
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Box
@@ -114,7 +106,11 @@ function BundleItem(props: IProps) {
         >
           <img
             alt=""
-            src={picture.length > 0 ? `${FILE_URL}${picture[0]?.atachment}` : NOImage}
+            src={
+              picture.length > 0
+                ? `${FILE_URL}${picture[0]?.atachment}`
+                : NOImage
+            }
             style={{
               width: "100%",
               height: "100%",
@@ -132,9 +128,6 @@ function BundleItem(props: IProps) {
           left: 130,
           zIndex: 999,
           cursor: "pointer",
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Typography
@@ -232,9 +225,6 @@ function BundleItem(props: IProps) {
         sx={{
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <TableActionButton onDeleteHandle={handleBundleDelete} />

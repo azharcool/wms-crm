@@ -4,13 +4,13 @@ import { useAlert } from "components/alert";
 import TableToolbar from "components/table-toolbar";
 import useProductAction from "hooks/actions/catalog/product/useProductAction";
 import useGetAllProduct from "hooks/querys/catalog/product/useGetAllProduct";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedProduct } from "redux/catalog/productSelector";
 import { removeAllProductIds } from "redux/catalog/productSlice";
 import { useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import ProductListing from "./components/ProductListing";
 
 function Products() {
@@ -62,7 +62,7 @@ function Products() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

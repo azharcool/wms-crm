@@ -9,11 +9,7 @@ import {
   Typography,
 } from "@mui/material";
 import StatusTableCell from "components/table/status-table-cell";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
 const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   height: 10,
@@ -29,16 +25,12 @@ const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }));
 
-function ReceivingInformationListItem(props: { item: any }) {
+interface IReceivingInformationListItem {
+  item: any;
+}
+
+function ReceivingInformationListItem(props: IReceivingInformationListItem) {
   const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
-  const navigate = useNavigate();
-  const {
-    stockControl: {
-      layout,
-      recieve: { details, general },
-    },
-  } = AppRoutes;
 
   return (
     <TableRow hover>
@@ -49,9 +41,6 @@ function ReceivingInformationListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox

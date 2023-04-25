@@ -16,9 +16,9 @@ import { FormikHelpers } from "formik";
 import useSupplierAction from "hooks/actions/catalog/supplier/useSupplierAction";
 import useGetByIdSupplier from "hooks/querys/catalog/supplier/useGetByIdSupplier";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { AddSupplierRequestRoot } from "types/catalog/supplier/addSupplierRequest";
 import useAddSupplierForm, {
@@ -238,7 +238,7 @@ function GeneralDetails() {
   const istrue = !editable;
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Stack direction="row" justifyContent="flex-end">
         {editable ? (
           <>

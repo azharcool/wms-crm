@@ -2,11 +2,7 @@ import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import StatusTableCell from "components/table/status-table-cell";
 import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
 const conditionCode = [
   {
@@ -22,17 +18,12 @@ const conditionCode = [
     value: "STG-DST",
   },
 ];
+interface IPutAwayV1ListItem {
+  item: any;
+}
 
-function PutAwayV1ListItem(props: { item: any }) {
+function PutAwayV1ListItem(props: IPutAwayV1ListItem) {
   const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
-  const navigate = useNavigate();
-  const {
-    stockControl: {
-      layout,
-      recieve: { details, general },
-    },
-  } = AppRoutes;
 
   return (
     <TableRow>
@@ -43,9 +34,6 @@ function PutAwayV1ListItem(props: { item: any }) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -60,9 +48,6 @@ function PutAwayV1ListItem(props: { item: any }) {
           position: "sticky",
           left: 50,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
       >

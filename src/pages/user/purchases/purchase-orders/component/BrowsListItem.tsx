@@ -1,25 +1,23 @@
-import { Stack } from "@mui/system";
 import {
-  Card,
   Box,
+  Card,
   Checkbox,
   Paper,
   Table,
   TableBody,
+  TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  TableCell,
 } from "@mui/material";
+import { Stack } from "@mui/system";
 
 import SearchIcon from "@mui/icons-material/Search";
-import CustomTableCell from "components/table/CustomTableCell";
 import CustomCardContent from "components/card/CustomCardContent";
 import Slider from "components/layouts/popup-modals/Slider";
+import CustomTableCell from "components/table/CustomTableCell";
 import TextField from "components/textfield";
-import { useSelector } from "react-redux";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import palette from "theme/palette";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 interface IListItem {
@@ -143,8 +141,6 @@ function BrowsListItem(props: IListItem) {
 export default BrowsListItem;
 
 function ListItem() {
-  const newtheme = useSelector((state: any) => state.theme);
-
   return (
     <TableRow>
       <TableCell
@@ -154,9 +150,6 @@ function ListItem() {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox checked={false} color="primary" onChange={() => {}} />
@@ -167,9 +160,6 @@ function ListItem() {
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Box

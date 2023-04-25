@@ -1,7 +1,7 @@
 import { useSnackbar } from "components/snackbar";
-import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
 import { useAuthActions } from "redux/user/auth";
+import AppRoutes from "routes/appRoutes";
 import { login } from "services/auth.service";
 
 export interface ILoginRequest {

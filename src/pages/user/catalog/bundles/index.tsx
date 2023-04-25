@@ -4,13 +4,13 @@ import { useAlert } from "components/alert";
 import TableToolbar from "components/table-toolbar";
 import useBundleAction from "hooks/actions/catalog/bundle/useBundleAction";
 import useGetAllBundle from "hooks/querys/catalog/bundle/useGetAllBundle";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedBundle } from "redux/catalog/bundleSelector";
 import { removeAllBundleIds } from "redux/catalog/bundleSlice";
 import { useAppDispatch } from "redux/store";
+import AppRoutes from "routes/appRoutes";
 import BundleListing from "./component/BundleListing";
 
 function Bundles() {
@@ -56,7 +56,7 @@ function Bundles() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

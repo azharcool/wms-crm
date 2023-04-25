@@ -1,18 +1,18 @@
-import { Grid, Card } from "@mui/material";
+import { Card, Grid } from "@mui/material";
 import { Container } from "@mui/system";
 import React from "react";
-import Fullfillment from "../permissions/FullfillmentPermission";
 import Catalog from "../permissions/CatalogPermission";
-import Purchases from "../permissions/PurchasesPermission";
-import Stock from "../permissions/StockPermission";
-import Setting from "../permissions/SettingPermission";
-import Warehouse from "../permissions/WarehousePermission";
 import Dashboard from "../permissions/DashboardPermission";
 import Finance from "../permissions/FinancePermission";
+import Fullfillment from "../permissions/FullfillmentPermission";
+import Purchases from "../permissions/PurchasesPermission";
+import Setting from "../permissions/SettingPermission";
+import Stock from "../permissions/StockPermission";
+import Warehouse from "../permissions/WarehousePermission";
 
 function Permission() {
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Grid container spacing={2} my={2}>
         <CustomGrid>
           <Fullfillment />

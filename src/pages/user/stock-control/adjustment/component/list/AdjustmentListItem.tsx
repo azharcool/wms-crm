@@ -3,7 +3,6 @@ import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
 import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +12,7 @@ import {
   setAdjustmentId,
 } from "redux/stock-control/adjustmentSlice";
 import { RootState, useAppDispatch } from "redux/store";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 import { GetAllAdjustmentResponseData } from "types/stock/adjustment/getAllAdjustmentResponse";
 
 interface IAdjustmentListItem {
@@ -23,7 +22,6 @@ interface IAdjustmentListItem {
 function AdjustmentListItem(props: IAdjustmentListItem) {
   const { item } = props;
 
-  const newtheme = useSelector((state: any) => state.theme);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -52,9 +50,6 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox
@@ -69,9 +64,6 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
           position: "sticky",
           left: 40,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         onClick={() => {
@@ -157,9 +149,6 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
         sx={{
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <TableActionButton

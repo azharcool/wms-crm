@@ -1,12 +1,9 @@
 import { TableCell, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
 function HistoryListingItem() {
-  const newtheme = useSelector((state: any) => state.theme);
   const navigate = useNavigate();
   return (
     <TableRow>
@@ -37,9 +34,6 @@ function HistoryListingItem() {
         sx={{
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <TableActionButton

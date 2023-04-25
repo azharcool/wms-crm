@@ -19,13 +19,12 @@ import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
 import useGetAllByOptionNameValue from "hooks/querys/catalog/variants/useGetAllByOptionNameValue";
 import useGetByIdVariant from "hooks/querys/catalog/variants/useGetByIdVariant";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { useEffect, useRef, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getSelectedOptions } from "redux/catalog/variants/variantsSelector";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 import { IGetAllByOptionNameValueResponseData } from "types/catalog/variants/getAllByOptionNameValueResponse";
 import { EditVariantForm } from "../hooks/useEditVariantForm";
 import SidebarButton from "./components/SidebarButton";
@@ -68,7 +67,6 @@ function VariantDetails() {
 
   const nameRef = useRef<any>(null);
   const getOptions = useSelector(getSelectedOptions);
-  const newtheme = useSelector((state: any) => state.theme);
 
   const { editVariantAction } = useVariantAction();
   const { data: variantItemResponse } = useGetByIdVariant({
@@ -152,7 +150,6 @@ function VariantDetails() {
     },
   ];
   const userId = useDecodedData();
-
   const classes = useStyles();
 
   const istrue = !editable;
@@ -194,7 +191,7 @@ function VariantDetails() {
   }
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <Box
         sx={{
           flexGrow: 1,
@@ -207,9 +204,6 @@ function VariantDetails() {
               sx={{
                 ml: -2.5,
                 mt: -2,
-                background: newtheme.isDarkMode
-                  ? "#26263D"
-                  : palette.background.default,
                 height: "100%",
                 overflowY: "scroll",
                 position: "fixed",

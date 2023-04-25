@@ -1,7 +1,7 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box, Button, MenuItem } from "@mui/material";
 import Menu, { MenuProps } from "@mui/material/Menu";
-import { alpha, styled } from "@mui/material/styles";
+import { alpha, styled, useTheme } from "@mui/material/styles";
 import { ReactNode, useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
@@ -64,6 +64,7 @@ function TableActionButton(props: ITableActionButton) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const opened = Boolean(anchorEl);
+  const theme = useTheme();
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -93,22 +94,19 @@ function TableActionButton(props: ITableActionButton) {
           endIcon={<KeyboardArrowDownIcon />}
           id="demo-customized-button"
           sx={{
-            backgroundColor: "rgb(243 149 33 / 31%)",
-            color: "#eb5c2c",
+            backgroundColor: theme.palette.primary.tableButton?.main,
             fontSize: "12px",
             fontWeight: "500",
             padding: "8px 15px",
             "&:hover": {
-              color: "#fff",
-              backgroundColor: "#f39521",
+              color: theme.palette.primary.tableButton?.main,
+              backgroundColor: theme.palette.primary.tableButton?.light,
             },
             "&:focus": {
-              color: "#fff !important",
-              backgroundColor: "#f39521 !important",
+              backgroundColor: theme.palette.primary.tableButton?.light,
             },
             "&:active": {
-              color: "#fff !important",
-              backgroundColor: "#f39521 !important",
+              backgroundColor: theme.palette.primary.tableButton?.light,
             },
           }}
           variant="contained"
@@ -124,6 +122,11 @@ function TableActionButton(props: ITableActionButton) {
           }}
           open={opened}
           onClose={handleClosed}
+          sx={{
+            "& .MuiMenu-list": {
+              backgroundColor: theme.palette.primary.tableButton?.main,
+            },
+          }}
         >
           {children}
           <MenuItem
@@ -133,6 +136,10 @@ function TableActionButton(props: ITableActionButton) {
               if (onDeleteHandle) {
                 onDeleteHandle();
               }
+            }}
+            sx={{
+              backgroundColor: theme.palette.primary.tableButton?.main,
+              color: theme.palette.common.black,
             }}
           >
             Delete

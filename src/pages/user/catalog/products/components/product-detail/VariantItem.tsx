@@ -1,8 +1,6 @@
 import { Box, TableCell, TableRow, Typography } from "@mui/material";
 import CustomSwitch from "components/custom-switch";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import palette from "theme/palette";
 import { GetAllVariantByProductIdData } from "types/catalog/variants/getAllVariantByProductId";
 
 interface IVariantItem {
@@ -10,8 +8,6 @@ interface IVariantItem {
 }
 function VariantItem(props: IVariantItem) {
   const { item } = props;
-
-  const newtheme = useSelector((state: any) => state.theme);
 
   return (
     <>
@@ -23,9 +19,6 @@ function VariantItem(props: IVariantItem) {
             padding: "10px",
             position: "sticky",
             left: 0,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Box
@@ -50,9 +43,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 170,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Typography
@@ -76,9 +66,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 120,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Typography>{item?.sku}</Typography>
@@ -88,9 +75,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 120,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Typography>{item?.barcode}</Typography>
@@ -99,9 +83,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 80,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Typography>{item?.supplyPrice?.toFixed(2)}</Typography>
@@ -110,9 +91,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 80,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Typography>{item?.mrp?.toFixed(2)}</Typography>
@@ -121,9 +99,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 80,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <Typography>{item?.retailPrice?.toFixed(2)}</Typography>
@@ -132,9 +107,6 @@ function VariantItem(props: IVariantItem) {
           sx={{
             padding: "10px",
             minWidth: 80,
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <CustomSwitch checked={item.crossDocking} />
@@ -145,10 +117,6 @@ function VariantItem(props: IVariantItem) {
             minWidth: "100px",
             position: "sticky",
             right: 0,
-
-            background: newtheme.isDarkMode
-              ? "#26263D"
-              : palette.background.default,
           }}
         >
           <CustomSwitch checked={item.enable} />

@@ -4,8 +4,8 @@ import { Card, Container, Grid, Stack, Typography } from "@mui/material";
 import CustomCardContent from "components/card/CustomCardContent";
 import UploadButton from "components/image-upload-button/UploadButton";
 import TableToolbar, { ToolBarButton } from "components/table-toolbar";
-import AppRoutes from "navigation/appRoutes";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 
 function BulkUpload() {
@@ -19,7 +19,7 @@ function BulkUpload() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         navTitle="PRODUCTS"
         rightActions={[

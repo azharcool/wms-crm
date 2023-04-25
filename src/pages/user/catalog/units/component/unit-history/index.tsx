@@ -41,7 +41,7 @@ function UnitHistory() {
   });
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         buttonText=""
         handleClick={() => {

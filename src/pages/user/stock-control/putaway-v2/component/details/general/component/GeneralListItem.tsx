@@ -1,52 +1,20 @@
-import {
-  Box,
-  LinearProgress,
-  linearProgressClasses,
-  styled,
-  TableCell,
-  TableRow,
-} from "@mui/material";
+import { Box, TableCell, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import StatusTableCell from "components/table/status-table-cell";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
 
-const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
-  height: 10,
-  borderRadius: 5,
-  [`&.${linearProgressClasses.colorPrimary}`]: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.mode === "light" ? 200 : 800],
-  },
-  [`& .${linearProgressClasses.bar}`]: {
-    borderRadius: 5,
-    backgroundColor:
-      theme.palette.mode === "light" ? "rgb(46, 52, 86)" : "#308fe8",
-  },
-}));
+interface IGeneralListItem {
+  item: any;
+}
 
-function GeneralListItem(props: { item: any }) {
+function GeneralListItem(props: IGeneralListItem) {
   const { item } = props;
-  const newtheme = useSelector((state: any) => state.theme);
-  const navigate = useNavigate();
-  const {
-    stockControl: {
-      layout,
-      recieve: { details, general },
-    },
-  } = AppRoutes;
 
   return (
     <TableRow>
       <TableCell
         sx={{
           width: 50,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
           cursor: "pointer",
         }}
         // onClick={() => navigate(`/${layout}/${details}/1/${general}`)}

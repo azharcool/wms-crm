@@ -29,7 +29,7 @@ function Variant() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           // buttonText="New"

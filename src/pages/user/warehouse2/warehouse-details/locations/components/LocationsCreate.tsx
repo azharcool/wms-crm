@@ -164,7 +164,7 @@ function LocationsCreate() {
   }, [setFieldValue, values.height, values.length, values.width]);
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <TableToolbar
         breadcrumbs={breadcrumbs}
         rightActions={rightActionsData}

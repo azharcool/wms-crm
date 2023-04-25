@@ -1,11 +1,12 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { Checkbox, TableRow } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useLocationAction from "hooks/actions/warehouse/location/useLocation";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import palette from "theme/palette";
+import AppRoutes from "routes/appRoutes";
 import { GetAllLocationResponseData } from "types/warehouse/location/getAllLocationResponse";
 
 interface ILocationListItem {
@@ -14,216 +15,131 @@ interface ILocationListItem {
 
 function LocationsListItem(props: ILocationListItem) {
   const { item } = props;
+
   const navigate = useNavigate();
-  const newtheme = useSelector((state: any) => state.theme);
   const { deleteLocationAction } = useLocationAction();
+
   const {
     warehouse: { warehouseLayout, locationsDetails },
   } = AppRoutes;
+
   const navigateDetails = `/${warehouseLayout}/${locationsDetails}/${item.id}`;
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          minWidth: 60,
+        sxProps={{
           position: "sticky",
           left: 0,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <Checkbox checked={false} />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
-          minWidth: 150,
           position: "sticky",
           left: 60,
           zIndex: 999,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
         onClick={() => {
           navigate(navigateDetails);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {item.locationAlias || item.locationLabel || "-"}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          position: "sticky",
-          // left: 169,
-          // background: "white",
-        }}
-      >
-        {item.areaName || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.zoneName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.aisle || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.rack || "-"}
-      </TableCell>
+        <CustomTableText
+          link
+          text={item.locationAlias || item.locationLabel || "-"}
+        />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.shelf || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.position || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
+        <CustomTableText text={item.areaName || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.zoneName || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.aisle || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.rack || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.shelf || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.position || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
         {item.status === 1 ? "Active" : "InActive"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.operations || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.warehouseName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.locationType || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.locationAlias || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* container */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* Available */}0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {`${item.volume}` || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* used volumn */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {`${item.length}x${item.width}x${item.height} cm` || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item.maxLoad}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* used load */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {/* utilization */}0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.operations || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.warehouseName || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.locationType || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={item.locationAlias || "-"} />
+      </CustomBodyTableCell>
+
+      {/* container */}
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        {/* Available */}
+        <CustomTableText text="0" />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={`${item.volume}` || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        {/* used volumn */}
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={`${item.length}x${item.width}x${item.height} cm` || "-"}
+        />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text={`${item.maxLoad}` || "-"} />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        {/* used load */}
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        {/* utilization */}
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
-          background: newtheme.isDarkMode
-            ? "#26263D"
-            : palette.background.default,
         }}
       >
         <TableActionButton
@@ -231,7 +147,7 @@ function LocationsListItem(props: ILocationListItem) {
             deleteLocationAction(item.id, item.warehouseId);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

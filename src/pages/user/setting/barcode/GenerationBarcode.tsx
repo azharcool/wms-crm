@@ -9,6 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
+import { detailMenu } from "__mock__";
 import CustomCardContent from "components/card/CustomCardContent";
 import TableToolbar from "components/table-toolbar";
 import TextField from "components/textfield";
@@ -18,7 +19,6 @@ import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import palette from "theme/palette";
 import { generateRandomNumber } from "utils";
-import { detailMenu } from "__mock__";
 
 function GenerationBarcode() {
   const [barcodeValue, setBarcodeValue] = useState<any>();
@@ -37,7 +37,7 @@ function GenerationBarcode() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           breadcrumbs={[{ link: "CATAGORIES", to: "/BrandDetails" }]}

@@ -30,12 +30,11 @@ import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAct
 import useWarehouse from "hooks/actions/warehouse/useWarehouse";
 import useLocation from "hooks/querys/warehouse/location/useLocation";
 import useDecodedData from "hooks/useDecodedData";
-import AppRoutes from "navigation/appRoutes";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 import palette from "theme/palette";
 import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariantResponse";
 import { AddAdjustmentRequestRoot } from "types/stock/adjustment/addAdjustmentRequest";
@@ -205,7 +204,7 @@ function AdjustmentCreate() {
 
   return (
     <>
-      <Container maxWidth={false}>
+      <Container>
         <TableToolbar
           breadcrumbs={[
             {
@@ -420,7 +419,6 @@ function StocksTable(props: IStockTable) {
     useState<IGetAllVariantResponseData>();
   const [unitSliderOpen, setUnitSliderOpen] = useState(false);
 
-  const newtheme = useSelector((state: any) => state.theme);
   const { location: locationMenuItem } = useLocation(warehouseId);
 
   const { setFieldValue, handleChange, values } = formik;
@@ -515,9 +513,6 @@ function StocksTable(props: IStockTable) {
                               position: "sticky",
                               left: 0,
                               zIndex: 999,
-                              background: newtheme.isDarkMode
-                                ? "#26263D"
-                                : palette.background.default,
                             }}
                           >
                             <Box

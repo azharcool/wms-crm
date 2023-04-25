@@ -3,11 +3,11 @@ import { Box, CardContent, Container } from "@mui/material";
 import TableToolbar from "components/table-toolbar";
 import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
 import useGetAllAdjustment from "hooks/querys/stock/adjustment/useGetAllAdjustment";
-import AppRoutes from "navigation/appRoutes";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { getSelectedAdjustment } from "redux/stock-control/adjustmentSelector";
+import AppRoutes from "routes/appRoutes";
 import AdjustmentList from "./component/list/AdjustmentList";
 
 function Adjustment() {
@@ -39,7 +39,7 @@ function Adjustment() {
   };
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           hasBulk

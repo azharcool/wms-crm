@@ -3,8 +3,8 @@ import { Box, CardContent, Container } from "@mui/material";
 // import { Container, Box } from "@mui/system";
 import TableToolbar from "components/table-toolbar";
 import { useState } from "react";
-import PutAwayV2List from "./component/list/PutAwayV2List";
 import OpenPutawayWarehouses from "./component/OpenPutawayWarehouses";
+import PutAwayV2List from "./component/list/PutAwayV2List";
 
 function PutAwayV2() {
   const [manageOpen, setManageOpen] = useState(false);
@@ -32,7 +32,7 @@ function PutAwayV2() {
   ];
 
   return (
-    <Container maxWidth={false}>
+    <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
           navTitle="Stock Control"

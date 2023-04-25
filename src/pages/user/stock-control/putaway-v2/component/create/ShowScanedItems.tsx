@@ -12,7 +12,6 @@ import Slider from "components/layouts/popup-modals/Slider";
 import CustomTableCell from "components/table/CustomTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import { useSelector } from "react-redux";
 
 interface IShowScanedItems {
   open: boolean;
@@ -73,7 +72,6 @@ const tableTitle = [
 ];
 
 function LineItems() {
-  const newtheme = useSelector((state: any) => state.theme);
   return (
     <TableContainer>
       <PerfectScrollbar>
@@ -112,7 +110,6 @@ function LineItems() {
                   position: "sticky",
                   left: 0,
                   zIndex: 999,
-                  background: newtheme.isDarkMode ? "#26263D" : "#fdf9f6",
                 }}
               >
                 <Box

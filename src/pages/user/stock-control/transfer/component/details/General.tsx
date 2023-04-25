@@ -14,9 +14,9 @@ import CustomCardContent from "components/card/CustomCardContent";
 import DashedCard from "components/card/DashedCard";
 import { ToolBarButton } from "components/table-toolbar";
 import TextField from "components/textfield";
-import AppRoutes from "navigation/appRoutes";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
+import AppRoutes from "routes/appRoutes";
 
 function General() {
   const isTrue = true;
