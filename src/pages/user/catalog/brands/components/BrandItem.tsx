@@ -6,9 +6,13 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { FILE_URL } from "config";
 import useBrandAction from "hooks/actions/catalog/brand/useBrandAction";
 import { useState } from "react";
@@ -36,6 +40,7 @@ function BrandItem(props: IBrandItem) {
     getSelectedBrandById(state, item.id),
   );
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const select = () => {
     dispatch(setBrandId(item.id));
@@ -61,24 +66,28 @@ function BrandItem(props: IBrandItem) {
   return (
     <>
       <TableRow>
-        <TableCell
+        <CustomBodyTableCell
           padding="checkbox"
-          sx={{
-            width: 60,
-            // position: "sticky",
-            // left: 0,
-            // zIndex: 999,
-            // background: "white",
+          sxProps={{
+            minWidth: 60,
+            position: "sticky",
+            left: 0,
+            zIndex: 999,
           }}
         >
           <Checkbox
             checked={getSelectedBrandByIdState}
-            color="primary"
+            sx={{
+              color: theme.palette.primary.darkBlue,
+              "&.Mui-checked": {
+                color: theme.palette.primary.darkBlue,
+              },
+            }}
             onChange={select}
           />
-        </TableCell>
-        <TableCell
-          sx={{
+        </CustomBodyTableCell>
+        <CustomBodyTableCell
+          sxProps={{
             width: 50,
             // position: "sticky",
             // left: 60,
@@ -104,37 +113,23 @@ function BrandItem(props: IBrandItem) {
                 borderRadius: "5px",
               }}
             />
-            {/* <img
-            alt="new"
-            src={brandData.fileUrl}
-            // src={brandData.fileName}
-            width="100%"
-          /> */}
           </Box>
-        </TableCell>
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
+        <CustomBodyTableCell
+          sxProps={{
             width: "100%",
-            // position: "sticky",
-            // left: 130,
-            // zIndex: 999,
-            // background: "white",
           }}
           onClick={() => {
             handleMange();
             // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
-          <Typography sx={{ textDecoration: "underline" }}>
-            {item.name || "-"}
-          </Typography>
-          {/* {brandData?.data.name} */}
-          {/* {br} */}
-        </TableCell>
+          <CustomTableText text={item?.name} link />
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
+        <CustomBodyTableCell
+          sxProps={{
             position: "sticky",
             right: 0,
             // background: "white",
@@ -155,7 +150,7 @@ function BrandItem(props: IBrandItem) {
               Edit
             </MenuItem>
           </TableActionButton>
-        </TableCell>
+        </CustomBodyTableCell>
       </TableRow>
       {manageOpen ? (
         <ManageBrand

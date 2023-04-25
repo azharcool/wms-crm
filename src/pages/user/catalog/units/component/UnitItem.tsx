@@ -1,9 +1,14 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useUnitActions from "hooks/actions/catalog/useUnitActions";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
+import theme from "theme";
 import { GetAllPaginationUnitResponseData } from "types/catalog/unit/getAllPaginationUnitResponse";
 
 interface IUnitItem {
@@ -20,19 +25,28 @@ function UnitItem(props: IUnitItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
+        sxProps={{
           minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
-      </TableCell>
-      <TableCell
-        sx={{
+        <Checkbox
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
+          onChange={() => {}}
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           width: 50,
           position: "sticky",
           left: 60,
@@ -53,142 +67,77 @@ function UnitItem(props: IUnitItem) {
             width="100%"
           />
         </Box>
-      </TableCell>
-      <TableCell
-        sx={{
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           width: 200,
           position: "sticky",
           zIndex: 999,
           left: 130,
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap",
-          }}
-        >
-          {item.variantName}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
+        <CustomTableText text={item?.variantName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           width: 200,
           position: "sticky",
           left: 0,
         }}
       >
-        {item.unitNumber}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.available}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.newQuantity}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {/* UOM */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>{" "}
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>{" "}
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.price} -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.warehouseName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.locationName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.createdOn}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.updatedOn}
-      </TableCell>
-      <TableCell
+        <CustomTableText text={item?.unitNumber} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.available} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.newQuantity} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.price} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.warehouseName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.locationName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.createdOn} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.updatedOn} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
@@ -196,7 +145,7 @@ function UnitItem(props: IUnitItem) {
         //   deleteUnitAction(item.id);
         // }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

@@ -9,12 +9,14 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
+import NoDataTableRow from "components/table/no-data-table-row";
 import VariantItem from "./VariantItem";
+
 
 const tabs = [
   {
@@ -182,39 +184,58 @@ function VariantListing(props: IVariantListing) {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell isCheck isHeader isSticky leftValue={0}>
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
+                      zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
+                    }}
+                  >
                     <Checkbox
                       checked={false}
                       color="primary"
                       onChange={() => {}}
                     />
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isImage = item.title.includes("Image");
                     const isName = item.title.includes("Variant");
                     return (
-                      <CustomTableCell
-                        key={item.id}
-                        isHeader
-                        customStyle={{
+                      <CustomHeadTableCell
+                        key={item.id} 
+                        sxProps={{
                           minWidth: isImage ? 50 : 150,
                           position: isImage || isName ? "sticky" : "static",
                           left: isImage || isName ? (isName ? 130 : 60) : 0,
                         }}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                      backdropFilter: "blur(2px)",
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {data?.data?.map((item) => {
                   return <VariantItem key={item.id} item={item} />;
                 })}
+                {!data?.data.length ? (
+                  <NoDataTableRow
+                    colSize={4}
+                    title="No data found in Variant"
+                  />
+                ) : null}
               </TableBody>
             </Table>
           </PerfectScrollbar>

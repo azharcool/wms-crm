@@ -6,10 +6,14 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { FILE_URL } from "config";
 import useCategoriesAction from "hooks/actions/catalog/categories/useCategoriesAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -34,6 +38,7 @@ function CategoriesItem(props: ICategoriesItem) {
   const navigate = useNavigate();
   const alert = useAlert();
   const dispatch = useAppDispatch();
+  const theme = useTheme();
 
   const { deleteCategoryAsync } = useCategoriesAction();
 
@@ -55,10 +60,10 @@ function CategoriesItem(props: ICategoriesItem) {
   };
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -66,16 +71,22 @@ function CategoriesItem(props: ICategoriesItem) {
       >
         <Checkbox
           checked={getSelectedCategoryByIdState}
-          color="primary"
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
           onChange={select}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           left: 60,
           zIndex: 999,
+          cursor: "pointer",
         }}
       >
         <Box
@@ -99,9 +110,8 @@ function CategoriesItem(props: ICategoriesItem) {
             }}
           />
         </Box>
-      </TableCell>
-
-      <TableCell
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           width: 200,
           position: "sticky",
@@ -113,58 +123,26 @@ function CategoriesItem(props: ICategoriesItem) {
           navigate(`${AppRoutes.CATALOG.categoryDetail}/${item.id}`);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {item?.name}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        {item.position}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        {item.parentCategoryName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        {/* <CustomSwitch /> */}
+        <CustomTableText text={item?.name} link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.position} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.parentCategoryName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
         <StatusTableCell
           success={item?.status !== 2}
           title={item?.status === 2 ? "InActive" : "Active"}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
-        {item.updatedOn}
-      </TableCell>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.updatedOn} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 200,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
+
         {item.tag && (
           <Stack flexDirection="row" flexWrap="wrap">
             {item.tag.split(",").map((tag) => {
@@ -183,18 +161,20 @@ function CategoriesItem(props: ICategoriesItem) {
                     textAlign: "center",
                   }}
                 >
-                  {tag}
+                  <CustomTableText text={tag} />
                 </Box>
               );
             })}
           </Stack>
         )}
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
+      <CustomBodyTableCell
         sx={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
@@ -202,7 +182,7 @@ function CategoriesItem(props: ICategoriesItem) {
             handleCategoriesDelete();
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

@@ -6,6 +6,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
@@ -14,6 +15,9 @@ import { IGetAllVariantResponseData } from "types/catalog/variants/getAllVariant
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import useVariantAction from "hooks/actions/catalog/variant/useVariantAction";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 
 interface IVariantItem {
   item: IGetAllVariantResponseData;
@@ -24,6 +28,7 @@ function VariantItem(props: IVariantItem) {
 
   const navigate = useNavigate();
   const alert = useAlert();
+  const theme = useTheme();
   const { deleteVariantAsync } = useVariantAction();
 
   const handleVariantDelete = async () => {
@@ -40,19 +45,26 @@ function VariantItem(props: IVariantItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
+        sxProps={{
           minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
-        <Checkbox checked={false} color="primary" onChange={() => {}} />
-      </TableCell>
-      <TableCell
-        sx={{
+        <Checkbox
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           width: 50,
           position: "sticky",
           left: 60,
@@ -81,10 +93,10 @@ function VariantItem(props: IVariantItem) {
             }}
           />
         </Box>
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
+      <CustomBodyTableCell
+        sxProps={{
           minWidth: 150,
           position: "sticky",
           left: 130,
@@ -96,148 +108,70 @@ function VariantItem(props: IVariantItem) {
         }}
       >
         <Tooltip title="TshirtXXL">
-          <Typography
-            sx={{ textDecoration: "underline", whiteSpace: "nowrap" }}
-          >
-            {item.variantName}
-          </Typography>
+          <CustomTableText text={item?.variantName} link />
         </Tooltip>
-        <Typography
-          sx={{
-            fontSize: "10px",
-          }}
-        >
-          {item.sku}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 150,
-          position: "sticky",
-          left: 0,
-          // background: "white",
-        }}
-      >
-        {/* Pieces */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {/* UoM */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {item.barcode}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        {/* listed on */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        0
-      </TableCell>
-
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        INR {item.supplyPrice}.00
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        INR {item.retailPrice}.00
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        INR {item.mrp}.00
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      />
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      />
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        azhar
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      />
-      <TableCell
-        sx={{
-          minWidth: 200,
-        }}
-      >
-        Mar 14, 2023 14:40:35
-      </TableCell>
-      <TableCell
+        <CustomTableText text={item?.sku} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" /> {/* peices  */}
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" /> {/* uom */}
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.barcode} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" /> {/* listedon */}
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={`INR ${item.supplyPrice}.00`} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={`INR ${item.retailPrice}.00`} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={`INR ${item.mrp}.00`} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="azhar" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Mar 14, 2023 14:40:35" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
         sx={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
+          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
@@ -245,7 +179,7 @@ function VariantItem(props: IVariantItem) {
             handleVariantDelete();
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }
