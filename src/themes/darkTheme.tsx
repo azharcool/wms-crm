@@ -13,8 +13,12 @@ const darkTheme = createTheme({
       dark: Colors.black,
       darkBlue: Colors.darkBlue,
       tableButton: {
-        main: Colors.white,
-        light: Colors.lightBlue,
+        main: Colors.lightBlue,
+        light: Colors.white,
+      },
+      button: {
+        main: Colors.brown,
+        light: Colors.lightRed,
       },
     },
     secondary: {

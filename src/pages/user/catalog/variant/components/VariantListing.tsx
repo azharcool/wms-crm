@@ -9,14 +9,14 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { IGetAllVariantResponseRoot } from "types/catalog/variants/getAllVariantResponse";
-import VariantItem from "./VariantItem";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import NoDataTableRow from "components/table/no-data-table-row";
+import VariantItem from "./VariantItem";
+
 
 const tabs = [
   {

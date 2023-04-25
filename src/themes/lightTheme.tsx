@@ -30,6 +30,14 @@ declare module "@mui/material/styles" {
       main?: string;
       light?: string;
     };
+    tabs?: {
+      main?: string;
+      light?: string;
+    };
+    button?: {
+      main?: string;
+      light?: string;
+    };
   }
 
   interface SimplePaletteColorOptions {
@@ -41,6 +49,14 @@ declare module "@mui/material/styles" {
       light?: string;
     };
     icons?: {
+      main?: string;
+      light?: string;
+    };
+    tabs?: {
+      main?: string;
+      light?: string;
+    };
+    button?: {
       main?: string;
       light?: string;
     };
@@ -71,6 +87,14 @@ const lightTheme = createTheme({
         main: Colors.white,
         light: Colors.lightBlue,
       },
+      tabs: {
+        main: Colors.darkBlue,
+        light: Colors.lightGrey,
+      },
+      button: {
+        main: Colors.brown,
+        light: Colors.lightRed,
+      },
     },
     secondary: {
       light: Colors.lightRed,
@@ -83,6 +107,13 @@ const lightTheme = createTheme({
     },
     text: {
       darkBlue: Colors.darkBlue,
+    },
+  },
+  components: {
+    MuiTab: {
+      defaultProps: {
+        disableRipple: true,
+      },
     },
   },
 });

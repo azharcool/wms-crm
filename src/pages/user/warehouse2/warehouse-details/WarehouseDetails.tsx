@@ -1,5 +1,6 @@
 import EditIcon from "@mui/icons-material/Edit";
 import { CardContent, Container, Tab, Tabs } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableToolbar from "components/table-toolbar";
 import useGetByIdWarehouse from "hooks/querys/warehouse/useGetByIdWarehouse";
 import { useEffect, useState } from "react";
@@ -10,14 +11,17 @@ import AppRoutes from "routes/appRoutes";
 
 function WarehouseDetails() {
   const [value, setValue] = useState(0);
+
   const navigate = useNavigate();
   const location = useLocation();
   const getSelectedWarehouse = useSelector(getWarehouseSelected);
   const warehouseId = getSelectedWarehouse.id;
   const { detailsId } = useParams();
+  const theme = useTheme();
   const { data: warehouseDetailsResponse } = useGetByIdWarehouse({
     warehouseId: Number(detailsId),
   });
+
   const {
     warehouse: {
       warehouseLayout,
@@ -92,12 +96,12 @@ function WarehouseDetails() {
           aria-label="basic tabs example"
           sx={{
             "& .MuiTab-root.Mui-selected": {
-              color: "#c44e13",
+              color: theme.palette.primary.tabs?.main,
             },
           }}
           TabIndicatorProps={{
             style: {
-              background: "#c44e13",
+              background: theme.palette.primary.tabs?.main,
             },
           }}
           value={value}

@@ -51,14 +51,7 @@ function Warehouse() {
               onClick: () => {
                 navigate("/warehouse/create");
               },
-              icon: (
-                <AddCircleIcon
-                  sx={{
-                    fontSize: 18,
-                    mr: 1,
-                  }}
-                />
-              ),
+              icon: <AddCircleIcon />,
             },
           ]}
           title="Warehouses"

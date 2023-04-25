@@ -18,6 +18,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
+import { useTheme } from "@mui/material/styles";
 import CustomPopover, {
   ICustomPopoverRef,
 } from "components/utilities-popup/CustomPopover";
@@ -54,6 +55,7 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
   const { tabs, handle, moreList, csvData, csvHeader, csvTitle } = props;
 
   const customPopoverRef = React.useRef<ICustomPopoverRef>(null);
+  const theme = useTheme();
 
   return (
     <>
@@ -70,7 +72,21 @@ function EnhancedTableToolbar(props: IEnhancedTableToolbar) {
           width="100%"
         >
           <Stack direction="row">
-            <Tabs aria-label="basic tabs example" value={0} onChange={() => {}}>
+            <Tabs
+              aria-label="basic tabs example"
+              value={0}
+              onChange={() => {}}
+              sx={{
+                "& .MuiTab-root.Mui-selected": {
+                  color: theme.palette.primary.tabs?.main,
+                },
+              }}
+              TabIndicatorProps={{
+                style: {
+                  background: theme.palette.primary.tabs?.main,
+                },
+              }}
+            >
               <Tab label="ALL" />
               {tabs?.map((item) => {
                 return <Tab key={item.id} label={item.title} />;

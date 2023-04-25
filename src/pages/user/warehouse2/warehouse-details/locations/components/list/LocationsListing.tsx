@@ -8,9 +8,10 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import useGetAllLocation from "hooks/querys/warehouse/location/useGetAllLocation";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -116,6 +117,8 @@ function LocationsListing() {
     ...warehousePagination,
     warehouseId: getSelectedWarehouse.id,
   });
+  const theme = useTheme();
+
   const {
     warehouse: { warehouseLayout, locationCreate },
   } = AppRoutes;
@@ -164,38 +167,46 @@ function LocationsListing() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
+                      position: "sticky",
                       zIndex: 999,
+                      left: 0,
                     }}
-                    leftValue={0}
                   >
-                    <Checkbox checked={false} />
-                  </CustomTableCell>
+                    <Checkbox
+                      checked={false}
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
+                    />
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isName = item.title.includes("Name");
                     const isLabel = item.title.includes("Label");
 
+                    const props = {
+                      position: "sticky",
+                      left: "60px",
+                    };
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
-                          position: isName && "sticky",
-                          left: isName && "60px",
-                        }}
-                        minWt={150}
+                        sxProps={isName ? props : {}}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
