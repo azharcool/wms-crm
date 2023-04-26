@@ -73,6 +73,9 @@ function TaxesCreate(props: ITaxes) {
                     menuItems={taxtype}
                     name="taxtype"
                     size="small"
+                    sxMenuListProps={{
+                      backdropFilter: "blur(15px)",
+                    }}
                   />
 
                   <TextField

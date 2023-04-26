@@ -9,11 +9,11 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import theme from "theme/newTheme";
 import { IGetAdjustmentResponseRoot } from "types/setting/adjustment/getAdjustmentResponse";
 import AdjustmentReasonListItem from "./AdjustmentReasonListItem";
 
@@ -39,6 +39,8 @@ interface IAdjustmentReasonListing {
 
 function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
   const { data, adjustmentPagination, handlePagination } = props;
+
+  const theme = useTheme();
 
   return (
     <>
@@ -88,7 +90,6 @@ function AdjustmentReasonsList(props: IAdjustmentReasonListing) {
                       sxProps={{
                         position: "sticky",
                         right: 0,
-                        backdropFilter: "blur(2px)",
                       }}
                     >
                       Actions

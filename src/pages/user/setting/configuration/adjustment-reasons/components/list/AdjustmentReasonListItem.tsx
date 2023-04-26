@@ -101,7 +101,6 @@ function AdjustmentReasonListItem(props: IAdjustmentItem) {
             position: "sticky",
             right: 0,
             cursor: "pointer",
-            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton

@@ -8,11 +8,11 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import theme from "theme/newTheme";
 import TaxesListItem from "./TaxesListItem";
 
 const tableTitle = [
@@ -39,6 +39,7 @@ const tableTitle = [
 ];
 
 function TaxesList() {
+  const theme = useTheme();
   return (
     <>
       <PerfectScrollbar>
@@ -88,7 +89,6 @@ function TaxesList() {
                       sxProps={{
                         position: "sticky",
                         right: 0,
-                        backdropFilter: "blur(2px)",
                       }}
                     >
                       Actions

@@ -139,10 +139,9 @@ function ContainerTypeCreate(props: ITaxes) {
                     menuItems={statusMenu}
                     name="status"
                     size="small"
-                    // value={values.status}
-                    // onSelectHandler={(e) => {
-                    //   setFieldValue("status", e.target.value);
-                    // }}
+                    sxMenuListProps={{
+                      backdropFilter: "blur(20px)",
+                    }}
                   />
                 </Stack>
                 <Switch defaultChecked />

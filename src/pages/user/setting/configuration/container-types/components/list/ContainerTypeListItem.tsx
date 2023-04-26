@@ -1,7 +1,9 @@
-import { Box, Checkbox, MenuItem, TableRow, Typography } from "@mui/material";
+import { Box, Checkbox, MenuItem, TableRow } from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
-import CustomBodyTableCell from "components/table/status-table-cell/CustomBodyTableCell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { FILE_URL } from "config";
 import useProductConditionAction from "hooks/actions/setting/product-condition/useProductConditionAction";
 import { useState } from "react";
@@ -89,7 +91,7 @@ function ContainerTypeLIstItem(props: IProductConditionListItem) {
         </CustomBodyTableCell>
 
         <CustomBodyTableCell
-          sx={{
+          sxProps={{
             cursor: "pointer",
           }}
           onClick={() => {
@@ -97,30 +99,30 @@ function ContainerTypeLIstItem(props: IProductConditionListItem) {
             // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
-          <Typography
-            sx={{
-              textDecoration: "underline",
-              whiteSpace: "nowrap", //! Dont remove
-            }}
-          >
-            Default Container
-          </Typography>
+          <CustomTableText text="Default Container" />
         </CustomBodyTableCell>
 
-        <CustomBodyTableCell>-</CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
 
-        <CustomBodyTableCell>-</CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
 
-        <CustomBodyTableCell>-</CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
 
-        <CustomBodyTableCell>-</CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
 
         <CustomBodyTableCell
-          sx={{
+          sxProps={{
             position: "sticky",
             right: 0,
             cursor: "pointer",
-            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton

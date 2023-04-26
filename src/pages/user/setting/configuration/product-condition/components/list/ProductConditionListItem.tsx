@@ -138,11 +138,10 @@ function ProductConditionListItem(props: IProductConditionListItem) {
         </CustomBodyTableCell>
 
         <CustomBodyTableCell
-          sx={{
+          sxProps={{
             position: "sticky",
             right: 0,
             cursor: "pointer",
-            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton

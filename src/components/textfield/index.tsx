@@ -3,12 +3,13 @@ import {
   FormHelperText,
   FormLabel,
   InputAdornment,
+  TextField as InputField,
   InputLabel,
   InputProps,
-  TextField as InputField,
 } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
+import { SxProps, Theme } from "@mui/material/styles";
 import * as React from "react";
 import palette from "theme/palette";
 
@@ -46,6 +47,7 @@ interface Props extends InputProps {
   darkDisable?: boolean;
   autoComplete?: string;
   maxInputLength?: number;
+  sxMenuListProps?: SxProps<Theme>;
 }
 
 function TextField(props: Props) {
@@ -80,6 +82,7 @@ function TextField(props: Props) {
     darkDisable,
     onKeyDown,
     autoComplete,
+    sxMenuListProps,
   } = props;
 
   const inputLabelProps =
@@ -174,6 +177,12 @@ function TextField(props: Props) {
             MenuProps={{
               sx: {
                 maxHeight: "300px",
+              },
+              MenuListProps: {
+                sx: {
+                  // default
+                  ...sxMenuListProps,
+                },
               },
             }}
             size={size}

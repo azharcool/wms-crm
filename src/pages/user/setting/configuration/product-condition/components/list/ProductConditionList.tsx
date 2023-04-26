@@ -9,11 +9,12 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import theme from "theme/newTheme";
+
 import { GetAllProductConditionPaginationResponseRoot } from "types/setting/product-condition/getAllProductConditionPaginationResponse";
 import ProductConditionListItem from "./ProductConditionListItem";
 
@@ -64,6 +65,8 @@ interface IProductConditionListing {
 function ProductConditionList(props: IProductConditionListing) {
   const { data, productconditionPagination, handlePagination } = props;
 
+  const theme = useTheme();
+
   return (
     <>
       <PerfectScrollbar>
@@ -112,7 +115,6 @@ function ProductConditionList(props: IProductConditionListing) {
                       sxProps={{
                         position: "sticky",
                         right: 0,
-                        backdropFilter: "blur(2px)",
                       }}
                     >
                       Actions
