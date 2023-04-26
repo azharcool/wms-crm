@@ -20,6 +20,9 @@ const darkTheme = createTheme({
         main: Colors.brown,
         light: Colors.lightRed,
       },
+      tableBody: {
+        main: Colors.darkTable,
+      },
     },
     secondary: {
       light: Colors.lightRed,

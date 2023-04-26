@@ -9,6 +9,7 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
@@ -17,7 +18,6 @@ import "react-perfect-scrollbar/dist/css/styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getSelectedWarehouse } from "redux/warehouse/warehouseSelector";
 import { setAllWarehouseIds } from "redux/warehouse/warehouseSlice";
-import theme from "theme/newTheme";
 import {
   IGetWarehouseResponseData,
   IGetWarehouseResponseRoot,
@@ -65,11 +65,13 @@ interface IWarehouselisting {
   handlePagination: (name: string, page: number) => void;
 }
 type IChangeEvent = React.ChangeEvent<HTMLInputElement>;
+
 function WarehouseListing(props: IWarehouselisting) {
   const { data, warehousePagination, handlePagination } = props;
 
   const getSelectedWarehouseByIdState = useSelector(getSelectedWarehouse);
   const dispatch = useDispatch();
+  const theme = useTheme();
 
   const selectAll = (event: IChangeEvent, checked: boolean) => {
     if (data) {

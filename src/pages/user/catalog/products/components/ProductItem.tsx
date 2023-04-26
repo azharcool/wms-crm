@@ -1,12 +1,5 @@
+import { Box, Checkbox, Stack, TableRow } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import {
-  Box,
-  Checkbox,
-  Stack,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
 import NOImage from "assets/images/no-image.png";
 import { useAlert } from "components/alert";
 import dateTimeFormat from "components/dateTime-format";
@@ -62,7 +55,7 @@ function ProductItem(props: IProductItem) {
       <CustomBodyTableCell
         padding="checkbox"
         sxProps={{
-          minWidth: 60,
+          minWidth: "50px",
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -80,42 +73,34 @@ function ProductItem(props: IProductItem) {
         />
       </CustomBodyTableCell>
       <CustomBodyTableCell
-        sx={{
-          width: 50,
+        sxProps={{
+          width: "50px",
           position: "sticky",
-          left: 60,
+          left: "60px",
           zIndex: 999,
           cursor: "pointer",
         }}
       >
-        <Box
-          sx={{
+        <img
+          alt="new"
+          src={
+            item?.picture.length > 0
+              ? `${FILE_URL}${item?.picture[0]?.atachment}`
+              : NOImage
+          }
+          style={{
             width: "40px",
             height: "40px",
+            objectFit: "cover",
+            borderRadius: "5px",
           }}
-        >
-          <img
-            alt="new"
-            src={
-              item?.picture.length > 0
-                ? `${FILE_URL}${item?.picture[0]?.atachment}`
-                : NOImage
-            }
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "5px",
-            }}
-          />
-        </Box>
+        />
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
-          minWidth: 150,
+        sxProps={{
           position: "sticky",
-          left: 130,
+          left: "150px",
           zIndex: 999,
           cursor: "pointer",
         }}
@@ -125,14 +110,7 @@ function ProductItem(props: IProductItem) {
       >
         <CustomTableText text={item.name} link />
       </CustomBodyTableCell>
-      <CustomBodyTableCell
-        sx={{
-          width: 150,
-          position: "sticky",
-          left: 0,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
         <CustomTableText text="inventory" />
       </CustomBodyTableCell>
       <CustomBodyTableCell>
@@ -186,11 +164,10 @@ function ProductItem(props: IProductItem) {
         <CustomTableText text={dateTimeFormat(item.updatedOn)} />
       </CustomBodyTableCell>
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
-          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton

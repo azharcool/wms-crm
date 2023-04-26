@@ -9,8 +9,8 @@ import {
   TablePagination,
   TableRow,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import dateTimeFormat from "components/dateTime-format";
-import CustomTableCell from "components/table/CustomTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import NoDataTableRow from "components/table/no-data-table-row/index";
 import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
@@ -24,7 +24,6 @@ import { useAppDispatch } from "redux/store";
 import AppRoutes from "routes/appRoutes";
 import { IGetProductResponseRoot } from "types/catalog/products/getProductResponse";
 import ProductItem from "./ProductItem";
-// import { removeAllBrandIds } from 'redux/catalog/brandSlice';
 
 const tableTitle = [
   {
@@ -96,6 +95,7 @@ function ProductListing(props: IProductListing) {
   const getSelectedProductIdsState = useSelector(getSelectedProduct);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const { catalog, bulkUpload, products } = AppRoutes.CATALOG;
 
@@ -184,7 +184,9 @@ function ProductListing(props: IProductListing) {
                           : data?.data.length ===
                             getSelectedProductIdsState.length
                       }
-                      color="primary"
+                      sx={{
+                        color: theme.palette.common.white,
+                      }}
                       onChange={selectAll}
                     />
                   </CustomHeadTableCell>
@@ -197,7 +199,8 @@ function ProductListing(props: IProductListing) {
                         key={item.id}
                         sxProps={{
                           position: isImage || isName ? "sticky" : "static",
-                          left: isImage || isName ? (isName ? 130 : 60) : 0,
+                          left:
+                            isImage || isName ? (isName ? "150px" : "60px") : 0,
                         }}
                       >
                         {item.title}
@@ -208,10 +211,8 @@ function ProductListing(props: IProductListing) {
                     sxProps={{
                       position: "sticky",
                       right: 0,
-                      backdropFilter: "blur(2px)",
                     }}
                   >
-                    {" "}
                     Actions
                   </CustomHeadTableCell>
                 </TableRow>

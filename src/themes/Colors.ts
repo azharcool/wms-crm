@@ -9,6 +9,8 @@ export const Colors = {
   brown: "#54221f",
 
   lightBlue: "#0b259852",
+  lightTable: "#e8e8e8",
+  darkTable: "#272626",
 
   white: "#fff",
   black: "#000",
