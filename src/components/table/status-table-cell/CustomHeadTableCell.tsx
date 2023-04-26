@@ -9,7 +9,7 @@ interface ICustomHeadTableCell extends TableCellProps {
 }
 
 function CustomHeadTableCell(props: ICustomHeadTableCell) {
-  const { children, sxProps, ...restProps } = props;
+  const { children, sxProps, sx, ...restProps } = props;
 
   const theme = useTheme();
 
