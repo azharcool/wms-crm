@@ -32,12 +32,14 @@ interface ICustomBodyTableCell extends TableCellProps {
 }
 
 function CustomBodyTableCell(props: ICustomBodyTableCell) {
-  const { children, sxProps, ...restProps } = props;
+  const { children, sxProps, sx, ...restProps } = props;
 
+  const theme = useTheme();
   return (
     <TableCell
       sx={{
         minWidth: "150px",
+        backgroundColor: theme.palette.primary.tableBody?.main,
         ...sxProps,
       }}
       {...restProps}

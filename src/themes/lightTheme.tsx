@@ -38,6 +38,10 @@ declare module "@mui/material/styles" {
       main?: string;
       light?: string;
     };
+    tableBody?: {
+      main?: string;
+      light?: string;
+    };
   }
 
   interface SimplePaletteColorOptions {
@@ -57,6 +61,10 @@ declare module "@mui/material/styles" {
       light?: string;
     };
     button?: {
+      main?: string;
+      light?: string;
+    };
+    tableBody?: {
       main?: string;
       light?: string;
     };
@@ -94,6 +102,9 @@ const lightTheme = createTheme({
       button: {
         main: Colors.brown,
         light: Colors.lightRed,
+      },
+      tableBody: {
+        main: Colors.lightTable,
       },
     },
     secondary: {

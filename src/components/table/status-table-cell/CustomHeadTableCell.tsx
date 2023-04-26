@@ -19,6 +19,7 @@ function CustomHeadTableCell(props: ICustomHeadTableCell) {
         minWidth: "150px",
         background: theme.palette.primary.darkBlue,
         color: theme.palette.common.white,
+        fontWeight: "bold",
         ...sxProps,
       }}
       {...restProps}

@@ -41,7 +41,7 @@ function WarehouseItem(props: IWarehouseItem) {
       <CustomBodyTableCell
         padding="checkbox"
         sxProps={{
-          minWidth: 60,
+          minWidth: "60px",
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -107,11 +107,10 @@ function WarehouseItem(props: IWarehouseItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
-          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
