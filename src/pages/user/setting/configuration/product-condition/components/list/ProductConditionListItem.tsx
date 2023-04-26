@@ -134,7 +134,7 @@ function ProductConditionListItem(props: IProductConditionListItem) {
         </CustomBodyTableCell>
 
         <CustomBodyTableCell>
-          <CustomTableText text={item?.warranty} />;
+          <CustomTableText text={item?.warranty} />
         </CustomBodyTableCell>
 
         <CustomBodyTableCell
