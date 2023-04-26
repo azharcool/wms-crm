@@ -1,4 +1,8 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 interface ILineItemsListItem {
@@ -6,34 +10,29 @@ interface ILineItemsListItem {
 }
 
 function LineItemsListItem(_: ILineItemsListItem) {
+  const theme = useTheme();
+
   return (
     <TableRow hover>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
-          position: "sticky",
-          left: 60,
-          zIndex: 999,
-          cursor: "pointer",
-          // background: "white",
-        }}
-        // onClick={() => goToDetails("1")}
-      >
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
         <Box
           sx={{
             width: "40px",
@@ -46,31 +45,23 @@ function LineItemsListItem(_: ILineItemsListItem) {
             width="100%"
           />
         </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <Box>
-          <Typography variant="h6">Speaker</Typography>
-          <Typography>SPEAKER-796</Typography>
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Default Warehouse(Demo)
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Mar 29
-      </TableCell>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <Box>
+              <Typography variant="h6">Speaker</Typography>
+              <Typography>SPEAKER-796</Typography>
+            </Box>
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Default warehouse" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="March29" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

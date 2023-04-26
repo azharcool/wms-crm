@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import GeneralListItem from "./GeneralListItem";
@@ -68,9 +68,9 @@ function GeneralList() {
                 <TableRow>
                   {tableTitle.map((item) => {
                     return (
-                      <CustomTableCell key={item.id} isHeader minWt={100}>
+                      <CustomHeadTableCell key={item.id} >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>

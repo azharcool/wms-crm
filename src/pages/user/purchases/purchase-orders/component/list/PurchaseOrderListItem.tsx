@@ -1,33 +1,43 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
+import useWarehouseAction from "hooks/actions/warehouse/useWarehouseAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
 
 function PurchaseOrderListItem() {
   const navigate = useNavigate();
+  const theme = useTheme();
+
   return (
     <TableRow>
-      <TableCell
+       <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
           cursor: "pointer",
         }}
@@ -38,107 +48,48 @@ function PurchaseOrderListItem() {
         }
       >
         PO-1233
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        {/* inventory */}0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        Not Provided
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
         }}
       >
         <TableActionButton
@@ -146,7 +97,7 @@ function PurchaseOrderListItem() {
             // deleteProductAsync(item.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

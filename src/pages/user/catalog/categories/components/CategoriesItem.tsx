@@ -112,7 +112,7 @@ function CategoriesItem(props: ICategoriesItem) {
         </Box>
       </CustomBodyTableCell>
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           width: 200,
           position: "sticky",
           left: 130,
@@ -170,11 +170,10 @@ function CategoriesItem(props: ICategoriesItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
-          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton

@@ -53,7 +53,7 @@ function AreaListItem(props: IAreaListItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           left: 60,
           zIndex: 999,
@@ -82,7 +82,7 @@ function AreaListItem(props: IAreaListItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
         }}

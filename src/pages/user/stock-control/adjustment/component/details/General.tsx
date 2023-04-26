@@ -20,6 +20,10 @@ import {
 import NOImage from "assets/images/no-image.png";
 import CustomCardContent from "components/card/CustomCardContent";
 import DashedCard from "components/card/DashedCard";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import dateTimeFormat from "components/dateTime-format";
 import { ToolBarButton } from "components/table-toolbar";
 import CustomTableCell from "components/table/CustomTableCell";
@@ -288,17 +292,15 @@ function StockTable(props: IStockTable) {
                     const isImage = item.title.includes("Image");
 
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           position: isImage ? "sticky" : "static",
                           left: isImage ? 0 : 50,
                         }}
-                        minWt={120}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>
@@ -308,7 +310,7 @@ function StockTable(props: IStockTable) {
                   data?.map((item: StockDetail) => {
                     return (
                       <TableRow>
-                        <TableCell
+                        <CustomBodyTableCell
                           sx={{
                             width: 50,
                             position: "sticky",
@@ -316,73 +318,55 @@ function StockTable(props: IStockTable) {
                             zIndex: 999,
                           }}
                         >
-                          <Box
-                            sx={{
-                              width: "40px",
-                              height: "40px",
-                            }}
-                          >
-                            <img
-                              alt="stock"
-                              src={
-                                item?.image
-                                  ? `${FILE_URL}${item?.image}`
-                                  : NOImage
-                              }
-                              width="100%"
-                            />
-                          </Box>
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                          }}
-                        >
-                          {/* {item.productName || "-"} */}-
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                          }}
-                        >
-                          {item.barcodeStrategy || "-"}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                          }}
-                        >
-                          {item.unitCost || "-"}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                          }}
-                        >
-                          {item.quantity || "-"}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                          }}
-                        >
-                          {item.containerNumber || "-"}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          {dateTimeFormat(item.expiryDate) || "-"}
-                        </TableCell>
-                        <TableCell
-                          sx={{
-                            minWidth: 170,
-                          }}
-                        >
-                          {item.locationId || "-"}
-                        </TableCell>
+                          <CustomTableText
+                            text={
+                              <Box
+                                sx={{
+                                  width: "40px",
+                                  height: "40px",
+                                }}
+                              >
+                                <img
+                                  alt="stock"
+                                  src={
+                                    item?.image
+                                      ? `${FILE_URL}${item?.image}`
+                                      : NOImage
+                                  }
+                                  width="100%"
+                                />
+                              </Box>
+                            }
+                          />
+                        </CustomBodyTableCell>
+                        <CustomBodyTableCell>
+                          <CustomTableText text="-" />
+                        </CustomBodyTableCell>
+
+                        <CustomBodyTableCell>
+                          <CustomTableText
+                            text={item?.barcodeStrategy || "-"}
+                          />
+                        </CustomBodyTableCell>
+                        <CustomBodyTableCell>
+                          <CustomTableText text={item?.unitCost || "-"} />
+                        </CustomBodyTableCell>
+                        <CustomBodyTableCell>
+                          <CustomTableText text={item?.quantity || "-"} />
+                        </CustomBodyTableCell>
+                        <CustomBodyTableCell>
+                          <CustomTableText
+                            text={item?.containerNumber || "-"}
+                          />
+                        </CustomBodyTableCell>
+                        <CustomBodyTableCell>
+                          <CustomTableText
+                            text={dateTimeFormat(item.expiryDate) || "-"}
+                          />
+                        </CustomBodyTableCell>
+                        <CustomBodyTableCell>
+                          <CustomTableText text={item?.locationId || "-"} />
+                        </CustomBodyTableCell>
                       </TableRow>
                     );
                   })

@@ -1,4 +1,7 @@
-import { TableCell, TableRow } from "@mui/material";
+import { TableRow } from "@mui/material";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
@@ -7,10 +10,9 @@ function PurchasesListingItem() {
   const navigate = useNavigate();
   return (
     <TableRow>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
+      <CustomBodyTableCell
+        sxProps={{
+          cursor: "pointer",
         }}
         onClick={() =>
           navigate(
@@ -18,96 +20,41 @@ function PurchasesListingItem() {
           )
         }
       >
-        PO-1233
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        Not Provided
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
+        <CustomTableText text="PO-123" link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

@@ -1,32 +1,41 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
 
 function SupplierReturnListItem() {
   const navigate = useNavigate();
+  const theme = useTheme();
+
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
           cursor: "pointer",
         }}
@@ -36,92 +45,50 @@ function SupplierReturnListItem() {
           )
         }
       >
-        1
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
+        <CustomTableText text="1" link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
+          position: "sticky",
+          right: 0,
+          cursor: "pointer",
         }}
       >
-        {/* lineitem */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* qty */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* supplier */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* total */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* status */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* alloc */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* fullfill */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* shipping */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* refund */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* created */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* updatedat */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* notes */}
-      </TableCell>
+        <CustomTableText text="" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

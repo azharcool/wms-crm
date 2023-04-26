@@ -183,11 +183,10 @@ function BundleItem(props: IProps) {
         <CustomTableText text={dateTimeFormat(createdOn)} />
       </CustomBodyTableCell>
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
-          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton onDeleteHandle={handleBundleDelete} />

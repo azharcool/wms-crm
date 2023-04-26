@@ -1,6 +1,10 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import TextField from "components/textfield";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -24,6 +28,7 @@ const conditionCode = [
 function InventoryLogListItem(props: { item: any }) {
   const { item } = props;
   const navigate = useNavigate();
+  const theme = useTheme();
   const {
     stockControl: {
       layout,
@@ -33,135 +38,108 @@ function InventoryLogListItem(props: { item: any }) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 50,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 60,
-          position: "sticky",
-          left: 50,
-          zIndex: 999,
-          cursor: "pointer",
-        }}
-      >
-        <Box
+          checked={false}
           sx={{
-            width: "40px",
-            height: "40px",
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
           }}
-        >
-          <img
-            alt="new"
-            src={NOImage}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "5px",
-            }}
-          />
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        PT-82061
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        INR 0.00
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "NEW" : "+50"}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        50
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <TextField
-          disabled
-          isSelect
-          id="categorys"
-          menuItems={conditionCode}
-          name="conditionCode"
-          size="small"
-          value={conditionCode[0].value}
-          onSelectHandler={(e) => {}}
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <Box
+              sx={{
+                width: "40px",
+                height: "40px",
+              }}
+            >
+              <img
+                alt="new"
+                src={NOImage}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "5px",
+                }}
+              />
+            </Box>
+          }
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <TextField
-          disabled
-          isSelect
-          id="categorys"
-          menuItems={conditionCode}
-          name="conditionCode"
-          size="small"
-          value={conditionCode[1].value}
-          onSelectHandler={(e) => {}}
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="PT-8204" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="INR.123" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <StatusTableCell
+              success={item?.status !== 1}
+              title={item?.status === 1 ? "NEW" : "CANCELLED"}
+            />
+          }
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        50
-        {/* lastupdt */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        50
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        created date
-        {/* notes */}
-      </TableCell>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="50" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <TextField
+              disabled
+              isSelect
+              id="categorys"
+              menuItems={conditionCode}
+              name="conditionCode"
+              size="small"
+              value={conditionCode[0].value}
+              onSelectHandler={(e) => {}}
+            />
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <TextField
+              disabled
+              isSelect
+              id="categorys"
+              menuItems={conditionCode}
+              name="conditionCode"
+              size="small"
+              value={conditionCode[1].value}
+              onSelectHandler={(e) => {}}
+            />
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="50" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="50" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Created date" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

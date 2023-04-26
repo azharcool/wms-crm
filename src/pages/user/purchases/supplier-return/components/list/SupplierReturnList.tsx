@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -72,64 +72,57 @@ const tableTitle = [
 ];
 
 function SupplierReturnList() {
-  return(
-  <PerfectScrollbar>
-    <EnhancedTableToolbar />
+  return (
+    <PerfectScrollbar>
+      <EnhancedTableToolbar />
 
-    <Box sx={{ minWidth: 1050, minHeight: 500 }}>
-      <TableContainer component={Paper}>
-        <PerfectScrollbar>
-          <Table
-            sx={{
-              height: "100%",
-            }}
-          >
-            <TableHead>
-              <TableRow>
-                <CustomTableCell
-                  isCheck
-                  isHeader
-                  isSticky
-                  customStyle={{
-                    zIndex: 999,
-                  }}
-                  leftValue={0}
-                  minWt={50}
-                >
-                  <Checkbox
-                    // checked={}
-                    color="primary"
-                    // onChange={}
-                  />
-                </CustomTableCell>
-                {tableTitle.map((item) => {
-                  const isID = item.title.includes("ID");
+      <Box sx={{ minWidth: 1050, minHeight: 500 }}>
+        <TableContainer component={Paper}>
+          <PerfectScrollbar>
+            <Table
+              sx={{
+                height: "100%",
+              }}
+            >
+              <TableHead>
+                <TableRow>
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
+                      zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
+                    }}
+                  >
+                    <Checkbox checked={false} color="primary"  />
+                  </CustomHeadTableCell>
+                  {tableTitle.map((item) => {
+                    const isID = item.title.includes("ID");
 
-                  return (
-                    <CustomTableCell
-                      key={item.id}
-                      isHeader
-                      customStyle={{
-                        position: isID ?  "sticky":"static",
-                        left: isID ? 50:0,
-                      }}
-                      minWt={100}
-                    >
-                      {item.title}
-                    </CustomTableCell>
-                  );
-                })}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-             <SupplierReturnListItem />
-            </TableBody>
-          </Table>
-        </PerfectScrollbar>
-      </TableContainer>
-    </Box>
-  </PerfectScrollbar>
-  )
+                    return (
+                      <CustomHeadTableCell
+                        key={item.id}
+                        sxProps={{
+                          position: isID ? "sticky" : "static",
+                          left: isID ? 50 : 0,
+                        }}
+                      >
+                        {item.title}
+                      </CustomHeadTableCell>
+                    );
+                  })}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <SupplierReturnListItem />
+              </TableBody>
+            </Table>
+          </PerfectScrollbar>
+        </TableContainer>
+      </Box>
+    </PerfectScrollbar>
+  );
 }
 
 export default SupplierReturnList;

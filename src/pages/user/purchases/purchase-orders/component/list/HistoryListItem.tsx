@@ -1,44 +1,27 @@
 import HistoryIcon from "@mui/icons-material/History";
 import { TableCell, TableRow } from "@mui/material";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 function HistoryListItem() {
   return (
     <TableRow>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        29/02/2023 03:12:33
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="29/02/2023 03:12:33" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        description
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="description" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        Aasif sheikh
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
+        <CustomTableText text="Aasif Sheikh" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
         <HistoryIcon sx={{ fontSize: 20, color: "#333" }} />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

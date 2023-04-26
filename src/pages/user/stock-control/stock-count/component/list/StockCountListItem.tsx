@@ -1,5 +1,9 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
@@ -7,6 +11,8 @@ import AppRoutes from "routes/appRoutes";
 function StockCountListItem(props: { item: any }) {
   const { item } = props;
   const navigate = useNavigate();
+  const theme = useTheme();
+
   const {
     stockControl: {
       layout,
@@ -16,63 +22,53 @@ function StockCountListItem(props: { item: any }) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
-
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1`)}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          PO-13817
-        </Typography>
-      </TableCell>
-      <TableCell sx={{ minWidth: 170 }}>
-        <Box>
-          <StatusTableCell
-            success={item?.status !== 1}
-            title={item?.status === 1 ? "NEW" : "CANCELLED"}
-          />
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Default Warehouse(Demo)
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Apr 11,2023 09:54:04
-      </TableCell>
+        <CustomTableText text="PO-1333" link />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <StatusTableCell
+              success={item?.status !== 1}
+              title={item?.status === 1 ? "NEW" : "CANCELLED"}
+            />
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Default Warehouse" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Apr 11 2023 11:11:43" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

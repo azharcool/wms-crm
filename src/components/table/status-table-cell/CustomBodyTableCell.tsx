@@ -1,10 +1,10 @@
 import { TableCell, TableCellProps, Typography } from "@mui/material";
 import { SxProps, Theme, useTheme } from "@mui/material/styles";
-import { ReactNode } from "react";
+import { ReactElement, ReactNode } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 interface ICustomTableText {
-  text?: string | number;
+  text?: string | number | ReactElement;
   link?: boolean;
 }
 export function CustomTableText(props: ICustomTableText) {

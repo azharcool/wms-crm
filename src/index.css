@@ -3,6 +3,7 @@ body {
   font-family: "poppins", "roboto", "roboto-condensed", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 /* perfect scrollbar visible  */
 .ps .ps__rail-x {

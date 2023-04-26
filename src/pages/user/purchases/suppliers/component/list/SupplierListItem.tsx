@@ -1,6 +1,10 @@
 import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useSupplierAction from "hooks/actions/catalog/supplier/useSupplierAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -20,6 +24,7 @@ function SupplierListItem(props: ISupplierListItem) {
 
   const navigate = useNavigate();
   const { deleteSupplierAsync } = useSupplierAction();
+  const theme = useTheme();
   const getSelectedSupplierByIdState = useSelector((state: RootState) =>
     getSelectedSupplierById(state, item.id),
   );
@@ -31,9 +36,9 @@ function SupplierListItem(props: ISupplierListItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
+        sxProps={{
           minWidth: 60,
           position: "sticky",
           left: 0,
@@ -42,14 +47,18 @@ function SupplierListItem(props: ISupplierListItem) {
       >
         <Checkbox
           checked={getSelectedSupplierByIdState}
-          color="primary"
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
           onChange={select}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           left: 60,
           zIndex: 999,
@@ -61,73 +70,36 @@ function SupplierListItem(props: ISupplierListItem) {
           );
         }}
       >
-        {item?.companyName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // left: 169,
-          // background: "white",
-        }}
-      >
-        {item?.shortName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.id}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.city}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.email}
-      </TableCell>
+        <CustomTableText text={item?.companyName} link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.shortName} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.id} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.city} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.email} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item?.phoneNumber} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={`${item?.firstName} ${item?.lastName}`} />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.phoneNumber}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
-        {item?.firstName} {item?.lastName}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 150,
-          // background: "white",
-        }}
-      >
+      <CustomBodyTableCell>
         <StatusTableCell
           success={item?.status !== 2}
           title={item?.status === 2 ? "InActive" : "Active"}
         />
-      </TableCell>
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 150,
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
@@ -138,7 +110,7 @@ function SupplierListItem(props: ISupplierListItem) {
             deleteSupplierAsync(item?.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

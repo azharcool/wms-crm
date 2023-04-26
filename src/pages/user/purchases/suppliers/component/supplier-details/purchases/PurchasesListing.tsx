@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import PurchasesListingItem from "./PurchasesListingItem";
@@ -79,19 +79,9 @@ function PurchasesListing() {
                 <TableRow>
                   {tableTitle.map((item) => {
                     return (
-                      <CustomTableCell
-                        key={item.id}
-                        isHeader
-                        customStyle={
-                          {
-                            // position: isPO ? "sticky" : "static",
-                            // left: isPO ? 50 : 0,
-                          }
-                        }
-                        minWt={170}
-                      >
+                      <CustomHeadTableCell key={item.id}>
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>

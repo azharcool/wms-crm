@@ -1,4 +1,8 @@
 import { Box, Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
@@ -9,6 +13,7 @@ interface IReorderListItem {
 
 function ReorderListItem(_: IReorderListItem) {
   const navigate = useNavigate();
+  const theme = useTheme();
   const {
     stockControl: {
       layout,
@@ -18,93 +23,60 @@ function ReorderListItem(_: IReorderListItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1}`)}
       >
-        <Typography
-          sx={{
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {/* variant */}-
-        </Typography>
-      </TableCell>
-      <TableCell sx={{ minWidth: 170 }}>
-        <Box>
-          <Typography>-</Typography>
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        0
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* reader */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* desired */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* available */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* awaiting */}-
-      </TableCell>
+        <CustomTableText text="-" link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

@@ -137,7 +137,6 @@ function ListingList() {
                     sxProps={{
                       position: "sticky",
                       right: 0,
-                      backdropFilter: "blur(2px)",
                     }}
                   >
                     Actions
