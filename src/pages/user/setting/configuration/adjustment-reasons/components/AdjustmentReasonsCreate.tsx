@@ -165,6 +165,9 @@ function AdjustmentReasonsCreate(props: IAdjustments) {
                     menuItems={operations}
                     name="operations"
                     size="small"
+                    sxMenuListProps={{
+                      backdropFilter: "blur(20px)",
+                    }}
                     value={values.operations}
                     onSelectHandler={(e) => {
                       setFieldValue("operations", e.target.value);

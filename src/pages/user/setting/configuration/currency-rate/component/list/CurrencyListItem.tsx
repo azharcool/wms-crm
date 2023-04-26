@@ -1,6 +1,8 @@
 import { Checkbox, TableRow } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import CustomBodyTableCell from "components/table/status-table-cell/CustomBodyTableCell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import CurrencyCreate from "../CurrencyCreate";
@@ -47,9 +49,11 @@ function CurrencyListItem() {
             handleManage();
           }}
         >
-          Currency
+          <CustomTableText text="Currency" />
         </CustomBodyTableCell>
-        <CustomBodyTableCell>Rate</CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="Rate" />
+        </CustomBodyTableCell>
       </TableRow>
       {manageOpen ? (
         <CurrencyCreate handleClose={handleManage} open={manageOpen} />

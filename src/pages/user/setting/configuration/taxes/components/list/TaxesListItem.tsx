@@ -1,7 +1,9 @@
 import { Checkbox, TableRow } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
-import CustomBodyTableCell from "components/table/status-table-cell/CustomBodyTableCell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import TaxesCreate from "../TaxesCreate";
@@ -50,18 +52,25 @@ function TaxesListItem() {
             handleManage();
           }}
         >
-          Test
+          <CustomTableText text="Taxes" />
         </CustomBodyTableCell>
-        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
-        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
-        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
-        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text="-" />
+        </CustomBodyTableCell>
         <CustomBodyTableCell
-          sx={{
+          sxProps={{
             position: "sticky",
             right: 0,
             cursor: "pointer",
-            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton

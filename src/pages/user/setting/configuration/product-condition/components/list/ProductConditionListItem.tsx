@@ -134,15 +134,14 @@ function ProductConditionListItem(props: IProductConditionListItem) {
         </CustomBodyTableCell>
 
         <CustomBodyTableCell>
-          <CustomTableText text={item?.warranty} />;
+          <CustomTableText text={item?.warranty} />
         </CustomBodyTableCell>
 
         <CustomBodyTableCell
-          sx={{
+          sxProps={{
             position: "sticky",
             right: 0,
             cursor: "pointer",
-            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton
