@@ -1,11 +1,15 @@
-import { Checkbox, TableCell, TableRow } from "@mui/material";
+import { Checkbox, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell from "components/table/status-table-cell/CustomBodyTableCell";
 import { useState } from "react";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import TaxesCreate from "../TaxesCreate";
 
 function TaxesListItem() {
   const [manageOpen, setManageOpen] = useState(false);
+
+  const theme = useTheme();
 
   const handleManage = () => {
     setManageOpen((s) => !s);
@@ -14,9 +18,9 @@ function TaxesListItem() {
   return (
     <>
       <TableRow>
-        <TableCell
+        <CustomBodyTableCell
           padding="checkbox"
-          sx={{
+          sxProps={{
             minWidth: 60,
             position: "sticky",
             left: 0,
@@ -25,14 +29,18 @@ function TaxesListItem() {
         >
           <Checkbox
             // checked={getSelectedAdjustmentReasonByIdState}
-            color="primary"
+            sx={{
+              color: theme.palette.primary.darkBlue,
+              "&.Mui-checked": {
+                color: theme.palette.primary.darkBlue,
+              },
+            }}
             // onChange={select}
           />
-        </TableCell>
+        </CustomBodyTableCell>
 
-        <TableCell
+        <CustomBodyTableCell
           sx={{
-            minWidth: 150,
             position: "sticky",
             left: 60,
             zIndex: 999,
@@ -43,39 +51,17 @@ function TaxesListItem() {
           }}
         >
           Test
-        </TableCell>
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {/* {item.operations} */}
-        </TableCell>
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {/* {item.operations} */}
-        </TableCell>
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {/* {item.operations} */}
-        </TableCell>
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {/* {item.operations} */}
-        </TableCell>
-        <TableCell
+        </CustomBodyTableCell>
+        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
+        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
+        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
+        <CustomBodyTableCell>{/* {item.operations} */}</CustomBodyTableCell>
+        <CustomBodyTableCell
           sx={{
             position: "sticky",
             right: 0,
+            cursor: "pointer",
+            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton
@@ -85,7 +71,7 @@ function TaxesListItem() {
           >
             {/* Action button */}
           </TableActionButton>
-        </TableCell>
+        </CustomBodyTableCell>
       </TableRow>
       {manageOpen ? (
         <TaxesCreate view handleClose={handleManage} open={manageOpen} />

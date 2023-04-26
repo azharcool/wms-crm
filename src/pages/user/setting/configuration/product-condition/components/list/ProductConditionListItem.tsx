@@ -1,13 +1,11 @@
-import {
-  Box,
-  Checkbox,
-  MenuItem,
-  TableCell,
-  TableRow,
-  Typography,
-} from "@mui/material";
+import { Box, Checkbox, MenuItem, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
 import TableActionButton from "components/table/TableActionButton";
+import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import { FILE_URL } from "config";
 import useProductConditionAction from "hooks/actions/setting/product-condition/useProductConditionAction";
 import { useState } from "react";
@@ -26,6 +24,8 @@ function ProductConditionListItem(props: IProductConditionListItem) {
 
   const { deleteProductConditionAction } = useProductConditionAction();
 
+  const theme = useTheme();
+
   const handleManage = () => {
     setManageOpen((s) => !s);
   };
@@ -37,7 +37,7 @@ function ProductConditionListItem(props: IProductConditionListItem) {
   return (
     <>
       <TableRow>
-        <TableCell
+        <CustomBodyTableCell
           padding="checkbox"
           sx={{
             minWidth: 60,
@@ -46,12 +46,18 @@ function ProductConditionListItem(props: IProductConditionListItem) {
             zIndex: 999,
           }}
         >
-          <Checkbox color="primary" />
-        </TableCell>
+          <Checkbox
+            sx={{
+              color: theme.palette.primary.darkBlue,
+              "&.Mui-checked": {
+                color: theme.palette.primary.darkBlue,
+              },
+            }}
+          />
+        </CustomBodyTableCell>
 
-        <TableCell
+        <CustomBodyTableCell
           sx={{
-            minWidth: 150,
             position: "sticky",
             left: 60,
             zIndex: 999,
@@ -84,22 +90,14 @@ function ProductConditionListItem(props: IProductConditionListItem) {
               }}
             />
           </Box>
-        </TableCell>
+        </CustomBodyTableCell>
 
-        <TableCell
+        <CustomBodyTableCell
           sx={{
-            minWidth: 150,
-            // position: "sticky",
-            // left: 60,
-            // zIndex: 999,
-            // background: newtheme.isDarkMode
-            //   ? "#26263D"
-            //   : palette.background.default,
             cursor: "pointer",
           }}
           onClick={() => {
             handleManage();
-            // navigate(`${AppRoutes.CATALOG.brandDetails}/${brandData.id}`);
           }}
         >
           <Typography
@@ -108,62 +106,43 @@ function ProductConditionListItem(props: IProductConditionListItem) {
               whiteSpace: "nowrap", //! Dont remove
             }}
           >
-            {item?.code}
+            <CustomTableText text={item?.code} />
           </Typography>
-        </TableCell>
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item?.grade}
-        </TableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text={item?.grade} />
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item?.condition}
-        </TableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text={item?.condition} />
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item?.status}
-        </TableCell>
+        <CustomBodyTableCell>
+          <StatusTableCell
+            success={item?.status !== 2}
+            title={item?.status === 2 ? "InActive" : "Active"}
+          />
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item?.description}
-        </TableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text={item?.description} />
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item?.color}
-        </TableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text={item?.color} />
+        </CustomBodyTableCell>
 
-        <TableCell
-          sx={{
-            minWidth: 150,
-          }}
-        >
-          {item?.warranty}
-        </TableCell>
+        <CustomBodyTableCell>
+          <CustomTableText text={item?.warranty} />;
+        </CustomBodyTableCell>
 
-        <TableCell
+        <CustomBodyTableCell
           sx={{
             position: "sticky",
             right: 0,
+            cursor: "pointer",
+            backdropFilter: "blur(2px)",
           }}
         >
           <TableActionButton
@@ -180,7 +159,7 @@ function ProductConditionListItem(props: IProductConditionListItem) {
               Edit
             </MenuItem>
           </TableActionButton>
-        </TableCell>
+        </CustomBodyTableCell>
       </TableRow>
       {manageOpen ? (
         <ManageProductCondition
