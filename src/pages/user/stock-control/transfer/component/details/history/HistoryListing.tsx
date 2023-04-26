@@ -1,6 +1,5 @@
 import {
   Box,
-  Checkbox,
   Paper,
   Table,
   TableBody,
@@ -8,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import HistoryListItem from "./HistoryListItem";
@@ -34,7 +33,7 @@ const tableTitle = [
   },
 ];
 
-function HistoryListing() {
+function HistoryList() {
   return (
     <PerfectScrollbar>
       <Box sx={{ minWidth: 1030, minHeight: 500, my:2 }}>
@@ -49,23 +48,14 @@ function HistoryListing() {
                 <TableRow>
                   {tableTitle.map((item) => {
                     return (
-                      <CustomTableCell
-                        key={item.id}
-                        isHeader
-                        customStyle={{
-                          position: "static",
-                          left: 0,
-                        }}
-                        minWt={170}
-                      >
+                      <CustomHeadTableCell key={item.id}>
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>
               </TableHead>
               <TableBody>
-                <HistoryListItem />
                 <HistoryListItem />
               </TableBody>
             </Table>
@@ -76,4 +66,4 @@ function HistoryListing() {
   );
 }
 
-export default HistoryListing;
+export default HistoryList;

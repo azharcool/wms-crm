@@ -1,12 +1,16 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
 
 function TransferListItem() {
   const navigate = useNavigate();
-
+  const theme = useTheme();
   const {
     stockControl: {
       layout,
@@ -16,129 +20,78 @@ function TransferListItem() {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
-        <Checkbox color="primary" />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+        <Checkbox
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
-
           cursor: "pointer",
         }}
         onClick={() => {
           navigate(`/${layout}/${details}/1/${general}`);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {/* {item.sa || "-"} # */}-
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.lineItem || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.qty || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.value || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.fromWarehouse || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.toWarehouse || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "InActive" : "Active"}
-        /> */}
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          whiteSpace: "nowrap",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.expected || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.created || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.updated || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.notes || "-"} */}-
-      </TableCell>
-      <TableCell
-        sx={{
+        <CustomTableText text="-" link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
         }}
       >
         <TableActionButton onDeleteHandle={() => {}} />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

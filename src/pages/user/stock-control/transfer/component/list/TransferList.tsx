@@ -8,9 +8,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
-import NoDataTableRow from "components/table/no-data-table-row";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import TransferListItem from "./TransferListItem";
@@ -78,8 +77,6 @@ const tableTabs = [
   },
 ];
 
-
-
 function TransferList() {
   return (
     <PerfectScrollbar>
@@ -95,42 +92,40 @@ function TransferList() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
-                    minWt={50}
                   >
-                    <Checkbox
-                      // checked={}
-                      color="primary"
-                      // onChange={}
-                    />
-                  </CustomTableCell>
+                    <Checkbox checked={false} color="primary" />
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isSA = item.title.includes("#");
 
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           position: isSA ? "sticky" : "static",
-                          left: isSA ? 50 : 0,
+                          left: isSA ? 60 : 0,
                         }}
-                        minWt={170}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
-                  <CustomTableCell isHeader isSticky rightValue={0}>
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0
+                    }}
+                  >
                     Actions
-                  </CustomTableCell>
+                  </CustomHeadTableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

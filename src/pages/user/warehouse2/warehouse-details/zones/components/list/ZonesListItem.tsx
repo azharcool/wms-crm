@@ -35,7 +35,7 @@ function ZonesListItem(props: IZonesListItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           left: "60px",
           zIndex: 999,
@@ -69,7 +69,7 @@ function ZonesListItem(props: IZonesListItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
         }}

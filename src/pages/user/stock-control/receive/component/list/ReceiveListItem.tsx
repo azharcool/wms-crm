@@ -9,7 +9,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -43,13 +47,14 @@ function ReceiveListItem(props: IReceiveListItem) {
       recieve: { details, general },
     },
   } = AppRoutes;
+  const theme = useTheme();
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -57,102 +62,72 @@ function ReceiveListItem(props: IReceiveListItem) {
       >
         <Checkbox
           // checked={}
-          color="primary"
           // onChange={}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          PO-13817
-        </Typography>
-      </TableCell>
-      <TableCell sx={{ minWidth: 170 }}>
-        <Box>
-          <BorderLinearProgress
-            sx={{ width: "70%" }}
-            value={100}
-            variant="determinate"
-          />
-          <Typography>10/10</Typography>
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Default Warehouse(Demo)
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Jarvis
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Logan
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
+        <CustomTableText text="PO-12345" link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <Box>
+              <BorderLinearProgress
+                sx={{ width: "70%" }}
+                value={100}
+                variant="determinate"
+              />
+              <Typography>10/10</Typography>
+            </Box>
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="PO-12345" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Jarvis" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Logan" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
         <StatusTableCell
           success={item?.status !== 2}
           title={item?.status === 2 ? "NEW" : "COMPLETED"}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
         <CommentIcon color="disabled" />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* lastupdt */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="123" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="notes" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Logan" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
         }}
       >
         <TableActionButton
@@ -160,7 +135,7 @@ function ReceiveListItem(props: IReceiveListItem) {
             // deleteProductAsync(item.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

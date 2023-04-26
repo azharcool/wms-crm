@@ -133,11 +133,10 @@ function UnitItem(props: IUnitItem) {
         <CustomTableText text={item?.updatedOn} />
       </CustomBodyTableCell>
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
-          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton

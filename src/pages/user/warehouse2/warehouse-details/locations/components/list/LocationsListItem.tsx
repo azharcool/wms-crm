@@ -38,7 +38,7 @@ function LocationsListItem(props: ILocationListItem) {
       </CustomBodyTableCell>
 
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           left: 60,
           zIndex: 999,

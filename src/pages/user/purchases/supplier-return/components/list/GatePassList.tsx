@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -40,7 +40,7 @@ const tableTitle = [
   {
     id: crypto.randomUUID(),
     title: "Receive",
-  }
+  },
 ];
 
 function GatePassList() {
@@ -56,22 +56,19 @@ function GatePassList() {
             >
               <TableHead>
                 <TableRow>
-                 
                   {tableTitle.map((item) => {
                     const isPO = item.title.includes("PO#");
 
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           position: isPO ? "sticky" : "static",
-                          left: isPO ? 50 : 0,
+                          left: isPO ? 60 : 0,
                         }}
-                        minWt={170}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>

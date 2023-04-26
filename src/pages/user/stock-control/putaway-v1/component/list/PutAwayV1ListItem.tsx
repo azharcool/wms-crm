@@ -1,5 +1,9 @@
 import { Box, Checkbox, TableCell, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import NOImage from "assets/images/no-image.png";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import StatusTableCell from "components/table/status-table-cell";
 import TextField from "components/textfield";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -24,13 +28,14 @@ interface IPutAwayV1ListItem {
 
 function PutAwayV1ListItem(props: IPutAwayV1ListItem) {
   const { item } = props;
+  const theme = useTheme();
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 50,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
@@ -38,73 +43,59 @@ function PutAwayV1ListItem(props: IPutAwayV1ListItem) {
       >
         <Checkbox
           // checked={}
-          color="primary"
           // onChange={}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 60,
-          position: "sticky",
-          left: 50,
-          zIndex: 999,
-          cursor: "pointer",
-        }}
-      >
-        <Box
           sx={{
-            width: "40px",
-            height: "40px",
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
           }}
-        >
-          <img
-            alt="new"
-            src={NOImage}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              borderRadius: "5px",
-            }}
-          />
-        </Box>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        PT-82061
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Protein Powder PROTEIPOWDER-899
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "NEW" : "COMPLETED"}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        50
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <Box
+              sx={{
+                width: "40px",
+                height: "40px",
+              }}
+            >
+              <img
+                alt="new"
+                src={NOImage}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  borderRadius: "5px",
+                }}
+              />
+            </Box>
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="PT-82061" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Protein Powder PROTEIPOWDER-899" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <StatusTableCell
+              success={item?.status !== 2}
+              title={item?.status === 2 ? "NEW" : "COMPLETED"}
+            />
+          }
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="50" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={
         <TextField
           disabled
           isSelect
@@ -115,7 +106,10 @@ function PutAwayV1ListItem(props: IPutAwayV1ListItem) {
           value={conditionCode[0].value}
           onSelectHandler={(e) => {}}
         />
-      </TableCell>
+        } />
+        </CustomBodyTableCell>
+      
+
       <TableCell
         sx={{
           minWidth: 170,
@@ -132,38 +126,18 @@ function PutAwayV1ListItem(props: IPutAwayV1ListItem) {
           onSelectHandler={(e) => {}}
         />
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        from location
-        {/* lastupdt */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        duration
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        created date
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        updated date
-        {/* notes */}
-      </TableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="from location"/>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="duration"/>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="created date"/>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="updated on"/>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

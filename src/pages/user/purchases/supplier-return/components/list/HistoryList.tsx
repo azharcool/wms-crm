@@ -1,6 +1,5 @@
 import {
   Box,
-  Checkbox,
   Paper,
   Table,
   TableBody,
@@ -8,11 +7,9 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
-import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
-import GatePassListItem from "./GatePassListItem";
 import HistoryListItem from "./HistoryListItem";
 
 const tableTitle = [
@@ -33,7 +30,7 @@ const tableTitle = [
   {
     id: crypto.randomUUID(),
     title: "Action",
-  }
+  },
 ];
 
 function HistoryList() {
@@ -51,25 +48,15 @@ function HistoryList() {
                 <TableRow>
                   {tableTitle.map((item) => {
                     return (
-                      <CustomTableCell
-                        key={item.id}
-                        isHeader
-                        customStyle={{
-                          position: "static",
-                          left: 0,
-                        }}
-                        minWt={170}
-                      >
+                      <CustomHeadTableCell key={item.id}>
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>
               </TableHead>
               <TableBody>
                 <HistoryListItem />
-                <HistoryListItem />
-
               </TableBody>
             </Table>
           </PerfectScrollbar>

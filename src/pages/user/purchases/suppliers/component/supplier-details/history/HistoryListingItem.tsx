@@ -1,4 +1,7 @@
-import { TableCell, TableRow } from "@mui/material";
+import { TableRow } from "@mui/material";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import TableActionButton from "components/table/TableActionButton";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
@@ -7,33 +10,20 @@ function HistoryListingItem() {
   const navigate = useNavigate();
   return (
     <TableRow>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Date
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-          // background: "white",
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
+      <CustomBodyTableCell>
+        <CustomTableText text="Date" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
+          cursor: "pointer",
         }}
       >
         <TableActionButton
@@ -41,7 +31,7 @@ function HistoryListingItem() {
             // deleteProductAsync(item.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

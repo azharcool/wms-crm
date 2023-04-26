@@ -20,6 +20,7 @@ function CustomHeadTableCell(props: ICustomHeadTableCell) {
         background: theme.palette.primary.darkBlue,
         color: theme.palette.common.white,
         fontWeight: "bold",
+        whiteSpace: "nowrap",
         ...sxProps,
       }}
       {...restProps}

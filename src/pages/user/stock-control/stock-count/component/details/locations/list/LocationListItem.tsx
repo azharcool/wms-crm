@@ -1,48 +1,48 @@
-import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { Checkbox, TableRow } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 
 interface ILocationListItem {
   item: any;
 }
 function LocationListItem(_: ILocationListItem) {
+  const theme = useTheme();
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
-        <Checkbox color="primary" />
-      </TableCell>
-      <TableCell>
-        <Typography
+        <Checkbox
+          checked={false}
           sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
           }}
-        >
-          -
-        </Typography>
-      </TableCell>
-      <TableCell sx={{ minWidth: 170 }}>-</TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        -
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        -
-      </TableCell>
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

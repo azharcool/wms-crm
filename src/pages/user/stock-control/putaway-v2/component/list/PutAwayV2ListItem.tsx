@@ -1,5 +1,9 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useNavigate } from "react-router-dom";
 import AppRoutes from "routes/appRoutes";
@@ -7,6 +11,7 @@ import AppRoutes from "routes/appRoutes";
 function PutAwayV2ListItem(props: { item: any }) {
   const { item } = props;
   const navigate = useNavigate();
+  const theme = useTheme();
   const {
     stockControl: {
       layout,
@@ -16,109 +21,70 @@ function PutAwayV2ListItem(props: { item: any }) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 50,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          // checked={}
-          color="primary"
-          // onChange={}
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 170,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 50,
+          left: 60,
           zIndex: 999,
           cursor: "pointer",
         }}
         onClick={() => navigate(`/${layout}/${details}/1/${general}`)}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          PT-82061
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        PO-13786
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        1
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        50
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "NEW" : "COMPLETED"}
+        <CustomTableText text="PT-1223" link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="PO-112" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="1" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="50" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <StatusTableCell
+              success={item?.status !== 2}
+              title={item?.status === 2 ? "NEW" : "COMPLETED"}
+            />
+          }
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        RCV
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        Not Assigned
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        00:00:00
-        {/* lastupdt */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        created date
-        {/* notes */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        updated date
-        {/* notes */}
-      </TableCell>
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="RCV" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Not Assigned" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="00:00:00" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Created at" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="Updated date" />
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

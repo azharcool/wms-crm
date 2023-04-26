@@ -1,7 +1,11 @@
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
 import dateTimeFormat from "components/dateTime-format";
 import TableActionButton from "components/table/TableActionButton";
 import StatusTableCell from "components/table/status-table-cell";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import { useSelector } from "react-redux";
@@ -24,6 +28,7 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const getSelectedAdjustmentByIdState = useSelector((state: RootState) =>
     getSelectedAdjustmentById(state, Number(item.id)),
@@ -43,26 +48,29 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          checked={getSelectedAdjustmentByIdState}
-          color="primary"
-          onChange={select}
+          checked={false}
+          sx={{
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
+          }}
         />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
-          left: 40,
+          left: 60,
           zIndex: 999,
           cursor: "pointer",
         }}
@@ -76,60 +84,30 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
           navigate(`/${layout}/${details}/${item.id}/${generalDetails}`);
         }}
       >
-        <Typography
-          sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
-          }}
-        >
-          {item.sa || "-"}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {item.lineItem || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {item.qtyChange || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {item.totalQuantity || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {item.reason || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {item.referenceId || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        <StatusTableCell
-          success={item?.status !== 2}
-          title={item?.status === 2 ? "InActive" : "Active"}
+        <CustomTableText text={item.sa || "-"} link />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.lineItem || "-"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.qtyChange || "-"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.totalQuantity || "-"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.reason || "-"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText
+          text={
+            <StatusTableCell
+              success={item?.status !== 2}
+              title={item?.status === 2 ? "InActive" : "Active"}
+            />
+          }
         />
-      </TableCell>
+      </CustomBodyTableCell>
       <TableCell
         sx={{
           minWidth: 170,
@@ -138,15 +116,14 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
       >
         {dateTimeFormat(item.updatedOn) || "_"}
       </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {item.notes || "-"}
-      </TableCell>
-      <TableCell
-        sx={{
+      <CustomBodyTableCell>
+        <CustomTableText text={dateTimeFormat(item.updatedOn) || "_"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text={item.notes || "-"} />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
         }}
@@ -156,7 +133,7 @@ function AdjustmentListItem(props: IAdjustmentListItem) {
             deleteAdjustmentAsync(item.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

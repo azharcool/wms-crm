@@ -43,7 +43,7 @@ function ReceiveDetailLayout() {
     <Container>
       <CardContent sx={{ paddingTop: 0 }}>
         <TableToolbar
-          breadcrumbs={[{ link: "Warehouse", to: "/warehouse/listing" }]}
+          breadcrumbs={[{ link: "StockControl", to: "/warehouse/listing" }]}
           title="Recieve"
         />
         <Tabs

@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -72,84 +72,86 @@ const tableTitle = [
 ];
 const tableTabs = [
   {
-    id:crypto.randomUUID(),
-    title:"NEW"
+    id: crypto.randomUUID(),
+    title: "NEW",
   },
   {
-    id:crypto.randomUUID(),
-    title:"CLOSED"
+    id: crypto.randomUUID(),
+    title: "CLOSED",
   },
   {
-    id:crypto.randomUUID(),
-    title:"CANCELLED"
+    id: crypto.randomUUID(),
+    title: "CANCELLED",
   },
   {
-    id:crypto.randomUUID(),
-    title:"PROGRESS"
-  }
-]
+    id: crypto.randomUUID(),
+    title: "PROGRESS",
+  },
+];
 function PurchaseOrderList() {
-  return(
-  <PerfectScrollbar>
-    <EnhancedTableToolbar tabs={tableTabs} />
+  return (
+    <PerfectScrollbar>
+      <EnhancedTableToolbar tabs={tableTabs} />
 
-    <Box sx={{ minWidth: 1050, minHeight: 500 }}>
-      <TableContainer component={Paper}>
-        <PerfectScrollbar>
-          <Table
-            sx={{
-              height: "100%",
-            }}
-          >
-            <TableHead>
-              <TableRow>
-                <CustomTableCell
-                  isCheck
-                  isHeader
-                  isSticky
-                  customStyle={{
-                    zIndex: 999,
-                  }}
-                  leftValue={0}
-                  minWt={50}
-                >
-                  <Checkbox
-                    // checked={}
-                    color="primary"
-                    // onChange={}
-                  />
-                </CustomTableCell>
-                {tableTitle.map((item) => {
-                  const isPO = item.title.includes("PO#");
+      <Box sx={{ minWidth: 1050, minHeight: 500 }}>
+        <TableContainer component={Paper}>
+          <PerfectScrollbar>
+            <Table
+              sx={{
+                height: "100%",
+              }}
+            >
+              <TableHead>
+                <TableRow>
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
+                      zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
+                    }}
+                  >
+                    <Checkbox
+                      // checked={}
+                      color="primary"
+                      // onChange={}
+                    />
+                  </CustomHeadTableCell>
+                  {tableTitle.map((item) => {
+                    const isPO = item.title.includes("PO#");
 
-                  return (
-                    <CustomTableCell
-                      key={item.id}
-                      isHeader
-                      customStyle={{
-                        position: isPO ?  "sticky":"static",
-                        left: isPO ? 50:0,
-                      }}
-                      minWt={170}
-                    >
-                      {item.title}
-                    </CustomTableCell>
-                  );
-                })}
-                <CustomTableCell isHeader isSticky rightValue={0}>
-                  Actions
-                </CustomTableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-             <PurchaseOrderListItem />
-            </TableBody>
-          </Table>
-        </PerfectScrollbar>
-      </TableContainer>
-    </Box>
-  </PerfectScrollbar>
-  )
+                    return (
+                      <CustomHeadTableCell
+                        key={item.id}
+                        sxProps={{
+                          position: isPO ? "sticky" : "static",
+                          left: isPO ? 60 : 0,
+                        }}
+                      >
+                        {item.title}
+                      </CustomHeadTableCell>
+                    );
+                  })}
+                  <CustomHeadTableCell
+                    sxProps={{
+                      position: "sticky",
+                      right: 0,
+                    }}
+                  >
+                    Actions
+                  </CustomHeadTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                <PurchaseOrderListItem />
+              </TableBody>
+            </Table>
+          </PerfectScrollbar>
+        </TableContainer>
+      </Box>
+    </PerfectScrollbar>
+  );
 }
 
 export default PurchaseOrderList;

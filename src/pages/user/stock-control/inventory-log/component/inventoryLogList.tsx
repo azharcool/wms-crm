@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -81,37 +81,30 @@ function InventoryLogList() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
-                    minWt={50}
                   >
-                    <Checkbox
-                      // checked={}
-                      color="primary"
-                      // onChange={}
-                    />
-                  </CustomTableCell>
+                    <Checkbox checked={false} color="primary" />
+                  </CustomHeadTableCell>
                   {tableTitle?.map((item) => {
                     const isImage = item?.title?.includes("Image");
 
                     return (
-                      <CustomTableCell
-                        key={item?.id}
-                        isHeader
-                        customStyle={{
+                      <CustomHeadTableCell
+                        key={item.id}
+                        sxProps={{
                           position: isImage ? "sticky" : "static",
-                          left: isImage ? 50 : 0,
+                          left: isImage ? 60 : 0,
                         }}
-                        minWt={isImage ? 60 : 170}
                       >
-                        {item?.title}
-                      </CustomTableCell>
+                        {item.title}
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>

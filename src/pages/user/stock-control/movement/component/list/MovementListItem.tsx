@@ -1,11 +1,16 @@
+import { useTheme } from "@mui/material/styles";
 import { Checkbox, TableCell, TableRow, Typography } from "@mui/material";
 import TableActionButton from "components/table/TableActionButton";
+import CustomBodyTableCell, {
+  CustomTableText,
+} from "components/table/status-table-cell/CustomBodyTableCell";
 import useAdjustmentAction from "hooks/actions/stock/adjustment/useAdjustmentAction";
 import "react-perfect-scrollbar/dist/css/styles.css";
 import AppRoutes from "routes/appRoutes";
 
 function MovementListItem() {
   const { deleteAdjustmentAsync } = useAdjustmentAction();
+  const theme = useTheme();
 
   const {
     stockControl: {
@@ -16,91 +21,52 @@ function MovementListItem() {
 
   return (
     <TableRow>
-      <TableCell
+      <CustomBodyTableCell
         padding="checkbox"
-        sx={{
-          width: 60,
+        sxProps={{
+          minWidth: 60,
           position: "sticky",
           left: 0,
           zIndex: 999,
         }}
       >
         <Checkbox
-          //   checked={getSelectedAdjustmentByIdState}
-          color="primary"
-          //   onChange={select}
-        />
-      </TableCell>
-      <TableCell
-        sx={{
-          width: 50,
-          position: "sticky",
-          left: 40,
-          zIndex: 999,
-          cursor: "pointer",
-        }}
-      >
-        <Typography
+          checked={false}
           sx={{
-            textDecoration: "underline",
-            whiteSpace: "nowrap", //! Dont remove
+            color: theme.palette.primary.darkBlue,
+            "&.Mui-checked": {
+              color: theme.palette.primary.darkBlue,
+            },
           }}
-        >
-          {/* {item.sa || "-"} */}
-        </Typography>
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.lineItem || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.qtyChange || "-"} */}
-      </TableCell>
+        />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
 
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.reason || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.referenceId || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.status || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.updatedOn || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
-          minWidth: 170,
-        }}
-      >
-        {/* {item.notes || "-"} */}
-      </TableCell>
-      <TableCell
-        sx={{
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell>
+        <CustomTableText text="-" />
+      </CustomBodyTableCell>
+      <CustomBodyTableCell
+        sxProps={{
           position: "sticky",
           right: 0,
         }}
@@ -110,7 +76,7 @@ function MovementListItem() {
             // deleteAdjustmentAsync(item.id);
           }}
         />
-      </TableCell>
+      </CustomBodyTableCell>
     </TableRow>
   );
 }

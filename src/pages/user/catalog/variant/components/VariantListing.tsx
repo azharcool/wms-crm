@@ -219,7 +219,6 @@ function VariantListing(props: IVariantListing) {
                     sxProps={{
                       position: "sticky",
                       right: 0,
-                      backdropFilter: "blur(2px)",
                     }}
                   >
                     Actions

@@ -7,9 +7,9 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Stack
+  Stack,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import AutoComplete from "components/textfield/AutoComplete";
 import PerfectScrollbar from "react-perfect-scrollbar";
@@ -60,8 +60,12 @@ const tableTitle = [
 function ReorderList() {
   return (
     <PerfectScrollbar>
-        <Stack width={300} gap={2}>
-      <AutoComplete label="Warehouse" options={[{ value: "warehouse", id: 1 }]} getOptionLabel={(item: any) => item.value} />
+      <Stack width={300} gap={2}>
+        <AutoComplete
+          label="Warehouse"
+          options={[{ value: "warehouse", id: 1 }]}
+          getOptionLabel={(item: any) => item.value}
+        />
       </Stack>
       <EnhancedTableToolbar />
       <Box sx={{ minWidth: 1050, minHeight: 500 }}>
@@ -74,37 +78,30 @@ function ReorderList() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                  <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
-                    minWt={50}
                   >
-                    <Checkbox
-                      // checked={}
-                      color="primary"
-                      // onChange={}
-                    />
-                  </CustomTableCell>
+                    <Checkbox checked={false} color="primary" />
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
-                    const isSA = item.title.includes("ID #");
+                    const isID = item.title.includes("ID #");
 
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
-                          position: isSA ? "sticky" : "static",
-                          left: isSA ? 50 : 0,
+                        sxProps={{
+                          position: isID ? "sticky" : "static",
+                          left: isID ? 60 : 0,
                         }}
-                        minWt={170}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                 </TableRow>

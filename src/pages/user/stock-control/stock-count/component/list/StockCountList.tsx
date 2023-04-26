@@ -8,7 +8,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import CustomTableCell from "components/table/CustomTableCell";
+import CustomHeadTableCell from "components/table/status-table-cell/CustomHeadTableCell";
 import EnhancedTableToolbar from "components/table/enhanced-table-toolbar";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import "react-perfect-scrollbar/dist/css/styles.css";
@@ -72,37 +72,30 @@ function StockCountList() {
             >
               <TableHead>
                 <TableRow>
-                  <CustomTableCell
-                    isCheck
-                    isHeader
-                    isSticky
-                    customStyle={{
+                <CustomHeadTableCell
+                    padding="checkbox"
+                    sxProps={{
                       zIndex: 999,
+                      position: "sticky",
+                      left: 0,
+                      minWidth: "60px",
                     }}
-                    leftValue={0}
-                    minWt={50}
                   >
-                    <Checkbox
-                      // checked={}
-                      color="primary"
-                      // onChange={}
-                    />
-                  </CustomTableCell>
+                    <Checkbox checked={false} color="primary" />
+                  </CustomHeadTableCell>
                   {tableTitle.map((item) => {
                     const isSA = item.title.includes("ID #");
 
                     return (
-                      <CustomTableCell
+                      <CustomHeadTableCell
                         key={item.id}
-                        isHeader
-                        customStyle={{
+                        sxProps={{
                           position: isSA ? "sticky" : "static",
-                          left: isSA ? 50 : 0,
+                          left: isSA ? 60 : 0,
                         }}
-                        minWt={170}
                       >
                         {item.title}
-                      </CustomTableCell>
+                      </CustomHeadTableCell>
                     );
                   })}
                   {/* <CustomTableCell isHeader isSticky rightValue={0}>

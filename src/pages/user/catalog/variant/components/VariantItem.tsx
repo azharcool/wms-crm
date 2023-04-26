@@ -167,11 +167,10 @@ function VariantItem(props: IVariantItem) {
         <CustomTableText text="Mar 14, 2023 14:40:35" />
       </CustomBodyTableCell>
       <CustomBodyTableCell
-        sx={{
+        sxProps={{
           position: "sticky",
           right: 0,
           cursor: "pointer",
-          backdropFilter: "blur(2px)",
         }}
       >
         <TableActionButton
